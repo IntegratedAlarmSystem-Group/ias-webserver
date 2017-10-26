@@ -1,6 +1,6 @@
 from django.test import TestCase
 from ..models import Alarm
-from factories import AlarmFactory
+from .factories import AlarmFactory
 
 
 # Create your tests here.
@@ -21,8 +21,8 @@ class AlarmModelTestCase(TestCase):
             'The Alarm was not created'
         )
         self.assertEquals(
+            Alarm.objects.latest('pk').core_id,
             self.alarm.core_id,
-            'ACS_NC',
             "The given and saved alarm's core_id differ"
         )
 
