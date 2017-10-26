@@ -1,5 +1,6 @@
 from django.test import TestCase
 from ..models import Alarm
+from factories import AlarmFactory
 
 
 # Create your tests here.
@@ -11,13 +12,7 @@ class AlarmModelTestCase(TestCase):
         # Arrange:
         self.old_count = Alarm.objects.count()
         # Act:
-        self.alarm = Alarm.objects.create(
-            value=1,
-            core_timestamp=10000,
-            mode=1,
-            core_id='ACS_NC',
-            running_id='ANTENNA_DV16$WVR$AMBIENT_TEMPERATURE @ACS_NC',
-        )
+        self.alarm = AlarmFactory()
         # Assert:
         self.new_count = Alarm.objects.count()
         self.assertEquals(
@@ -34,13 +29,7 @@ class AlarmModelTestCase(TestCase):
     def test_delete_alarm(self):
         """Test if we can delete an alarm through the models"""
         # Arrange:
-        self.alarm = Alarm.objects.create(
-            value=1,
-            core_timestamp=10000,
-            mode=1,
-            core_id='ACS_NC',
-            running_id='ANTENNA_DV16$WVR$AMBIENT_TEMPERATURE @ACS_NC',
-        )
+        self.alarm = AlarmFactory()
         self.old_count = Alarm.objects.count()
         # Act:
         Alarm.objects.filter(core_id=self.alarm.core_id).delete()
