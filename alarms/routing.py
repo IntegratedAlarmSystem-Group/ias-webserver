@@ -1,4 +1,7 @@
-from channels.routing import route
+from channels.routing import route_class
+from .consumers import AlarmDemultiplexer
+
+
 channel_routing = [
-    route("http.request", "alarms.consumers.http_consumer"),
+    route_class(AlarmDemultiplexer, path='^/stream/?$'),
 ]

@@ -1,10 +1,12 @@
-from django.http import HttpResponse
-from channels.handler import AsgiHandler
+# from django.http import HttpResponse
+# from channels.handler import AsgiHandler
+from channels.generic.websockets import WebsocketDemultiplexer
+from .bindings import AlarmBinding
 
 
-def http_consumer(message):
-    # Make standard HTTP response - access ASGI path attribute directly
-    response = HttpResponse("Hello world!: %s" % message.content['path'])
-    # Encode that response into message format (ASGI)
-    for chunk in AsgiHandler.encode_response(response):
-        message.reply_channel.send(chunk)
+class AlarmDemultiplexer(WebsocketDemultiplexer):
+    consumers = {
+        "alarms": AlarmBinding.consumer,
+    }
+
+    groups = ["binding.values"]
