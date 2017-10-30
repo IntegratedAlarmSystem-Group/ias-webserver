@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    'alarm',
+    'alarms',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +128,6 @@ STATIC_URL = '/static/'
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "asgiref.inmemory.ChannelLayer",
-        "ROUTING": "alarm.routing.channel_routing",
+        "ROUTING": "alarms.routing.channel_routing",
     },
 }
