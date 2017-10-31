@@ -39,3 +39,18 @@ class AlarmModelTestCase(TestCase):
             self.new_count,
             'The Alarm was not deleted'
         )
+
+    def test_update_alarm(self):
+        """Test if we can update an alarm through the models"""
+        # Arrange:
+        self.alarm = AlarmFactory()
+        # Act:
+        new_value = (self.alarm.value + 1) % 2
+        self.alarm.value = new_value
+        self.alarm.save()
+        # Assert:
+        self.assertEquals(
+            Alarm.objects.get(pk=self.alarm.pk).value,
+            new_value,
+            'The Alarm was not updated'
+        )
