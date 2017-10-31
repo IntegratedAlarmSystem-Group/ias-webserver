@@ -31,7 +31,7 @@ class AlarmModelTestCase(TestCase):
         self.alarm = AlarmFactory()
         self.old_count = Alarm.objects.count()
         # Act:
-        Alarm.objects.filter(core_id=self.alarm.core_id).delete()
+        Alarm.objects.filter(pk=self.alarm.pk).delete()
         # Assert:
         self.new_count = Alarm.objects.count()
         self.assertEquals(
