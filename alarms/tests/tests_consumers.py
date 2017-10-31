@@ -1,16 +1,18 @@
 from channels.test import ChannelTestCase, WSClient
 from .factories import AlarmFactory
+from ..models import Alarm
 
 
 class TestAlarmsBinding(ChannelTestCase):
     """This class defines the test suite for the channels alarm binding"""
 
-    def setup(self):
+    def setUp(self):
         # Arrange:
         self.client = WSClient()
         self.client.join_group("binding.alarms")
 
     def assert_received_alarm(self, received, alarm):
+        self.assertIsNotNone(received, 'No message received')
         self.assertTrue('payload' in received, 'No payload received')
         self.assertTrue(
             'action' in received['payload'], 'Payload does not have an action'
@@ -49,16 +51,32 @@ class TestAlarmsBinding(ChannelTestCase):
         """Test if clients are notified when an alarm is created"""
         # Act: (create an alarm)
         alarm = AlarmFactory()
-
-        # Assert if client received something
         received = self.client.receive()
-        self.assertIsNotNone(received)
 
         # Assert payload structure
         self.assert_received_alarm(received, alarm)
 
         # Assert action
         self.assertEqual(received['payload']['action'], 'create')
+
+        # Assert that is nothing to receive
+        self.assertIsNone(self.client.receive())
+
+    def test_outbound_delete(self):
+        """Test if clients are notified when an alarm is deleted"""
+        # Arrange:
+        alarm = AlarmFactory()
+        self.client.receive()
+
+        # Act:
+        Alarm.objects.filter(pk=alarm.pk).delete()
+        received = self.client.receive()
+
+        # Assert payload structure
+        self.assert_received_alarm(received, alarm)
+
+        # Assert action
+        self.assertEqual(received['payload']['action'], 'delete')
 
         # Assert that is nothing to receive
         self.assertIsNone(self.client.receive())
