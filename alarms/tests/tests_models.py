@@ -3,7 +3,6 @@ from ..models import Alarm
 from .factories import AlarmFactory
 
 
-# Create your tests here.
 class AlarmModelTestCase(TestCase):
     """This class defines the test suite for the Alarm model tests"""
 

@@ -1,32 +1,63 @@
 from channels.test import ChannelTestCase, WSClient
 from .factories import AlarmFactory
 
+
 class TestAlarmsBinding(ChannelTestCase):
-    """This class defines the test suite for the alarms binding using channels"""
+    """This class defines the test suite for the channels alarm binding"""
 
-    def test_ounbound_create(self):
+    def assert_received_alarm(self, received, alarm):
+        self.assertTrue('payload' in received, 'No payload received')
+        self.assertTrue(
+            'action' in received['payload'], 'Payload does not have an action'
+        )
+        self.assertTrue(
+            'data' in received['payload'], 'Payload does not have data'
+        )
+        # check model and pk according to the binding
+        self.assertEqual(
+            received['payload']['model'], 'alarms.alarm',
+            'Payload model_label does not correspond to the Alarm model'
+        )
+        self.assertEqual(
+            received['payload']['pk'], alarm.pk,
+            'Payload pk is different from alarm.pk'
+        )
+        # check alarms binding fields and values
+        self.assertTrue(
+            'core_id' in received['payload']['data'],
+            'Payload does not contain core_id field'
+        )
+        self.assertTrue(
+            'value' in received['payload']['data'],
+            'Payload does not contain value field'
+        )
+        self.assertEqual(
+            received['payload']['data']['core_id'], alarm.core_id,
+            'Payload core_id is different from alarm.core_id'
+        )
+        self.assertEqual(
+            received['payload']['data']['value'], alarm.value,
+            'Payload value is different from alarm.value'
+        )
+
+    def test_outbound_create(self):
         """Test if when an alarm is created the client receive the change"""
+        # Arrange:
         client = WSClient()
-        client.join_group("binding.values")
+        client.join_group("binding.alarms")
 
-        # create an alarm
+        # Act: (create an alarm)
         alarm = AlarmFactory()
 
-        # assert if client received something
+        # Assert if client received something
         received = client.receive()
         self.assertIsNotNone(received)
 
-        # assert if the received object has the correct structure
-        self.assertTrue('payload' in received)
-        self.assertTrue('action' in received['payload'])
-        self.assertTrue('data' in received['payload'])
-        self.assertTrue('core_id' in received['payload']['data'])
-        self.assertTrue('value' in received['payload']['data'])
+        # Assert payload structure
+        self.assert_received_alarm(received, alarm)
 
-        # assert if the received object correspond to an alarm creation
+        # Assert action
         self.assertEqual(received['payload']['action'], 'create')
-        self.assertEqual(received['payload']['model'], 'alarms.alarm')
-        self.assertEqual(received['payload']['pk'], alarm.pk)
 
-        # assert that is nothing to receive
+        # Assert that is nothing to receive
         self.assertIsNone(client.receive())

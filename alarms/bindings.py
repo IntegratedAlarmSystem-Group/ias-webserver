@@ -5,12 +5,12 @@ from .models import Alarm
 class AlarmBinding(WebsocketBinding):
 
     model = Alarm
-    stream = "alarms"
+    stream = "stream.alarms"
     fields = ["core_id", "value"]
 
     @classmethod
     def group_names(cls, *args, **kwargs):
-        return ["binding.values"]
+        return ["binding.alarms"]
 
     def has_permission(self, user, action, pk):
         return True
