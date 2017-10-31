@@ -57,10 +57,16 @@ class TestAlarmsBinding(ChannelTestCase):
         self.assert_received_alarm(received, alarm)
 
         # Assert action
-        self.assertEqual(received['payload']['action'], 'create')
+        self.assertEqual(
+            received['payload']['action'], 'create',
+            "Payload action should be 'create'"
+        )
 
         # Assert that is nothing to receive
-        self.assertIsNone(self.client.receive())
+        self.assertIsNone(
+            self.client.receive(),
+            'Received unexpected message'
+        )
 
     def test_outbound_delete(self):
         """Test if clients are notified when an alarm is deleted"""
@@ -76,7 +82,39 @@ class TestAlarmsBinding(ChannelTestCase):
         self.assert_received_alarm(received, alarm)
 
         # Assert action
-        self.assertEqual(received['payload']['action'], 'delete')
+        self.assertEqual(
+            received['payload']['action'], 'delete',
+            "Payload action should be 'delete'"
+        )
 
         # Assert that is nothing to receive
-        self.assertIsNone(self.client.receive())
+        self.assertIsNone(
+            self.client.receive(),
+            'Received unexpected message'
+        )
+
+    def test_outbound_update(self):
+        """Test if clients are notified when an alarm is updated"""
+        # Arrange:
+        alarm = AlarmFactory()
+        self.client.receive()
+
+        # Act:
+        alarm.value = (alarm.value + 1) % 2
+        alarm.save()
+        received = self.client.receive()
+
+        # Assert payload structure
+        self.assert_received_alarm(received, alarm)
+
+        # Assert action
+        self.assertEqual(
+            received['payload']['action'], 'update',
+            "Payload action should be 'update'"
+        )
+
+        # Assert that is nothing to receive
+        self.assertIsNone(
+            self.client.receive(),
+            'Received unexpected message'
+        )
