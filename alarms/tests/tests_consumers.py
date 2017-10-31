@@ -5,6 +5,11 @@ from .factories import AlarmFactory
 class TestAlarmsBinding(ChannelTestCase):
     """This class defines the test suite for the channels alarm binding"""
 
+    def setup(self):
+        # Arrange:
+        self.client = WSClient()
+        self.client.join_group("binding.alarms")
+
     def assert_received_alarm(self, received, alarm):
         self.assertTrue('payload' in received, 'No payload received')
         self.assertTrue(
@@ -41,16 +46,12 @@ class TestAlarmsBinding(ChannelTestCase):
         )
 
     def test_outbound_create(self):
-        """Test if when an alarm is created the client receive the change"""
-        # Arrange:
-        client = WSClient()
-        client.join_group("binding.alarms")
-
+        """Test if clients are notified when an alarm is created"""
         # Act: (create an alarm)
         alarm = AlarmFactory()
 
         # Assert if client received something
-        received = client.receive()
+        received = self.client.receive()
         self.assertIsNotNone(received)
 
         # Assert payload structure
@@ -60,4 +61,4 @@ class TestAlarmsBinding(ChannelTestCase):
         self.assertEqual(received['payload']['action'], 'create')
 
         # Assert that is nothing to receive
-        self.assertIsNone(client.receive())
+        self.assertIsNone(self.client.receive())
