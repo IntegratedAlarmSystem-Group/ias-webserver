@@ -1,12 +1,12 @@
 # from django.http import HttpResponse
 # from channels.handler import AsgiHandler
 from channels.generic.websockets import WebsocketDemultiplexer
-from .bindings import AlarmBinding
+from .models import AlarmBinding
 
 
 class AlarmDemultiplexer(WebsocketDemultiplexer):
     consumers = {
-        "stream.alarms": AlarmBinding.consumer,
+        "alarms": AlarmBinding.consumer,
     }
 
-    # groups = ["binding.alarms"]
+    groups = ["alarms_group"]

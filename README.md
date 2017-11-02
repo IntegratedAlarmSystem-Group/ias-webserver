@@ -1,9 +1,9 @@
 # ias-webserver
 IAS Web Server in Django Channels
 
-## Installation Guide on Ubuntu OS:
+## Installation Guide for development (on Ubuntu OS):
 
-  1. Install system requirements `sudo apt-get install libpq-dev python3.6-dev python-pip python3-pip virtualenv`
+  1. Install system requirements `sudo apt-get install libpq-dev python3.6-dev python-pip python3-pip virtualenv redis-server`
 
   2. Create a virtualenvironment with python3: `virtualenv -p python3.6 venv`
 

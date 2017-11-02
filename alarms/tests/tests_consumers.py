@@ -9,7 +9,7 @@ class TestAlarmsBinding(ChannelTestCase):
     def setUp(self):
         # Arrange:
         self.client = WSClient()
-        self.client.join_group("binding.alarms")
+        self.client.join_group("alarms_group")
 
     def assert_received_alarm(self, received, alarm):
         self.assertIsNotNone(received, 'No message received')
@@ -59,7 +59,8 @@ class TestAlarmsBinding(ChannelTestCase):
             'Payload mode is different from alarm.mode'
         )
         self.assertEqual(
-            received['payload']['data']['core_timestamp'], alarm.core_timestamp,
+            received['payload']['data']['core_timestamp'],
+            alarm.core_timestamp,
             'Payload core_timestamp is different from alarm.core_timestamp'
         )
         self.assertEqual(
