@@ -5,7 +5,7 @@ from .models import Alarm
 class AlarmBinding(WebsocketBinding):
 
     model = Alarm
-    stream = "stream.alarms"
+    stream = "alarms"
     fields = ["value", "mode", "core_timestamp", "core_id", "running_id"]
 
     @classmethod

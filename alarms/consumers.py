@@ -6,7 +6,7 @@ from .bindings import AlarmBinding
 
 class AlarmDemultiplexer(WebsocketDemultiplexer):
     consumers = {
-        "stream.alarms": AlarmBinding.consumer,
+        "alarms": AlarmBinding.consumer,
     }
 
     # groups = ["binding.alarms"]
