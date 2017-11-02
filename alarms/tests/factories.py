@@ -8,7 +8,7 @@ class AlarmFactory(DjangoModelFactory):
 
     value = fuzzy.FuzzyInteger(0, 1)
     core_timestamp = fuzzy.FuzzyInteger(0, 100000)
-    mode = fuzzy.FuzzyChoice(OperationalMode.options())
+    mode = str(fuzzy.FuzzyChoice([x[0] for x in OperationalMode.options()]))
     core_id = Sequence(
         lambda n: 'ANTENNA_DV{0}$WVR$AMBIENT_TEMPERATURE'.format(n)
     )

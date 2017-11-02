@@ -31,20 +31,44 @@ class TestAlarmsBinding(ChannelTestCase):
         )
         # check alarms binding fields and values
         self.assertTrue(
+            'value' in received['payload']['data'],
+            'Payload does not contain value field'
+        )
+        self.assertTrue(
+            'mode' in received['payload']['data'],
+            'Payload does not contain mode field'
+        )
+        self.assertTrue(
+            'core_timestamp' in received['payload']['data'],
+            'Payload does not contain core_timestamp field'
+        )
+        self.assertTrue(
             'core_id' in received['payload']['data'],
             'Payload does not contain core_id field'
         )
         self.assertTrue(
-            'value' in received['payload']['data'],
-            'Payload does not contain value field'
+            'running_id' in received['payload']['data'],
+            'Payload does not contain running_id field'
+        )
+        self.assertEqual(
+            received['payload']['data']['value'], alarm.value,
+            'Payload value is different from alarm.value'
+        )
+        self.assertEqual(
+            received['payload']['data']['mode'], alarm.mode,
+            'Payload mode is different from alarm.mode'
+        )
+        self.assertEqual(
+            received['payload']['data']['core_timestamp'], alarm.core_timestamp,
+            'Payload core_timestamp is different from alarm.core_timestamp'
         )
         self.assertEqual(
             received['payload']['data']['core_id'], alarm.core_id,
             'Payload core_id is different from alarm.core_id'
         )
         self.assertEqual(
-            received['payload']['data']['value'], alarm.value,
-            'Payload value is different from alarm.value'
+            received['payload']['data']['running_id'], alarm.running_id,
+            'Payload running_id is different from alarm.running_id'
         )
 
     def test_outbound_create(self):

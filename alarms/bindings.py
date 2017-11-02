@@ -6,7 +6,7 @@ class AlarmBinding(WebsocketBinding):
 
     model = Alarm
     stream = "stream.alarms"
-    fields = ["core_id", "value"]
+    fields = ["value", "mode", "core_timestamp", "core_id", "running_id"]
 
     @classmethod
     def group_names(cls, *args, **kwargs):
