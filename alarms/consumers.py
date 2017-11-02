@@ -1,7 +1,7 @@
 # from django.http import HttpResponse
 # from channels.handler import AsgiHandler
 from channels.generic.websockets import WebsocketDemultiplexer
-from .bindings import AlarmBinding
+from .models import AlarmBinding
 
 
 class AlarmDemultiplexer(WebsocketDemultiplexer):
@@ -9,5 +9,4 @@ class AlarmDemultiplexer(WebsocketDemultiplexer):
         "alarms": AlarmBinding.consumer,
     }
 
-    def connection_groups(self):
-        return ["alarm-updates"]
+    groups = ["alarms_group"]

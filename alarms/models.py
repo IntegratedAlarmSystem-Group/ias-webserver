@@ -1,4 +1,5 @@
 from django.db import models
+from channels.binding.websockets import WebsocketBinding
 from utils.choice_enum import ChoiceEnum
 
 
@@ -30,3 +31,16 @@ class Alarm(models.Model):
     def __str__(self):
         """returns a string representation of the object"""
         return str(self.core_id) + '=' + str(self.value)
+
+
+class AlarmBinding(WebsocketBinding):
+    model = Alarm
+    stream = "alarms"
+    fields = ["value", "mode", "core_timestamp", "core_id", "running_id"]
+
+    @classmethod
+    def group_names(cls, *args, **kwargs):
+        return ["alarms_group"]
+
+    def has_permission(self, user, action, pk):
+        return True
