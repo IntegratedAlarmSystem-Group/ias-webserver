@@ -10,7 +10,7 @@ class AlarmBinding(WebsocketBinding):
 
     @classmethod
     def group_names(cls, *args, **kwargs):
-        return ["binding.alarms"]
+        return ["alarm-updates"]
 
     def has_permission(self, user, action, pk):
         return True

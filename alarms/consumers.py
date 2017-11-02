@@ -9,4 +9,5 @@ class AlarmDemultiplexer(WebsocketDemultiplexer):
         "alarms": AlarmBinding.consumer,
     }
 
-    # groups = ["binding.alarms"]
+    def connection_groups(self):
+        return ["alarm-updates"]
