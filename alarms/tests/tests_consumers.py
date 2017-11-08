@@ -1,6 +1,8 @@
-from channels.test import ChannelTestCase, WSClient
+from channels.test import ChannelTestCase, WSClient, apply_routes
+from alarms.consumers import AlarmDemultiplexer
+from channels.routing import route
 from .factories import AlarmFactory
-from ..models import Alarm
+from ..models import Alarm, AlarmBinding
 
 
 class TestAlarmsBinding(ChannelTestCase):
@@ -125,12 +127,13 @@ class TestAlarmsBinding(ChannelTestCase):
         self.client.receive()
 
         # Act:
-        alarm.value = (alarm.value + 1) % 2
+        alarm = AlarmFactory.get_modified_alarm(alarm)
         alarm.save()
         received = self.client.receive()
 
         # Assert payload structure
-        self.assert_received_alarm(received, alarm)
+        alarm_after = Alarm.objects.get(pk=alarm.pk)
+        self.assert_received_alarm(received, alarm_after)
 
         # Assert action
         self.assertEqual(

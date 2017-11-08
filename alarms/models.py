@@ -2,6 +2,8 @@ from django.db import models
 from channels.binding.websockets import WebsocketBinding
 from utils.choice_enum import ChoiceEnum
 
+# Always keep models and bindings in this file!!
+
 
 class OperationalMode(ChoiceEnum):
     startup = 0

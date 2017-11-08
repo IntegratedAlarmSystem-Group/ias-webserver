@@ -20,3 +20,13 @@ class AlarmFactory(DjangoModelFactory):
             return cls._meta.model.objects.latest('pk').pk + 1
         except cls._meta.model.DoesNotExist:
                 return 1
+
+    @classmethod
+    def get_modified_alarm(cls, alarm):
+        alarm.value = (alarm.value + 1) % 2
+        alarm.core_timestamp = alarm.core_timestamp + 10
+        alarm.mode = \
+            str(fuzzy.FuzzyChoice(
+                [x[0] for x in OperationalMode.options() if x[0] != alarm.mode]
+            ))
+        return alarm
