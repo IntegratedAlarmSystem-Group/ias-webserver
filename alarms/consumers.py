@@ -5,6 +5,12 @@ from .models import AlarmBinding
 
 
 class AlarmDemultiplexer(WebsocketDemultiplexer):
+    """Demultiplexer for Alarms.
+
+    Note:
+        Check that the groups property is defined,
+        since it is for real clients
+    """
     consumers = {
         "alarms": AlarmBinding.consumer,
     }
