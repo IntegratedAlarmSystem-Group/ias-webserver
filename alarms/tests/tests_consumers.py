@@ -1,8 +1,6 @@
-from channels.test import ChannelTestCase, WSClient, apply_routes
-from alarms.consumers import AlarmDemultiplexer
-from channels.routing import route
+from channels.test import ChannelTestCase, WSClient
 from .factories import AlarmFactory
-from ..models import Alarm, AlarmBinding
+from ..models import Alarm
 
 
 class TestAlarmsBinding(ChannelTestCase):
