@@ -55,7 +55,7 @@ class TestAlarmsBinding(ChannelTestCase):
             'Payload value is different from alarm.value'
         )
         self.assertEqual(
-            received['payload']['data']['mode'], alarm.mode,
+            str(received['payload']['data']['mode']), alarm.mode,
             'Payload mode is different from alarm.mode'
         )
         self.assertEqual(

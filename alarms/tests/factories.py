@@ -6,13 +6,17 @@ class AlarmFactory(DjangoModelFactory):
     class Meta:
         model = Alarm
 
+    _base_core_id = 'ANTENNA_DV{0}$WVR$AMBIENT_TEMPERATURE'
+
     value = fuzzy.FuzzyInteger(0, 1)
     core_timestamp = fuzzy.FuzzyInteger(0, 100000)
-    mode = str(fuzzy.FuzzyChoice([x[0] for x in OperationalMode.options()]))
+    mode = fuzzy.FuzzyChoice([str(x[0]) for x in OperationalMode.options()])
     core_id = Sequence(
-        lambda n: 'ANTENNA_DV{0}$WVR$AMBIENT_TEMPERATURE'.format(n)
+        lambda n: AlarmFactory._base_core_id.format(n)
     )
-    running_id = str(core_id) + ' @ACS_NC'
+    running_id = Sequence(
+        lambda n: (AlarmFactory._base_core_id + ' @ACS_NC').format(n)
+    )
 
     @classmethod
     def _setup_next_sequence(cls):
@@ -26,7 +30,7 @@ class AlarmFactory(DjangoModelFactory):
         alarm.value = (alarm.value + 1) % 2
         alarm.core_timestamp = alarm.core_timestamp + 10
         alarm.mode = \
-            str(fuzzy.FuzzyChoice(
+            fuzzy.FuzzyChoice(
                 [x[0] for x in OperationalMode.options() if x[0] != alarm.mode]
-            ))
+            )
         return alarm
