@@ -142,11 +142,11 @@ CHANNEL_LAYERS = {
     },
 }
 
-TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
-
-NOSE_ARGS = [
-    "--with-coverage",
-    "--cover-package=alarms",
-    "--cover-inclusive",
-    "--cover-html",
-]
+# TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
+#
+# NOSE_ARGS = [
+#     "--with-coverage",
+#     "--cover-package=alarms",
+#     "--cover-inclusive",
+#     "--cover-html",
+# ]
