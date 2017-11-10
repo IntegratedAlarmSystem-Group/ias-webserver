@@ -11,9 +11,48 @@ IAS Web Server in Django Channels
 
   4. Install project requirements: `pip install -r requirements.txt`
 
+## Installation Guide for development (on CentOS 7):
+
+  1. Check the epel repository
+  ```
+  [ias-webserver]$ sudo yum install epel-release
+  [ias-webserver]$ sudo yum -y update
+  ```
+
+  2. Install redis
+  ```
+  [ias-webserver]$ sudo yum install redis
+  [ias-webserver]$ sudo systemctl start redis
+  ```
+
+  3. Install python36 and python36u-devel
+  ```
+  [ias-webserver]$ sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
+  [ias-webserver]$ sudo yum install python36u python36u-devel
+  ```
+
+  4. Install pip
+  ```
+  [ias-webserver]$ yum install -y install python-pip
+  [ias-webserver]$ sudo pip install python36u
+  ```
+
+  5. Create and activate the virtual environment
+  ```
+  [ias-webserver]$ sudo pip install -U virtualenv
+  [ias-webserver]$ virtualenv -p python36u venv
+  [ias-webserver]$ source venv/bin/activate
+  ```
+
+  6. Install project requirements
+  ```
+  (venv)[ias-webserver]$ pip install -r requirements.txt
+  ```
+
 ## Local Execution
   * Activate virtual environment (if not already activated): `source venv/bin/activate`
   * Run development server: `python manage.py runserver`
+  * If required, apply migrations: `python manage.py migrate`
 
 ## Run Tests
   * Run tests: `python manage.py test`
