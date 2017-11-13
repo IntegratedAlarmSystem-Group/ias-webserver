@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'alarms',
-    'django_nose'
+    'django_nose',
+    'django.contrib.admindocs',
 ]
 
 MIDDLEWARE = [
