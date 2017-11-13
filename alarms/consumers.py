@@ -5,7 +5,7 @@ from .models import AlarmBinding
 
 
 class AlarmDemultiplexer(WebsocketDemultiplexer):
-    """Demultiplexer for Alarms.
+    """Demultiplexer for Alarms notifications.
 
     Note:
         Check that the groups property is defined,
