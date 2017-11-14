@@ -144,8 +144,7 @@ since it is for real clients</dd>
 <dl class="attribute">
 <dt id="alarms.models.Alarm.core_id">
 <code class="descname">core_id</code><a class="headerlink" href="#alarms.models.Alarm.core_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A wrapper for a deferred-loading field. When the value is read from this
-object the first time, the query is executed.</p>
+<dd><p>Id used to identify the Alarm in the IAS Core.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -181,14 +180,13 @@ object the first time, the query is executed.</p>
 <dl class="attribute">
 <dt id="alarms.models.Alarm.running_id">
 <code class="descname">running_id</code><a class="headerlink" href="#alarms.models.Alarm.running_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A wrapper for a deferred-loading field. When the value is read from this
-object the first time, the query is executed.</p>
+<dd><p>Id used to identify the Alarm and its parents in the IAS Core.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.models.Alarm.value">
 <code class="descname">value</code><a class="headerlink" href="#alarms.models.Alarm.value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integer that indicates if the alarm is SET (alarm raised) or CLEAR (alarm cleared).</p>
+<dd><p>Integer that indicates the alarm. Can be either 0 (CLEARED) or 1 (SET or raised).</p>
 </dd></dl>
 
 </dd></dl>
@@ -201,22 +199,26 @@ object the first time, the query is executed.</p>
 <dl class="attribute">
 <dt id="alarms.models.AlarmBinding.fields">
 <code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#alarms.models.AlarmBinding.fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>List of fields included in the messages.</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="alarms.models.AlarmBinding.group_names">
 <em class="property">classmethod </em><code class="descname">group_names</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmBinding.group_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return a list of the groups that receive the binding messages.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="alarms.models.AlarmBinding.has_permission">
 <code class="descname">has_permission</code><span class="sig-paren">(</span><em>user</em>, <em>action</em>, <em>pk</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmBinding.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return if the user has permission to make the specified action.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.models.AlarmBinding.model">
 <code class="descname">model</code><a class="headerlink" href="#alarms.models.AlarmBinding.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#alarms.models.Alarm" title="alarms.models.Alarm"><code class="xref py py-class docutils literal"><span class="pre">Alarm</span></code></a></p>
+<dd><p>Model binded with the websocket</p>
+<p>alias of <a class="reference internal" href="#alarms.models.Alarm" title="alarms.models.Alarm"><code class="xref py py-class docutils literal"><span class="pre">Alarm</span></code></a></p>
 </dd></dl>
 
 <dl class="attribute">
@@ -227,7 +229,8 @@ object the first time, the query is executed.</p>
 <dl class="attribute">
 <dt id="alarms.models.AlarmBinding.stream">
 <code class="descname">stream</code><em class="property"> = 'alarms'</em><a class="headerlink" href="#alarms.models.AlarmBinding.stream" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Name of the stream to send the messages.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -235,7 +238,7 @@ object the first time, the query is executed.</p>
 <dt id="alarms.models.OperationalMode">
 <em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">OperationalMode</code><a class="headerlink" href="#alarms.models.OperationalMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="utils.html#utils.choice_enum.ChoiceEnum" title="utils.choice_enum.ChoiceEnum"><code class="xref py py-class docutils literal"><span class="pre">utils.choice_enum.ChoiceEnum</span></code></a></p>
-<p>An enumeration.</p>
+<p>Operational Mode of a monitor point value.</p>
 <dl class="attribute">
 <dt id="alarms.models.OperationalMode.closing">
 <code class="descname">closing</code><em class="property"> = 2</em><a class="headerlink" href="#alarms.models.OperationalMode.closing" title="Permalink to this definition">¶</a></dt>
@@ -264,7 +267,8 @@ object the first time, the query is executed.</p>
 <dl class="classmethod">
 <dt id="alarms.models.OperationalMode.options">
 <em class="property">classmethod </em><code class="descname">options</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.OperationalMode.options" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return a list of tuples with the valid options.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.models.OperationalMode.shuttedown">
