@@ -1,0 +1,224 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>alarms.tests package &#8212; IAS Web Server 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ias_webserver package" href="ias_webserver.html" />
+    <link rel="prev" title="alarms.migrations package" href="alarms.migrations.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ias_webserver.html" title="ias_webserver package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="alarms.migrations.html" title="alarms.migrations package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="alarms.html" accesskey="U">alarms package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="alarms-tests-package">
+<h1>alarms.tests package<a class="headerlink" href="#alarms-tests-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-alarms.tests.factories">
+<span id="alarms-tests-factories-module"></span><h2>alarms.tests.factories module<a class="headerlink" href="#module-alarms.tests.factories" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.tests.factories.AlarmFactory">
+<em class="property">class </em><code class="descclassname">alarms.tests.factories.</code><code class="descname">AlarmFactory</code><a class="headerlink" href="#alarms.tests.factories.AlarmFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">factory.django.DjangoModelFactory</span></code></p>
+<p>Factory to create random alarms based on Alarm model</p>
+<dl class="attribute">
+<dt id="alarms.tests.factories.AlarmFactory.core_id">
+<code class="descname">core_id</code><em class="property"> = &lt;factory.declarations.Sequence object&gt;</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.tests.factories.AlarmFactory.core_timestamp">
+<code class="descname">core_timestamp</code><em class="property"> = &lt;factory.fuzzy.FuzzyInteger object&gt;</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.tests.factories.AlarmFactory.get_modified_alarm">
+<em class="property">classmethod </em><code class="descname">get_modified_alarm</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.get_modified_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the alarm with the value, core_timestamp and mode modified randomly</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.tests.factories.AlarmFactory.mode">
+<code class="descname">mode</code><em class="property"> = &lt;factory.fuzzy.FuzzyChoice object&gt;</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.tests.factories.AlarmFactory.running_id">
+<code class="descname">running_id</code><em class="property"> = &lt;factory.declarations.Sequence object&gt;</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.running_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.tests.factories.AlarmFactory.value">
+<code class="descname">value</code><em class="property"> = &lt;factory.fuzzy.FuzzyInteger object&gt;</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-alarms.tests.tests_consumers">
+<span id="alarms-tests-tests-consumers-module"></span><h2>alarms.tests.tests_consumers module<a class="headerlink" href="#module-alarms.tests.tests_consumers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.tests.tests_consumers.TestAlarmsBinding">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_consumers.</code><code class="descname">TestAlarmsBinding</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">channels.test.base.ChannelTestCase</span></code></p>
+<p>This class defines the test suite for the channels alarm binding</p>
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmsBinding.assert_received_alarm">
+<code class="descname">assert_received_alarm</code><span class="sig-paren">(</span><em>received</em>, <em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.assert_received_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmsBinding.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmsBinding.test_outbound_create">
+<code class="descname">test_outbound_create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.test_outbound_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients are notified when an alarm is created</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmsBinding.test_outbound_delete">
+<code class="descname">test_outbound_delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.test_outbound_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients are notified when an alarm is deleted</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmsBinding.test_outbound_update">
+<code class="descname">test_outbound_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.test_outbound_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients are notified when an alarm is updated</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-alarms.tests.tests_models">
+<span id="alarms-tests-tests-models-module"></span><h2>alarms.tests.tests_models module<a class="headerlink" href="#module-alarms.tests.tests_models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.tests.tests_models.AlarmModelTestCase">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_models.</code><code class="descname">AlarmModelTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the Alarm model tests</p>
+<dl class="method">
+<dt id="alarms.tests.tests_models.AlarmModelTestCase.test_create_alarm">
+<code class="descname">test_create_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_create_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create an alarm through the models</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_models.AlarmModelTestCase.test_delete_alarm">
+<code class="descname">test_delete_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_delete_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can delete an alarm through the models</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_models.AlarmModelTestCase.test_update_alarm">
+<code class="descname">test_update_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_update_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can update an alarm through the models</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-alarms.tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-alarms.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="alarms.migrations.html"
+                        title="previous chapter">alarms.migrations package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ias_webserver.html"
+                        title="next chapter">ias_webserver package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ias_webserver.html" title="ias_webserver package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="alarms.migrations.html" title="alarms.migrations package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="alarms.html" >alarms package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Inria Chile.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
