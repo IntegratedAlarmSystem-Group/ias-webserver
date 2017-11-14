@@ -61,8 +61,9 @@ class AlarmBinding(WebsocketBinding):
     stream = "alarms"
     """ Name of the stream to send the messages. """
 
-    fields = "__all__"
+    fields = ["__all__"]
     """ List of fields included in the messages. """
+
 
     @classmethod
     def group_names(cls, *args, **kwargs):
