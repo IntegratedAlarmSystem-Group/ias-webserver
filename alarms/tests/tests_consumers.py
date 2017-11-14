@@ -1,6 +1,8 @@
-from channels.test import ChannelTestCase, WSClient
+from channels.test import ChannelTestCase, WSClient, apply_routes
 from .factories import AlarmFactory
-from ..models import Alarm
+from ..models import Alarm, AlarmBinding
+from ..consumers import AlarmDemultiplexer
+from channels.routing import route
 
 
 class TestAlarmsBinding(ChannelTestCase):
@@ -68,9 +70,19 @@ class TestAlarmsBinding(ChannelTestCase):
             'Payload core_id is different from alarm.core_id'
         )
         self.assertEqual(
-            received['payload']['data']['running_id'], alarm.running_id,
+            received['alarms.alarmpayload']['data']['running_id'], alarm.running_id,
             'Payload running_id is different from alarm.running_id'
         )
+
+    def gen_aux_dict_from_object(self, obj):
+        """pk
+        Generate and return a dict without hidden fields and id from an Object
+        """
+        ans = {}
+        for key in obj.__dict__:
+            if key[0] != '_':
+                ans[key] = obj.__dict__[key]
+        return ans
 
     def test_outbound_create(self):
         """Test if clients are notified when an alarm is created"""
@@ -109,7 +121,7 @@ class TestAlarmsBinding(ChannelTestCase):
         # Assert action
         self.assertEqual(
             received['payload']['action'], 'delete',
-            "Payload action should be 'delete'"
+            "Payload aalarms.alarmction should be 'delete'"
         )
 
         # Assert that is nothing to receive
@@ -144,3 +156,83 @@ class TestAlarmsBinding(ChannelTestCase):
             self.client.receive(),
             'Received unexpected message'
         )
+
+    def test_inbound_create(self):
+        """Test if clients can create a new alarm"""
+        # Arrange:
+        old_count = Alarm.objects.all().count()
+        alarm = AlarmFactory.build()
+        alarm_dict = self.gen_aux_dict_from_object(alarm)
+        alarm_dict.pop('id')
+        # Act:
+        with apply_routes([AlarmDemultiplexer.as_route(path='/'),
+                          route("alarms", AlarmBinding.consumer)]):
+            client = WSClient()
+            client.send_and_consume('websocket.connect', path='/')
+            client.send_and_consume('websocket.receive', path='/', text={
+                'stream': 'alarms',
+                'payload': {
+                    'action': 'create',
+                    'data': alarm_dict
+                }
+            })
+        # Assert:
+        new_count = Alarm.objects.all().count()
+        self.assertEqual(old_count + 1, new_count, 'The alarm was not created')
+        created_alarm = Alarm.objects.all().first()
+        created_alarm_dict = self.gen_aux_dict_from_object(created_alarm)
+        created_alarm_dict.pop('id')
+        self.assertEqual(created_alarm_dict, alarm_dict)
+
+    def test_inbound_update(self):
+        """Test if clients can update a new alarm"""
+        # Arrange:
+        alarm = AlarmFactory()
+        old_count = Alarm.objects.all().count()
+        aux_alarm = AlarmFactory.build()
+        alarm_dict = self.gen_aux_dict_from_object(aux_alarm)
+        alarm_dict.pop('id')
+        print('\n alarm_dict: ', alarm_dict)
+        # alarm_dict['id'] = alarm.id
+        # Act:
+        with apply_routes([AlarmDemultiplexer.as_route(path='/'),
+                          route("alarms", AlarmBinding.consumer)]):
+            client = WSClient()
+            client.send_and_consume('websocket.connect', path='/')
+            client.send_and_consume('websocket.receive', path='/', text={
+                'stream': 'alarms',
+                'payload': {
+                    'model': 'alarms.alarm',
+                    'action': 'update',
+                    'pk': alarm.pk,
+                    'data': alarm_dict
+                }
+            })
+            # client.consume('stream')
+        # Assert:alarms.alarm
+        new_count = Alarm.objects.all().count()
+        self.assertEqual(old_count, new_count)
+        updated_alarm = Alarm.objects.all().get(pk=alarm.pk)
+        updated_alarm_dict = self.gen_aux_dict_from_object(updated_alarm)
+        print('\n alarm: ', alarm)
+        print('\n alarm_dict: ', alarm_dict)
+        print('\n updated_alarm_dict: ', updated_alarm_dict)
+        self.assertEqual(updated_alarm_dict, alarm_dict)
+
+
+
+# class TestAlarmsAux(ChannelTestCase):
+#     """This class defines the test suite for the channels alarm binding"""
+#
+#     def setUp(self):
+#         # Arrange:
+#         self.client = WSClient()
+#         self.client.join_group("alarms_group")
+#
+#     def test_check_index(self):
+#
+#         alarm = AlarmFactory()
+#
+#         print(Alarm.objects.all())
+#
+#         client = self.client
