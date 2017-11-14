@@ -177,10 +177,14 @@ class TestAlarmsBinding(ChannelTestCase):
             })
         # Assert:
         new_count = Alarm.objects.all().count()
-        self.assertEqual(old_count + 1, new_count, 'The alarm was not created')
+        self.assertEqual(
+            old_count + 1, new_count, 'The alarm was not created'
+        )
         created_alarm = Alarm.objects.all().first()
         created_alarm_dict = self.gen_aux_dict_from_object(created_alarm)
-        self.assertEqual(created_alarm_dict, alarm_dict)
+        self.assertEqual(
+            created_alarm_dict, alarm_dict, 'The alarm is different'
+        )
 
     def test_inbound_update(self):
         """Test if clients can update a new alarm"""
@@ -205,11 +209,36 @@ class TestAlarmsBinding(ChannelTestCase):
             })
         # Assert:
         new_count = Alarm.objects.all().count()
-        self.assertEqual(old_count, new_count)
+        self.assertEqual(
+            old_count, new_count, 'A new object was created or deleted'
+        )
         updated_alarm = Alarm.objects.all().get(pk=alarm.pk)
         updated_alarm_dict = self.gen_aux_dict_from_object(updated_alarm)
-        self.assertEqual(updated_alarm_dict, alarm_dict)
+        self.assertEqual(
+            updated_alarm_dict, alarm_dict, 'The alarm was not updated'
+        )
 
+    def test_inbound_delete(self):
+        """Test if clients can delete an alarm"""
+        # Arrange:
+        alarm = AlarmFactory()
+        old_count = Alarm.objects.all().count()
+        # Act:
+        with apply_routes([AlarmDemultiplexer.as_route(path='/'),
+                          route("alarms", AlarmBinding.consumer)]):
+            client = WSClient()
+            client.send_and_consume('websocket.connect', path='/')
+            client.send_and_consume('websocket.receive', path='/', text={
+                'stream': 'alarms',
+                'payload': {
+                    'action': 'delete',
+                    'pk': alarm.pk
+                }
+            })
+
+        # Assert:
+        new_count = Alarm.objects.all().count()
+        self.assertEqual(old_count - 1, new_count, 'The alarm was not deleted')
 
 #  class TestAlarmsAux(ChannelTestCase):
 #     """This class defines the test suite for the channels alarm binding"""
