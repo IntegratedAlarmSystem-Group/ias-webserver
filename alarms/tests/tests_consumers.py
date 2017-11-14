@@ -80,7 +80,7 @@ class TestAlarmsBinding(ChannelTestCase):
         """
         ans = {}
         for key in obj.__dict__:
-            if key[0] != '_':
+            if key[0] != '_' and key != 'id':
                 ans[key] = obj.__dict__[key]
         return ans
 
@@ -163,7 +163,6 @@ class TestAlarmsBinding(ChannelTestCase):
         old_count = Alarm.objects.all().count()
         alarm = AlarmFactory.build()
         alarm_dict = self.gen_aux_dict_from_object(alarm)
-        alarm_dict.pop('id')
         # Act:
         with apply_routes([AlarmDemultiplexer.as_route(path='/'),
                           route("alarms", AlarmBinding.consumer)]):
@@ -181,7 +180,6 @@ class TestAlarmsBinding(ChannelTestCase):
         self.assertEqual(old_count + 1, new_count, 'The alarm was not created')
         created_alarm = Alarm.objects.all().first()
         created_alarm_dict = self.gen_aux_dict_from_object(created_alarm)
-        created_alarm_dict.pop('id')
         self.assertEqual(created_alarm_dict, alarm_dict)
 
     def test_inbound_update(self):
@@ -191,9 +189,6 @@ class TestAlarmsBinding(ChannelTestCase):
         old_count = Alarm.objects.all().count()
         aux_alarm = AlarmFactory.build()
         alarm_dict = self.gen_aux_dict_from_object(aux_alarm)
-        alarm_dict.pop('id')
-        print('\n alarm_dict: ', alarm_dict)
-        # alarm_dict['id'] = alarm.id
         # Act:
         with apply_routes([AlarmDemultiplexer.as_route(path='/'),
                           route("alarms", AlarmBinding.consumer)]):
@@ -208,20 +203,15 @@ class TestAlarmsBinding(ChannelTestCase):
                     'data': alarm_dict
                 }
             })
-            # client.consume('stream')
-        # Assert:alarms.alarm
+        # Assert:
         new_count = Alarm.objects.all().count()
         self.assertEqual(old_count, new_count)
         updated_alarm = Alarm.objects.all().get(pk=alarm.pk)
         updated_alarm_dict = self.gen_aux_dict_from_object(updated_alarm)
-        print('\n alarm: ', alarm)
-        print('\n alarm_dict: ', alarm_dict)
-        print('\n updated_alarm_dict: ', updated_alarm_dict)
         self.assertEqual(updated_alarm_dict, alarm_dict)
 
 
-
-# class TestAlarmsAux(ChannelTestCase):
+#  class TestAlarmsAux(ChannelTestCase):
 #     """This class defines the test suite for the channels alarm binding"""
 #
 #     def setUp(self):
