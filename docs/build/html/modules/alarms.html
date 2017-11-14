@@ -1,0 +1,348 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>alarms package &#8212; IAS Web Server 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="alarms.migrations package" href="alarms.migrations.html" />
+    <link rel="prev" title="ias-webserver" href="modules.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="alarms.migrations.html" title="alarms.migrations package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="ias-webserver"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">ias-webserver</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="alarms-package">
+<h1>alarms package<a class="headerlink" href="#alarms-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="alarms.migrations.html">alarms.migrations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="alarms.migrations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.migrations.html#module-alarms.migrations.0001_initial">alarms.migrations.0001_initial module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.migrations.html#module-alarms.migrations.0002_alarm_mode">alarms.migrations.0002_alarm_mode module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.migrations.html#module-alarms.migrations.0003_auto_20171110_2155">alarms.migrations.0003_auto_20171110_2155 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.migrations.html#module-alarms.migrations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="alarms.tests.html">alarms.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.factories">alarms.tests.factories module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_consumers">alarms.tests.tests_consumers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_models">alarms.tests.tests_models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-alarms.admin">
+<span id="alarms-admin-module"></span><h2>alarms.admin module<a class="headerlink" href="#module-alarms.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-alarms.apps">
+<span id="alarms-apps-module"></span><h2>alarms.apps module<a class="headerlink" href="#module-alarms.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.apps.AlarmConfig">
+<em class="property">class </em><code class="descclassname">alarms.apps.</code><code class="descname">AlarmConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.apps.AlarmConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="alarms.apps.AlarmConfig.name">
+<code class="descname">name</code><em class="property"> = 'alarms'</em><a class="headerlink" href="#alarms.apps.AlarmConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-alarms.consumers">
+<span id="alarms-consumers-module"></span><h2>alarms.consumers module<a class="headerlink" href="#module-alarms.consumers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.consumers.AlarmDemultiplexer">
+<em class="property">class </em><code class="descclassname">alarms.consumers.</code><code class="descname">AlarmDemultiplexer</code><span class="sig-paren">(</span><em>message</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.AlarmDemultiplexer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">channels.generic.websockets.WebsocketDemultiplexer</span></code></p>
+<p>Demultiplexer for Alarms notifications.</p>
+<dl class="docutils">
+<dt>Note:</dt>
+<dd>Check that the groups property is defined,
+since it is for real clients</dd>
+</dl>
+<dl class="attribute">
+<dt id="alarms.consumers.AlarmDemultiplexer.consumers">
+<code class="descname">consumers</code><em class="property"> = {'alarms': &lt;bound method Binding.consumer of &lt;class 'alarms.models.AlarmBinding'&gt;&gt;}</em><a class="headerlink" href="#alarms.consumers.AlarmDemultiplexer.consumers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.consumers.AlarmDemultiplexer.groups">
+<code class="descname">groups</code><em class="property"> = ['alarms_group']</em><a class="headerlink" href="#alarms.consumers.AlarmDemultiplexer.groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-alarms.models">
+<span id="alarms-models-module"></span><h2>alarms.models module<a class="headerlink" href="#module-alarms.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.models.Alarm">
+<em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">Alarm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Alarm generated by some device in the observatory.</p>
+<dl class="exception">
+<dt id="alarms.models.Alarm.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#alarms.models.Alarm.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="alarms.models.Alarm.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#alarms.models.Alarm.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.Alarm.core_id">
+<code class="descname">core_id</code><a class="headerlink" href="#alarms.models.Alarm.core_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.Alarm.core_timestamp">
+<code class="descname">core_timestamp</code><a class="headerlink" href="#alarms.models.Alarm.core_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timestamp inherited from IAS core processing. It correspond to the time when the
+value has been read from the remote system.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.models.Alarm.get_mode_display">
+<code class="descname">get_mode_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm.get_mode_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.Alarm.id">
+<code class="descname">id</code><a class="headerlink" href="#alarms.models.Alarm.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.Alarm.mode">
+<code class="descname">mode</code><a class="headerlink" href="#alarms.models.Alarm.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Operational Mode of a monitor point value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.Alarm.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#alarms.models.Alarm.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.Alarm.running_id">
+<code class="descname">running_id</code><a class="headerlink" href="#alarms.models.Alarm.running_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.Alarm.value">
+<code class="descname">value</code><a class="headerlink" href="#alarms.models.Alarm.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integer that indicates if the alarm is SET (alarm raised) or CLEAR (alarm cleared).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.models.AlarmBinding">
+<em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">AlarmBinding</code><a class="headerlink" href="#alarms.models.AlarmBinding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">channels.binding.websockets.WebsocketBinding</span></code></p>
+<p>Bind the alarm actions with a websocket stream.</p>
+<dl class="attribute">
+<dt id="alarms.models.AlarmBinding.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#alarms.models.AlarmBinding.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.models.AlarmBinding.group_names">
+<em class="property">classmethod </em><code class="descname">group_names</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmBinding.group_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.models.AlarmBinding.has_permission">
+<code class="descname">has_permission</code><span class="sig-paren">(</span><em>user</em>, <em>action</em>, <em>pk</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmBinding.has_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.AlarmBinding.model">
+<code class="descname">model</code><a class="headerlink" href="#alarms.models.AlarmBinding.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#alarms.models.Alarm" title="alarms.models.Alarm"><code class="xref py py-class docutils literal"><span class="pre">Alarm</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.AlarmBinding.model_label">
+<code class="descname">model_label</code><em class="property"> = 'alarms.alarm'</em><a class="headerlink" href="#alarms.models.AlarmBinding.model_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.AlarmBinding.stream">
+<code class="descname">stream</code><em class="property"> = 'alarms'</em><a class="headerlink" href="#alarms.models.AlarmBinding.stream" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.models.OperationalMode">
+<em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">OperationalMode</code><a class="headerlink" href="#alarms.models.OperationalMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="utils.html#utils.choice_enum.ChoiceEnum" title="utils.choice_enum.ChoiceEnum"><code class="xref py py-class docutils literal"><span class="pre">utils.choice_enum.ChoiceEnum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="alarms.models.OperationalMode.closing">
+<code class="descname">closing</code><em class="property"> = 2</em><a class="headerlink" href="#alarms.models.OperationalMode.closing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.OperationalMode.degraded">
+<code class="descname">degraded</code><em class="property"> = 6</em><a class="headerlink" href="#alarms.models.OperationalMode.degraded" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.OperationalMode.initialization">
+<code class="descname">initialization</code><em class="property"> = 1</em><a class="headerlink" href="#alarms.models.OperationalMode.initialization" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.OperationalMode.maintenance">
+<code class="descname">maintenance</code><em class="property"> = 4</em><a class="headerlink" href="#alarms.models.OperationalMode.maintenance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.OperationalMode.operational">
+<code class="descname">operational</code><em class="property"> = 5</em><a class="headerlink" href="#alarms.models.OperationalMode.operational" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.models.OperationalMode.options">
+<em class="property">classmethod </em><code class="descname">options</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.OperationalMode.options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.OperationalMode.shuttedown">
+<code class="descname">shuttedown</code><em class="property"> = 3</em><a class="headerlink" href="#alarms.models.OperationalMode.shuttedown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.OperationalMode.startup">
+<code class="descname">startup</code><em class="property"> = 0</em><a class="headerlink" href="#alarms.models.OperationalMode.startup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.OperationalMode.unknown">
+<code class="descname">unknown</code><em class="property"> = 7</em><a class="headerlink" href="#alarms.models.OperationalMode.unknown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-alarms.routing">
+<span id="alarms-routing-module"></span><h2>alarms.routing module<a class="headerlink" href="#module-alarms.routing" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-alarms.views">
+<span id="alarms-views-module"></span><h2>alarms.views module<a class="headerlink" href="#module-alarms.views" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-alarms">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-alarms" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">ias-webserver</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="alarms.migrations.html"
+                        title="next chapter">alarms.migrations package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="alarms.migrations.html" title="alarms.migrations package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="ias-webserver"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Inria Chile.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
