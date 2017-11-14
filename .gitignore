@@ -9,7 +9,9 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+cover/
 build/
+!docs/build/
 develop-eggs/
 dist/
 downloads/
@@ -99,3 +101,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# sqlite database
+*.sqlite3
+
+# Visual Studio Code 
+.vscode/*
