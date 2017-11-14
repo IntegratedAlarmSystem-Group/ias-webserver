@@ -1,6 +1,10 @@
 # ias-webserver
 IAS Web Server in Django Channels
 
+## Documentation
+Documentation is available here:
+https://integratedalarmsystem-group.github.io/ias-webserver/
+
 ## Installation Guide for development (on Ubuntu OS):
 
   1. Install system requirements `sudo apt-get install libpq-dev python3.6-dev python-pip python3-pip virtualenv redis-server`
@@ -56,3 +60,6 @@ IAS Web Server in Django Channels
 
 ## Run Tests
   * Run tests: `python manage.py test`
+
+## Update Documentation
+  `./create_docs.sh`
