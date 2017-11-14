@@ -70,7 +70,7 @@ class TestAlarmsBinding(ChannelTestCase):
             'Payload core_id is different from alarm.core_id'
         )
         self.assertEqual(
-            received['alarms.alarmpayload']['data']['running_id'], alarm.running_id,
+            received['payload']['data']['running_id'], alarm.running_id,
             'Payload running_id is different from alarm.running_id'
         )
 
