@@ -1,3 +1,4 @@
+import json
 from channels.test import ChannelTestCase, WSClient, apply_routes
 from .factories import AlarmFactory
 from ..models import Alarm, AlarmBinding
@@ -268,10 +269,11 @@ class TestAlarmRequestConsumer(ChannelTestCase):
                     'action': 'list'
                 }
             })
-            alarms_list = client.receive()
+            response = client.receive()
 
         # Assert:
         alarms = Alarm.objects.all()
+
         expected_alarms_list = []
         for i, alarm in enumerate(alarms):
             expected_alarms_list.append({
@@ -279,5 +281,7 @@ class TestAlarmRequestConsumer(ChannelTestCase):
                 'model': 'alarms.alarm',
                 'fields': gen_aux_dict_from_object(alarm)
             })
-        
+
+        alarms_list = json.loads(response['payload']['text'])
+
         self.assertEqual(alarms_list, expected_alarms_list)
