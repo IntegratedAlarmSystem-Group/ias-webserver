@@ -1,5 +1,4 @@
-# from django.http import HttpResponse
-# from channels.handler import AsgiHandler
+import json
 from channels.generic.websockets import (
     WebsocketDemultiplexer,
     JsonWebsocketConsumer
@@ -13,18 +12,18 @@ class AlarmRequestConsumer(JsonWebsocketConsumer):
     def receive(self, content, multiplexer, **kwargs):
 
         if content is not None:
-
             if content['action'] == 'list':
-
                 queryset = Alarm.objects.all()
-
                 data = serializers.serialize(
                     'json',
                     list(queryset)
                 )
-
                 multiplexer.send({
-                    "text": data
+                    "data": json.loads(data)
+                })
+            else:
+                multiplexer.send({
+                    "data": "Unsupported action"
                 })
 
 
