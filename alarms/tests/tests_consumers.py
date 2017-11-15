@@ -21,11 +21,13 @@ class TestAlarmsBinding(ChannelTestCase):
     """This class defines the test suite for the channels alarm binding"""
 
     def setUp(self):
+        """TestCase setup"""
         # Arrange:
         self.client = WSClient()
         self.client.join_group("alarms_group")
 
     def assert_received_alarm(self, received, alarm):
+        """Assert if a received message corresponds to a given alarm"""
         self.assertIsNotNone(received, 'No message received')
         self.assertTrue('payload' in received, 'No payload received')
         self.assertTrue(
@@ -237,7 +239,6 @@ class TestAlarmsBinding(ChannelTestCase):
                     'pk': alarm.pk
                 }
             })
-
         # Assert:
         new_count = Alarm.objects.all().count()
         self.assertEqual(old_count - 1, new_count, 'The alarm was not deleted')
@@ -247,16 +248,16 @@ class TestAlarmRequestConsumer(ChannelTestCase):
     """This class defines the test suite for the channels alarm requests"""
 
     def setUp(self):
+        """TestCase setup"""
         # Arrange:
         self.client = WSClient()
 
     def test_alarms_list(self):
-
+        """Test if clients can request and receive a list of alarms"""
         # Arrange:
         expected_alarms_count = 3
         for k in range(expected_alarms_count):
             AlarmFactory()
-
         # Act:
         with apply_routes([AlarmDemultiplexer.as_route(path='/'),
                           route("requests", AlarmRequestConsumer)]):
@@ -270,10 +271,8 @@ class TestAlarmRequestConsumer(ChannelTestCase):
                 }
             })
             response = client.receive()
-
         # Assert:
         alarms = Alarm.objects.all()
-
         expected_alarms_list = []
         for i, alarm in enumerate(alarms):
             expected_alarms_list.append({
@@ -281,7 +280,32 @@ class TestAlarmRequestConsumer(ChannelTestCase):
                 'model': 'alarms.alarm',
                 'fields': gen_aux_dict_from_object(alarm)
             })
+        alarms_list = response['payload']['data']
+        self.assertEqual(
+            alarms_list, expected_alarms_list,
+            'The received alarms are different than the alarms in the DB'
+        )
 
-        alarms_list = json.loads(response['payload']['text'])
-
-        self.assertEqual(alarms_list, expected_alarms_list)
+    def test_unsupported_action(self):
+        """Test if clients can request and receive a list of alarms"""
+        # Arrange:
+        # Act:
+        with apply_routes([AlarmDemultiplexer.as_route(path='/'),
+                          route("requests", AlarmRequestConsumer)]):
+            client = WSClient()
+            client.send_and_consume('websocket.connect', path='/')
+            client.receive()
+            client.send_and_consume('websocket.receive', path='/', text={
+                'stream': 'requests',
+                'payload': {
+                    'action': 'other_action'
+                }
+            })
+            response = client.receive()
+        # Assert:
+        expected_message = 'Unsupported action'
+        response_message = response['payload']['data']
+        self.assertEqual(
+            response_message, expected_message,
+            'The received alarms are different than the alarms in the DB'
+        )
