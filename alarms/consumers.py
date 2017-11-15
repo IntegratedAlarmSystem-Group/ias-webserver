@@ -1,7 +1,30 @@
-# from django.http import HttpResponse
-# from channels.handler import AsgiHandler
-from channels.generic.websockets import WebsocketDemultiplexer
-from .models import AlarmBinding
+import json
+from channels.generic.websockets import (
+    WebsocketDemultiplexer,
+    JsonWebsocketConsumer
+)
+from django.core import serializers
+from .models import Alarm, AlarmBinding
+
+
+class AlarmRequestConsumer(JsonWebsocketConsumer):
+
+    def receive(self, content, multiplexer, **kwargs):
+
+        if content is not None:
+            if content['action'] == 'list':
+                queryset = Alarm.objects.all()
+                data = serializers.serialize(
+                    'json',
+                    list(queryset)
+                )
+                multiplexer.send({
+                    "data": json.loads(data)
+                })
+            else:
+                multiplexer.send({
+                    "data": "Unsupported action"
+                })
 
 
 class AlarmDemultiplexer(WebsocketDemultiplexer):
@@ -13,6 +36,7 @@ class AlarmDemultiplexer(WebsocketDemultiplexer):
     """
     consumers = {
         "alarms": AlarmBinding.consumer,
+        "requests": AlarmRequestConsumer
     }
 
     groups = ["alarms_group"]

@@ -1,19 +1,33 @@
+import json
 from channels.test import ChannelTestCase, WSClient, apply_routes
 from .factories import AlarmFactory
 from ..models import Alarm, AlarmBinding
-from ..consumers import AlarmDemultiplexer
+from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer
 from channels.routing import route
+
+
+def gen_aux_dict_from_object(obj):
+    """
+    Generate and return a dict without hidden fields and id from an Object
+    """
+    ans = {}
+    for key in obj.__dict__:
+        if key[0] != '_' and key != 'id':
+            ans[key] = obj.__dict__[key]
+    return ans
 
 
 class TestAlarmsBinding(ChannelTestCase):
     """This class defines the test suite for the channels alarm binding"""
 
     def setUp(self):
+        """TestCase setup"""
         # Arrange:
         self.client = WSClient()
         self.client.join_group("alarms_group")
 
     def assert_received_alarm(self, received, alarm):
+        """Assert if a received message corresponds to a given alarm"""
         self.assertIsNotNone(received, 'No message received')
         self.assertTrue('payload' in received, 'No payload received')
         self.assertTrue(
@@ -73,16 +87,6 @@ class TestAlarmsBinding(ChannelTestCase):
             received['payload']['data']['running_id'], alarm.running_id,
             'Payload running_id is different from alarm.running_id'
         )
-
-    def gen_aux_dict_from_object(self, obj):
-        """pk
-        Generate and return a dict without hidden fields and id from an Object
-        """
-        ans = {}
-        for key in obj.__dict__:
-            if key[0] != '_' and key != 'id':
-                ans[key] = obj.__dict__[key]
-        return ans
 
     def test_outbound_create(self):
         """Test if clients are notified when an alarm is created"""
@@ -162,7 +166,7 @@ class TestAlarmsBinding(ChannelTestCase):
         # Arrange:
         old_count = Alarm.objects.all().count()
         alarm = AlarmFactory.build()
-        alarm_dict = self.gen_aux_dict_from_object(alarm)
+        alarm_dict = gen_aux_dict_from_object(alarm)
         # Act:
         with apply_routes([AlarmDemultiplexer.as_route(path='/'),
                           route("alarms", AlarmBinding.consumer)]):
@@ -181,7 +185,7 @@ class TestAlarmsBinding(ChannelTestCase):
             old_count + 1, new_count, 'The alarm was not created'
         )
         created_alarm = Alarm.objects.all().first()
-        created_alarm_dict = self.gen_aux_dict_from_object(created_alarm)
+        created_alarm_dict = gen_aux_dict_from_object(created_alarm)
         self.assertEqual(
             created_alarm_dict, alarm_dict, 'The alarm is different'
         )
@@ -192,7 +196,7 @@ class TestAlarmsBinding(ChannelTestCase):
         alarm = AlarmFactory()
         old_count = Alarm.objects.all().count()
         aux_alarm = AlarmFactory.build()
-        alarm_dict = self.gen_aux_dict_from_object(aux_alarm)
+        alarm_dict = gen_aux_dict_from_object(aux_alarm)
         # Act:
         with apply_routes([AlarmDemultiplexer.as_route(path='/'),
                           route("alarms", AlarmBinding.consumer)]):
@@ -213,7 +217,7 @@ class TestAlarmsBinding(ChannelTestCase):
             old_count, new_count, 'A new object was created or deleted'
         )
         updated_alarm = Alarm.objects.all().get(pk=alarm.pk)
-        updated_alarm_dict = self.gen_aux_dict_from_object(updated_alarm)
+        updated_alarm_dict = gen_aux_dict_from_object(updated_alarm)
         self.assertEqual(
             updated_alarm_dict, alarm_dict, 'The alarm was not updated'
         )
@@ -235,23 +239,73 @@ class TestAlarmsBinding(ChannelTestCase):
                     'pk': alarm.pk
                 }
             })
-
         # Assert:
         new_count = Alarm.objects.all().count()
         self.assertEqual(old_count - 1, new_count, 'The alarm was not deleted')
 
-#  class TestAlarmsAux(ChannelTestCase):
-#     """This class defines the test suite for the channels alarm binding"""
-#
-#     def setUp(self):
-#         # Arrange:
-#         self.client = WSClient()
-#         self.client.join_group("alarms_group")
-#
-#     def test_check_index(self):
-#
-#         alarm = AlarmFactory()
-#
-#         print(Alarm.objects.all())
-#
-#         client = self.client
+
+class TestAlarmRequestConsumer(ChannelTestCase):
+    """This class defines the test suite for the channels alarm requests"""
+
+    def setUp(self):
+        """TestCase setup"""
+        # Arrange:
+        self.client = WSClient()
+
+    def test_alarms_list(self):
+        """Test if clients can request and receive a list of alarms"""
+        # Arrange:
+        expected_alarms_count = 3
+        for k in range(expected_alarms_count):
+            AlarmFactory()
+        # Act:
+        with apply_routes([AlarmDemultiplexer.as_route(path='/'),
+                          route("requests", AlarmRequestConsumer)]):
+            client = WSClient()
+            client.send_and_consume('websocket.connect', path='/')
+            client.receive()
+            client.send_and_consume('websocket.receive', path='/', text={
+                'stream': 'requests',
+                'payload': {
+                    'action': 'list'
+                }
+            })
+            response = client.receive()
+        # Assert:
+        alarms = Alarm.objects.all()
+        expected_alarms_list = []
+        for i, alarm in enumerate(alarms):
+            expected_alarms_list.append({
+                'pk': alarm.pk,
+                'model': 'alarms.alarm',
+                'fields': gen_aux_dict_from_object(alarm)
+            })
+        alarms_list = response['payload']['data']
+        self.assertEqual(
+            alarms_list, expected_alarms_list,
+            'The received alarms are different than the alarms in the DB'
+        )
+
+    def test_unsupported_action(self):
+        """Test if clients can request and receive a list of alarms"""
+        # Arrange:
+        # Act:
+        with apply_routes([AlarmDemultiplexer.as_route(path='/'),
+                          route("requests", AlarmRequestConsumer)]):
+            client = WSClient()
+            client.send_and_consume('websocket.connect', path='/')
+            client.receive()
+            client.send_and_consume('websocket.receive', path='/', text={
+                'stream': 'requests',
+                'payload': {
+                    'action': 'other_action'
+                }
+            })
+            response = client.receive()
+        # Assert:
+        expected_message = 'Unsupported action'
+        response_message = response['payload']['data']
+        self.assertEqual(
+            response_message, expected_message,
+            'The received alarms are different than the alarms in the DB'
+        )
