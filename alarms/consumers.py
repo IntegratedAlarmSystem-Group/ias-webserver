@@ -10,7 +10,7 @@ from .models import Alarm, AlarmBinding
 
 class AlarmRequestConsumer(JsonWebsocketConsumer):
 
-    def receive(self, content, **kwargs):
+    def receive(self, content, multiplexer, **kwargs):
 
         if content is not None:
 
@@ -23,7 +23,7 @@ class AlarmRequestConsumer(JsonWebsocketConsumer):
                     list(queryset)
                 )
 
-                self.message.reply_channel.send({
+                multiplexer.send({
                     "text": data
                 })
 
