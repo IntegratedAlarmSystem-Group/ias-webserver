@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %} Test Core {% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+    {% load staticfiles%}
+  <div class="section">
+    <div class="container">
+          <h1> Reading from queue of messages ... </h1>
+
+        <p>
+          <div id="core"> </div>
+        </p>
+
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src='{% static "channels/js/websocketbridge.js" %}'></script>
+  <script type="text/javascript">
+
+    var connectionPath = "ws://localhost:8000/stream/";
+    console.log('Connecting to ' + connectionPath);
+
+    var webSocketBridge = new channels.WebSocketBridge();
+    webSocketBridge.connect(connectionPath);
+    webSocketBridge.listen(connectionPath);
+
+    webSocketBridge.demultiplex('requests', (payload, streamName) => {
+      console.log('from:', streamName);
+      console.log(payload);
+    });
+
+    webSocketBridge.demultiplex('core', (payload, streamName) => {
+      console.log('from:', streamName);
+      console.log(payload);
+      $('#core').html(payload);
+    });
+
+    webSocketBridge.socket.addEventListener('open', function() {
+      console.log('Connected to WebSocket');
+      // webSocketBridge.stream('core').send({'msg':'hello'});  // check echo
+    });
+
+  </script>
+</body>
+</html>
