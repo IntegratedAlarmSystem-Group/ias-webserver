@@ -30,18 +30,16 @@
 
     var webSocketBridge = new channels.WebSocketBridge();
     webSocketBridge.connect(connectionPath);
-    webSocketBridge.listen(connectionPath);
+    webSocketBridge.listen(function(action, stream){
+      console.log(action, stream);
+    });
 
     webSocketBridge.demultiplex('requests', (payload, streamName) => {
       console.log('from:', streamName);
       console.log(payload);
     });
 
-    webSocketBridge.demultiplex('core', (payload, streamName) => {
-      console.log('from:', streamName);
-      console.log(payload);
-      $('#core').html(payload);
-    });
+
 
     webSocketBridge.socket.addEventListener('open', function() {
       console.log('Connected to WebSocket');
