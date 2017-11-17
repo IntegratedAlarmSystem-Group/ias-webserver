@@ -26,7 +26,7 @@ class Command(BaseCommand):
             Group("alarms_group").send(
                 {"text": json.dumps({"h": random.random()})}
             )
-            time.sleep(2)  # send a message each 2 seconds
+            time.sleep(1)  # send a message each second
 
             i += 1
 
