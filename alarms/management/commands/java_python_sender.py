@@ -36,6 +36,6 @@ class Command(BaseCommand):
             print(data, '\n')
 
             Group("alarms_group").send({"text": json.dumps(data)})
-            time.sleep(2)
+            time.sleep(1)
         print("Messages were sent. Closing.")
         #  app.close()  # TODO: to review the use of this function
