@@ -30,8 +30,12 @@
 
     var webSocketBridge = new channels.WebSocketBridge();
     webSocketBridge.connect(connectionPath);
+    // TODO: change list args names
     webSocketBridge.listen(function(action, stream){
       console.log(action, stream);
+      var aux = $('#core').html();
+      aux += '<p>'+JSON.stringify(action)+'</p>';
+      $('#core').html(aux);
     });
 
     webSocketBridge.demultiplex('requests', (payload, streamName) => {
