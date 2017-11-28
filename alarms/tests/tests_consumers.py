@@ -309,3 +309,25 @@ class TestAlarmRequestConsumer(ChannelTestCase):
             response_message, expected_message,
             'The received alarms are different than the alarms in the DB'
         )
+
+
+class TestCoreConsumer(ChannelTestCase):
+    """This class defines the test suite for the channels core consumer"""
+
+    def setUp(self):
+        """TestCase setup"""
+        # Arrange:
+        self.client = WSClient()
+
+    def test_messages_reception(self):
+        """Test if messages can be received from the designed channel"""
+
+        self.client.send_and_consume('websocket.connect', path='/core/')
+
+        expected_response = None
+
+        self.assertEqual(
+            self.client.receive(),
+            expected_response,
+            'Received unexpected message'
+        )

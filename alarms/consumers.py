@@ -7,12 +7,12 @@ from django.core import serializers
 from .models import Alarm, AlarmBinding
 
 
-class TestCoreConsumer(JsonWebsocketConsumer):
-    """ Consumer just for testing purposes """
+class CoreConsumer(JsonWebsocketConsumer):
+    """ Consumer for messages from the core system """
 
-    def receive(self, content, multiplexer, **kwargs):
-
-        multiplexer.send(content)   # send echo
+    def receive(self, content, **kwargs):
+        print(content)
+        self.send(content)   # send echo
 
 
 class AlarmRequestConsumer(JsonWebsocketConsumer):
@@ -44,8 +44,7 @@ class AlarmDemultiplexer(WebsocketDemultiplexer):
     """
     consumers = {
         "alarms": AlarmBinding.consumer,
-        "requests": AlarmRequestConsumer,
-        "core": TestCoreConsumer
+        "requests": AlarmRequestConsumer
     }
 
     groups = ["alarms_group"]
