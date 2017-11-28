@@ -323,11 +323,19 @@ class TestCoreConsumer(ChannelTestCase):
         """Test if messages can be received from the designed channel"""
 
         self.client.send_and_consume('websocket.connect', path='/core/')
-
         expected_response = None
-
         self.assertEqual(
             self.client.receive(),
             expected_response,
             'Received unexpected message'
+        )
+
+        msg = {"text": "sample message"}
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg)
+        expected_echo_response = msg
+        self.assertEqual(
+            expected_echo_response,
+            self.client.receive(),
+            'Unexpected response.'
         )
