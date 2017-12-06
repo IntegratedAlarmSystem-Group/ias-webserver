@@ -319,27 +319,27 @@ class TestCoreConsumer(ChannelTestCase):
         # Arrange:
         self.client = WSClient()
 
-    def test_messages_reception(self):
-        """Test if messages can be received from the designed channel"""
-
-        self.client.send_and_consume('websocket.connect', path='/core/')
-        expected_response = None
-        self.assertEqual(
-            self.client.receive(),
-            expected_response,
-            'Received unexpected message'
-        )
-
-        msg = {"text": "sample message"}
-        self.client.send_and_consume(
-            'websocket.receive', path='/core/', text=msg
-        )
-        expected_echo_response = msg
-        self.assertEqual(
-            expected_echo_response,
-            self.client.receive(),
-            'Unexpected response.'
-        )
+    # def test_messages_reception(self):
+    #     """Test if messages can be received from the designed channel"""
+    #
+    #     self.client.send_and_consume('websocket.connect', path='/core/')
+    #     expected_response = None
+    #     self.assertEqual(
+    #         self.client.receive(),
+    #         expected_response,
+    #         'Received unexpected message'
+    #     )
+    #
+    #     msg = {"text": "sample message"}
+    #     self.client.send_and_consume(
+    #         'websocket.receive', path='/core/', text=msg
+    #     )
+    #     expected_echo_response = msg
+    #     self.assertEqual(
+    #         expected_echo_response,
+    #         self.client.receive(),
+    #         'Unexpected response.'
+    #     )
 
     def test_inbound_create(self):
         """Test if core clients can create a new alarm"""
@@ -363,8 +363,8 @@ class TestCoreConsumer(ChannelTestCase):
             running_id=msg['fullRunningId'],
         )
         expected_alarm_dict = gen_aux_dict_from_object(expected_alarm)
-        print('*****************************')
-        print('expected_alarm_dict = \n', expected_alarm_dict)
+        # print('*****************************')
+        # print('expected_alarm_dict = \n', expected_alarm_dict)
         self.client.send_and_consume('websocket.connect', path='/core/')
         expected_response = None
         self.assertEqual(
@@ -378,7 +378,7 @@ class TestCoreConsumer(ChannelTestCase):
             'websocket.receive', path='/core/', text=msg
         )
         # Assert:
-        expected_echo_response = msg
+        expected_echo_response = 'created'
         new_count = Alarm.objects.all().count()
         self.assertEqual(
             self.client.receive(),
