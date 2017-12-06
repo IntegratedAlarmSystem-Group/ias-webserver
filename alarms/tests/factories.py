@@ -8,7 +8,7 @@ class AlarmFactory(DjangoModelFactory):
         model = Alarm
 
     _base_core_id = 'ANTENNA_DV{0}$WVR$AMBIENT_TEMPERATURE'
-    
+
     value = fuzzy.FuzzyInteger(0, 1)
     core_timestamp = fuzzy.FuzzyInteger(0, 100000)
     mode = fuzzy.FuzzyChoice([str(x[0]) for x in OperationalMode.options()])
@@ -28,7 +28,8 @@ class AlarmFactory(DjangoModelFactory):
 
     @classmethod
     def get_modified_alarm(cls, alarm):
-        """ Return the alarm with the value, core_timestamp and mode modified randomly """
+        """ Return the alarm with the value, core_timestamp and mode modified
+        randomly """
 
         alarm.value = (alarm.value + 1) % 2
         alarm.core_timestamp = alarm.core_timestamp + 10
