@@ -11,7 +11,6 @@ class CoreConsumer(JsonWebsocketConsumer):
     """ Consumer for messages from the core system """
 
     def receive(self, content, **kwargs):
-        print(content)
         self.send(content)   # send echo
 
 
