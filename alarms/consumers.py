@@ -4,7 +4,7 @@ from channels.generic.websockets import (
     JsonWebsocketConsumer
 )
 from django.core import serializers
-from .models import Alarm, AlarmBinding
+from .models import Alarm, AlarmBinding, OperationalMode
 
 
 class CoreConsumer(JsonWebsocketConsumer):
@@ -15,29 +15,51 @@ class CoreConsumer(JsonWebsocketConsumer):
         return alarms.first()
 
     def get_alarm_parameters(self, content):
+        mode_options = dict((y, x) for x, y in OperationalMode.options())
         params = {
             'value': (1 if content['value'] == 'true' else 0),
             'core_timestamp': content['tStamp'],
-            'mode': content['mode'],
+            'mode': mode_options[content['mode']],
             'core_id': content['id'],
             'running_id': content['fullRunningId'],
         }
         return params
 
+    def update_alarm(self, alarm, params):
+        update = False
+        setattr(alarm, 'core_timestamp', params['core_timestamp'])
+        del params['core_timestamp']
+        for key, value in params.items():
+            if getattr(alarm, key) != value:
+                setattr(alarm, key, value)
+                update = True
+        if update:
+            alarm.save()
+            return True
+        return False
+
     def create_or_update_alarm(self, content):
         core_id = content['id']
         alarm = self.find_alarm(core_id)
         alarm_params = self.get_alarm_parameters(content)
+
+        # New Alarm:
         if alarm is None:
             Alarm.objects.create(**alarm_params)
             return 'created'
+
+        # Update previous Alarm:
+        else:
+            status = self.update_alarm(alarm, alarm_params)
+            if status:
+                return 'updated'
+            else:
+                return 'ignored'
         return 'unchanged'
 
     def receive(self, content, **kwargs):
-        print('\n content = \n', content)
-        print('\n kwargs = \n', kwargs)
         response = self.create_or_update_alarm(content)
-        self.send(response)   # send response
+        self.send(response)
 
 
 class AlarmRequestConsumer(JsonWebsocketConsumer):

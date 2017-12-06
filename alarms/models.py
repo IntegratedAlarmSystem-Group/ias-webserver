@@ -8,14 +8,14 @@ from utils.choice_enum import ChoiceEnum
 class OperationalMode(ChoiceEnum):
     """ Operational Mode of a monitor point value. """
 
-    startup = 0
-    initialization = 1
-    closing = 2
-    shuttedown = 3
-    maintenance = 4
-    operational = 5
-    degraded = 6
-    unknown = 7
+    STARTUP = 0
+    INITIALIZATION = 1
+    CLOSING = 2
+    SHUTTEDOWN = 3
+    MAINTENANCE = 4
+    OPERATIONAL = 5
+    DEGRADED = 6
+    UNKNOWN = 7
 
     @classmethod
     def options(cls):
