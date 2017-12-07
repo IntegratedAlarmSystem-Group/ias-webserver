@@ -84,6 +84,8 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase">AlarmModelTestCase (class in alarms.tests.tests_models)</a>
 </li>
+      <li><a href="modules/alarms.html#alarms.consumers.AlarmRequestConsumer">AlarmRequestConsumer (class in alarms.consumers)</a>
+</li>
       <li><a href="modules/alarms.html#module-alarms">alarms (module)</a>
 </li>
       <li><a href="modules/alarms.html#module-alarms.admin">alarms.admin (module)</a>
@@ -101,6 +103,8 @@
       <li><a href="modules/alarms.migrations.html#module-alarms.migrations.0002_alarm_mode">alarms.migrations.0002_alarm_mode (module)</a>
 </li>
       <li><a href="modules/alarms.migrations.html#module-alarms.migrations.0003_auto_20171110_2155">alarms.migrations.0003_auto_20171110_2155 (module)</a>
+</li>
+      <li><a href="modules/alarms.migrations.html#module-alarms.migrations.0004_auto_20171206_2149">alarms.migrations.0004_auto_20171206_2149 (module)</a>
 </li>
       <li><a href="modules/alarms.html#module-alarms.models">alarms.models (module)</a>
 </li>
@@ -126,31 +130,35 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/utils.html#utils.choice_enum.ChoiceEnum">ChoiceEnum (class in utils.choice_enum)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.models.OperationalMode.closing">closing (alarms.models.OperationalMode attribute)</a>
+      <li><a href="modules/alarms.html#alarms.models.OperationalMode.CLOSING">CLOSING (alarms.models.OperationalMode attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.consumers.AlarmDemultiplexer.consumers">consumers (alarms.consumers.AlarmDemultiplexer attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.models.Alarm.core_id">core_id (alarms.models.Alarm attribute)</a>
 
       <ul>
         <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.core_id">(alarms.tests.factories.AlarmFactory attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.models.Alarm.core_timestamp">core_timestamp (alarms.models.Alarm attribute)</a>
 
       <ul>
         <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.core_timestamp">(alarms.tests.factories.AlarmFactory attribute)</a>
 </li>
       </ul></li>
+      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer">CoreConsumer (class in alarms.consumers)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.create_or_update_alarm">create_or_update_alarm() (alarms.consumers.CoreConsumer method)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/alarms.html#alarms.models.OperationalMode.degraded">degraded (alarms.models.OperationalMode attribute)</a>
+      <li><a href="modules/alarms.html#alarms.models.OperationalMode.DEGRADED">DEGRADED (alarms.models.OperationalMode attribute)</a>
 </li>
       <li><a href="modules/alarms.migrations.html#alarms.migrations.0001_initial.Migration.dependencies">dependencies (alarms.migrations.0001_initial.Migration attribute)</a>
 
@@ -158,6 +166,8 @@
         <li><a href="modules/alarms.migrations.html#alarms.migrations.0002_alarm_mode.Migration.dependencies">(alarms.migrations.0002_alarm_mode.Migration attribute)</a>
 </li>
         <li><a href="modules/alarms.migrations.html#alarms.migrations.0003_auto_20171110_2155.Migration.dependencies">(alarms.migrations.0003_auto_20171110_2155.Migration attribute)</a>
+</li>
+        <li><a href="modules/alarms.migrations.html#alarms.migrations.0004_auto_20171206_2149.Migration.dependencies">(alarms.migrations.0004_auto_20171206_2149.Migration attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -169,17 +179,29 @@
       <li><a href="modules/alarms.html#alarms.models.AlarmBinding.fields">fields (alarms.models.AlarmBinding attribute)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.find_alarm">find_alarm() (alarms.consumers.CoreConsumer method)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.gen_aux_dict_from_object">gen_aux_dict_from_object() (in module alarms.tests.tests_consumers)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_alarm_parameters">get_alarm_parameters() (alarms.consumers.CoreConsumer method)</a>
+</li>
       <li><a href="modules/utils.html#utils.choice_enum.ChoiceEnum.get_choices">get_choices() (utils.choice_enum.ChoiceEnum class method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.models.Alarm.get_mode_display">get_mode_display() (alarms.models.Alarm method)</a>
+      <li><a href="modules/utils.html#utils.choice_enum.ChoiceEnum.get_choices_by_name">get_choices_by_name() (utils.choice_enum.ChoiceEnum class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/utils.html#utils.choice_enum.ChoiceEnum.get_choices_by_value">get_choices_by_value() (utils.choice_enum.ChoiceEnum class method)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.models.Alarm.get_mode_display">get_mode_display() (alarms.models.Alarm method)</a>
+</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.get_modified_alarm">get_modified_alarm() (alarms.tests.factories.AlarmFactory class method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.AlarmBinding.group_names">group_names() (alarms.models.AlarmBinding class method)</a>
@@ -216,7 +238,7 @@
 </li>
       <li><a href="modules/alarms.migrations.html#alarms.migrations.0001_initial.Migration.initial">initial (alarms.migrations.0001_initial.Migration attribute)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.models.OperationalMode.initialization">initialization (alarms.models.OperationalMode attribute)</a>
+      <li><a href="modules/alarms.html#alarms.models.OperationalMode.INITIALIZATION">INITIALIZATION (alarms.models.OperationalMode attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -224,7 +246,7 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/alarms.html#alarms.models.OperationalMode.maintenance">maintenance (alarms.models.OperationalMode attribute)</a>
+      <li><a href="modules/alarms.html#alarms.models.OperationalMode.MAINTENANCE">MAINTENANCE (alarms.models.OperationalMode attribute)</a>
 </li>
       <li><a href="modules/manage.html#module-manage">manage (module)</a>
 </li>
@@ -234,6 +256,8 @@
         <li><a href="modules/alarms.migrations.html#alarms.migrations.0002_alarm_mode.Migration">(class in alarms.migrations.0002_alarm_mode)</a>
 </li>
         <li><a href="modules/alarms.migrations.html#alarms.migrations.0003_auto_20171110_2155.Migration">(class in alarms.migrations.0003_auto_20171110_2155)</a>
+</li>
+        <li><a href="modules/alarms.migrations.html#alarms.migrations.0004_auto_20171206_2149.Migration">(class in alarms.migrations.0004_auto_20171206_2149)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -264,12 +288,10 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.models.Alarm.objects">objects (alarms.models.Alarm attribute)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.models.OperationalMode.operational">operational (alarms.models.OperationalMode attribute)</a>
+      <li><a href="modules/alarms.html#alarms.models.OperationalMode.OPERATIONAL">OPERATIONAL (alarms.models.OperationalMode attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.OperationalMode">OperationalMode (class in alarms.models)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.migrations.html#alarms.migrations.0001_initial.Migration.operations">operations (alarms.migrations.0001_initial.Migration attribute)</a>
 
       <ul>
@@ -277,7 +299,11 @@
 </li>
         <li><a href="modules/alarms.migrations.html#alarms.migrations.0003_auto_20171110_2155.Migration.operations">(alarms.migrations.0003_auto_20171110_2155.Migration attribute)</a>
 </li>
+        <li><a href="modules/alarms.migrations.html#alarms.migrations.0004_auto_20171206_2149.Migration.operations">(alarms.migrations.0004_auto_20171206_2149.Migration attribute)</a>
+</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.models.OperationalMode.options">options() (alarms.models.OperationalMode class method)</a>
 </li>
   </ul></td>
@@ -285,6 +311,14 @@
 
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.html#alarms.consumers.AlarmRequestConsumer.receive">receive() (alarms.consumers.AlarmRequestConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.receive">(alarms.consumers.CoreConsumer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.models.Alarm.running_id">running_id (alarms.models.Alarm attribute)</a>
 
@@ -298,13 +332,19 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmsBinding.setUp">setUp() (alarms.tests.tests_consumers.TestAlarmsBinding method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmRequestConsumer.setUp">setUp() (alarms.tests.tests_consumers.TestAlarmRequestConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmsBinding.setUp">(alarms.tests.tests_consumers.TestAlarmsBinding method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.models.OperationalMode.shuttedown">shuttedown (alarms.models.OperationalMode attribute)</a>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestCoreConsumer.setUp">(alarms.tests.tests_consumers.TestCoreConsumer method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/alarms.html#alarms.models.OperationalMode.startup">startup (alarms.models.OperationalMode attribute)</a>
+      <li><a href="modules/alarms.html#alarms.models.OperationalMode.SHUTTEDOWN">SHUTTEDOWN (alarms.models.OperationalMode attribute)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.models.OperationalMode.STARTUP">STARTUP (alarms.models.OperationalMode attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.AlarmBinding.stream">stream (alarms.models.AlarmBinding attribute)</a>
 </li>
@@ -314,9 +354,23 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_create_alarm">test_create_alarm() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmRequestConsumer.test_alarms_list">test_alarms_list() (alarms.tests.tests_consumers.TestAlarmRequestConsumer method)</a>
 </li>
+      <li><a href="modules/alarms.html#alarms.views.test_core">test_core() (in module alarms.views)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestCoreConsumer.test_create_alarm">test_create_alarm() (alarms.tests.tests_consumers.TestCoreConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_create_alarm">(alarms.tests.tests_models.AlarmModelTestCase method)</a>
+</li>
+      </ul></li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_delete_alarm">test_delete_alarm() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmsBinding.test_inbound_create">test_inbound_create() (alarms.tests.tests_consumers.TestAlarmsBinding method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmsBinding.test_inbound_delete">test_inbound_delete() (alarms.tests.tests_consumers.TestAlarmsBinding method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmsBinding.test_inbound_update">test_inbound_update() (alarms.tests.tests_consumers.TestAlarmsBinding method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmsBinding.test_outbound_create">test_outbound_create() (alarms.tests.tests_consumers.TestAlarmsBinding method)</a>
 </li>
@@ -326,9 +380,21 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmsBinding.test_outbound_update">test_outbound_update() (alarms.tests.tests_consumers.TestAlarmsBinding method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_update_alarm">test_update_alarm() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmRequestConsumer.test_unsupported_action">test_unsupported_action() (alarms.tests.tests_consumers.TestAlarmRequestConsumer method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestCoreConsumer.test_update_alarm">test_update_alarm() (alarms.tests.tests_consumers.TestCoreConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_update_alarm">(alarms.tests.tests_models.AlarmModelTestCase method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestCoreConsumer.test_update_alarm_ignored">test_update_alarm_ignored() (alarms.tests.tests_consumers.TestCoreConsumer method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmRequestConsumer">TestAlarmRequestConsumer (class in alarms.tests.tests_consumers)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestAlarmsBinding">TestAlarmsBinding (class in alarms.tests.tests_consumers)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_consumers.TestCoreConsumer">TestCoreConsumer (class in alarms.tests.tests_consumers)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -336,7 +402,9 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/alarms.html#alarms.models.OperationalMode.unknown">unknown (alarms.models.OperationalMode attribute)</a>
+      <li><a href="modules/alarms.html#alarms.models.OperationalMode.UNKNOWN">UNKNOWN (alarms.models.OperationalMode attribute)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.update_alarm">update_alarm() (alarms.consumers.CoreConsumer method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>

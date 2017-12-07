@@ -28,6 +28,14 @@ alarms\.migrations\.0003\_auto\_20171110\_2155 module
     :undoc-members:
     :show-inheritance:
 
+alarms\.migrations\.0004\_auto\_20171206\_2149 module
+-----------------------------------------------------
+
+.. automodule:: alarms.migrations.0004_auto_20171206_2149
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

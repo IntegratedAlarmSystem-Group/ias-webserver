@@ -1,4 +1,3 @@
-import json
 from channels.test import ChannelTestCase, WSClient, apply_routes
 from .factories import AlarmFactory
 from ..models import Alarm, AlarmBinding
