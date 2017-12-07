@@ -375,7 +375,7 @@ class TestCoreConsumer(ChannelTestCase):
         msg = {
             "value": "true",
             "tStamp": 1600,
-            "mode": "MAINTENANCE",
+            "mode": "MAINTENANCE",  # 4: MAINTENANCE
             "id": "BooleanType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
@@ -384,7 +384,7 @@ class TestCoreConsumer(ChannelTestCase):
         }
         alarm = Alarm(
             value=1,
-            mode='5',
+            mode='5',  # 5: OPERATIONAL
             core_timestamp=1500,
             core_id=msg['id'],
             running_id=msg['fullRunningId'],
@@ -392,7 +392,7 @@ class TestCoreConsumer(ChannelTestCase):
         alarm.save()
         old_count = Alarm.objects.all().count()
         expected_alarm_dict = gen_aux_dict_from_object(alarm)
-        expected_alarm_dict['mode'] = '4'
+        expected_alarm_dict['mode'] = '4'  # 4: MAINTENANCE
         expected_alarm_dict['core_timestamp'] = 1600
         self.client.send_and_consume('websocket.connect', path='/core/')
         expected_response = None
@@ -426,14 +426,14 @@ class TestCoreConsumer(ChannelTestCase):
 
     def test_update_alarm_ignored(self):
         """
-        Test if core clients can ignore updates of alarms if there is
+        Test if core clients ignore updates of alarms if there is
         nothing different, besides core_timestamp
         """
         # Arrange:
         msg = {
             "value": "true",
             "tStamp": 1600,
-            "mode": "OPERATIONAL",
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "id": "BooleanType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
@@ -442,7 +442,7 @@ class TestCoreConsumer(ChannelTestCase):
         }
         alarm = Alarm(
             value=1,
-            mode='5',
+            mode='5',  # 5: OPERATIONAL
             core_timestamp=1500,
             core_id=msg['id'],
             running_id=msg['fullRunningId'],
