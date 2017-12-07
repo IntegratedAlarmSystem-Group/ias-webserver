@@ -1,4 +1,3 @@
-import json
 from channels.test import ChannelTestCase, WSClient, apply_routes
 from .factories import AlarmFactory
 from ..models import Alarm, AlarmBinding
@@ -308,4 +307,175 @@ class TestAlarmRequestConsumer(ChannelTestCase):
         self.assertEqual(
             response_message, expected_message,
             'The received alarms are different than the alarms in the DB'
+        )
+
+
+class TestCoreConsumer(ChannelTestCase):
+    """This class defines the test suite for the channels core consumer"""
+
+    def setUp(self):
+        """TestCase setup"""
+        # Arrange:
+        self.client = WSClient()
+
+    def test_create_alarm(self):
+        """Test if core clients can create a new alarm"""
+        # Arrange:
+        old_count = Alarm.objects.all().count()
+        msg = {
+            "value": "true",
+            "tStamp": 1600,
+            "mode": "OPERATIONAL",
+            "id": "BooleanType-ID",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
+                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
+                @(BooleanType-ID:IASIO)",
+            "valueType": "BOOLEAN"
+        }
+        expected_alarm = Alarm(
+            value=1,
+            mode='5',
+            core_timestamp=1600,
+            core_id=msg['id'],
+            running_id=msg['fullRunningId'],
+        )
+        expected_alarm_dict = gen_aux_dict_from_object(expected_alarm)
+        self.client.send_and_consume('websocket.connect', path='/core/')
+        expected_response = None
+        self.assertEqual(
+            self.client.receive(),
+            expected_response,
+            'Received unexpected message'
+        )
+
+        # Act:
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg
+        )
+        # Assert:
+        expected_echo_response = 'created'
+        new_count = Alarm.objects.all().count()
+        self.assertEqual(
+            self.client.receive(),
+            expected_echo_response,
+            'Unexpected response.'
+        )
+        self.assertEqual(
+            old_count + 1, new_count, 'The alarm was not created'
+        )
+        created_alarm = Alarm.objects.all().first()
+        created_alarm_dict = gen_aux_dict_from_object(created_alarm)
+        self.assertEqual(
+            created_alarm_dict, expected_alarm_dict, 'The alarm is different'
+        )
+
+    def test_update_alarm(self):
+        """Test if core clients can update a previously created alarm"""
+        # Arrange:
+        msg = {
+            "value": "true",
+            "tStamp": 1600,
+            "mode": "MAINTENANCE",
+            "id": "BooleanType-ID",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
+                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
+                @(BooleanType-ID:IASIO)",
+            "valueType": "BOOLEAN"
+        }
+        alarm = Alarm(
+            value=1,
+            mode='5',
+            core_timestamp=1500,
+            core_id=msg['id'],
+            running_id=msg['fullRunningId'],
+        )
+        alarm.save()
+        old_count = Alarm.objects.all().count()
+        expected_alarm_dict = gen_aux_dict_from_object(alarm)
+        expected_alarm_dict['mode'] = '4'
+        expected_alarm_dict['core_timestamp'] = 1600
+        self.client.send_and_consume('websocket.connect', path='/core/')
+        expected_response = None
+        self.assertEqual(
+            self.client.receive(),
+            expected_response,
+            'Received unexpected message'
+        )
+
+        # Act:
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg
+        )
+        # Assert:
+        expected_echo_response = 'updated'
+        new_count = Alarm.objects.all().count()
+        self.assertEqual(
+            self.client.receive(),
+            expected_echo_response,
+            'Unexpected response.'
+        )
+        self.assertEqual(
+            old_count, new_count,
+            'A new Alarm was created instead of updating the existing one'
+        )
+        created_alarm = Alarm.objects.all().first()
+        created_alarm_dict = gen_aux_dict_from_object(created_alarm)
+        self.assertEqual(
+            created_alarm_dict, expected_alarm_dict, 'The alarm is different'
+        )
+
+    def test_update_alarm_ignored(self):
+        """
+        Test if core clients can ignore updates of alarms if there is
+        nothing different, besides core_timestamp
+        """
+        # Arrange:
+        msg = {
+            "value": "true",
+            "tStamp": 1600,
+            "mode": "OPERATIONAL",
+            "id": "BooleanType-ID",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
+                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
+                @(BooleanType-ID:IASIO)",
+            "valueType": "BOOLEAN"
+        }
+        alarm = Alarm(
+            value=1,
+            mode='5',
+            core_timestamp=1500,
+            core_id=msg['id'],
+            running_id=msg['fullRunningId'],
+        )
+        alarm.save()
+        old_count = Alarm.objects.all().count()
+        expected_alarm_dict = gen_aux_dict_from_object(alarm)
+        self.client.send_and_consume('websocket.connect', path='/core/')
+        expected_response = None
+        self.assertEqual(
+            self.client.receive(),
+            expected_response,
+            'Received unexpected message'
+        )
+
+        # Act:
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg
+        )
+        # Assert:
+        expected_echo_response = 'ignored'
+        new_count = Alarm.objects.all().count()
+        self.assertEqual(
+            self.client.receive(),
+            expected_echo_response,
+            'Unexpected response.'
+        )
+        self.assertEqual(
+            old_count, new_count,
+            'A new Alarm was created instead of updating the existing one'
+        )
+        created_alarm = Alarm.objects.all().first()
+        created_alarm_dict = gen_aux_dict_from_object(created_alarm)
+        self.assertEqual(
+            created_alarm_dict, expected_alarm_dict, 'The alarm is different'
         )
