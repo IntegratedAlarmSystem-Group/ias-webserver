@@ -54,6 +54,17 @@ class Alarm(models.Model):
 
         return str(self.core_id) + '=' + str(self.value)
 
+    def check_changes(self, params):
+        """
+        Check if the attributes of the alarm are different to the values
+        retrieved in params, the verification does not consider the 
+        core_timestamp value.
+        """
+        changes = False
+        for key, value in params.items():
+            if key != 'core_timestamp' and getattr(self, key) != value:
+                changes = True
+        return changes
 
     def update_ignoring_timestamp(self, params):
         """

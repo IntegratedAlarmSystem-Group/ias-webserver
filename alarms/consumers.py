@@ -4,6 +4,7 @@ from channels.generic.websockets import (
     JsonWebsocketConsumer
 )
 from django.core import serializers
+from django.db import transaction
 from .models import Alarm, AlarmBinding, OperationalMode
 
 
@@ -37,7 +38,13 @@ class CoreConsumer(JsonWebsocketConsumer):
         """
         try:
             alarm = Alarm.objects.get(core_id=alarm_params['core_id'])
-            status = alarm.update_ignoring_timestamp(alarm_params)
+            is_different = alarm.check_changes(alarm_params)
+
+            status = False
+            if is_different:
+                with transaction.atomic():
+                    alarm = Alarm.objects.get(core_id=alarm_params['core_id'])
+                    status = alarm.update_ignoring_timestamp(alarm_params)
             if status:
                 return 'updated'
             else:
