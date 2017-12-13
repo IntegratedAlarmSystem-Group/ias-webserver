@@ -10,19 +10,6 @@ from .models import Alarm, AlarmBinding, OperationalMode
 class CoreConsumer(JsonWebsocketConsumer):
     """ Consumer for messages from the core system """
 
-    def find_alarm(self, core_id):
-        """
-        Finds the alarm, searching by its core_id
-
-        Args:
-            core_id (string): the core_id of the alarm
-
-        Returns:
-            Alarm: the Alarm object stored in the Database
-        """
-        alarms = Alarm.objects.filter(core_id=core_id)
-        return alarms.first()
-
     def get_alarm_parameters(self, content):
         """
         Returns the parameters of the alarm as a dict indexed by
@@ -44,57 +31,20 @@ class CoreConsumer(JsonWebsocketConsumer):
         }
         return params
 
-    def update_alarm(self, alarm, params):
+    def create_or_update_alarm(self, alarm_params):
         """
-        Updates the alarm with the values given in a dict,
-        according to some conditions.
-
-        Args:
-            alarm (Alarm): The alarm object to update.
-            params (dict): Dictionary of values indexed by parameter names
-
-        Returns:
-            bool: True if the alarm was updated, False if not
+        Creates or updates the alarm according to defined criteria
         """
-        # Update core_timestamp:
-        setattr(alarm, 'core_timestamp', params['core_timestamp'])
-
-        # Update the rest of the attributes only if they are different:
-        update = False
-        del params['core_timestamp']
-        for key, value in params.items():
-            if getattr(alarm, key) != value:
-                setattr(alarm, key, value)
-                update = True
-
-        # Save changes only if there was a different attribute (except core_id)
-        if update:
-            alarm.save()
-            return True
-        return False
-
-    def create_or_update_alarm(self, content):
-        """
-        Creates or updates the alarm received from the message according to
-        defined criteria
-        """
-        core_id = content['id']
-        alarm = self.find_alarm(core_id)
-        alarm_params = self.get_alarm_parameters(content)
-
-        # New Alarm:
-        if alarm is None:
-            Alarm.objects.create(**alarm_params)
-            return 'created'
-
-        # Update previous Alarm:
-        else:
-            status = self.update_alarm(alarm, alarm_params)
+        try:
+            alarm = Alarm.objects.get(core_id=alarm_params['core_id'])
+            status = alarm.update_ignoring_timestamp(alarm_params)
             if status:
                 return 'updated'
             else:
                 return 'ignored'
-        return 'unchanged'
+        except Alarm.DoesNotExist:
+            alarm = Alarm.objects.create(**alarm_params)
+            return 'created'
 
     def receive(self, content, **kwargs):
         """
@@ -103,9 +53,10 @@ class CoreConsumer(JsonWebsocketConsumer):
         :func:`~create_or_update_alarm`
 
         Responds with a message indicating the action taken
-        (create, update, ignore)
+        (created, updated, ignored)
         """
-        response = self.create_or_update_alarm(content)
+        alarm_params = self.get_alarm_parameters(content)
+        response = self.create_or_update_alarm(alarm_params)
         self.send(response)
 
 
