@@ -323,14 +323,14 @@ class TestCoreConsumer(ChannelTestCase):
         # Arrange:
         old_count = Alarm.objects.all().count()
         msg = {
-            "value": "true",
+            "value": "SET",
             "tStamp": 1600,
             "mode": "OPERATIONAL",
-            "id": "BooleanType-ID",
+            "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
-                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
-                @(BooleanType-ID:IASIO)",
-            "valueType": "BOOLEAN"
+                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
+                (AlarmType-ID:IASIO)",
+            "valueType": "ALARM"
         }
         expected_alarm = Alarm(
             value=1,
@@ -373,14 +373,14 @@ class TestCoreConsumer(ChannelTestCase):
         """Test if core clients can update a previously created alarm"""
         # Arrange:
         msg = {
-            "value": "true",
+            "value": "SET",
             "tStamp": 1600,
             "mode": "MAINTENANCE",  # 4: MAINTENANCE
-            "id": "BooleanType-ID",
+            "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
-                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
-                @(BooleanType-ID:IASIO)",
-            "valueType": "BOOLEAN"
+                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
+                (AlarmType-ID:IASIO)",
+            "valueType": "ALARM"
         }
         alarm = Alarm(
             value=1,
@@ -431,15 +431,16 @@ class TestCoreConsumer(ChannelTestCase):
         """
         # Arrange:
         msg = {
-            "value": "true",
+            "value": "SET",
             "tStamp": 1600,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
-            "id": "BooleanType-ID",
+            "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
-                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
-                @(BooleanType-ID:IASIO)",
-            "valueType": "BOOLEAN"
+                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
+                (AlarmType-ID:IASIO)",
+            "valueType": "ALARM"
         }
+
         alarm = Alarm(
             value=1,
             mode='5',  # 5: OPERATIONAL

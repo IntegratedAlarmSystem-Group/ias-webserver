@@ -24,7 +24,7 @@ class CoreConsumer(JsonWebsocketConsumer):
         """
         mode_options = OperationalMode.get_choices_by_name()
         params = {
-            'value': (1 if content['value'] == 'true' else 0),
+            'value': (1 if content['value'] == 'SET' else 0),
             'core_timestamp': content['tStamp'],
             'mode': mode_options[content['mode']],
             'core_id': content['id'],
