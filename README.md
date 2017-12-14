@@ -60,6 +60,10 @@ https://integratedalarmsystem-group.github.io/ias-webserver/
 
 ## Run Tests
   * Run tests: `python manage.py test`
+  * Run tests with coverage: `coverage run --source='.' manage.py test`
+  * View coverage report in terminal:
+    * Excluding third-party libraries in venv (recommended): `coverage report --omit='venv/*'`
+    * Including third-party libraries: `coverage report`
 
 ## Update Documentation
   `./create_docs.sh`

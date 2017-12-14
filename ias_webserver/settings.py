@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'alarms',
-    'django_nose',
     'django.contrib.admindocs',
 ]
 
@@ -142,12 +141,3 @@ CHANNEL_LAYERS = {
         "ROUTING": "alarms.routing.channel_routing",
     },
 }
-
-# TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
-#
-# NOSE_ARGS = [
-#     "--with-coverage",
-#     "--cover-package=alarms",
-#     "--cover-inclusive",
-#     "--cover-html",
-# ]
