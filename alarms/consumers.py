@@ -62,8 +62,11 @@ class CoreConsumer(JsonWebsocketConsumer):
         Responds with a message indicating the action taken
         (created, updated, ignored)
         """
-        alarm_params = self.get_alarm_parameters(content)
-        response = self.create_or_update_alarm(alarm_params)
+        if content['valueType'] == 'ALARM':
+            alarm_params = self.get_alarm_parameters(content)
+            response = self.create_or_update_alarm(alarm_params)
+        else:
+            response = 'ignored-non-alarm'
         self.send(response)
 
 

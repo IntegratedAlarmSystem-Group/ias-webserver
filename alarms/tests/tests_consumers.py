@@ -480,3 +480,44 @@ class TestCoreConsumer(ChannelTestCase):
         self.assertEqual(
             created_alarm_dict, expected_alarm_dict, 'The alarm is different'
         )
+
+    def test_ignore_non_alarms(self):
+        """
+        Test if core clients can ignore messages that do not correspond
+        to alarms
+        """
+        # Arrange:
+        old_count = Alarm.objects.all().count()
+        msg = {
+            "value": "true",
+            "tStamp": 1600,
+            "mode": "OPERATIONAL",
+            "id": "BooleanType-ID",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
+                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
+                @(BooleanType-ID:IASIO)",
+            "valueType": "BOOLEAN"
+        }
+        self.client.send_and_consume('websocket.connect', path='/core/')
+        expected_response = None
+        self.assertEqual(
+            self.client.receive(),
+            expected_response,
+            'Received unexpected message'
+        )
+
+        # Act:
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg
+        )
+        # Assert:
+        expected_echo_response = 'ignored-non-alarm'
+        new_count = Alarm.objects.all().count()
+        self.assertEqual(
+            self.client.receive(),
+            expected_echo_response,
+            'Unexpected response.'
+        )
+        self.assertEqual(
+            old_count, new_count, 'A new alarm was created'
+        )
