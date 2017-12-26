@@ -5,7 +5,7 @@ from channels.generic.websockets import (
 )
 from django.core import serializers
 from django.db import transaction
-from .models import Alarm, AlarmBinding, OperationalMode
+from .models import Alarm, AlarmBinding, OperationalMode, Validity
 
 
 class CoreConsumer(JsonWebsocketConsumer):
@@ -23,10 +23,12 @@ class CoreConsumer(JsonWebsocketConsumer):
             dict: a dict of the form {attribute: value}
         """
         mode_options = OperationalMode.get_choices_by_name()
+        validity_options = Validity.get_choices_by_name()
         params = {
             'value': (1 if content['value'] == 'SET' else 0),
             'core_timestamp': content['tStamp'],
             'mode': mode_options[content['mode']],
+            'validity': validity_options[content['validity']],
             'core_id': content['id'],
             'running_id': content['fullRunningId'],
         }

@@ -428,6 +428,7 @@ class TestCoreConsumer(ChannelTestCase):
             "value": "SET",
             "tStamp": 1600,
             "mode": "OPERATIONAL",
+            "validity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
@@ -437,6 +438,7 @@ class TestCoreConsumer(ChannelTestCase):
         expected_alarm = Alarm(
             value=1,
             mode='5',
+            validity='1',
             core_timestamp=1600,
             core_id=msg['id'],
             running_id=msg['fullRunningId'],
@@ -478,6 +480,7 @@ class TestCoreConsumer(ChannelTestCase):
             "value": "SET",
             "tStamp": 1600,
             "mode": "MAINTENANCE",  # 4: MAINTENANCE
+            "validity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
@@ -487,6 +490,7 @@ class TestCoreConsumer(ChannelTestCase):
         alarm = Alarm(
             value=1,
             mode='5',  # 5: OPERATIONAL
+            validity='1',
             core_timestamp=1500,
             core_id=msg['id'],
             running_id=msg['fullRunningId'],
@@ -536,6 +540,7 @@ class TestCoreConsumer(ChannelTestCase):
             "value": "SET",
             "tStamp": 1600,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "validity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
@@ -546,6 +551,7 @@ class TestCoreConsumer(ChannelTestCase):
         alarm = Alarm(
             value=1,
             mode='5',  # 5: OPERATIONAL
+            validity='1',
             core_timestamp=1500,
             core_id=msg['id'],
             running_id=msg['fullRunningId'],

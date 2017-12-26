@@ -1,5 +1,5 @@
 from factory import DjangoModelFactory, fuzzy, Sequence
-from ..models import Alarm, OperationalMode
+from ..models import Alarm, OperationalMode, Validity
 
 
 class AlarmFactory(DjangoModelFactory):
@@ -18,6 +18,7 @@ class AlarmFactory(DjangoModelFactory):
     running_id = Sequence(
         lambda n: (AlarmFactory._base_core_id + ' @ACS_NC').format(n)
     )
+    validity = fuzzy.FuzzyChoice([str(x[0]) for x in Validity.options()])
 
     @classmethod
     def _setup_next_sequence(cls):
