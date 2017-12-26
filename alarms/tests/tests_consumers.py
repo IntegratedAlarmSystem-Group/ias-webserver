@@ -264,12 +264,13 @@ class TestAlarmsBinding(ChannelTestCase):
         for k in range(expected_messages):
             received = self.client.receive()
             self.assertNotEqual(
-                received,
-                None,
+                received, None,
                 'Expected not None message {} of {}'.format(
-                    k+1,
-                    expected_messages
-                    ))
+                    k+1, expected_messages))
+            self.assertEqual(
+                received['payload']['action'], 'create',
+                "Payload action should be 'create'"
+            )
             self.assert_received_alarm(received, alarm)
 
         received = self.client.receive()
