@@ -142,10 +142,5 @@ class AlarmBinding(WebsocketBinding):
             group = Group(group_name)
             group.send(message)
 
-            if payload['action'] == 'create':
-                for k in range(self.messages_replication_factor):
-                    group.send(message)
-
-            if payload['action'] == 'update':
-                for k in range(self.messages_replication_factor):
-                    group.send(message)
+            for k in range(self.messages_replication_factor):
+                group.send(message)

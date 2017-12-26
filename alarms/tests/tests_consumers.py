@@ -126,6 +126,8 @@ class TestAlarmsBinding(ChannelTestCase):
         # Act:
         Alarm.objects.filter(pk=alarm.pk).delete()
         received = self.client.receive()
+        # clean replication messsages after deletion
+        self.clean_replication_messages(self.client)
 
         # Assert payload structure
         self.assert_received_alarm(received, alarm)
@@ -307,6 +309,37 @@ class TestAlarmsBinding(ChannelTestCase):
                 "Payload action should be 'update'"
             )
             self.assert_received_alarm(received, alarm_after)
+
+        received = self.client.receive()
+        self.assertEqual(received, None, 'Unexpected message')
+
+    def test_msg_should_be_replicated_after_alarm_deletion(self):
+
+        # Arrange
+        expected_messages = 1 + self.msg_replication_factor
+
+        alarm = AlarmFactory()  # create alarm
+        self.client.receive()
+        # clean replication messages after creation
+        self.clean_replication_messages(self.client)
+
+        # Act and assert
+        Alarm.objects.filter(pk=alarm.pk).delete()
+
+        for k in range(expected_messages):
+            received = self.client.receive()
+            self.assertNotEqual(
+                received,
+                None,
+                'Expected not None message {} of {}'.format(
+                    k+1,
+                    expected_messages
+                    ))
+            self.assertEqual(
+                received['payload']['action'], 'delete',
+                "Payload action should be 'delete'"
+            )
+            self.assert_received_alarm(received, alarm)
 
         received = self.client.receive()
         self.assertEqual(received, None, 'Unexpected message')
