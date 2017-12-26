@@ -75,12 +75,17 @@ WSGI_APPLICATION = 'ias_webserver.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+DATABASE_ROUTERS = ['ias_webserver.cdb_router']
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+    'config_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'config_db.sqlite3'),
+    },
 }
 
 
