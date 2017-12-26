@@ -24,6 +24,7 @@ class TestAlarmsBinding(ChannelTestCase):
         # Arrange:
         self.client = WSClient()
         self.client.join_group("alarms_group")
+        self.msg_replication_factor = 3
 
     def assert_received_alarm(self, received, alarm):
         """Assert if a received message corresponds to a given alarm"""
@@ -87,11 +88,17 @@ class TestAlarmsBinding(ChannelTestCase):
             'Payload running_id is different from alarm.running_id'
         )
 
+    def clean_replication_messages(self, client):
+        for k in range(self.msg_replication_factor):
+            client.receive()
+
     def test_outbound_create(self):
         """Test if clients are notified when an alarm is created"""
         # Act: (create an alarm)
         alarm = AlarmFactory()
         received = self.client.receive()
+        # clean replication messsages after creation
+        self.clean_replication_messages(self.client)
 
         # Assert payload structure
         self.assert_received_alarm(received, alarm)
@@ -113,6 +120,8 @@ class TestAlarmsBinding(ChannelTestCase):
         # Arrange:
         alarm = AlarmFactory()
         self.client.receive()
+        # clean replication messsages after creation
+        self.clean_replication_messages(self.client)
 
         # Act:
         Alarm.objects.filter(pk=alarm.pk).delete()
@@ -138,6 +147,8 @@ class TestAlarmsBinding(ChannelTestCase):
         # Arrange:
         alarm = AlarmFactory()
         self.client.receive()
+        # clean replication messsages after creation
+        self.clean_replication_messages(self.client)
 
         # Act:
         alarm = AlarmFactory.get_modified_alarm(alarm)
@@ -241,6 +252,28 @@ class TestAlarmsBinding(ChannelTestCase):
         # Assert:
         new_count = Alarm.objects.all().count()
         self.assertEqual(old_count - 1, new_count, 'The alarm was not deleted')
+
+    def test_msg_should_be_replicated_after_alarm_creation(self):
+
+        # Arrange
+        expected_messages = 1 + self.msg_replication_factor
+
+        # Act and assert
+        alarm = AlarmFactory()  # create alarm
+
+        for k in range(expected_messages):
+            received = self.client.receive()
+            self.assertNotEqual(
+                received,
+                None,
+                'Expected not None message {} of {}'.format(
+                    k+1,
+                    expected_messages
+                    ))
+            self.assert_received_alarm(received, alarm)
+
+        received = self.client.receive()
+        self.assertEqual(received, None, 'Unexpected message')
 
 
 class TestAlarmRequestConsumer(ChannelTestCase):
