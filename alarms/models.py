@@ -4,6 +4,8 @@ from utils.choice_enum import ChoiceEnum
 
 from channels import Group
 
+import time
+
 # Always keep models and bindings in this file!!
 
 
@@ -39,6 +41,17 @@ class Validity(ChoiceEnum):
     def options(cls):
         """ Return a list of tuples with the valid options. """
         return cls.get_choices()
+
+    @classmethod
+    def delta(cls):
+        """ Return a delta of time in milliseconds defined to be used as
+        error margin """
+        return 500
+
+    @classmethod
+    def default_refresh_rate(cls):
+        """ Return the default value of refresh rate """
+        return 1000
 
 
 class Alarm(models.Model):
@@ -117,6 +130,16 @@ class Alarm(models.Model):
             super(Alarm, self).save()
             return True
         return False
+
+    def calc_validity(self, refresh_rate):
+        """
+        Calculate the validity considering the current time and the refresh
+        rate plus a previously defined delta time
+        """
+        now = int(round(time.time() * 1000))
+        if now - self.core_timestamp <= refresh_rate + Validity.delta():
+            return '1'
+        return '0'
 
 
 class AlarmBinding(WebsocketBinding):
