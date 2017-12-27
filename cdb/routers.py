@@ -25,7 +25,7 @@ class CdbRouter(object):
         """
         if obj1._meta.app_label == 'cdb' and \
            obj2._meta.app_label == 'cdb':
-           return True
+            return True
         return None
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):

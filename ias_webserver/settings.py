@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'ias_webserver.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-DATABASE_ROUTERS = ['cdb.routers.CdbRouter',]
+DATABASE_ROUTERS = ['cdb.routers.CdbRouter']
 
 DATABASES = {
     'default': {

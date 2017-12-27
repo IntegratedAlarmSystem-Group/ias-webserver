@@ -23,13 +23,13 @@ class OperationalMode(ChoiceEnum):
     def options(cls):
         """ Return a list of tuples with the valid options. """
         return cls.get_choices()
-    
+
 
 class Validity(ChoiceEnum):
 
     RELIABLE = 1
     """ The value has been provided in time and the operator can trust what
-    the IAS shows""" 
+    the IAS shows"""
 
     UNRELIABLE = 0
     """ The values has not been produced in time either by the IAS Core or due

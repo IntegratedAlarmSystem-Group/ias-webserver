@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Iasio(models.Model):
     io_id = models.CharField(
         max_length=64, null=False, primary_key=True, db_column='io_id'
