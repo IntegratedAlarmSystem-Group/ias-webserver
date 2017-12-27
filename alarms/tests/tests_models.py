@@ -95,30 +95,3 @@ class AlarmModelTestCase(TestCase):
             new_value,
             'The alarm value was not updated'
         )
-
-    def test_calc_validity(self):
-        """Test if the validity is calculated correctly"""
-        # Arrange:
-        self.alarm = AlarmFactory()
-        refresh_rate = 1000  # 1 second
-        # Act:
-        # Set the alarm timestamp at current time
-        self.alarm.core_timestamp = int(round(time.time() * 1000))
-        self.alarm.save()
-        # Assert:
-        # After a half of second check the validity
-        time.sleep(0.5)
-        validity = self.alarm.calc_validity(refresh_rate)
-        self.assertEqual(
-            validity,
-            '1',
-            'The alarm must be valid'
-        )
-        # After a second check the validity
-        time.sleep(1)
-        validity = self.alarm.calc_validity(refresh_rate)
-        self.assertEqual(
-            validity,
-            '0',
-            'The alarm must be invalid'
-        )

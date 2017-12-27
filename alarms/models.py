@@ -131,16 +131,6 @@ class Alarm(models.Model):
             return True
         return False
 
-    def calc_validity(self, refresh_rate):
-        """
-        Calculate the validity considering the current time and the refresh
-        rate plus a previously defined delta time
-        """
-        now = int(round(time.time() * 1000))
-        if now - self.core_timestamp <= refresh_rate + Validity.delta():
-            return '1'
-        return '0'
-
 
 class AlarmBinding(WebsocketBinding):
     """ Bind the alarm actions with a websocket stream. """

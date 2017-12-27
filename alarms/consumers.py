@@ -6,6 +6,8 @@ from channels.generic.websockets import (
 from django.core import serializers
 from django.db import transaction
 from .models import Alarm, AlarmBinding, OperationalMode, Validity
+from cdb.models import Iasio
+import time
 
 
 class CoreConsumer(JsonWebsocketConsumer):
@@ -55,6 +57,23 @@ class CoreConsumer(JsonWebsocketConsumer):
             alarm = Alarm.objects.create(**alarm_params)
             return 'created'
 
+    def calc_validity(self, alarm_params):
+        """
+        Calculate the validity considering the current time and the refresh
+        rate plus a previously defined delta time
+        """
+        # TODO: add refresh rate to the message received if possible
+        iasio = Iasio.objects.get(io_id=alarm_params['core_id'])
+
+        refresh_rate = iasio.refresh_rate
+        current_timestamp = int(round(time.time() * 1000))
+        alarm_timestamp = alarm_params['core_timestamp']
+        delta = Validity.delta()
+
+        if current_timestamp - alarm_timestamp > refresh_rate + delta:
+            alarm_params['validity'] = '0'
+        return alarm_params
+
     def receive(self, content, **kwargs):
         """
         Handles the messages received by this consumer.
@@ -66,6 +85,7 @@ class CoreConsumer(JsonWebsocketConsumer):
         """
         if content['valueType'] == 'ALARM':
             alarm_params = self.get_alarm_parameters(content)
+            alarm_params = self.calc_validity(alarm_params)
             response = self.create_or_update_alarm(alarm_params)
         else:
             response = 'ignored-non-alarm'
