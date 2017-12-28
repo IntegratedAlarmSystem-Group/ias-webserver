@@ -1,6 +1,7 @@
 from django.test import TestCase
 from ..models import Alarm
 from .factories import AlarmFactory
+import time
 
 
 class AlarmModelTestCase(TestCase):

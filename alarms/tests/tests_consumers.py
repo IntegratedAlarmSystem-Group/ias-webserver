@@ -1,8 +1,10 @@
 from channels.test import ChannelTestCase, WSClient, apply_routes
 from .factories import AlarmFactory
 from ..models import Alarm, AlarmBinding
+from cdb.models import Iasio
 from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer
 from channels.routing import route
+import time
 
 
 def gen_aux_dict_from_object(obj):
@@ -419,15 +421,22 @@ class TestCoreConsumer(ChannelTestCase):
         """TestCase setup"""
         # Arrange:
         self.client = WSClient()
+        iasio = Iasio(io_id="AlarmType-ID",
+                      short_desc="Test iasio",
+                      refresh_rate=1000,
+                      ias_type="alarm")
+        iasio.save()
 
     def test_create_alarm(self):
         """Test if core clients can create a new alarm"""
         # Arrange:
         old_count = Alarm.objects.all().count()
+        current_time_millis = int(round(time.time() * 1000))
         msg = {
             "value": "SET",
-            "tStamp": 1600,
+            "tStamp": current_time_millis,
             "mode": "OPERATIONAL",
+            "validity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
@@ -437,7 +446,8 @@ class TestCoreConsumer(ChannelTestCase):
         expected_alarm = Alarm(
             value=1,
             mode='5',
-            core_timestamp=1600,
+            validity='1',
+            core_timestamp=current_time_millis,
             core_id=msg['id'],
             running_id=msg['fullRunningId'],
         )
@@ -474,10 +484,12 @@ class TestCoreConsumer(ChannelTestCase):
     def test_update_alarm(self):
         """Test if core clients can update a previously created alarm"""
         # Arrange:
+        current_time_millis = int(round(time.time() * 1000))
         msg = {
             "value": "SET",
-            "tStamp": 1600,
+            "tStamp": current_time_millis,
             "mode": "MAINTENANCE",  # 4: MAINTENANCE
+            "validity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
@@ -487,7 +499,8 @@ class TestCoreConsumer(ChannelTestCase):
         alarm = Alarm(
             value=1,
             mode='5',  # 5: OPERATIONAL
-            core_timestamp=1500,
+            validity='1',
+            core_timestamp=current_time_millis-100,
             core_id=msg['id'],
             running_id=msg['fullRunningId'],
         )
@@ -495,7 +508,7 @@ class TestCoreConsumer(ChannelTestCase):
         old_count = Alarm.objects.all().count()
         expected_alarm_dict = gen_aux_dict_from_object(alarm)
         expected_alarm_dict['mode'] = '4'  # 4: MAINTENANCE
-        expected_alarm_dict['core_timestamp'] = 1600
+        expected_alarm_dict['core_timestamp'] = current_time_millis
         self.client.send_and_consume('websocket.connect', path='/core/')
         expected_response = None
         self.assertEqual(
@@ -526,16 +539,65 @@ class TestCoreConsumer(ChannelTestCase):
             created_alarm_dict, expected_alarm_dict, 'The alarm is different'
         )
 
+    def test_validity_updates(self):
+        """Test if core clients update the validity of the messages if they
+        are invalid because of delays and if it doesnt when it is not necessary
+        """
+        # Arrange:        
+        current_time_millis = int(round(time.time() * 1000))
+
+        msg = {
+            "value": "SET",
+            "tStamp": current_time_millis,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "validity": "RELIABLE",
+            "id": "AlarmType-ID",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
+                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
+                (AlarmType-ID:IASIO)",
+            "valueType": "ALARM"
+        }
+
+        # Act:
+        time.sleep(0.5)  # Wait a half of second
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg
+        )
+
+        # Assert:
+        created_alarm = Alarm.objects.get(core_id="AlarmType-ID")
+        created_alarm_dict = gen_aux_dict_from_object(created_alarm)
+        self.assertEqual(
+            created_alarm_dict['validity'], '1',
+            'The alarm must be valid'
+        )
+
+        # Act:
+        time.sleep(2)  # Wait 2 seconds
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg
+        )
+
+        # Assert:
+        created_alarm = Alarm.objects.get(core_id="AlarmType-ID")
+        created_alarm_dict = gen_aux_dict_from_object(created_alarm)
+        self.assertEqual(
+            created_alarm_dict['validity'], '0',
+            'The alarm must be invalid'
+        )
+
     def test_update_alarm_ignored(self):
         """
         Test if core clients ignore updates of alarms if there is
         nothing different, besides core_timestamp
         """
         # Arrange:
+        current_time_millis = int(round(time.time() * 1000))
         msg = {
             "value": "SET",
-            "tStamp": 1600,
+            "tStamp": current_time_millis,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "validity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
@@ -546,7 +608,8 @@ class TestCoreConsumer(ChannelTestCase):
         alarm = Alarm(
             value=1,
             mode='5',  # 5: OPERATIONAL
-            core_timestamp=1500,
+            validity='1',
+            core_timestamp=current_time_millis-100,
             core_id=msg['id'],
             running_id=msg['fullRunningId'],
         )
@@ -590,9 +653,10 @@ class TestCoreConsumer(ChannelTestCase):
         """
         # Arrange:
         old_count = Alarm.objects.all().count()
+        current_time_millis = int(round(time.time() * 1000))
         msg = {
             "value": "true",
-            "tStamp": 1600,
+            "tStamp": current_time_millis,
             "mode": "OPERATIONAL",
             "id": "BooleanType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
