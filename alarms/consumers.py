@@ -30,7 +30,7 @@ class CoreConsumer(JsonWebsocketConsumer):
             'value': (1 if content['value'] == 'SET' else 0),
             'core_timestamp': content['tStamp'],
             'mode': mode_options[content['mode']],
-            'validity': validity_options[content['validity']],
+            'validity': validity_options[content['iasValidity']],
             'core_id': content['id'],
             'running_id': content['fullRunningId'],
         }

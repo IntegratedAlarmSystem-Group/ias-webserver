@@ -436,7 +436,7 @@ class TestCoreConsumer(ChannelTestCase):
             "value": "SET",
             "tStamp": current_time_millis,
             "mode": "OPERATIONAL",
-            "validity": "RELIABLE",
+            "iasValidity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
@@ -489,7 +489,7 @@ class TestCoreConsumer(ChannelTestCase):
             "value": "SET",
             "tStamp": current_time_millis,
             "mode": "MAINTENANCE",  # 4: MAINTENANCE
-            "validity": "RELIABLE",
+            "iasValidity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
@@ -543,14 +543,14 @@ class TestCoreConsumer(ChannelTestCase):
         """Test if core clients update the validity of the messages if they
         are invalid because of delays and if it doesnt when it is not necessary
         """
-        # Arrange:        
+        # Arrange:
         current_time_millis = int(round(time.time() * 1000))
 
         msg = {
             "value": "SET",
             "tStamp": current_time_millis,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
-            "validity": "RELIABLE",
+            "iasValidity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
@@ -597,7 +597,7 @@ class TestCoreConsumer(ChannelTestCase):
             "value": "SET",
             "tStamp": current_time_millis,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
-            "validity": "RELIABLE",
+            "iasValidity": "RELIABLE",
             "id": "AlarmType-ID",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
                 @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
