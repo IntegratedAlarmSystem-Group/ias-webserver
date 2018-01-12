@@ -13,6 +13,21 @@ import time
 class CoreConsumer(JsonWebsocketConsumer):
     """ Consumer for messages from the core system """
 
+    def get_core_id_from(full_id):
+        """Return the core_id value extracted from the full running id field
+        assuming an specific format.
+        
+        Args: 
+            full_id (string): The fullRunningId value provided by the core
+            following the format of the example below
+            example: '(A_value:A_type)@(B_value:B_type)@(C_value:C_type)'
+            
+        Returns:
+            string: The core id value. According to the previous example, the
+            value would be C_value
+        """
+        return full_id.rsplit('@', 1)[1].strip('()').split(':')[0]
+
     def get_alarm_parameters(self, content):
         """
         Returns the parameters of the alarm as a dict indexed by
@@ -26,12 +41,13 @@ class CoreConsumer(JsonWebsocketConsumer):
         """
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
+        core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
         params = {
             'value': (1 if content['value'] == 'SET' else 0),
             'core_timestamp': content['tStamp'],
             'mode': mode_options[content['mode']],
             'validity': validity_options[content['iasValidity']],
-            'core_id': content['id'],
+            'core_id': core_id,
             'running_id': content['fullRunningId'],
         }
         return params
