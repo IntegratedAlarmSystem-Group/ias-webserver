@@ -2,7 +2,7 @@ from channels.test import ChannelTestCase, WSClient, apply_routes
 from .factories import AlarmFactory
 from ..models import Alarm, AlarmBinding
 from cdb.models import Iasio
-from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer
+from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer, CoreConsumer
 from channels.routing import route
 import time
 
@@ -427,6 +427,17 @@ class TestCoreConsumer(ChannelTestCase):
                       ias_type="alarm")
         iasio.save()
 
+    def test_get_core_id_from(self):
+        """Test if the core_id value is extracted correctly from the full
+        running id field"""
+        # Arrange:
+        full_running_id = '(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)@' +\
+                          '(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@' +\
+                          '(AlarmType-ID:IASIO)'
+        # Test:
+        id = CoreConsumer.get_core_id_from(full_running_id)
+        self.assertEqual(id, 'AlarmType-ID')
+
     def test_create_alarm(self):
         """Test if core clients can create a new alarm"""
         # Arrange:
@@ -437,10 +448,9 @@ class TestCoreConsumer(ChannelTestCase):
             "tStamp": current_time_millis,
             "mode": "OPERATIONAL",
             "iasValidity": "RELIABLE",
-            "id": "AlarmType-ID",
-            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
-                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
-                (AlarmType-ID:IASIO)",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(AlarmType-ID:IASIO)",
             "valueType": "ALARM"
         }
         expected_alarm = Alarm(
@@ -448,7 +458,7 @@ class TestCoreConsumer(ChannelTestCase):
             mode='5',
             validity='1',
             core_timestamp=current_time_millis,
-            core_id=msg['id'],
+            core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
         )
         expected_alarm_dict = gen_aux_dict_from_object(expected_alarm)
@@ -490,10 +500,9 @@ class TestCoreConsumer(ChannelTestCase):
             "tStamp": current_time_millis,
             "mode": "MAINTENANCE",  # 4: MAINTENANCE
             "iasValidity": "RELIABLE",
-            "id": "AlarmType-ID",
-            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
-                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
-                (AlarmType-ID:IASIO)",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(AlarmType-ID:IASIO)",
             "valueType": "ALARM"
         }
         alarm = Alarm(
@@ -501,7 +510,7 @@ class TestCoreConsumer(ChannelTestCase):
             mode='5',  # 5: OPERATIONAL
             validity='1',
             core_timestamp=current_time_millis-100,
-            core_id=msg['id'],
+            core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
         )
         alarm.save()
@@ -551,10 +560,9 @@ class TestCoreConsumer(ChannelTestCase):
             "tStamp": current_time_millis,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
-            "id": "AlarmType-ID",
-            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
-                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
-                (AlarmType-ID:IASIO)",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(AlarmType-ID:IASIO)",
             "valueType": "ALARM"
         }
 
@@ -598,10 +606,9 @@ class TestCoreConsumer(ChannelTestCase):
             "tStamp": current_time_millis,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
-            "id": "AlarmType-ID",
-            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
-                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@\
-                (AlarmType-ID:IASIO)",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(AlarmType-ID:IASIO)",
             "valueType": "ALARM"
         }
 
@@ -610,7 +617,7 @@ class TestCoreConsumer(ChannelTestCase):
             mode='5',  # 5: OPERATIONAL
             validity='1',
             core_timestamp=current_time_millis-100,
-            core_id=msg['id'],
+            core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
         )
         alarm.save()
@@ -658,10 +665,9 @@ class TestCoreConsumer(ChannelTestCase):
             "value": "true",
             "tStamp": current_time_millis,
             "mode": "OPERATIONAL",
-            "id": "BooleanType-ID",
-            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)\
-                @(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)\
-                @(BooleanType-ID:IASIO)",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(BooleanType-ID:IASIO)",
             "valueType": "BOOLEAN"
         }
         self.client.send_and_consume('websocket.connect', path='/core/')
