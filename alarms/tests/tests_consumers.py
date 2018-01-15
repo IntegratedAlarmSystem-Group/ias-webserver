@@ -354,6 +354,7 @@ class TestAlarmRequestConsumer(ChannelTestCase):
         """TestCase setup"""
         # Arrange:
         self.client = WSClient()
+        CoreConsumer.delete_alarms()
 
     def test_alarms_list(self):
         """Test if clients can request and receive a list of alarms"""
@@ -361,6 +362,13 @@ class TestAlarmRequestConsumer(ChannelTestCase):
         expected_alarms_count = 3
         for k in range(expected_alarms_count):
             AlarmFactory()
+        alarms = Alarm.objects.all()
+        for alarm in alarms:
+            iasio = Iasio(io_id=alarm.core_id,
+                          short_desc="Test iasio",
+                          refresh_rate=1000,
+                          ias_type="alarm")
+            iasio.save()
         # Act:
         with apply_routes([AlarmDemultiplexer.as_route(path='/'),
                           route("requests", AlarmRequestConsumer)]):
@@ -375,7 +383,6 @@ class TestAlarmRequestConsumer(ChannelTestCase):
             })
             response = client.receive()
         # Assert:
-        alarms = Alarm.objects.all()
         expected_alarms_list = []
         for i, alarm in enumerate(alarms):
             expected_alarms_list.append({
@@ -426,6 +433,7 @@ class TestCoreConsumer(ChannelTestCase):
                       refresh_rate=1000,
                       ias_type="alarm")
         iasio.save()
+        CoreConsumer.delete_alarms()
 
     def test_get_core_id_from(self):
         """Test if the core_id value is extracted correctly from the full
@@ -489,6 +497,92 @@ class TestCoreConsumer(ChannelTestCase):
         created_alarm_dict = gen_aux_dict_from_object(created_alarm)
         self.assertEqual(
             created_alarm_dict, expected_alarm_dict, 'The alarm is different'
+        )
+
+    def test_create_alarm_on_dict(self):
+        """Test if core clients update the validity of messages if they are
+        invalid because of losses i.e. messages related to specific IASIO in
+        the CDB are not arriving after some time that depends on the
+        refresh rate of the IASIO.
+        """
+        # Arrange:
+        current_time_millis = int(round(time.time() * 1000))
+
+        msg = {
+            "value": "SET",
+            "tStamp": current_time_millis,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(AlarmType-ID:IASIO)",
+            "valueType": "ALARM"
+        }
+
+        # Act:
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg
+        )
+
+        # Assert:
+        alarms_dict = CoreConsumer.get_alarms()
+        self.assertTrue(
+            'AlarmType-ID' in alarms_dict,
+            'The alarm is not added to the CoreConsumer Alarm dict'
+        )
+
+        alarm = Alarm.objects.get(core_id='AlarmType-ID')
+
+        for key in alarms_dict['AlarmType-ID'].keys():
+            self.assertEqual(
+                alarms_dict['AlarmType-ID'][key],
+                alarm.__dict__[key],
+                'The parameter {} of the alarm in the dictionary are different\
+                to the same alarm in the DB'.format(key)
+            )
+
+    def test_update_all_alarms_validity(self):
+        # Arrange:
+        current_time_millis = int(round(time.time() * 1000))
+
+        msg = {
+            "value": "SET",
+            "tStamp": current_time_millis,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(AlarmType-ID:IASIO)",
+            "valueType": "ALARM"
+        }
+
+        # Act:
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg
+        )
+        time.sleep(2)   # Wait two seconds to invalid alarms
+        CoreConsumer.update_all_alarms_validity()
+
+        # Assert:
+        alarms_dict = CoreConsumer.get_alarms()
+        self.assertTrue(
+            'AlarmType-ID' in alarms_dict,
+            'The alarm was deleted to the CoreConsumer Alarm dict'
+        )
+
+        alarm = Alarm.objects.get(core_id='AlarmType-ID')
+
+        for key in alarms_dict['AlarmType-ID'].keys():
+            self.assertEqual(
+                alarms_dict['AlarmType-ID'][key],
+                alarm.__dict__[key],
+                'The parameter {} of the alarm in the dictionary are ' +
+                'different to the same alarm in the DB'.format(key)
+            )
+
+        self.assertEqual(
+            alarms_dict['AlarmType-ID']['validity'], '0',
+            'The validity was not correctly invalidated'
         )
 
     def test_update_alarm(self):

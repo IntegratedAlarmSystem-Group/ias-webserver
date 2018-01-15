@@ -13,6 +13,11 @@ import time
 class CoreConsumer(JsonWebsocketConsumer):
     """ Consumer for messages from the core system """
 
+    __Alarms = {}
+    # Add all the alarms saved in the database when the app starts
+    for alarm in Alarm.objects.all():
+        __Alarms[alarm.core_id] = alarm.__dict__
+
     def get_core_id_from(full_id):
         """Return the core_id value extracted from the full running id field
         assuming an specific format.
@@ -28,7 +33,7 @@ class CoreConsumer(JsonWebsocketConsumer):
         """
         return full_id.rsplit('@', 1)[1].strip('()').split(':')[0]
 
-    def get_alarm_parameters(self, content):
+    def get_alarm_parameters(content):
         """
         Returns the parameters of the alarm as a dict indexed by
         attribute names (the names in the Alarm class)
@@ -52,7 +57,7 @@ class CoreConsumer(JsonWebsocketConsumer):
         }
         return params
 
-    def create_or_update_alarm(self, alarm_params):
+    def create_or_update_alarm(alarm_params):
         """
         Creates or updates the alarm according to defined criteria
         """
@@ -73,7 +78,7 @@ class CoreConsumer(JsonWebsocketConsumer):
             alarm = Alarm.objects.create(**alarm_params)
             return 'created'
 
-    def calc_validity(self, alarm_params):
+    def calc_validity(alarm_params):
         """
         Calculate the validity considering the current time and the refresh
         rate plus a previously defined delta time
@@ -85,10 +90,11 @@ class CoreConsumer(JsonWebsocketConsumer):
         current_timestamp = int(round(time.time() * 1000))
         alarm_timestamp = alarm_params['core_timestamp']
         delta = Validity.delta()
+        validity = alarm_params['validity']
 
         if current_timestamp - alarm_timestamp > refresh_rate + delta:
-            alarm_params['validity'] = '0'
-        return alarm_params
+            validity = '0'
+        return validity
 
     def receive(self, content, **kwargs):
         """
@@ -100,12 +106,41 @@ class CoreConsumer(JsonWebsocketConsumer):
         (created, updated, ignored)
         """
         if content['valueType'] == 'ALARM':
-            alarm_params = self.get_alarm_parameters(content)
-            alarm_params = self.calc_validity(alarm_params)
-            response = self.create_or_update_alarm(alarm_params)
+            alarm_params = CoreConsumer.get_alarm_parameters(content)
+            updated_validity = CoreConsumer.calc_validity(alarm_params)
+            alarm_params['validity'] = updated_validity
+            response = CoreConsumer.create_or_update_alarm(alarm_params)
+            CoreConsumer.add_alarm(alarm_params)
         else:
             response = 'ignored-non-alarm'
         self.send(response)
+
+    @staticmethod
+    def get_alarms():
+        return CoreConsumer.__Alarms
+
+    @staticmethod
+    def add_alarm(alarm_params):
+        CoreConsumer.__Alarms[alarm_params['core_id']] = alarm_params
+
+    @staticmethod
+    def get_alarm(core_id):
+        return CoreConsumer.__Alarms[core_id]
+
+    @staticmethod
+    def delete_alarms():
+        CoreConsumer.__Alarms = {}
+
+    @staticmethod
+    def update_all_alarms_validity():
+        for core_id in CoreConsumer.__Alarms.keys():
+            alarm_params = CoreConsumer.__Alarms[core_id]
+            original_validity = alarm_params['validity']
+            updated_validity = CoreConsumer.calc_validity(alarm_params)
+            if original_validity != updated_validity:
+                CoreConsumer.add_alarm(alarm_params)
+                alarm_params['validity'] = updated_validity
+                CoreConsumer.create_or_update_alarm(alarm_params)
 
 
 class AlarmRequestConsumer(JsonWebsocketConsumer):
@@ -120,6 +155,7 @@ class AlarmRequestConsumer(JsonWebsocketConsumer):
 
         if content is not None:
             if content['action'] == 'list':
+                CoreConsumer.update_all_alarms_validity()
                 queryset = Alarm.objects.all()
                 data = serializers.serialize(
                     'json',
