@@ -14,6 +14,10 @@ class CoreConsumer(JsonWebsocketConsumer):
     """ Consumer for messages from the core system """
 
     __Alarms = {}
+    # Add all the alarms saved in the database when the app starts
+    for alarm in Alarm.objects.all():
+        __Alarms[alarm.core_id] = alarm.__dict__
+
     def get_core_id_from(full_id):
         """Return the core_id value extracted from the full running id field
         assuming an specific format.
