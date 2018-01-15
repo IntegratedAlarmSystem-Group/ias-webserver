@@ -155,6 +155,7 @@ class AlarmRequestConsumer(JsonWebsocketConsumer):
 
         if content is not None:
             if content['action'] == 'list':
+                CoreConsumer.update_all_alarms_validity()
                 queryset = Alarm.objects.all()
                 data = serializers.serialize(
                     'json',

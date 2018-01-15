@@ -354,6 +354,7 @@ class TestAlarmRequestConsumer(ChannelTestCase):
         """TestCase setup"""
         # Arrange:
         self.client = WSClient()
+        CoreConsumer.delete_alarms()
 
     def test_alarms_list(self):
         """Test if clients can request and receive a list of alarms"""
@@ -361,6 +362,13 @@ class TestAlarmRequestConsumer(ChannelTestCase):
         expected_alarms_count = 3
         for k in range(expected_alarms_count):
             AlarmFactory()
+        alarms = Alarm.objects.all()
+        for alarm in alarms:
+            iasio = Iasio(io_id=alarm.core_id,
+                          short_desc="Test iasio",
+                          refresh_rate=1000,
+                          ias_type="alarm")
+            iasio.save()
         # Act:
         with apply_routes([AlarmDemultiplexer.as_route(path='/'),
                           route("requests", AlarmRequestConsumer)]):
@@ -375,7 +383,6 @@ class TestAlarmRequestConsumer(ChannelTestCase):
             })
             response = client.receive()
         # Assert:
-        alarms = Alarm.objects.all()
         expected_alarms_list = []
         for i, alarm in enumerate(alarms):
             expected_alarms_list.append({
