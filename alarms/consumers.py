@@ -13,6 +13,7 @@ import time
 class CoreConsumer(JsonWebsocketConsumer):
     """ Consumer for messages from the core system """
 
+    __Alarms = {}
     def get_core_id_from(full_id):
         """Return the core_id value extracted from the full running id field
         assuming an specific format.
@@ -105,9 +106,37 @@ class CoreConsumer(JsonWebsocketConsumer):
             updated_validity = CoreConsumer.calc_validity(alarm_params)
             alarm_params['validity'] = updated_validity
             response = CoreConsumer.create_or_update_alarm(alarm_params)
+            CoreConsumer.add_alarm(alarm_params)
         else:
             response = 'ignored-non-alarm'
         self.send(response)
+
+    @staticmethod
+    def get_alarms():
+        return CoreConsumer.__Alarms
+
+    @staticmethod
+    def add_alarm(alarm_params):
+        CoreConsumer.__Alarms[alarm_params['core_id']] = alarm_params
+
+    @staticmethod
+    def get_alarm(core_id):
+        return CoreConsumer.__Alarms[core_id]
+
+    @staticmethod
+    def delete_alarms():
+        CoreConsumer.__Alarms = {}
+
+    @staticmethod
+    def update_all_alarms_validity():
+        for core_id in CoreConsumer.__Alarms.keys():
+            alarm_params = CoreConsumer.__Alarms[core_id]
+            original_validity = alarm_params['validity']
+            updated_validity = CoreConsumer.calc_validity(alarm_params)
+            if original_validity != updated_validity:
+                CoreConsumer.add_alarm(alarm_params)
+                alarm_params['validity'] = updated_validity
+                CoreConsumer.create_or_update_alarm(alarm_params)
 
 
 class AlarmRequestConsumer(JsonWebsocketConsumer):
