@@ -119,8 +119,9 @@ class Alarm(models.Model):
 
         # Update the rest of the attributes only if they are different:
         update = False
-        del params['core_timestamp']
         for key, value in params.items():
+            if key == 'core_timestamp':
+                continue
             if getattr(self, key) != value:
                 setattr(self, key, value)
                 update = True

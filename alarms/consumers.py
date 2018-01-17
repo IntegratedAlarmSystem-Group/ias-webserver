@@ -21,12 +21,12 @@ class CoreConsumer(JsonWebsocketConsumer):
     def get_core_id_from(full_id):
         """Return the core_id value extracted from the full running id field
         assuming an specific format.
-        
-        Args: 
+
+        Args:
             full_id (string): The fullRunningId value provided by the core
             following the format of the example below
             example: '(A_value:A_type)@(B_value:B_type)@(C_value:C_type)'
-            
+
         Returns:
             string: The core id value. According to the previous example, the
             value would be C_value
@@ -107,10 +107,16 @@ class CoreConsumer(JsonWebsocketConsumer):
         """
         if content['valueType'] == 'ALARM':
             alarm_params = CoreConsumer.get_alarm_parameters(content)
-            updated_validity = CoreConsumer.calc_validity(alarm_params)
-            alarm_params['validity'] = updated_validity
-            response = CoreConsumer.create_or_update_alarm(alarm_params)
-            CoreConsumer.add_alarm(alarm_params)
+            received_timestamp = alarm_params['core_timestamp']
+            stored_alarm = CoreConsumer.get_alarm(alarm_params['core_id'])
+            stored_timestamp = stored_alarm['core_timestamp']
+            if received_timestamp >= stored_timestamp:
+                updated_validity = CoreConsumer.calc_validity(alarm_params)
+                alarm_params['validity'] = updated_validity
+                response = CoreConsumer.create_or_update_alarm(alarm_params)
+                CoreConsumer.add_alarm(alarm_params)
+            else:
+                response = 'ignored-old-alarm'
         else:
             response = 'ignored-non-alarm'
         self.send(response)
@@ -121,11 +127,11 @@ class CoreConsumer(JsonWebsocketConsumer):
 
     @staticmethod
     def add_alarm(alarm_params):
-        CoreConsumer.__Alarms[alarm_params['core_id']] = alarm_params
+        CoreConsumer.__Alarms[alarm_params['core_id']] = alarm_params.copy()
 
     @staticmethod
     def get_alarm(core_id):
-        return CoreConsumer.__Alarms[core_id]
+        return CoreConsumer.__Alarms[core_id].copy()
 
     @staticmethod
     def delete_alarms():
