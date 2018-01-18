@@ -108,6 +108,9 @@ class CoreConsumer(JsonWebsocketConsumer):
         if content['valueType'] == 'ALARM':
             alarm_params = CoreConsumer.get_alarm_parameters(content)
             received_timestamp = alarm_params['core_timestamp']
+            if alarm_params['core_id'] not in CoreConsumer.get_alarms().keys():
+                CoreConsumer.add_alarm(alarm_params)
+                response = CoreConsumer.create_or_update_alarm(alarm_params)
             stored_alarm = CoreConsumer.get_alarm(alarm_params['core_id'])
             stored_timestamp = stored_alarm['core_timestamp']
             if received_timestamp >= stored_timestamp:
