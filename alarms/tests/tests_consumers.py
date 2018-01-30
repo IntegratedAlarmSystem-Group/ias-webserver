@@ -644,7 +644,8 @@ class TestCoreConsumer(ChannelTestCase):
 
     def test_validity_updates(self):
         """Test if core clients update the validity of the messages if they
-        are invalid because of delays and if it doesnt when it is not necessary
+        are invalid because of delays and if it does not when it is not
+        necessary
         """
         # Arrange:
         current_time_millis = int(round(time.time() * 1000))

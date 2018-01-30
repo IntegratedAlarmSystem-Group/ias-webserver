@@ -84,8 +84,9 @@ class CoreConsumer(JsonWebsocketConsumer):
         rate plus a previously defined delta time
         """
         # TODO: add refresh rate to the message received if possible
+        if alarm_params['validity'] == 'UNRELIABLE':
+            return 'UNRELIABLE'
         iasio = Iasio.objects.get(io_id=alarm_params['core_id'])
-
         refresh_rate = iasio.refresh_rate
         current_timestamp = int(round(time.time() * 1000))
         alarm_timestamp = alarm_params['core_timestamp']
