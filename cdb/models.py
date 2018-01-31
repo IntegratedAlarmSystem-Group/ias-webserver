@@ -11,5 +11,9 @@ class Iasio(models.Model):
     refresh_rate = models.IntegerField(null=False, db_column='refreshRate')
     ias_type = models.CharField(max_length=16, null=False, db_column='iasType')
 
+    def save(self, *args, **kwargs):
+        self.ias_type = self.ias_type.upper()
+        super(Iasio, self).save(*args, **kwargs)
+
     class Meta:
         db_table = 'IASIO'
