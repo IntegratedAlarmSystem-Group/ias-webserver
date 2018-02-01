@@ -4,7 +4,6 @@ from ..models import Alarm, AlarmBinding
 from cdb.models import Iasio
 from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer, CoreConsumer
 from channels.routing import route
-import time
 
 
 def gen_aux_dict_from_object(obj):
@@ -40,7 +39,6 @@ class TestAlarmsStorage(ChannelTestCase):
     def tearDown(self):
         """TestCase teardown"""
         Iasio.objects.all().delete()
-        Alarm.delete_alarms()
 
     def test_get_core_id_from(self):
         """Test if the core_id value is extracted correctly from the full
@@ -53,34 +51,6 @@ class TestAlarmsStorage(ChannelTestCase):
         id = CoreConsumer.get_core_id_from(full_running_id)
         # Assert:
         self.assertEqual(id, 'AlarmType-ID')
-
-    def test_initial_alarms_creation(self):
-        """Test if the alarm dictionary is populated with cdb data"""
-        # Arrange:
-        old_count = len(Alarm.get_alarms())
-        current_time_millis = int(round(time.time() * 1000))
-        expected_alarms = {
-            self.iasio_alarm.io_id: Alarm(
-                value=1,
-                mode='7',
-                validity='0',
-                core_timestamp=current_time_millis,
-                core_id=self.iasio_alarm.io_id,
-                running_id='({}:IASIO)'.format(self.iasio_alarm.io_id)
-            )
-        }
-        # Act:
-        Alarm.initialize_alarms()
-        new_count = len(Alarm.get_alarms())
-        # Assert:
-        self.assertEqual(
-            old_count, 0,
-            'The initial dictionary of alarms is not empty'
-        )
-        self.assertEqual(
-            new_count, 1,
-            'Unexpected dictionary of alarms after initialization'
-        )
 
     def assert_received_alarm(self, received, alarm):
         """Assert if a received message corresponds to a given alarm"""
