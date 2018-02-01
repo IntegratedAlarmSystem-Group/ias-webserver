@@ -2,6 +2,8 @@ from django.test import TestCase
 from alarms.models import Alarm
 from alarms.collections import AlarmCollection
 from cdb.models import Iasio
+from freezegun import freeze_time
+import datetime
 import time
 
 
@@ -19,19 +21,24 @@ class TestAlarmsAppInitialization(TestCase):
                                   refresh_rate=1000,
                                   ias_type="double")
         self.iasio_double.save()
-        AlarmCollection.delete_alarms()
 
     def tearDown(self):
         """TestCase teardown"""
         Iasio.objects.all().delete()
 
+    def test_initialize_alarms(self):
+        self.assertNotEqual(
+            AlarmCollection.singleton_collection, None,
+            'The alarm collection was not initialized'
+        )
+
+    @freeze_time("2012-01-14")
     def test_initial_alarms_creation(self):
         """Test if the alarm dictionary is populated with cdb data"""
         # Arrange:
-        old_count = len(AlarmCollection.get_alarms())
         current_time_millis = int(round(time.time() * 1000))
-        expected_alarms = {
-            self.iasio_alarm.io_id: Alarm(
+        expected_alarms = [
+            Alarm(
                 value=1,
                 mode='7',
                 validity='0',
@@ -39,16 +46,85 @@ class TestAlarmsAppInitialization(TestCase):
                 core_id=self.iasio_alarm.io_id,
                 running_id='({}:IASIO)'.format(self.iasio_alarm.io_id)
             )
-        }
+        ]
         # Act:
-        AlarmCollection.initialize_alarms()
-        new_count = len(AlarmCollection.get_alarms())
+        AlarmCollection.reset()
+        new_count = len(AlarmCollection.get_alarms_list())
         # Assert:
+        expected_alarms = [a.to_dict() for a in expected_alarms]
+        retrieved_alarms = [
+            a.to_dict() for a in AlarmCollection.get_alarms_list()
+        ]
         self.assertEqual(
-            old_count, 0,
-            'The initial dictionary of alarms is not empty'
+            new_count, 1, 'Unexpected number of alarms after initialization'
         )
         self.assertEqual(
-            new_count, 1,
+            expected_alarms, retrieved_alarms,
             'Unexpected dictionary of alarms after initialization'
+        )
+
+    def test_add_old_alarm(self):
+        """ Test if an alarm never added before to the alarm collection is
+        added even if it is old """
+        # Arrange:
+        AlarmCollection.reset()
+        old_alarm = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=10000,
+            core_id='OLD-ALARM',
+            running_id='({}:IASIO)'.format('OLD-ALARM')
+        )
+        # Act:
+        AlarmCollection.add_or_update_if_latest(old_alarm)
+        # Assert:
+        self.assertTrue(
+            'OLD-ALARM' in AlarmCollection.get_alarms(),
+            'Old alarms never added before must be added to the collection'
+        )
+
+    def test_ignore_old_alarm(self):
+        """ Test if an alarm older than a stored alarm with the same core_id
+        is ignored """
+        # Arrange:
+        AlarmCollection.reset()
+        old_alarm = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=100,
+            core_id=self.iasio_alarm.io_id,
+            running_id='({}:IASIO)'.format(self.iasio_alarm.io_id)
+        )
+        # Act:
+        AlarmCollection.add_or_update_if_latest(old_alarm)
+        # Assert:
+        self.assertNotEqual(
+            AlarmCollection.get_alarm(self.iasio_alarm.io_id).core_timestamp,
+            100,
+            'An older alarm than the stored alarm must not be added'
+        )
+
+    def test_add_new_alarm(self):
+        """ Test if an alarm with a timestamp higher than a stored alarm with
+        the same core_id is updated correctly """
+        # Arrange:
+        AlarmCollection.reset()
+        current_time_millis = int(round(time.time() * 1000))
+        new_alarm = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=current_time_millis,
+            core_id=self.iasio_alarm.io_id,
+            running_id='({}:IASIO)'.format(self.iasio_alarm.io_id)
+        )
+        # Act:
+        AlarmCollection.add_or_update_if_latest(new_alarm)
+        # Assert:
+        self.assertEqual(
+            AlarmCollection.get_alarm(self.iasio_alarm.io_id).core_timestamp,
+            current_time_millis,
+            'A newer alarm than the stored alarm must be updated'
         )

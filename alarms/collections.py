@@ -5,11 +5,12 @@ import time
 
 class AlarmCollection:
 
-    singleton_collection = {}
+    singleton_collection = None
 
     @classmethod
     def initialize_alarms(self):
-        if not self.singleton_collection:
+        if self.singleton_collection is None:
+            self.singleton_collection = {}
             for iasio in Iasio.objects.filter(ias_type='ALARM'):
                 current_time_millis = int(round(time.time() * 1000))
                 alarm = Alarm(
@@ -20,17 +21,54 @@ class AlarmCollection:
                     core_id=iasio.io_id,
                     running_id='({}:IASIO)'.format(iasio.io_id)
                 )
-                self.create_or_update_alarm(alarm)
+                self.__add_alarm(alarm)
         return self.singleton_collection
 
     @classmethod
     def get_alarms(self):
+        if self.singleton_collection is None:
+            self.initialize_alarms()
         return self.singleton_collection
 
     @classmethod
+    def get_alarm(self, core_id):
+        if self.singleton_collection is None:
+            self.initialize_alarms()
+        try:
+            return self.singleton_collection[core_id]
+        except:
+            return None
+
+    @classmethod
     def delete_alarms(self):
+        if self.singleton_collection is None:
+            self.initialize_alarms()
         self.singleton_collection.clear()
 
     @classmethod
-    def create_or_update_alarm(self, alarm):
+    def __update_if_latest(self, alarm, stored_alarm):
+        if alarm.core_timestamp >= stored_alarm.core_timestamp:
+            self.singleton_collection[alarm.core_id] = alarm
+
+    @classmethod
+    def __add_alarm(self, alarm):
         self.singleton_collection[alarm.core_id] = alarm
+
+    @classmethod
+    def add_or_update_if_latest(self, alarm):
+        if self.singleton_collection is None:
+            self.initialize_alarms()
+        stored_alarm = self.get_alarm(alarm.core_id)
+        if not stored_alarm:
+            self.__add_alarm(alarm)
+        else:
+            self.__update_if_latest(alarm, stored_alarm)
+
+    @classmethod
+    def reset(self):
+        self.singleton_collection = None
+        self.initialize_alarms()
+
+    @classmethod
+    def get_alarms_list(self):
+        return list(self.singleton_collection.values())

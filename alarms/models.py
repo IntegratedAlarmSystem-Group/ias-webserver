@@ -92,6 +92,16 @@ class Alarm(models.Model):
 
         return str(self.core_id) + '=' + str(self.value)
 
+    def to_dict(self):
+        return {
+            'value': self.value,
+            'mode': self.mode,
+            'validity': self.validity,
+            'core_timestamp': self.core_timestamp,
+            'core_id': self.core_id,
+            'running_id': self.running_id
+        }
+
     def check_changes(self, params):
         """
         Check if the attributes of the alarm are different to the values
