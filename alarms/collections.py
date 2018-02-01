@@ -21,7 +21,7 @@ class AlarmCollection:
                     core_id=iasio.io_id,
                     running_id='({}:IASIO)'.format(iasio.io_id)
                 )
-                self.__add_alarm(alarm)
+                self.__create_alarm(alarm)
         return self.singleton_collection
 
     @classmethod
@@ -49,20 +49,27 @@ class AlarmCollection:
     def __update_if_latest(self, alarm, stored_alarm):
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
             self.singleton_collection[alarm.core_id] = alarm
+            return True
+        else:
+            return False
 
     @classmethod
-    def __add_alarm(self, alarm):
+    def __create_alarm(self, alarm):
         self.singleton_collection[alarm.core_id] = alarm
 
     @classmethod
-    def add_or_update_if_latest(self, alarm):
+    def create_or_update_if_latest(self, alarm):
         if self.singleton_collection is None:
             self.initialize_alarms()
         stored_alarm = self.get_alarm(alarm.core_id)
         if not stored_alarm:
-            self.__add_alarm(alarm)
+            self.__create_alarm(alarm)
+            return 'created-alarm'
         else:
-            self.__update_if_latest(alarm, stored_alarm)
+            if self.__update_if_latest(alarm, stored_alarm):
+                return 'updated-alarm'
+            else:
+                return 'ignored-old-alarm'
 
     @classmethod
     def reset(self):

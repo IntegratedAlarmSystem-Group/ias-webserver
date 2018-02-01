@@ -63,9 +63,9 @@ class TestAlarmsAppInitialization(TestCase):
             'Unexpected dictionary of alarms after initialization'
         )
 
-    def test_add_old_alarm(self):
-        """ Test if an alarm never added before to the alarm collection is
-        added even if it is old """
+    def test_create_old_alarm(self):
+        """ Test if an alarm never created before to the alarm collection is
+        created even if it is old """
         # Arrange:
         AlarmCollection.reset()
         old_alarm = Alarm(
@@ -77,11 +77,15 @@ class TestAlarmsAppInitialization(TestCase):
             running_id='({}:IASIO)'.format('OLD-ALARM')
         )
         # Act:
-        AlarmCollection.add_or_update_if_latest(old_alarm)
+        status = AlarmCollection.create_or_update_if_latest(old_alarm)
         # Assert:
+        self.assertEqual(
+            status, 'created-alarm',
+            'The status must be created-alarm'
+        )
         self.assertTrue(
             'OLD-ALARM' in AlarmCollection.get_alarms(),
-            'Old alarms never added before must be added to the collection'
+            'New alarms should be created'
         )
 
     def test_ignore_old_alarm(self):
@@ -98,15 +102,19 @@ class TestAlarmsAppInitialization(TestCase):
             running_id='({}:IASIO)'.format(self.iasio_alarm.io_id)
         )
         # Act:
-        AlarmCollection.add_or_update_if_latest(old_alarm)
+        status = AlarmCollection.create_or_update_if_latest(old_alarm)
         # Assert:
+        self.assertEqual(
+            status, 'ignored-old-alarm',
+            'The status must be ignored-old-alarm'
+        )
         self.assertNotEqual(
             AlarmCollection.get_alarm(self.iasio_alarm.io_id).core_timestamp,
             100,
-            'An older alarm than the stored alarm must not be added'
+            'An older alarm than the stored alarm must not be created'
         )
 
-    def test_add_new_alarm(self):
+    def test_update_alarm(self):
         """ Test if an alarm with a timestamp higher than a stored alarm with
         the same core_id is updated correctly """
         # Arrange:
@@ -121,8 +129,12 @@ class TestAlarmsAppInitialization(TestCase):
             running_id='({}:IASIO)'.format(self.iasio_alarm.io_id)
         )
         # Act:
-        AlarmCollection.add_or_update_if_latest(new_alarm)
+        status = AlarmCollection.create_or_update_if_latest(new_alarm)
         # Assert:
+        self.assertEqual(
+            status, 'updated-alarm',
+            'The status must be updated-alarm'
+        )
         self.assertEqual(
             AlarmCollection.get_alarm(self.iasio_alarm.io_id).core_timestamp,
             current_time_millis,
