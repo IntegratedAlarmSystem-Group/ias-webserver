@@ -1,5 +1,6 @@
 from django.test import TestCase
 from alarms.models import Alarm
+from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from cdb.models import Iasio
 from freezegun import freeze_time
@@ -140,3 +141,35 @@ class TestAlarmsAppInitialization(TestCase):
             current_time_millis,
             'A newer alarm than the stored alarm must be updated'
         )
+
+    def test_recalculation_alarms_validity(self):
+        """ Test if the alarms in the AlarmCollection are revalidated """
+        # Arrange:
+        # Prepare the AlarmCollection with valid alarms and current timestamp
+        AlarmCollection.reset()
+        alarm_keys = ['AlarmType-ID', 'AlarmType-ID1', 'AlarmType-ID2']
+        for core_id in alarm_keys:
+            alarm = AlarmFactory.get_valid_alarm(core_id=core_id)
+            AlarmCollection.create_or_update_if_latest(alarm)
+        initial_alarm_list = [
+            a.to_dict() for a in AlarmCollection.get_alarms_list()
+        ]
+        # Act:
+        # Recalculate the AlarmCollection validation after 5 seconds
+        initial_time = datetime.datetime.now() + datetime.timedelta(seconds=5)
+        with freeze_time(initial_time) as frozen_datetime:
+            AlarmCollection.update_all_alarms_validity()
+        final_alarm_list = [
+            a.to_dict() for a in AlarmCollection.get_alarms_list()
+        ]
+        # Assert:
+        self.assertNotEqual(
+            final_alarm_list, initial_alarm_list,
+            'The alarms in the AlarmCollection are not invalidated as expected'
+        )
+        for alarm in AlarmCollection.get_alarms_list():
+            self.assertEqual(
+                alarm.validity, '0',
+                'The alarm {} was not correctly invalidated'.format(
+                    alarm.core_id)
+            )

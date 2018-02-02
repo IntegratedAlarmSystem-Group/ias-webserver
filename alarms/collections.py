@@ -79,3 +79,11 @@ class AlarmCollection:
     @classmethod
     def get_alarms_list(self):
         return list(self.singleton_collection.values())
+
+    @classmethod
+    def update_all_alarms_validity(self):
+        self.singleton_collection = {
+            k: v.update_validity()
+            for k, v in self.singleton_collection.items()
+        }
+        return self.singleton_collection
