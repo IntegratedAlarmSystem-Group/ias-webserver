@@ -1,5 +1,6 @@
 from factory import DjangoModelFactory, fuzzy, Sequence
 from ..models import Alarm, OperationalMode, Validity
+import time
 
 
 class AlarmFactory(DjangoModelFactory):
@@ -10,7 +11,7 @@ class AlarmFactory(DjangoModelFactory):
     _base_core_id = 'ANTENNA_DV{0}$WVR$AMBIENT_TEMPERATURE'
 
     value = fuzzy.FuzzyInteger(0, 1)
-    core_timestamp = fuzzy.FuzzyInteger(0, 100000)
+    core_timestamp = int(round(time.time() * 1000))
     mode = fuzzy.FuzzyChoice([str(x[0]) for x in OperationalMode.options()])
     core_id = Sequence(
         lambda n: AlarmFactory._base_core_id.format(n)
@@ -38,4 +39,16 @@ class AlarmFactory(DjangoModelFactory):
             fuzzy.FuzzyChoice(
                 [x[0] for x in OperationalMode.options() if x[0] != alarm.mode]
             )
+        return alarm
+
+    @classmethod
+    def get_valid_alarm(cls):
+        alarm = AlarmFactory.build()
+        alarm.validity = '1'
+        return alarm
+
+    @classmethod
+    def get_invalid_alarm(cls):
+        alarm = AlarmFactory.build()
+        alarm.validity = '0'
         return alarm
