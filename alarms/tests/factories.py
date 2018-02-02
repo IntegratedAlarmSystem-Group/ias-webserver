@@ -42,13 +42,19 @@ class AlarmFactory(DjangoModelFactory):
         return alarm
 
     @classmethod
-    def get_valid_alarm(cls):
+    def get_valid_alarm(cls, core_id=None):
         alarm = AlarmFactory.build()
         alarm.validity = '1'
+        alarm.core_timestamp = int(round(time.time() * 1000))
+        if core_id:
+            alarm.core_id = core_id
         return alarm
 
     @classmethod
-    def get_invalid_alarm(cls):
+    def get_invalid_alarm(cls, core_id=None):
         alarm = AlarmFactory.build()
         alarm.validity = '0'
+        alarm.core_timestamp = int(round(time.time() * 1000))
+        if core_id:
+            alarm.core_id = core_id
         return alarm
