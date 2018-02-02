@@ -6,6 +6,7 @@ from channels.generic.websockets import (
 from django.core import serializers
 from django.db import transaction
 from .models import Alarm, AlarmBinding, OperationalMode, Validity
+from alarms.collections import AlarmCollection
 from cdb.models import Iasio
 import time
 
@@ -33,16 +34,15 @@ class CoreConsumer(JsonWebsocketConsumer):
         """
         return full_id.rsplit('@', 1)[1].strip('()').split(':')[0]
 
-    def get_alarm_parameters(content):
+    def get_alarm_from_core_msg(content):
         """
-        Returns the parameters of the alarm as a dict indexed by
-        attribute names (the names in the Alarm class)
+        Returns an alarm based on the values specified in the message content
 
         Args:
             content (dict): the content of the messsage
 
         Returns:
-            dict: a dict of the form {attribute: value}
+            Alarm: an alarm based on the message content
         """
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
@@ -55,74 +55,21 @@ class CoreConsumer(JsonWebsocketConsumer):
             'core_id': core_id,
             'running_id': content['fullRunningId'],
         }
-        return params
-
-    def create_or_update_alarm(alarm_params):
-        """
-        Creates or updates the alarm according to defined criteria
-        """
-        try:
-            alarm = Alarm.objects.get(core_id=alarm_params['core_id'])
-            is_different = alarm.check_changes(alarm_params)
-
-            status = False
-            if is_different:
-                with transaction.atomic():
-                    alarm = Alarm.objects.get(core_id=alarm_params['core_id'])
-                    status = alarm.update_ignoring_timestamp(alarm_params)
-            if status:
-                return 'updated'
-            else:
-                return 'ignored'
-        except Alarm.DoesNotExist:
-            alarm = Alarm.objects.create(**alarm_params)
-            return 'created'
-
-    def calc_validity(alarm_params):
-        """
-        Calculate the validity considering the current time and the refresh
-        rate plus a previously defined delta time
-        """
-        # TODO: add refresh rate to the message received if possible
-        if alarm_params['validity'] == 'UNRELIABLE':
-            return '0'
-        iasio = Iasio.objects.get(io_id=alarm_params['core_id'])
-        refresh_rate = iasio.refresh_rate
-        current_timestamp = int(round(time.time() * 1000))
-        alarm_timestamp = alarm_params['core_timestamp']
-        delta = Validity.delta()
-        validity = alarm_params['validity']
-
-        if current_timestamp - alarm_timestamp > refresh_rate + delta:
-            validity = '0'
-        else:
-            validity = '1'
-        return validity
+        return Alarm(**params)
 
     def receive(self, content, **kwargs):
         """
         Handles the messages received by this consumer.
-        Delegates handling of the alamrs received in the messages to
-        :func:`~create_or_update_alarm`
+        It delegates handling of the alarms received in the messages to
+        :func:`~AlarmCollection.create_or_update_if_latest`
 
         Responds with a message indicating the action taken
         (created, updated, ignored)
         """
         if content['valueType'] == 'ALARM':
-            alarm_params = CoreConsumer.get_alarm_parameters(content)
-            received_timestamp = alarm_params['core_timestamp']
-            if alarm_params['core_id'] not in CoreConsumer.get_alarms().keys():
-                CoreConsumer.add_alarm(alarm_params)
-                response = CoreConsumer.create_or_update_alarm(alarm_params)
-            stored_alarm = CoreConsumer.get_alarm(alarm_params['core_id'])
-            stored_timestamp = stored_alarm['core_timestamp']
-            if received_timestamp >= stored_timestamp:
-                updated_validity = CoreConsumer.calc_validity(alarm_params)
-                alarm_params['validity'] = updated_validity
-                response = CoreConsumer.create_or_update_alarm(alarm_params)
-                CoreConsumer.add_alarm(alarm_params)
-            else:
-                response = 'ignored-old-alarm'
+            alarm = CoreConsumer.get_alarm_from_core_msg(content)
+            alarm.update_validity()
+            return AlarmCollection.create_or_update_if_latest(alarm)
         else:
             response = 'ignored-non-alarm'
         self.send(response)

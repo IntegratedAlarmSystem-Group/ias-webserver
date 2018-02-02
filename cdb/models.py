@@ -15,5 +15,14 @@ class Iasio(models.Model):
         self.ias_type = self.ias_type.upper()
         super(Iasio, self).save(*args, **kwargs)
 
+    @classmethod
+    def get_refresh_rate(self, core_id):
+        """ Return the refresh rate specified for an iasio or a default value
+        if the iasio is not created in the database """
+        try:
+            return Iasio.objects.get(io_id=core_id).refresh_rate
+        except:
+            return 2000
+
     class Meta:
         db_table = 'IASIO'

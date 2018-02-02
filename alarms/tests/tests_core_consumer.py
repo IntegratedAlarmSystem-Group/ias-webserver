@@ -1,23 +1,13 @@
 from channels.test import ChannelTestCase, WSClient, apply_routes
-from .factories import AlarmFactory
-from ..models import Alarm, AlarmBinding
-from cdb.models import Iasio
-from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer, CoreConsumer
 from channels.routing import route
+from alarms.models import Alarm
+from alarms.collections import AlarmCollection
+from alarms.consumers import CoreConsumer
+from cdb.models import Iasio
+import time
 
 
-def gen_aux_dict_from_object(obj):
-    """
-    Generate and return a dict without hidden fields and id from an Object
-    """
-    ans = {}
-    for key in obj.__dict__:
-        if key[0] != '_' and key != 'id':
-            ans[key] = obj.__dict__[key]
-    return ans
-
-
-class TestAlarmsStorage(ChannelTestCase):
+class TestCoreConsumer(ChannelTestCase):
     """This class defines the alarm storage in a dictionary"""
 
     def setUp(self):
@@ -35,6 +25,7 @@ class TestAlarmsStorage(ChannelTestCase):
                                   refresh_rate=1000,
                                   ias_type="double")
         self.iasio_double.save()
+        AlarmCollection.reset()
 
     def tearDown(self):
         """TestCase teardown"""
@@ -52,68 +43,71 @@ class TestAlarmsStorage(ChannelTestCase):
         # Assert:
         self.assertEqual(id, 'AlarmType-ID')
 
-    def assert_received_alarm(self, received, alarm):
-        """Assert if a received message corresponds to a given alarm"""
-        self.assertIsNotNone(received, 'No message received')
-        self.assertTrue('payload' in received, 'No payload received')
-        self.assertTrue(
-            'action' in received['payload'], 'Payload does not have an action'
+    def test_get_alarm_from_core_message(self):
+        # Arrange:
+        current_time_millis = int(round(time.time() * 1000))
+        msg = {
+            "value": "SET",
+            "tStamp": current_time_millis,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(AlarmType-ID:IASIO)",
+            "valueType": "ALARM"
+        }
+        expected_alarm = Alarm(
+            value=1,
+            mode='5',
+            validity='1',
+            core_timestamp=current_time_millis,
+            core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
+            running_id=msg['fullRunningId'],
         )
-        self.assertTrue(
-            'data' in received['payload'], 'Payload does not have data'
-        )
-        # check model and pk according to the binding
+        # Act:
+        alarm = CoreConsumer.get_alarm_from_core_msg(msg)
+        # Assert:
         self.assertEqual(
-            received['payload']['model'], 'alarms.alarm',
-            'Payload model_label does not correspond to the Alarm model'
-        )
-        self.assertEqual(
-            received['payload']['pk'], alarm.pk,
-            'Payload pk is different from alarm.pk'
-        )
-        # check alarms binding fields and values
-        self.assertTrue(
-            'value' in received['payload']['data'],
-            'Payload does not contain value field'
-        )
-        self.assertTrue(
-            'mode' in received['payload']['data'],
-            'Payload does not contain mode field'
-        )
-        self.assertTrue(
-            'core_timestamp' in received['payload']['data'],
-            'Payload does not contain core_timestamp field'
-        )
-        self.assertTrue(
-            'core_id' in received['payload']['data'],
-            'Payload does not contain core_id field'
-        )
-        self.assertTrue(
-            'running_id' in received['payload']['data'],
-            'Payload does not contain running_id field'
-        )
-        self.assertEqual(
-            received['payload']['data']['value'], alarm.value,
-            'Payload value is different from alarm.value'
-        )
-        self.assertEqual(
-            str(received['payload']['data']['mode']), alarm.mode,
-            'Payload mode is different from alarm.mode'
-        )
-        self.assertEqual(
-            received['payload']['data']['core_timestamp'],
-            alarm.core_timestamp,
-            'Payload core_timestamp is different from alarm.core_timestamp'
-        )
-        self.assertEqual(
-            received['payload']['data']['core_id'], alarm.core_id,
-            'Payload core_id is different from alarm.core_id'
-        )
-        self.assertEqual(
-            received['payload']['data']['running_id'], alarm.running_id,
-            'Payload running_id is different from alarm.running_id'
+            alarm.to_dict(), expected_alarm.to_dict(), 
+            'The alarm was not converted correctly'
         )
 
-    def clean_replication_messages(self, client):
-        for k in range(self.msg_replication_factor):
-            client.receive()
+    def test_create_alarm_on_dict(self):
+        """Test if the core consumer updates the Alarm in the AlarmCollection
+        when a new alarm arrived.
+        """
+        # Arrange:
+        current_time_millis = int(round(time.time() * 1000))
+        msg = {
+            "value": "SET",
+            "tStamp": current_time_millis,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(AlarmType-ID:IASIO)",
+            "valueType": "ALARM"
+        }
+        expected_alarm = Alarm(
+            value=1,
+            mode='5',
+            validity='1',
+            core_timestamp=current_time_millis,
+            core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
+            running_id=msg['fullRunningId'],
+        )
+        # Act:
+        alarm_before_send = AlarmCollection.get_alarm('AlarmType-ID')
+        self.client.send_and_consume(
+            'websocket.receive', path='/core/', text=msg
+        )
+        alarm_after_send = AlarmCollection.get_alarm('AlarmType-ID')
+        # Assert:
+        self.assertNotEqual(
+            alarm_before_send.to_dict(), alarm_after_send.to_dict(),
+            'The alarm was not updated'
+        )
+        self.assertEqual(
+            alarm_after_send.to_dict(), expected_alarm.to_dict(),
+            'The alarm was not updated as expected, some fields are different'
+        )

@@ -143,6 +143,21 @@ class Alarm(models.Model):
             return True
         return False
 
+    def update_validity(self):
+        """
+        Calculate the validity of the alarm considering the current time,
+        the refresh rate and a previously defined delta time
+        """
+        if self.validity == 'UNRELIABLE':
+            return '0'
+        refresh_rate = Iasio.get_refresh_rate(self.core_id)
+        current_timestamp = int(round(time.time() * 1000))
+        delta = Validity.delta()
+        if current_timestamp - self.core_timestamp > refresh_rate + delta:
+            return '0'
+        else:
+            return '1'
+
 
 class AlarmBinding(WebsocketBinding):
     """ Bind the alarm actions with a websocket stream. """
