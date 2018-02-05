@@ -78,7 +78,8 @@
 <dl class="classmethod">
 <dt id="alarms.tests.factories.AlarmFactory.get_modified_alarm">
 <em class="property">classmethod </em><code class="descname">get_modified_alarm</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.get_modified_alarm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the alarm with the value, core_timestamp and mode modified randomly</p>
+<dd><p>Return the alarm with the value, core_timestamp and mode modified
+randomly</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -102,6 +103,31 @@
 <div class="section" id="module-alarms.tests.tests_consumers">
 <span id="alarms-tests-tests-consumers-module"></span><h2>alarms.tests.tests_consumers module<a class="headerlink" href="#module-alarms.tests.tests_consumers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="alarms.tests.tests_consumers.TestAlarmRequestConsumer">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_consumers.</code><code class="descname">TestAlarmRequestConsumer</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmRequestConsumer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">channels.test.base.ChannelTestCase</span></code></p>
+<p>This class defines the test suite for the channels alarm requests</p>
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmRequestConsumer.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmRequestConsumer.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>TestCase setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmRequestConsumer.test_alarms_list">
+<code class="descname">test_alarms_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmRequestConsumer.test_alarms_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can request and receive a list of alarms</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmRequestConsumer.test_unsupported_action">
+<code class="descname">test_unsupported_action</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmRequestConsumer.test_unsupported_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can request and receive a list of alarms</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="alarms.tests.tests_consumers.TestAlarmsBinding">
 <em class="property">class </em><code class="descclassname">alarms.tests.tests_consumers.</code><code class="descname">TestAlarmsBinding</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">channels.test.base.ChannelTestCase</span></code></p>
@@ -109,12 +135,32 @@
 <dl class="method">
 <dt id="alarms.tests.tests_consumers.TestAlarmsBinding.assert_received_alarm">
 <code class="descname">assert_received_alarm</code><span class="sig-paren">(</span><em>received</em>, <em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.assert_received_alarm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Assert if a received message corresponds to a given alarm</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="alarms.tests.tests_consumers.TestAlarmsBinding.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>TestCase setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmsBinding.test_inbound_create">
+<code class="descname">test_inbound_create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.test_inbound_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can create a new alarm</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmsBinding.test_inbound_delete">
+<code class="descname">test_inbound_delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.test_inbound_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can delete an alarm</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestAlarmsBinding.test_inbound_update">
+<code class="descname">test_inbound_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestAlarmsBinding.test_inbound_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can update a new alarm</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="alarms.tests.tests_consumers.TestAlarmsBinding.test_outbound_create">
@@ -134,6 +180,44 @@
 <dd><p>Test if clients are notified when an alarm is updated</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.tests.tests_consumers.TestCoreConsumer">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_consumers.</code><code class="descname">TestCoreConsumer</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestCoreConsumer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">channels.test.base.ChannelTestCase</span></code></p>
+<p>This class defines the test suite for the channels core consumer</p>
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestCoreConsumer.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestCoreConsumer.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>TestCase setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestCoreConsumer.test_create_alarm">
+<code class="descname">test_create_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestCoreConsumer.test_create_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if core clients can create a new alarm</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestCoreConsumer.test_update_alarm">
+<code class="descname">test_update_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestCoreConsumer.test_update_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if core clients can update a previously created alarm</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_consumers.TestCoreConsumer.test_update_alarm_ignored">
+<code class="descname">test_update_alarm_ignored</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.TestCoreConsumer.test_update_alarm_ignored" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if core clients can ignore updates of alarms if there is
+nothing different, besides core_timestamp</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="alarms.tests.tests_consumers.gen_aux_dict_from_object">
+<code class="descclassname">alarms.tests.tests_consumers.</code><code class="descname">gen_aux_dict_from_object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_consumers.gen_aux_dict_from_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate and return a dict without hidden fields and id from an Object</p>
 </dd></dl>
 
 </div>
