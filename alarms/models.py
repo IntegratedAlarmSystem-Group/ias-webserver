@@ -1,10 +1,6 @@
 from django.db import models
-from channels.binding.websockets import WebsocketBinding
 from utils.choice_enum import ChoiceEnum
 from cdb.models import Iasio
-
-from channels import Group
-
 import time
 
 # Always keep models and bindings in this file!!
@@ -158,52 +154,3 @@ class Alarm(models.Model):
             return self
         else:
             return self
-
-
-class AlarmBinding(WebsocketBinding):
-    """ Bind the alarm actions with a websocket stream. """
-
-    model = Alarm
-    """ Model binded with the websocket """
-
-    stream = "alarms"
-    """ Name of the stream to send the messages. """
-
-    fields = ["__all__"]
-    """ List of fields included in the messages. """
-
-    messages_replication_factor = 3
-    """ Number of replicated messages after a required action """
-
-    @classmethod
-    def group_names(cls, *args, **kwargs):
-        """ Return a list of the groups that receive the binding messages. """
-
-        return ["alarms_group"]
-
-    def has_permission(self, user, action, pk):
-        """ Return if the user has permission to make the specified action. """
-
-        return True
-
-    def send_messages(self, instance, group_names, action, **kwargs):
-        """
-        Serializes the instance and sends it to all provided group names.
-        """
-
-        if not group_names:
-            return  # no need to serialize, bail.
-        self.signal_kwargs = kwargs
-        payload = self.serialize(instance, action)
-        if payload == {}:
-            return  # nothing to send, bail.
-
-        assert self.stream is not None
-        message = self.encode(self.stream, payload)
-
-        for group_name in group_names:
-            group = Group(group_name)
-            group.send(message)
-
-            for k in range(self.messages_replication_factor):
-                group.send(message)

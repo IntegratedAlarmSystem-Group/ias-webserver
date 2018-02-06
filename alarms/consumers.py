@@ -1,11 +1,7 @@
 import json
-from channels.generic.websockets import (
-    WebsocketDemultiplexer,
-    JsonWebsocketConsumer
-)
+from channels.generic.websocket import JsonWebsocketConsumer
 from django.core import serializers
-from django.db import transaction
-from .models import Alarm, AlarmBinding, OperationalMode, Validity
+from .models import Alarm, OperationalMode, Validity
 from alarms.collections import AlarmCollection
 from cdb.models import Iasio
 import time
@@ -52,7 +48,7 @@ class CoreConsumer(JsonWebsocketConsumer):
         }
         return Alarm(**params)
 
-    def receive(self, content, **kwargs):
+    def receive_json(self, content, **kwargs):
         """
         Handles the messages received by this consumer.
         It delegates handling of the alarms received in the messages to
@@ -72,7 +68,7 @@ class CoreConsumer(JsonWebsocketConsumer):
 
 class AlarmRequestConsumer(JsonWebsocketConsumer):
 
-    def receive(self, content, multiplexer, **kwargs):
+    def receive_json(self, content, **kwargs):
         """
         Handles the messages received by this consumer
 
@@ -80,32 +76,19 @@ class AlarmRequestConsumer(JsonWebsocketConsumer):
         responds with the list of all the current Alarms.
         """
 
-        if content is not None:
-            if content['action'] == 'list':
+        print('content = ', content)
+        if content['payload'] and content['payload']['action'] is not None:
+            if content['payload']['action'] == 'list':
                 queryset = AlarmCollection.update_all_alarms_validity()
+                print('queryset = ', queryset)
                 data = serializers.serialize(
                     'json',
                     list(queryset.values())
                 )
-                multiplexer.send({
+                self.send_json({
                     "data": json.loads(data)
                 })
             else:
-                multiplexer.send({
+                self.send_json({
                     "data": "Unsupported action"
                 })
-
-
-class AlarmDemultiplexer(WebsocketDemultiplexer):
-    """Demultiplexer for Alarms notifications.
-
-    Note:
-        Check that the groups property is defined,
-        since it is for real clients
-    """
-    consumers = {
-        "alarms": AlarmBinding.consumer,
-        "requests": AlarmRequestConsumer
-    }
-
-    groups = ["alarms_group"]

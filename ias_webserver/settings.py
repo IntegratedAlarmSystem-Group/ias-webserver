@@ -139,10 +139,10 @@ CHANNEL_LAYERS = {
     "default": {
         # This example app uses the Redis channel layer
         # implementation asgi_redis
-        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [(redis_host, 6379)],
-        },
-        "ROUTING": "alarms.routing.channel_routing",
+        }
     },
 }
+ASGI_APPLICATION = "ias_webserver.routing.application"

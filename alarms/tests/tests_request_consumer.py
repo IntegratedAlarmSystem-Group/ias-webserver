@@ -1,13 +1,13 @@
-from channels.test import ChannelTestCase, WSClient, apply_routes
+import pytest
+from channels.testing import HttpCommunicator
+# from channels.testing import ChannelTestCase, WSClient, apply_routes
 from .factories import AlarmFactory
-from ..models import Alarm, AlarmBinding
 from ..collections import AlarmCollection
 from cdb.models import Iasio
-from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer, CoreConsumer
+from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer
 from channels.routing import route
 from freezegun import freeze_time
 import datetime
-import time
 
 
 class TestAlarmRequestConsumer(ChannelTestCase):

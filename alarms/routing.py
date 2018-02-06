@@ -1,9 +1,8 @@
 from channels.routing import route_class
-from .consumers import AlarmDemultiplexer
-from .consumers import CoreConsumer
+from .consumers import CoreConsumer, AlarmRequestConsumer
 
 
 channel_routing = [
-    route_class(AlarmDemultiplexer, path='^/stream/?$'),
+    route_class(AlarmRequestConsumer, path='^/stream/?$'),
     route_class(CoreConsumer, path='^/core/?$')
 ]
