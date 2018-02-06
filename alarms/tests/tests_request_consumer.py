@@ -5,18 +5,9 @@ from ..collections import AlarmCollection
 from cdb.models import Iasio
 from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer, CoreConsumer
 from channels.routing import route
+from freezegun import freeze_time
+import datetime
 import time
-
-
-def gen_aux_dict_from_object(obj):
-    """
-    Generate and return a dict without hidden fields and id from an Object
-    """
-    ans = {}
-    for key in obj.__dict__:
-        if key[0] != '_' and key != 'id':
-            ans[key] = obj.__dict__[key]
-    return ans
 
 
 class TestAlarmRequestConsumer(ChannelTestCase):
@@ -62,6 +53,47 @@ class TestAlarmRequestConsumer(ChannelTestCase):
             alarms_list, expected_alarms_list,
             'The received alarms are different than the alarms in the DB'
         )
+
+    def test_alarms_list_validity(self):
+        """Test if clients receive a list of alarms with updated validity"""
+        initial_time = datetime.datetime.now()
+        with freeze_time(initial_time) as frozen_datetime:
+            # Arrange:
+            expected_alarms_count = 3
+            for k in range(expected_alarms_count):
+                valid_alarm = AlarmFactory.get_valid_alarm()
+                AlarmCollection.create_or_update_if_latest(valid_alarm)
+            expected_alarms_list = []
+            alarms = AlarmCollection.get_alarms()
+            for core_id, alarm in alarms.items():
+                alarm_dict = alarm.to_dict()
+                alarm_dict['validity'] = '0'
+                expected_alarms_list.append({
+                    'pk': None,
+                    'model': 'alarms.alarm',
+                    'fields': alarm_dict
+                })
+            # Act:
+            max_timedelta = datetime.timedelta(seconds=10)
+            frozen_datetime.tick(delta=max_timedelta)
+            with apply_routes([AlarmDemultiplexer.as_route(path='/'),
+                               route("requests", AlarmRequestConsumer)]):
+                client = WSClient()
+                client.send_and_consume('websocket.connect', path='/')
+                client.receive()
+                client.send_and_consume('websocket.receive', path='/', text={
+                    'stream': 'requests',
+                    'payload': {
+                        'action': 'list'
+                    }
+                })
+                response = client.receive()
+            # Assert:
+            alarms_list = response['payload']['data']
+            self.assertEqual(
+                alarms_list, expected_alarms_list,
+                'The alarms was not invalidated as expected after 10 seconds'
+            )
 
     def test_unsupported_action(self):
         """Test if clients can request and receive a list of alarms"""
