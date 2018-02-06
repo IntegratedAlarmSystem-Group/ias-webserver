@@ -82,11 +82,10 @@ class AlarmRequestConsumer(JsonWebsocketConsumer):
 
         if content is not None:
             if content['action'] == 'list':
-                # CoreConsumer.update_all_alarms_validity()
-                queryset = Alarm.objects.all()
+                queryset = AlarmCollection.update_all_alarms_validity()
                 data = serializers.serialize(
                     'json',
-                    list(queryset)
+                    list(queryset.values())
                 )
                 multiplexer.send({
                     "data": json.loads(data)
