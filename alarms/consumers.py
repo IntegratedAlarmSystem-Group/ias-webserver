@@ -3,8 +3,6 @@ from channels.generic.websocket import JsonWebsocketConsumer
 from django.core import serializers
 from .models import Alarm, OperationalMode, Validity
 from alarms.collections import AlarmCollection
-from cdb.models import Iasio
-import time
 
 
 class CoreConsumer(JsonWebsocketConsumer):

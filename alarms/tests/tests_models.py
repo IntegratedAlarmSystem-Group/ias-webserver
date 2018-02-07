@@ -105,7 +105,7 @@ class AlarmModelTestCase(TestCase):
         # Arrange:
         alarm = AlarmFactory.get_invalid_alarm()
         # Act:
-        status = alarm.update_validity()
+        alarm.update_validity()
         # Assert:
         self.assertEqual(
             alarm.validity, '0',
@@ -119,7 +119,7 @@ class AlarmModelTestCase(TestCase):
         # Arrange:
         alarm = AlarmFactory.get_valid_alarm()
         # Act:
-        status = alarm.update_validity()
+        alarm.update_validity()
         # Assert:
         self.assertEqual(
             alarm.validity, '1',
@@ -142,7 +142,7 @@ class AlarmModelTestCase(TestCase):
             max_timedelta = datetime.timedelta(milliseconds=max_interval)
             # Act:
             frozen_datetime.tick(delta=max_timedelta)
-            status = alarm.update_validity()
+            alarm.update_validity()
             # Assert:
             self.assertEqual(
                 alarm.validity, '0',

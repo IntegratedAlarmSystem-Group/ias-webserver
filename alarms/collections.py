@@ -36,7 +36,7 @@ class AlarmCollection:
             self.initialize_alarms()
         try:
             return self.singleton_collection[core_id]
-        except:
+        except KeyError:
             return None
 
     @classmethod

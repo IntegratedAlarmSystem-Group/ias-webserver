@@ -157,7 +157,7 @@ class TestAlarmsAppInitialization(TestCase):
         # Act:
         # Recalculate the AlarmCollection validation after 5 seconds
         initial_time = datetime.datetime.now() + datetime.timedelta(seconds=5)
-        with freeze_time(initial_time) as frozen_datetime:
+        with freeze_time(initial_time):
             AlarmCollection.update_all_alarms_validity()
         final_alarm_list = [
             a.to_dict() for a in AlarmCollection.get_alarms_list()
