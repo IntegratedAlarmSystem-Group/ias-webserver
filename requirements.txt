@@ -16,7 +16,6 @@ hiredis==0.2.0
 hyperlink==17.3.1
 incremental==17.5.0
 msgpack==0.5.4
-pkg-resources==0.0.0
 pluggy==0.6.0
 py==1.5.2
 pytest==3.4.0

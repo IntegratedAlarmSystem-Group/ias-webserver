@@ -3,8 +3,6 @@ from utils.choice_enum import ChoiceEnum
 from cdb.models import Iasio
 import time
 
-# Always keep models and bindings in this file!!
-
 
 class OperationalMode(ChoiceEnum):
     """ Operational Mode of a monitor point value. """
@@ -44,11 +42,6 @@ class Validity(ChoiceEnum):
         """ Return a delta of time in milliseconds defined to be used as
         error margin """
         return 500
-
-    @classmethod
-    def default_refresh_rate(cls):
-        """ Return the default value of refresh rate """
-        return 1000
 
 
 class Alarm(models.Model):
