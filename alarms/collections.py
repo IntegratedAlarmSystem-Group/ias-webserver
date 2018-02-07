@@ -8,10 +8,12 @@ class AlarmCollection:
     singleton_collection = None
 
     @classmethod
-    def initialize_alarms(self):
+    def initialize_alarms(self, iasios=None):
         if self.singleton_collection is None:
             self.singleton_collection = {}
-            for iasio in Iasio.objects.filter(ias_type='ALARM'):
+            if iasios is None:
+                iasios = Iasio.objects.filter(ias_type='ALARM')
+            for iasio in iasios:
                 current_time_millis = int(round(time.time() * 1000))
                 alarm = Alarm(
                     value=1,
@@ -72,9 +74,9 @@ class AlarmCollection:
                 return 'ignored-old-alarm'
 
     @classmethod
-    def reset(self):
+    def reset(self, iasios=None):
         self.singleton_collection = None
-        self.initialize_alarms()
+        self.initialize_alarms(iasios)
 
     @classmethod
     def get_alarms_list(self):
