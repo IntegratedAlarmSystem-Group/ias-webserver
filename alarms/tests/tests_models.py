@@ -4,7 +4,6 @@ from cdb.models import Iasio
 from .factories import AlarmFactory
 from freezegun import freeze_time
 import datetime
-import time
 
 
 class AlarmModelTestCase(TestCase):

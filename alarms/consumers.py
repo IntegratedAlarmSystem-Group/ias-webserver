@@ -60,7 +60,7 @@ class CoreConsumer(JsonWebsocketConsumer):
         if content['valueType'] == 'ALARM':
             alarm = CoreConsumer.get_alarm_from_core_msg(content)
             alarm.update_validity()
-            return AlarmCollection.create_or_update_if_latest(alarm)
+            response = AlarmCollection.create_or_update_if_latest(alarm)
         else:
             response = 'ignored-non-alarm'
         self.send(response)
@@ -80,7 +80,6 @@ class AlarmRequestConsumer(JsonWebsocketConsumer):
         if content['payload'] and content['payload']['action'] is not None:
             if content['payload']['action'] == 'list':
                 queryset = AlarmCollection.update_all_alarms_validity()
-                print('queryset = ', queryset)
                 data = serializers.serialize(
                     'json',
                     list(queryset.values())

@@ -1,19 +1,20 @@
-from channels.test import ChannelTestCase, WSClient, apply_routes
-from channels.routing import route
+import pytest
+import time
+from django.test import TestCase
+from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
 from alarms.collections import AlarmCollection
 from alarms.consumers import CoreConsumer
 from cdb.models import Iasio
-import time
 
 
-class TestCoreConsumer(ChannelTestCase):
+class TestCoreConsumer(TestCase):
     """This class defines the alarm storage in a dictionary"""
 
     def setUp(self):
         """TestCase setup"""
-        self.client = WSClient()
-        self.client.join_group("alarms_group")
+        # self.client = WSClient()
+        self.communicator = WebsocketCommunicator(CoreConsumer, "/core/")
         self.msg_replication_factor = 3
         self.iasio_alarm = Iasio(io_id="AlarmType-ID",
                                  short_desc="Test iasio",
@@ -45,6 +46,7 @@ class TestCoreConsumer(ChannelTestCase):
 
     def test_get_alarm_from_core_message(self):
         # Arrange:
+        connected, subprotocol = await self.communicator.connect()
         current_time_millis = int(round(time.time() * 1000))
         msg = {
             "value": "SET",
@@ -68,7 +70,7 @@ class TestCoreConsumer(ChannelTestCase):
         alarm = CoreConsumer.get_alarm_from_core_msg(msg)
         # Assert:
         self.assertEqual(
-            alarm.to_dict(), expected_alarm.to_dict(), 
+            alarm.to_dict(), expected_alarm.to_dict(),
             'The alarm was not converted correctly'
         )
 
