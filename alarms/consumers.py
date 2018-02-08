@@ -1,11 +1,14 @@
 import json
-from channels.generic.websocket import JsonWebsocketConsumer
+from channels.generic.websocket import (
+    JsonWebsocketConsumer,
+    AsyncJsonWebsocketConsumer,
+)
 from django.core import serializers
 from .models import Alarm, OperationalMode, Validity
 from alarms.collections import AlarmCollection
 
 
-class CoreConsumer(JsonWebsocketConsumer):
+class CoreConsumer(AsyncJsonWebsocketConsumer):
     """ Consumer for messages from the core system """
 
     def get_core_id_from(full_id):
@@ -46,7 +49,7 @@ class CoreConsumer(JsonWebsocketConsumer):
         }
         return Alarm(**params)
 
-    def receive_json(self, content, **kwargs):
+    async def receive_json(self, content, **kwargs):
         """
         Handles the messages received by this consumer.
         It delegates handling of the alarms received in the messages to
@@ -61,7 +64,7 @@ class CoreConsumer(JsonWebsocketConsumer):
             response = AlarmCollection.create_or_update_if_latest(alarm)
         else:
             response = 'ignored-non-alarm'
-        self.send(response)
+        await self.send(response)
 
 
 class AlarmRequestConsumer(JsonWebsocketConsumer):
