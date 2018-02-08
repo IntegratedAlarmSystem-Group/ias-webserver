@@ -4,11 +4,11 @@ from freezegun import freeze_time
 from channels.testing import WebsocketCommunicator
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
-from alarms.consumers import AlarmRequestConsumer
+from alarms.consumers import RequestConsumer
 
 
-class TestAlarmRequestConsumer:
-    """This class defines the test suite for the AlarmRequestConsumer"""
+class TestRequestConsumer:
+    """This class defines the test suite for the RequestConsumer"""
 
     def setup_method(self):
         """Tests setup"""
@@ -20,7 +20,7 @@ class TestAlarmRequestConsumer:
     async def test_alarms_list(self):
         """Test if clients can request and receive a list of alarms"""
         # Connect:
-        communicator = WebsocketCommunicator(AlarmRequestConsumer, "/stream/")
+        communicator = WebsocketCommunicator(RequestConsumer, "/request/")
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
@@ -45,7 +45,7 @@ class TestAlarmRequestConsumer:
                 'model': 'alarms.alarm',
                 'fields': alarm.to_dict()
             })
-        alarms_list = response['data']
+        alarms_list = response['payload']['data']
         assert alarms_list == expected_alarms_list, \
             'The received alarms are different than the alarms in the Server'
         # Close:
@@ -56,7 +56,7 @@ class TestAlarmRequestConsumer:
     async def test_alarms_list_validity(self):
         """Test if clients receive a list of alarms with updated validity"""
         # Connect:
-        communicator = WebsocketCommunicator(AlarmRequestConsumer, "/stream/")
+        communicator = WebsocketCommunicator(RequestConsumer, "/requests/")
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
@@ -89,7 +89,7 @@ class TestAlarmRequestConsumer:
             await communicator.send_json_to(msg)
             response = await communicator.receive_json_from()
             # Assert:
-            alarms_list = response['data']
+            alarms_list = response['payload']['data']
             assert alarms_list == expected_alarms_list, \
                 'The alarms were not invalidated as expected after 10 seconds'
         # Close:
@@ -101,7 +101,7 @@ class TestAlarmRequestConsumer:
         Test if clients receive 'Unsupported action' when action is not 'list'
         """
         # Connect:
-        communicator = WebsocketCommunicator(AlarmRequestConsumer, "/stream/")
+        communicator = WebsocketCommunicator(RequestConsumer, "/request/")
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Act:
@@ -115,6 +115,6 @@ class TestAlarmRequestConsumer:
         response = await communicator.receive_json_from()
         # Assert:
         expected_message = 'Unsupported action'
-        response_message = response['data']
+        response_message = response['payload']['data']
         assert response_message == expected_message, \
             'The response was not the expected'

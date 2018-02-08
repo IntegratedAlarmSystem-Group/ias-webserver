@@ -67,7 +67,37 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         await self.send(response)
 
 
-class AlarmRequestConsumer(AsyncJsonWebsocketConsumer):
+class RequestConsumer(AsyncJsonWebsocketConsumer):
+
+    async def receive_json(self, content, **kwargs):
+        """
+        Handles the messages received by this consumer
+
+        If the message contains the 'action' 'list',
+        responds with the list of all the current Alarms.
+        """
+
+        if content['payload'] and content['payload']['action'] is not None:
+            if content['payload']['action'] == 'list':
+                queryset = AlarmCollection.update_all_alarms_validity()
+                data = serializers.serialize(
+                    'json',
+                    list(queryset.values())
+                )
+                await self.send_json({
+                    "payload": {
+                        "data": json.loads(data)
+                    }
+                })
+            else:
+                await self.send_json({
+                    "payload": {
+                        "data": "Unsupported action"
+                    }
+                })
+
+
+class NotifyConsumer(AsyncJsonWebsocketConsumer):
 
     async def receive_json(self, content, **kwargs):
         """
