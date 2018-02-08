@@ -8,12 +8,12 @@ from alarms.consumers import CoreConsumer
 from cdb.models import Iasio
 
 
-class TestCoreConsumer():
-    """This class defines the alarm storage in a dictionary"""
+class TestCoreConsumer:
+    """This class defines the test suite for the CoreConsumer"""
 
     def setup_method(self):
         """Tests setup"""
-        self.msg_replication_factor = 3
+        # Arrange:
         self.iasio_alarm = Iasio(io_id="AlarmType-ID",
                                  short_desc="Test iasio",
                                  refresh_rate=1000,
