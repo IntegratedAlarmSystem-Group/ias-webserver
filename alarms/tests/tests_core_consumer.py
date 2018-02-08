@@ -1,6 +1,5 @@
-import pytest
 import time
-import asyncio
+import pytest
 from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
 from alarms.collections import AlarmCollection
