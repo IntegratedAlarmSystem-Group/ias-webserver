@@ -1,53 +1,40 @@
-from channels.test import ChannelTestCase, WSClient, apply_routes
-from .factories import AlarmFactory
-from ..models import Alarm, AlarmBinding
-from ..collections import AlarmCollection
-from cdb.models import Iasio
-from ..consumers import AlarmDemultiplexer, AlarmRequestConsumer, CoreConsumer
-from channels.routing import route
 import time
+import pytest
+from channels.testing import WebsocketCommunicator
+from alarms.models import Alarm
+from alarms.consumers import NotifyConsumer
+from alarms.collections import AlarmCollection
+from alarms.tests.factories import AlarmFactory
+from cdb.models import Iasio
 
 
-class TestNotifyConsumer(ChannelTestCase):
+class TestNotifyConsumer:
     """This class defines the test suite for the notify consumer"""
 
-    def setUp(self):
-        """TestCase setup"""
+    def setup_method(self):
+        """Tests setup"""
         # Arrange:
-        self.client = WSClient()
-        self.client.join_group("alarms_group")
-        self.msg_replication_factor = 3
-        Iasio.objects.all().delete()
-        AlarmCollection.reset()
+        AlarmCollection.reset([])
 
-    # def clean_replication_messages(self, client):
-    #     for k in range(self.msg_replication_factor):
-    #         client.receive()
-
-    def test_outbound_create(self):
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_outbound_create(self):
         """Test if clients are notified when an alarm is created"""
+        # Connect:
+        communicator = WebsocketCommunicator(NotifyConsumer, "/notify/")
+        connected, subprotocol = await communicator.connect()
+        assert connected, 'The communicator was not connected'
         # Arrange:
         alarm = AlarmFactory.build()
         AlarmCollection.create_or_update_if_latest(alarm)
-        # Act: (create an alarm)
-        received = self.client.receive()
-        # clean replication messsages after creation
-        # self.clean_replication_messages(self.client)
-
-        # Assert payload structure
-        self.assert_received_alarm(received, alarm)
-
-        # Assert action
-        self.assertEqual(
-            received['payload']['action'], 'create',
-            "Payload action should be 'create'"
-        )
-
-        # Assert that is nothing to receive
-        self.assertIsNone(
-            self.client.receive(),
-            'Received unexpected message'
-        )
+        # Act:
+        response = await communicator.receive_json_from()
+        print('response = ', response)
+        # Assert
+        assert response['payload']['action'] == 'create', \
+            "Action should be 'create'"
+        assert response['payload']['data'] == alarm.to_dict(), \
+            'Received alarm is different than expected'
 
 #     def test_outbound_delete(self):
 #         """Test if clients are notified when an alarm is deleted"""
@@ -196,64 +183,64 @@ class TestNotifyConsumer(ChannelTestCase):
 #         received = self.client.receive()
 #         self.assertEqual(received, None, 'Unexpected message')
 
-    def assert_received_alarm(self, received, alarm):
-        """Assert if a received message corresponds to a given alarm"""
-        self.assertIsNotNone(received, 'No message received')
-        self.assertTrue('payload' in received, 'No payload received')
-        self.assertTrue(
-            'action' in received['payload'], 'Payload does not have an action'
-        )
-        self.assertTrue(
-            'data' in received['payload'], 'Payload does not have data'
-        )
-        # check model and pk according to the binding
-        self.assertEqual(
-            received['payload']['model'], 'alarms.alarm',
-            'Payload model_label does not correspond to the Alarm model'
-        )
-        self.assertEqual(
-            received['payload']['pk'], alarm.pk,
-            'Payload pk is different from alarm.pk'
-        )
-        # check alarms binding fields and values
-        self.assertTrue(
-            'value' in received['payload']['data'],
-            'Payload does not contain value field'
-        )
-        self.assertTrue(
-            'mode' in received['payload']['data'],
-            'Payload does not contain mode field'
-        )
-        self.assertTrue(
-            'core_timestamp' in received['payload']['data'],
-            'Payload does not contain core_timestamp field'
-        )
-        self.assertTrue(
-            'core_id' in received['payload']['data'],
-            'Payload does not contain core_id field'
-        )
-        self.assertTrue(
-            'running_id' in received['payload']['data'],
-            'Payload does not contain running_id field'
-        )
-        self.assertEqual(
-            received['payload']['data']['value'], alarm.value,
-            'Payload value is different from alarm.value'
-        )
-        self.assertEqual(
-            str(received['payload']['data']['mode']), alarm.mode,
-            'Payload mode is different from alarm.mode'
-        )
-        self.assertEqual(
-            received['payload']['data']['core_timestamp'],
-            alarm.core_timestamp,
-            'Payload core_timestamp is different from alarm.core_timestamp'
-        )
-        self.assertEqual(
-            received['payload']['data']['core_id'], alarm.core_id,
-            'Payload core_id is different from alarm.core_id'
-        )
-        self.assertEqual(
-            received['payload']['data']['running_id'], alarm.running_id,
-            'Payload running_id is different from alarm.running_id'
-        )
+    # def assert_received_alarm(self, received, alarm):
+    #     """Assert if a received message corresponds to a given alarm"""
+    #     self.assertIsNotNone(received, 'No message received')
+    #     self.assertTrue('payload' in received, 'No payload received')
+    #     self.assertTrue(
+    #         'action' in received['payload'], 'Payload does not have an action'
+    #     )
+    #     self.assertTrue(
+    #         'data' in received['payload'], 'Payload does not have data'
+    #     )
+    #     # check model and pk according to the binding
+    #     self.assertEqual(
+    #         received['payload']['model'], 'alarms.alarm',
+    #         'Payload model_label does not correspond to the Alarm model'
+    #     )
+    #     self.assertEqual(
+    #         received['payload']['pk'], alarm.pk,
+    #         'Payload pk is different from alarm.pk'
+    #     )
+    #     # check alarms binding fields and values
+    #     self.assertTrue(
+    #         'value' in received['payload']['data'],
+    #         'Payload does not contain value field'
+    #     )
+    #     self.assertTrue(
+    #         'mode' in received['payload']['data'],
+    #         'Payload does not contain mode field'
+    #     )
+    #     self.assertTrue(
+    #         'core_timestamp' in received['payload']['data'],
+    #         'Payload does not contain core_timestamp field'
+    #     )
+    #     self.assertTrue(
+    #         'core_id' in received['payload']['data'],
+    #         'Payload does not contain core_id field'
+    #     )
+    #     self.assertTrue(
+    #         'running_id' in received['payload']['data'],
+    #         'Payload does not contain running_id field'
+    #     )
+    #     self.assertEqual(
+    #         received['payload']['data']['value'], alarm.value,
+    #         'Payload value is different from alarm.value'
+    #     )
+    #     self.assertEqual(
+    #         str(received['payload']['data']['mode']), alarm.mode,
+    #         'Payload mode is different from alarm.mode'
+    #     )
+    #     self.assertEqual(
+    #         received['payload']['data']['core_timestamp'],
+    #         alarm.core_timestamp,
+    #         'Payload core_timestamp is different from alarm.core_timestamp'
+    #     )
+    #     self.assertEqual(
+    #         received['payload']['data']['core_id'], alarm.core_id,
+    #         'Payload core_id is different from alarm.core_id'
+    #     )
+    #     self.assertEqual(
+    #         received['payload']['data']['running_id'], alarm.running_id,
+    #         'Payload running_id is different from alarm.running_id'
+    #     )
