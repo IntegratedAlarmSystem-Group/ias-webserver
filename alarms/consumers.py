@@ -62,7 +62,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         if content['valueType'] == 'ALARM':
             alarm = CoreConsumer.get_alarm_from_core_msg(content)
             alarm.update_validity()
-            response = AlarmCollection.create_or_update_if_latest(alarm)
+            response = await AlarmCollection.create_or_update_if_latest(alarm)
         else:
             response = 'ignored-non-alarm'
         await self.send(response)
@@ -97,77 +97,32 @@ class RequestConsumer(AsyncJsonWebsocketConsumer):
                     }
                 })
 
-#
-# class Mock:
-#
-#     name = 'no_name'
-#
-#     @receiver(AlarmCollection.alarm_notification)
-#     def my_callback(sender, **kwargs):
-#         print("*********** Alarm notification received! ***********")
-#         name = kwargs['alarm'].core_id
-#         Mock.my_other_callback(name)
-#
-#     @classmethod
-#     def my_other_callback(self, name):
-#         self.name = name
-#         print(self.name)
-
 
 class NotifyConsumer(AsyncJsonWebsocketConsumer):
 
-    @receiver(AlarmCollection.alarm_notification)
-    def my_callback(sender, **kwargs):
-        print("*********** Alarm notification received! ***********")
-        print(kwargs)
-        alarm = kwargs['alarm']
-        action = kwargs['action']
-        NotifyConsumer.sync_notify(alarm, action)
+    def __init__(self, scope):
+        super()
+        AlarmCollection.subscribe(self)
 
-    @classmethod
-    def sync_notify(self, alarm, action):
+    async def notify(self, alarm, action):
         """
         Notifies the client of changes in an Alarm
         """
-        print('Alarm = ', alarm.to_dict())
-        print('Action = ', action)
         if alarm is not None:
             data = serializers.serialize(
                 'json',
                 [alarm]
             )
-            self.send_json(content={
+            await self.send_json({
                 "payload": {
-                    "data": json.loads(data),
+                    "data": json.loads(data[1:-1]),
                     "action": action
                 }
             })
         else:
-            self.send_json({
+            await self.send_json({
                 "payload": {
                     "data": "Null Alarm",
                     "action": action
                 }
             })
-
-    async def notify(self, alarm, **kwargs):
-        """
-        Notifies the client of changes in an Alarm
-        """
-
-        if alarm is not None:
-            data = serializers.serialize(
-                'json',
-                alarm
-            )
-            await self.send_json({
-                "payload": {
-                    "data": json.loads(data)
-                }
-            })
-        else:
-            await self.send_json({
-                    "payload": {
-                        "data": "Null Alarm"
-                    }
-                })

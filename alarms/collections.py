@@ -7,13 +7,16 @@ from cdb.models import Iasio
 class AlarmCollection:
 
     singleton_collection = None
-    alarm_notification = Signal(providing_args=["alarm", "action"])
+    observers = []
 
     @classmethod
-    def notify_alarm(self, alarm, action):
-        self.alarm_notification.send(
-            sender=self.__class__, alarm=alarm, action=action
-        )
+    def subscribe(self, observer):
+        self.observers.append(observer)
+
+    @classmethod
+    async def notify_alarm(self, alarm, action):
+        for observer in self.observers:
+            await observer.notify(alarm, action)
 
     @classmethod
     def initialize_alarms(self, iasios=None):
@@ -65,17 +68,17 @@ class AlarmCollection:
             return False
 
     @classmethod
-    def __create_alarm(self, alarm):
+    async def __create_alarm(self, alarm):
         self.singleton_collection[alarm.core_id] = alarm
-        self.notify_alarm(alarm, 'create')
+        await self.notify_alarm(alarm, 'create')
 
     @classmethod
-    def create_or_update_if_latest(self, alarm):
+    async def create_or_update_if_latest(self, alarm):
         if self.singleton_collection is None:
             self.initialize_alarms()
         stored_alarm = self.get_alarm(alarm.core_id)
         if not stored_alarm:
-            self.__create_alarm(alarm)
+            await self.__create_alarm(alarm)
             return 'created-alarm'
         else:
             if self.__update_if_latest(alarm, stored_alarm):

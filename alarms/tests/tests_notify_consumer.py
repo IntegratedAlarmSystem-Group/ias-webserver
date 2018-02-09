@@ -26,14 +26,13 @@ class TestNotifyConsumer:
         assert connected, 'The communicator was not connected'
         # Arrange:
         alarm = AlarmFactory.build()
-        AlarmCollection.create_or_update_if_latest(alarm)
+        await AlarmCollection.create_or_update_if_latest(alarm)
         # Act:
         response = await communicator.receive_json_from()
-        print('response = ', response)
         # Assert
         assert response['payload']['action'] == 'create', \
             "Action should be 'create'"
-        assert response['payload']['data'] == alarm.to_dict(), \
+        assert response['payload']['data']['fields'] == alarm.to_dict(), \
             'Received alarm is different than expected'
 
 #     def test_outbound_delete(self):
