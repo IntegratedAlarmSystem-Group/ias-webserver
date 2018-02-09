@@ -1,9 +1,10 @@
 import json
+from django.core import serializers
+from django.dispatch import receiver
 from channels.generic.websocket import (
     JsonWebsocketConsumer,
     AsyncJsonWebsocketConsumer,
 )
-from django.core import serializers
 from .models import Alarm, OperationalMode, Validity
 from alarms.collections import AlarmCollection
 
@@ -96,8 +97,58 @@ class RequestConsumer(AsyncJsonWebsocketConsumer):
                     }
                 })
 
+#
+# class Mock:
+#
+#     name = 'no_name'
+#
+#     @receiver(AlarmCollection.alarm_notification)
+#     def my_callback(sender, **kwargs):
+#         print("*********** Alarm notification received! ***********")
+#         name = kwargs['alarm'].core_id
+#         Mock.my_other_callback(name)
+#
+#     @classmethod
+#     def my_other_callback(self, name):
+#         self.name = name
+#         print(self.name)
+
 
 class NotifyConsumer(AsyncJsonWebsocketConsumer):
+
+    @receiver(AlarmCollection.alarm_notification)
+    def my_callback(sender, **kwargs):
+        print("*********** Alarm notification received! ***********")
+        print(kwargs)
+        alarm = kwargs['alarm']
+        action = kwargs['action']
+        NotifyConsumer.sync_notify(alarm, action)
+
+    @classmethod
+    def sync_notify(self, alarm, action):
+        """
+        Notifies the client of changes in an Alarm
+        """
+        print('Alarm = ', alarm.to_dict())
+        print('Action = ', action)
+        if alarm is not None:
+            data = serializers.serialize(
+                'json',
+                [alarm]
+            )
+            self.send_json(content={
+                "payload": {
+                    "data": json.loads(data),
+                    "action": action
+                }
+            })
+        else:
+            self.send_json({
+                "payload": {
+                    "data": "Null Alarm",
+                    "action": action
+                }
+            })
 
     async def notify(self, alarm, **kwargs):
         """

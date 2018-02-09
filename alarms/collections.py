@@ -1,11 +1,19 @@
+import time
+from django.dispatch import Signal
 from alarms.models import Alarm
 from cdb.models import Iasio
-import time
 
 
 class AlarmCollection:
 
     singleton_collection = None
+    alarm_notification = Signal(providing_args=["alarm", "action"])
+
+    @classmethod
+    def notify_alarm(self, alarm, action):
+        self.alarm_notification.send(
+            sender=self.__class__, alarm=alarm, action=action
+        )
 
     @classmethod
     def initialize_alarms(self, iasios=None):
@@ -59,6 +67,7 @@ class AlarmCollection:
     @classmethod
     def __create_alarm(self, alarm):
         self.singleton_collection[alarm.core_id] = alarm
+        self.notify_alarm(alarm, 'create')
 
     @classmethod
     def create_or_update_if_latest(self, alarm):
