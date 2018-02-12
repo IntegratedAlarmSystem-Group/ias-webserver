@@ -1,4 +1,5 @@
 import time
+import abc
 from django.dispatch import Signal
 from alarms.models import Alarm
 from cdb.models import Iasio
@@ -10,15 +11,16 @@ class AlarmCollection:
     observers = []
 
     @classmethod
-    def subscribe(self, observer):
+    def register_observer(self, observer):
         """Add an observer to the observers list"""
-        self.observers.append(observer)
+        if isinstance(observer, AlarmCollectionObserver):
+            self.observers.append(observer)
 
     @classmethod
-    async def notify_alarm(self, alarm, action):
+    async def notify_observers(self, alarm, action):
         """Notify to all observers an action over an alarm"""
         for observer in self.observers:
-            await observer.notify(alarm, action)
+            await observer.update(alarm, action)
 
     @classmethod
     def initialize_alarms(self, iasios=None):
@@ -95,7 +97,7 @@ class AlarmCollection:
         """Adds the alarm to the AlarmCollection dictionary and notify the action
         performed to the observers"""
         self.singleton_collection[alarm.core_id] = alarm
-        await self.notify_alarm(alarm, 'create')
+        await self.notify_observers(alarm, 'create')
 
     @classmethod
     async def create_or_update_if_latest(self, alarm):
@@ -142,3 +144,13 @@ class AlarmCollection:
             for k, v in self.singleton_collection.items()
         }
         return self.singleton_collection
+
+
+class AlarmCollectionObserver(abc.ABC):
+    """
+    This class defines an interface that all the observers must implement.
+    """
+
+    @abc.abstractmethod
+    def update(alarm, action):
+        pass

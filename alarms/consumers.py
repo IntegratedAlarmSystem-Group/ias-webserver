@@ -6,7 +6,7 @@ from channels.generic.websocket import (
     AsyncJsonWebsocketConsumer,
 )
 from .models import Alarm, OperationalMode, Validity
-from alarms.collections import AlarmCollection
+from alarms.collections import AlarmCollection, AlarmCollectionObserver
 
 
 class CoreConsumer(AsyncJsonWebsocketConsumer):
@@ -98,13 +98,13 @@ class RequestConsumer(AsyncJsonWebsocketConsumer):
                 })
 
 
-class NotifyConsumer(AsyncJsonWebsocketConsumer):
+class NotifyConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
 
     def __init__(self, scope):
         super()
-        AlarmCollection.subscribe(self)
+        AlarmCollection.register_observer(self)
 
-    async def notify(self, alarm, action):
+    async def update(self, alarm, action):
         """
         Notifies the client of changes in an Alarm
         """

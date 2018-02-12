@@ -3,7 +3,7 @@ import pytest
 from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
 from alarms.consumers import NotifyConsumer
-from alarms.collections import AlarmCollection
+from alarms.collections import AlarmCollection, AlarmCollectionObserver
 from alarms.tests.factories import AlarmFactory
 from cdb.models import Iasio
 
