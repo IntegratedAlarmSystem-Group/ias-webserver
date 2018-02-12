@@ -1,5 +1,6 @@
-import time
+import datetime
 import pytest
+from freezegun import freeze_time
 from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
 from alarms.consumers import NotifyConsumer
@@ -64,36 +65,32 @@ class TestNotifyConsumer:
 #             'Received unexpected message'
 #         )
 
-#     def test_outbound_update(self):
-#         """Test if clients are notified when an alarm is updated"""
-#         # Arrange:
-#         alarm = AlarmFactory()
-#         self.client.receive()
-#         # clean replication messsages after creation
-#         self.clean_replication_messages(self.client)
-
-#         # Act:
-#         alarm = AlarmFactory.get_modified_alarm(alarm)
-#         alarm.save()
-#         received = self.client.receive()
-#         # clean replication messsages after update
-#         self.clean_replication_messages(self.client)
-
-#         # Assert payload structure
-#         alarm_after = Alarm.objects.get(pk=alarm.pk)
-#         self.assert_received_alarm(received, alarm_after)
-
-#         # Assert action
-#         self.assertEqual(
-#             received['payload']['action'], 'update',
-#             "Payload action should be 'update'"
-#         )
-
-#         # Assert that is nothing to receive
-#         self.assertIsNone(
-#             self.client.receive(),
-#             'Received unexpected message'
-#         )
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_outbound_update(self):
+        """Test if clients are notified when an alarm is updated"""
+        # Connect:
+        communicator = WebsocketCommunicator(NotifyConsumer, "/notify/")
+        connected, subprotocol = await communicator.connect()
+        assert connected, 'The communicator was not connected'
+        # Arrange:
+        # Create an alarm and then receive from the communicator to keep clean
+        # the NotifyConsumer channel
+        alarm = AlarmFactory.get_valid_alarm(core_id='test')
+        await AlarmCollection.create_or_update_if_latest(alarm)
+        response = await communicator.receive_json_from()
+        # Act:
+        # Update the alarm replacing it with an invalid alarm and receive the
+        # notification from the communicator
+        modified_alarm = AlarmFactory.get_invalid_alarm(core_id='test')
+        await AlarmCollection.create_or_update_if_latest(modified_alarm)
+        response = await communicator.receive_json_from()
+        # Assert
+        assert response['payload']['action'] == 'update', \
+            "Action should be 'update'"
+        response_alarm = response['payload']['data']['fields']
+        assert response_alarm == modified_alarm.to_dict(), \
+            'Received alarm is different than expected'
 
 #     def test_msg_should_be_replicated_after_alarm_creation(self):
 

@@ -79,7 +79,7 @@ class AlarmCollection:
         self.singleton_collection.clear()
 
     @classmethod
-    def __update_if_latest(self, alarm, stored_alarm):
+    async def __update_if_latest(self, alarm, stored_alarm):
         """Updates the Alarm object in the AlarmCollection dictionary only if
         the new Alarm instance has a later timestamp than the stored Alarm.
 
@@ -88,6 +88,7 @@ class AlarmCollection:
         """
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
             self.singleton_collection[alarm.core_id] = alarm
+            await self.notify_observers(alarm, 'update')
             return True
         else:
             return False
@@ -111,7 +112,7 @@ class AlarmCollection:
             await self.__create_alarm(alarm)
             return 'created-alarm'
         else:
-            if self.__update_if_latest(alarm, stored_alarm):
+            if await self.__update_if_latest(alarm, stored_alarm):
                 return 'updated-alarm'
             else:
                 return 'ignored-old-alarm'
