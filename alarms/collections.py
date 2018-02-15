@@ -1,5 +1,6 @@
 import time
 import abc
+import asyncio
 from django.dispatch import Signal
 from alarms.models import Alarm
 from cdb.models import Iasio
@@ -19,8 +20,9 @@ class AlarmCollection:
     @classmethod
     async def notify_observers(self, alarm, action):
         """Notify to all observers an action over an alarm"""
-        for observer in self.observers:
-            await observer.update(alarm, action)
+        await asyncio.gather(
+            *[observer.update(alarm, action) for observer in self.observers]
+        )
 
     @classmethod
     def initialize_alarms(self, iasios=None):
@@ -79,7 +81,7 @@ class AlarmCollection:
         self.singleton_collection.clear()
 
     @classmethod
-    async def __update_if_latest(self, alarm, stored_alarm):
+    def __update_if_latest(self, alarm, stored_alarm):
         """Updates the Alarm object in the AlarmCollection dictionary only if
         the new Alarm instance has a later timestamp than the stored Alarm.
 
@@ -88,31 +90,32 @@ class AlarmCollection:
         """
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
             self.singleton_collection[alarm.core_id] = alarm
-            await self.notify_observers(alarm, 'update')
             return True
         else:
             return False
 
     @classmethod
-    async def __create_alarm(self, alarm):
-        """Adds the alarm to the AlarmCollection dictionary and notify the action
-        performed to the observers"""
+    def __create_alarm(self, alarm):
+        """Adds the alarm to the AlarmCollection dictionary"""
         self.singleton_collection[alarm.core_id] = alarm
-        await self.notify_observers(alarm, 'create')
 
     @classmethod
     async def create_or_update_if_latest(self, alarm):
         """Create the alarm if it isn't in the AlarmCollection or updates the
-        alarm in the other case. Also it initializes the Collection if it has
-        been not initialized before."""
+        alarm in the other case. It also initializes the Collection if it has
+        been not initialized before.
+
+        Notifies the observers on either action"""
         if self.singleton_collection is None:
             self.initialize_alarms()
         stored_alarm = self.get_alarm(alarm.core_id)
         if not stored_alarm:
-            await self.__create_alarm(alarm)
+            self.__create_alarm(alarm)
+            await self.notify_observers(alarm, 'create')
             return 'created-alarm'
         else:
-            if await self.__update_if_latest(alarm, stored_alarm):
+            if self.__update_if_latest(alarm, stored_alarm):
+                await self.notify_observers(alarm, 'update')
                 return 'updated-alarm'
             else:
                 return 'ignored-old-alarm'

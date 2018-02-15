@@ -36,34 +36,30 @@ class TestNotifyConsumer:
         assert response['payload']['data']['fields'] == alarm.to_dict(), \
             'Received alarm is different than expected'
 
-#     def test_outbound_delete(self):
-#         """Test if clients are notified when an alarm is deleted"""
-#         # Arrange:
-#         alarm = AlarmFactory()
-#         self.client.receive()
-#         # clean replication messsages after creation
-#         self.clean_replication_messages(self.client)
+    def test_outbound_delete(self):
+        """Test if clients are notified when an alarm is deleted"""
+        # Arrange:
+        alarm = AlarmFactory()
+        self.client.receive()
+        # clean replication messsages after creation
+        self.clean_replication_messages(self.client)
 
-#         # Act:
-#         Alarm.objects.filter(pk=alarm.pk).delete()
-#         received = self.client.receive()
-#         # clean replication messsages after deletion
-#         self.clean_replication_messages(self.client)
+        # Act:
+        Alarm.objects.filter(pk=alarm.pk).delete()
+        received = self.client.receive()
+        # clean replication messsages after deletion
+        self.clean_replication_messages(self.client)
 
-#         # Assert payload structure
-#         self.assert_received_alarm(received, alarm)
+        # Assert payload structure
+        self.assert_received_alarm(received, alarm)
 
-#         # Assert action
-#         self.assertEqual(
-#             received['payload']['action'], 'delete',
-#             "Payload aalarms.alarmction should be 'delete'"
-#         )
+        # Assert action
+        assert received['payload']['action'] == 'delete', \
+            "Payload aalarms.alarmction should be 'delete'"
 
-#         # Assert that is nothing to receive
-#         self.assertIsNone(
-#             self.client.receive(),
-#             'Received unexpected message'
-#         )
+        # Assert that there is nothing to receive
+        assert self.client.receive(), 'Received unexpected message'
+
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
