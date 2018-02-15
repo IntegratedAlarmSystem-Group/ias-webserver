@@ -162,7 +162,7 @@ class TestAlarmsCollection:
             a.to_dict() for a in AlarmCollection.get_alarms_list()
         ]
         # Assert:
-        assert final_alarm_list == initial_alarm_list, \
+        assert final_alarm_list != initial_alarm_list, \
             'The alarms in the AlarmCollection are not invalidated as expected'
 
         for alarm in AlarmCollection.get_alarms_list():
