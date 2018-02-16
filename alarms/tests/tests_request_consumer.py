@@ -4,11 +4,12 @@ from freezegun import freeze_time
 from channels.testing import WebsocketCommunicator
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
-from alarms.consumers import RequestConsumer
+from alarms.consumers import ClientConsumer
 
 
-class TestRequestConsumer:
-    """This class defines the test suite for the RequestConsumer"""
+class TestRequestsToClientConsumer:
+    """This class defines the test suite for the requests messages
+    to the ClientConsumer"""
 
     def setup_method(self):
         """Tests setup"""
@@ -20,13 +21,13 @@ class TestRequestConsumer:
     async def test_alarms_list(self):
         """Test if clients can request and receive a list of alarms"""
         # Connect:
-        communicator = WebsocketCommunicator(RequestConsumer, "/request/")
+        communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
         expected_alarms_count = 3
         for k in range(expected_alarms_count):
-            await AlarmCollection.add_or_update_and_notify(AlarmFactory.build())
+            AlarmCollection.add(AlarmFactory.build())
         # Act:
         msg = {
             'stream': 'requests',
@@ -56,7 +57,7 @@ class TestRequestConsumer:
     async def test_alarms_list_validity(self):
         """Test if clients receive a list of alarms with updated validity"""
         # Connect:
-        communicator = WebsocketCommunicator(RequestConsumer, "/requests/")
+        communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
@@ -68,7 +69,7 @@ class TestRequestConsumer:
             expected_alarms_list = []
             for k in range(expected_alarms_count):
                 valid_alarm = AlarmFactory.get_valid_alarm()
-                await AlarmCollection.add_or_update_and_notify(valid_alarm)
+                AlarmCollection.add(valid_alarm)
                 alarm_dict = valid_alarm.to_dict()
                 alarm_dict['validity'] = '0'
                 expected_alarms_list.append({
@@ -101,7 +102,7 @@ class TestRequestConsumer:
         Test if clients receive 'Unsupported action' when action is not 'list'
         """
         # Connect:
-        communicator = WebsocketCommunicator(RequestConsumer, "/request/")
+        communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Act:
