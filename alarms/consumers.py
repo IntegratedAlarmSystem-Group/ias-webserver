@@ -66,7 +66,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         else:
             response = 'ignored-non-alarm'
         await self.send(response)
-        
+
 
 class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
     """ Consumer to notify clients and listen their requests """
