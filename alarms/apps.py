@@ -7,6 +7,6 @@ class AlarmConfig(AppConfig):
     name = 'alarms'
 
     def ready(self):
+        """ Initializes AlarmCollection on application start """
         from alarms.collections import AlarmCollection
-
         AlarmCollection.initialize()

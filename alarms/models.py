@@ -23,6 +23,7 @@ class OperationalMode(ChoiceEnum):
 
 
 class Validity(ChoiceEnum):
+    """ Possible validity states of an Alarm """
 
     RELIABLE = 1
     """ The value has been provided in time and the operator can trust what
