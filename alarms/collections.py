@@ -11,6 +11,7 @@ class AlarmCollection:
     singleton_collection = None
     observers = []
 
+    # Observers Methods:
     @classmethod
     def register_observer(self, observer):
         """Add an observer to the observers list"""
@@ -24,6 +25,7 @@ class AlarmCollection:
             *[observer.update(alarm, action) for observer in self.observers]
         )
 
+    # Sync, non-notified moethods:
     @classmethod
     def initialize_alarms(self, iasios=None):
         """Initialize the alarms collection with default alarms created
@@ -81,6 +83,15 @@ class AlarmCollection:
         self.singleton_collection.clear()
 
     @classmethod
+    def delete(self, alarm):
+        """Deletes the Alarm object in the AlarmCollection dictionary"""
+        if alarm.core_id in self.singleton_collection:
+            del self.singleton_collection[alarm.core_id]
+            return True
+        else:
+            return False
+
+    @classmethod
     def __update_if_latest(self, alarm, stored_alarm):
         """Updates the Alarm object in the AlarmCollection dictionary only if
         the new Alarm instance has a later timestamp than the stored Alarm.
@@ -98,27 +109,6 @@ class AlarmCollection:
     def __create_alarm(self, alarm):
         """Adds the alarm to the AlarmCollection dictionary"""
         self.singleton_collection[alarm.core_id] = alarm
-
-    @classmethod
-    async def create_or_update_if_latest(self, alarm):
-        """Create the alarm if it isn't in the AlarmCollection or updates the
-        alarm in the other case. It also initializes the Collection if it has
-        been not initialized before.
-
-        Notifies the observers on either action"""
-        if self.singleton_collection is None:
-            self.initialize_alarms()
-        stored_alarm = self.get_alarm(alarm.core_id)
-        if not stored_alarm:
-            self.__create_alarm(alarm)
-            await self.notify_observers(alarm, 'create')
-            return 'created-alarm'
-        else:
-            if self.__update_if_latest(alarm, stored_alarm):
-                await self.notify_observers(alarm, 'update')
-                return 'updated-alarm'
-            else:
-                return 'ignored-old-alarm'
 
     @classmethod
     def reset(self, iasios=None):
@@ -148,6 +138,38 @@ class AlarmCollection:
             for k, v in self.singleton_collection.items()
         }
         return self.singleton_collection
+
+    # Async method to handle alarm messages:
+    @classmethod
+    async def create_or_update_if_latest(self, alarm):
+        """Create the alarm if it isn't in the AlarmCollection or updates the
+        alarm in the other case. It also initializes the Collection if it has
+        been not initialized before.
+
+        Notifies the observers on either action"""
+        if self.singleton_collection is None:
+            self.initialize_alarms()
+        stored_alarm = self.get_alarm(alarm.core_id)
+        if not stored_alarm:
+            self.__create_alarm(alarm)
+            await self.notify_observers(alarm, 'create')
+            return 'created-alarm'
+        else:
+            if self.__update_if_latest(alarm, stored_alarm):
+                await self.notify_observers(alarm, 'update')
+                return 'updated-alarm'
+            else:
+                return 'ignored-old-alarm'
+
+    @classmethod
+    async def delete_alarm(self, alarm):
+        """Deletes the Alarm object in the AlarmCollection dictionary"""
+        status = self.delete(alarm)
+        if status:
+            await self.notify_observers(alarm, 'delete')
+            return 'deleted-alarm'
+        else:
+            return 'ignored-non-existing-alarm'
 
 
 class AlarmCollectionObserver(abc.ABC):

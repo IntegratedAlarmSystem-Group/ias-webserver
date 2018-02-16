@@ -26,7 +26,7 @@ class TestRequestConsumer:
         # Arrange:
         expected_alarms_count = 3
         for k in range(expected_alarms_count):
-            AlarmCollection.create_or_update_if_latest(AlarmFactory.build())
+            await AlarmCollection.create_or_update_if_latest(AlarmFactory.build())
         # Act:
         msg = {
             'stream': 'requests',
@@ -68,7 +68,7 @@ class TestRequestConsumer:
             expected_alarms_list = []
             for k in range(expected_alarms_count):
                 valid_alarm = AlarmFactory.get_valid_alarm()
-                AlarmCollection.create_or_update_if_latest(valid_alarm)
+                await AlarmCollection.create_or_update_if_latest(valid_alarm)
                 alarm_dict = valid_alarm.to_dict()
                 alarm_dict['validity'] = '0'
                 expected_alarms_list.append({
