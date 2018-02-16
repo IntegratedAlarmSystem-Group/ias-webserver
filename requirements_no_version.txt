@@ -7,6 +7,7 @@ Automat
 channels
 channels-redis
 constantly
+coverage
 daphne
 Django
 factory-boy
@@ -24,6 +25,8 @@ pytest-django
 python-dateutil
 pytz
 six
+Sphinx
+sphinxcontrib-websupport
 text-unidecode
 Twisted
 txaio
