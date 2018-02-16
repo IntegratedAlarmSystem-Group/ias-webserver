@@ -92,6 +92,22 @@ class Alarm(models.Model):
             'running_id': self.running_id
         }
 
+    def equals_except_timestamp(self, alarm):
+        """
+        Check if the attributes of the alarm are different to the values
+        retrieved in params, the verification does not consider the
+        core_timestamp value.
+        """
+        for key in self._meta.get_fields():
+            field = key.name
+            if field == 'core_timestamp' or field == 'id' or field == 'pk':
+                continue
+            self_attribute = getattr(self, field)
+            alarm_attribute = getattr(alarm, field)
+            if self_attribute != alarm_attribute:
+                return False
+        return True
+
     def check_changes(self, params):
         """
         Check if the attributes of the alarm are different to the values

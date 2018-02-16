@@ -28,7 +28,7 @@ class AlarmModelTestCase(TestCase):
             "The given and saved alarm's core_id differ"
         )
 
-    def test_delete_and_notify(self):
+    def test_delete_alarm(self):
         """Test if we can delete an alarm through the models"""
         # Arrange:
         self.alarm = AlarmFactory()
@@ -149,3 +149,22 @@ class AlarmModelTestCase(TestCase):
                 'The validity is not being updated when the alarm is invalid' +
                 ' because of an old timestamp'
             )
+
+    def test_equals_except_timestamp(self):
+        """Test if we can compare alarms properly through the models"""
+        # Arrange:
+        self.alarm = AlarmFactory.build(value=0)
+        self.equal_alarm = Alarm(**self.alarm.to_dict())
+        self.different_alarm = Alarm(**self.alarm.to_dict())
+        self.different_alarm.value = 1
+
+        # Assert:
+        self.assertTrue(
+            self.alarm.equals_except_timestamp(self.equal_alarm),
+            'Equal alarms are recognized as different'
+        )
+
+        self.assertFalse(
+            self.alarm.equals_except_timestamp(self.different_alarm),
+            'Different alarms are recognized as equal'
+        )

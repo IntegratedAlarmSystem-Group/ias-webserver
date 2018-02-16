@@ -130,20 +130,25 @@ class AlarmCollection:
     def update(self, alarm):
         """
         Updates the Alarm object in the AlarmCollection dictionary only if
-        the new Alarm instance has a later timestamp than the stored Alarm.
+        the new Alarm instance has a later timestamp than the stored ALARM
 
         Args:
             alarm (Alarm): the Alarm object to update
 
         Returns:
-            bool: True if the alarm instance was updated and False if it wasn't
+            string: 'updated-different' if the alarm was different
+            (besides timestamp), 'updated-equal' if it was updated but the only
+            change is the timestamp, and 'nopt-updated' if it was not updated
         """
         stored_alarm = self.get(alarm.core_id)
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
             self.singleton_collection[alarm.core_id] = alarm
-            return True
+            if alarm.equals_except_timestamp(stored_alarm):
+                return 'updated-equal'
+            else:
+                return 'updated-different'
         else:
-            return False
+            return 'not-updated'
 
     @classmethod
     def reset(self, iasios=None):
@@ -197,11 +202,14 @@ class AlarmCollection:
             await self.notify_observers(alarm, 'create')
             return 'created-alarm'
         else:
-            if self.update(alarm):
-                await self.notify_observers(alarm, 'update')
-                return 'updated-alarm'
-            else:
+            status = self.update(alarm)
+            print('status = ', status)
+            if status == 'not-updated':
                 return 'ignored-old-alarm'
+            else:
+                if status == 'updated-different':
+                    await self.notify_observers(alarm, 'update')
+                return 'updated-alarm'
 
     @classmethod
     async def delete_and_notify(self, alarm):
