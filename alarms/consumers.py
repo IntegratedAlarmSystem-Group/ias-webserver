@@ -69,6 +69,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
 
 
 class RequestConsumer(AsyncJsonWebsocketConsumer):
+    """ Consumer to allow clients to request data """
 
     async def receive_json(self, content, **kwargs):
         """
@@ -99,8 +100,13 @@ class RequestConsumer(AsyncJsonWebsocketConsumer):
 
 
 class NotifyConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
+    """ Consumer to notify clients """
 
     def __init__(self, scope):
+        """
+        Initializes the consumer and subscribes it to the AlarmCollection
+        observers list
+        """
         super()
         AlarmCollection.register_observer(self)
 
