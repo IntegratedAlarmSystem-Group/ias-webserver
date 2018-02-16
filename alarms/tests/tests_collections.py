@@ -31,7 +31,7 @@ class TestAlarmsAppInitialization(TestCase):
         """TestCase teardown"""
         Iasio.objects.all().delete()
 
-    def test_initialize_alarms(self):
+    def test_initialize(self):
         self.assertNotEqual(
             AlarmCollection.singleton_collection, None,
             'The alarm collection was not initialized'
@@ -58,10 +58,10 @@ class TestAlarmsCollection:
             running_id='({}:IASIO)'.format('OLD-ALARM')
         )
         # Act:
-        status = await AlarmCollection.create_or_update_if_latest(old_alarm)
+        status = await AlarmCollection.add_or_update_and_notify(old_alarm)
         # Assert:
         assert status == 'created-alarm', 'The status must be created-alarm'
-        assert 'OLD-ALARM' in AlarmCollection.get_alarms(), \
+        assert 'OLD-ALARM' in AlarmCollection.get_all_as_dict(), \
             'New alarms should be created'
 
     @pytest.mark.asyncio
@@ -82,7 +82,7 @@ class TestAlarmsCollection:
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
         )
-        await AlarmCollection.create_or_update_if_latest(old_alarm)
+        await AlarmCollection.add_or_update_and_notify(old_alarm)
         new_alarm = Alarm(
             value=1,
             mode='7',
@@ -92,11 +92,11 @@ class TestAlarmsCollection:
             running_id='({}:IASIO)'.format(core_id)
         )
         # Act:
-        status = await AlarmCollection.create_or_update_if_latest(new_alarm)
+        status = await AlarmCollection.add_or_update_and_notify(new_alarm)
         # Assert:
         assert status == 'updated-alarm', 'The status must be updated-alarm'
         timestamp = \
-            AlarmCollection.get_alarm('MOCK-ALARM').core_timestamp
+            AlarmCollection.get('MOCK-ALARM').core_timestamp
         assert timestamp == new_timestamp, \
             'A newer alarm than the stored alarm must be updated'
 
@@ -118,7 +118,7 @@ class TestAlarmsCollection:
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
         )
-        await AlarmCollection.create_or_update_if_latest(old_alarm)
+        await AlarmCollection.add_or_update_and_notify(old_alarm)
         new_alarm = Alarm(
             value=1,
             mode='7',
@@ -128,13 +128,13 @@ class TestAlarmsCollection:
             running_id='({}:IASIO)'.format(core_id)
         )
         # Act:
-        status = await AlarmCollection.create_or_update_if_latest(new_alarm)
+        status = await AlarmCollection.add_or_update_and_notify(new_alarm)
         # Assert:
         assert status == 'ignored-old-alarm', \
             'The status must be ignored-old-alarm'
 
         timestamp = \
-            AlarmCollection.get_alarm('MOCK-ALARM').core_timestamp
+            AlarmCollection.get('MOCK-ALARM').core_timestamp
 
         assert timestamp == old_timestamp, \
             'An older alarm than the stored must not be updated'
@@ -149,9 +149,9 @@ class TestAlarmsCollection:
         alarm_keys = ['AlarmType-ID', 'AlarmType-ID1', 'AlarmType-ID2']
         for core_id in alarm_keys:
             alarm = AlarmFactory.get_valid_alarm(core_id=core_id)
-            await AlarmCollection.create_or_update_if_latest(alarm)
+            await AlarmCollection.add_or_update_and_notify(alarm)
         initial_alarm_list = [
-            a.to_dict() for a in AlarmCollection.get_alarms_list()
+            a.to_dict() for a in AlarmCollection.get_all_as_list()
         ]
         # Act:
         # Recalculate the AlarmCollection validation after 5 seconds
@@ -159,13 +159,13 @@ class TestAlarmsCollection:
         with freeze_time(initial_time):
             AlarmCollection.update_all_alarms_validity()
         final_alarm_list = [
-            a.to_dict() for a in AlarmCollection.get_alarms_list()
+            a.to_dict() for a in AlarmCollection.get_all_as_list()
         ]
         # Assert:
         assert final_alarm_list != initial_alarm_list, \
             'The alarms in the AlarmCollection are not invalidated as expected'
 
-        for alarm in AlarmCollection.get_alarms_list():
+        for alarm in AlarmCollection.get_all_as_list():
             assert alarm.validity == '0', \
                 'The alarm {} was not correctly invalidated'.format(
                     alarm.core_id)

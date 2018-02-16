@@ -28,7 +28,7 @@ class AlarmModelTestCase(TestCase):
             "The given and saved alarm's core_id differ"
         )
 
-    def test_delete_alarm(self):
+    def test_delete_and_notify(self):
         """Test if we can delete an alarm through the models"""
         # Arrange:
         self.alarm = AlarmFactory()

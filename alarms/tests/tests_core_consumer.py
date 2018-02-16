@@ -94,10 +94,10 @@ class TestCoreConsumer:
             running_id=msg['fullRunningId'],
         )
         # Act:
-        alarm_before_send = AlarmCollection.get_alarm('AlarmType-ID')
+        alarm_before_send = AlarmCollection.get('AlarmType-ID')
         await communicator.send_json_to(msg)
         response = await communicator.receive_from()
-        alarm_after_send = AlarmCollection.get_alarm('AlarmType-ID')
+        alarm_after_send = AlarmCollection.get('AlarmType-ID')
         # Assert:
         assert response == 'updated-alarm', 'The alarm was not updated'
         assert alarm_before_send.to_dict() != alarm_after_send.to_dict(), \

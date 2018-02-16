@@ -54,7 +54,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         """
         Handles the messages received by this consumer.
         It delegates handling of the alarms received in the messages to
-        :func:`~AlarmCollection.create_or_update_if_latest`
+        :func:`~AlarmCollection.add_or_update_and_notify`
 
         Responds with a message indicating the action taken
         (created, updated, ignored)
@@ -62,7 +62,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         if content['valueType'] == 'ALARM':
             alarm = CoreConsumer.get_alarm_from_core_msg(content)
             alarm.update_validity()
-            response = await AlarmCollection.create_or_update_if_latest(alarm)
+            response = await AlarmCollection.add_or_update_and_notify(alarm)
         else:
             response = 'ignored-non-alarm'
         await self.send(response)

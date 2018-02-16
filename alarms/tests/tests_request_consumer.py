@@ -26,7 +26,7 @@ class TestRequestConsumer:
         # Arrange:
         expected_alarms_count = 3
         for k in range(expected_alarms_count):
-            await AlarmCollection.create_or_update_if_latest(AlarmFactory.build())
+            await AlarmCollection.add_or_update_and_notify(AlarmFactory.build())
         # Act:
         msg = {
             'stream': 'requests',
@@ -38,7 +38,7 @@ class TestRequestConsumer:
         response = await communicator.receive_json_from()
         # Assert:
         expected_alarms_list = []
-        alarms = AlarmCollection.get_alarms()
+        alarms = AlarmCollection.get_all_as_dict()
         for core_id, alarm in alarms.items():
             expected_alarms_list.append({
                 'pk': None,
@@ -68,7 +68,7 @@ class TestRequestConsumer:
             expected_alarms_list = []
             for k in range(expected_alarms_count):
                 valid_alarm = AlarmFactory.get_valid_alarm()
-                await AlarmCollection.create_or_update_if_latest(valid_alarm)
+                await AlarmCollection.add_or_update_and_notify(valid_alarm)
                 alarm_dict = valid_alarm.to_dict()
                 alarm_dict['validity'] = '0'
                 expected_alarms_list.append({

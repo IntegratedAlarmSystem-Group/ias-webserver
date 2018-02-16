@@ -27,8 +27,9 @@ class AlarmCollection:
 
     # Sync, non-notified moethods:
     @classmethod
-    def initialize_alarms(self, iasios=None):
-        """Initialize the alarms collection with default alarms created
+    def initialize(self, iasios=None):
+        """
+        Initializes the alarms collection with default alarms created
         considering the iasios core_ids or CDB iasios core_ids
 
         Args:
@@ -52,39 +53,63 @@ class AlarmCollection:
                         core_id=iasio.io_id,
                         running_id='({}:IASIO)'.format(iasio.io_id)
                     )
-                    self.__create_alarm(alarm)
+                    self.add(alarm)
         return self.singleton_collection
 
     @classmethod
-    def get_alarms(self):
-        """Return the dictionary of Alarm objects"""
-        if self.singleton_collection is None:
-            self.initialize_alarms()
-        return self.singleton_collection
+    def get(self, core_id):
+        """
+        Returns the Alarm object in the AlarmCollection dictionary with that
+        core_id value. It also initializes the Collection if it has been not
+        initialized before.
 
-    @classmethod
-    def get_alarm(self, core_id):
-        """Returns the Alarm object in the AlarmCollection dictionary with that
-        core_id value. Also it initializes the Collection if it has been not
-        initialized before."""
+        Args:
+            core_id (string): the core_id of the Alarm to get
+
+        Returns:
+            dict: A dictionary of Alarm objects
+        """
         if self.singleton_collection is None:
-            self.initialize_alarms()
+            self.initialize()
         try:
             return self.singleton_collection[core_id]
         except KeyError:
             return None
 
     @classmethod
-    def delete_alarms(self):
-        """Deletes all the Alarm objects in the AlarmCollection dictionary. Also
-        it initializes the Collection if it has been not initialized before."""
+    def get_all_as_dict(self):
+        """Returns all the Alarms as a dictionary indexed by core_id"""
         if self.singleton_collection is None:
-            self.initialize_alarms()
-        self.singleton_collection.clear()
+            self.initialize()
+        return self.singleton_collection
+
+    @classmethod
+    def get_all_as_list(self):
+        """Returns all the Alarms as a list"""
+        return list(self.singleton_collection.values())
+
+    @classmethod
+    def add(self, alarm):
+        """
+        Adds the alarm to the AlarmCollection dictionary
+
+        Args:
+            alarm (Alarm): the Alarm object to delete
+        """
+        self.singleton_collection[alarm.core_id] = alarm
 
     @classmethod
     def delete(self, alarm):
-        """Deletes the Alarm object in the AlarmCollection dictionary"""
+        """
+        Deletes the Alarm object in the AlarmCollection dictionary
+
+        Args:
+            alarm (Alarm): the Alarm object to delete
+
+        Returns:
+            bool: True if the alarm was deleted,
+            False if the Alarm did not exist in the collection
+        """
         if alarm.core_id in self.singleton_collection:
             del self.singleton_collection[alarm.core_id]
             return True
@@ -92,13 +117,28 @@ class AlarmCollection:
             return False
 
     @classmethod
-    def __update_if_latest(self, alarm, stored_alarm):
-        """Updates the Alarm object in the AlarmCollection dictionary only if
+    def delete_all(self):
+        """
+        Deletes all the Alarm objects in the AlarmCollection dictionary. Also
+        it initializes the Collection if it has been not initialized before
+        """
+        if self.singleton_collection is None:
+            self.initialize()
+            self.singleton_collection.clear()
+
+    @classmethod
+    def update(self, alarm):
+        """
+        Updates the Alarm object in the AlarmCollection dictionary only if
         the new Alarm instance has a later timestamp than the stored Alarm.
+
+        Args:
+            alarm (Alarm): the Alarm object to update
 
         Returns:
             bool: True if the alarm instance was updated and False if it wasn't
         """
+        stored_alarm = self.get(alarm.core_id)
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
             self.singleton_collection[alarm.core_id] = alarm
             return True
@@ -106,25 +146,17 @@ class AlarmCollection:
             return False
 
     @classmethod
-    def __create_alarm(self, alarm):
-        """Adds the alarm to the AlarmCollection dictionary"""
-        self.singleton_collection[alarm.core_id] = alarm
-
-    @classmethod
     def reset(self, iasios=None):
-        """Resets the AlarmCollection dictionary initializing it again. Go to
-        :func:`~collections.AlarmCollection.initialize_alarms` to see the
+        """
+        Resets the AlarmCollection dictionary initializing it again. Go to
+        :func:`~collections.AlarmCollection.initialize` to see the
         initialization specification.
+
+        Args:
+            iasios (list): A list of iasio objects
         """
         self.singleton_collection = None
-        self.initialize_alarms(iasios)
-
-    @classmethod
-    def get_alarms_list(self):
-        """
-        Get a list of all the Alarm objects in the AlarmCollection dictionary.
-        """
-        return list(self.singleton_collection.values())
+        self.initialize(iasios)
 
     @classmethod
     def update_all_alarms_validity(self):
@@ -132,6 +164,9 @@ class AlarmCollection:
         Update the validity of each alarm in the AlarmCollection dictionary. Go
         to :func:`alarms.models.Alarm.update_validity` to see the validation
         specification.
+
+        Returns:
+            dict: the AlarmCollection as a dictionary after the validity update
         """
         self.singleton_collection = {
             k: v.update_validity()
@@ -139,31 +174,47 @@ class AlarmCollection:
         }
         return self.singleton_collection
 
-    # Async method to handle alarm messages:
+    # Async methods to handle alarm messages:
     @classmethod
-    async def create_or_update_if_latest(self, alarm):
-        """Create the alarm if it isn't in the AlarmCollection or updates the
-        alarm in the other case. It also initializes the Collection if it has
-        been not initialized before.
+    async def add_or_update_and_notify(self, alarm):
+        """
+        Adds the alarm if it isn't in the AlarmCollection already or updates
+        the alarm in the other case. It also initializes the Collection if it
+        has been not initialized before.
 
-        Notifies the observers on either action"""
+        Notifies the observers on either action
+
+        Args:
+            alarm (Alarm): the Alarm object to add or update
+
+        Returns:
+            message (String): a string message sumarizing what happened
+        """
         if self.singleton_collection is None:
-            self.initialize_alarms()
-        stored_alarm = self.get_alarm(alarm.core_id)
-        if not stored_alarm:
-            self.__create_alarm(alarm)
+            self.initialize()
+        if alarm.core_id not in self.singleton_collection:
+            self.add(alarm)
             await self.notify_observers(alarm, 'create')
             return 'created-alarm'
         else:
-            if self.__update_if_latest(alarm, stored_alarm):
+            if self.update(alarm):
                 await self.notify_observers(alarm, 'update')
                 return 'updated-alarm'
             else:
                 return 'ignored-old-alarm'
 
     @classmethod
-    async def delete_alarm(self, alarm):
-        """Deletes the Alarm object in the AlarmCollection dictionary"""
+    async def delete_and_notify(self, alarm):
+        """
+        Deletes the Alarm object in the AlarmCollection dictionary
+        and notifies the obbservers
+
+        Args:
+            alarm (Alarm): the Alarm object to delete
+
+        Returns:
+            message (String): a string message sumarizing what happened
+        """
         status = self.delete(alarm)
         if status:
             await self.notify_observers(alarm, 'delete')

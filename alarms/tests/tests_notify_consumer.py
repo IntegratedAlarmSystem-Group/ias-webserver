@@ -27,7 +27,7 @@ class TestNotifyConsumer:
         assert connected, 'The communicator was not connected'
         # Act:
         alarm = AlarmFactory.build()
-        await AlarmCollection.create_or_update_if_latest(alarm)
+        await AlarmCollection.add_or_update_and_notify(alarm)
         response = await communicator.receive_json_from()
         # Assert:
         assert response['payload']['action'] == 'create', \
@@ -47,13 +47,13 @@ class TestNotifyConsumer:
         # Create an alarm and then receive from the communicator to keep clean
         # the NotifyConsumer channel
         alarm = AlarmFactory.get_valid_alarm(core_id='test')
-        await AlarmCollection.create_or_update_if_latest(alarm)
+        await AlarmCollection.add_or_update_and_notify(alarm)
         response = await communicator.receive_json_from()
         # Act:
         # Update the alarm replacing it with an invalid alarm and receive the
         # notification from the communicator
         modified_alarm = AlarmFactory.get_invalid_alarm(core_id='test')
-        await AlarmCollection.create_or_update_if_latest(modified_alarm)
+        await AlarmCollection.add_or_update_and_notify(modified_alarm)
         response = await communicator.receive_json_from()
         # Assert
         assert response['payload']['action'] == 'update', \
@@ -74,12 +74,12 @@ class TestNotifyConsumer:
         # Create an alarm and then receive from the communicator to keep clean
         # the NotifyConsumer channel
         alarm = AlarmFactory.get_valid_alarm(core_id='test')
-        await AlarmCollection.create_or_update_if_latest(alarm)
+        await AlarmCollection.add_or_update_and_notify(alarm)
         response = await communicator.receive_json_from()
         # Act:
         # Update the alarm replacing it with an invalid alarm and receive the
         # notification from the communicator
-        await AlarmCollection.delete_alarm(alarm)
+        await AlarmCollection.delete_and_notify(alarm)
         response = await communicator.receive_json_from()
 
         # Assert action

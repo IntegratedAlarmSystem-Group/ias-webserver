@@ -9,4 +9,4 @@ class AlarmConfig(AppConfig):
     def ready(self):
         from alarms.collections import AlarmCollection
 
-        AlarmCollection.initialize_alarms()
+        AlarmCollection.initialize()
