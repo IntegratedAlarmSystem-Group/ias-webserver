@@ -14,11 +14,11 @@ class AlarmCollection:
     """
 
     singleton_collection = None
-    """Dictionary to store the Alarm objects, indexed by core_id"""
+    """ Dictionary to store the Alarm objects, indexed by core_id """
 
     observers = []
-    """List to store references to the observers subscribed to changes in the
-    collection"""
+    """ List to store references to the observers subscribed to changes in the
+    collection """
 
     # Observers Methods:
     @classmethod

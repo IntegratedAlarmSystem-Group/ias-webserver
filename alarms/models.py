@@ -1,6 +1,5 @@
 from django.db import models
 from utils.choice_enum import ChoiceEnum
-from cdb.models import Iasio
 import time
 
 
@@ -35,13 +34,19 @@ class Validity(ChoiceEnum):
 
     @classmethod
     def options(cls):
-        """ Return a list of tuples with the valid options. """
+        """ Returns a list of tuples with the valid options. """
         return cls.get_choices()
 
     @classmethod
+    def refresh_rate(cls):
+        """ Returns a refresh_rate in milliseconds defined to be used to
+        calculate the validity of alarms """
+        return 5000
+
+    @classmethod
     def delta(cls):
-        """ Return a delta of time in milliseconds defined to be used as
-        error margin """
+        """ Returns a delta of time in milliseconds defined to be used as
+        error margin for the calculation of validity """
         return 500
 
 
@@ -156,7 +161,7 @@ class Alarm(models.Model):
         """
         if self.validity == '0':
             return self
-        refresh_rate = Iasio.get_refresh_rate(self.core_id)
+        refresh_rate = Validity.refresh_rate()
         delta = Validity.delta()
         current_timestamp = int(round(time.time() * 1000))
         if current_timestamp - self.core_timestamp > refresh_rate + delta:
