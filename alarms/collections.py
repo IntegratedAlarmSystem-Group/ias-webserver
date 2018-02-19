@@ -25,7 +25,7 @@ class AlarmCollection:
             *[observer.update(alarm, action) for observer in self.observers]
         )
 
-    # Sync, non-notified moethods:
+    # Sync, non-notified methods:
     @classmethod
     def initialize(self, iasios=None):
         """
