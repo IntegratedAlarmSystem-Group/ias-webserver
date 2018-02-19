@@ -121,15 +121,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-# redis_host = os.environ.get('REDIS_HOST', 'localhost')
-# CHANNEL_LAYERS = {
-#     "default": {
-#         # This example app uses the Redis channel layer
-#         # implementation asgi_redis
-#         "BACKEND": "channels_redis.core.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": [(redis_host, 6379)],
-#         }
-#     },
-# }
+redis_host = os.environ.get('REDIS_HOST', 'localhost')
+CHANNEL_LAYERS = {
+    "default": {
+        # This example app uses the Redis channel layer
+        # implementation asgi_redis
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(redis_host, 6379)],
+        }
+    },
+}
 ASGI_APPLICATION = "ias_webserver.routing.application"
