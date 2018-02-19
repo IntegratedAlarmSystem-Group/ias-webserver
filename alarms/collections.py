@@ -14,7 +14,11 @@ class AlarmCollection:
     """
 
     singleton_collection = None
+    """Dictionary to store the Alarm objects, indexed by core_id"""
+
     observers = []
+    """List to store references to the observers subscribed to changes in the
+    collection"""
 
     # Observers Methods:
     @classmethod
@@ -208,7 +212,6 @@ class AlarmCollection:
             return 'created-alarm'
         else:
             status = self.update(alarm)
-            print('status = ', status)
             if status == 'not-updated':
                 return 'ignored-old-alarm'
             else:
