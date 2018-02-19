@@ -1,6 +1,5 @@
 import json
 from django.core import serializers
-from django.dispatch import receiver
 from channels.generic.websocket import (
     JsonWebsocketConsumer,
     AsyncJsonWebsocketConsumer,

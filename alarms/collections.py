@@ -1,12 +1,17 @@
 import time
 import abc
 import asyncio
-from django.dispatch import Signal
 from alarms.models import Alarm
 from cdb.models import Iasio
 
 
 class AlarmCollection:
+    """
+    This class defines the data structure that will store and handle the Alarms
+    in memory.
+
+    Allows observers to subscribe to changes on the Alarm objects
+    """
 
     singleton_collection = None
     observers = []
