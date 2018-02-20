@@ -3,7 +3,7 @@ import time
 import pytest
 from freezegun import freeze_time
 from django.test import TestCase
-from alarms.models import Alarm
+from alarms.models import Alarm, Validity
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from cdb.models import Iasio
@@ -155,7 +155,9 @@ class TestAlarmsCollection:
         ]
         # Act:
         # Recalculate the AlarmCollection validation after 5 seconds
-        initial_time = datetime.datetime.now() + datetime.timedelta(seconds=5)
+        max_interval = Validity.refresh_rate() + Validity.delta() + 1
+        max_timedelta = datetime.timedelta(milliseconds=max_interval)
+        initial_time = datetime.datetime.now() + max_timedelta
         with freeze_time(initial_time):
             AlarmCollection.update_all_alarms_validity()
         final_alarm_list = [

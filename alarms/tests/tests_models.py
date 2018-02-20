@@ -1,6 +1,5 @@
 from django.test import TestCase
 from ..models import Alarm, Validity
-from cdb.models import Iasio
 from .factories import AlarmFactory
 from freezegun import freeze_time
 import datetime
@@ -136,9 +135,7 @@ class AlarmModelTestCase(TestCase):
         with freeze_time(initial_time) as frozen_datetime:
             # Arrange:
             alarm = AlarmFactory.get_valid_alarm()
-            refresh_rate = Iasio.get_refresh_rate(alarm.core_id)
-            validity_delta = Validity.delta()
-            max_interval = refresh_rate + validity_delta + 1
+            max_interval = Validity.refresh_rate() + Validity.delta() + 1
             max_timedelta = datetime.timedelta(milliseconds=max_interval)
             # Act:
             frozen_datetime.tick(delta=max_timedelta)
