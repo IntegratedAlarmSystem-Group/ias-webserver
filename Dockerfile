@@ -7,8 +7,8 @@ RUN pip install -r requirements.txt
 RUN apt-get update && apt-get install netcat -y
 
 COPY . .
-# RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
-# VOLUME ./static
+VOLUME /usr/src/ias-webserver/static
 EXPOSE 8001
 ENTRYPOINT ["./entrypoint.sh"]

@@ -120,6 +120,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # redis_host = os.environ.get('REDIS_HOST', 'localhost')
 # CHANNEL_LAYERS = {
