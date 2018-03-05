@@ -1,37 +1,61 @@
-alarms\.migrations package
-==========================
+alarms.migrations package
+=========================
 
 Submodules
 ----------
 
-alarms\.migrations\.0001\_initial module
-----------------------------------------
+alarms.migrations.0001\_initial module
+--------------------------------------
 
 .. automodule:: alarms.migrations.0001_initial
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms\.migrations\.0002\_alarm\_mode module
---------------------------------------------
+alarms.migrations.0002\_alarm\_mode module
+------------------------------------------
 
 .. automodule:: alarms.migrations.0002_alarm_mode
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms\.migrations\.0003\_auto\_20171110\_2155 module
------------------------------------------------------
+alarms.migrations.0003\_auto\_20171110\_2155 module
+---------------------------------------------------
 
 .. automodule:: alarms.migrations.0003_auto_20171110_2155
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms\.migrations\.0004\_auto\_20171206\_2149 module
------------------------------------------------------
+alarms.migrations.0004\_auto\_20171206\_2149 module
+---------------------------------------------------
 
 .. automodule:: alarms.migrations.0004_auto_20171206_2149
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.migrations.0005\_auto\_20171213\_1600 module
+---------------------------------------------------
+
+.. automodule:: alarms.migrations.0005_auto_20171213_1600
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.migrations.0006\_alarm\_validity module
+----------------------------------------------
+
+.. automodule:: alarms.migrations.0006_alarm_validity
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.migrations.0007\_auto\_20180216\_2010 module
+---------------------------------------------------
+
+.. automodule:: alarms.migrations.0007_auto_20180216_2010
     :members:
     :undoc-members:
     :show-inheritance:

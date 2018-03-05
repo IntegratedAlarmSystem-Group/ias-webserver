@@ -9,6 +9,7 @@ class IasioModelTestCase(TestCase):
         Iasio.objects.all().delete()
 
     def test_create_iasio(self):
+        """ Test if we can create an Iasio, with type in upper case"""
         # Act:
         iasio = Iasio(io_id='Test-ID',
                       short_desc='Test iasio',

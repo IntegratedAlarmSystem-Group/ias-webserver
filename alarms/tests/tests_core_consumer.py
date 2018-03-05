@@ -11,7 +11,7 @@ class TestCoreConsumer:
     """This class defines the test suite for the CoreConsumer"""
 
     def setup_method(self):
-        """Tests setup"""
+        """TestCase setup, executed before each test of the TestCase"""
         # Arrange:
         self.iasio_alarm = Iasio(io_id="AlarmType-ID",
                                  short_desc="Test iasio",

@@ -1,27 +1,51 @@
-alarms\.tests package
-=====================
+alarms.tests package
+====================
 
 Submodules
 ----------
 
-alarms\.tests\.factories module
--------------------------------
+alarms.tests.factories module
+-----------------------------
 
 .. automodule:: alarms.tests.factories
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms\.tests\.tests\_consumers module
---------------------------------------
+alarms.tests.tests\_client\_consumer\_notify module
+---------------------------------------------------
 
-.. automodule:: alarms.tests.tests_consumers
+.. automodule:: alarms.tests.tests_client_consumer_notify
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms\.tests\.tests\_models module
------------------------------------
+alarms.tests.tests\_client\_consumer\_request module
+----------------------------------------------------
+
+.. automodule:: alarms.tests.tests_client_consumer_request
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.tests.tests\_collections module
+--------------------------------------
+
+.. automodule:: alarms.tests.tests_collections
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.tests.tests\_core\_consumer module
+-----------------------------------------
+
+.. automodule:: alarms.tests.tests_core_consumer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.tests.tests\_models module
+---------------------------------
 
 .. automodule:: alarms.tests.tests_models
     :members:

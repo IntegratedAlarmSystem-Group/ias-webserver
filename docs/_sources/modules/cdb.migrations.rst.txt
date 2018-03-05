@@ -1,0 +1,22 @@
+cdb.migrations package
+======================
+
+Submodules
+----------
+
+cdb.migrations.0001\_initial module
+-----------------------------------
+
+.. automodule:: cdb.migrations.0001_initial
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cdb.migrations
+    :members:
+    :undoc-members:
+    :show-inheritance:

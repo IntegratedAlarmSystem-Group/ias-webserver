@@ -15,7 +15,7 @@ class TestAlarmsAppInitialization(TestCase):
     """
 
     def setUp(self):
-        """TestCase setup"""
+        """TestCase setup, executed before each test of the TestCase"""
         self.iasio_alarm = Iasio(io_id="AlarmType-ID",
                                  short_desc="Test iasio",
                                  refresh_rate=1000,
@@ -28,10 +28,11 @@ class TestAlarmsAppInitialization(TestCase):
         self.iasio_double.save()
 
     def tearDown(self):
-        """TestCase teardown"""
+        """TestCase teardown, executed after each test of the TestCase"""
         Iasio.objects.all().delete()
 
     def test_initialize(self):
+        """ Test that the alarm collection is initialised on startup """
         self.assertNotEqual(
             AlarmCollection.singleton_collection, None,
             'The alarm collection was not initialized'

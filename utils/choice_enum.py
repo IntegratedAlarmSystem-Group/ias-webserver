@@ -3,6 +3,7 @@ from enum import Enum
 
 
 class ChoiceEnum(Enum):
+    """ Utility class used to define an enum with choices """
 
     @classmethod
     def get_choices(cls):

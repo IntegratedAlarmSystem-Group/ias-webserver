@@ -1,59 +1,51 @@
 alarms package
 ==============
 
-Subpackages
------------
-
-.. toctree::
-
-    alarms.migrations
-    alarms.tests
-
 Submodules
 ----------
 
-alarms\.admin module
---------------------
+alarms.admin module
+-------------------
 
 .. automodule:: alarms.admin
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms\.apps module
--------------------
+alarms.apps module
+------------------
 
 .. automodule:: alarms.apps
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms\.consumers module
-------------------------
+alarms.collections module
+-------------------------
+
+.. automodule:: alarms.collections
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.consumers module
+-----------------------
 
 .. automodule:: alarms.consumers
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms\.models module
----------------------
+alarms.models module
+--------------------
 
 .. automodule:: alarms.models
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms\.routing module
-----------------------
-
-.. automodule:: alarms.routing
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alarms\.views module
---------------------
+alarms.views module
+-------------------
 
 .. automodule:: alarms.views
     :members:
