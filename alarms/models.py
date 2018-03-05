@@ -1,12 +1,6 @@
 from django.db import models
-from channels.binding.websockets import WebsocketBinding
 from utils.choice_enum import ChoiceEnum
-
-from channels import Group
-
 import time
-
-# Always keep models and bindings in this file!!
 
 
 class OperationalMode(ChoiceEnum):
@@ -28,6 +22,7 @@ class OperationalMode(ChoiceEnum):
 
 
 class Validity(ChoiceEnum):
+    """ Possible validity states of an Alarm """
 
     RELIABLE = 1
     """ The value has been provided in time and the operator can trust what
@@ -39,19 +34,20 @@ class Validity(ChoiceEnum):
 
     @classmethod
     def options(cls):
-        """ Return a list of tuples with the valid options. """
+        """ Returns a list of tuples with the valid options. """
         return cls.get_choices()
 
     @classmethod
-    def delta(cls):
-        """ Return a delta of time in milliseconds defined to be used as
-        error margin """
-        return 500
+    def refresh_rate(cls):
+        """ Returns a refresh_rate in milliseconds defined to be used to
+        calculate the validity of alarms """
+        return 5000
 
     @classmethod
-    def default_refresh_rate(cls):
-        """ Return the default value of refresh rate """
-        return 1000
+    def delta(cls):
+        """ Returns a delta of time in milliseconds defined to be used as
+        error margin for the calculation of validity """
+        return 500
 
 
 class Alarm(models.Model):
@@ -90,6 +86,32 @@ class Alarm(models.Model):
         """ Returns a string representation of the object """
 
         return str(self.core_id) + '=' + str(self.value)
+
+    def to_dict(self):
+        return {
+            'value': self.value,
+            'mode': self.mode,
+            'validity': self.validity,
+            'core_timestamp': self.core_timestamp,
+            'core_id': self.core_id,
+            'running_id': self.running_id
+        }
+
+    def equals_except_timestamp(self, alarm):
+        """
+        Check if the attributes of the alarm are different to the values
+        retrieved in params, the verification does not consider the
+        core_timestamp value.
+        """
+        for key in self._meta.get_fields():
+            field = key.name
+            if field == 'core_timestamp' or field == 'id' or field == 'pk':
+                continue
+            self_attribute = getattr(self, field)
+            alarm_attribute = getattr(alarm, field)
+            if self_attribute != alarm_attribute:
+                return False
+        return True
 
     def check_changes(self, params):
         """
@@ -132,51 +154,18 @@ class Alarm(models.Model):
             return True
         return False
 
-
-class AlarmBinding(WebsocketBinding):
-    """ Bind the alarm actions with a websocket stream. """
-
-    model = Alarm
-    """ Model binded with the websocket """
-
-    stream = "alarms"
-    """ Name of the stream to send the messages. """
-
-    fields = ["__all__"]
-    """ List of fields included in the messages. """
-
-    messages_replication_factor = 3
-    """ Number of replicated messages after a required action """
-
-    @classmethod
-    def group_names(cls, *args, **kwargs):
-        """ Return a list of the groups that receive the binding messages. """
-
-        return ["alarms_group"]
-
-    def has_permission(self, user, action, pk):
-        """ Return if the user has permission to make the specified action. """
-
-        return True
-
-    def send_messages(self, instance, group_names, action, **kwargs):
+    def update_validity(self):
         """
-        Serializes the instance and sends it to all provided group names.
+        Calculate the validity of the alarm considering the current time,
+        the refresh rate and a previously defined delta time
         """
-
-        if not group_names:
-            return  # no need to serialize, bail.
-        self.signal_kwargs = kwargs
-        payload = self.serialize(instance, action)
-        if payload == {}:
-            return  # nothing to send, bail.
-
-        assert self.stream is not None
-        message = self.encode(self.stream, payload)
-
-        for group_name in group_names:
-            group = Group(group_name)
-            group.send(message)
-
-            for k in range(self.messages_replication_factor):
-                group.send(message)
+        if self.validity == '0':
+            return self
+        refresh_rate = Validity.refresh_rate()
+        delta = Validity.delta()
+        current_timestamp = int(round(time.time() * 1000))
+        if current_timestamp - self.core_timestamp > refresh_rate + delta:
+            self.validity = '0'
+            return self
+        else:
+            return self

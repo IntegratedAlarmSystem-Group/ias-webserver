@@ -47,6 +47,7 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+.pytest_cache
 
 # Translations
 *.mo
@@ -105,5 +106,5 @@ ENV/
 # sqlite database
 *.sqlite3
 
-# Visual Studio Code 
+# Visual Studio Code
 .vscode/*

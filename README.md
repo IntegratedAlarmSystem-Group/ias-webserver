@@ -59,7 +59,7 @@ https://integratedalarmsystem-group.github.io/ias-webserver/
   * If required, apply migrations: `python manage.py migrate`
 
 ## Run Tests
-  * Run tests: `python manage.py test`
+  * Run tests: `pytest`
   * Run tests with coverage: `coverage run --source='.' manage.py test`
   * View coverage report in terminal:
     * Excluding third-party libraries in venv (recommended): `coverage report --omit='venv/*'`

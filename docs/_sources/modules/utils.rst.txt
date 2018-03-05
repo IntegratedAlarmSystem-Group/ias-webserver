@@ -4,8 +4,8 @@ utils package
 Submodules
 ----------
 
-utils\.choice\_enum module
---------------------------
+utils.choice\_enum module
+-------------------------
 
 .. automodule:: utils.choice_enum
     :members:

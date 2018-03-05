@@ -1,7 +1,8 @@
 from django.test import TestCase
-from ..models import Alarm
+from ..models import Alarm, Validity
 from .factories import AlarmFactory
-import time
+from freezegun import freeze_time
+import datetime
 
 
 class AlarmModelTestCase(TestCase):
@@ -94,4 +95,73 @@ class AlarmModelTestCase(TestCase):
             Alarm.objects.get(pk=self.alarm.pk).value,
             new_value,
             'The alarm value was not updated'
+        )
+
+    def test_ignored_invalid_alarms_update(self):
+        """ Test if the UNREALIABLE alarm keep the validity as UNREALIABLE
+        even if the validity is recalculated before the valid refresh time
+        elapsed """
+        # Arrange:
+        alarm = AlarmFactory.get_invalid_alarm()
+        # Act:
+        alarm.update_validity()
+        # Assert:
+        self.assertEqual(
+            alarm.validity, '0',
+            'The validity must keep it UNREALIABLE even if the ' +
+            'core_timestamp is current'
+        )
+
+    def test_ignored_valid_alarm_update(self):
+        """ Test if a RELIABLE alarm keep the validity as RELIABLE if the
+        validity is recalculated before the valid refresh time elapsed """
+        # Arrange:
+        alarm = AlarmFactory.get_valid_alarm()
+        # Act:
+        alarm.update_validity()
+        # Assert:
+        self.assertEqual(
+            alarm.validity, '1',
+            'The validity must keep it REALIABLE if the ' +
+            'core_timestamp is current'
+        )
+
+    def test_updated_invalid_alarms(self):
+        """ Test if the alarm validity is changed to UNREALIABLE when the
+        elapsed time is greater than the refresh rate considering a margin
+        error
+        """
+        initial_time = datetime.datetime.now()
+        with freeze_time(initial_time) as frozen_datetime:
+            # Arrange:
+            alarm = AlarmFactory.get_valid_alarm()
+            max_interval = Validity.refresh_rate() + Validity.delta() + 1
+            max_timedelta = datetime.timedelta(milliseconds=max_interval)
+            # Act:
+            frozen_datetime.tick(delta=max_timedelta)
+            alarm.update_validity()
+            # Assert:
+            self.assertEqual(
+                alarm.validity, '0',
+                'The validity is not being updated when the alarm is invalid' +
+                ' because of an old timestamp'
+            )
+
+    def test_equals_except_timestamp(self):
+        """Test if we can compare alarms properly through the models"""
+        # Arrange:
+        self.alarm = AlarmFactory.build(value=0)
+        self.equal_alarm = Alarm(**self.alarm.to_dict())
+        self.different_alarm = Alarm(**self.alarm.to_dict())
+        self.different_alarm.value = 1
+
+        # Assert:
+        self.assertTrue(
+            self.alarm.equals_except_timestamp(self.equal_alarm),
+            'Equal alarms are recognized as different'
+        )
+
+        self.assertFalse(
+            self.alarm.equals_except_timestamp(self.different_alarm),
+            'Different alarms are recognized as equal'
         )
