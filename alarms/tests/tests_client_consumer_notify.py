@@ -1,12 +1,8 @@
-import datetime
 import pytest
-from freezegun import freeze_time
 from channels.testing import WebsocketCommunicator
-from alarms.models import Alarm
 from alarms.consumers import ClientConsumer
-from alarms.collections import AlarmCollection, AlarmCollectionObserver
+from alarms.collections import AlarmCollection
 from alarms.tests.factories import AlarmFactory
-from cdb.models import Iasio
 
 
 class TestNotificationsToClientConsumer:
@@ -14,7 +10,7 @@ class TestNotificationsToClientConsumer:
     to the ClientConsumer"""
 
     def setup_method(self):
-        """Tests setup"""
+        """TestCase setup, executed before each test of the TestCase"""
         # Arrange:
         AlarmCollection.reset([])
 

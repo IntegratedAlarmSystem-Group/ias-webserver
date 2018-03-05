@@ -5,6 +5,7 @@ class AlarmConfig(AppConfig):
     """ Configuration of the application Alarm """
 
     name = 'alarms'
+    """ Name of the application """
 
     def ready(self):
         """ Initializes AlarmCollection on application start """

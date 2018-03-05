@@ -1,9 +1,6 @@
 import json
 from django.core import serializers
-from channels.generic.websocket import (
-    JsonWebsocketConsumer,
-    AsyncJsonWebsocketConsumer,
-)
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from .models import Alarm, OperationalMode, Validity
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
 

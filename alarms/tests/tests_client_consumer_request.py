@@ -12,7 +12,7 @@ class TestRequestsToClientConsumer:
     to the ClientConsumer"""
 
     def setup_method(self):
-        """Tests setup"""
+        """TestCase setup, executed before each test of the TestCase"""
         # Arrange:
         AlarmCollection.reset([])
 
