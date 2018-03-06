@@ -36,7 +36,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         """
         dt = datetime.datetime.strptime(bsdbTStamp, '%Y-%m-%dT%H:%M:%S.%f')
         timestamp = (time.mktime(dt.timetuple()) + dt.microsecond / 1E6) * 1000
-        return timestamp
+        return int(timestamp)
 
     def get_alarm_from_core_msg(content):
         """
