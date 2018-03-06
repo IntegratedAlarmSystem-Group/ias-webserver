@@ -47,7 +47,12 @@ class TestRequestsToClientConsumer:
                 'fields': alarm.to_dict()
             })
         alarms_list = response['payload']['data']
-        assert alarms_list == expected_alarms_list, \
+        sorted_alarms_list = sorted(alarms_list,
+                                    key=lambda k: k['fields']['core_id'])
+        sorted_expected_alarms_list = sorted(expected_alarms_list,
+                                             key=lambda k: k['fields']
+                                                            ['core_id'])
+        assert sorted_alarms_list == sorted_expected_alarms_list, \
             'The received alarms are different than the alarms in the Server'
         # Close:
         await communicator.disconnect()
@@ -91,7 +96,12 @@ class TestRequestsToClientConsumer:
             response = await communicator.receive_json_from()
             # Assert:
             alarms_list = response['payload']['data']
-            assert alarms_list == expected_alarms_list, \
+            sorted_alarms_list = sorted(alarms_list,
+                                        key=lambda k: k['fields']['core_id'])
+            sorted_expected_alarms_list = sorted(expected_alarms_list,
+                                                 key=lambda k: k['fields']
+                                                                ['core_id'])
+            assert sorted_alarms_list == sorted_expected_alarms_list, \
                 'The alarms were not invalidated as expected after 10 seconds'
         # Close:
         await communicator.disconnect()
