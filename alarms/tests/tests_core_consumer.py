@@ -1,4 +1,4 @@
-import time
+import datetime
 import pytest
 from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
@@ -39,10 +39,14 @@ class TestCoreConsumer:
 
     def test_get_alarm_from_core_message(self):
         # Arrange:
-        current_time_millis = int(round(time.time() * 1000))
+        current_time = datetime.datetime.now()
+        formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        current_time_millis = CoreConsumer.get_timestamp_from(
+                                formatted_current_time)
         msg = {
             "value": "SET",
-            "tStamp": current_time_millis,
+            "dasuProductionTStamp": formatted_current_time,
+            'sentToBsdbTStamp': formatted_current_time,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
@@ -74,10 +78,14 @@ class TestCoreConsumer:
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
-        current_time_millis = int(round(time.time() * 1000))
+        current_time = datetime.datetime.now()
+        formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        current_time_millis = CoreConsumer.get_timestamp_from(
+                                formatted_current_time)
         msg = {
             "value": "SET",
-            "tStamp": current_time_millis,
+            "dasuProductionTStamp": formatted_current_time,
+            "sentToBsdbTStamp": formatted_current_time,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
