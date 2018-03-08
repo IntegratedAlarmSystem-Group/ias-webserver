@@ -1,4 +1,4 @@
-import time
+import datetime
 import pytest
 from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
@@ -37,12 +37,29 @@ class TestCoreConsumer:
         assert id == 'AlarmType-ID', \
             'The core_id was not extracted correctly from the running_id'
 
+    def test_get_timestamp_from(self):
+        """Tests if the timestamp in milliseconds is calculated correctly"""
+        # Arrange:
+        formatted_current_time = '2010-02-27T06:34:00.0'
+        expected_timestamp = 1267252440000
+        # Act:
+        current_time_millis = CoreConsumer.get_timestamp_from(
+                                formatted_current_time)
+        # Assert:
+        assert current_time_millis == expected_timestamp, \
+            'The calculated timestamp in milliseconds differs from the \
+            expected in more than 1 millisecond'
+
     def test_get_alarm_from_core_message(self):
         # Arrange:
-        current_time_millis = int(round(time.time() * 1000))
+        current_time = datetime.datetime.now()
+        formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        current_time_millis = CoreConsumer.get_timestamp_from(
+                                formatted_current_time)
         msg = {
             "value": "SET",
-            "tStamp": current_time_millis,
+            "dasuProductionTStamp": formatted_current_time,
+            'sentToBsdbTStamp': formatted_current_time,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
@@ -74,10 +91,14 @@ class TestCoreConsumer:
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
-        current_time_millis = int(round(time.time() * 1000))
+        current_time = datetime.datetime.now()
+        formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        current_time_millis = CoreConsumer.get_timestamp_from(
+                                formatted_current_time)
         msg = {
             "value": "SET",
-            "tStamp": current_time_millis,
+            "dasuProductionTStamp": formatted_current_time,
+            "sentToBsdbTStamp": formatted_current_time,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
             "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +

@@ -1,4 +1,6 @@
 import json
+import time
+import datetime
 from django.core import serializers
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from .models import Alarm, OperationalMode, Validity
@@ -23,6 +25,19 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         """
         return full_id.rsplit('@', 1)[1].strip('()').split(':')[0]
 
+    def get_timestamp_from(bsdbTStamp):
+        """Return the bsdbTStamp transformed to timestamp in milliseconds
+
+        Args:
+            bsdbTStamp (string): The backstage timestamp in ISO 8601 format
+
+        Returns:
+            double: The backstage timestamp in milliseconds
+        """
+        dt = datetime.datetime.strptime(bsdbTStamp, '%Y-%m-%dT%H:%M:%S.%f')
+        timestamp = (time.mktime(dt.timetuple()) + dt.microsecond / 1E6) * 1000
+        return int(timestamp)
+
     def get_alarm_from_core_msg(content):
         """
         Returns an alarm based on the values specified in the message content
@@ -36,9 +51,10 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
         core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
+        tstamp = CoreConsumer.get_timestamp_from(content['sentToBsdbTStamp'])
         params = {
             'value': (1 if content['value'] == 'SET' else 0),
-            'core_timestamp': content['tStamp'],
+            'core_timestamp': tstamp,
             'mode': mode_options[content['mode']],
             'validity': validity_options[content['iasValidity']],
             'core_id': core_id,
