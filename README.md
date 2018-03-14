@@ -56,7 +56,9 @@ https://integratedalarmsystem-group.github.io/ias-webserver/
 ## Local Execution
   * Activate virtual environment (if not already activated): `source venv/bin/activate`
   * Run development server: `python manage.py runserver`
-  * If required, apply migrations: `python manage.py migrate`
+  * If required, apply migrations:
+    - `python manage.py migrate`
+    - `python manage.py migrate --database=cdb`
 
 ## Run Tests
   * Run tests: `pytest`
