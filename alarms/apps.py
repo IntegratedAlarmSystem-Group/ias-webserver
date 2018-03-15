@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.db.utils import OperationalError
 
 
 class AlarmConfig(AppConfig):
@@ -10,4 +11,7 @@ class AlarmConfig(AppConfig):
     def ready(self):
         """ Initializes AlarmCollection on application start """
         from alarms.collections import AlarmCollection
-        AlarmCollection.initialize()
+        try:
+            AlarmCollection.initialize()
+        except OperationalError:
+            print('CDB is not yet defined')
