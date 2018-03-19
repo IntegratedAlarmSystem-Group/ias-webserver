@@ -82,6 +82,34 @@ class Alarm(models.Model):
     )
     """ Validity of the alarm. """
 
+    pluginProductionTStamp = models.CharField(
+        max_length=22, blank=False, null=True
+    )
+
+    sentToConverterTStamp = models.CharField(
+        max_length=22, blank=False, null=True
+    )
+
+    receivedFromPluginTStamp = models.CharField(
+        max_length=22, blank=False, null=True
+    )
+
+    convertedProductionTStamp = models.CharField(
+        max_length=22, blank=False, null=True
+    )
+
+    sentToBsdbTStamp = models.CharField(
+        max_length=22, blank=False, null=True
+    )
+
+    readFromBsdbTStamp = models.CharField(
+        max_length=22, blank=False, null=True
+    )
+
+    dasuProductionTStamp = models.CharField(
+        max_length=22, blank=False, null=True
+    )
+
     def __str__(self):
         """ Returns a string representation of the object """
 
