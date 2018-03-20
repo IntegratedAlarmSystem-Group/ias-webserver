@@ -1,7 +1,5 @@
-import json
 import time
 import datetime
-from django.core import serializers
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from .models import Alarm, OperationalMode, Validity
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
@@ -96,13 +94,13 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         Notifies the client of changes in an Alarm
         """
         if alarm is not None:
-            data = serializers.serialize(
-                'json',
-                [alarm]
-            )
             await self.send_json({
                 "payload": {
-                    "data": json.loads(data[1:-1]),
+                    "data": {
+                        'pk': None,
+                        'model': 'alarms.alarm',
+                        'fields': alarm.to_dict()
+                    },
                     "action": action
                 },
                 "stream": "alarms",
@@ -127,13 +125,16 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             if content['payload'] and content['payload']['action'] is not None:
                 if content['payload']['action'] == 'list':
                     queryset = AlarmCollection.update_all_alarms_validity()
-                    data = serializers.serialize(
-                        'json',
-                        list(queryset.values())
-                    )
+                    data = []
+                    for item in list(queryset.values()):
+                        data.append({
+                            'pk': None,
+                            'model': 'alarms.alarm',
+                            'fields': item.to_dict()
+                        })
                     await self.send_json({
                         "payload": {
-                            "data": json.loads(data)
+                            "data": data
                         },
                         "stream": "requests",
                     })
