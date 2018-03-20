@@ -1,16 +1,13 @@
-from factory import DjangoModelFactory, fuzzy, Sequence
+import random
 from ..models import Alarm, OperationalMode, Validity
 import time
 
 
-class AlarmFactory(DjangoModelFactory):
-    """ Factory to create random alarms based on Alarm model """
+class AlarmFactory:
+    """ Factory to create random alarms based on Alarm model.
+    Consider that the alarms are not saved in any database """
 
-    class Meta:
-        """ Meta class of the AlarmFactory """
-
-        model = Alarm
-        """ Class from which this factory can create instances """
+    sequence = 0
 
     _base_core_id = 'ANTENNA_DV{0}$WVR$AMBIENT_TEMPERATURE'
     """
@@ -19,38 +16,29 @@ class AlarmFactory(DjangoModelFactory):
     unless another core ID is specified
     """
 
-    value = fuzzy.FuzzyInteger(0, 1)
+    value = random.choice([0, 1])
     """ Value of the Alarm to be created """
 
     core_timestamp = int(round(time.time() * 1000))
     """ Core timestamp of the Alarm to be created """
 
-    mode = fuzzy.FuzzyChoice([str(x[0]) for x in OperationalMode.options()])
+    mode = random.choice([str(x[0]) for x in OperationalMode.options()])
     """ Operational Mode of the Alarm to be created """
 
-    core_id = Sequence(
-        lambda n: AlarmFactory._base_core_id.format(n)
-    )
-    """ Core ID of the Alarm to be created """
-
-    running_id = Sequence(
-        lambda n: (AlarmFactory._base_core_id + ' @ACS_NC').format(n)
-    )
-    """ Running ID of the Alarm to be created """
-
-    validity = fuzzy.FuzzyChoice([str(x[0]) for x in Validity.options()])
+    validity = random.choice([str(x[0]) for x in Validity.options()])
     """ Validity of the Alarm to be created """
 
     @classmethod
-    def _setup_next_sequence(cls):
-        """
-        Private method that increments the numbering used for the
-        next instance to be created by the factory
-        """
-        try:
-            return cls._meta.model.objects.latest('pk').pk + 1
-        except cls._meta.model.DoesNotExist:
-            return 1
+    def build(self):
+        core_id = self._base_core_id.format(self.sequence)
+        alarm = Alarm(value=self.value,
+                      core_timestamp=self.core_timestamp,
+                      mode=self.mode,
+                      core_id=core_id,
+                      running_id=core_id + '@ACS_NC',
+                      validity=self.validity)
+        AlarmFactory.sequence = AlarmFactory.sequence + 1
+        return alarm
 
     @classmethod
     def get_modified_alarm(cls, alarm):
@@ -59,10 +47,10 @@ class AlarmFactory(DjangoModelFactory):
 
         alarm.value = (alarm.value + 1) % 2
         alarm.core_timestamp = alarm.core_timestamp + 10
-        alarm.mode = \
-            fuzzy.FuzzyChoice(
-                [x[0] for x in OperationalMode.options() if x[0] != alarm.mode]
-            )
+        alarm.mode = random.choice(
+            [str(x[0]) for x in OperationalMode.options()
+                if x[0] != alarm.mode]
+        )
         return alarm
 
     @classmethod
