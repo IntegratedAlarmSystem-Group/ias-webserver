@@ -14,23 +14,44 @@ class AlarmModelTestCase(TestCase):
         alarm = AlarmFactory.build()
         # Assert:
         self.assertTrue(
-            alarm.value is 0 or alarm.value is 1
+            alarm.value is 0 or alarm.value is 1,
+            'The value is not a valid option'
         )
         self.assertTrue(
-            type(alarm.core_timestamp) is int
+            type(alarm.core_timestamp) is int,
+            'The core_timestamp is not of type int'
         )
         self.assertTrue(
-            alarm.mode in [str(x[0]) for x in OperationalMode.options()]
+            alarm.mode in [str(x[0]) for x in OperationalMode.options()],
+            'The mode is not a valid option'
         )
         self.assertTrue(
-            alarm.core_id.startswith("ANTENNA_DV")
-            and alarm.core_id.endswith("$WVR$AMBIENT_TEMPERATURE")
+            type(alarm.core_id) is str,
+            'The core_id is not a string'
         )
         self.assertTrue(
-            alarm.running_id == alarm.core_id + '@ACS_NC'
+            '@' not in alarm.core_id and ':' not in alarm.core_id,
+            'The core_id contains an invalid character (@ or :)'
         )
         self.assertTrue(
-            alarm.validity in [str(x[0]) for x in Validity.options()]
+            alarm.running_id == alarm.core_id + '@ACS_NC',
+            'The running_id has an unexpected value'
+        )
+        self.assertTrue(
+            alarm.validity in [str(x[0]) for x in Validity.options()],
+            'The validity is not a valid option'
+        )
+        self.assertTrue(
+            alarm.timestamps == {},
+            'The default value of timestamps field must be an empty dictionary'
+        )
+        self.assertTrue(
+            alarm.properties == {},
+            'The default value of properties field must be an empty dictionary'
+        )
+        self.assertTrue(
+            alarm.dependencies == [],
+            'The default value of dependencies field must be an empty list'
         )
 
     def test_ignored_invalid_alarms_update(self):
