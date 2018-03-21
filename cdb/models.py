@@ -1,6 +1,29 @@
 from django.db import models
 
 
+class Ias(models.Model):
+    """ Main configurations of the IAS system """
+
+    id = models.IntegerField(null=False)
+    """ Id of the IAS System """
+
+    log_level = models.CharField(max_length=10, null=False,
+                                 db_column='logLevel')
+    """ Log level to be used in all the components of the IAS System """
+
+    refresh_rate = models.IntegerField(null=False, db_column='refreshRate')
+    """ Refresh Rate used by the different components of the IAS System """
+
+    tolerance = models.IntegerField(null=False, db_column='refreshRate')
+    """ Tolerance to calculate the validity of the messages """
+
+    class Meta:
+        """ Meta class of the Ias """
+
+        db_table = 'IAS'
+        """ Corresponding name of the table in the database """
+
+
 class Iasio(models.Model):
     """ IASIO objects represent the monitoring points """
 
@@ -12,9 +35,6 @@ class Iasio(models.Model):
     short_desc = models.TextField(db_column='shortDesc', max_length=256)
     """ Short description """
 
-    refresh_rate = models.IntegerField(null=False, db_column='refreshRate')
-    """ Refresh Rate """
-
     ias_type = models.CharField(max_length=16, null=False, db_column='iasType')
     """ Type of the IASIO """
 
@@ -22,15 +42,6 @@ class Iasio(models.Model):
         """ Method that saves changes to an IASIO in the CDB """
         self.ias_type = self.ias_type.upper()
         super(Iasio, self).save(*args, **kwargs)
-
-    @classmethod
-    def get_refresh_rate(self, core_id):
-        """ Return the refresh rate specified for an iasio or a default value
-        if the iasio is not created in the database """
-        try:
-            return Iasio.objects.get(io_id=core_id).refresh_rate
-        except Iasio.DoesNotExist:
-            return 2000
 
     class Meta:
         """ Meta class of the Iasio """
