@@ -36,6 +36,28 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         timestamp = (time.mktime(dt.timetuple()) + dt.microsecond / 1E6) * 1000
         return int(timestamp)
 
+    def get_timestamps(content):
+        """ Return a dictionary with all the available timestamps in the content
+        """
+        timestamps = {}
+        for field in content.keys():
+            if field.endswith('TStamp'):
+                timestamps[field] = CoreConsumer.get_timestamp_from(
+                    content[field])
+        return timestamps
+
+    def get_dependencies(content):
+        """ Return a list with the dependencies of the alarm"""
+        if 'depsFullRunningIds' in content.keys():
+            return list(content['depsFullRunningIds'])
+        else:
+            return []
+
+    def get_properties(content):
+        """ Return a dictionary with the properties of the alarm"""
+        props = content['props'] if 'props' in content.keys() else {}
+        return props
+
     def get_alarm_from_core_msg(content):
         """
         Returns an alarm based on the values specified in the message content
@@ -49,14 +71,18 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
         core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
-        tstamp = CoreConsumer.get_timestamp_from(content['sentToBsdbTStamp'])
+        core_timestamp = CoreConsumer.get_timestamp_from(
+            content['sentToBsdbTStamp'])
         params = {
             'value': (1 if content['value'] == 'SET' else 0),
-            'core_timestamp': tstamp,
+            'core_timestamp': core_timestamp,
             'mode': mode_options[content['mode']],
             'validity': validity_options[content['iasValidity']],
             'core_id': core_id,
             'running_id': content['fullRunningId'],
+            'timestamps': CoreConsumer.get_timestamps(content),
+            'properties': CoreConsumer.get_properties(content),
+            'dependencies': CoreConsumer.get_dependencies(content)
         }
         return Alarm(**params)
 

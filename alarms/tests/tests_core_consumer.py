@@ -56,15 +56,21 @@ class TestCoreConsumer:
         formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
         current_time_millis = CoreConsumer.get_timestamp_from(
                                 formatted_current_time)
+        ID = "(S{0}:SUPERVISOR)@(d{0}:DASU)@(a{0}:ASCE)@(AlarmID{0}:IASIO)"
         msg = {
             "value": "SET",
+            "pluginProductionTStamp": formatted_current_time,
+            "sentToConverterTStamp": formatted_current_time,
+            "receivedFromPluginTStamp": formatted_current_time,
+            "convertedProductionTStamp": formatted_current_time,
+            "sentToBsdbTStamp": formatted_current_time,
+            "readFromBsdbTStamp": formatted_current_time,
             "dasuProductionTStamp": formatted_current_time,
-            'sentToBsdbTStamp': formatted_current_time,
+            "depsFullRunningIds": [ID.format(1), ID.format(2)],
+            "props": {"key1": "value1", "key2": "value2"},
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
-            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
-                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
-                             "TER)@(AlarmType-ID:IASIO)",
+            "fullRunningId": ID.format(3),
             "valueType": "ALARM"
         }
         expected_alarm = Alarm(
@@ -74,6 +80,17 @@ class TestCoreConsumer:
             core_timestamp=current_time_millis,
             core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
+            dependencies=[ID.format(1), ID.format(2)],
+            properties={'key1': 'value1', 'key2': 'value2'},
+            timestamps={
+                'pluginProductionTStamp': current_time_millis,
+                'sentToConverterTStamp': current_time_millis,
+                'receivedFromPluginTStamp': current_time_millis,
+                'convertedProductionTStamp': current_time_millis,
+                'sentToBsdbTStamp': current_time_millis,
+                'readFromBsdbTStamp': current_time_millis,
+                'dasuProductionTStamp': current_time_millis,
+            }
         )
         # Act:
         alarm = CoreConsumer.get_alarm_from_core_msg(msg)
@@ -113,6 +130,12 @@ class TestCoreConsumer:
             core_timestamp=current_time_millis,
             core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
+            dependencies=[],
+            properties={},
+            timestamps={
+                'dasuProductionTStamp': current_time_millis,
+                'sentToBsdbTStamp': current_time_millis
+            }
         )
         # Act:
         alarm_before_send = AlarmCollection.get('AlarmType-ID')
