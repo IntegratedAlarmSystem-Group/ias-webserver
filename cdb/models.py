@@ -1,6 +1,25 @@
 from django.db import models
 
 
+class Property(models.Model):
+    """ Available java properties to be used in the IAS System """
+
+    id = models.IntegerField(null=False, primary_key=True)
+    """ Id of the property """
+
+    name = models.CharField(max_length=255, null=False)
+    """ Name of the property """
+
+    value = models.CharField(max_length=255, null=False)
+    """ Value of the property """
+
+    class Meta:
+        """ Meta class of the Property """
+
+        db_table = 'PROPERTY'
+        """ Corresponding name of the table in the database """
+
+
 class Ias(models.Model):
     """ Main configurations of the IAS system """
 
@@ -17,11 +36,35 @@ class Ias(models.Model):
     tolerance = models.IntegerField(null=False)
     """ Tolerance to calculate the validity of the messages """
 
+    properties = models.ManyToManyField(Property, db_table='IAS_PROPERTY')
+    # properties = models.ManyToManyField(Property, through='Ias_Property')
+    """ General properties of the Ias System """
+
     class Meta:
         """ Meta class of the Ias """
 
         db_table = 'IAS'
         """ Corresponding name of the table in the database """
+
+
+# Other option to specify the names of the columns in the relation table.
+# TODO: Find a way to define a composite primary_key without the creation
+# of another pk column to be consistent with the core CDB structure.
+#
+# class Ias_Property(models.Model):
+#     """ Many to Many relation between Ias and Properties """
+#
+#     ias_id = models.ForeignKey(Ias, on_delete=models.CASCADE,
+#                                db_column='Ias_id')
+#     property_id = models.ForeignKey(Property, on_delete=models.CASCADE,
+#                                     db_column='props_id')
+#
+#     class Meta:
+#         """ Meta class of the IAS Property relation """
+#
+#         db_table = 'IAS_PROPERTY'
+#
+#         unique_together = (('ias_id', 'property_id'))
 
 
 class Iasio(models.Model):
