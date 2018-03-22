@@ -4,7 +4,7 @@ from django.db import models
 class Ias(models.Model):
     """ Main configurations of the IAS system """
 
-    id = models.IntegerField(null=False)
+    id = models.IntegerField(null=False, primary_key=True)
     """ Id of the IAS System """
 
     log_level = models.CharField(max_length=10, null=False,
@@ -14,7 +14,7 @@ class Ias(models.Model):
     refresh_rate = models.IntegerField(null=False, db_column='refreshRate')
     """ Refresh Rate used by the different components of the IAS System """
 
-    tolerance = models.IntegerField(null=False, db_column='refreshRate')
+    tolerance = models.IntegerField(null=False)
     """ Tolerance to calculate the validity of the messages """
 
     class Meta:
