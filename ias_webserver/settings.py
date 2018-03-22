@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'channels',
     'alarms.apps.AlarmConfig',
     'django.contrib.admindocs',
-    'cdb'
+    'cdb',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
