@@ -1,0 +1,12 @@
+[
+  {
+    "model": "cdb.ias",
+    "pk": 1,
+    "fields": {
+      "log_level": "INFO",
+      "refresh_rate": 3,
+      "tolerance": 1,
+      "properties": []
+    }
+  }
+]
