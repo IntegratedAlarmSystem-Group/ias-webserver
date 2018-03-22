@@ -18,12 +18,10 @@ class TestAlarmsAppInitialization(TestCase):
         """TestCase setup, executed before each test of the TestCase"""
         self.iasio_alarm = Iasio(io_id="AlarmType-ID",
                                  short_desc="Test iasio",
-                                 refresh_rate=1000,
                                  ias_type="alarm")
         self.iasio_alarm.save()
         self.iasio_double = Iasio(io_id="DoubleType-ID",
                                   short_desc="Test iasio",
-                                  refresh_rate=1000,
                                   ias_type="double")
         self.iasio_double.save()
 
