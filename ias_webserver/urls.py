@@ -23,5 +23,6 @@ from alarms.views import test_core
 urlpatterns = [
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^core/', test_core)
+    url(r'^core/', test_core),
+    url(r'^api/cdb/', include('cdb.urls')),
 ]
