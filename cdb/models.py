@@ -19,6 +19,16 @@ class Property(models.Model):
         db_table = 'PROPERTY'
         """ Corresponding name of the table in the database """
 
+    def __str__(self):
+        """Return a human readable representation of the model instance."""
+        return "{}".format(self.name)
+
+    def get_data(self):
+        return {
+            'name': self.name,
+            'value': self.value
+        }
+
 
 class Ias(models.Model):
     """ Main configurations of the IAS system """
@@ -40,12 +50,27 @@ class Ias(models.Model):
     # properties = models.ManyToManyField(Property, through='Ias_Property')
     """ General properties of the Ias System """
 
+    def save(self, *args, **kwargs):
+        """ Method that saves changes to an IASIO in the CDB """
+        self.log_level = self.log_level.upper()
+        self.refresh_rate = self.refresh_rate * 1000
+        self.tolerance = self.tolerance * 1000
+        super(Ias, self).save(*args, **kwargs)
+
     class Meta:
         """ Meta class of the Ias """
 
         db_table = 'IAS'
         """ Corresponding name of the table in the database """
 
+    def get_data(self):
+        properties = [prop.get_data() for prop in self.properties.all()]
+        return {
+            'log_level': self.log_level,
+            'refresh_rate': self.refresh_rate,
+            'tolerance': self.tolerance,
+            'properties': properties
+        }
 
 # Other option to specify the names of the columns in the relation table.
 # TODO: Find a way to define a composite primary_key without the creation
@@ -91,3 +116,10 @@ class Iasio(models.Model):
 
         db_table = 'IASIO'
         """ Corresponding name of the table in the database """
+
+    def get_data(self):
+        return {
+            'io_id': self.io_id,
+            'short_desc': self.short_desc,
+            'ias_type': self.ias_type
+        }
