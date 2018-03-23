@@ -19,11 +19,20 @@ class cdbApiTestCase(TestCase):
                             ias_type='double')
         self.iasio2 = Iasio(io_id='Test-ID2',
                             short_desc='Test iasio',
-                            ias_type='double')
+                            ias_type='alarm')
+        self.iasio3 = Iasio(io_id='Test-ID3',
+                            short_desc='Test iasio',
+                            ias_type='alarm')
         self.iasio1.save()
         self.iasio2.save()
+        self.iasio3.save()
 
         self.client = APIClient()
+
+    def tearDown(self):
+        """TestCase teardown"""
+        Iasio.objects.all().delete()
+        Ias.objects.all().delete()
 
     def test_api_can_retrieve_ias(self):
         """ Test that the api can retrieve an Ias """
@@ -69,10 +78,32 @@ class cdbApiTestCase(TestCase):
 
     def test_api_can_list_iasios(self):
         """Test that the api can list the Iasios"""
-        iasios = [self.iasio1, self.iasio2]
+        iasios = [self.iasio1, self.iasio2, self.iasio3]
         expected_iasios_data = [iasio.get_data() for iasio in iasios]
         # Act:
         url = reverse('iasio-list')
+        self.response = self.client.get(url, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The Server did not retrieve the iasios'
+        )
+        retrieved_iasios_data = self.response.data
+        for data in retrieved_iasios_data:
+            data.pop('id', None)
+        self.assertEqual(
+            retrieved_iasios_data,
+            expected_iasios_data,
+            'The retrieved iasios do not match the expected ones'
+        )
+
+    def test_api_can_list_iasios_of_type_alarm(self):
+        """ Test that the api can list the Iasios with type Alarm """
+        iasios = [self.iasio2, self.iasio3]
+        expected_iasios_data = [iasio.get_data() for iasio in iasios]
+        # Act:
+        url = reverse('iasio-filtered-by-alarm')
         self.response = self.client.get(url, format="json")
         # Assert:
         self.assertEqual(
