@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Iasio, Ias, Property
+from cdb.models import Iasio, Ias, Property
 
 
 class CDBModelsTestCase(TestCase):
