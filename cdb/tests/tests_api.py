@@ -30,7 +30,7 @@ class cdbApiTestCase(TestCase):
         # Arrange:
         expected_ias_data = self.ias.get_data()
         # Act:
-        url = reverse('ias-detail', kwargs={'id': self.ias.id})
+        url = reverse('ias-detail', kwargs={'pk': self.ias.id})
         self.response = self.client.get(url, format="json")
         # Assert:
         self.assertEqual(
@@ -51,7 +51,7 @@ class cdbApiTestCase(TestCase):
         # Arrange:
         expected_iasio_data = self.iasio1.get_data()
         # Act:
-        url = reverse('iasio-detail', kwargs={'io_id': self.iasio1.id})
+        url = reverse('iasio-detail', kwargs={'pk': self.iasio1.io_id})
         self.response = self.client.get(url, format="json")
         # Assert:
         self.assertEqual(
