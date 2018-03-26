@@ -1,7 +1,7 @@
 import time
 import datetime
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
-from .models import Alarm, OperationalMode, Validity
+from alarms.models import Alarm, OperationalMode, Validity
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
 
 
