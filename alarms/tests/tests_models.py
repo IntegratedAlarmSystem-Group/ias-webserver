@@ -1,6 +1,6 @@
 from django.test import TestCase
-from ..models import Alarm, Validity, OperationalMode
-from .factories import AlarmFactory
+from alarms.models import Alarm, Validity, OperationalMode
+from alarms.tests.factories import AlarmFactory
 from freezegun import freeze_time
 import datetime
 
