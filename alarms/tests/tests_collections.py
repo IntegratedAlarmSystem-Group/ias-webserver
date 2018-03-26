@@ -2,39 +2,9 @@ import datetime
 import time
 import pytest
 from freezegun import freeze_time
-from django.test import TestCase
 from alarms.models import Alarm, Validity
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
-from cdb.models import Iasio
-
-
-class TestAlarmsAppInitialization(TestCase):
-    """
-    This class defines the test suite for the initializaiton of the Alarms app
-    """
-
-    def setUp(self):
-        """TestCase setup, executed before each test of the TestCase"""
-        self.iasio_alarm = Iasio(io_id="AlarmType-ID",
-                                 short_desc="Test iasio",
-                                 ias_type="alarm")
-        self.iasio_alarm.save()
-        self.iasio_double = Iasio(io_id="DoubleType-ID",
-                                  short_desc="Test iasio",
-                                  ias_type="double")
-        self.iasio_double.save()
-
-    def tearDown(self):
-        """TestCase teardown, executed after each test of the TestCase"""
-        Iasio.objects.all().delete()
-
-    def test_initialize(self):
-        """ Test that the alarm collection is initialised on startup """
-        self.assertNotEqual(
-            AlarmCollection.singleton_collection, None,
-            'The alarm collection was not initialized'
-        )
 
 
 class TestAlarmsCollection:
