@@ -2,7 +2,7 @@ import time
 import abc
 import asyncio
 from alarms.models import Alarm
-from cdb.models import Iasio
+from alarms.connectors import CdbConnector
 
 
 class AlarmCollection:
@@ -50,17 +50,17 @@ class AlarmCollection:
         if self.singleton_collection is None:
             self.singleton_collection = {}
             if iasios is None:
-                iasios = Iasio.objects.filter(ias_type='ALARM')
+                iasios = CdbConnector.get_iasios(type='ALARM')
             for iasio in iasios:
-                if iasio.ias_type.upper() == 'ALARM':
+                if iasio['ias_type'].upper() == 'ALARM':
                     current_time_millis = int(round(time.time() * 1000))
                     alarm = Alarm(
                         value=1,
                         mode='7',
                         validity='0',
                         core_timestamp=current_time_millis,
-                        core_id=iasio.io_id,
-                        running_id='({}:IASIO)'.format(iasio.io_id)
+                        core_id=iasio['io_id'],
+                        running_id='({}:IASIO)'.format(iasio['io_id'])
                     )
                     self.add(alarm)
         return self.singleton_collection

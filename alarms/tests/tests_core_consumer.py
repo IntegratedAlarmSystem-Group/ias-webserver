@@ -4,7 +4,6 @@ from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
 from alarms.collections import AlarmCollection
 from alarms.consumers import CoreConsumer
-from cdb.models import Iasio
 
 
 class TestCoreConsumer:
@@ -13,12 +12,16 @@ class TestCoreConsumer:
     def setup_method(self):
         """TestCase setup, executed before each test of the TestCase"""
         # Arrange:
-        self.iasio_alarm = Iasio(io_id="AlarmType-ID",
-                                 short_desc="Test iasio",
-                                 ias_type="alarm")
-        self.iasio_double = Iasio(io_id="DoubleType-ID",
-                                  short_desc="Test iasio",
-                                  ias_type="double")
+        self.iasio_alarm = {
+            'io_id': "AlarmType-ID",
+            'short_desc': "Test iasio",
+            'ias_type': "alarm"
+        }
+        self.iasio_double = {
+            'io_id': "DoubleType-ID",
+            'short_desc': "Test iasio",
+            'ias_type': "double"
+        }
         self.iasios = [self.iasio_alarm, self.iasio_double]
         AlarmCollection.reset(self.iasios)
 
