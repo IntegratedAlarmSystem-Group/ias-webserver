@@ -116,6 +116,19 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
                 "stream": "alarms",
             })
 
+    async def send_alarms_status(self):
+        queryset = AlarmCollection.update_all_alarms_validity()
+        data = serializers.serialize(
+            'json',
+            list(queryset.values())
+        )
+        await self.send_json({
+            "payload": {
+                "data": json.loads(data)
+            },
+            "stream": "broadcast",
+        })
+
     async def receive_json(self, content, **kwargs):
         """
         Handles the messages received by this consumer
@@ -144,3 +157,5 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
                         },
                         "stream": "requests",
                     })
+        if content['stream'] == 'broadcast':
+            await AlarmCollection.broadcast_status_to_observers()
