@@ -2,9 +2,10 @@ import datetime
 import time
 import pytest
 from freezegun import freeze_time
-from alarms.models import Alarm, Validity
+from alarms.models import Alarm
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
+from alarms.connectors import CdbConnector as CdbConn
 
 
 class TestAlarmsCollection:
@@ -124,7 +125,7 @@ class TestAlarmsCollection:
         ]
         # Act:
         # Recalculate the AlarmCollection validation after 5 seconds
-        max_interval = Validity.refresh_rate() + Validity.delta() + 1
+        max_interval = CdbConn.refresh_rate + CdbConn.tolerance + 1
         max_timedelta = datetime.timedelta(milliseconds=max_interval)
         initial_time = datetime.datetime.now() + max_timedelta
         with freeze_time(initial_time):

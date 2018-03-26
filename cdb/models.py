@@ -53,8 +53,6 @@ class Ias(models.Model):
     def save(self, *args, **kwargs):
         """ Method that saves changes to an IASIO in the CDB """
         self.log_level = self.log_level.upper()
-        self.refresh_rate = self.refresh_rate * 1000
-        self.tolerance = self.tolerance * 1000
         super(Ias, self).save(*args, **kwargs)
 
     class Meta:
@@ -67,8 +65,8 @@ class Ias(models.Model):
         properties = [prop.get_data() for prop in self.properties.all()]
         return {
             'log_level': self.log_level,
-            'refresh_rate': self.refresh_rate,
-            'tolerance': self.tolerance,
+            'refresh_rate': self.refresh_rate * 1000,
+            'tolerance': self.tolerance * 1000,
             'properties': properties
         }
 

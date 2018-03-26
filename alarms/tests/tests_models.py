@@ -1,5 +1,6 @@
 from django.test import TestCase
 from alarms.models import Alarm, Validity, OperationalMode
+from alarms.connectors import CdbConnector as CdbConn
 from alarms.tests.factories import AlarmFactory
 from freezegun import freeze_time
 import datetime
@@ -92,7 +93,7 @@ class AlarmModelTestCase(TestCase):
         with freeze_time(initial_time) as frozen_datetime:
             # Arrange:
             alarm = AlarmFactory.get_valid_alarm()
-            max_interval = Validity.refresh_rate() + Validity.delta() + 1
+            max_interval = CdbConn.refresh_rate + CdbConn.tolerance + 1
             max_timedelta = datetime.timedelta(milliseconds=max_interval)
             # Act:
             frozen_datetime.tick(delta=max_timedelta)
