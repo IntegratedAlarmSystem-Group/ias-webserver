@@ -2,7 +2,7 @@ from django.test import TestCase
 from cdb.models import Iasio, Ias, Property
 
 
-class CDBModelsTestCase(TestCase):
+class CdbModelsTestCase(TestCase):
 
     def tearDown(self):
         """TestCase teardown"""

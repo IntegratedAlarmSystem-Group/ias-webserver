@@ -5,7 +5,7 @@ from django.urls import reverse
 from cdb.models import Ias, Iasio
 
 
-class cdbApiTestCase(TestCase):
+class CdbApiTestCase(TestCase):
     """Test suite for the api views."""
 
     def setUp(self):
