@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 from django.contrib import admin
-from .models import Iasio
+from .models import Iasio, Ias, Property
 
 
 # Register your models here.
+admin.site.register(Ias)
+admin.site.register(Property)
 admin.site.register(Iasio)

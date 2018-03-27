@@ -1,5 +1,5 @@
 import random
-from ..models import Alarm, OperationalMode, Validity
+from alarms.models import Alarm, OperationalMode, Validity
 import time
 
 

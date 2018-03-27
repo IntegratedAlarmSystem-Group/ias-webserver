@@ -13,5 +13,11 @@ class AlarmConfig(AppConfig):
         from alarms.collections import AlarmCollection
         try:
             AlarmCollection.initialize()
-        except OperationalError:
-            print('CDB is not yet defined')
+        except (OperationalError, TypeError) as e:
+            print('WARN:', e)
+
+        from alarms.connectors import CdbConnector
+        try:
+            CdbConnector.initialize_ias(pk=1)
+        except (OperationalError, TypeError) as e:
+            print('WARN:', e)

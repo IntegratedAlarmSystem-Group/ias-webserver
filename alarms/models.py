@@ -1,4 +1,5 @@
 from utils.choice_enum import ChoiceEnum
+from alarms.connectors import CdbConnector
 import time
 
 
@@ -36,17 +37,17 @@ class Validity(ChoiceEnum):
         """ Returns a list of tuples with the valid options. """
         return cls.get_choices()
 
-    @classmethod
-    def refresh_rate(cls):
-        """ Returns a refresh_rate in milliseconds defined to be used to
-        calculate the validity of alarms """
-        return 5000
-
-    @classmethod
-    def delta(cls):
-        """ Returns a delta of time in milliseconds defined to be used as
-        error margin for the calculation of validity """
-        return 500
+    # @classmethod
+    # def refresh_rate(cls):
+    #     """ Returns a refresh_rate in milliseconds defined to be used to
+    #     calculate the validity of alarms """
+    #     return 5000
+    #
+    # @classmethod
+    # def delta(cls):
+    #     """ Returns a delta of time in milliseconds defined to be used as
+    #     error margin for the calculation of validity """
+    #     return 500
 
 
 class Alarm:
@@ -189,10 +190,12 @@ class Alarm:
         """
         if self.validity == '0':
             return self
-        refresh_rate = Validity.refresh_rate()
-        delta = Validity.delta()
+        refresh_rate = CdbConnector.refresh_rate
+        tolerance = CdbConnector.tolerance
+        print('refresh_rate: ' + str(refresh_rate))
+        print('tolerance: ' + str(tolerance))
         current_timestamp = int(round(time.time() * 1000))
-        if current_timestamp - self.core_timestamp > refresh_rate + delta:
+        if current_timestamp - self.core_timestamp > refresh_rate + tolerance:
             self.validity = '0'
             return self
         else:
