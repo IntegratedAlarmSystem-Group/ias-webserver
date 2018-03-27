@@ -142,13 +142,16 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
 
     async def send_alarms_status(self):
         queryset = AlarmCollection.update_all_alarms_validity()
-        data = serializers.serialize(
-            'json',
-            list(queryset.values())
-        )
+        data = []
+        for item in list(queryset.values()):
+            data.append({
+                'pk': None,
+                'model': 'alarms.alarm',
+                'fields': item.to_dict()
+            })
         await self.send_json({
             "payload": {
-                "data": json.loads(data)
+                "data": data
             },
             "stream": "broadcast",
         })
