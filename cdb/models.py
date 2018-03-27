@@ -47,7 +47,6 @@ class Ias(models.Model):
     """ Tolerance to calculate the validity of the messages """
 
     properties = models.ManyToManyField(Property, db_table='IAS_PROPERTY')
-    # properties = models.ManyToManyField(Property, through='Ias_Property')
     """ General properties of the Ias System """
 
     def save(self, *args, **kwargs):
@@ -69,25 +68,6 @@ class Ias(models.Model):
             'tolerance': self.tolerance * 1000,
             'properties': properties
         }
-
-# Other option to specify the names of the columns in the relation table.
-# TODO: Find a way to define a composite primary_key without the creation
-# of another pk column to be consistent with the core CDB structure.
-#
-# class Ias_Property(models.Model):
-#     """ Many to Many relation between Ias and Properties """
-#
-#     ias_id = models.ForeignKey(Ias, on_delete=models.CASCADE,
-#                                db_column='Ias_id')
-#     property_id = models.ForeignKey(Property, on_delete=models.CASCADE,
-#                                     db_column='props_id')
-#
-#     class Meta:
-#         """ Meta class of the IAS Property relation """
-#
-#         db_table = 'IAS_PROPERTY'
-#
-#         unique_together = (('ias_id', 'property_id'))
 
 
 class Iasio(models.Model):
