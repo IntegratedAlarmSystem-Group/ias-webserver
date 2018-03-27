@@ -15,12 +15,11 @@ class AlarmFactory:
     will be used for all the Alarms to be created by the factory,
     unless another core ID is specified
     """
+    core_timestamp = int(round(time.time() * 1000))
+    """ Core timestamp of the Alarm to be created """
 
     value = random.choice([0, 1])
     """ Value of the Alarm to be created """
-
-    core_timestamp = int(round(time.time() * 1000))
-    """ Core timestamp of the Alarm to be created """
 
     mode = random.choice([str(x[0]) for x in OperationalMode.options()])
     """ Operational Mode of the Alarm to be created """
@@ -38,6 +37,18 @@ class AlarmFactory:
                       running_id=core_id + '@ACS_NC',
                       validity=self.validity)
         AlarmFactory.sequence = AlarmFactory.sequence + 1
+        return alarm
+
+    @classmethod
+    def get_alarm_with_all_optional_fields(self):
+        """ Return a valid alarm with values for all the optional fields """
+        alarm = AlarmFactory.build()
+        alarm.dependencies = [
+            "DEP1", "DEP2", "DEP3"
+        ]
+        alarm.properties = {"prop1": "value1", "prop2": "value2"}
+        alarm.timestamps = {"sentToBsdbTStamp": "2018-03-07T13:08:43",
+                            "dasuProductionTStamp": "2018-03-07T13:08:43"}
         return alarm
 
     @classmethod
