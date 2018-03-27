@@ -122,7 +122,8 @@ class Alarm:
         """
         for key in self.__dict__.keys():
             field = key
-            if field == 'core_timestamp' or field == 'id' or field == 'pk':
+            if field == 'core_timestamp' or field == 'id' or \
+               field == 'timestamps':
                 continue
             self_attribute = getattr(self, field)
             alarm_attribute = getattr(alarm, field)

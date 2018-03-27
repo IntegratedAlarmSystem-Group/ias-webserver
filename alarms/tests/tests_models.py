@@ -108,9 +108,14 @@ class AlarmModelTestCase(TestCase):
     def test_equals_except_timestamp(self):
         """Test if we can compare alarms properly through the models"""
         # Arrange:
-        self.alarm = AlarmFactory.build()
+        self.alarm = AlarmFactory.get_alarm_with_all_optional_fields()
+
         self.alarm.value = 0
         self.equal_alarm = Alarm(**self.alarm.to_dict())
+
+        self.equal_alarm_diff_tstamp = Alarm(**self.alarm.to_dict())
+        self.equal_alarm_diff_tstamp.timestamps = {"sentToBsdbTStamp": "0"}
+
         self.different_alarm = Alarm(**self.alarm.to_dict())
         self.different_alarm.value = 1
 
@@ -118,6 +123,11 @@ class AlarmModelTestCase(TestCase):
         self.assertTrue(
             self.alarm.equals_except_timestamp(self.equal_alarm),
             'Equal alarms are recognized as different'
+        )
+
+        self.assertTrue(
+            self.alarm.equals_except_timestamp(self.equal_alarm_diff_tstamp),
+            'Equal alarms with different tstamps are recognized as different'
         )
 
         self.assertFalse(
