@@ -32,11 +32,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'channels',
     'alarms.apps.AlarmConfig',
     'django.contrib.admindocs',
     'cdb',
-    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -89,7 +89,8 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'django.contrib.auth.password_validation.\
+        UserAttributeSimilarityValidator',
     },
     {
         'NAME':
