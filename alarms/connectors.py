@@ -28,7 +28,7 @@ class CdbConnector():
         ias = Ias.objects.filter(pk=pk).first()
         if ias:
             data = ias.get_data()
-            self.refresh_rate = data['refresh_rate']
-            self.tolerance = data['tolerance']
+            self.refresh_rate = data['refresh_rate']*1000
+            self.tolerance = data['tolerance']*1000
         else:
             return None

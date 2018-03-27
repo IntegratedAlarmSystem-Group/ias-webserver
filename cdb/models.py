@@ -64,8 +64,8 @@ class Ias(models.Model):
         properties = [prop.get_data() for prop in self.properties.all()]
         return {
             'log_level': self.log_level,
-            'refresh_rate': self.refresh_rate * 1000,
-            'tolerance': self.tolerance * 1000,
+            'refresh_rate': self.refresh_rate,
+            'tolerance': self.tolerance,
             'properties': properties
         }
 

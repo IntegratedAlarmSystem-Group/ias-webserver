@@ -43,8 +43,8 @@ class CdbModelsTestCase(TestCase):
             Ias.objects.get(pk=1).get_data(),
             {
                 'log_level': 'DEBUG',
-                'refresh_rate': 3000,
-                'tolerance': 1000,
+                'refresh_rate': 3,
+                'tolerance': 1,
                 'properties': []
             },
             'The ias obtained with get_data method is not the expected'
@@ -80,8 +80,8 @@ class CdbModelsTestCase(TestCase):
             Ias.objects.get(pk=1).get_data(),
             {
                 'log_level': 'DEBUG',
-                'refresh_rate': 3000,
-                'tolerance': 1000,
+                'refresh_rate': 3,
+                'tolerance': 1,
                 'properties': [{'name': 'prop1', 'value': 'value1'}]
             },
             'The ias with property obtained with get_data method is not \
