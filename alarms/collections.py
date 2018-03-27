@@ -34,6 +34,13 @@ class AlarmCollection:
             *[observer.update(alarm, action) for observer in self.observers]
         )
 
+    @classmethod
+    async def broadcast_status_to_observers(self):
+        """Notify to all observers the alarms list with its current status"""
+        await asyncio.gather(
+            *[observer.send_alarms_status() for observer in self.observers]
+        )
+
     # Sync, non-notified methods:
     @classmethod
     def initialize(self, iasios=None):
