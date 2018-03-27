@@ -16,11 +16,14 @@ from tornado.websocket import websocket_connect
 
 DEFAULT_HOSTNAME = 'localhost'
 DEFAULT_PORT = '8000'
-DEFAULT_MILLISECONDS_RATE = 1000
+DEFAULT_MILLISECONDS_RATE = 10*1000
 
 
-class WSClient(tornado.websocket.WebSocketHandler):
-    def __init__(self, url):
+class WSClient():
+    """ Tornado based websocket client """
+
+    def __init__(self, url, options):
+        self.options = options
         self.connection = None
         self.url = url
         self.ws = websocket_connect(
@@ -36,7 +39,8 @@ class WSClient(tornado.websocket.WebSocketHandler):
             print(e)
 
     def on_message(self, message):
-        print("Echo: {}".format(message))
+        if self.options['verbose']:
+            print("Echo: {}".format(message))
 
     def on_close(self):
         print("Closed connection.")
@@ -46,11 +50,14 @@ class Command(BaseCommand):
     help = 'Send a message via websockets to trigger the broadcast for the current alarms list'
 
     def add_arguments(self, parser):
+        """ Command arguments setup """
         parser.add_argument('--hostname', type=str, help='Webserver hostname')
         parser.add_argument('--port', type=str, help='Webserver port number')
         parser.add_argument('--rate', type=str, help='Broadcast rate in seconds')
+        parser.add_argument('--verbose', type=bool, default=False, help='Print option for received messages')
 
     def get_websocket_url(self, options):
+        """ Returns websocket url of the ias webserver """
 
         hostname = DEFAULT_HOSTNAME
         port = DEFAULT_PORT
@@ -64,15 +71,14 @@ class Command(BaseCommand):
         return 'ws://{}:{}/stream/'.format(hostname, port)
 
     def handle(self, *args, **options):
+        """ Start periodic task and related ioloop"""
 
         milliseconds_rate = DEFAULT_MILLISECONDS_RATE
-
         if options['rate'] is not None:
-            milliseconds_rate = options['rate']/(1000.0)
+            milliseconds_rate = options['rate']*1000.0
 
         url = self.get_websocket_url(options)
-
-        ws = WSClient(url)
+        ws = WSClient(url, options)
 
         def trigger_broadcast():
             if ws.connection is not None:
@@ -85,9 +91,7 @@ class Command(BaseCommand):
                 ws.connection.write_message(json.dumps(msg))
 
         task = tornado.ioloop.PeriodicCallback(
-            trigger_broadcast,
-            milliseconds_rate
-        )
+            trigger_broadcast, milliseconds_rate)
         task.start()
 
         tornado.ioloop.IOLoop.current().start()
