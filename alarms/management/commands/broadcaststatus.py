@@ -7,11 +7,8 @@ subscribed to the webserver stream according to a selected rate
 """
 
 import json
-
-from django.core.management.base import BaseCommand, CommandError
-
+from django.core.management.base import BaseCommand
 import tornado
-from tornado import ioloop
 from tornado.websocket import websocket_connect
 
 DEFAULT_HOSTNAME = 'localhost'
@@ -47,14 +44,17 @@ class WSClient():
 
 
 class Command(BaseCommand):
-    help = 'Send a message via websockets to trigger the broadcast for the current alarms list'
+    help = 'Send a message via websockets to trigger the broadcast for the \
+    current alarms list'
 
     def add_arguments(self, parser):
         """ Command arguments setup """
         parser.add_argument('--hostname', type=str, help='Webserver hostname')
         parser.add_argument('--port', type=str, help='Webserver port number')
-        parser.add_argument('--rate', type=str, help='Broadcast rate in seconds')
-        parser.add_argument('--verbose', type=bool, default=False, help='Print option for received messages')
+        parser.add_argument('--rate', type=float,
+                            help='Broadcast rate in seconds')
+        parser.add_argument('--verbose', type=bool, default=False,
+                            help='Print option for received messages')
 
     def get_websocket_url(self, options):
         """ Returns websocket url of the ias webserver """

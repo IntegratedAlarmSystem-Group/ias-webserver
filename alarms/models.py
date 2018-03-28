@@ -181,8 +181,6 @@ class Alarm:
             return self
         refresh_rate = CdbConnector.refresh_rate
         tolerance = CdbConnector.tolerance
-        print('refresh_rate: ' + str(refresh_rate))
-        print('tolerance: ' + str(tolerance))
         current_timestamp = int(round(time.time() * 1000))
         if current_timestamp - self.core_timestamp > refresh_rate + tolerance:
             self.validity = '0'
