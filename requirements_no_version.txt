@@ -26,6 +26,7 @@ python-dateutil
 pytz
 six
 text-unidecode
+tornado
 Twisted
 txaio
 zope.interface

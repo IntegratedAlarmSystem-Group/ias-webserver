@@ -26,6 +26,7 @@ python-dateutil==2.6.1
 pytz==2017.3
 six==1.11.0
 text-unidecode==1.1
+tornado==5.0.1
 Twisted==17.9.0
 txaio==2.8.2
 zope.interface==4.4.3
