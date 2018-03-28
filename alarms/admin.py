@@ -10,9 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
-from django.contrib import admin
-from .models import Alarm
+# from django.contrib import admin
 
 # Register your models here.
-admin.site.register(Alarm)
-""" Alarm models admin """

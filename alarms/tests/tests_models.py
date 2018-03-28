@@ -1,6 +1,7 @@
 from django.test import TestCase
-from ..models import Alarm, Validity
-from .factories import AlarmFactory
+from alarms.models import Alarm, Validity, OperationalMode
+from alarms.connectors import CdbConnector as CdbConn
+from alarms.tests.factories import AlarmFactory
 from freezegun import freeze_time
 import datetime
 
@@ -8,93 +9,50 @@ import datetime
 class AlarmModelTestCase(TestCase):
     """This class defines the test suite for the Alarm model tests"""
 
-    def test_create_alarm(self):
-        """Test if we can create an alarm through the models"""
-        # Arrange:
-        self.old_count = Alarm.objects.count()
+    def test_alarm_factory(self):
+        """Test if the alarm factory is creating alarms as expected"""
         # Act:
-        self.alarm = AlarmFactory()
+        alarm = AlarmFactory.build()
         # Assert:
-        self.new_count = Alarm.objects.count()
-        self.assertEqual(
-            self.old_count + 1,
-            self.new_count,
-            'The Alarm was not created'
+        self.assertTrue(
+            alarm.value is 0 or alarm.value is 1,
+            'The value is not a valid option'
         )
-        self.assertEqual(
-            Alarm.objects.latest('pk').core_id,
-            self.alarm.core_id,
-            "The given and saved alarm's core_id differ"
+        self.assertTrue(
+            type(alarm.core_timestamp) is int,
+            'The core_timestamp is not of type int'
         )
-
-    def test_delete_alarm(self):
-        """Test if we can delete an alarm through the models"""
-        # Arrange:
-        self.alarm = AlarmFactory()
-        self.old_count = Alarm.objects.count()
-        # Act:
-        Alarm.objects.filter(pk=self.alarm.pk).delete()
-        # Assert:
-        self.new_count = Alarm.objects.count()
-        self.assertEqual(
-            self.old_count - 1,
-            self.new_count,
-            'The Alarm was not deleted'
+        self.assertTrue(
+            alarm.mode in [str(x[0]) for x in OperationalMode.options()],
+            'The mode is not a valid option'
         )
-
-    def test_update_alarm(self):
-        """Test if we can update an alarm through the models"""
-        # Arrange:
-        self.alarm = AlarmFactory()
-        # Act:
-        new_value = (self.alarm.value + 1) % 2
-        self.alarm.value = new_value
-        self.alarm.save()
-        # Assert:
-        self.assertEqual(
-            Alarm.objects.get(pk=self.alarm.pk).value,
-            new_value,
-            'The Alarm was not updated'
+        self.assertTrue(
+            type(alarm.core_id) is str,
+            'The core_id is not a string'
         )
-
-    def test_update_alarm_ignoring_timestamp(self):
-        """Test if we can update an alarm ignoring changes in the timestamp
-        if nothing else is different"""
-        # Arrange:
-        self.alarm = AlarmFactory()
-        # Act:
-        new_core_timestamp = self.alarm.core_timestamp + 1000
-        same_value = self.alarm.value
-        params = {
-            'value': same_value,
-            'core_timestamp': new_core_timestamp
-        }
-        self.alarm.update_ignoring_timestamp(params)
-        # Assert:
-        self.assertNotEqual(
-            Alarm.objects.get(pk=self.alarm.pk).core_timestamp,
-            new_core_timestamp,
-            'Timestamp was changed'
+        self.assertTrue(
+            '@' not in alarm.core_id and ':' not in alarm.core_id,
+            'The core_id contains an invalid character (@ or :)'
         )
-
-        # Act:
-        new_core_timestamp = self.alarm.core_timestamp + 1000
-        new_value = (self.alarm.value + 1) % 2
-        params = {
-            'value': new_value,
-            'core_timestamp': new_core_timestamp
-        }
-        self.alarm.update_ignoring_timestamp(params)
-        # Assert:
-        self.assertEqual(
-            Alarm.objects.get(pk=self.alarm.pk).core_timestamp,
-            new_core_timestamp,
-            'The alarm timestamp was not updated'
+        self.assertTrue(
+            alarm.running_id == alarm.core_id + '@ACS_NC',
+            'The running_id has an unexpected value'
         )
-        self.assertEqual(
-            Alarm.objects.get(pk=self.alarm.pk).value,
-            new_value,
-            'The alarm value was not updated'
+        self.assertTrue(
+            alarm.validity in [str(x[0]) for x in Validity.options()],
+            'The validity is not a valid option'
+        )
+        self.assertTrue(
+            alarm.timestamps == {},
+            'The default value of timestamps field must be an empty dictionary'
+        )
+        self.assertTrue(
+            alarm.properties == {},
+            'The default value of properties field must be an empty dictionary'
+        )
+        self.assertTrue(
+            alarm.dependencies == [],
+            'The default value of dependencies field must be an empty list'
         )
 
     def test_ignored_invalid_alarms_update(self):
@@ -135,7 +93,7 @@ class AlarmModelTestCase(TestCase):
         with freeze_time(initial_time) as frozen_datetime:
             # Arrange:
             alarm = AlarmFactory.get_valid_alarm()
-            max_interval = Validity.refresh_rate() + Validity.delta() + 1
+            max_interval = CdbConn.refresh_rate + CdbConn.tolerance + 1
             max_timedelta = datetime.timedelta(milliseconds=max_interval)
             # Act:
             frozen_datetime.tick(delta=max_timedelta)
@@ -150,8 +108,14 @@ class AlarmModelTestCase(TestCase):
     def test_equals_except_timestamp(self):
         """Test if we can compare alarms properly through the models"""
         # Arrange:
-        self.alarm = AlarmFactory.build(value=0)
+        self.alarm = AlarmFactory.get_alarm_with_all_optional_fields()
+
+        self.alarm.value = 0
         self.equal_alarm = Alarm(**self.alarm.to_dict())
+
+        self.equal_alarm_diff_tstamp = Alarm(**self.alarm.to_dict())
+        self.equal_alarm_diff_tstamp.timestamps = {"sentToBsdbTStamp": "0"}
+
         self.different_alarm = Alarm(**self.alarm.to_dict())
         self.different_alarm.value = 1
 
@@ -159,6 +123,11 @@ class AlarmModelTestCase(TestCase):
         self.assertTrue(
             self.alarm.equals_except_timestamp(self.equal_alarm),
             'Equal alarms are recognized as different'
+        )
+
+        self.assertTrue(
+            self.alarm.equals_except_timestamp(self.equal_alarm_diff_tstamp),
+            'Equal alarms with different tstamps are recognized as different'
         )
 
         self.assertFalse(

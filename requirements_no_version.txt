@@ -1,5 +1,6 @@
 aioredis
 asgiref
+async-generator
 async-timeout
 attrs
 autobahn
@@ -7,10 +8,9 @@ Automat
 channels
 channels-redis
 constantly
-coverage
 daphne
 Django
-factory-boy
+djangorestframework
 Faker
 freezegun
 hiredis
@@ -25,9 +25,8 @@ pytest-django
 python-dateutil
 pytz
 six
-Sphinx
-sphinxcontrib-websupport
 text-unidecode
+tornado
 Twisted
 txaio
 zope.interface

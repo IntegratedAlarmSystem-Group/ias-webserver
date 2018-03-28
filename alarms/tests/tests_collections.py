@@ -2,41 +2,10 @@ import datetime
 import time
 import pytest
 from freezegun import freeze_time
-from django.test import TestCase
-from alarms.models import Alarm, Validity
+from alarms.models import Alarm
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
-from cdb.models import Iasio
-
-
-class TestAlarmsAppInitialization(TestCase):
-    """
-    This class defines the test suite for the initializaiton of the Alarms app
-    """
-
-    def setUp(self):
-        """TestCase setup, executed before each test of the TestCase"""
-        self.iasio_alarm = Iasio(io_id="AlarmType-ID",
-                                 short_desc="Test iasio",
-                                 refresh_rate=1000,
-                                 ias_type="alarm")
-        self.iasio_alarm.save()
-        self.iasio_double = Iasio(io_id="DoubleType-ID",
-                                  short_desc="Test iasio",
-                                  refresh_rate=1000,
-                                  ias_type="double")
-        self.iasio_double.save()
-
-    def tearDown(self):
-        """TestCase teardown, executed after each test of the TestCase"""
-        Iasio.objects.all().delete()
-
-    def test_initialize(self):
-        """ Test that the alarm collection is initialised on startup """
-        self.assertNotEqual(
-            AlarmCollection.singleton_collection, None,
-            'The alarm collection was not initialized'
-        )
+from alarms.connectors import CdbConnector as CdbConn
 
 
 class TestAlarmsCollection:
@@ -156,7 +125,7 @@ class TestAlarmsCollection:
         ]
         # Act:
         # Recalculate the AlarmCollection validation after 5 seconds
-        max_interval = Validity.refresh_rate() + Validity.delta() + 1
+        max_interval = CdbConn.refresh_rate + CdbConn.tolerance + 1
         max_timedelta = datetime.timedelta(milliseconds=max_interval)
         initial_time = datetime.datetime.now() + max_timedelta
         with freeze_time(initial_time):

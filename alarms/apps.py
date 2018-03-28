@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.db.utils import OperationalError
 
 
 class AlarmConfig(AppConfig):
@@ -10,4 +11,13 @@ class AlarmConfig(AppConfig):
     def ready(self):
         """ Initializes AlarmCollection on application start """
         from alarms.collections import AlarmCollection
-        AlarmCollection.initialize()
+        try:
+            AlarmCollection.initialize()
+        except (OperationalError, TypeError) as e:
+            print('WARN:', e)
+
+        from alarms.connectors import CdbConnector
+        try:
+            CdbConnector.initialize_ias(pk=1)
+        except (OperationalError, TypeError) as e:
+            print('WARN:', e)

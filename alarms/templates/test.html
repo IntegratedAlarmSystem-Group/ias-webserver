@@ -25,8 +25,8 @@
   <script type="text/javascript" src='{% static "channels/js/websocketbridge.js" %}'></script>
   <script type="text/javascript">
 
-    var connectionPath = "ws://localhost:8000/stream/";
-    console.log('Connecting to ' + connectionPath);
+    var connectionPath = "/core/";
+    console.log('Connecting to: ' + connectionPath);
 
     var webSocketBridge = new channels.WebSocketBridge();
     webSocketBridge.connect(connectionPath);
