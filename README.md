@@ -56,6 +56,7 @@ https://integratedalarmsystem-group.github.io/ias-webserver/
 ## Local Execution
   * Activate virtual environment (if not already activated): `source venv/bin/activate`
   * Run development server: `python manage.py runserver`
+  * Run broadcast command: `python manage.py broadcaststatus --hostname <HOST> --port <PORT> --rate <RATE IN SECS>`
   * If required, apply migrations:
     - `python manage.py migrate`
     - `python manage.py migrate --database=cdb`
