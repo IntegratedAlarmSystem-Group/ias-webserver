@@ -10,6 +10,8 @@ COPY . .
 RUN python manage.py makemigrations
 RUN python manage.py migrate
 RUN python manage.py migrate --database=cdb
+RUN python manage.py loaddata cdb/fixtures/cdb.ias.json --database=cdb
+RUN python manage.py loaddata cdb/fixtures/cdb.iasios.json --database=cdb
 RUN python manage.py collectstatic --noinput
 
 VOLUME /usr/src/ias-webserver/static
