@@ -41,17 +41,12 @@ class TestRequestsToClientConsumer:
         expected_alarms_list = []
         alarms = AlarmCollection.get_all_as_dict()
         for core_id, alarm in alarms.items():
-            expected_alarms_list.append({
-                'pk': None,
-                'model': 'alarms.alarm',
-                'fields': alarm.to_dict()
-            })
+            expected_alarms_list.append(alarm.to_dict())  # expected
         alarms_list = response['payload']['data']
         sorted_alarms_list = sorted(alarms_list,
-                                    key=lambda k: k['fields']['core_id'])
+                                    key=lambda k: k['core_id'])
         sorted_expected_alarms_list = sorted(expected_alarms_list,
-                                             key=lambda k: k['fields']
-                                                            ['core_id'])
+                                             key=lambda k: k['core_id'])
         assert sorted_alarms_list == sorted_expected_alarms_list, \
             'The received alarms are different than the alarms in the Server'
         # Close:
@@ -77,11 +72,7 @@ class TestRequestsToClientConsumer:
                 AlarmCollection.add(valid_alarm)
                 alarm_dict = valid_alarm.to_dict()
                 alarm_dict['validity'] = '0'
-                expected_alarms_list.append({
-                    'pk': None,
-                    'model': 'alarms.alarm',
-                    'fields': alarm_dict
-                })
+                expected_alarms_list.append(alarm_dict)
             # Act:
             msg = {
                 'stream': 'requests',
@@ -97,10 +88,9 @@ class TestRequestsToClientConsumer:
             # Assert:
             alarms_list = response['payload']['data']
             sorted_alarms_list = sorted(alarms_list,
-                                        key=lambda k: k['fields']['core_id'])
+                                        key=lambda k: k['core_id'])
             sorted_expected_alarms_list = sorted(expected_alarms_list,
-                                                 key=lambda k: k['fields']
-                                                                ['core_id'])
+                                                 key=lambda k: k['core_id'])
             assert sorted_alarms_list == sorted_expected_alarms_list, \
                 'The alarms were not invalidated as expected after 10 seconds'
         # Close:
