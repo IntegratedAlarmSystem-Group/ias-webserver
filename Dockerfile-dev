@@ -1,0 +1,7 @@
+FROM python:3.6.0
+
+RUN apt-get update && apt-get install netcat -y
+WORKDIR /usr/src/ias-webserver
+EXPOSE 8001
+COPY requirements.txt .
+RUN pip install -r requirements.txt
