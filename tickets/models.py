@@ -20,7 +20,7 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     """ Time when the ticket is created """
 
-    resolve_at = models.DateTimeField(null=True)
+    resolved_at = models.DateTimeField(null=True)
     """ Time when the ticket is updated """
 
     alarm_id = models.CharField(max_length=64, db_index=True)
@@ -40,7 +40,7 @@ class Ticket(models.Model):
         and the message """
         if message.strip() is not "" and self.status == 1:
             self.status = 0
-            self.resolve_at = timezone.now()
+            self.resolved_at = timezone.now()
             self.message = message
             self.save()
             return "solved"

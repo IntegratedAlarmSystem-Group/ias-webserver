@@ -25,7 +25,7 @@ class TicketsModelsTestCase(TestCase):
                 'Ticket was not created with the correct creation timestamp'
             )
             self.assertEqual(
-                retrieved_ticket.resolve_at, None,
+                retrieved_ticket.resolved_at, None,
                 'When the ticket is created the resolve_at time must be none'
             )
             self.assertEqual(
@@ -51,7 +51,7 @@ class TicketsModelsTestCase(TestCase):
                 'Solved ticket status must be closed (0)'
             )
             self.assertEqual(
-                retrieved_ticket.resolve_at, resolution_dt,
+                retrieved_ticket.resolved_at, resolution_dt,
                 'When the ticket is solved the resolve_at time must be greater \
                  than the created_at datetime'
             )
