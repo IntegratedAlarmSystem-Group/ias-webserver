@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.decorators import list_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from tickets.models import Ticket
 from tickets.serializers import (
@@ -12,7 +12,7 @@ class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
 
-    @list_route()
+    @action(detail=False)
     def filters(self, request):
         """ Retrieve the list of iasios filtered by type alarm """
         alarm_id = self.request.query_params.get('alarm_id', None)
