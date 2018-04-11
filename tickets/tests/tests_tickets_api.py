@@ -160,3 +160,33 @@ class TicketsApiTestCase(TestCase):
             resolved_ticket.resolved_at, None,
             'The resolved ticket datetime was not correctly recorded'
         )
+
+    def test_api_can_not_close_a_ticket_without_message(self):
+        """Test that the api can not close an opened ticket with an empty
+        message"""
+        # Act:
+        url = reverse('ticket-resolve', kwargs={'pk': self.ticket_open.pk})
+        data = {
+            'message': ' '
+        }
+        self.response = self.client.put(url, data, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_400_BAD_REQUEST,
+            'The Server must not retrieve the filtered tickets without a valid \
+            message'
+        )
+        resolved_ticket = Ticket.objects.get(pk=self.ticket_open.pk)
+        self.assertEqual(
+            resolved_ticket.status, 1,
+            'The ticket must not be closed'
+        )
+        self.assertEqual(
+            resolved_ticket.message, None,
+            'The ticket must not be recorded with an invalid message'
+        )
+        self.assertEqual(
+            resolved_ticket.resolved_at, None,
+            'The resolved_at datetime must not be updated'
+        )
