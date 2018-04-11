@@ -131,3 +131,32 @@ class TicketsApiTestCase(TestCase):
             expected_tickets_data,
             'The retrieved filtered tickets do not match the expected ones'
         )
+
+    def test_api_can_close_a_ticket(self):
+        """Test that the api can close an opened ticket"""
+        # Act:
+        url = reverse('ticket-resolve', kwargs={'pk': self.ticket_open.pk})
+        data = {
+            'message': 'The ticket was closed'
+        }
+        self.response = self.client.put(url, data, format="json")
+        print(self.response)
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The Server did not retrieve the filtered tickets'
+        )
+        resolved_ticket = Ticket.objects.get(pk=self.ticket_open.pk)
+        self.assertEqual(
+            resolved_ticket.status, 0,
+            'The resolved ticket was not correctly closed'
+        )
+        self.assertEqual(
+            resolved_ticket.message, data['message'],
+            'The resolved ticket message was not correctly recorded'
+        )
+        self.assertNotEqual(
+            resolved_ticket.resolved_at, None,
+            'The resolved ticket datetime was not correctly recorded'
+        )

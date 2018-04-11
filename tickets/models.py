@@ -48,10 +48,13 @@ class Ticket(models.Model):
     def resolve(self, message):
         """ Resolves the ticket modifying the status, the resolution timestamp
         and the message """
-        if message.strip() is not "" and self.status == 1:
-            self.status = 0
-            self.resolved_at = timezone.now()
-            self.message = message
-            self.save()
-            return "solved"
-        return "ignored"
+        if self.status == 0:
+            return "ignored-ticket-closed"
+        if message.strip() is "":
+            return "ignored-wrong-message"
+
+        self.status = 0
+        self.resolved_at = timezone.now()
+        self.message = message
+        self.save()
+        return "solved"
