@@ -23,7 +23,7 @@ class Ticket(models.Model):
     resolve_at = models.DateTimeField(null=True)
     """ Time when the ticket is updated """
 
-    alarm_id = models.CharField(max_length=64)
+    alarm_id = models.CharField(max_length=64, db_index=True)
     """ Reference to the related alarm """
 
     message = models.CharField(max_length=256, null=True)
