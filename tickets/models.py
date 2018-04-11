@@ -35,6 +35,16 @@ class Ticket(models.Model):
     )
     """ State of the ticket, default is open """
 
+    def to_dict(self):
+        """ Return the ticket as a dictionary """
+        return {
+            'created_at': self.created_at,
+            'resolved_at': self.resolved_at,
+            'alarm_id': self.alarm_id,
+            'message': self.message,
+            'status': self.status
+        }
+
     def resolve(self, message):
         """ Resolves the ticket modifying the status, the resolution timestamp
         and the message """
