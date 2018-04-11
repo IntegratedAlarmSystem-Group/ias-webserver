@@ -38,3 +38,23 @@ class TicketsApiTestCase(TestCase):
             self.response.data,
             TicketSerializer(expected_ticket).data
         )
+
+    def test_api_can_list_tickets(self):
+        """Test that the api can list the Tickets"""
+        tickets = [self.ticket_open, self.ticket_close]
+        expected_tickets_data = [TicketSerializer(t).data for t in tickets]
+        # Act:
+        url = reverse('ticket-list')
+        self.response = self.client.get(url, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The Server did not retrieve the tickets'
+        )
+        retrieved_tickets_data = self.response.data
+        self.assertEqual(
+            retrieved_tickets_data,
+            expected_tickets_data,
+            'The retrieved tickets do not match the expected ones'
+        )
