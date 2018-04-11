@@ -63,7 +63,8 @@ class TicketsApiTestCase(TestCase):
         )
 
     def test_api_can_filter_tickets_by_alarm_and_status(self):
-        """Test that the api can list the Tickets filtered by alarm id"""
+        """Test that the api can list the Tickets filtered by alarm id
+        and status"""
         expected_tickets_data = [TicketSerializer(self.ticket_open).data]
         # Act:
         url = reverse('ticket-filters')
@@ -109,7 +110,7 @@ class TicketsApiTestCase(TestCase):
         )
 
     def test_api_can_filter_tickets_by_status(self):
-        """Test that the api can list the Tickets filtered by alarm id"""
+        """Test that the api can list the Tickets filtered by status"""
         tickets = [self.ticket_open, self.ticket_other]
         expected_tickets_data = [TicketSerializer(t).data for t in tickets]
         # Act:
