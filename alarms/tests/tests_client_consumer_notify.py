@@ -29,7 +29,7 @@ class TestNotificationsToClientConsumer:
         # Assert:
         assert response['payload']['action'] == 'create', \
             "Action should be 'create'"
-        assert response['payload']['data']['fields'] == alarm.to_dict(), \
+        assert response['payload']['data'] == alarm.to_dict(), \
             'Received alarm is different than expected'
 
     @pytest.mark.asyncio
@@ -55,7 +55,7 @@ class TestNotificationsToClientConsumer:
         # Assert
         assert response['payload']['action'] == 'update', \
             "Action should be 'update'"
-        response_alarm = response['payload']['data']['fields']
+        response_alarm = response['payload']['data']
         assert response_alarm == modified_alarm.to_dict(), \
             'Received alarm is different than expected'
 

@@ -122,11 +122,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         if alarm is not None:
             await self.send_json({
                 "payload": {
-                    "data": {
-                        'pk': None,
-                        'model': 'alarms.alarm',
-                        'fields': alarm.to_dict()
-                    },
+                    "data": alarm.to_dict(),
                     "action": action
                 },
                 "stream": "alarms",
@@ -144,11 +140,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         queryset = AlarmCollection.update_all_alarms_validity()
         data = []
         for item in list(queryset.values()):
-            data.append({
-                'pk': None,
-                'model': 'alarms.alarm',
-                'fields': item.to_dict()
-            })
+            data.append(item.to_dict())
         await self.send_json({
             "payload": {
                 "data": data

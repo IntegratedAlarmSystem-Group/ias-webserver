@@ -41,11 +41,7 @@ class TestPeriodicBroadcastCase:
                 AlarmCollection.add(valid_alarm)
                 alarm_dict = valid_alarm.to_dict()
                 alarm_dict['validity'] = '0'
-                expected_alarms_list.append({
-                    'pk': None,
-                    'model': 'alarms.alarm',
-                    'fields': alarm_dict
-                })
+                expected_alarms_list.append(alarm_dict)
             # Act:
             msg = {
                 'stream': 'broadcast',
@@ -63,10 +59,9 @@ class TestPeriodicBroadcastCase:
             # Assert:
             alarms_list = response_observer['payload']['data']
             sorted_alarms_list = sorted(alarms_list,
-                                        key=lambda k: k['fields']['core_id'])
+                                        key=lambda k: k['core_id'])
             sorted_expected_alarms_list = sorted(expected_alarms_list,
-                                                 key=lambda k: k['fields']
-                                                                ['core_id'])
+                                                 key=lambda k: k['core_id'])
             assert sorted_alarms_list == sorted_expected_alarms_list, \
                 'The alarms were not invalidated as expected after 10 seconds'
         # Close:
