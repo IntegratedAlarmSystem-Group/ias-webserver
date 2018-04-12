@@ -1,5 +1,5 @@
 from django.test import TestCase
-from tickets.models import Ticket
+from tickets.models import Ticket, TicketStatus
 from freezegun import freeze_time
 from django.utils import timezone
 
@@ -17,7 +17,8 @@ class TicketsModelsTestCase(TestCase):
 
             # Asserts:
             self.assertEqual(
-                retrieved_ticket.status, 1,
+                retrieved_ticket.status,
+                int(TicketStatus.get_choices_by_name()['UNACK']),
                 'Ticket must be open by default'
             )
             self.assertEqual(
@@ -25,16 +26,16 @@ class TicketsModelsTestCase(TestCase):
                 'Ticket was not created with the correct creation timestamp'
             )
             self.assertEqual(
-                retrieved_ticket.resolved_at, None,
-                'When the ticket is created the resolve_at time must be none'
+                retrieved_ticket.acknoledged_at, None,
+                'When the ticket is created the acknoledged time must be none'
             )
             self.assertEqual(
                 retrieved_ticket.message, None,
                 'When the ticket is created the message must be none'
             )
 
-    def test_resolve_a_ticket(self):
-        """ Test if we can resolve a ticket passing it a valid message """
+    def test_acknoledge_a_ticket(self):
+        """ Test if we can acknoledge a ticket passing it a valid message """
         # Arrange:
         ticket = Ticket(alarm_id='alarm_id')
         ticket.save()
@@ -42,18 +43,19 @@ class TicketsModelsTestCase(TestCase):
         # Act:
         resolution_dt = timezone.now()
         with freeze_time(resolution_dt):
-            response = ticket.resolve(message='This ticket was solved')
+            response = ticket.acknoledge(message='This ticket was solved')
             retrieved_ticket = Ticket.objects.get(alarm_id='alarm_id')
 
             # Asserts:
             self.assertEqual(
-                retrieved_ticket.status, 0,
+                retrieved_ticket.status,
+                int(TicketStatus.get_choices_by_name()['ACK']),
                 'Solved ticket status must be closed (0)'
             )
             self.assertEqual(
-                retrieved_ticket.resolved_at, resolution_dt,
-                'When the ticket is solved the resolve_at time must be greater \
-                 than the created_at datetime'
+                retrieved_ticket.acknoledged_at, resolution_dt,
+                'When the ticket is solved the acknoledge_at time must be \
+                greater than the created_at datetime'
             )
             self.assertEqual(
                 retrieved_ticket.message, 'This ticket was solved',

@@ -26,14 +26,14 @@ class TicketViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @action(methods=['put'], detail=True)
-    def resolve(self, request, pk=None):
-        """ Resolve a ticket that implies change the status, record message an
+    def acknoledge(self, request, pk=None):
+        """ acknoledge a ticket that implies change the status, record message an
         the timestamp """
         message = self.request.data['message']
         ticket = Ticket.objects.filter(pk=pk).first()
 
         if ticket:
-            response = ticket.resolve(message=message)
+            response = ticket.acknoledge(message=message)
             if response == 'solved':
                 return Response("The ticket was solved")
             elif response == 'ignored-wrong-message':

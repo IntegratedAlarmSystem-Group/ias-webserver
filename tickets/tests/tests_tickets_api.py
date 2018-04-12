@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
 from django.urls import reverse
-from tickets.models import Ticket
+from tickets.models import Ticket, TicketStatus
 from tickets.serializers import TicketSerializer
 
 
@@ -17,7 +17,7 @@ class TicketsApiTestCase(TestCase):
 
         self.ticket_close = Ticket(alarm_id='alarm_1')
         self.ticket_close.save()
-        self.ticket_close.resolve(message="Ticket was solved")
+        self.ticket_close.acknoledge(message="Ticket was solved")
 
         self.ticket_other = Ticket(alarm_id='alarm_2')
         self.ticket_other.save()
@@ -70,7 +70,7 @@ class TicketsApiTestCase(TestCase):
         url = reverse('ticket-filters')
         data = {
             'alarm_id': 'alarm_1',
-            'status': '1'
+            'status': TicketStatus.get_choices_by_name()['UNACK']
         }
         self.response = self.client.get(url, data, format="json")
         # Assert:
@@ -116,7 +116,7 @@ class TicketsApiTestCase(TestCase):
         # Act:
         url = reverse('ticket-filters')
         data = {
-            'status': '1'
+            'status': TicketStatus.get_choices_by_name()['UNACK']
         }
         self.response = self.client.get(url, data, format="json")
         # Assert:
@@ -132,40 +132,40 @@ class TicketsApiTestCase(TestCase):
             'The retrieved filtered tickets do not match the expected ones'
         )
 
-    def test_api_can_close_a_ticket(self):
+    def test_api_can_acknoledge_a_ticket(self):
         """Test that the api can close an opened ticket"""
         # Act:
-        url = reverse('ticket-resolve', kwargs={'pk': self.ticket_open.pk})
+        url = reverse('ticket-acknoledge', kwargs={'pk': self.ticket_open.pk})
         data = {
             'message': 'The ticket was closed'
         }
         self.response = self.client.put(url, data, format="json")
-        print(self.response)
         # Assert:
         self.assertEqual(
             self.response.status_code,
             status.HTTP_200_OK,
             'The Server did not retrieve the filtered tickets'
         )
-        resolved_ticket = Ticket.objects.get(pk=self.ticket_open.pk)
+        acknoledged_ticket = Ticket.objects.get(pk=self.ticket_open.pk)
         self.assertEqual(
-            resolved_ticket.status, 0,
-            'The resolved ticket was not correctly closed'
+            acknoledged_ticket.status,
+            int(TicketStatus.get_choices_by_name()['ACK']),
+            'The acknoledged ticket was not correctly closed'
         )
         self.assertEqual(
-            resolved_ticket.message, data['message'],
-            'The resolved ticket message was not correctly recorded'
+            acknoledged_ticket.message, data['message'],
+            'The acknoledged ticket message was not correctly recorded'
         )
         self.assertNotEqual(
-            resolved_ticket.resolved_at, None,
-            'The resolved ticket datetime was not correctly recorded'
+            acknoledged_ticket.acknoledged_at, None,
+            'The acknoledged ticket datetime was not correctly recorded'
         )
 
-    def test_api_can_not_close_a_ticket_without_message(self):
+    def test_api_can_not_acknoledge_a_ticket_without_message(self):
         """Test that the api can not close an opened ticket with an empty
         message"""
         # Act:
-        url = reverse('ticket-resolve', kwargs={'pk': self.ticket_open.pk})
+        url = reverse('ticket-acknoledge', kwargs={'pk': self.ticket_open.pk})
         data = {
             'message': ' '
         }
@@ -177,16 +177,17 @@ class TicketsApiTestCase(TestCase):
             'The Server must not retrieve the filtered tickets without a valid \
             message'
         )
-        resolved_ticket = Ticket.objects.get(pk=self.ticket_open.pk)
+        acknoledged_ticket = Ticket.objects.get(pk=self.ticket_open.pk)
         self.assertEqual(
-            resolved_ticket.status, 1,
+            acknoledged_ticket.status,
+            int(TicketStatus.get_choices_by_name()['UNACK']),
             'The ticket must not be closed'
         )
         self.assertEqual(
-            resolved_ticket.message, None,
+            acknoledged_ticket.message, None,
             'The ticket must not be recorded with an invalid message'
         )
         self.assertEqual(
-            resolved_ticket.resolved_at, None,
-            'The resolved_at datetime must not be updated'
+            acknoledged_ticket.acknoledged_at, None,
+            'The acknoledged_at datetime must not be updated'
         )

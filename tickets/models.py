@@ -5,8 +5,8 @@ from utils.choice_enum import ChoiceEnum
 
 class TicketStatus(ChoiceEnum):
 
-    OPEN = 1
-    CLOSE = 0
+    ACK = 1
+    UNACK = 0
 
     @classmethod
     def options(cls):
@@ -20,7 +20,7 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     """ Time when the ticket is created """
 
-    resolved_at = models.DateTimeField(null=True)
+    acknoledged_at = models.DateTimeField(null=True)
     """ Time when the ticket is updated """
 
     alarm_id = models.CharField(max_length=64, db_index=True)
@@ -31,7 +31,7 @@ class Ticket(models.Model):
 
     status = models.IntegerField(
         choices=TicketStatus.options(),
-        default=1,
+        default=int(TicketStatus.get_choices_by_name()['UNACK']),
     )
     """ State of the ticket, default is open """
 
@@ -45,16 +45,16 @@ class Ticket(models.Model):
             'status': self.status
         }
 
-    def resolve(self, message):
+    def acknoledge(self, message):
         """ Resolves the ticket modifying the status, the resolution timestamp
         and the message """
-        if self.status == 0:
-            return "ignored-ticket-closed"
+        if self.status == int(TicketStatus.get_choices_by_name()['ACK']):
+            return "ignored-ticket-ack"
         if message.strip() is "":
             return "ignored-wrong-message"
 
-        self.status = 0
-        self.resolved_at = timezone.now()
+        self.status = int(TicketStatus.get_choices_by_name()['ACK'])
+        self.acknoledged_at = timezone.now()
         self.message = message
         self.save()
         return "solved"
