@@ -12,12 +12,12 @@ class TicketsApiTestCase(TestCase):
     def setUp(self):
         # Arrange:
         """Define the test suite setup"""
-        self.ticket_open = Ticket(alarm_id='alarm_1')
-        self.ticket_open.save()
+        self.ticket_unack = Ticket(alarm_id='alarm_1')
+        self.ticket_unack.save()
 
-        self.ticket_close = Ticket(alarm_id='alarm_1')
-        self.ticket_close.save()
-        self.ticket_close.acknoledge(message="Ticket was solved")
+        self.ticket_ack = Ticket(alarm_id='alarm_1')
+        self.ticket_ack.save()
+        self.ticket_ack.acknoledge(message="Ticket was solved")
 
         self.ticket_other = Ticket(alarm_id='alarm_2')
         self.ticket_other.save()
@@ -27,9 +27,9 @@ class TicketsApiTestCase(TestCase):
     def test_api_can_retrieve_tickets(self):
         """ Test that the api can retrieve a ticket """
         # Arrange:
-        expected_ticket = Ticket.objects.get(pk=self.ticket_open.pk)
+        expected_ticket = Ticket.objects.get(pk=self.ticket_unack.pk)
         # Act:
-        url = reverse('ticket-detail', kwargs={'pk': self.ticket_open.pk})
+        url = reverse('ticket-detail', kwargs={'pk': self.ticket_unack.pk})
         self.response = self.client.get(url, format='json')
         # Assert:
         self.assertEqual(
@@ -44,7 +44,7 @@ class TicketsApiTestCase(TestCase):
 
     def test_api_can_list_tickets(self):
         """Test that the api can list the Tickets"""
-        tickets = [self.ticket_open, self.ticket_close, self.ticket_other]
+        tickets = [self.ticket_unack, self.ticket_ack, self.ticket_other]
         expected_tickets_data = [TicketSerializer(t).data for t in tickets]
         # Act:
         url = reverse('ticket-list')
@@ -65,7 +65,7 @@ class TicketsApiTestCase(TestCase):
     def test_api_can_filter_tickets_by_alarm_and_status(self):
         """Test that the api can list the Tickets filtered by alarm id
         and status"""
-        expected_tickets_data = [TicketSerializer(self.ticket_open).data]
+        expected_tickets_data = [TicketSerializer(self.ticket_unack).data]
         # Act:
         url = reverse('ticket-filters')
         data = {
@@ -88,7 +88,7 @@ class TicketsApiTestCase(TestCase):
 
     def test_api_can_filter_tickets_by_alarm(self):
         """Test that the api can list the Tickets filtered by alarm id"""
-        tickets = [self.ticket_open, self.ticket_close]
+        tickets = [self.ticket_unack, self.ticket_ack]
         expected_tickets_data = [TicketSerializer(t).data for t in tickets]
         # Act:
         url = reverse('ticket-filters')
@@ -111,7 +111,7 @@ class TicketsApiTestCase(TestCase):
 
     def test_api_can_filter_tickets_by_status(self):
         """Test that the api can list the Tickets filtered by status"""
-        tickets = [self.ticket_open, self.ticket_other]
+        tickets = [self.ticket_unack, self.ticket_other]
         expected_tickets_data = [TicketSerializer(t).data for t in tickets]
         # Act:
         url = reverse('ticket-filters')
@@ -133,11 +133,11 @@ class TicketsApiTestCase(TestCase):
         )
 
     def test_api_can_acknoledge_a_ticket(self):
-        """Test that the api can close an opened ticket"""
+        """Test that the api can ack an unacknowledged ticket"""
         # Act:
-        url = reverse('ticket-acknoledge', kwargs={'pk': self.ticket_open.pk})
+        url = reverse('ticket-acknoledge', kwargs={'pk': self.ticket_unack.pk})
         data = {
-            'message': 'The ticket was closed'
+            'message': 'The ticket was acknowledged'
         }
         self.response = self.client.put(url, data, format="json")
         # Assert:
@@ -146,11 +146,11 @@ class TicketsApiTestCase(TestCase):
             status.HTTP_200_OK,
             'The Server did not retrieve the filtered tickets'
         )
-        acknoledged_ticket = Ticket.objects.get(pk=self.ticket_open.pk)
+        acknoledged_ticket = Ticket.objects.get(pk=self.ticket_unack.pk)
         self.assertEqual(
             acknoledged_ticket.status,
             int(TicketStatus.get_choices_by_name()['ACK']),
-            'The acknoledged ticket was not correctly closed'
+            'The acknoledged ticket was not correctly acknowledged'
         )
         self.assertEqual(
             acknoledged_ticket.message, data['message'],
@@ -162,10 +162,10 @@ class TicketsApiTestCase(TestCase):
         )
 
     def test_api_can_not_acknoledge_a_ticket_without_message(self):
-        """Test that the api can not close an opened ticket with an empty
+        """Test that the api can not ack an unacknowledged ticket with an empty
         message"""
         # Act:
-        url = reverse('ticket-acknoledge', kwargs={'pk': self.ticket_open.pk})
+        url = reverse('ticket-acknoledge', kwargs={'pk': self.ticket_unack.pk})
         data = {
             'message': ' '
         }
@@ -177,11 +177,11 @@ class TicketsApiTestCase(TestCase):
             'The Server must not retrieve the filtered tickets without a valid \
             message'
         )
-        acknoledged_ticket = Ticket.objects.get(pk=self.ticket_open.pk)
+        acknoledged_ticket = Ticket.objects.get(pk=self.ticket_unack.pk)
         self.assertEqual(
             acknoledged_ticket.status,
             int(TicketStatus.get_choices_by_name()['UNACK']),
-            'The ticket must not be closed'
+            'The ticket must not be acknowledged'
         )
         self.assertEqual(
             acknoledged_ticket.message, None,
