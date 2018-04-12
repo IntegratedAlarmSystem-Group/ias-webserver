@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from tickets.models import Ticket
+from tickets.models import Ticket, TicketStatus
 from tickets.serializers import (
     TicketSerializer
 )
@@ -44,3 +44,26 @@ class TicketViewSet(viewsets.ModelViewSet):
                                 status=status.HTTP_400_BAD_REQUEST)
         return Response("The ticket does not exist",
                         status=status.HTTP_404_NOT_FOUND)
+
+    @action(methods=['put'], detail=False)
+    def acknoledge_many(self, request):
+        """ acknoledge multiple tickets with the same message and timestamp """
+        message = self.request.data['message']
+        alarms_ids = self.request.data['alarms_ids']
+
+        queryset = Ticket.objects.filter(alarm_id__in=alarms_ids)
+        queryset = queryset.filter(
+            status=int(TicketStatus.get_choices_by_name()['UNACK'])
+        )
+        tickets_ack = 0
+        response_message = 'All tickets acknowledged correctly.'
+        for ticket in queryset:
+            response = ticket.acknoledge(message=message)
+            if response != 'solved':
+                response_message = 'Some tickets were not acknowledged.'
+            else:
+                tickets_ack += 1
+
+        return Response('{0} ({1}/{2})'.format(response_message,
+                                               tickets_ack,
+                                               len(queryset)))

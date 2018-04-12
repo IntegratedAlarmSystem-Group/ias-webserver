@@ -191,3 +191,42 @@ class TicketsApiTestCase(TestCase):
             acknoledged_ticket.acknoledged_at, None,
             'The acknoledged_at datetime must not be updated'
         )
+
+    def test_api_can_acknoledge_multiple_tickets(self):
+        """Test that the api can acknoledge multiple unacknowledged tickets"""
+        # Act:
+        url = reverse('ticket-acknoledge-many')
+        data = {
+            'alarms_ids': ['alarm_1', 'alarm_2'],
+            'message': 'The ticket was acknowledged'
+        }
+        self.response = self.client.put(url, data, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The status of the response is incorrect'
+        )
+        self.assertEqual(
+            self.response.data,
+            'All tickets acknowledged correctly. (2/2)',
+            'The message of the response is incorrect'
+        )
+        acknoledged_tickets = [
+            Ticket.objects.get(pk=self.ticket_unack.pk),
+            Ticket.objects.get(pk=self.ticket_other.pk)
+        ]
+        expected_status = int(TicketStatus.get_choices_by_name()['ACK'])
+        self.assertTrue(
+            acknoledged_tickets[0].status == expected_status and
+            acknoledged_tickets[1].status == expected_status,
+            'The tickets was not correctly acknowledged'
+        )
+        self.assertEqual(
+            acknoledged_tickets[0].message, data['message'],
+            'The first ticket message was not correctly recorded'
+        )
+        self.assertEqual(
+            acknoledged_tickets[1].message, data['message'],
+            'The second ticket message was not correctly recorded'
+        )
