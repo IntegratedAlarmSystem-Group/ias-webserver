@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'alarms.apps.AlarmConfig',
     'cdb',
+    'tickets',
 ]
 
 MIDDLEWARE = [
