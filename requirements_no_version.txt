@@ -10,6 +10,7 @@ channels-redis
 constantly
 daphne
 Django
+django-cors-headers
 djangorestframework
 Faker
 freezegun
