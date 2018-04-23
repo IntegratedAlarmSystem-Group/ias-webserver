@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # while ! nc -z postgres 5432
 # do
