@@ -10,6 +10,7 @@ channels-redis==2.1.1
 constantly==15.1.0
 daphne==2.1.0
 Django==2.0.4
+django-cors-headers==2.2.0
 djangorestframework==3.8.2
 Faker==0.8.12
 freezegun==0.3.10

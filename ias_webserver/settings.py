@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'alarms.apps.AlarmConfig',
     'cdb',
     'tickets',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # should be at the beginning
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,6 +72,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ias_webserver.wsgi.application'
 
+# CORS Configuration
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
+
+# CORS_ORIGIN_WHITELIST = (
+#     '<DOMAIN>[:PORT]',
+# )
 
 # Database
 DATABASE_ROUTERS = ['cdb.routers.CdbRouter']
