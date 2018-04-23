@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.decorators import list_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from cdb.models import Iasio, Ias
 from cdb.serializers import (
@@ -18,7 +18,7 @@ class IasioViewSet(viewsets.ModelViewSet):
     queryset = Iasio.objects.all()
     serializer_class = IasioSerializer
 
-    @list_route()
+    @action(detail=False)
     def filtered_by_alarm(self, request):
         """ Retrieve the list of iasios filtered by type alarm """
         alarm_iasios = Iasio.objects.filter(ias_type='ALARM')
