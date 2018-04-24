@@ -72,7 +72,7 @@ class Ias(models.Model):
             'log_level': self.log_level,
             'refresh_rate': self.refresh_rate,
             'tolerance': self.tolerance,
-            'properties': properties
+            'properties': properties,
         }
 
 

@@ -10,6 +10,8 @@ import json
 from django.core.management.base import BaseCommand
 import tornado
 from tornado.websocket import websocket_connect
+from alarms.connectors import CdbConnector
+from ias_webserver.settings import BROADCAST_RATE_FACTOR
 
 DEFAULT_HOSTNAME = 'localhost'
 DEFAULT_PORT = '8000'
@@ -73,12 +75,18 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """ Start periodic task and related ioloop"""
 
-        milliseconds_rate = DEFAULT_MILLISECONDS_RATE
+        milliseconds_rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR
+
         if options['rate'] is not None:
             milliseconds_rate = options['rate']*1000.0
 
         url = self.get_websocket_url(options)
         ws = WSClient(url, options)
+
+        log = \
+            'BROADCAST-STATUS | Sending global refresh to ' + str(url) + \
+            ' every ' + str(milliseconds_rate) + ' milliseconds.'
+        print(log)
 
         def trigger_broadcast():
             if ws.connection is not None:
@@ -93,5 +101,4 @@ class Command(BaseCommand):
         task = tornado.ioloop.PeriodicCallback(
             trigger_broadcast, milliseconds_rate)
         task.start()
-
         tornado.ioloop.IOLoop.current().start()

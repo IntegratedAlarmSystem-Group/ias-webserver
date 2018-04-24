@@ -8,4 +8,4 @@
 
 # echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@fake-admin.com', 'nimda') if (User.objects.filter(username='admin').exists() == False) else None" | python manage.py shell
 
-daphne -b 0.0.0.0 -p 8001 ias_webserver.asgi:application & python manage.py broadcaststatus --hostname 0.0.0.0 --port 8001 --rate 5
+daphne -b 0.0.0.0 -p 8001 ias_webserver.asgi:application & python manage.py broadcaststatus --hostname 0.0.0.0 --port 8001
