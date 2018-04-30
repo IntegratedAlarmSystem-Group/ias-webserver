@@ -26,16 +26,16 @@ class TicketsModelsTestCase(TestCase):
                 'Ticket was not created with the correct creation timestamp'
             )
             self.assertEqual(
-                retrieved_ticket.acknoledged_at, None,
-                'When the ticket is created the acknoledged time must be none'
+                retrieved_ticket.acknowledged_at, None,
+                'When the ticket is created the acknowledged time must be none'
             )
             self.assertEqual(
                 retrieved_ticket.message, None,
                 'When the ticket is created the message must be none'
             )
 
-    def test_acknoledge_a_ticket(self):
-        """ Test if we can acknoledge a ticket passing it a valid message """
+    def test_acknowledge_a_ticket(self):
+        """ Test if we can acknowledge a ticket passing it a valid message """
         # Arrange:
         ticket = Ticket(alarm_id='alarm_id')
         ticket.save()
@@ -43,7 +43,7 @@ class TicketsModelsTestCase(TestCase):
         # Act:
         resolution_dt = timezone.now()
         with freeze_time(resolution_dt):
-            response = ticket.acknoledge(message='This ticket was solved')
+            response = ticket.acknowledge(message='This ticket was solved')
             retrieved_ticket = Ticket.objects.get(alarm_id='alarm_id')
 
             # Asserts:
@@ -53,8 +53,8 @@ class TicketsModelsTestCase(TestCase):
                 'Solved ticket status must be closed (0)'
             )
             self.assertEqual(
-                retrieved_ticket.acknoledged_at, resolution_dt,
-                'When the ticket is solved the acknoledge_at time must be \
+                retrieved_ticket.acknowledged_at, resolution_dt,
+                'When the ticket is solved the acknowledge_at time must be \
                 greater than the created_at datetime'
             )
             self.assertEqual(

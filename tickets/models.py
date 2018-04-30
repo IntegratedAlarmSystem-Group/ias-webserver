@@ -20,7 +20,7 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     """ Time when the ticket is created """
 
-    acknoledged_at = models.DateTimeField(null=True)
+    acknowledged_at = models.DateTimeField(null=True)
     """ Time when the ticket is updated """
 
     alarm_id = models.CharField(max_length=64, db_index=True)
@@ -45,7 +45,7 @@ class Ticket(models.Model):
             'status': self.status
         }
 
-    def acknoledge(self, message):
+    def acknowledge(self, message):
         """ Resolves the ticket modifying the status, the resolution timestamp
         and the message """
         if self.status == int(TicketStatus.get_choices_by_name()['ACK']):
@@ -54,7 +54,7 @@ class Ticket(models.Model):
             return "ignored-wrong-message"
 
         self.status = int(TicketStatus.get_choices_by_name()['ACK'])
-        self.acknoledged_at = timezone.now()
+        self.acknowledged_at = timezone.now()
         self.message = message
         self.save()
         return "solved"

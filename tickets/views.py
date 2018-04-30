@@ -26,14 +26,14 @@ class TicketViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @action(methods=['put'], detail=True)
-    def acknoledge(self, request, pk=None):
-        """ acknoledge a ticket that implies change the status, record message an
+    def acknowledge(self, request, pk=None):
+        """ acknowledge a ticket that implies change the status, record message an
         the timestamp """
         message = self.request.data['message']
         ticket = Ticket.objects.filter(pk=pk).first()
 
         if ticket:
-            response = ticket.acknoledge(message=message)
+            response = ticket.acknowledge(message=message)
             if response == 'solved':
                 return Response("The ticket was solved")
             elif response == 'ignored-wrong-message':
@@ -46,8 +46,8 @@ class TicketViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_404_NOT_FOUND)
 
     @action(methods=['put'], detail=False)
-    def acknoledge_many(self, request):
-        """ acknoledge multiple tickets with the same message and timestamp """
+    def acknowledge_many(self, request):
+        """ acknowledge multiple tickets with the same message and timestamp """
         message = self.request.data['message']
         alarms_ids = self.request.data['alarms_ids']
 
@@ -58,7 +58,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         tickets_ack = 0
         response_message = 'All tickets acknowledged correctly.'
         for ticket in queryset:
-            response = ticket.acknoledge(message=message)
+            response = ticket.acknowledge(message=message)
             if response != 'solved':
                 response_message = 'Some tickets were not acknowledged.'
             else:
