@@ -1,4 +1,5 @@
 from cdb.models import Iasio, Ias
+from ticket.models import Ticket
 
 
 class CdbConnector():
@@ -32,3 +33,14 @@ class CdbConnector():
             self.tolerance = data['tolerance']*1000
         else:
             return None
+
+
+class TicketConnector():
+    """
+    This class defines methods to communicate the Alarm app with the Ticket app
+    """
+
+    @classmethod
+    def create_ticket(self, alarm_id):
+        """ Create a ticket for a given Alarm ID """
+        Ticket.objects.create(alarm_id=alarm_id)
