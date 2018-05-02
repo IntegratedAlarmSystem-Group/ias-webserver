@@ -54,6 +54,10 @@ class AlarmModelTestCase(TestCase):
             alarm.dependencies == [],
             'The default value of dependencies field must be an empty list'
         )
+        self.assertEqual(
+            alarm.ack, False,
+            'The default value of ack field must be False'
+        )
 
     def test_ignored_invalid_alarms_update(self):
         """ Test if the UNREALIABLE alarm keep the validity as UNREALIABLE
