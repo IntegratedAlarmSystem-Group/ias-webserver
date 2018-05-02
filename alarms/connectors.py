@@ -1,5 +1,5 @@
 from cdb.models import Iasio, Ias
-from ticket.models import Ticket
+from tickets.models import Ticket
 
 
 class CdbConnector():
