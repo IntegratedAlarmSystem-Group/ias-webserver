@@ -39,7 +39,7 @@ class Ticket(models.Model):
         """ Return the ticket as a dictionary """
         return {
             'created_at': self.created_at,
-            'resolved_at': self.resolved_at,
+            'acknowledged_at': self.acknowledged_at,
             'alarm_id': self.alarm_id,
             'message': self.message,
             'status': self.status
