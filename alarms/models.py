@@ -131,17 +131,6 @@ class Alarm:
                 return False
         return True
 
-    def check_changes(self, params):
-        """
-        Check if the attributes of the alarm are different to the values
-        retrieved in params, the verification does not consider the
-        core_timestamp value.
-        """
-        for key, value in params.items():
-            if key != 'core_timestamp' and getattr(self, key) != value:
-                return True
-        return False
-
     def update_ignoring_timestamp(self, params):
         """
         Updates the alarm with the values given in a dict,
