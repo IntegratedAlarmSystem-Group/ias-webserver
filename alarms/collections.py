@@ -221,10 +221,13 @@ class AlarmCollection:
             status = self.update(alarm)
             if status == 'not-updated':
                 return 'ignored-old-alarm'
-            else:
-                if status == 'updated-different':
-                    await self.notify_observers(alarm, 'update')
+            elif status == 'updated-different':
+                await self.notify_observers(alarm, 'update')
                 return 'updated-alarm'
+            elif status == 'updated-equal':
+                return 'updated-alarm'
+            else:
+                raise Exception('ERROR: incorrect update status')
 
     @classmethod
     async def delete_and_notify(self, alarm):
