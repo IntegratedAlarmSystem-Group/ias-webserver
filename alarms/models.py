@@ -137,11 +137,10 @@ class Alarm:
         retrieved in params, the verification does not consider the
         core_timestamp value.
         """
-        changes = False
         for key, value in params.items():
             if key != 'core_timestamp' and getattr(self, key) != value:
-                changes = True
-        return changes
+                return True
+        return False
 
     def update_ignoring_timestamp(self, params):
         """
