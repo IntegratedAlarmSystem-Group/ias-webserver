@@ -2,7 +2,7 @@ import time
 import abc
 import asyncio
 from alarms.models import Alarm
-from alarms.connectors import CdbConnector
+from alarms.connectors import CdbConnector, TicketConnector
 
 
 class AlarmCollection:
@@ -158,13 +158,32 @@ class AlarmCollection:
         """
         stored_alarm = self.get(alarm.core_id)
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
+            alarm.ack = self.singleton_collection[alarm.core_id].ack
             self.singleton_collection[alarm.core_id] = alarm
+            # Change of value must restart ack status
+            if stored_alarm.value != alarm.value:
+                alarm.ack = False
+                # If the value chenged from clear to set,
+                # a new ticket is be created
+                if stored_alarm.value == 0 and alarm.value == 1:
+                    TicketConnector.create_ticket(alarm.core_id)
+
             if alarm.equals_except_timestamp(stored_alarm):
                 return 'updated-equal'
             else:
                 return 'updated-different'
         else:
             return 'not-updated'
+
+    @classmethod
+    def acknowledge(self, core_id):
+        """
+        Acknowledges an alarm
+
+        Args:
+            core_id (string): the core_id of the Alarm to acknowledge
+        """
+        self.singleton_collection[core_id].ack = True
 
     @classmethod
     def reset(self, iasios=None):

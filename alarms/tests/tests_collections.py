@@ -72,6 +72,84 @@ class TestAlarmsCollection:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
+    async def test_alarm_cycle(self):
+        """ Test if an alarm with a timestamp higher than a stored alarm with
+        the same core_id is updated correctly """
+        # 1. Create Alarm:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+        alarm_1 = Alarm(
+            value=0,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'created-alarm', 'The status must be created-alarm'
+        assert retrieved_alarm.ack is False, \
+            'A new Alarm must not be acknowledged'
+
+        # 2. Change Alarm to SET:
+        timestamp_2 = retrieved_alarm.core_timestamp + 100
+        alarm_2 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_2,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        status = await AlarmCollection.add_or_update_and_notify(alarm_2)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'updated-alarm', 'The status must be updated-alarm'
+        assert retrieved_alarm.ack is False, \
+            'When an Alarm changes to SET, it should not be acknowledged'
+        # TODO: Assert that the ticket was created
+
+        # 3. Acknowledge Alarm:
+        AlarmCollection.acknowledge(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is True, \
+            'When the Alarm is acknowledged, its ack status should be True'
+
+        # 4. Alarm still SET:
+        timestamp_4 = retrieved_alarm.core_timestamp + 100
+        alarm_4 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_4,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        status = await AlarmCollection.add_or_update_and_notify(alarm_4)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'updated-alarm', 'The status must be updated-alarm'
+        assert retrieved_alarm.ack is True, \
+            'When an Alarm maintains its value, it should maintain its ack'
+
+        # 5. Alarm changes to CLEAR:
+        timestamp_5 = retrieved_alarm.core_timestamp + 100
+        alarm_5 = Alarm(
+            value=0,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_5,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        status = await AlarmCollection.add_or_update_and_notify(alarm_5)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'updated-alarm', 'The status must be updated-alarm'
+        assert retrieved_alarm.ack is False, \
+            'When an Alarm changes to CLEAR, its ack should be reset'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
     async def test_ignore_old_alarm(self):
         """ Test if an alarm older than a stored alarm with the same core_id
         is ignored """
