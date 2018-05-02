@@ -27,6 +27,9 @@ class AlarmFactory:
     validity = random.choice([str(x[0]) for x in Validity.options()])
     """ Validity of the Alarm to be created """
 
+    ack = False
+    """ Acknowledgement status of the Alarm """
+
     @classmethod
     def build(self):
         core_id = self._base_core_id.format(self.sequence)
