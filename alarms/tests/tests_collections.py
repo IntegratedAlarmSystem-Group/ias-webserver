@@ -243,6 +243,35 @@ class TestAlarmsCollection:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
+    async def test_create_ticket_on_new_set_alarm(self, mocker):
+        """ Test if a ticket is created when a new SET Alarm arrives """
+
+        # Mock AlarmCollection._create_ticket to assert if it was called
+        # and avoid calling the real function
+        mocker.patch.object(AlarmCollection, '_create_ticket')
+
+        # 1. Create SET Alarm:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+        alarm_1 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'created-alarm', 'The status must be created-alarm'
+        assert retrieved_alarm.ack is False, \
+            'A new Alarm must not be acknowledged'
+        assert AlarmCollection._create_ticket.call_count == 1, \
+            'A new Alarm in SET state should create a new ticket'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
     async def test_ignore_old_alarm(self):
         """ Test if an alarm older than a stored alarm with the same core_id
         is ignored """

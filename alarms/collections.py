@@ -43,6 +43,10 @@ class AlarmCollection:
 
     # Sync, non-notified methods:
     @classmethod
+    def _create_ticket(self, core_id):
+        return TicketConnector.create_ticket(core_id)
+
+    @classmethod
     def initialize(self, iasios=None):
         """
         Initializes the alarms collection with default alarms created
@@ -62,7 +66,7 @@ class AlarmCollection:
                 if iasio['ias_type'].upper() == 'ALARM':
                     current_time_millis = int(round(time.time() * 1000))
                     alarm = Alarm(
-                        value=1,
+                        value=0,
                         mode='7',
                         validity='0',
                         core_timestamp=current_time_millis,
@@ -112,11 +116,9 @@ class AlarmCollection:
         Args:
             alarm (Alarm): the Alarm object to delete
         """
+        if alarm.value == 1:
+            self._create_ticket(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
-
-    @classmethod
-    def _create_ticket(self, core_id):
-        return TicketConnector.create_ticket(core_id)
 
     @classmethod
     def delete(self, alarm):
