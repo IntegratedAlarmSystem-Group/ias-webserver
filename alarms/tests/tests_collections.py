@@ -7,6 +7,7 @@ from alarms.models import Alarm
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from alarms.connectors import CdbConnector as CdbConn
+from alarms.connectors import TicketConnector
 
 
 class TestAlarmsCollection:
@@ -162,6 +163,26 @@ class TestAlarmsCollection:
             'When an Alarm changes to CLEAR, its ack should be reset'
         assert AlarmCollection._create_ticket.call_count == 1, \
             'When an Alarm changes to CLEAR, it should not create a new ticket'
+
+    @pytest.mark.django_db
+    def test_create_ticket(self, mocker):
+        """
+        Test that AlarmCollection._create_ticket calls
+        TicketConnector.create_ticket
+        """
+        # Arrange:
+        # Mock TicketConnector.create_ticket to assert if it was called
+        # and avoid calling the real function
+        mocker.patch.object(TicketConnector, 'create_ticket')
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+
+        # Act:
+        AlarmCollection._create_ticket(core_id)
+
+        # Assert:
+        assert TicketConnector.create_ticket.call_count == 1, \
+            'The ticket was no actually created'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
