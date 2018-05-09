@@ -5,6 +5,7 @@ from tickets.models import Ticket, TicketStatus
 
 
 class TicketsModelsTestCase(TestCase):
+    """This class defines the test suite for the Tickets model tests"""
 
     def test_create_ticket(self):
         """ Test if we can create a ticket"""

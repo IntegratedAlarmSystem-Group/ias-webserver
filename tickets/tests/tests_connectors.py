@@ -8,7 +8,7 @@ class AlarmConnectorTestCase:
 
     def test_create_ticket(self, mocker):
         """
-        Test that AlarmConnector._create_ticket calls
+        Test that AlarmConnector.acknowledge_alarms calls
         AlarmCollection.acknowledge
         """
         # Arrange:
