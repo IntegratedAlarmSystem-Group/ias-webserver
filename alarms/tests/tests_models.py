@@ -54,6 +54,10 @@ class AlarmModelTestCase(TestCase):
             alarm.dependencies == [],
             'The default value of dependencies field must be an empty list'
         )
+        self.assertEqual(
+            alarm.ack, False,
+            'The default value of ack field must be False'
+        )
 
     def test_ignored_invalid_alarms_update(self):
         """ Test if the UNREALIABLE alarm keep the validity as UNREALIABLE
@@ -133,4 +137,30 @@ class AlarmModelTestCase(TestCase):
         self.assertFalse(
             self.alarm.equals_except_timestamp(self.different_alarm),
             'Different alarms are recognized as equal'
+        )
+
+    def test_acknowledge_set_alarms(self):
+        """ Test if a SET alarm can be acknowledged """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.ack = False
+        alarm.value = 1
+        # Act:
+        alarm.acknowledge()
+        # Assert:
+        self.assertEquals(
+            alarm.ack, True, 'A SET Alarm could not be acknowledged'
+        )
+
+    def test_cannot_acknowledge_clear_alarms(self):
+        """ Test if a CLEAR alarm cannot be acknowledged """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.ack = False
+        alarm.value = 0
+        # Act:
+        alarm.acknowledge()
+        # Assert:
+        self.assertEquals(
+            alarm.ack, False, 'A CLEAR Alarm should not be acknowledged'
         )

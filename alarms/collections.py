@@ -2,7 +2,7 @@ import time
 import abc
 import asyncio
 from alarms.models import Alarm
-from alarms.connectors import CdbConnector
+from alarms.connectors import CdbConnector, TicketConnector
 
 
 class AlarmCollection:
@@ -43,6 +43,10 @@ class AlarmCollection:
 
     # Sync, non-notified methods:
     @classmethod
+    def _create_ticket(self, core_id):
+        return TicketConnector.create_ticket(core_id)
+
+    @classmethod
     def initialize(self, iasios=None):
         """
         Initializes the alarms collection with default alarms created
@@ -62,7 +66,7 @@ class AlarmCollection:
                 if iasio['ias_type'].upper() == 'ALARM':
                     current_time_millis = int(round(time.time() * 1000))
                     alarm = Alarm(
-                        value=1,
+                        value=0,
                         mode='7',
                         validity='0',
                         core_timestamp=current_time_millis,
@@ -112,6 +116,8 @@ class AlarmCollection:
         Args:
             alarm (Alarm): the Alarm object to delete
         """
+        if alarm.value == 1:
+            self._create_ticket(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
 
     @classmethod
@@ -158,13 +164,37 @@ class AlarmCollection:
         """
         stored_alarm = self.get(alarm.core_id)
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
+            alarm.ack = self.singleton_collection[alarm.core_id].ack
             self.singleton_collection[alarm.core_id] = alarm
+            # Change of value must restart ack status
+            if stored_alarm.value != alarm.value:
+                alarm.ack = False
+                # If the value chenged from clear to set,
+                # a new ticket is be created
+                if stored_alarm.value == 0 and alarm.value == 1:
+                    self._create_ticket(alarm.core_id)
+
             if alarm.equals_except_timestamp(stored_alarm):
                 return 'updated-equal'
             else:
                 return 'updated-different'
         else:
             return 'not-updated'
+
+    @classmethod
+    def acknowledge(self, core_ids):
+        """
+        Acknowledges an alarm or a list of Alarms
+
+        Args:
+            core_ids (list or string): list of core_ids (or a single core_id)
+            of the Alarms to acknowledge
+        """
+        if type(core_ids) is not list:
+            core_ids = [core_ids]
+
+        for core_id in core_ids:
+            self.singleton_collection[core_id].acknowledge()
 
     @classmethod
     def reset(self, iasios=None):
@@ -221,10 +251,13 @@ class AlarmCollection:
             status = self.update(alarm)
             if status == 'not-updated':
                 return 'ignored-old-alarm'
-            else:
-                if status == 'updated-different':
-                    await self.notify_observers(alarm, 'update')
+            elif status == 'updated-different':
+                await self.notify_observers(alarm, 'update')
                 return 'updated-alarm'
+            elif status == 'updated-equal':
+                return 'updated-alarm'
+            else:
+                raise Exception('ERROR: incorrect update status')
 
     @classmethod
     async def delete_and_notify(self, alarm):

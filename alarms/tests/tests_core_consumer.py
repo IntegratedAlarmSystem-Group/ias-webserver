@@ -1,5 +1,6 @@
 import datetime
 import pytest
+from pytest_mock import mocker
 from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
 from alarms.collections import AlarmCollection
@@ -100,10 +101,11 @@ class TestCoreConsumer:
             'The alarm was not converted correctly'
 
     @pytest.mark.asyncio
-    async def test_create_alarm_on_dict(self):
+    async def test_create_alarm_on_dict(self, mocker):
         """Test if the core consumer updates the Alarm in the AlarmCollection
         when a new alarm arrived.
         """
+        mocker.patch.object(AlarmCollection, '_create_ticket')
         # Connect:
         communicator = WebsocketCommunicator(CoreConsumer, "/core/")
         connected, subprotocol = await communicator.connect()

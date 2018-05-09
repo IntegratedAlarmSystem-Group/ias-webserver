@@ -50,7 +50,6 @@ class CdbApiTestCase(TestCase):
             'The Server did not retrieve the ias'
         )
         retrieved_ias_data = self.response.data
-        print(retrieved_ias_data)
         retrieved_ias_data.pop('id', None)
         self.assertEqual(
             retrieved_ias_data,
