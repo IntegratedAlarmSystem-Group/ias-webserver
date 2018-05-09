@@ -1,7 +1,7 @@
-from django.test import TestCase
-from tickets.models import Ticket, TicketStatus
 from freezegun import freeze_time
+from django.test import TestCase
 from django.utils import timezone
+from tickets.models import Ticket, TicketStatus
 
 
 class TicketsModelsTestCase(TestCase):
