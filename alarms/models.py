@@ -158,3 +158,20 @@ class Alarm:
             return self
         else:
             return self
+
+    def acknowledge(self, ack=True):
+        """
+        Acknowledges the Alarm if its value is SET
+
+        Args:
+            ack (optional boolean): acknowledge status to update,
+            True by default
+
+        Returns:
+            boolean: True if it was acknowledged, False if not
+        """
+        if self.value == 0:
+            return False
+        else:
+            self.ack = ack
+            return self.ack

@@ -138,3 +138,29 @@ class AlarmModelTestCase(TestCase):
             self.alarm.equals_except_timestamp(self.different_alarm),
             'Different alarms are recognized as equal'
         )
+
+    def test_acknowledge_set_alarms(self):
+        """ Test if a SET alarm can be acknowledged """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.ack = False
+        alarm.value = 1
+        # Act:
+        alarm.acknowledge()
+        # Assert:
+        self.assertEquals(
+            alarm.ack, True, 'A SET Alarm could not be acknowledged'
+        )
+
+    def test_cannot_acknowledge_clear_alarms(self):
+        """ Test if a CLEAR alarm cannot be acknowledged """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.ack = False
+        alarm.value = 0
+        # Act:
+        alarm.acknowledge()
+        # Assert:
+        self.assertEquals(
+            alarm.ack, False, 'A CLEAR Alarm should not be acknowledged'
+        )

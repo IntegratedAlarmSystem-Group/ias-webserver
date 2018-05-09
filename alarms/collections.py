@@ -192,7 +192,7 @@ class AlarmCollection:
             core_ids = [core_ids]
 
         for core_id in core_ids:
-            self.singleton_collection[core_id].ack = True
+            self.singleton_collection[core_id].acknowledge()
 
     @classmethod
     def reset(self, iasios=None):

@@ -164,6 +164,63 @@ class TestAlarmsCollection:
         assert AlarmCollection._create_ticket.call_count == 1, \
             'When an Alarm changes to CLEAR, it should not create a new ticket'
 
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_ack_multiple_alarms(self, mocker):
+        """ Test if the AlarmCollection can acknowledge multiple Alarms """
+        # Arrange:
+        # Mock AlarmCollection._create_ticket to avoid calling it
+        mocker.patch.object(AlarmCollection, '_create_ticket')
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset()
+        core_id_1 = 'MOCK-SET-ALARM-1'
+        alarm_1 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id_1,
+            running_id='({}:IASIO)'.format(core_id_1)
+        )
+        core_id_2 = 'MOCK-CLEAR-ALARM-2'
+        alarm_2 = Alarm(
+            value=0,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id_2,
+            running_id='({}:IASIO)'.format(core_id_2)
+        )
+        core_id_3 = 'MOCK-SET-ALARM-3'
+        alarm_3 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id_3,
+            running_id='({}:IASIO)'.format(core_id_3)
+        )
+        core_ids = [
+            core_id_1,
+            core_id_2,
+            core_id_3,
+        ]
+        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        status = await AlarmCollection.add_or_update_and_notify(alarm_2)
+        status = await AlarmCollection.add_or_update_and_notify(alarm_3)
+        # Act:
+        AlarmCollection.acknowledge(core_ids)
+        # Assert:
+        retrieved_alarm_1 = AlarmCollection.get(core_id_1)
+        retrieved_alarm_2 = AlarmCollection.get(core_id_2)
+        retrieved_alarm_3 = AlarmCollection.get(core_id_3)
+        assert retrieved_alarm_1.ack is True, \
+            'Alarm 1 should have been acknowledged'
+        assert retrieved_alarm_2.ack is False, \
+            'Alarm 2 should not have been acknowledged as it was CLEAR'
+        assert retrieved_alarm_3.ack is True, \
+            'Alarm 3 should have been acknowledged'
+
     @pytest.mark.django_db
     def test_create_ticket(self, mocker):
         """
