@@ -22,10 +22,13 @@ class WSClient():
     """ Tornado based websocket client """
 
     def __init__(self, url, options):
+        self.url = url
         self.options = options
         self.connection = None
-        self.url = url
-        self.ws = websocket_connect(
+        self.websocket_connect = None
+
+    def start_connection(self):
+        return websocket_connect(
             self.url,
             callback=self.on_open,
             on_message_callback=self.on_message
@@ -34,15 +37,29 @@ class WSClient():
     def on_open(self, f):
         try:
             self.connection = f.result()
+            print('Connected.')
         except Exception as e:
             print(e)
+            self.websocket_connect = None
 
     def on_message(self, message):
+        """ Callback on message
+        Note: None message is received if the connection is closed.
+        """
         if self.options['verbose']:
             print("Echo: {}".format(message))
+        if message is None:
+            print('Problem with the connection. Connection closed.')
+            self.connection = None
+            self.websocket_connect = None
 
-    def on_close(self):
-        print("Closed connection.")
+    def reconnect(self):
+        """ Reconnection method
+        This method is intended to be used by a tornado periodic callback
+        if there is no valid websocket client
+        """
+        print('Try reconnection')
+        self.websocket_connect = self.start_connection()
 
 
 class Command(BaseCommand):
@@ -98,7 +115,16 @@ class Command(BaseCommand):
                 }
                 ws.connection.write_message(json.dumps(msg))
 
-        task = tornado.ioloop.PeriodicCallback(
+        def ws_reconnection():
+            if ws.websocket_connect is None:
+                ws.reconnect()
+
+        main_task = tornado.ioloop.PeriodicCallback(
             trigger_broadcast, milliseconds_rate)
-        task.start()
+        main_task.start()
+
+        reconnection_task = tornado.ioloop.PeriodicCallback(
+            ws_reconnection, 1000)  # One second to evaluate reconnection
+        reconnection_task.start()
+
         tornado.ioloop.IOLoop.current().start()
