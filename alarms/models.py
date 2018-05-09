@@ -112,6 +112,7 @@ class Alarm:
         return str(self.core_id) + '=' + str(self.value)
 
     def to_dict(self):
+        """ Returns a dict with all the values of the different attributes """
         return {
             'value': self.value,
             'mode': self.mode,

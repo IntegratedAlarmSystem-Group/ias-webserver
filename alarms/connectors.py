@@ -42,5 +42,10 @@ class TicketConnector():
 
     @classmethod
     def create_ticket(self, alarm_id):
-        """ Create a ticket for a given Alarm ID """
+        """
+        Create a ticket for a given Alarm ID
+
+        Args:
+            alarm_id (string): ID of the Alarm associated to the ticket
+        """
         Ticket.objects.create(alarm_id=alarm_id)

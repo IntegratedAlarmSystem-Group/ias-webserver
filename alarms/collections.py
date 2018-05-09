@@ -180,14 +180,19 @@ class AlarmCollection:
             return 'not-updated'
 
     @classmethod
-    def acknowledge(self, core_id):
+    def acknowledge(self, core_ids):
         """
-        Acknowledges an alarm
+        Acknowledges an alarm or a list of Alarms
 
         Args:
-            core_id (string): the core_id of the Alarm to acknowledge
+            core_ids (list or string): list of core_ids (or a single core_id)
+            of the Alarms to acknowledge
         """
-        self.singleton_collection[core_id].ack = True
+        if type(core_ids) is not list:
+            core_ids = [core_ids]
+
+        for core_id in core_ids:
+            self.singleton_collection[core_id].ack = True
 
     @classmethod
     def reset(self, iasios=None):
