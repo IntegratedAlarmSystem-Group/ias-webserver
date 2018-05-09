@@ -115,6 +115,10 @@ class AlarmCollection:
         self.singleton_collection[alarm.core_id] = alarm
 
     @classmethod
+    def _create_ticket(self, core_id):
+        return TicketConnector.create_ticket(core_id)
+
+    @classmethod
     def delete(self, alarm):
         """
         Deletes the Alarm object in the AlarmCollection dictionary
@@ -166,7 +170,7 @@ class AlarmCollection:
                 # If the value chenged from clear to set,
                 # a new ticket is be created
                 if stored_alarm.value == 0 and alarm.value == 1:
-                    TicketConnector.create_ticket(alarm.core_id)
+                    self._create_ticket(alarm.core_id)
 
             if alarm.equals_except_timestamp(stored_alarm):
                 return 'updated-equal'

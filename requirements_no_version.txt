@@ -16,13 +16,16 @@ Faker
 freezegun
 hiredis
 hyperlink
+idna
 incremental
+more-itertools
 msgpack
 pluggy
 py
 pytest
 pytest-asyncio
 pytest-django
+pytest-mock
 python-dateutil
 pytz
 six
