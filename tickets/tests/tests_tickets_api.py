@@ -209,7 +209,7 @@ class TicketsApiTestCase(TestCase):
         )
         self.assertEqual(
             self.response.data,
-            'All tickets acknowledged correctly. (2/2)',
+            data['alarms_ids'],
             'The message of the response is incorrect'
         )
         acknowledged_tickets = [

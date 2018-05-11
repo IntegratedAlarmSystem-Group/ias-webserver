@@ -27,8 +27,8 @@ class TicketViewSet(viewsets.ModelViewSet):
 
     @action(methods=['put'], detail=True)
     def acknowledge(self, request, pk=None):
-        """ acknowledge a ticket that implies change the status, record message an
-        the timestamp """
+        """ acknowledge a ticket that implies change the status,
+        record message an the timestamp """
         message = self.request.data['message']
         ticket = Ticket.objects.filter(pk=pk).first()
 
@@ -47,7 +47,7 @@ class TicketViewSet(viewsets.ModelViewSet):
 
     @action(methods=['put'], detail=False)
     def acknowledge_many(self, request):
-        """ acknowledge multiple tickets with the same message and timestamp """
+        """ acknowledge multiple tickets with the same message and timestamp"""
         message = self.request.data['message']
         alarms_ids = self.request.data['alarms_ids']
 
@@ -55,15 +55,13 @@ class TicketViewSet(viewsets.ModelViewSet):
         queryset = queryset.filter(
             status=int(TicketStatus.get_choices_by_name()['UNACK'])
         )
-        tickets_ack = 0
+        tickets_ack = []
         response_message = 'All tickets acknowledged correctly.'
         for ticket in queryset:
             response = ticket.acknowledge(message=message)
             if response != 'solved':
                 response_message = 'Some tickets were not acknowledged.'
             else:
-                tickets_ack += 1
+                tickets_ack.append(ticket.alarm_id)
 
-        return Response('{0} ({1}/{2})'.format(response_message,
-                                               tickets_ack,
-                                               len(queryset)))
+        return Response(tickets_ack, status=status.HTTP_200_OK)
