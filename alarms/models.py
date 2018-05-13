@@ -108,7 +108,6 @@ class Alarm:
 
     def __str__(self):
         """ Returns a string representation of the object """
-
         return str(self.core_id) + '=' + str(self.value)
 
     def to_dict(self):

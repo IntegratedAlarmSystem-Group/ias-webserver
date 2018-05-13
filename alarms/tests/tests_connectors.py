@@ -36,3 +36,35 @@ class TestTicketConnector(TestCase):
                 retrieved_ticket.message, None,
                 'When the ticket is created the message must be none'
             )
+
+    def test_close_ticket(self):
+        """ Test that the close_ticket function can close a ticket """
+        # Arrange:
+        self.alarm_id = 'AlarmID'
+        Ticket.objects.create(alarm_id=self.alarm_id)
+        retrieved_ticket = Ticket.objects.get(alarm_id=self.alarm_id)
+        resolution_dt = timezone.now()
+        with freeze_time(resolution_dt):
+            # Act:
+            TicketConnector.close_ticket(self.alarm_id)
+            retrieved_ticket = Ticket.objects.get(alarm_id=self.alarm_id)
+
+            # Assert:
+            self.assertEqual(
+                retrieved_ticket.status,
+                int(TicketStatus.get_choices_by_name()['ACK']),
+                'Ticket must be closed'
+            )
+            self.assertTrue(
+                retrieved_ticket.created_at < retrieved_ticket.acknowledged_at,
+                'Ticket should be created before it is acknowledged'
+            )
+            self.assertEqual(
+                retrieved_ticket.acknowledged_at, resolution_dt,
+                'Ticket should be acknowledged wit the correct timestamp'
+            )
+            self.assertEqual(
+                retrieved_ticket.message,
+                'The alarm was cleared before it was acknowledged',
+                'When the ticket is created the message must be as expected'
+            )

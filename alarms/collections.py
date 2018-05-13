@@ -41,11 +41,28 @@ class AlarmCollection:
             *[observer.send_alarms_status() for observer in self.observers]
         )
 
-    # Sync, non-notified methods:
+    # Private methods used to call TIcketConnector:
     @classmethod
     def _create_ticket(self, core_id):
+        """
+        Creates a ticket for an specified Alarm ID
+
+        Args:
+            core_id (string): Core ID of the Alarm associated to the Ticket
+        """
         return TicketConnector.create_ticket(core_id)
 
+    @classmethod
+    def _close_ticket(self, core_id):
+        """
+        Closes the open tickets for an specified Alarm ID
+
+        Args:
+            core_id (string): Core ID of the Alarm associated to the Ticket
+        """
+        return TicketConnector.close_ticket(core_id)
+
+    # Sync, non-notified methods:
     @classmethod
     def initialize(self, iasios=None):
         """
@@ -166,13 +183,16 @@ class AlarmCollection:
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
             alarm.ack = self.singleton_collection[alarm.core_id].ack
             self.singleton_collection[alarm.core_id] = alarm
-            # Change of value must restart ack status
-            if stored_alarm.value != alarm.value:
+            # If the value changed from clear to set,
+            # the status is not acknowledged and a new ticket is be created
+            if stored_alarm.value == 0 and alarm.value == 1:
                 alarm.ack = False
-                # If the value chenged from clear to set,
-                # a new ticket is be created
-                if stored_alarm.value == 0 and alarm.value == 1:
-                    self._create_ticket(alarm.core_id)
+                self._create_ticket(alarm.core_id)
+            # If the value changed from set to clear,
+            # the status is acknowledged and the ticket is closed
+            elif stored_alarm.value == 1 and alarm.value == 0:
+                alarm.ack = True
+                self._close_ticket(alarm.core_id)
 
             if alarm.equals_except_timestamp(stored_alarm):
                 return 'updated-equal'

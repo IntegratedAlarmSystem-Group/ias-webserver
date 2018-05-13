@@ -159,8 +159,8 @@ class TestAlarmsCollection:
         status = await AlarmCollection.add_or_update_and_notify(alarm_5)
         retrieved_alarm = AlarmCollection.get(core_id)
         assert status == 'updated-alarm', 'The status must be updated-alarm'
-        assert retrieved_alarm.ack is False, \
-            'When an Alarm changes to CLEAR, its ack should be reset'
+        assert retrieved_alarm.ack is True, \
+            'When an Alarm changes to CLEAR, its status should still be ack'
         assert AlarmCollection._create_ticket.call_count == 1, \
             'When an Alarm changes to CLEAR, it should not create a new ticket'
 
@@ -243,12 +243,14 @@ class TestAlarmsCollection:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_create_ticket_on_new_set_alarm(self, mocker):
-        """ Test if a ticket is created when a new SET Alarm arrives """
+    async def test_new_set_alarm_ticket_is_ack_when_cleared(self, mocker):
+        """ Test if a ticket is created when a new SET Alarm arrives,
+        and if the ticket is acknowledged when the Alarm changes to Clear """
 
         # Mock AlarmCollection._create_ticket to assert if it was called
         # and avoid calling the real function
         mocker.patch.object(AlarmCollection, '_create_ticket')
+        mocker.patch.object(AlarmCollection, '_close_ticket')
 
         # 1. Create SET Alarm:
         timestamp_1 = int(round(time.time() * 1000))
@@ -269,6 +271,23 @@ class TestAlarmsCollection:
             'A new Alarm must not be acknowledged'
         assert AlarmCollection._create_ticket.call_count == 1, \
             'A new Alarm in SET state should create a new ticket'
+
+        # 2. Change Alarm to CLEAR:
+        alarm_1 = Alarm(
+            value=0,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1+100,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'updated-alarm', 'The status must be updated-alarm'
+        assert retrieved_alarm.ack is True, \
+            'the Alarm must be acknowledged when it changes to CLEAR'
+        assert AlarmCollection._close_ticket.call_count == 1, \
+            'When the Alarm changes CLEAR, it should be acknowledged'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
