@@ -39,17 +39,6 @@ class TicketViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
         return self._apply_acknowledgement(message, ticket)
-        # response = ticket.acknowledge(message=message)
-        # if response == 'solved':
-        #     AlarmConnector.acknowledge_alarms(ticket.alarm_id)
-        #     return Response("The ticket was solved")
-        #
-        # elif response == 'ignored-wrong-message':
-        #     return Response("The message must not be empty",
-        #                     status=status.HTTP_400_BAD_REQUEST)
-        # elif response == 'ignored-ticket-closed':
-        #     return Response("The ticket was already closed",
-        #                     status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['put'], detail=False)
     def acknowledge_many(self, request):
@@ -64,8 +53,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         return self._apply_acknowledgement(message, list(queryset))
 
     def _apply_acknowledgement(self, message, tickets):
-        """ Acknowledges a single or multiple tickets,
-        with the same message and timestamp"""
+        """ Applies the acknowledgement to a single or multiple tickets """
         # If empty Message then return Bad Request:
         if message.strip() is "":
             return Response(

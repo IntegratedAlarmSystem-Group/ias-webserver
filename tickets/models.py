@@ -36,6 +36,7 @@ class Ticket(models.Model):
     """ State of the ticket, default is open """
 
     def __str__(self):
+        """ Return a string representation of a ticket """
         return str(self.created_at) + ' - ' + self.alarm_id
 
     def to_dict(self):
