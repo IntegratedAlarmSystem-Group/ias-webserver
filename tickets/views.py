@@ -2,6 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from tickets.models import Ticket, TicketStatus
+from tickets.connectors import AlarmConnector
 from tickets.serializers import (
     TicketSerializer
 )
@@ -64,4 +65,5 @@ class TicketViewSet(viewsets.ModelViewSet):
             else:
                 tickets_ack.append(ticket.alarm_id)
 
+        AlarmConnector.acknowledge_alarms(tickets_ack)
         return Response(tickets_ack, status=status.HTTP_200_OK)

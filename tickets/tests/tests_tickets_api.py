@@ -1,7 +1,8 @@
+import mock
 from django.test import TestCase
-from rest_framework.test import APIClient
-from rest_framework import status
 from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APIClient
 from tickets.models import Ticket, TicketStatus
 from tickets.serializers import TicketSerializer
 
@@ -192,12 +193,14 @@ class TicketsApiTestCase(TestCase):
             'The acknowledged_at datetime must not be updated'
         )
 
-    def test_api_can_acknowledge_multiple_tickets(self):
+    @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    def test_api_can_acknowledge_multiple_tickets(self, mock_ack_alarms):
         """Test that the api can acknowledge multiple unacknowledged tickets"""
         # Act:
         url = reverse('ticket-acknowledge-many')
+        alarms_to_ack = ['alarm_1', 'alarm_2']
         data = {
-            'alarms_ids': ['alarm_1', 'alarm_2'],
+            'alarms_ids': alarms_to_ack,
             'message': 'The ticket was acknowledged'
         }
         self.response = self.client.put(url, data, format="json")
@@ -229,4 +232,9 @@ class TicketsApiTestCase(TestCase):
         self.assertEqual(
             acknowledged_tickets[1].message, data['message'],
             'The second ticket message was not correctly recorded'
+        )
+        mock_ack_alarms.assert_called_with(alarms_to_ack)
+        self.assertEqual(
+            mock_ack_alarms.call_count, 1,
+            'AlarmConnector.acknowledge_alarms should have been called'
         )
