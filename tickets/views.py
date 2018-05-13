@@ -28,27 +28,32 @@ class TicketViewSet(viewsets.ModelViewSet):
 
     @action(methods=['put'], detail=True)
     def acknowledge(self, request, pk=None):
-        """ acknowledge a ticket that implies change the status,
+        """ Acknowledge a ticket that implies change the status,
         record message an the timestamp """
         message = self.request.data['message']
         ticket = Ticket.objects.filter(pk=pk).first()
 
-        if ticket:
-            response = ticket.acknowledge(message=message)
-            if response == 'solved':
-                return Response("The ticket was solved")
-            elif response == 'ignored-wrong-message':
-                return Response("The message must not be empty",
-                                status=status.HTTP_400_BAD_REQUEST)
-            elif response == 'ignored-ticket-closed':
-                return Response("The message is already closed",
-                                status=status.HTTP_400_BAD_REQUEST)
-        return Response("The ticket does not exist",
-                        status=status.HTTP_404_NOT_FOUND)
+        if not ticket:
+            return Response(
+                "The ticket does not exist",
+                status=status.HTTP_404_NOT_FOUND
+            )
+        return self._apply_acknowledgement(message, ticket)
+        # response = ticket.acknowledge(message=message)
+        # if response == 'solved':
+        #     AlarmConnector.acknowledge_alarms(ticket.alarm_id)
+        #     return Response("The ticket was solved")
+        #
+        # elif response == 'ignored-wrong-message':
+        #     return Response("The message must not be empty",
+        #                     status=status.HTTP_400_BAD_REQUEST)
+        # elif response == 'ignored-ticket-closed':
+        #     return Response("The ticket was already closed",
+        #                     status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['put'], detail=False)
     def acknowledge_many(self, request):
-        """ acknowledge multiple tickets with the same message and timestamp"""
+        """ Acknowledge multiple tickets with the same message and timestamp"""
         message = self.request.data['message']
         alarms_ids = self.request.data['alarms_ids']
 
@@ -56,14 +61,30 @@ class TicketViewSet(viewsets.ModelViewSet):
         queryset = queryset.filter(
             status=int(TicketStatus.get_choices_by_name()['UNACK'])
         )
-        tickets_ack = []
-        response_message = 'All tickets acknowledged correctly.'
-        for ticket in queryset:
-            response = ticket.acknowledge(message=message)
-            if response != 'solved':
-                response_message = 'Some tickets were not acknowledged.'
-            else:
-                tickets_ack.append(ticket.alarm_id)
+        return self._apply_acknowledgement(message, list(queryset))
 
-        AlarmConnector.acknowledge_alarms(tickets_ack)
-        return Response(tickets_ack, status=status.HTTP_200_OK)
+    def _apply_acknowledgement(self, message, tickets):
+        """ Acknowledges a single or multiple tickets,
+        with the same message and timestamp"""
+        # If empty Message then return Bad Request:
+        if message.strip() is "":
+            return Response(
+                "The message must not be empty",
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        # Handle either single or multiple tickets:
+        if type(tickets) is not list:
+            tickets = [tickets]
+        # Acknowledge each ticket:
+        alarms_to_ack = []
+        for ticket in tickets:
+            response = ticket.acknowledge(message=message)
+            if response == 'solved':
+                alarms_to_ack.append(ticket.alarm_id)
+            else:
+                return Response(
+                    'Unexpected response from a ticket acknowledgement',
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+        AlarmConnector.acknowledge_alarms(alarms_to_ack)
+        return Response(alarms_to_ack, status=status.HTTP_200_OK)

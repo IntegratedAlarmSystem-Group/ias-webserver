@@ -133,10 +133,14 @@ class TicketsApiTestCase(TestCase):
             'The retrieved filtered tickets do not match the expected ones'
         )
 
-    def test_api_can_acknowledge_a_ticket(self):
+    @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    def test_api_can_acknowledge_a_ticket(
+        self, AlarmConnector_acknowledge_alarms
+    ):
         """Test that the api can ack an unacknowledged ticket"""
         # Act:
-        url = reverse('ticket-acknowledge', kwargs={'pk': self.ticket_unack.pk})
+        url = reverse(
+            'ticket-acknowledge', kwargs={'pk': self.ticket_unack.pk})
         data = {
             'message': 'The ticket was acknowledged'
         }
@@ -161,12 +165,20 @@ class TicketsApiTestCase(TestCase):
             acknowledged_ticket.acknowledged_at, None,
             'The acknowledged ticket datetime was not correctly recorded'
         )
+        self.assertEqual(
+            AlarmConnector_acknowledge_alarms.call_count, 1,
+            'AlarmConnector.acknowledge_alarms should have been called'
+        )
+        AlarmConnector_acknowledge_alarms.assert_called_with(
+            [self.ticket_unack.alarm_id]
+        )
 
     def test_api_can_not_acknowledge_a_ticket_without_message(self):
         """Test that the api can not ack an unacknowledged ticket with an empty
         message"""
         # Act:
-        url = reverse('ticket-acknowledge', kwargs={'pk': self.ticket_unack.pk})
+        url = reverse(
+            'ticket-acknowledge', kwargs={'pk': self.ticket_unack.pk})
         data = {
             'message': ' '
         }
@@ -194,7 +206,9 @@ class TicketsApiTestCase(TestCase):
         )
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
-    def test_api_can_acknowledge_multiple_tickets(self, mock_ack_alarms):
+    def test_api_can_acknowledge_multiple_tickets(
+        self, AlarmConnector_acknowledge_alarms
+    ):
         """Test that the api can acknowledge multiple unacknowledged tickets"""
         # Act:
         url = reverse('ticket-acknowledge-many')
@@ -205,6 +219,7 @@ class TicketsApiTestCase(TestCase):
         }
         self.response = self.client.put(url, data, format="json")
         # Assert:
+        print(self.response.data)
         self.assertEqual(
             self.response.status_code,
             status.HTTP_200_OK,
@@ -212,8 +227,8 @@ class TicketsApiTestCase(TestCase):
         )
         self.assertEqual(
             self.response.data,
-            data['alarms_ids'],
-            'The message of the response is incorrect'
+            alarms_to_ack,
+            'The response is not as expected'
         )
         acknowledged_tickets = [
             Ticket.objects.get(pk=self.ticket_unack.pk),
@@ -233,8 +248,8 @@ class TicketsApiTestCase(TestCase):
             acknowledged_tickets[1].message, data['message'],
             'The second ticket message was not correctly recorded'
         )
-        mock_ack_alarms.assert_called_with(alarms_to_ack)
         self.assertEqual(
-            mock_ack_alarms.call_count, 1,
+            AlarmConnector_acknowledge_alarms.call_count, 1,
             'AlarmConnector.acknowledge_alarms should have been called'
         )
+        AlarmConnector_acknowledge_alarms.assert_called_with(alarms_to_ack)
