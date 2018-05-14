@@ -203,7 +203,7 @@ class AlarmCollection:
             return 'not-updated'
 
     @classmethod
-    def acknowledge(self, core_ids):
+    async def acknowledge(self, core_ids):
         """
         Acknowledges an alarm or a list of Alarms
 
@@ -214,8 +214,15 @@ class AlarmCollection:
         if type(core_ids) is not list:
             core_ids = [core_ids]
 
+        alarms = []
         for core_id in core_ids:
-            self.singleton_collection[core_id].acknowledge()
+            alarm = self.singleton_collection[core_id]
+            alarms.append(alarm)
+            alarm.acknowledge()
+
+        await asyncio.gather(
+            *[self.notify_observers(alarm, 'update') for alarm in alarms]
+        )
 
     @classmethod
     def reset(self, iasios=None):

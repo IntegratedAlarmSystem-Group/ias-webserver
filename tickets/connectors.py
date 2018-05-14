@@ -1,7 +1,8 @@
+from asgiref.sync import async_to_sync
 from alarms.collections import AlarmCollection
 
 
-class AlarmConnector():
+class AlarmConnector:
     """
     This class defines methods to communicate the Ticket app with the Alarm app
     """
@@ -14,4 +15,4 @@ class AlarmConnector():
         Args:
             alarms_id (list): List of IDs of the Alarms to acknowledge
         """
-        AlarmCollection.acknowledge(alarm_ids)
+        async_to_sync(AlarmCollection.acknowledge)(alarm_ids)
