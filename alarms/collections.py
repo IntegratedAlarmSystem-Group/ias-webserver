@@ -88,7 +88,8 @@ class AlarmCollection:
                         validity='0',
                         core_timestamp=current_time_millis,
                         core_id=iasio['io_id'],
-                        running_id='({}:IASIO)'.format(iasio['io_id'])
+                        running_id='({}:IASIO)'.format(iasio['io_id']),
+                        ack=True,
                     )
                     self.add(alarm)
         return self.singleton_collection
