@@ -121,7 +121,7 @@ class TestAlarmsCollection:
             'When an Alarm changes to SET, a new ticket should be created'
 
         # 3. Acknowledge Alarm:
-        AlarmCollection.acknowledge(core_id)
+        await AlarmCollection.acknowledge(core_id)
         retrieved_alarm = AlarmCollection.get(core_id)
         assert retrieved_alarm.ack is True, \
             'When the Alarm is acknowledged, its ack status should be True'
@@ -209,7 +209,7 @@ class TestAlarmsCollection:
         status = await AlarmCollection.add_or_update_and_notify(alarm_2)
         status = await AlarmCollection.add_or_update_and_notify(alarm_3)
         # Act:
-        AlarmCollection.acknowledge(core_ids)
+        await AlarmCollection.acknowledge(core_ids)
         # Assert:
         retrieved_alarm_1 = AlarmCollection.get(core_id_1)
         retrieved_alarm_2 = AlarmCollection.get(core_id_2)
