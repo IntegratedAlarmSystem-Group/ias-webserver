@@ -166,6 +166,76 @@ class TestAlarmsCollection:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
+    async def test_save_alarm_dependencies(self):
+        """ Test if an alarm with dependencies is created, it records itself as
+        a reference of the dependencies' parents """
+        # Arrange:
+        AlarmCollection.reset()
+        alarm = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=10000,
+            core_id='core_id_parent',
+            running_id='({}:IASIO)'.format('core_id_parent'),
+            dependencies=['core_id_1']
+        )
+        # Act:
+        status = await AlarmCollection.add_or_update_and_notify(alarm)
+        # Assert:
+        assert status == 'created-alarm', 'The status must be created-alarm'
+        assert 'core_id_parent' in AlarmCollection.get_all_as_dict(), \
+            'New alarms should be created'
+        assert 'core_id_1' in AlarmParentsCollection.get_all_as_dict(), \
+            'The dependency should be added to the AlarmParentsCollection'
+        assert AlarmParentsCollection.get('core_id_1') == ['core_id_parent'], \
+            'The alarm core_id should be added as a parent of the dependency \
+            alarm in the AlarmParentsCollection'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_save_alarm_dependencies(self):
+        """ Test if an alarm with dependencies is created, and the dependency
+        alarm already has another parent, it adds itself to the list of
+        dependencies' parents """
+        # Arrange:
+        AlarmCollection.reset()
+        alarm_1 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=10000,
+            core_id='core_id_parent_1',
+            running_id='({}:IASIO)'.format('core_id_parent'),
+            dependencies=['core_id_1']
+        )
+        alarm_2 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=10000,
+            core_id='core_id_parent_2',
+            running_id='({}:IASIO)'.format('core_id_parent'),
+            dependencies=['core_id_1']
+        )
+        # Act:
+        status_1 = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        status_2 = await AlarmCollection.add_or_update_and_notify(alarm_2)
+        # Assert:
+        assert status_1 == 'created-alarm' and status_2 == 'created-alarm', \
+            'The status of both must be created-alarm'
+        assert 'core_id_parent_1' in AlarmCollection.get_all_as_dict() and \
+            'core_id_parent_2' in AlarmCollection.get_all_as_dict(), \
+            'New alarms should be created'
+        assert 'core_id_1' in AlarmParentsCollection.get_all_as_dict(), \
+            'The dependency should be added to the AlarmParentsCollection'
+        assert AlarmParentsCollection.get('core_id_1') == ['core_id_parent_1',
+                                                           'core_id_parent_2'],\
+            'The alarm core_id should be added as a parent of the dependency \
+            alarm in the AlarmParentsCollection'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
     async def test_ack_multiple_alarms(self, mocker):
         """ Test if the AlarmCollection can acknowledge multiple Alarms """
         # Arrange:
