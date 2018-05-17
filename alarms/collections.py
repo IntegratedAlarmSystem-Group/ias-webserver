@@ -16,6 +16,9 @@ class AlarmCollection:
     singleton_collection = None
     """ Dictionary to store the Alarm objects, indexed by core_id """
 
+    parents_collection = None
+    """ Dictionary to store the parents of each alarm """
+
     observers = []
     """ List to store references to the observers subscribed to changes in the
     collection """
@@ -62,6 +65,39 @@ class AlarmCollection:
         """
         return TicketConnector.close_ticket(core_id)
 
+    # Private methods used to update the parent collection dictionary
+    @classmethod
+    def _add_parent(self, alarm_id, parent_id):
+        """ Add a parent to the list of parents of the alarm
+
+        Args:
+            alarm_id (string): Core ID of the alarm
+            parent_id (string): Core ID of the parent of the alarm
+        """
+        if alarm_id not in self.parents_collection.keys():
+            self.parents_collection[alarm_id] = set()
+        self.parents_collection[alarm_id].add(parent_id)
+
+    @classmethod
+    def _update_parents_collection(self, alarm):
+        """ Update the parents collection according the dependencies data of
+        the alarm
+
+        Args:
+            alarm (Alarm): Alarm used to update the collection
+        """
+        if alarm.dependencies:
+            for dependency in alarm.dependencies:
+                self._add_parent(dependency, alarm.core_id)
+
+    @classmethod
+    def get_parents(self, alarm_id):
+        """ Return the list of parents of the specified alarm """
+        if alarm_id not in self.parents_collection.keys():
+            return []
+        else:
+            return list(self.parents_collection[alarm_id])
+
     # Sync, non-notified methods:
     @classmethod
     def initialize(self, iasios=None):
@@ -77,6 +113,7 @@ class AlarmCollection:
         """
         if self.singleton_collection is None:
             self.singleton_collection = {}
+            self.parents_collection = {}
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
             for iasio in iasios:
@@ -137,6 +174,7 @@ class AlarmCollection:
         if alarm.value == 1:
             self._create_ticket(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
+        self._update_parents_collection(alarm)
 
     @classmethod
     def delete(self, alarm):
@@ -235,6 +273,7 @@ class AlarmCollection:
             iasios (list): A list of iasio objects
         """
         self.singleton_collection = None
+        self.parents_collection = None
         self.initialize(iasios)
 
     @classmethod
