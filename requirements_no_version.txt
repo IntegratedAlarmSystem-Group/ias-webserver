@@ -18,6 +18,7 @@ hiredis
 hyperlink
 idna
 incremental
+mock
 more-itertools
 msgpack
 pluggy
