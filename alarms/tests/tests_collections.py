@@ -166,6 +166,73 @@ class TestAlarmsCollection:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
+    async def test_record_parent_reference(self):
+        """ Test if an alarm with dependencies is created, it records itself as
+        a parent of its dependencies """
+        # Arrange:
+        AlarmCollection.reset()
+        alarm = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=10000,
+            core_id='core_id',
+            running_id='({}:IASIO)'.format('core_id'),
+            dependencies=['child_id']
+        )
+        # Act:
+        status = await AlarmCollection.add_or_update_and_notify(alarm)
+        # Assert:
+        assert status == 'created-alarm', 'The status must be created-alarm'
+        assert 'core_id' in AlarmCollection.get_all_as_dict(), \
+            'New alarms should be created'
+        assert 'core_id' in AlarmCollection.get_parents('child_id'), \
+            'The alarm core_id should be added as a parent of the dependency \
+            alarm in the collection'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_record_multiple_parent_references(self):
+        """ Test if an alarm with dependencies is created, and the alarms in the
+        dependencies already have another parent, it adds itself to the list of
+        parents associated with the alarm in the dependencies
+        """
+        # Arrange:
+        AlarmCollection.reset()
+        alarm_1 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=10000,
+            core_id='core_id_1',
+            running_id='({}:IASIO)'.format('core_id_1'),
+            dependencies=['child_id']
+        )
+        alarm_2 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=10000,
+            core_id='core_id_2',
+            running_id='({}:IASIO)'.format('core_id_2'),
+            dependencies=['child_id']
+        )
+        # Act:
+        status_1 = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        status_2 = await AlarmCollection.add_or_update_and_notify(alarm_2)
+        # Assert:
+        assert status_1 == 'created-alarm' and status_2 == 'created-alarm', \
+            'The status of both must be created-alarm'
+        assert 'core_id_1' in AlarmCollection.get_all_as_dict() and \
+            'core_id_2' in AlarmCollection.get_all_as_dict(), \
+            'New alarms should be created'
+        parents = AlarmCollection.get_parents('child_id')
+        assert 'core_id_1' in parents and 'core_id_2' in parents, \
+            'The core_id of the both parent alarms should be added as a parent \
+            of dependency alarm in the collection'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
     async def test_ack_multiple_alarms(self, mocker):
         """ Test if the AlarmCollection can acknowledge multiple Alarms """
         # Arrange:
@@ -220,6 +287,101 @@ class TestAlarmsCollection:
             'Alarm 2 should not have been acknowledged as it was CLEAR'
         assert retrieved_alarm_3.ack is True, \
             'Alarm 3 should have been acknowledged'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_recursive_ack(self, mocker):
+        """ Test if the AlarmCollection can acknowledge multiple Alarms
+        recursively.
+        """
+        # Arrange:
+        # Mock AlarmCollection._create_ticket to avoid calling it
+        mocker.patch.object(AlarmCollection, '_create_ticket')
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset()
+        # Create two alarms without dependencies alarm_1 and alarm_2
+        core_id_1 = 'MOCK-SET-ALARM-1'
+        alarm_1 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id_1,
+            running_id='({}:IASIO)'.format(core_id_1),
+            ack=False
+        )
+        core_id_2 = 'MOCK-SET-ALARM-2'
+        alarm_2 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id_2,
+            running_id='({}:IASIO)'.format(core_id_2),
+            ack=False
+        )
+        # Create an Alarm with alarm_1 as dependency
+        core_id_3 = 'MOCK-SET-ALARM-3'
+        alarm_3 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id_3,
+            running_id='({}:IASIO)'.format(core_id_3),
+            dependencies=[core_id_1],
+            ack=False
+        )
+        # Create an Alarm with alarm_2 and alarm_3 as dependency
+        core_id_4 = 'MOCK-SET-ALARM-4'
+        alarm_4 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id_4,
+            running_id='({}:IASIO)'.format(core_id_4),
+            dependencies=[core_id_2, core_id_3],
+            ack=False
+        )
+        # Create an Alarm with alarm_4 as dependecy
+        core_id_5 = 'MOCK-SET-ALARM-5'
+        alarm_5 = Alarm(
+            value=1,
+            mode='7',
+            validity='0',
+            core_timestamp=timestamp_1,
+            core_id=core_id_5,
+            running_id='({}:IASIO)'.format(core_id_5),
+            dependencies=[core_id_4],
+            ack=False
+        )
+        await AlarmCollection.add_or_update_and_notify(alarm_1)
+        await AlarmCollection.add_or_update_and_notify(alarm_2)
+        await AlarmCollection.add_or_update_and_notify(alarm_3)
+        await AlarmCollection.add_or_update_and_notify(alarm_4)
+        await AlarmCollection.add_or_update_and_notify(alarm_5)
+        # Act 1: Acknowledge the first leaf
+        await AlarmCollection.acknowledge([core_id_1])
+        # Assert
+        retrieved_alarm_1 = AlarmCollection.get(core_id_1)
+        retrieved_alarm_3 = AlarmCollection.get(core_id_3)
+        retrieved_alarm_4 = AlarmCollection.get(core_id_4)
+        assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
+            'The alarm_1 and its parent alarm_3 must be acknowledged'
+        assert not retrieved_alarm_4.ack, \
+            'The alarm_4 must not be acknowledged because its other \
+             child (alarm_2) has not been acknowledge yet'
+        # Act 2: Acknowledge the second leaf
+        await AlarmCollection.acknowledge([core_id_2])
+        # Assert
+        retrieved_alarm_2 = AlarmCollection.get(core_id_2)
+        retrieved_alarm_4 = AlarmCollection.get(core_id_4)
+        retrieved_alarm_5 = AlarmCollection.get(core_id_5)
+        assert retrieved_alarm_2.ack and retrieved_alarm_4.ack and \
+            retrieved_alarm_5.ack, \
+            'The alarm_2, its parent alarm_4 and its grandparent alarm_5 \
+            must be acknowledged'
 
     @pytest.mark.django_db
     def test_create_ticket(self, mocker):
