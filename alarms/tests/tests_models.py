@@ -23,6 +23,10 @@ class AlarmModelTestCase(TestCase):
             'The core_timestamp is not of type int'
         )
         self.assertTrue(
+            type(alarm.state_change_timestamp) is int,
+            'The state_change_timestamp is not of type int'
+        )
+        self.assertTrue(
             alarm.mode in [str(x[0]) for x in OperationalMode.options()],
             'The mode is not a valid option'
         )

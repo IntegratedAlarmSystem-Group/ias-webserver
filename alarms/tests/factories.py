@@ -35,6 +35,7 @@ class AlarmFactory:
         core_id = self._base_core_id.format(self.sequence)
         alarm = Alarm(value=self.value,
                       core_timestamp=self.core_timestamp,
+                      state_change_timestamp=self.core_timestamp,
                       mode=self.mode,
                       core_id=core_id,
                       running_id=core_id + '@ACS_NC',

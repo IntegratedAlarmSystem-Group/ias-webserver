@@ -43,7 +43,7 @@ class Alarm:
 
     def __init__(self, core_timestamp, core_id, running_id, value=0, mode=0,
                  validity=0, dependencies=[], properties={}, timestamps={},
-                 ack=False):
+                 ack=False, state_change_timestamp=0):
         """ Constructor of the class,
         only executed when there a new instance is created """
 
@@ -57,6 +57,8 @@ class Alarm:
         self.properties = self.__check_dict_type(properties)      # optional
         self.timestamps = self.__check_dict_type(timestamps)      # optional
         self.ack = self.__check_ack(ack)
+        self.state_change_timestamp = self.__check_int_type(
+            state_change_timestamp)
 
     def __check_value(self, value):
         if value not in [0, 1]:
@@ -117,6 +119,7 @@ class Alarm:
             'mode': self.mode,
             'validity': self.validity,
             'core_timestamp': self.core_timestamp,
+            'state_change_timestamp': self.state_change_timestamp,
             'core_id': self.core_id,
             'running_id': self.running_id,
             'timestamps': self.timestamps,
