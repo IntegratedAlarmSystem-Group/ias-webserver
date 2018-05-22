@@ -49,7 +49,10 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
     def get_dependencies(content):
         """ Return a list with the dependencies of the alarm"""
         if 'depsFullRunningIds' in content.keys():
-            return list(content['depsFullRunningIds'])
+            dependencies = []
+            for dependency in list(content['depsFullRunningIds']):
+                dependencies.append(CoreConsumer.get_core_id_from(dependency))
+            return dependencies
         else:
             return []
 

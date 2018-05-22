@@ -1,6 +1,5 @@
 import datetime
 import pytest
-from pytest_mock import mocker
 from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
 from alarms.collections import AlarmCollection
@@ -82,7 +81,7 @@ class TestCoreConsumer:
             core_timestamp=current_time_millis,
             core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
-            dependencies=[ID.format(1), ID.format(2)],
+            dependencies=['AlarmID{0}'.format(1), 'AlarmID{0}'.format(2)],
             properties={'key1': 'value1', 'key2': 'value2'},
             timestamps={
                 'pluginProductionTStamp': current_time_millis,
