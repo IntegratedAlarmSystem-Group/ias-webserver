@@ -119,22 +119,24 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         """
         Notifies the client of changes in an Alarm
         """
+        message = None
         if alarm is not None:
-            await self.send_json({
+            message = {
                 "payload": {
                     "data": alarm.to_dict(),
                     "action": action
                 },
                 "stream": "alarms",
-            })
+            }
         else:
-            await self.send_json({
+            message = {
                 "payload": {
                     "data": "Null Alarm",
                     "action": action
                 },
                 "stream": "alarms",
-            })
+            }
+        await self.send_json(message)
 
     async def send_alarms_status(self):
         queryset = AlarmCollection.update_all_alarms_validity()
