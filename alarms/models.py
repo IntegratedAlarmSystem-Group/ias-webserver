@@ -129,12 +129,12 @@ class Alarm:
         """
         Check if the attributes of the alarm are different to the values
         retrieved in params, the verification does not consider the
-        core_timestamp value.
+        core_timestamp value, other timestamps values and the properties dict.
         """
         for key in self.__dict__.keys():
             field = key
             if field == 'core_timestamp' or field == 'id' or \
-               field == 'timestamps':
+               field == 'timestamps' or field == 'properties':
                 continue
             self_attribute = getattr(self, field)
             alarm_attribute = getattr(alarm, field)
