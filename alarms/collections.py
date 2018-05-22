@@ -226,12 +226,17 @@ class AlarmCollection:
             # the status is not acknowledged and a new ticket is be created
             if stored_alarm.value == 0 and alarm.value == 1:
                 alarm.ack = False
+                alarm.state_change_timestamp = alarm.core_timestamp
                 self._create_ticket(alarm.core_id)
             # If the value changed from set to clear,
             # the status is acknowledged and the ticket is closed
             elif stored_alarm.value == 1 and alarm.value == 0:
                 alarm.ack = True
+                alarm.state_change_timestamp = alarm.core_timestamp
                 self._close_ticket(alarm.core_id)
+
+            if stored_alarm.mode != alarm.mode:
+                alarm.state_change_timestamp = alarm.core_timestamp
 
             if alarm.equals_except_timestamp(stored_alarm):
                 return 'updated-equal'
