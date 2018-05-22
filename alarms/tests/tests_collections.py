@@ -310,7 +310,7 @@ class TestAlarmsCollection:
             running_id='({}:IASIO)'.format(core_id_1),
             ack=False
         )
-        core_id_2 = 'MOCK-CLEAR-ALARM-2'
+        core_id_2 = 'MOCK-SET-ALARM-2'
         alarm_2 = Alarm(
             value=1,
             mode='7',
@@ -356,11 +356,11 @@ class TestAlarmsCollection:
             dependencies=[core_id_4],
             ack=False
         )
-        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
-        status = await AlarmCollection.add_or_update_and_notify(alarm_2)
-        status = await AlarmCollection.add_or_update_and_notify(alarm_3)
-        status = await AlarmCollection.add_or_update_and_notify(alarm_4)
-        status = await AlarmCollection.add_or_update_and_notify(alarm_5)
+        await AlarmCollection.add_or_update_and_notify(alarm_1)
+        await AlarmCollection.add_or_update_and_notify(alarm_2)
+        await AlarmCollection.add_or_update_and_notify(alarm_3)
+        await AlarmCollection.add_or_update_and_notify(alarm_4)
+        await AlarmCollection.add_or_update_and_notify(alarm_5)
         # Act 1: Acknowledge the first leaf
         await AlarmCollection.acknowledge([core_id_1])
         # Assert
@@ -379,7 +379,7 @@ class TestAlarmsCollection:
         retrieved_alarm_4 = AlarmCollection.get(core_id_4)
         retrieved_alarm_5 = AlarmCollection.get(core_id_5)
         assert retrieved_alarm_2.ack and retrieved_alarm_4.ack and \
-            retrieved_alarm_5, \
+            retrieved_alarm_5.ack, \
             'The alarm_2, its parent alarm_4 and its grandparent alarm_5 \
             must be acknowledged'
 
