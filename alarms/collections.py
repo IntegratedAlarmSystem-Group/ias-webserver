@@ -220,7 +220,8 @@ class AlarmCollection:
         """
         stored_alarm = self.get(alarm.core_id)
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
-            alarm.ack = self.singleton_collection[alarm.core_id].ack
+            alarm.ack = stored_alarm.ack
+            alarm.state_change_timestamp = stored_alarm.state_change_timestamp
             self.singleton_collection[alarm.core_id] = alarm
             # If the value changed from clear to set,
             # the status is not acknowledged and a new ticket is be created
