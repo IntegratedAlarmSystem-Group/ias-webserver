@@ -269,21 +269,23 @@ class AlarmCollection:
     @classmethod
     def recursive_acknowledge(self, core_id):
         alarms = []
-        alarm = self.singleton_collection[core_id]
-        if self.check_dependencies_ack(alarm):
-            alarm.acknowledge()
-            alarms.append(alarm)
+        if core_id in self.singleton_collection.keys():
+            alarm = self.singleton_collection[core_id]
+            if self.check_dependencies_ack(alarm):
+                alarm.acknowledge()
+                alarms.append(alarm)
 
-            for parent in self.get_parents(core_id):
-                alarms += self.recursive_acknowledge(parent)
+                for parent in self.get_parents(core_id):
+                    alarms += self.recursive_acknowledge(parent)
         return alarms
 
     @classmethod
     def check_dependencies_ack(self, alarm):
         for core_id in alarm.dependencies:
-            dependency = self.singleton_collection[core_id]
-            if not dependency.ack:
-                return False
+            if core_id in self.singleton_collection.keys():
+                dependency = self.singleton_collection[core_id]
+                if not dependency.ack:
+                    return False
         return True
 
     @classmethod
