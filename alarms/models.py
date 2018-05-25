@@ -34,6 +34,11 @@ class Value(ChoiceEnum):
         """ Return a list of tuples with the valid options. """
         return cls.get_choices()
 
+    @classmethod
+    def unset_options(cls):
+        """ Return a list of tuples with the valid options. """
+        return [0]
+
 
 class Validity(ChoiceEnum):
     """ Possible validity states of an Alarm """
@@ -191,3 +196,9 @@ class Alarm:
         else:
             self.ack = ack
             return self.ack
+
+    def is_set(self):
+        return True if self.value not in Value.unset_options() else False
+
+    def is_not_set(self):
+        return True if self.value in Value.unset_options() else False

@@ -25,5 +25,5 @@ class ChoiceEnum(Enum):
     @classmethod
     def get_choices_by_name(cls):
         """Returns the available choices as a dict indexed by name"""
-        choices = dict((y, x) for x, y in cls.get_choices())
+        choices = dict((y, int(x)) for x, y in cls.get_choices())
         return dict(choices)

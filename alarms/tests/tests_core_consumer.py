@@ -59,7 +59,7 @@ class TestCoreConsumer:
                                 formatted_current_time)
         ID = "(S{0}:SUPERVISOR)@(d{0}:DASU)@(a{0}:ASCE)@(AlarmID{0}:IASIO)"
         msg = {
-            "value": "SET",
+            "value": "SET_LOW",
             "pluginProductionTStamp": formatted_current_time,
             "sentToConverterTStamp": formatted_current_time,
             "receivedFromPluginTStamp": formatted_current_time,
@@ -76,8 +76,8 @@ class TestCoreConsumer:
         }
         expected_alarm = Alarm(
             value=1,
-            mode='5',
-            validity='1',
+            mode=5,
+            validity=1,
             core_timestamp=current_time_millis,
             core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
@@ -115,7 +115,7 @@ class TestCoreConsumer:
         current_time_millis = CoreConsumer.get_timestamp_from(
                                 formatted_current_time)
         msg = {
-            "value": "SET",
+            "value": "SET_MEDIUM",
             "dasuProductionTStamp": formatted_current_time,
             "sentToBsdbTStamp": formatted_current_time,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
@@ -126,9 +126,9 @@ class TestCoreConsumer:
             "valueType": "ALARM"
         }
         expected_alarm = Alarm(
-            value=1,
-            mode='5',
-            validity='1',
+            value=2,
+            mode=5,
+            validity=1,
             core_timestamp=current_time_millis,
             state_change_timestamp=current_time_millis,
             core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),

@@ -225,13 +225,13 @@ class AlarmCollection:
             self.singleton_collection[alarm.core_id] = alarm
             # If the value changed from clear to set,
             # the status is not acknowledged and a new ticket is be created
-            if stored_alarm.value == 0 and alarm.value == 1:
+            if stored_alarm.is_not_set() and alarm.is_set():
                 alarm.ack = False
                 alarm.state_change_timestamp = alarm.core_timestamp
                 self._create_ticket(alarm.core_id)
             # If the value changed from set to clear,
             # the status is acknowledged and the ticket is closed
-            elif stored_alarm.value == 1 and alarm.value == 0:
+            elif stored_alarm.is_set() and alarm.is_not_set():
                 alarm.ack = True
                 alarm.state_change_timestamp = alarm.core_timestamp
                 self._close_ticket(alarm.core_id)
