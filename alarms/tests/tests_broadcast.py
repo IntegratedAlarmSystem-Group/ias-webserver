@@ -40,7 +40,7 @@ class TestPeriodicBroadcastCase:
                 valid_alarm = AlarmFactory.get_valid_alarm()
                 AlarmCollection.add(valid_alarm)
                 alarm_dict = valid_alarm.to_dict()
-                alarm_dict['validity'] = '0'
+                alarm_dict['validity'] = 0
                 expected_alarms_list.append(alarm_dict)
             # Act:
             msg = {

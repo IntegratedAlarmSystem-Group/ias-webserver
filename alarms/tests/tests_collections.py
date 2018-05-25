@@ -23,8 +23,8 @@ class TestAlarmsCollection:
         AlarmCollection.reset()
         old_alarm = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=10000,
             core_id='OLD-ALARM',
             running_id='({}:IASIO)'.format('OLD-ALARM')
@@ -48,8 +48,8 @@ class TestAlarmsCollection:
         core_id = 'MOCK-ALARM'
         old_alarm = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=old_timestamp,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -57,8 +57,8 @@ class TestAlarmsCollection:
         await AlarmCollection.add_or_update_and_notify(old_alarm)
         new_alarm = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=new_timestamp,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -88,8 +88,8 @@ class TestAlarmsCollection:
         core_id = 'MOCK-ALARM'
         alarm_1 = Alarm(
             value=0,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -106,8 +106,8 @@ class TestAlarmsCollection:
         timestamp_2 = retrieved_alarm.core_timestamp + 100
         alarm_2 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_2,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -132,8 +132,8 @@ class TestAlarmsCollection:
         timestamp_4 = retrieved_alarm.core_timestamp + 100
         alarm_4 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_4,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -150,8 +150,8 @@ class TestAlarmsCollection:
         timestamp_5 = retrieved_alarm.core_timestamp + 100
         alarm_5 = Alarm(
             value=0,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_5,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -173,8 +173,8 @@ class TestAlarmsCollection:
         AlarmCollection.reset()
         alarm = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=10000,
             core_id='core_id',
             running_id='({}:IASIO)'.format('core_id'),
@@ -201,8 +201,8 @@ class TestAlarmsCollection:
         AlarmCollection.reset()
         alarm_1 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=10000,
             core_id='core_id_1',
             running_id='({}:IASIO)'.format('core_id_1'),
@@ -210,8 +210,8 @@ class TestAlarmsCollection:
         )
         alarm_2 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=10000,
             core_id='core_id_2',
             running_id='({}:IASIO)'.format('core_id_2'),
@@ -243,8 +243,8 @@ class TestAlarmsCollection:
         core_id_1 = 'MOCK-SET-ALARM-1'
         alarm_1 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id_1,
             running_id='({}:IASIO)'.format(core_id_1)
@@ -252,8 +252,8 @@ class TestAlarmsCollection:
         core_id_2 = 'MOCK-CLEAR-ALARM-2'
         alarm_2 = Alarm(
             value=0,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id_2,
             running_id='({}:IASIO)'.format(core_id_2)
@@ -261,8 +261,8 @@ class TestAlarmsCollection:
         core_id_3 = 'MOCK-SET-ALARM-3'
         alarm_3 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id_3,
             running_id='({}:IASIO)'.format(core_id_3)
@@ -303,8 +303,8 @@ class TestAlarmsCollection:
         core_id_1 = 'MOCK-SET-ALARM-1'
         alarm_1 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id_1,
             running_id='({}:IASIO)'.format(core_id_1),
@@ -313,8 +313,8 @@ class TestAlarmsCollection:
         core_id_2 = 'MOCK-SET-ALARM-2'
         alarm_2 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id_2,
             running_id='({}:IASIO)'.format(core_id_2),
@@ -324,8 +324,8 @@ class TestAlarmsCollection:
         core_id_3 = 'MOCK-SET-ALARM-3'
         alarm_3 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id_3,
             running_id='({}:IASIO)'.format(core_id_3),
@@ -336,8 +336,8 @@ class TestAlarmsCollection:
         core_id_4 = 'MOCK-SET-ALARM-4'
         alarm_4 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id_4,
             running_id='({}:IASIO)'.format(core_id_4),
@@ -348,8 +348,8 @@ class TestAlarmsCollection:
         core_id_5 = 'MOCK-SET-ALARM-5'
         alarm_5 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id_5,
             running_id='({}:IASIO)'.format(core_id_5),
@@ -420,8 +420,8 @@ class TestAlarmsCollection:
         core_id = 'MOCK-ALARM'
         alarm_1 = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -437,8 +437,8 @@ class TestAlarmsCollection:
         # 2. Change Alarm to CLEAR:
         alarm_1 = Alarm(
             value=0,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=timestamp_1+100,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -463,8 +463,8 @@ class TestAlarmsCollection:
         core_id = 'MOCK-ALARM'
         old_alarm = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=old_timestamp,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -472,8 +472,8 @@ class TestAlarmsCollection:
         await AlarmCollection.add_or_update_and_notify(old_alarm)
         new_alarm = Alarm(
             value=1,
-            mode='7',
-            validity='0',
+            mode=7,
+            validity=0,
             core_timestamp=new_timestamp,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -519,6 +519,6 @@ class TestAlarmsCollection:
             'The alarms in the AlarmCollection are not invalidated as expected'
 
         for alarm in AlarmCollection.get_all_as_list():
-            assert alarm.validity == '0', \
+            assert alarm.validity == 0, \
                 'The alarm {} was not correctly invalidated'.format(
                     alarm.core_id)
