@@ -1,5 +1,5 @@
 import random
-from alarms.models import Alarm, OperationalMode, Validity
+from alarms.models import Alarm, OperationalMode, Validity, Value
 import time
 
 
@@ -18,13 +18,13 @@ class AlarmFactory:
     core_timestamp = int(round(time.time() * 1000))
     """ Core timestamp of the Alarm to be created """
 
-    value = random.choice([0, 1])
+    value = random.choice([int(x[0]) for x in Value.options()])
     """ Value of the Alarm to be created """
 
-    mode = random.choice([str(x[0]) for x in OperationalMode.options()])
+    mode = random.choice([int(x[0]) for x in OperationalMode.options()])
     """ Operational Mode of the Alarm to be created """
 
-    validity = random.choice([str(x[0]) for x in Validity.options()])
+    validity = random.choice([int(x[0]) for x in Validity.options()])
     """ Validity of the Alarm to be created """
 
     ack = False
@@ -63,7 +63,7 @@ class AlarmFactory:
         alarm.value = (alarm.value + 1) % 2
         alarm.core_timestamp = alarm.core_timestamp + 10
         alarm.mode = random.choice(
-            [str(x[0]) for x in OperationalMode.options()
+            [int(x[0]) for x in OperationalMode.options()
                 if x[0] != alarm.mode]
         )
         return alarm
@@ -80,7 +80,7 @@ class AlarmFactory:
             alarm (Alarm): an instance of a valid Alarm
         """
         alarm = AlarmFactory.build()
-        alarm.validity = '1'
+        alarm.validity = 1
         alarm.core_timestamp = int(round(time.time() * 1000))
         if core_id:
             alarm.core_id = core_id
@@ -98,7 +98,7 @@ class AlarmFactory:
             alarm (Alarm): an instance of a invalid Alarm
         """
         alarm = AlarmFactory.build()
-        alarm.validity = '0'
+        alarm.validity = 0
         alarm.core_timestamp = int(round(time.time() * 1000))
         if core_id:
             alarm.core_id = core_id

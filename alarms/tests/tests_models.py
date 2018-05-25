@@ -1,5 +1,5 @@
 from django.test import TestCase
-from alarms.models import Alarm, Validity, OperationalMode
+from alarms.models import Alarm, Validity, OperationalMode, Value
 from alarms.connectors import CdbConnector as CdbConn
 from alarms.tests.factories import AlarmFactory
 from freezegun import freeze_time
@@ -15,7 +15,7 @@ class AlarmModelTestCase(TestCase):
         alarm = AlarmFactory.build()
         # Assert:
         self.assertTrue(
-            alarm.value is 0 or alarm.value is 1,
+            alarm.value in [int(x[0]) for x in Value.options()],
             'The value is not a valid option'
         )
         self.assertTrue(
@@ -27,7 +27,7 @@ class AlarmModelTestCase(TestCase):
             'The state_change_timestamp is not of type int'
         )
         self.assertTrue(
-            alarm.mode in [str(x[0]) for x in OperationalMode.options()],
+            alarm.mode in [int(x[0]) for x in OperationalMode.options()],
             'The mode is not a valid option'
         )
         self.assertTrue(
@@ -43,7 +43,7 @@ class AlarmModelTestCase(TestCase):
             'The running_id has an unexpected value'
         )
         self.assertTrue(
-            alarm.validity in [str(x[0]) for x in Validity.options()],
+            alarm.validity in [int(x[0]) for x in Validity.options()],
             'The validity is not a valid option'
         )
         self.assertTrue(
@@ -73,7 +73,7 @@ class AlarmModelTestCase(TestCase):
         alarm.update_validity()
         # Assert:
         self.assertEqual(
-            alarm.validity, '0',
+            alarm.validity, 0,
             'The validity must keep it UNREALIABLE even if the ' +
             'core_timestamp is current'
         )
@@ -87,7 +87,7 @@ class AlarmModelTestCase(TestCase):
         alarm.update_validity()
         # Assert:
         self.assertEqual(
-            alarm.validity, '1',
+            alarm.validity, 1,
             'The validity must keep it REALIABLE if the ' +
             'core_timestamp is current'
         )
@@ -108,7 +108,7 @@ class AlarmModelTestCase(TestCase):
             alarm.update_validity()
             # Assert:
             self.assertEqual(
-                alarm.validity, '0',
+                alarm.validity, 0,
                 'The validity is not being updated when the alarm is invalid' +
                 ' because of an old timestamp'
             )

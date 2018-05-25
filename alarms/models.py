@@ -75,22 +75,22 @@ class Alarm:
             state_change_timestamp)
 
     def __check_value(self, value):
-        if value not in [str(x[0]) for x in Value.options()]:
+        if value not in [int(x[0]) for x in Value.options()]:
             raise TypeError
         else:
-            return value
+            return int(value)
 
     def __check_mode(self, mode):
-        if mode not in [str(x[0]) for x in OperationalMode.options()]:
+        if mode not in [int(x[0]) for x in OperationalMode.options()]:
             raise TypeError
         else:
-            return mode
+            return int(mode)
 
     def __check_validity(self, validity):
-        if validity not in [str(x[0]) for x in Validity.options()]:
+        if validity not in [int(x[0]) for x in Validity.options()]:
             raise TypeError
         else:
-            return validity
+            return int(validity)
 
     def __check_int_type(self, field):
         if type(field) is not int:
@@ -164,13 +164,13 @@ class Alarm:
         Calculate the validity of the alarm considering the current time,
         the refresh rate and a previously defined delta time
         """
-        if self.validity == '0':
+        if self.validity == 0:
             return self
         refresh_rate = CdbConnector.refresh_rate
         tolerance = CdbConnector.tolerance
         current_timestamp = int(round(time.time() * 1000))
         if current_timestamp - self.core_timestamp > refresh_rate + tolerance:
-            self.validity = '0'
+            self.validity = 0
             return self
         else:
             return self
