@@ -121,8 +121,8 @@ class AlarmCollection:
                     current_time_millis = int(round(time.time() * 1000))
                     alarm = Alarm(
                         value=0,
-                        mode='7',
-                        validity='0',
+                        mode=7,
+                        validity=0,
                         core_timestamp=current_time_millis,
                         core_id=iasio['io_id'],
                         running_id='({}:IASIO)'.format(iasio['io_id']),
