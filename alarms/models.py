@@ -20,6 +20,20 @@ class OperationalMode(ChoiceEnum):
         """ Return a list of tuples with the valid options. """
         return cls.get_choices()
 
+class Value(ChoiceEnum):
+    """ Value of the Alarm. """
+
+    SET_CRITICAL = 4
+    SET_HIGH = 3
+    SET_MEDIUM = 2
+    SET_LOW = 1
+    CLEARED = 0
+
+    @classmethod
+    def options(cls):
+        """ Return a list of tuples with the valid options. """
+        return cls.get_choices()
+
 
 class Validity(ChoiceEnum):
     """ Possible validity states of an Alarm """
@@ -61,7 +75,7 @@ class Alarm:
             state_change_timestamp)
 
     def __check_value(self, value):
-        if value not in [0, 1]:
+        if value not in [str(x[0]) for x in Value.options()]:
             raise TypeError
         else:
             return value

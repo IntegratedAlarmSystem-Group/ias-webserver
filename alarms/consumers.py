@@ -1,7 +1,7 @@
 import time
 import datetime
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
-from alarms.models import Alarm, OperationalMode, Validity
+from alarms.models import Alarm, OperationalMode, Validity, Value
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
 
 
@@ -71,13 +71,14 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         Returns:
             Alarm: an alarm based on the message content
         """
+        value_options = Value.get_choices_by_name()
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
         core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
         core_timestamp = CoreConsumer.get_timestamp_from(
             content['sentToBsdbTStamp'])
         params = {
-            'value': (1 if content['value'] == 'SET' else 0),
+            'value': value_options[content['value']],
             'core_timestamp': core_timestamp,
             'mode': mode_options[content['mode']],
             'validity': validity_options[content['iasValidity']],
