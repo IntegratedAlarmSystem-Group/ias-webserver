@@ -20,6 +20,7 @@ class OperationalMode(ChoiceEnum):
         """ Return a list of tuples with the valid options. """
         return cls.get_choices()
 
+
 class Value(ChoiceEnum):
     """ Value of the Alarm. """
 

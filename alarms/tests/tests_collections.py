@@ -97,10 +97,10 @@ class TestAlarmsCollection:
         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
         retrieved_alarm = AlarmCollection.get(core_id)
         assert status == 'created-alarm', 'The status must be created-alarm'
-        assert retrieved_alarm.ack is False, \
-            'A new Alarm must not be acknowledged'
+        assert retrieved_alarm.ack is True, \
+            'A new CLEARED Alarm must be acknowledged'
         assert AlarmCollection._create_ticket.call_count == 0, \
-            'A new Alarm in CLEAR state should not create a new ticket'
+            'A new Alarm in CLEARED state should not create a new ticket'
 
         # 2. Change Alarm to SET:
         timestamp_2 = retrieved_alarm.core_timestamp + 100
@@ -283,8 +283,8 @@ class TestAlarmsCollection:
         retrieved_alarm_3 = AlarmCollection.get(core_id_3)
         assert retrieved_alarm_1.ack is True, \
             'Alarm 1 should have been acknowledged'
-        assert retrieved_alarm_2.ack is False, \
-            'Alarm 2 should not have been acknowledged as it was CLEAR'
+        assert retrieved_alarm_2.ack is True, \
+            'Alarm 2 should have been acknowledged as it was CLEAR'
         assert retrieved_alarm_3.ack is True, \
             'Alarm 3 should have been acknowledged'
 

@@ -171,7 +171,10 @@ class AlarmCollection:
         Args:
             alarm (Alarm): the Alarm object to delete
         """
-        if alarm.value == 1:
+        if alarm.value == 0:
+            alarm.ack = True
+        else:
+            alarm.ack = False
             self._create_ticket(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         self._update_parents_collection(alarm)
