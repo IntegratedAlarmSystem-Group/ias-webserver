@@ -65,7 +65,8 @@ class Alarm:
                  validity=0, dependencies=[], properties={}, timestamps={},
                  ack=False, state_change_timestamp=0):
         """ Constructor of the class,
-        only executed when there a new instance is created """
+        only executed when there a new instance is created.
+        Receives and validates values for the attributes of the object """
 
         self.core_timestamp = self.__check_int_type(core_timestamp)
         self.core_id = self.__check_str_type(core_id)
@@ -81,48 +82,57 @@ class Alarm:
             state_change_timestamp)
 
     def __check_value(self, value):
+        """ Validates the Alarm value """
         if value not in [int(x[0]) for x in Value.options()]:
             raise TypeError
         else:
             return int(value)
 
     def __check_mode(self, mode):
+        """ Validates the Alarm mode """
         if mode not in [int(x[0]) for x in OperationalMode.options()]:
             raise TypeError
         else:
             return int(mode)
 
     def __check_validity(self, validity):
+        """ Validates the Alarm validity """
         if validity not in [int(x[0]) for x in Validity.options()]:
             raise TypeError
         else:
             return int(validity)
 
     def __check_int_type(self, field):
+        """ Validates an integer field """
         if type(field) is not int:
             raise TypeError
         else:
             return field
 
     def __check_str_type(self, field):
+        """ Validates a string field """
         if type(field) is not str:
             raise TypeError
         else:
             return field
 
     def __check_list_type(self, field):
+        """ Validates a list field """
         if type(field) is not list:
             raise TypeError
         else:
             return field
 
     def __check_dict_type(self, field):
+        """ Validates a dict field """
         if type(field) is not dict:
             raise TypeError
         else:
             return field
 
     def __check_ack(self, ack):
+        """ Validates the Alarm ack status.
+        Which should be True if the Alarm is acknowledged and False if not """
         if ack not in [True, False]:
             raise TypeError
         else:

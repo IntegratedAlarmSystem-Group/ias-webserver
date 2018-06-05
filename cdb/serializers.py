@@ -9,6 +9,8 @@ class IasSerializer(serializers.ModelSerializer):
     broadcast_factor = serializers.SerializerMethodField()
 
     def get_broadcast_factor(self, ias):
+        """ Returns the rate in seconds at which the broadcast should be
+        executed. Currently this is defines in ias_webserver.settings """
         return BROADCAST_RATE_FACTOR
 
     class Meta:

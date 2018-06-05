@@ -271,6 +271,13 @@ class AlarmCollection:
 
     @classmethod
     def recursive_acknowledge(self, core_id):
+        """
+        Acknowledges upstream Alarms recursively through the Alarms
+        dependendy graph starting from a given Alarm
+
+        Args:
+            core_id (string): core_id of the Alarms staring Alarm
+        """
         alarms = []
         if core_id in self.singleton_collection.keys():
             alarm = self.singleton_collection[core_id]
@@ -284,6 +291,8 @@ class AlarmCollection:
 
     @classmethod
     def check_dependencies_ack(self, alarm):
+        """ Checks wether all the children Alarms of a given Alarm
+        are acknowledged or not """
         for core_id in alarm.dependencies:
             if core_id in self.singleton_collection.keys():
                 dependency = self.singleton_collection[core_id]
@@ -382,4 +391,6 @@ class AlarmCollectionObserver(abc.ABC):
 
     @abc.abstractmethod
     def update(alarm, action):
+        """ Method that will be called on Observers when there is a new action
+        to notifiy """
         pass

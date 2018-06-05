@@ -18,7 +18,9 @@ class TestPeriodicBroadcastCase:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_outbound_create(self):
+    async def test_broadcast_status(self):
+        """ Test that the periodic request is sent
+        and Alarms are invalidated after timeout """
 
         # Connect:
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")

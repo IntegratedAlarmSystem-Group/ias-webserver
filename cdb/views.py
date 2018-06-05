@@ -8,13 +8,15 @@ from cdb.serializers import (
 
 
 class IasViewSet(viewsets.ModelViewSet):
-    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Ias."""
+    """ Provides API to perform the following actions in the Ias table:
+    `List`, `Create`, `Retrieve`, `Update` and `Destroy`."""
     queryset = Ias.objects.all()
     serializer_class = IasSerializer
 
 
 class IasioViewSet(viewsets.ModelViewSet):
-    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Iasio."""
+    """ Provides API to perform the following actions in the Iasio table:
+    `List`, `Create`, `Retrieve`, `Update` and `Destroy`."""
     queryset = Iasio.objects.all()
     serializer_class = IasioSerializer
 
