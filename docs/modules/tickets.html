@@ -1,0 +1,355 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tickets package &#8212; IAS Web Server 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="tickets.tests package" href="tickets.tests.html" />
+    <link rel="prev" title="manage module" href="manage.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tickets.tests.html" title="tickets.tests package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="manage.html" title="manage module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">ias-webserver</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tickets-package">
+<h1>tickets package<a class="headerlink" href="#tickets-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tickets.tests.html">tickets.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tickets.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tickets.tests.html#module-tickets.tests.tests_connectors">tickets.tests.tests_connectors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tickets.tests.html#module-tickets.tests.tests_tickets_api">tickets.tests.tests_tickets_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tickets.tests.html#module-tickets.tests.tests_tickets_models">tickets.tests.tests_tickets_models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tickets.tests.html#module-tickets.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tickets.admin">
+<span id="tickets-admin-module"></span><h2>tickets.admin module<a class="headerlink" href="#module-tickets.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tickets.apps">
+<span id="tickets-apps-module"></span><h2>tickets.apps module<a class="headerlink" href="#module-tickets.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.apps.TicketsConfig">
+<em class="property">class </em><code class="descclassname">tickets.apps.</code><code class="descname">TicketsConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.apps.TicketsConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="tickets.apps.TicketsConfig.name">
+<code class="descname">name</code><em class="property"> = 'tickets'</em><a class="headerlink" href="#tickets.apps.TicketsConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets.connectors">
+<span id="tickets-connectors-module"></span><h2>tickets.connectors module<a class="headerlink" href="#module-tickets.connectors" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.connectors.AlarmConnector">
+<em class="property">class </em><code class="descclassname">tickets.connectors.</code><code class="descname">AlarmConnector</code><a class="headerlink" href="#tickets.connectors.AlarmConnector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines methods to communicate the Ticket app with the Alarm app</p>
+<dl class="classmethod">
+<dt id="tickets.connectors.AlarmConnector.acknowledge_alarms">
+<em class="property">classmethod </em><code class="descname">acknowledge_alarms</code><span class="sig-paren">(</span><em>alarm_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.connectors.AlarmConnector.acknowledge_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Akcnowledge Alarms based on a list of Alarm IDs</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>alarms_id (list): List of IDs of the Alarms to acknowledge</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets.models">
+<span id="tickets-models-module"></span><h2>tickets.models module<a class="headerlink" href="#module-tickets.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.models.Ticket">
+<em class="property">class </em><code class="descclassname">tickets.models.</code><code class="descname">Ticket</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Ticket associated to an alarm that needs to be acknowledged</p>
+<dl class="exception">
+<dt id="tickets.models.Ticket.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#tickets.models.Ticket.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="tickets.models.Ticket.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#tickets.models.Ticket.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.models.Ticket.acknowledge">
+<code class="descname">acknowledge</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.acknowledge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves the ticket modifying the status, the resolution timestamp
+and the message</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.models.Ticket.acknowledged_at">
+<code class="descname">acknowledged_at</code><a class="headerlink" href="#tickets.models.Ticket.acknowledged_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time when the ticket is updated</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.models.Ticket.alarm_id">
+<code class="descname">alarm_id</code><a class="headerlink" href="#tickets.models.Ticket.alarm_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to the related alarm</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.models.Ticket.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#tickets.models.Ticket.created_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time when the ticket is created</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.models.Ticket.get_next_by_created_at">
+<code class="descname">get_next_by_created_at</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: created_at&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.get_next_by_created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.models.Ticket.get_previous_by_created_at">
+<code class="descname">get_previous_by_created_at</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: created_at&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.get_previous_by_created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.models.Ticket.get_status_display">
+<code class="descname">get_status_display</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.IntegerField: status&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.get_status_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.models.Ticket.id">
+<code class="descname">id</code><a class="headerlink" href="#tickets.models.Ticket.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.models.Ticket.message">
+<code class="descname">message</code><a class="headerlink" href="#tickets.models.Ticket.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Message posted when the ticket is closed</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.models.Ticket.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#tickets.models.Ticket.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.models.Ticket.status">
+<code class="descname">status</code><a class="headerlink" href="#tickets.models.Ticket.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>State of the ticket, default is open</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.models.Ticket.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ticket as a dictionary</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.models.TicketStatus">
+<em class="property">class </em><code class="descclassname">tickets.models.</code><code class="descname">TicketStatus</code><a class="headerlink" href="#tickets.models.TicketStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="utils.html#utils.choice_enum.ChoiceEnum" title="utils.choice_enum.ChoiceEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">utils.choice_enum.ChoiceEnum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="tickets.models.TicketStatus.ACK">
+<code class="descname">ACK</code><em class="property"> = 1</em><a class="headerlink" href="#tickets.models.TicketStatus.ACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.models.TicketStatus.UNACK">
+<code class="descname">UNACK</code><em class="property"> = 0</em><a class="headerlink" href="#tickets.models.TicketStatus.UNACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets.serializers">
+<span id="tickets-serializers-module"></span><h2>tickets.serializers module<a class="headerlink" href="#module-tickets.serializers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.serializers.TicketSerializer">
+<em class="property">class </em><code class="descclassname">tickets.serializers.</code><code class="descname">TicketSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.serializers.TicketSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="tickets.serializers.TicketSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#tickets.serializers.TicketSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="tickets.serializers.TicketSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#tickets.serializers.TicketSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.serializers.TicketSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#tickets.serializers.TicketSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#tickets.models.Ticket" title="tickets.models.Ticket"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.models.Ticket</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets.urls">
+<span id="tickets-urls-module"></span><h2>tickets.urls module<a class="headerlink" href="#module-tickets.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tickets.views">
+<span id="tickets-views-module"></span><h2>tickets.views module<a class="headerlink" href="#module-tickets.views" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.views.TicketViewSet">
+<em class="property">class </em><code class="descclassname">tickets.views.</code><code class="descname">TicketViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.views.TicketViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p><cite>List</cite>, <cite>Create</cite>, <cite>Retrieve</cite>, <cite>Update</cite> and <cite>Destroy</cite> Ias.</p>
+<dl class="method">
+<dt id="tickets.views.TicketViewSet.acknowledge">
+<code class="descname">acknowledge</code><span class="sig-paren">(</span><em>request</em>, <em>pk=None</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.views.TicketViewSet.acknowledge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acknowledge a ticket that implies change the status,
+record message an the timestamp</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.views.TicketViewSet.acknowledge_many">
+<code class="descname">acknowledge_many</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.views.TicketViewSet.acknowledge_many" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acknowledge multiple tickets with the same message and timestamp</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.views.TicketViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#tickets.views.TicketViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.views.TicketViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#tickets.views.TicketViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.views.TicketViewSet.filters">
+<code class="descname">filters</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.views.TicketViewSet.filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the list of iasios filtered by type alarm</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.views.TicketViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Ticket: 2018-05-09 21:41:07.562060+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-09 21:44:23.163280+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-10 13:18:32.128855+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-10 13:22:52.547691+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-10 13:24:06.879126+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-10 13:25:29.859467+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-10 13:28:08.529774+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-10 13:31:31.903217+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-10 13:31:58.837561+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-10 20:09:51.503018+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-10 20:40:44.790634+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-11 14:53:51.995759+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-11 20:11:07.280297+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-11 20:11:52.286484+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-11 20:11:58.285653+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-11 20:14:04.300494+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-11 20:20:25.353341+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-11 20:23:43.378523+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-11 20:28:34.417471+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-05-11 20:31:25.451422+00:00 - Alarmdummy&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#tickets.views.TicketViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.views.TicketViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#tickets.views.TicketViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#tickets.serializers.TicketSerializer" title="tickets.serializers.TicketSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.serializers.TicketSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.views.TicketViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#tickets.views.TicketViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tickets" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="manage.html"
+                        title="previous chapter">manage module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tickets.tests.html"
+                        title="next chapter">tickets.tests package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tickets.tests.html" title="tickets.tests package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="manage.html" title="manage module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Inria Chile.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

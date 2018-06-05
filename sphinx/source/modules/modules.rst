@@ -9,4 +9,5 @@ ias-webserver
 	cdb*
 	ias_webserver*
 	manage*
+	tickets*
 	utils*

@@ -30,6 +30,7 @@ pytest-mock
 python-dateutil
 pytz
 six
+sphinx
 text-unidecode
 tornado
 Twisted

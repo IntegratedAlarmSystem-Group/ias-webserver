@@ -1,69 +1,68 @@
-alarms package
-==============
+tickets package
+===============
 
 Subpackages
 -----------
 
 .. toctree::
 
-    alarms.management
-    alarms.tests
+    tickets.tests
 
 Submodules
 ----------
 
-alarms.admin module
--------------------
-
-.. automodule:: alarms.admin
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alarms.apps module
-------------------
-
-.. automodule:: alarms.apps
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alarms.collections module
--------------------------
-
-.. automodule:: alarms.collections
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alarms.connectors module
-------------------------
-
-.. automodule:: alarms.connectors
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alarms.consumers module
------------------------
-
-.. automodule:: alarms.consumers
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alarms.models module
+tickets.admin module
 --------------------
 
-.. automodule:: alarms.models
+.. automodule:: tickets.admin
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms.views module
+tickets.apps module
 -------------------
 
-.. automodule:: alarms.views
+.. automodule:: tickets.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tickets.connectors module
+-------------------------
+
+.. automodule:: tickets.connectors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tickets.models module
+---------------------
+
+.. automodule:: tickets.models
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tickets.serializers module
+--------------------------
+
+.. automodule:: tickets.serializers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tickets.urls module
+-------------------
+
+.. automodule:: tickets.urls
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tickets.views module
+--------------------
+
+.. automodule:: tickets.views
     :members:
     :undoc-members:
     :show-inheritance:
@@ -72,7 +71,7 @@ alarms.views module
 Module contents
 ---------------
 
-.. automodule:: alarms
+.. automodule:: tickets
     :members:
     :undoc-members:
     :show-inheritance:
