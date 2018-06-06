@@ -2,6 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
 from django.urls import reverse
+from ias_webserver.settings import BROADCAST_RATE_FACTOR
 from cdb.models import Ias, Iasio
 
 
@@ -38,6 +39,7 @@ class CdbApiTestCase(TestCase):
         """ Test that the api can retrieve an Ias """
         # Arrange:
         expected_ias_data = self.ias.get_data()
+        expected_ias_data['broadcast_factor'] = BROADCAST_RATE_FACTOR
         # Act:
         url = reverse('ias-detail', kwargs={'pk': self.ias.id})
         self.response = self.client.get(url, format="json")

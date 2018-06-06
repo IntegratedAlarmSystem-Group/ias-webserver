@@ -1,0 +1,215 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tickets.tests package &#8212; IAS Web Server 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="utils package" href="utils.html" />
+    <link rel="prev" title="tickets package" href="tickets.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="utils package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tickets.html" title="tickets package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tickets.html" accesskey="U">tickets package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tickets-tests-package">
+<h1>tickets.tests package<a class="headerlink" href="#tickets-tests-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tickets.tests.tests_connectors">
+<span id="tickets-tests-tests-connectors-module"></span><h2>tickets.tests.tests_connectors module<a class="headerlink" href="#module-tickets.tests.tests_connectors" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.tests.tests_connectors.AlarmConnectorTestCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_connectors.</code><code class="descname">AlarmConnectorTestCase</code><a class="headerlink" href="#tickets.tests.tests_connectors.AlarmConnectorTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the test suite for the Alarms Connector</p>
+<dl class="method">
+<dt id="tickets.tests.tests_connectors.AlarmConnectorTestCase.test_acknowledge_alarms">
+<code class="descname">test_acknowledge_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_connectors.AlarmConnectorTestCase.test_acknowledge_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that AlarmConnector.acknowledge_alarms calls
+AlarmCollection.acknowledge</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets.tests.tests_tickets_api">
+<span id="tickets-tests-tests-tickets-api-module"></span><h2>tickets.tests.tests_tickets_api module<a class="headerlink" href="#module-tickets.tests.tests_tickets_api" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">TicketsApiTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite for the api views.</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_a_ticket">
+<code class="descname">test_api_can_acknowledge_a_ticket</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_a_ticket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can ack an unacknowledged ticket</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets">
+<code class="descname">test_api_can_acknowledge_multiple_tickets</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can acknowledge multiple unacknowledged tickets</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_alarm">
+<code class="descname">test_api_can_filter_tickets_by_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the Tickets filtered by alarm id</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_alarm_and_status">
+<code class="descname">test_api_can_filter_tickets_by_alarm_and_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_alarm_and_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the Tickets filtered by alarm id
+and status</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_status">
+<code class="descname">test_api_can_filter_tickets_by_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the Tickets filtered by status</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_list_tickets">
+<code class="descname">test_api_can_list_tickets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_list_tickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the Tickets</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_not_acknowledge_a_ticket_without_message">
+<code class="descname">test_api_can_not_acknowledge_a_ticket_without_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_not_acknowledge_a_ticket_without_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can not ack an unacknowledged ticket with an empty
+message</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_retrieve_tickets">
+<code class="descname">test_api_can_retrieve_tickets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_retrieve_tickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve a ticket</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets.tests.tests_tickets_models">
+<span id="tickets-tests-tests-tickets-models-module"></span><h2>tickets.tests.tests_tickets_models module<a class="headerlink" href="#module-tickets.tests.tests_tickets_models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_models.TicketsModelsTestCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_models.</code><code class="descname">TicketsModelsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_models.TicketsModelsTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the Tickets model tests</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_models.TicketsModelsTestCase.test_acknowledge_a_ticket">
+<code class="descname">test_acknowledge_a_ticket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_models.TicketsModelsTestCase.test_acknowledge_a_ticket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can acknowledge a ticket passing it a valid message</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_models.TicketsModelsTestCase.test_create_ticket">
+<code class="descname">test_create_ticket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_models.TicketsModelsTestCase.test_create_ticket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a ticket</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets.tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tickets.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tickets.html"
+                        title="previous chapter">tickets package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="utils.html"
+                        title="next chapter">utils package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="utils package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tickets.html" title="tickets package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tickets.html" >tickets package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Inria Chile.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

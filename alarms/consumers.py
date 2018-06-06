@@ -1,7 +1,7 @@
 import time
 import datetime
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
-from alarms.models import Alarm, OperationalMode, Validity
+from alarms.models import Alarm, OperationalMode, Validity, Value
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
 
 
@@ -49,7 +49,10 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
     def get_dependencies(content):
         """ Return a list with the dependencies of the alarm"""
         if 'depsFullRunningIds' in content.keys():
-            return list(content['depsFullRunningIds'])
+            dependencies = []
+            for dependency in list(content['depsFullRunningIds']):
+                dependencies.append(CoreConsumer.get_core_id_from(dependency))
+            return dependencies
         else:
             return []
 
@@ -68,13 +71,14 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         Returns:
             Alarm: an alarm based on the message content
         """
+        value_options = Value.get_choices_by_name()
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
         core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
         core_timestamp = CoreConsumer.get_timestamp_from(
             content['sentToBsdbTStamp'])
         params = {
-            'value': (1 if content['value'] == 'SET' else 0),
+            'value': value_options[content['value']],
             'core_timestamp': core_timestamp,
             'mode': mode_options[content['mode']],
             'validity': validity_options[content['iasValidity']],
@@ -119,36 +123,30 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         """
         Notifies the client of changes in an Alarm
         """
+        message = None
         if alarm is not None:
-            await self.send_json({
+            message = {
                 "payload": {
-                    "data": {
-                        'pk': None,
-                        'model': 'alarms.alarm',
-                        'fields': alarm.to_dict()
-                    },
+                    "data": alarm.to_dict(),
                     "action": action
                 },
                 "stream": "alarms",
-            })
+            }
         else:
-            await self.send_json({
+            message = {
                 "payload": {
                     "data": "Null Alarm",
                     "action": action
                 },
                 "stream": "alarms",
-            })
+            }
+        await self.send_json(message)
 
     async def send_alarms_status(self):
         queryset = AlarmCollection.update_all_alarms_validity()
         data = []
         for item in list(queryset.values()):
-            data.append({
-                'pk': None,
-                'model': 'alarms.alarm',
-                'fields': item.to_dict()
-            })
+            data.append(item.to_dict())
         await self.send_json({
             "payload": {
                 "data": data

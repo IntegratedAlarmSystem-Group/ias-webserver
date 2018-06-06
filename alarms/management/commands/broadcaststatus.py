@@ -10,6 +10,8 @@ import json
 from django.core.management.base import BaseCommand
 import tornado
 from tornado.websocket import websocket_connect
+from alarms.connectors import CdbConnector
+from ias_webserver.settings import BROADCAST_RATE_FACTOR
 
 DEFAULT_HOSTNAME = 'localhost'
 DEFAULT_PORT = '8000'
@@ -20,10 +22,13 @@ class WSClient():
     """ Tornado based websocket client """
 
     def __init__(self, url, options):
+        self.url = url
         self.options = options
         self.connection = None
-        self.url = url
-        self.ws = websocket_connect(
+        self.websocket_connect = None
+
+    def start_connection(self):
+        return websocket_connect(
             self.url,
             callback=self.on_open,
             on_message_callback=self.on_message
@@ -32,15 +37,29 @@ class WSClient():
     def on_open(self, f):
         try:
             self.connection = f.result()
+            print('Connected.')
         except Exception as e:
             print(e)
+            self.websocket_connect = None
 
     def on_message(self, message):
+        """ Callback on message
+        Note: None message is received if the connection is closed.
+        """
         if self.options['verbose']:
             print("Echo: {}".format(message))
+        if message is None:
+            print('Problem with the connection. Connection closed.')
+            self.connection = None
+            self.websocket_connect = None
 
-    def on_close(self):
-        print("Closed connection.")
+    def reconnect(self):
+        """ Reconnection method
+        This method is intended to be used by a tornado periodic callback
+        if there is no valid websocket client
+        """
+        print('Try reconnection')
+        self.websocket_connect = self.start_connection()
 
 
 class Command(BaseCommand):
@@ -73,12 +92,18 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """ Start periodic task and related ioloop"""
 
-        milliseconds_rate = DEFAULT_MILLISECONDS_RATE
+        milliseconds_rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR
+
         if options['rate'] is not None:
             milliseconds_rate = options['rate']*1000.0
 
         url = self.get_websocket_url(options)
         ws = WSClient(url, options)
+
+        log = \
+            'BROADCAST-STATUS | Sending global refresh to ' + str(url) + \
+            ' every ' + str(milliseconds_rate) + ' milliseconds.'
+        print(log)
 
         def trigger_broadcast():
             if ws.connection is not None:
@@ -90,8 +115,16 @@ class Command(BaseCommand):
                 }
                 ws.connection.write_message(json.dumps(msg))
 
-        task = tornado.ioloop.PeriodicCallback(
+        def ws_reconnection():
+            if ws.websocket_connect is None:
+                ws.reconnect()
+
+        main_task = tornado.ioloop.PeriodicCallback(
             trigger_broadcast, milliseconds_rate)
-        task.start()
+        main_task.start()
+
+        reconnection_task = tornado.ioloop.PeriodicCallback(
+            ws_reconnection, 1000)  # One second to evaluate reconnection
+        reconnection_task.start()
 
         tornado.ioloop.IOLoop.current().start()

@@ -1,5 +1,5 @@
 from django.test import TestCase
-from alarms.models import Alarm, Validity, OperationalMode
+from alarms.models import Alarm, Validity, OperationalMode, Value
 from alarms.connectors import CdbConnector as CdbConn
 from alarms.tests.factories import AlarmFactory
 from freezegun import freeze_time
@@ -15,7 +15,7 @@ class AlarmModelTestCase(TestCase):
         alarm = AlarmFactory.build()
         # Assert:
         self.assertTrue(
-            alarm.value is 0 or alarm.value is 1,
+            alarm.value in [int(x[0]) for x in Value.options()],
             'The value is not a valid option'
         )
         self.assertTrue(
@@ -23,7 +23,11 @@ class AlarmModelTestCase(TestCase):
             'The core_timestamp is not of type int'
         )
         self.assertTrue(
-            alarm.mode in [str(x[0]) for x in OperationalMode.options()],
+            type(alarm.state_change_timestamp) is int,
+            'The state_change_timestamp is not of type int'
+        )
+        self.assertTrue(
+            alarm.mode in [int(x[0]) for x in OperationalMode.options()],
             'The mode is not a valid option'
         )
         self.assertTrue(
@@ -39,7 +43,7 @@ class AlarmModelTestCase(TestCase):
             'The running_id has an unexpected value'
         )
         self.assertTrue(
-            alarm.validity in [str(x[0]) for x in Validity.options()],
+            alarm.validity in [int(x[0]) for x in Validity.options()],
             'The validity is not a valid option'
         )
         self.assertTrue(
@@ -54,6 +58,10 @@ class AlarmModelTestCase(TestCase):
             alarm.dependencies == [],
             'The default value of dependencies field must be an empty list'
         )
+        self.assertEqual(
+            alarm.ack, False,
+            'The default value of ack field must be False'
+        )
 
     def test_ignored_invalid_alarms_update(self):
         """ Test if the UNREALIABLE alarm keep the validity as UNREALIABLE
@@ -65,7 +73,7 @@ class AlarmModelTestCase(TestCase):
         alarm.update_validity()
         # Assert:
         self.assertEqual(
-            alarm.validity, '0',
+            alarm.validity, 0,
             'The validity must keep it UNREALIABLE even if the ' +
             'core_timestamp is current'
         )
@@ -79,7 +87,7 @@ class AlarmModelTestCase(TestCase):
         alarm.update_validity()
         # Assert:
         self.assertEqual(
-            alarm.validity, '1',
+            alarm.validity, 1,
             'The validity must keep it REALIABLE if the ' +
             'core_timestamp is current'
         )
@@ -100,7 +108,7 @@ class AlarmModelTestCase(TestCase):
             alarm.update_validity()
             # Assert:
             self.assertEqual(
-                alarm.validity, '0',
+                alarm.validity, 0,
                 'The validity is not being updated when the alarm is invalid' +
                 ' because of an old timestamp'
             )
@@ -133,4 +141,30 @@ class AlarmModelTestCase(TestCase):
         self.assertFalse(
             self.alarm.equals_except_timestamp(self.different_alarm),
             'Different alarms are recognized as equal'
+        )
+
+    def test_acknowledge_set_alarms(self):
+        """ Test if a SET alarm can be acknowledged """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.ack = False
+        alarm.value = 1
+        # Act:
+        alarm.acknowledge()
+        # Assert:
+        self.assertEquals(
+            alarm.ack, True, 'A SET Alarm could not be acknowledged'
+        )
+
+    def test_cannot_acknowledge_clear_alarms(self):
+        """ Test if a CLEAR alarm cannot be acknowledged """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.ack = False
+        alarm.value = 0
+        # Act:
+        alarm.acknowledge()
+        # Assert:
+        self.assertEquals(
+            alarm.ack, False, 'A CLEAR Alarm should not be acknowledged'
         )

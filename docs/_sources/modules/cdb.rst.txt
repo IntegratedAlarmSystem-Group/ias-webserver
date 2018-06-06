@@ -1,6 +1,13 @@
 cdb package
 ===========
 
+Subpackages
+-----------
+
+.. toctree::
+
+    cdb.tests
+
 Submodules
 ----------
 
@@ -36,10 +43,18 @@ cdb.routers module
     :undoc-members:
     :show-inheritance:
 
-cdb.tests module
-----------------
+cdb.serializers module
+----------------------
 
-.. automodule:: cdb.tests
+.. automodule:: cdb.serializers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cdb.urls module
+---------------
+
+.. automodule:: cdb.urls
     :members:
     :undoc-members:
     :show-inheritance:

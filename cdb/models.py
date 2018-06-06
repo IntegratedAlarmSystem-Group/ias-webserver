@@ -19,6 +19,9 @@ class Property(models.Model):
         db_table = 'PROPERTY'
         """ Corresponding name of the table in the database """
 
+        verbose_name_plural = 'properties'
+        """ Default name for display purposes """
+
     def __str__(self):
         """Return a human readable representation of the model instance."""
         return "{}".format(self.name)
@@ -60,13 +63,17 @@ class Ias(models.Model):
         db_table = 'IAS'
         """ Corresponding name of the table in the database """
 
+        verbose_name_plural = 'ias'
+        """ Default name for display purposes """
+
     def get_data(self):
+        """ Returns the values of the model fields in a dict format """
         properties = [prop.get_data() for prop in self.properties.all()]
         return {
             'log_level': self.log_level,
             'refresh_rate': self.refresh_rate,
             'tolerance': self.tolerance,
-            'properties': properties
+            'properties': properties,
         }
 
 
@@ -96,6 +103,7 @@ class Iasio(models.Model):
         """ Corresponding name of the table in the database """
 
     def get_data(self):
+        """ Returns the values of the model fields in a dict format """
         return {
             'io_id': self.io_id,
             'short_desc': self.short_desc,

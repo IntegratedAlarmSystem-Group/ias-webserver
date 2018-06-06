@@ -1,4 +1,5 @@
 from cdb.models import Iasio, Ias
+from tickets.models import Ticket, TicketStatus
 
 
 class CdbConnector():
@@ -32,3 +33,36 @@ class CdbConnector():
             self.tolerance = data['tolerance']*1000
         else:
             return None
+
+
+class TicketConnector():
+    """
+    This class defines methods to communicate the Alarm app with the Ticket app
+    """
+
+    @classmethod
+    def create_ticket(self, alarm_id):
+        """
+        Create a ticket for a given Alarm ID
+
+        Args:
+            alarm_id (string): ID of the Alarm associated to the ticket
+        """
+        Ticket.objects.create(alarm_id=alarm_id)
+
+    @classmethod
+    def close_ticket(self, alarm_id):
+        """
+        Closes a ticket for a given Alarm ID
+
+        Args:
+            alarm_id (string): ID of the Alarm associated to the ticket
+        """
+        queryset = Ticket.objects.filter(alarm_id=alarm_id)
+        queryset = queryset.filter(
+            status=int(TicketStatus.get_choices_by_name()['UNACK'])
+        )
+        for ticket in queryset:
+            ticket.acknowledge(
+                'The alarm was cleared before it was acknowledged'
+            )

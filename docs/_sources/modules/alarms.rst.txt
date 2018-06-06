@@ -1,6 +1,14 @@
 alarms package
 ==============
 
+Subpackages
+-----------
+
+.. toctree::
+
+    alarms.management
+    alarms.tests
+
 Submodules
 ----------
 
@@ -24,6 +32,14 @@ alarms.collections module
 -------------------------
 
 .. automodule:: alarms.collections
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.connectors module
+------------------------
+
+.. automodule:: alarms.connectors
     :members:
     :undoc-members:
     :show-inheritance:

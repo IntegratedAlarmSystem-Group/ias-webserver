@@ -12,6 +12,14 @@ alarms.tests.factories module
     :undoc-members:
     :show-inheritance:
 
+alarms.tests.tests\_broadcast module
+------------------------------------
+
+.. automodule:: alarms.tests.tests_broadcast
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alarms.tests.tests\_client\_consumer\_notify module
 ---------------------------------------------------
 
@@ -32,6 +40,14 @@ alarms.tests.tests\_collections module
 --------------------------------------
 
 .. automodule:: alarms.tests.tests_collections
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.tests.tests\_connectors module
+-------------------------------------
+
+.. automodule:: alarms.tests.tests_connectors
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,0 +1,179 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>alarms.management.commands package &#8212; IAS Web Server 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="alarms.tests package" href="alarms.tests.html" />
+    <link rel="prev" title="alarms.management package" href="alarms.management.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="alarms.tests.html" title="alarms.tests package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="alarms.management.html" title="alarms.management package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="alarms.html" >alarms package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="alarms.management.html" accesskey="U">alarms.management package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="alarms-management-commands-package">
+<h1>alarms.management.commands package<a class="headerlink" href="#alarms-management-commands-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-alarms.management.commands.broadcaststatus">
+<span id="alarms-management-commands-broadcaststatus-module"></span><h2>alarms.management.commands.broadcaststatus module<a class="headerlink" href="#module-alarms.management.commands.broadcaststatus" title="Permalink to this headline">¶</a></h2>
+<p>Broadcast alarm status command</p>
+<p>Command developed to broadcast the alarms list to clients
+subscribed to the webserver stream according to a selected rate</p>
+<dl class="class">
+<dt id="alarms.management.commands.broadcaststatus.Command">
+<em class="property">class </em><code class="descclassname">alarms.management.commands.broadcaststatus.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>stdout=None</em>, <em>stderr=None</em>, <em>no_color=False</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.management.commands.broadcaststatus.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.management.base.BaseCommand</span></code></p>
+<dl class="method">
+<dt id="alarms.management.commands.broadcaststatus.Command.add_arguments">
+<code class="descname">add_arguments</code><span class="sig-paren">(</span><em>parser</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.management.commands.broadcaststatus.Command.add_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command arguments setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.management.commands.broadcaststatus.Command.get_websocket_url">
+<code class="descname">get_websocket_url</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.management.commands.broadcaststatus.Command.get_websocket_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns websocket url of the ias webserver</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.management.commands.broadcaststatus.Command.handle">
+<code class="descname">handle</code><span class="sig-paren">(</span><em>*args</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.management.commands.broadcaststatus.Command.handle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start periodic task and related ioloop</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.management.commands.broadcaststatus.Command.help">
+<code class="descname">help</code><em class="property"> = 'Send a message via websockets to trigger the broadcast for the     current alarms list'</em><a class="headerlink" href="#alarms.management.commands.broadcaststatus.Command.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.management.commands.broadcaststatus.WSClient">
+<em class="property">class </em><code class="descclassname">alarms.management.commands.broadcaststatus.</code><code class="descname">WSClient</code><span class="sig-paren">(</span><em>url</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.management.commands.broadcaststatus.WSClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Tornado based websocket client</p>
+<dl class="method">
+<dt id="alarms.management.commands.broadcaststatus.WSClient.on_message">
+<code class="descname">on_message</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.management.commands.broadcaststatus.WSClient.on_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback on message
+Note: None message is received if the connection is closed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.management.commands.broadcaststatus.WSClient.on_open">
+<code class="descname">on_open</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.management.commands.broadcaststatus.WSClient.on_open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.management.commands.broadcaststatus.WSClient.reconnect">
+<code class="descname">reconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.management.commands.broadcaststatus.WSClient.reconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconnection method
+This method is intended to be used by a tornado periodic callback
+if there is no valid websocket client</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.management.commands.broadcaststatus.WSClient.start_connection">
+<code class="descname">start_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.management.commands.broadcaststatus.WSClient.start_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-alarms.management.commands">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-alarms.management.commands" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="alarms.management.html"
+                        title="previous chapter">alarms.management package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="alarms.tests.html"
+                        title="next chapter">alarms.tests package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="alarms.tests.html" title="alarms.tests package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="alarms.management.html" title="alarms.management package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="alarms.html" >alarms package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="alarms.management.html" >alarms.management package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Inria Chile.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

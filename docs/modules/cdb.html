@@ -4,18 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>cdb package &#8212; IAS Web Server 1.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="ias_webserver package" href="ias_webserver.html" />
+    <link rel="next" title="cdb.tests package" href="cdb.tests.html" />
     <link rel="prev" title="alarms.tests package" href="alarms.tests.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ias_webserver.html" title="ias_webserver package"
+          <a href="cdb.tests.html" title="cdb.tests package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="alarms.tests.html" title="alarms.tests package"
@@ -45,6 +45,20 @@
             
   <div class="section" id="cdb-package">
 <h1>cdb package<a class="headerlink" href="#cdb-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cdb.tests.html">cdb.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cdb.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cdb.tests.html#module-cdb.tests.tests_cdb_api">cdb.tests.tests_cdb_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cdb.tests.html#module-cdb.tests.tests_cdb_models">cdb.tests.tests_cdb_models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cdb.tests.html#module-cdb.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -76,6 +90,72 @@
 <div class="section" id="module-cdb.models">
 <span id="cdb-models-module"></span><h2>cdb.models module<a class="headerlink" href="#module-cdb.models" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="cdb.models.Ias">
+<em class="property">class </em><code class="descclassname">cdb.models.</code><code class="descname">Ias</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.models.Ias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Main configurations of the IAS system</p>
+<dl class="exception">
+<dt id="cdb.models.Ias.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#cdb.models.Ias.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cdb.models.Ias.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#cdb.models.Ias.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cdb.models.Ias.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.models.Ias.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the values of the model fields in a dict format</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Ias.id">
+<code class="descname">id</code><a class="headerlink" href="#cdb.models.Ias.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Id of the IAS System</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Ias.log_level">
+<code class="descname">log_level</code><a class="headerlink" href="#cdb.models.Ias.log_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log level to be used in all the components of the IAS System</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Ias.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#cdb.models.Ias.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Ias.properties">
+<code class="descname">properties</code><a class="headerlink" href="#cdb.models.Ias.properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>General properties of the Ias System</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Ias.refresh_rate">
+<code class="descname">refresh_rate</code><a class="headerlink" href="#cdb.models.Ias.refresh_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refresh Rate used by the different components of the IAS System</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cdb.models.Ias.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.models.Ias.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that saves changes to an IASIO in the CDB</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Ias.tolerance">
+<code class="descname">tolerance</code><a class="headerlink" href="#cdb.models.Ias.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tolerance to calculate the validity of the messages</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="cdb.models.Iasio">
 <em class="property">class </em><code class="descclassname">cdb.models.</code><code class="descname">Iasio</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.models.Iasio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
@@ -92,11 +172,10 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="cdb.models.Iasio.get_refresh_rate">
-<em class="property">classmethod </em><code class="descname">get_refresh_rate</code><span class="sig-paren">(</span><em>core_id</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.models.Iasio.get_refresh_rate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the refresh rate specified for an iasio or a default value
-if the iasio is not created in the database</p>
+<dl class="method">
+<dt id="cdb.models.Iasio.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.models.Iasio.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the values of the model fields in a dict format</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -116,12 +195,6 @@ if the iasio is not created in the database</p>
 <code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#cdb.models.Iasio.objects" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="cdb.models.Iasio.refresh_rate">
-<code class="descname">refresh_rate</code><a class="headerlink" href="#cdb.models.Iasio.refresh_rate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Refresh Rate</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="cdb.models.Iasio.save">
 <code class="descname">save</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.models.Iasio.save" title="Permalink to this definition">¶</a></dt>
@@ -132,6 +205,69 @@ if the iasio is not created in the database</p>
 <dt id="cdb.models.Iasio.short_desc">
 <code class="descname">short_desc</code><a class="headerlink" href="#cdb.models.Iasio.short_desc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Short description</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cdb.models.Property">
+<em class="property">class </em><code class="descclassname">cdb.models.</code><code class="descname">Property</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.models.Property" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Available java properties to be used in the IAS System</p>
+<dl class="exception">
+<dt id="cdb.models.Property.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#cdb.models.Property.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cdb.models.Property.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#cdb.models.Property.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cdb.models.Property.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.models.Property.get_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Property.ias_set">
+<code class="descname">ias_set</code><a class="headerlink" href="#cdb.models.Property.ias_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Property.id">
+<code class="descname">id</code><a class="headerlink" href="#cdb.models.Property.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Id of the property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Property.name">
+<code class="descname">name</code><a class="headerlink" href="#cdb.models.Property.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Property.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#cdb.models.Property.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.models.Property.value">
+<code class="descname">value</code><a class="headerlink" href="#cdb.models.Property.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the property</p>
 </dd></dl>
 
 </dd></dl>
@@ -173,29 +309,145 @@ database.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-cdb.tests">
-<span id="cdb-tests-module"></span><h2>cdb.tests module<a class="headerlink" href="#module-cdb.tests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cdb.serializers">
+<span id="cdb-serializers-module"></span><h2>cdb.serializers module<a class="headerlink" href="#module-cdb.serializers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cdb.tests.IasioModelTestCase">
-<em class="property">class </em><code class="descclassname">cdb.tests.</code><code class="descname">IasioModelTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.IasioModelTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
-<dl class="method">
-<dt id="cdb.tests.IasioModelTestCase.tearDown">
-<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.IasioModelTestCase.tearDown" title="Permalink to this definition">¶</a></dt>
-<dd><p>TestCase teardown</p>
+<dt id="cdb.serializers.IasSerializer">
+<em class="property">class </em><code class="descclassname">cdb.serializers.</code><code class="descname">IasSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.serializers.IasSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="cdb.serializers.IasSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#cdb.serializers.IasSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="cdb.serializers.IasSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#cdb.serializers.IasSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.serializers.IasSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#cdb.serializers.IasSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cdb.models.Ias" title="cdb.models.Ias"><code class="xref py py-class docutils literal notranslate"><span class="pre">cdb.models.Ias</span></code></a></p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="method">
-<dt id="cdb.tests.IasioModelTestCase.test_create_iasio">
-<code class="descname">test_create_iasio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.IasioModelTestCase.test_create_iasio" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if we can create an Iasio, with type in upper case</p>
+<dt id="cdb.serializers.IasSerializer.get_broadcast_factor">
+<code class="descname">get_broadcast_factor</code><span class="sig-paren">(</span><em>ias</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.serializers.IasSerializer.get_broadcast_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the rate in seconds at which the broadcast should be
+executed. Currently this is defines in ias_webserver.settings</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cdb.serializers.IasioSerializer">
+<em class="property">class </em><code class="descclassname">cdb.serializers.</code><code class="descname">IasioSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.serializers.IasioSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="cdb.serializers.IasioSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#cdb.serializers.IasioSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="cdb.serializers.IasioSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#cdb.serializers.IasioSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.serializers.IasioSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#cdb.serializers.IasioSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cdb.models.Iasio" title="cdb.models.Iasio"><code class="xref py py-class docutils literal notranslate"><span class="pre">cdb.models.Iasio</span></code></a></p>
+</dd></dl>
+
 </dd></dl>
 
 </dd></dl>
 
 </div>
+<div class="section" id="module-cdb.urls">
+<span id="cdb-urls-module"></span><h2>cdb.urls module<a class="headerlink" href="#module-cdb.urls" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-cdb.views">
 <span id="cdb-views-module"></span><h2>cdb.views module<a class="headerlink" href="#module-cdb.views" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cdb.views.IasViewSet">
+<em class="property">class </em><code class="descclassname">cdb.views.</code><code class="descname">IasViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.views.IasViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p>Provides API to perform the following actions in the Ias table:
+<cite>List</cite>, <cite>Create</cite>, <cite>Retrieve</cite>, <cite>Update</cite> and <cite>Destroy</cite>.</p>
+<dl class="attribute">
+<dt id="cdb.views.IasViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#cdb.views.IasViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.views.IasViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#cdb.views.IasViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.views.IasViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Ias: Ias object (1)&gt;]&gt;</em><a class="headerlink" href="#cdb.views.IasViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.views.IasViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#cdb.views.IasViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cdb.serializers.IasSerializer" title="cdb.serializers.IasSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">cdb.serializers.IasSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.views.IasViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#cdb.views.IasViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cdb.views.IasioViewSet">
+<em class="property">class </em><code class="descclassname">cdb.views.</code><code class="descname">IasioViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.views.IasioViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p>Provides API to perform the following actions in the Iasio table:
+<cite>List</cite>, <cite>Create</cite>, <cite>Retrieve</cite>, <cite>Update</cite> and <cite>Destroy</cite>.</p>
+<dl class="attribute">
+<dt id="cdb.views.IasioViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#cdb.views.IasioViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.views.IasioViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#cdb.views.IasioViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cdb.views.IasioViewSet.filtered_by_alarm">
+<code class="descname">filtered_by_alarm</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.views.IasioViewSet.filtered_by_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the list of iasios filtered by type alarm</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.views.IasioViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Iasio: Iasio object (WS-MeteoTB1-Temperature-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB1-Temperature)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB1-WindSpeed-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB1-WindSpeed)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB1-Humidity-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB1-Humidity)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB2-Temperature-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB2-Temperature)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB2-WindSpeed-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB2-WindSpeed)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB2-Humidity-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoTB2-Humidity)&gt;, &lt;Iasio: Iasio object (WS-MeteoOSF-Temperature-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoOSF-Temperature)&gt;, &lt;Iasio: Iasio object (WS-MeteoOSF-WindSpeed-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoOSF-WindSpeed)&gt;, &lt;Iasio: Iasio object (WS-MeteoOSF-Humidity-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoOSF-Humidity)&gt;, &lt;Iasio: Iasio object (WS-MeteoItinerant-WindSpeed-Value)&gt;, &lt;Iasio: Iasio object (WS-MeteoItinerant-WindSpeed)&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#cdb.views.IasioViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.views.IasioViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#cdb.views.IasioViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cdb.serializers.IasioSerializer" title="cdb.serializers.IasioSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">cdb.serializers.IasioSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cdb.views.IasioViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#cdb.views.IasioViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-cdb">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cdb" title="Permalink to this headline">¶</a></h2>
@@ -212,8 +464,8 @@ database.</p>
   <p class="topless"><a href="alarms.tests.html"
                         title="previous chapter">alarms.tests package</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="ias_webserver.html"
-                        title="next chapter">ias_webserver package</a></p>
+  <p class="topless"><a href="cdb.tests.html"
+                        title="next chapter">cdb.tests package</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <div class="searchformwrapper">
@@ -240,7 +492,7 @@ database.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ias_webserver.html" title="ias_webserver package"
+          <a href="cdb.tests.html" title="cdb.tests package"
              >next</a> |</li>
         <li class="right" >
           <a href="alarms.tests.html" title="alarms.tests package"
@@ -251,7 +503,7 @@ database.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Inria Chile.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
     </div>
   </body>
 </html>
