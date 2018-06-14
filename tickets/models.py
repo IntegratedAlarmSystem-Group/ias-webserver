@@ -128,16 +128,13 @@ class ShelveRegistry(models.Model):
             'status': self.status
         }
 
-    # def acknowledge(self, message):
-    #     """ Resolves the ticket modifying the status, the resolution timestamp
-    #     and the message """
-    #     if self.status == int(TicketStatus.get_choices_by_name()['ACK']):
-    #         return "ignored-ticket-ack"
-    #     if message.strip() is "":
-    #         return "ignored-wrong-message"
-    #
-    #     self.status = int(TicketStatus.get_choices_by_name()['ACK'])
-    #     self.acknowledged_at = timezone.now()
-    #     self.message = message
-    #     self.save()
-    #     return "solved"
+    def unshelve(self):
+        """ Unshelves the registry modifying the status and the resolution
+        timestamp """
+        status = int(ShelveRegistryStatus.get_choices_by_name()['UNSHELVED'])
+        if self.status == status:
+            return "ignored-unshelved-ack"
+        self.status = status
+        self.unshelved_at = timezone.now()
+        self.save()
+        return "unshelved"

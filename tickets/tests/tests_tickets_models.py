@@ -77,16 +77,19 @@ class TicketsModelsTestCase(TestCase):
 class ShelveRegistryModelsTestCase(TestCase):
     """This class defines the test suite for the ShelveRegistry model tests"""
 
+    def setUp(self):
+        self.alarm_id = 'alarm_id'
+        self.message = 'Shelving because of reasons'
+
     def test_create_registry(self):
         """ Test if we can create a shelve_registry"""
         resolution_dt = timezone.now()
         with freeze_time(resolution_dt):
             # Act:
             registry = ShelveRegistry(
-                alarm_id='alarm_id', message='Shelving because of reasons'
-            )
+                alarm_id=self.alarm_id, message=self.message)
             registry.save()
-            retrieved_reg = ShelveRegistry.objects.get(alarm_id='alarm_id')
+            retrieved_reg = ShelveRegistry.objects.get(alarm_id=self.alarm_id)
 
         # Asserts:
         self.assertEqual(
@@ -103,7 +106,7 @@ class ShelveRegistryModelsTestCase(TestCase):
             'When the registry is created the unshelved time must be none'
         )
         self.assertEqual(
-            retrieved_reg.message, 'Shelving because of reasons',
+            retrieved_reg.message, self.message,
             'When the registry is created the message must not be none'
         )
         self.assertEqual(
@@ -114,38 +117,34 @@ class ShelveRegistryModelsTestCase(TestCase):
     def test_cannot_create_registry_with_no_message(self):
         """ Test if we cannot create a shelve_registry without a message"""
         # Act:
-        registry = ShelveRegistry(alarm_id='alarm_id')
+        registry = ShelveRegistry(alarm_id=self.alarm_id)
         with self.assertRaises(ValueError):
             registry.save()
 
-    # def test_acknowledge_a_ticket(self):
-    #     """ Test if we can acknowledge a shelve_registry passing it a valid message """
-    #     # Arrange:
-    #     ticket = Ticket(alarm_id='alarm_id')
-    #     ticket.save()
-    #
-    #     # Act:
-    #     resolution_dt = timezone.now()
-    #     with freeze_time(resolution_dt):
-    #         response = ticket.acknowledge(message='This ticket was solved')
-    #         retrieved_ticket = Ticket.objects.get(alarm_id='alarm_id')
-    #
-    #         # Asserts:
-    #         self.assertEqual(
-    #             retrieved_ticket.status,
-    #             int(TicketStatus.get_choices_by_name()['ACK']),
-    #             'Solved ticket status must be closed (0)'
-    #         )
-    #         self.assertEqual(
-    #             retrieved_ticket.acknowledged_at, resolution_dt,
-    #             'When the ticket is solved the acknowledge_at time must be \
-    #             greater than the created_at datetime'
-    #         )
-    #         self.assertEqual(
-    #             retrieved_ticket.message, 'This ticket was solved',
-    #             'When the ticket is created the message must be none'
-    #         )
-    #         self.assertEqual(
-    #             response, 'solved',
-    #             'Valid resolution is not solved correctly'
-    #         )
+    def test_unshelve_a_registry(self):
+        """ Test if we can unshelve an alarm """
+        # Arrange:
+        registry = ShelveRegistry(alarm_id=self.alarm_id, message=self.message)
+        registry.save()
+
+        # Act:
+        resolution_dt = timezone.now()
+        with freeze_time(resolution_dt):
+            response = registry.unshelve()
+            retrieved_reg = ShelveRegistry.objects.get(alarm_id='alarm_id')
+
+        # Asserts:
+        self.assertEqual(
+            retrieved_reg.status,
+            int(ShelveRegistryStatus.get_choices_by_name()['UNSHELVED']),
+            'Solved registry status must be closed (0)'
+        )
+        self.assertEqual(
+            retrieved_reg.unshelved_at, resolution_dt,
+            'When the registry is unshelved the unshelved_at time must be \
+            greater than the shelved_at datetime'
+        )
+        self.assertEqual(
+            response, 'unshelved',
+            'Valid resolution is not unshelved correctly'
+        )
