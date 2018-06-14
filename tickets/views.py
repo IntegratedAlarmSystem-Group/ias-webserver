@@ -15,7 +15,7 @@ class TicketViewSet(viewsets.ModelViewSet):
 
     @action(detail=False)
     def filters(self, request):
-        """ Retrieve the list of iasios filtered by type alarm """
+        """ Retrieve the list of tickets filtered by type alarm """
         alarm_id = self.request.query_params.get('alarm_id', None)
         status = self.request.query_params.get('status', None)
         queryset = Ticket.objects.all()

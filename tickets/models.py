@@ -5,8 +5,10 @@ from utils.choice_enum import ChoiceEnum
 
 class TicketStatus(ChoiceEnum):
 
-    ACK = 1
     UNACK = 0
+    ACK = 1
+    CLEARED_UNACK = 2
+    CLEARED_ACK = 3
 
     @classmethod
     def options(cls):
@@ -22,6 +24,9 @@ class Ticket(models.Model):
 
     acknowledged_at = models.DateTimeField(null=True)
     """ Time when the ticket is updated """
+
+    cleared_at = models.DateTimeField(null=True)
+    """ Time when the associated alarm is cleared """
 
     alarm_id = models.CharField(max_length=64, db_index=True)
     """ Reference to the related alarm """
@@ -52,13 +57,36 @@ class Ticket(models.Model):
     def acknowledge(self, message):
         """ Resolves the ticket modifying the status, the resolution timestamp
         and the message """
-        if self.status == int(TicketStatus.get_choices_by_name()['ACK']):
+        ack = TicketStatus.get_choices_by_name()['ACK']
+        unack = TicketStatus.get_choices_by_name()['UNACK']
+        cleared_ack = TicketStatus.get_choices_by_name()['CLEARED_ACK']
+        cleared_unack = TicketStatus.get_choices_by_name()['CLEARED_UNACK']
+
+        if self.status == int(ack) or self.status == int(cleared_ack):
             return "ignored-ticket-ack"
         if message.strip() is "":
             return "ignored-wrong-message"
 
-        self.status = int(TicketStatus.get_choices_by_name()['ACK'])
+        if self.status == int(unack):
+            self.status = int(ack)
+        elif self.status == int(cleared_unack):
+            self.status = int(cleared_ack)
         self.acknowledged_at = timezone.now()
         self.message = message
         self.save()
         return "solved"
+
+    def clear(self):
+        """ Records the time when the associated alarm was cleared and update
+        the ticket state """
+        ack = TicketStatus.get_choices_by_name()['ACK']
+        unack = TicketStatus.get_choices_by_name()['UNACK']
+        cleared_ack = TicketStatus.get_choices_by_name()['CLEARED_ACK']
+        cleared_unack = TicketStatus.get_choices_by_name()['CLEARED_UNACK']
+
+        self.cleared_at = timezone.now()
+        if self.status == int(ack):
+            self.status = int(cleared_ack)
+        elif self.status == int(unack):
+            self.status = int(cleared_unack)
+        self.save()
