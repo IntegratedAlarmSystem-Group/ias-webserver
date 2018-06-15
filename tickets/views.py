@@ -26,30 +26,48 @@ class TicketViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-    @action(methods=['put'], detail=True)
-    def acknowledge(self, request, pk=None):
-        """ Acknowledge a ticket that implies change the status,
-        record message an the timestamp """
-        message = self.request.data['message']
-        ticket = Ticket.objects.filter(pk=pk).first()
-
-        if not ticket:
-            return Response(
-                "The ticket does not exist",
-                status=status.HTTP_404_NOT_FOUND
-            )
-        return self._apply_acknowledgement(message, ticket)
+    # @action(methods=['put'], detail=True)
+    # def acknowledge(self, request, pk=None):
+    #     """ Acknowledge a ticket that implies change the status,
+    #     record message an the timestamp """
+    #     message = self.request.data['message']
+    #     ticket = Ticket.objects.filter(pk=pk).first()
+    #
+    #     if not ticket:
+    #         return Response(
+    #             "The ticket does not exist",
+    #             status=status.HTTP_404_NOT_FOUND
+    #         )
+    #     return self._apply_acknowledgement(message, ticket)
 
     @action(methods=['put'], detail=False)
-    def acknowledge_many(self, request):
+    def acknowledge(self, request):
         """ Acknowledge multiple tickets with the same message and timestamp"""
         message = self.request.data['message']
         alarms_ids = self.request.data['alarms_ids']
+        filter = 'only-set'
+        if 'filter' in self.request.data:
+            filter = self.request.data['filter']
 
         queryset = Ticket.objects.filter(alarm_id__in=alarms_ids)
-        queryset = queryset.filter(
-            status=int(TicketStatus.get_choices_by_name()['UNACK'])
-        )
+
+        # possible unack states
+        unack = TicketStatus.get_choices_by_name()['UNACK']
+        cleared_unack = TicketStatus.get_choices_by_name()['CLEARED_UNACK']
+
+        if filter and filter == 'only-cleared':
+            queryset = queryset.filter(
+                status=int(cleared_unack)
+            )
+        elif filter and filter == 'all':
+            queryset = queryset.filter(
+                status__in=[int(unack), int(cleared_unack)]
+            )
+        elif (filter and filter == 'only-set') or not filter:
+            queryset = queryset.filter(
+                status=int(unack)
+            )
+
         return self._apply_acknowledgement(message, list(queryset))
 
     def _apply_acknowledgement(self, message, tickets):
@@ -64,15 +82,34 @@ class TicketViewSet(viewsets.ModelViewSet):
         if type(tickets) is not list:
             tickets = [tickets]
         # Acknowledge each ticket:
-        alarms_to_ack = []
+        alarms_to_ack = set()
         for ticket in tickets:
             response = ticket.acknowledge(message=message)
             if response == 'solved':
-                alarms_to_ack.append(ticket.alarm_id)
+                alarms_to_ack.add(ticket.alarm_id)
             else:
                 return Response(
                     'Unexpected response from a ticket acknowledgement',
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
-        AlarmConnector.acknowledge_alarms(alarms_to_ack)
-        return Response(alarms_to_ack, status=status.HTTP_200_OK)
+        list_of_alarms_to_ack = self._verify_acknowledge_alarms(
+            list(alarms_to_ack))
+        if list_of_alarms_to_ack:
+            AlarmConnector.acknowledge_alarms(list_of_alarms_to_ack)
+        return Response(list_of_alarms_to_ack, status=status.HTTP_200_OK)
+
+    def _verify_acknowledge_alarms(self, alarms_to_ack):
+        """Check the alarms list to build a new list that contains only the
+        alarms that have only ack or cleared_ack tickets"""
+        # possible unack states
+        unack = TicketStatus.get_choices_by_name()['UNACK']
+        cleared_unack = TicketStatus.get_choices_by_name()['CLEARED_UNACK']
+        completly_ack_alarms = []
+        for alarm_id in alarms_to_ack:
+            queryset = Ticket.objects.filter(alarm_id=alarm_id)
+            queryset = queryset.filter(
+                status__in=[int(unack), int(cleared_unack)]
+            )
+            if not queryset:
+                completly_ack_alarms.append(alarm_id)
+        return completly_ack_alarms
