@@ -405,14 +405,15 @@ class TestAlarmsCollection:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_new_set_alarm_ticket_is_ack_when_cleared(self, mocker):
+    async def test_new_set_alarm_ticket_is_updated_when_cleared(self, mocker):
         """ Test if a ticket is created when a new SET Alarm arrives,
-        and if the ticket is acknowledged when the Alarm changes to Clear """
+        and if the ticket is updated to cleared_ack or cleared_unack states
+        accordingly when the Alarm changes to Clear """
 
         # Mock AlarmCollection._create_ticket to assert if it was called
         # and avoid calling the real function
         mocker.patch.object(AlarmCollection, '_create_ticket')
-        mocker.patch.object(AlarmCollection, '_close_ticket')
+        mocker.patch.object(AlarmCollection, '_clear_ticket')
 
         # 1. Create SET Alarm:
         timestamp_1 = int(round(time.time() * 1000))
@@ -446,10 +447,10 @@ class TestAlarmsCollection:
         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
         retrieved_alarm = AlarmCollection.get(core_id)
         assert status == 'updated-alarm', 'The status must be updated-alarm'
-        assert retrieved_alarm.ack is True, \
-            'the Alarm must be acknowledged when it changes to CLEAR'
-        assert AlarmCollection._close_ticket.call_count == 1, \
-            'When the Alarm changes CLEAR, it should be acknowledged'
+        assert retrieved_alarm.ack is False, \
+            'the Alarm must not be acknowledged when it changes to CLEAR'
+        assert AlarmCollection._clear_ticket.call_count == 1, \
+            'When the Alarm changes CLEAR, the ticket should be updated'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
