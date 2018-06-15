@@ -10,13 +10,13 @@ from tickets.serializers import (
 
 
 class TicketViewSet(viewsets.ModelViewSet):
-    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Ias."""
+    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Tickets."""
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
 
     @action(detail=False)
     def filters(self, request):
-        """ Retrieve the list of iasios filtered by type alarm """
+        """ Retrieve the list of tickets filtered by alarm and status """
         alarm_id = self.request.query_params.get('alarm_id', None)
         status = self.request.query_params.get('status', None)
         queryset = Ticket.objects.all()
@@ -80,6 +80,19 @@ class TicketViewSet(viewsets.ModelViewSet):
 
 
 class ShelveRegistryViewSet(viewsets.ModelViewSet):
-    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Ias."""
+    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` ShelveRegistries"""
     queryset = ShelveRegistry.objects.all()
     serializer_class = ShelveRegistrySerializer
+
+    @action(detail=False)
+    def filters(self, request):
+        """ Retrieve the list of tickets filtered by alarm and status """
+        alarm_id = self.request.query_params.get('alarm_id', None)
+        status = self.request.query_params.get('status', None)
+        queryset = ShelveRegistry.objects.all()
+        if alarm_id:
+            queryset = queryset.filter(alarm_id=alarm_id)
+        if status:
+            queryset = queryset.filter(status=status)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
