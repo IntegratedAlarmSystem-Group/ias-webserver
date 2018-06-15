@@ -121,8 +121,8 @@ class ShelveRegistry(models.Model):
     def to_dict(self):
         """ Return the shelve_registry as a dictionary """
         return {
-            'shelved_at': self.shelved_at,
-            'unshelved_at': self.unshelved_at,
+            'shelved_at': str(self.shelved_at),
+            'unshelved_at': str(self.unshelved_at),
             'alarm_id': self.alarm_id,
             'message': self.message,
             'status': self.status

@@ -1,10 +1,11 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from tickets.models import Ticket, TicketStatus
+from tickets.models import Ticket, TicketStatus, ShelveRegistry
 from tickets.connectors import AlarmConnector
 from tickets.serializers import (
-    TicketSerializer
+    TicketSerializer,
+    ShelveRegistrySerializer,
 )
 
 
@@ -76,3 +77,9 @@ class TicketViewSet(viewsets.ModelViewSet):
                 )
         AlarmConnector.acknowledge_alarms(alarms_to_ack)
         return Response(alarms_to_ack, status=status.HTTP_200_OK)
+
+
+class ShelveRegistryViewSet(viewsets.ModelViewSet):
+    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Ias."""
+    queryset = ShelveRegistry.objects.all()
+    serializer_class = ShelveRegistrySerializer
