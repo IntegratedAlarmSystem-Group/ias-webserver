@@ -110,7 +110,7 @@ class ShelveRegistry(models.Model):
 
     def __str__(self):
         """ Return a string representation of the shelve_registry """
-        return str(self.created_at) + ' - ' + self.alarm_id
+        return str(self.shelved_at) + ' - ' + self.alarm_id
 
     def save(self, *args, **kwargs):
         """ Check if the message is not empty before saving """

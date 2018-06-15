@@ -14,38 +14,34 @@ class ShelveRegistrysApiTestCase(TestCase):
         # Arrange:
         """Define the test suite setup"""
         self.message = 'Shelved because of reasons'
-        self.registry_shelved = ShelveRegistry(
+        self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message
         )
-        self.registry_shelved.save()
-
-        self.registry_unshelved = ShelveRegistry(
-            alarm_id='alarm_1',
-            message=self.message
-        )
-        self.registry_unshelved.save()
-        self.registry_unshelved.unshelve()
-
-        self.registry_other = ShelveRegistry(
+        self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message
         )
-        self.registry_other.save()
+        self.registry_2.unshelve()
+        self.registry_3 = ShelveRegistry.objects.create(
+            alarm_id='alarm_3',
+            message=self.message
+        )
         self.client = APIClient()
 
+    # ******* CREATE
     def test_api_can_create_registry(self):
         """ Test that the api can create a registry """
         # Arrange
         new_reg_data = {
-            'alarm_id': 'alarm_3',
+            'alarm_id': 'alarm_4',
             'message': self.message
         }
         # Act:
         url = reverse('shelveregistry-list')
         self.response = self.client.post(url, new_reg_data, format='json')
         # Assert:
-        expected_reg = ShelveRegistry.objects.get(
+        created_reg = ShelveRegistry.objects.get(
             alarm_id=new_reg_data['alarm_id']
         )
         self.assertEqual(
@@ -54,21 +50,27 @@ class ShelveRegistrysApiTestCase(TestCase):
             'The server did not create the registry'
         )
         self.assertEqual(
+            {'alarm_id': created_reg.alarm_id, 'message': created_reg.message},
+            new_reg_data,
+            'The created registry does not match the data sent in the request'
+        )
+        self.assertEqual(
             self.response.data,
-            ShelveRegistrySerializer(expected_reg).data
+            ShelveRegistrySerializer(created_reg).data,
+            'The response does not match the created registry'
         )
 
     def test_api_cannot_create_registry_with_no_message(self):
         """ Test that the api cannot create a registry without a message """
         # Arrange:
         new_reg_data = {
-            'alarm_id': 'alarm_3'
+            'alarm_id': 'alarm_4'
         }
         # Act:
         url = reverse('shelveregistry-list')
         self.response = self.client.post(url, new_reg_data, format='json')
         # Assert:
-        expected_reg = list(
+        created_reg = list(
             ShelveRegistry.objects.filter(alarm_id=new_reg_data['alarm_id'])
         )
         self.assertEqual(
@@ -77,19 +79,20 @@ class ShelveRegistrysApiTestCase(TestCase):
             'The server created the registry'
         )
         self.assertEqual(
-            expected_reg,
+            created_reg,
             [],
             'The registry was created'
         )
 
+    # ******* RETRIEVE
     def test_api_can_retrieve_registry(self):
         """ Test that the api can retrieve a registry """
         # Arrange:
-        expected_reg = ShelveRegistry.objects.get(pk=self.registry_shelved.pk)
+        expected_reg = ShelveRegistry.objects.get(pk=self.registry_1.pk)
         # Act:
         url = reverse(
             'shelveregistry-detail',
-            kwargs={'pk': self.registry_shelved.pk}
+            kwargs={'pk': self.registry_1.pk}
         )
         self.response = self.client.get(url, format='json')
         # Assert:
@@ -106,9 +109,9 @@ class ShelveRegistrysApiTestCase(TestCase):
     def test_api_can_list_registries(self):
         """Test that the api can list the ShelveRegistries"""
         registries = [
-            self.registry_shelved,
-            self.registry_unshelved,
-            self.registry_other
+            self.registry_1,
+            self.registry_2,
+            self.registry_3
         ]
         expected_registries_data = [
             ShelveRegistrySerializer(t).data for t in registries]
@@ -128,10 +131,100 @@ class ShelveRegistrysApiTestCase(TestCase):
             'The retrieved registries do not match the expected ones'
         )
 
+    # ******* UPDATE
+    def test_api_can_update_registry(self):
+        """ Test that the api can update a registry """
+        # Arrange
+        new_reg_data = {
+            'alarm_id': self.registry_1.alarm_id,
+            'message': 'Another message'
+        }
+        # Act:
+        url = reverse(
+            'shelveregistry-detail',
+            kwargs={'pk': self.registry_1.pk}
+        )
+        self.response = self.client.put(url, new_reg_data, format='json')
+        # Assert:
+        updated_reg = ShelveRegistry.objects.get(
+            alarm_id=self.registry_1.alarm_id
+        )
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The server did not update the registry'
+        )
+        self.assertEqual(
+            {'alarm_id': updated_reg.alarm_id, 'message': updated_reg.message},
+            new_reg_data,
+            'The updated registry does not match the data sent in the request'
+        )
+        self.assertEqual(
+            self.response.data,
+            ShelveRegistrySerializer(updated_reg).data,
+            'The response does not match the updated registry'
+        )
+
+    def test_api_cannot_update_registry_to_have_no_message(self):
+        """ Test that the api cannot update a registry and leave it without
+        a message """
+        # Arrange
+        new_reg_data = {
+            'alarm_id': self.registry_1.alarm_id,
+            'message': ''
+        }
+        # Act:
+        url = reverse(
+            'shelveregistry-detail',
+            kwargs={'pk': self.registry_1.pk}
+        )
+        self.response = self.client.put(url, new_reg_data, format='json')
+        # Assert:
+        udated_reg = ShelveRegistry.objects.get(
+            alarm_id=self.registry_1.alarm_id
+        )
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_400_BAD_REQUEST,
+            'The server updated the registry'
+        )
+        self.assertEqual(
+            {
+                'alarm_id': udated_reg.alarm_id,
+                'message': udated_reg.message
+            },
+            {
+                'alarm_id': self.registry_1.alarm_id,
+                'message': self.registry_1.message
+            },
+            'The the registry was updated with an empty message'
+        )
+
+    # ******* DESTROY
+    def test_api_can_delete_a_registry(self):
+        """ Test that the api can delete a registry """
+        # Arrange:
+        # Act:
+        url = reverse(
+            'shelveregistry-detail',
+            kwargs={'pk': self.registry_1.pk}
+        )
+        self.response = self.client.delete(url, format='json')
+        # Assert:
+        retrieved_reg = list(
+            ShelveRegistry.objects.filter(pk=self.registry_1.pk)
+        )
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_204_NO_CONTENT,
+            'The server did not delete the registry'
+        )
+        self.assertEqual(retrieved_reg, [], 'The registry was not deleted')
+
     # def test_api_can_filter_registries_by_alarm_and_status(self):
     #     """Test that the api can list the ShelveRegistrys filtered by alarm id
     #     and status"""
-    #     expected_registries_data = [ShelveRegistrySerializer(self.registry_shelved).data]
+    #     expected_registries_data = [ShelveRegistrySerializer(self.registry_1).data]
     #     # Act:
     #     url = reverse('registry-filters')
     #     data = {
@@ -154,7 +247,7 @@ class ShelveRegistrysApiTestCase(TestCase):
     #
     # def test_api_can_filter_registries_by_alarm(self):
     #     """Test that the api can list the ShelveRegistrys filtered by alarm id"""
-    #     registries = [self.registry_shelved, self.registry_unshelved]
+    #     registries = [self.registry_1, self.registry_2]
     #     expected_registries_data = [ShelveRegistrySerializer(t).data for t in registries]
     #     # Act:
     #     url = reverse('registry-filters')
@@ -177,7 +270,7 @@ class ShelveRegistrysApiTestCase(TestCase):
     #
     # def test_api_can_filter_registries_by_status(self):
     #     """Test that the api can list the ShelveRegistrys filtered by status"""
-    #     registries = [self.registry_shelved, self.registry_other]
+    #     registries = [self.registry_1, self.registry_3]
     #     expected_registries_data = [ShelveRegistrySerializer(t).data for t in registries]
     #     # Act:
     #     url = reverse('registry-filters')
@@ -205,7 +298,7 @@ class ShelveRegistrysApiTestCase(TestCase):
     #     """Test that the api can ack an unacknowledged registry"""
     #     # Act:
     #     url = reverse(
-    #         'registry-acknowledge', kwargs={'pk': self.registry_shelved.pk})
+    #         'registry-acknowledge', kwargs={'pk': self.registry_1.pk})
     #     data = {
     #         'message': 'The registry was acknowledged'
     #     }
@@ -216,7 +309,7 @@ class ShelveRegistrysApiTestCase(TestCase):
     #         status.HTTP_200_OK,
     #         'The Server did not retrieve the filtered registries'
     #     )
-    #     acknowledged_registry = ShelveRegistry.objects.get(pk=self.registry_shelved.pk)
+    #     acknowledged_registry = ShelveRegistry.objects.get(pk=self.registry_1.pk)
     #     self.assertEqual(
     #         acknowledged_registry.status,
     #         int(ShelveRegistryStatus.get_choices_by_name()['ACK']),
@@ -235,7 +328,7 @@ class ShelveRegistrysApiTestCase(TestCase):
     #         'AlarmConnector.acknowledge_alarms should have been called'
     #     )
     #     AlarmConnector_acknowledge_alarms.assert_called_with(
-    #         [self.registry_shelved.alarm_id]
+    #         [self.registry_1.alarm_id]
     #     )
     #
     # def test_api_can_not_acknowledge_a_registry_without_message(self):
@@ -243,7 +336,7 @@ class ShelveRegistrysApiTestCase(TestCase):
     #     message"""
     #     # Act:
     #     url = reverse(
-    #         'registry-acknowledge', kwargs={'pk': self.registry_shelved.pk})
+    #         'registry-acknowledge', kwargs={'pk': self.registry_1.pk})
     #     data = {
     #         'message': ' '
     #     }
@@ -255,7 +348,7 @@ class ShelveRegistrysApiTestCase(TestCase):
     #         'The Server must not retrieve the filtered registries without a valid \
     #         message'
     #     )
-    #     acknowledged_registry = ShelveRegistry.objects.get(pk=self.registry_shelved.pk)
+    #     acknowledged_registry = ShelveRegistry.objects.get(pk=self.registry_1.pk)
     #     self.assertEqual(
     #         acknowledged_registry.status,
     #         int(ShelveRegistryStatus.get_choices_by_name()['UNACK']),
@@ -296,8 +389,8 @@ class ShelveRegistrysApiTestCase(TestCase):
     #         'The response is not as expected'
     #     )
     #     acknowledged_registries = [
-    #         ShelveRegistry.objects.get(pk=self.registry_shelved.pk),
-    #         ShelveRegistry.objects.get(pk=self.registry_other.pk)
+    #         ShelveRegistry.objects.get(pk=self.registry_1.pk),
+    #         ShelveRegistry.objects.get(pk=self.registry_3.pk)
     #     ]
     #     expected_status = int(ShelveRegistryStatus.get_choices_by_name()['ACK'])
     #     self.assertTrue(
