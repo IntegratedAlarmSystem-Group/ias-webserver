@@ -343,3 +343,45 @@ class ShelveRegistrysApiTestCase(TestCase):
             unshelved_registry.unshelved_at, None,
             'The unshelved_at datetime was not correctly recorded'
         )
+
+    def test_api_can_unshelve_multiple_registries(self):
+        """Test that the api can unshelve multiple ununshelved registries"""
+        # Act:
+        url = reverse('shelveregistry-unshelve-many')
+        alarms_to_ack = ['alarm_1', 'alarm_2']
+        data = {
+            'alarms_ids': alarms_to_ack
+        }
+        self.response = self.client.put(url, data, format="json")
+        # Assert:
+        print(self.response.data)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The status of the response is incorrect'
+        )
+        self.assertEqual(
+            self.response.data,
+            alarms_to_ack,
+            'The response is not as expected'
+        )
+        unshelved_registries = [
+            ShelveRegistry.objects.get(pk=self.registry_1.pk),
+            ShelveRegistry.objects.get(pk=self.registry_3.pk)
+        ]
+        expected_status = int(
+            ShelveRegistryStatus.get_choices_by_name()['UNSHELVED']
+        )
+        self.assertTrue(
+            unshelved_registries[0].status == expected_status and
+            unshelved_registries[1].status == expected_status,
+            'The registries was not correctly unshelved'
+        )
+        self.assertNotEqual(
+            unshelved_registries[0].unshelved_at, None,
+            'The first registry unshelving time was not correctly recorded'
+        )
+        self.assertNotEqual(
+            unshelved_registries[1].unshelved_at, None,
+            'The second registry unshelving time was not correctly recorded'
+        )

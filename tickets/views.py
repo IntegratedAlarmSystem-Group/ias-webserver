@@ -1,8 +1,12 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from tickets.models import Ticket, TicketStatus, ShelveRegistry
 from tickets.connectors import AlarmConnector
+from tickets.models import (
+    Ticket, TicketStatus,
+    ShelveRegistry,
+    ShelveRegistryStatus
+)
 from tickets.serializers import (
     TicketSerializer,
     ShelveRegistrySerializer,
@@ -109,3 +113,32 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
         return Response(registry.unshelve(), status=status.HTTP_200_OK)
+
+    @action(methods=['put'], detail=False)
+    def unshelve_many(self, request):
+        """ Unshelve multiple registries """
+        alarms_ids = self.request.data['alarms_ids']
+
+        queryset = ShelveRegistry.objects.filter(alarm_id__in=alarms_ids)
+        queryset = queryset.filter(
+            status=int(ShelveRegistryStatus.get_choices_by_name()['SHELVED'])
+        )
+        return self._apply_unshelving(list(queryset))
+
+    def _apply_unshelving(self, registries):
+        """ Applies the unshelving to a single or multiple registries """
+        # Handle either single or multiple registries:
+        if type(registries) is not list:
+            registries = [registries]
+        # Unshelve each registry:
+        alarms_to_unshelve = []
+        for registry in registries:
+            response = registry.unshelve()
+            if response == 'unshelved':
+                alarms_to_unshelve.append(registry.alarm_id)
+            else:
+                return Response(
+                    'Unexpected response from a registry unshelving',
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+        return Response(alarms_to_unshelve, status=status.HTTP_200_OK)
