@@ -319,3 +319,27 @@ class ShelveRegistrysApiTestCase(TestCase):
             expected_registries_data,
             'The retrieved filtered registries do not match the expected ones'
         )
+
+    # ******* UNSHELVE
+    def test_api_can_unshelve_a_registry(self):
+        """Test that the api can unshelve a registry"""
+        # Act:
+        url = reverse(
+            'shelveregistry-unshelve', kwargs={'pk': self.registry_1.pk})
+        self.response = self.client.put(url, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The Server did not unsheved the registry'
+        )
+        unshelved_registry = ShelveRegistry.objects.get(pk=self.registry_1.pk)
+        self.assertEqual(
+            unshelved_registry.status,
+            int(ShelveRegistryStatus.get_choices_by_name()['UNSHELVED']),
+            'The registry was not correctly unshelved'
+        )
+        self.assertNotEqual(
+            unshelved_registry.unshelved_at, None,
+            'The unshelved_at datetime was not correctly recorded'
+        )

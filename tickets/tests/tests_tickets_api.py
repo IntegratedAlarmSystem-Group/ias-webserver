@@ -149,7 +149,7 @@ class TicketsApiTestCase(TestCase):
         self.assertEqual(
             self.response.status_code,
             status.HTTP_200_OK,
-            'The Server did not retrieve the filtered tickets'
+            'The Server did not acknowledged the ticket'
         )
         acknowledged_ticket = Ticket.objects.get(pk=self.ticket_unack.pk)
         self.assertEqual(
