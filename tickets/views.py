@@ -26,20 +26,6 @@ class TicketViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-    # @action(methods=['put'], detail=True)
-    # def acknowledge(self, request, pk=None):
-    #     """ Acknowledge a ticket that implies change the status,
-    #     record message an the timestamp """
-    #     message = self.request.data['message']
-    #     ticket = Ticket.objects.filter(pk=pk).first()
-    #
-    #     if not ticket:
-    #         return Response(
-    #             "The ticket does not exist",
-    #             status=status.HTTP_404_NOT_FOUND
-    #         )
-    #     return self._apply_acknowledgement(message, ticket)
-
     @action(methods=['put'], detail=False)
     def acknowledge(self, request):
         """ Acknowledge multiple tickets with the same message and timestamp"""
