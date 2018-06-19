@@ -382,6 +382,47 @@ class AlarmCollection:
         else:
             return 'ignored-non-existing-alarm'
 
+    @classmethod
+    async def shelve(self, core_id):
+        """
+        Shelves an alarm
+
+        Args:
+            core_id (string): core_ids of the Alarm to shelve
+        """
+        alarm = self.singleton_collection[core_id]
+        if alarm.shelve():
+            await self.notify_observers(alarm, 'update')
+            return True
+        else:
+            return False
+
+    @classmethod
+    async def unshelve(self, core_ids):
+        """
+        Unshelves an alarm or a list of Alarms
+
+        Args:
+            core_ids (list or string): list of core_ids (or a single core_id)
+            of the Alarms to unshelve
+        """
+        if type(core_ids) is not list:
+            core_ids = [core_ids]
+
+        alarms = []
+        for core_id in core_ids:
+            alarm = self.singleton_collection[core_id]
+            if alarm.unshelve():
+                alarms.append(alarm)
+
+        if alarms:
+            await asyncio.gather(
+                *[self.notify_observers(alarm, 'update') for alarm in alarms]
+            )
+            return True
+        else:
+            return False
+
 
 class AlarmCollectionObserver(abc.ABC):
     """

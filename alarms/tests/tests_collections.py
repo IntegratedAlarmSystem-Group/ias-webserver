@@ -523,3 +523,39 @@ class TestAlarmsCollection:
             assert alarm.validity == 0, \
                 'The alarm {} was not correctly invalidated'.format(
                     alarm.core_id)
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_alarm_shelving(self):
+        """ Test if an alarm can be shelved and unshelved """
+        # 1. Create Alarm:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+        alarm_1 = Alarm(
+            value=0,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'created-alarm', 'The status must be created-alarm'
+        assert retrieved_alarm.shelved is False, \
+            'A new Alarm must be unshelved'
+
+        # 2. Shelve Alarm:
+        status = await AlarmCollection.shelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status is True, 'The status must be True'
+        assert retrieved_alarm.shelved is True, \
+            'When an Alarm is shelved its shelved status should be True'
+
+        # 3. Unshelve Alarm:
+        status = await AlarmCollection.unshelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status is True, 'The status must be True'
+        assert retrieved_alarm.shelved is False, \
+            'When an Alarm is unshelved its shelved status should be False'
