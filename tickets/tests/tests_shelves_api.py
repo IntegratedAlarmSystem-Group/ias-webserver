@@ -348,13 +348,13 @@ class ShelveRegistrysApiTestCase(TestCase):
         """Test that the api can unshelve multiple ununshelved registries"""
         # Act:
         url = reverse('shelveregistry-unshelve-many')
-        alarms_to_ack = ['alarm_1', 'alarm_2']
+        alarms_to_unshelve = ['alarm_1', 'alarm_2', 'alarm_3']
+        expected_unshelved_alarms = ['alarm_1', 'alarm_3']
         data = {
-            'alarms_ids': alarms_to_ack
+            'alarms_ids': alarms_to_unshelve
         }
         self.response = self.client.put(url, data, format="json")
         # Assert:
-        print(self.response.data)
         self.assertEqual(
             self.response.status_code,
             status.HTTP_200_OK,
@@ -362,7 +362,7 @@ class ShelveRegistrysApiTestCase(TestCase):
         )
         self.assertEqual(
             self.response.data,
-            alarms_to_ack,
+            expected_unshelved_alarms,
             'The response is not as expected'
         )
         unshelved_registries = [
