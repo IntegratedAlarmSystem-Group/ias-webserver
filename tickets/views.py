@@ -124,21 +124,8 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-    @action(methods=['put'], detail=True)
-    def unshelve(self, request, pk=None):
-        """ Unshelve a registry that implies change the status,
-        record message an the timestamp """
-        registry = ShelveRegistry.objects.filter(pk=pk).first()
-
-        if not registry:
-            return Response(
-                "The registry does not exist",
-                status=status.HTTP_404_NOT_FOUND
-            )
-        return Response(registry.unshelve(), status=status.HTTP_200_OK)
-
     @action(methods=['put'], detail=False)
-    def unshelve_many(self, request):
+    def unshelve(self, request):
         """ Unshelve multiple registries """
         alarms_ids = self.request.data['alarms_ids']
 
