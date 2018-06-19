@@ -63,7 +63,7 @@ class Alarm:
 
     def __init__(self, core_timestamp, core_id, running_id, value=0, mode=0,
                  validity=0, dependencies=[], properties={}, timestamps={},
-                 ack=False, state_change_timestamp=0):
+                 ack=False, shelved=False, state_change_timestamp=0):
         """ Constructor of the class,
         only executed when there a new instance is created.
         Receives and validates values for the attributes of the object """
@@ -78,6 +78,7 @@ class Alarm:
         self.properties = self.__check_dict_type(properties)      # optional
         self.timestamps = self.__check_dict_type(timestamps)      # optional
         self.ack = self.__check_ack(ack)
+        self.shelved = self.__check_shelved(ack)
         self.state_change_timestamp = self.__check_int_type(
             state_change_timestamp)
 
@@ -131,6 +132,14 @@ class Alarm:
             return field
 
     def __check_ack(self, ack):
+        """ Validates the Alarm shelving status.
+        Which should be True if the Alarm is shelved and False if not """
+        if ack not in [True, False]:
+            raise TypeError
+        else:
+            return ack
+
+    def __check_shelved(self, ack):
         """ Validates the Alarm ack status.
         Which should be True if the Alarm is acknowledged and False if not """
         if ack not in [True, False]:
@@ -156,6 +165,7 @@ class Alarm:
             'properties': self.properties,
             'dependencies': self.dependencies,
             'ack': self.ack,
+            'shelved': self.shelved,
         }
 
     def equals_except_timestamp(self, alarm):
@@ -207,6 +217,30 @@ class Alarm:
         else:
             self.ack = ack
             return self.ack
+
+    def shelve(self):
+        """
+        Shelves the Alarm
+
+        Returns:
+            boolean: True if it was shelved, False if not
+        """
+        if self.shelved:
+            return False
+        self.shelved = True
+        return True
+
+    def unshelve(self):
+        """
+        Unshelves the Alarm
+
+        Returns:
+            boolean: True if it was unshelved, False if not
+        """
+        if not self.shelved:
+            return False
+        self.shelved = False
+        return True
 
     def is_set(self):
         return True if self.value not in Value.unset_options() else False
