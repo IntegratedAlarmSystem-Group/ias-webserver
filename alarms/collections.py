@@ -56,14 +56,14 @@ class AlarmCollection:
         return TicketConnector.create_ticket(core_id)
 
     @classmethod
-    def _close_ticket(self, core_id):
+    def _clear_ticket(self, core_id):
         """
-        Closes the open tickets for an specified Alarm ID
+        Clear the open tickets for an specified Alarm ID
 
         Args:
             core_id (string): Core ID of the Alarm associated to the Ticket
         """
-        return TicketConnector.close_ticket(core_id)
+        return TicketConnector.clear_ticket(core_id)
 
     # Private methods used to update the parent collection dictionary
     @classmethod
@@ -235,9 +235,8 @@ class AlarmCollection:
             # If the value changed from set to clear,
             # the status is acknowledged and the ticket is closed
             elif stored_alarm.is_set() and alarm.is_not_set():
-                alarm.ack = True
                 alarm.state_change_timestamp = alarm.core_timestamp
-                self._close_ticket(alarm.core_id)
+                self._clear_ticket(alarm.core_id)
 
             if stored_alarm.mode != alarm.mode:
                 alarm.state_change_timestamp = alarm.core_timestamp

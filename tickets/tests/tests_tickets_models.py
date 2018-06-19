@@ -31,6 +31,10 @@ class TicketsModelsTestCase(TestCase):
                 'When the ticket is created the acknowledged time must be none'
             )
             self.assertEqual(
+                retrieved_ticket.cleared_at, None,
+                'When the ticket is created the cleared time must be none'
+            )
+            self.assertEqual(
                 retrieved_ticket.message, None,
                 'When the ticket is created the message must be none'
             )
