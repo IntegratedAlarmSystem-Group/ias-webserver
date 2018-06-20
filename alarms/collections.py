@@ -44,7 +44,7 @@ class AlarmCollection:
             *[observer.send_alarms_status() for observer in self.observers]
         )
 
-    # Private methods used to call TIcketConnector:
+    # Private methods used to call TicketConnector:
     @classmethod
     def _create_ticket(self, core_id):
         """
@@ -175,6 +175,7 @@ class AlarmCollection:
             alarm.ack = True
         else:
             alarm.ack = False
+            # alarm.state_change_timestamp = alarm.core_timestamp
             self._create_ticket(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         self._update_parents_collection(alarm)
