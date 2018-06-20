@@ -1,10 +1,10 @@
-from alarms.interfaces import IAlarms
+from asgiref.sync import async_to_sync
+from alarms.collections import AlarmCollection
 
 
-class AlarmConnector:
-    """
-    This class defines methods to communicate the Ticket app with the Alarm app
-    """
+class IAlarms:
+    """ This class defines the methods that the Alarms app provides to be used
+    by other apps """
 
     @classmethod
     def acknowledge_alarms(self, alarm_ids):
@@ -14,7 +14,7 @@ class AlarmConnector:
         Args:
             alarms_id (list): List of IDs of the Alarms to acknowledge
         """
-        IAlarms.acknowledge_alarms(alarm_ids)
+        async_to_sync(AlarmCollection.acknowledge)(alarm_ids)
 
     @classmethod
     def shelve_alarm(self, alarm_id):
@@ -24,7 +24,7 @@ class AlarmConnector:
         Args:
             alarm_id (string): ID of the Alarms to shelve
         """
-        IAlarms.shelve_alarm(alarm_id)
+        async_to_sync(AlarmCollection.shelve)(alarm_id)
 
     @classmethod
     def unshelve_alarm(self, alarm_id):
@@ -34,4 +34,4 @@ class AlarmConnector:
         Args:
             alarm_id (string): ID of the Alarms to unshelve
         """
-        IAlarms.unshelve_alarm(alarm_id)
+        async_to_sync(AlarmCollection.unshelve)(alarm_id)

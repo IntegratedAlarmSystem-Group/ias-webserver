@@ -1,27 +1,46 @@
 import pytest
 from pytest_mock import mocker
 from tickets.connectors import AlarmConnector
-from alarms.collections import AlarmCollection
+from alarms.interfaces import IAlarms
 
 
-class AlarmConnectorTestCase:
+class XTestAlarmConnector:
     """This class defines the test suite for the Alarms Connector"""
 
     @pytest.mark.asyncio
     def test_acknowledge_alarms(self, mocker):
         """
         Test that AlarmConnector.acknowledge_alarms calls
-        AlarmCollection.acknowledge
+        IAlarms.acknowledge_alarms
         """
         # Arrange:
-        # Mock AlarmCollection.acknowledge to assert if it was called
+        # Mock IAlarms.acknowledge_alarms to assert if it was called
         # and avoid calling the real function
-        mocker.patch.object(AlarmCollection, 'acknowledge')
-        AlarmCollection.reset()
+        mocker.patch.object(IAlarms, 'acknowledge_alarms')
         core_ids = ['MOCK-ALARM']
         # Act:
         AlarmConnector.acknowledge_alarms(core_ids)
         # Assert:
-        assert AlarmCollection.acknowledge.call_count == 1, \
-            'The AlarmCollection.acknowledge function was not called'
-        AlarmCollection.acknowledge.assert_called_with(core_ids)
+        assert IAlarms.acknowledge_alarms.call_count == 1, \
+            'The IAlarms.acknowledge_alarms function was not called'
+        IAlarms.acknowledge_alarms.assert_called_with(core_ids)
+    #
+    # @pytest.mark.asyncio
+    # @pytest.mark.django_db
+    # def test_shelve_alarm(self, mocker):
+    #     """
+    #     Test that AlarmConnector.shelve_alarm calls
+    #     AlarmCollection.shelve
+    #     """
+    #     # Arrange:
+    #     # Mock AlarmCollection.shelve to assert if it was called
+    #     # and avoid calling the real function
+    #     mocker.patch.object(AlarmCollection, 'shelve')
+    #     AlarmCollection.reset()
+    #     core_id = 'MOCK-ALARM'
+    #     # Act:
+    #     AlarmConnector.shelve_alarm(core_id)
+    #     # Assert:
+    #     assert AlarmCollection.shelve.call_count == 0, \
+    #         'The AlarmCollection.shelve function was not called'
+    #     AlarmCollection.shelve.assert_called_with(core_id)
