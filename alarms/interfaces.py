@@ -12,7 +12,7 @@ class IAlarms:
         Akcnowledge Alarms based on a list of Alarm IDs
 
         Args:
-            alarms_id (list): List of IDs of the Alarms to acknowledge
+            alarms_ids (list): List of IDs of the Alarms to acknowledge
         """
         async_to_sync(AlarmCollection.acknowledge)(alarm_ids)
 
@@ -27,11 +27,11 @@ class IAlarms:
         async_to_sync(AlarmCollection.shelve)(alarm_id)
 
     @classmethod
-    def unshelve_alarm(self, alarm_id):
+    def unshelve_alarms(self, alarm_ids):
         """
-        Unshelve an Alarm based on an Alarm ID
+        Unshelve Alarms based on a list of Alarm IDs
 
         Args:
-            alarm_id (string): ID of the Alarms to unshelve
+            alarms_ids (list): List of IDs of the Alarms to unshelve
         """
-        async_to_sync(AlarmCollection.unshelve)(alarm_id)
+        async_to_sync(AlarmCollection.unshelve)(alarm_ids)
