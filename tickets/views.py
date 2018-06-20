@@ -152,3 +152,10 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
         return Response(alarms_to_unshelve, status=status.HTTP_200_OK)
+
+    @action(methods=['put'], detail=False)
+    def check_timeouts(self, request):
+        """ Check if the timeouts of the registries are reached """
+        print('Unshelving registries with timeout reached! ')
+        alarms_to_unshelve = []
+        return Response(alarms_to_unshelve, status=status.HTTP_200_OK)
