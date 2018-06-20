@@ -78,7 +78,7 @@ class Alarm:
         self.properties = self.__check_dict_type(properties)      # optional
         self.timestamps = self.__check_dict_type(timestamps)      # optional
         self.ack = self.__check_ack(ack)
-        self.shelved = self.__check_shelved(ack)
+        self.shelved = self.__check_shelved(shelved)
         self.state_change_timestamp = self.__check_int_type(
             state_change_timestamp)
 

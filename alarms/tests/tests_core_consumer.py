@@ -101,9 +101,8 @@ class TestCoreConsumer:
 
     @pytest.mark.asyncio
     async def test_create_alarm_on_dict(self, mocker):
-        """Test if the core consumer updates the Alarm in the AlarmCollection
-        when a new alarm arrived.
-        """
+        """ Test if the core consumer updates the Alarm in the AlarmCollection
+        when a new alarm arrives """
         mocker.patch.object(AlarmCollection, '_create_ticket')
         # Connect:
         communicator = WebsocketCommunicator(CoreConsumer, "/core/")
@@ -138,7 +137,9 @@ class TestCoreConsumer:
             timestamps={
                 'dasuProductionTStamp': current_time_millis,
                 'sentToBsdbTStamp': current_time_millis
-            }
+            },
+            ack=False,
+            shelved=False,
         )
         # Act:
         alarm_before_send = AlarmCollection.get('AlarmType-ID')

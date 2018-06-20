@@ -1,5 +1,6 @@
 import datetime
 import time
+import copy
 import pytest
 from pytest_mock import mocker
 from freezegun import freeze_time
@@ -589,7 +590,7 @@ class TestAlarmsCollectionShelve:
             validity=0,
             core_timestamp=timestamp_1,
             core_id=core_id,
-            running_id='({}:IASIO)'.format(core_id)
+            running_id='({}:IASIO)'.format(core_id),
         )
         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
         retrieved_alarm = AlarmCollection.get(core_id)
@@ -607,14 +608,13 @@ class TestAlarmsCollectionShelve:
             'When an Alarm is shelved its shelved status should be True'
 
         # 3. Change Alarm to SET:
-        timestamp_2 = retrieved_alarm.core_timestamp + 100
         alarm_2 = Alarm(
             value=1,
             mode=7,
             validity=0,
-            core_timestamp=timestamp_2,
+            core_timestamp=timestamp_1 + 100,
             core_id=core_id,
-            running_id='({}:IASIO)'.format(core_id)
+            running_id='({}:IASIO)'.format(core_id),
         )
         status = await AlarmCollection.add_or_update_and_notify(alarm_2)
         retrieved_alarm = AlarmCollection.get(core_id)
