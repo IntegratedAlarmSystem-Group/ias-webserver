@@ -101,6 +101,7 @@ class Command(BaseCommand):
 
         url = self.get_websocket_url(options)
         ws = WSClient(url, options)
+        # TODO: Evaluate if it is a good idea (use apiclient)
         api = APIClient()
 
         log = \
@@ -124,7 +125,8 @@ class Command(BaseCommand):
 
         def shelve_timeout_clock():
             url = reverse('shelveregistry-check-timeouts')
-            api.put(url, {}, format="json")
+            response = api.put(url, {}, format="json")
+            print(response)
 
         main_task = tornado.ioloop.PeriodicCallback(
             trigger_broadcast, milliseconds_rate)
@@ -134,6 +136,7 @@ class Command(BaseCommand):
             ws_reconnection, 1000)  # One second to evaluate reconnection
         reconnection_task.start()
 
+        # TODO: Check if this needs to be restructured
         unshelve_task = tornado.ioloop.PeriodicCallback(
             shelve_timeout_clock, 60000)
         unshelve_task.start()
