@@ -207,7 +207,7 @@ class AlarmCollection:
 
         alarms = []
         for core_id in core_ids:
-            alarms += self.recursive_acknowledge(core_id)
+            alarms += self._recursive_acknowledge(core_id)
 
         await asyncio.gather(
             *[self.notify_observers(alarm, 'update') for alarm in alarms]
@@ -339,14 +339,27 @@ class AlarmCollection:
 
     # Private methods used to call TicketConnector:
     @classmethod
-    def _create_ticket(self, core_id):
-        """
-        Creates a ticket for an specified Alarm ID
+    def _add_parent(self, alarm_id, parent_id):
+        """ Add a parent to the list of parents of the alarm
 
         Args:
-            core_id (string): Core ID of the Alarm associated to the Ticket
+            alarm_id (string): Core ID of the alarm
+            parent_id (string): Core ID of the parent of the alarm
         """
-        return TicketConnector.create_ticket(core_id)
+        if alarm_id not in self.parents_collection.keys():
+            self.parents_collection[alarm_id] = set()
+        self.parents_collection[alarm_id].add(parent_id)
+
+    @classmethod
+    def _check_dependencies_ack(self, alarm):
+        """ Checks wether all the children Alarms of a given Alarm
+        are acknowledged or not """
+        for core_id in alarm.dependencies:
+            if core_id in self.singleton_collection.keys():
+                dependency = self.singleton_collection[core_id]
+                if not dependency.ack:
+                    return False
+        return True
 
     @classmethod
     def _clear_ticket(self, core_id):
@@ -358,18 +371,43 @@ class AlarmCollection:
         """
         return TicketConnector.clear_ticket(core_id)
 
-    # Private methods used to update the parent collection dictionary
     @classmethod
-    def _add_parent(self, alarm_id, parent_id):
-        """ Add a parent to the list of parents of the alarm
+    def _create_ticket(self, core_id):
+        """
+        Creates a ticket for an specified Alarm ID
 
         Args:
-            alarm_id (string): Core ID of the alarm
-            parent_id (string): Core ID of the parent of the alarm
+            core_id (string): Core ID of the Alarm associated to the Ticket
         """
+        return TicketConnector.create_ticket(core_id)
+
+    @classmethod
+    def _get_parents(self, alarm_id):
+        """ Return the list of parents of the specified alarm """
         if alarm_id not in self.parents_collection.keys():
-            self.parents_collection[alarm_id] = set()
-        self.parents_collection[alarm_id].add(parent_id)
+            return []
+        else:
+            return list(self.parents_collection[alarm_id])
+
+    @classmethod
+    def _recursive_acknowledge(self, core_id):
+        """
+        Acknowledges upstream Alarms recursively through the Alarms
+        dependendy graph starting from a given Alarm
+
+        Args:
+            core_id (string): core_id of the Alarms staring Alarm
+        """
+        alarms = []
+        if core_id in self.singleton_collection.keys():
+            alarm = self.singleton_collection[core_id]
+            if self._check_dependencies_ack(alarm):
+                alarm.acknowledge()
+                alarms.append(alarm)
+
+                for parent in self._get_parents(core_id):
+                    alarms += self._recursive_acknowledge(parent)
+        return alarms
 
     @classmethod
     def _unacknowledge(self, alarm):
@@ -398,45 +436,6 @@ class AlarmCollection:
         if alarm.dependencies:
             for dependency in alarm.dependencies:
                 self._add_parent(dependency, alarm.core_id)
-
-    @classmethod
-    def get_parents(self, alarm_id):
-        """ Return the list of parents of the specified alarm """
-        if alarm_id not in self.parents_collection.keys():
-            return []
-        else:
-            return list(self.parents_collection[alarm_id])
-
-    @classmethod
-    def recursive_acknowledge(self, core_id):
-        """
-        Acknowledges upstream Alarms recursively through the Alarms
-        dependendy graph starting from a given Alarm
-
-        Args:
-            core_id (string): core_id of the Alarms staring Alarm
-        """
-        alarms = []
-        if core_id in self.singleton_collection.keys():
-            alarm = self.singleton_collection[core_id]
-            if self.check_dependencies_ack(alarm):
-                alarm.acknowledge()
-                alarms.append(alarm)
-
-                for parent in self.get_parents(core_id):
-                    alarms += self.recursive_acknowledge(parent)
-        return alarms
-
-    @classmethod
-    def check_dependencies_ack(self, alarm):
-        """ Checks wether all the children Alarms of a given Alarm
-        are acknowledged or not """
-        for core_id in alarm.dependencies:
-            if core_id in self.singleton_collection.keys():
-                dependency = self.singleton_collection[core_id]
-                if not dependency.ack:
-                    return False
-        return True
 
 
 class AlarmCollectionObserver(abc.ABC):

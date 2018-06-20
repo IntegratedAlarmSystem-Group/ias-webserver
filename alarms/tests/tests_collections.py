@@ -96,7 +96,7 @@ class TestAlarmsCollectionHandling:
         assert status == 'created-alarm', 'The status must be created-alarm'
         assert 'core_id' in AlarmCollection.get_all_as_dict(), \
             'New alarms should be created'
-        assert 'core_id' in AlarmCollection.get_parents('child_id'), \
+        assert 'core_id' in AlarmCollection._get_parents('child_id'), \
             'The alarm core_id should be added as a parent of the dependency \
             alarm in the collection'
 
@@ -136,7 +136,7 @@ class TestAlarmsCollectionHandling:
         assert 'core_id_1' in AlarmCollection.get_all_as_dict() and \
             'core_id_2' in AlarmCollection.get_all_as_dict(), \
             'New alarms should be created'
-        parents = AlarmCollection.get_parents('child_id')
+        parents = AlarmCollection._get_parents('child_id')
         assert 'core_id_1' in parents and 'core_id_2' in parents, \
             'The core_id of the both parent alarms should be added as a parent \
             of dependency alarm in the collection'
