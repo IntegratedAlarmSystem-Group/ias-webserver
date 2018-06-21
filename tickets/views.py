@@ -151,4 +151,5 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
                     'Unexpected response from a registry unshelving',
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
+        AlarmConnector.unshelve_alarms(alarms_to_unshelve)
         return Response(alarms_to_unshelve, status=status.HTTP_200_OK)

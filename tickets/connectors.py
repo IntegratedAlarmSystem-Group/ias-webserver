@@ -27,11 +27,11 @@ class AlarmConnector:
         IAlarms.shelve_alarm(alarm_id)
 
     @classmethod
-    def unshelve_alarms(self, alarm_id):
+    def unshelve_alarms(self, alarm_ids):
         """
         Unshelve Alarms based on a list of Alarm IDs
 
         Args:
             alarms_id (list): List of IDs of the Alarms to unshelve
         """
-        IAlarms.unshelve_alarms(alarm_id)
+        IAlarms.unshelve_alarms(alarm_ids)

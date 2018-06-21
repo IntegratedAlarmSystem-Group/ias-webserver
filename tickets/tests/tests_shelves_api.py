@@ -321,7 +321,11 @@ class ShelveRegistrysApiTestCase(TestCase):
         )
 
     # ******* UNSHELVE
-    def test_api_can_unshelve_multiple_registries(self):
+    @mock.patch('tickets.connectors.AlarmConnector.unshelve_alarms')
+    def test_api_can_unshelve_multiple_registries(
+        self,
+        AlarmConnector_unshelve_alarms
+    ):
         """Test that the api can unshelve multiple ununshelved registries"""
         # Act:
         url = reverse('shelveregistry-unshelve')
@@ -361,4 +365,8 @@ class ShelveRegistrysApiTestCase(TestCase):
         self.assertNotEqual(
             unshelved_registries[1].unshelved_at, None,
             'The second registry unshelving time was not correctly recorded'
+        )
+        self.assertTrue(
+            AlarmConnector_unshelve_alarms.called,
+            'The alarm connector unshelve method should have been called'
         )
