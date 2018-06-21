@@ -12,6 +12,8 @@ import tornado
 from tornado.websocket import websocket_connect
 from alarms.connectors import CdbConnector
 from ias_webserver.settings import BROADCAST_RATE_FACTOR
+from rest_framework.test import APIClient
+from django.urls import reverse
 
 DEFAULT_HOSTNAME = 'localhost'
 DEFAULT_PORT = '8000'
@@ -99,6 +101,8 @@ class Command(BaseCommand):
 
         url = self.get_websocket_url(options)
         ws = WSClient(url, options)
+        # TODO: Evaluate if it is a good idea (use apiclient)
+        api = APIClient()
 
         log = \
             'BROADCAST-STATUS | Sending global refresh to ' + str(url) + \
@@ -119,6 +123,11 @@ class Command(BaseCommand):
             if ws.websocket_connect is None:
                 ws.reconnect()
 
+        def shelve_timeout_clock():
+            url = reverse('shelveregistry-check-timeouts')
+            response = api.put(url, {}, format="json")
+            print(response)
+
         main_task = tornado.ioloop.PeriodicCallback(
             trigger_broadcast, milliseconds_rate)
         main_task.start()
@@ -126,5 +135,10 @@ class Command(BaseCommand):
         reconnection_task = tornado.ioloop.PeriodicCallback(
             ws_reconnection, 1000)  # One second to evaluate reconnection
         reconnection_task.start()
+
+        # TODO: Check if this needs to be restructured
+        unshelve_task = tornado.ioloop.PeriodicCallback(
+            shelve_timeout_clock, 60000)
+        unshelve_task.start()
 
         tornado.ioloop.IOLoop.current().start()

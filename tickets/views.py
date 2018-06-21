@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.utils import timezone
 from tickets.connectors import AlarmConnector
 from tickets.models import (
     Ticket, TicketStatus,
@@ -129,6 +130,7 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
         """ Unshelve multiple registries """
         alarms_ids = self.request.data['alarms_ids']
 
+        # TODO: Move this to a classmethod and here only call it
         queryset = ShelveRegistry.objects.filter(alarm_id__in=alarms_ids)
         queryset = queryset.filter(
             status=int(ShelveRegistryStatus.get_choices_by_name()['SHELVED'])
@@ -153,3 +155,19 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
                 )
         AlarmConnector.unshelve_alarms(alarms_to_unshelve)
         return Response(alarms_to_unshelve, status=status.HTTP_200_OK)
+
+    @action(methods=['put'], detail=False)
+    def check_timeouts(self, request):
+        """ Check if the timeouts of the registries are reached """
+        print('Unshelving registries with timeout reached! ')
+
+        # TODO: Move this to a classmethod and here call that method
+        alarms_to_unshelve = []
+        registries = ShelveRegistry.objects.filter(
+            status=ShelveRegistryStatus.get_choices_by_name()['SHELVED']
+        )
+        for registry in registries:
+            if(registry.created_at + registry.timeout >= timezone.now()):
+                alarms_to_unshelve.append(registry.alarm_id)
+        unshelved_alarms = self.unshelve(alarms_to_unshelve)
+        return Response(unshelved_alarms, status=status.HTTP_200_OK)
