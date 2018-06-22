@@ -159,15 +159,12 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
     @action(methods=['put'], detail=False)
     def check_timeouts(self, request):
         """ Check if the timeouts of the registries are reached """
-        print('Unshelving registries with timeout reached! ')
-
         # TODO: Move this to a classmethod and here call that method
-        alarms_to_unshelve = []
+        registries_to_unshelve = []
         registries = ShelveRegistry.objects.filter(
             status=ShelveRegistryStatus.get_choices_by_name()['SHELVED']
         )
         for registry in registries:
-            if(registry.created_at + registry.timeout >= timezone.now()):
-                alarms_to_unshelve.append(registry.alarm_id)
-        unshelved_alarms = self.unshelve(alarms_to_unshelve)
-        return Response(unshelved_alarms, status=status.HTTP_200_OK)
+            if(registry.shelved_at + registry.timeout <= timezone.now()):
+                registries_to_unshelve.append(registry)
+        return self._apply_unshelving(registries_to_unshelve)

@@ -1,6 +1,9 @@
 import mock
+import datetime
+from freezegun import freeze_time
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient
 from tickets.models import ShelveRegistry, ShelveRegistryStatus
@@ -356,7 +359,7 @@ class ShelveRegistrysApiTestCase(TestCase):
         self.assertTrue(
             unshelved_registries[0].status == expected_status and
             unshelved_registries[1].status == expected_status,
-            'The registries was not correctly unshelved'
+            'The registries were not correctly unshelved'
         )
         self.assertNotEqual(
             unshelved_registries[0].unshelved_at, None,
@@ -370,3 +373,66 @@ class ShelveRegistrysApiTestCase(TestCase):
             AlarmConnector_unshelve_alarms.called,
             'The alarm connector unshelve method should have been called'
         )
+
+    @mock.patch('tickets.connectors.AlarmConnector.unshelve_alarms')
+    def test_api_can_check_timeouts(
+        self,
+        AlarmConnector_unshelve_alarms
+    ):
+        """ Test that the api can check if active registries have timedout and
+        notify accordingly """
+        # Arrange:
+        shelving_time = timezone.now()
+        checking_time = shelving_time + datetime.timedelta(hours=2)
+        with freeze_time(shelving_time):
+            self.registries = [
+                self.registry_1,
+                self.registry_2,
+                self.registry_3,
+                ShelveRegistry.objects.create(
+                    alarm_id='alarm_4',
+                    message=self.message,
+                    timeout=datetime.timedelta(hours=4)
+                ),
+                ShelveRegistry.objects.create(
+                    alarm_id='alarm_5',
+                    message=self.message,
+                    timeout=datetime.timedelta(hours=1)
+                ),
+            ]
+        expected_timedout = ['alarm_1', 'alarm_3', 'alarm_5']
+        expected_status = \
+            ShelveRegistryStatus.get_choices_by_name()['UNSHELVED']
+
+        # Act:
+        with freeze_time(checking_time):
+            url = reverse('shelveregistry-check-timeouts')
+            self.response = self.client.put(url, format="json")
+        # Assert:
+        unshelved_registries = list(
+            ShelveRegistry.objects.filter(status=expected_status)
+        )
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The status of the response is incorrect'
+        )
+        self.assertEqual(
+            self.response.data,
+            expected_timedout,
+            'The response is not as expected'
+        )
+        for reg in unshelved_registries:
+            self.assertTrue(
+                reg.status == expected_status,
+                'The registries were not correctly unshelved'
+            )
+            self.assertNotEqual(
+                reg.unshelved_at, None,
+                'The regitries unshelving time was not correctly recorded'
+            )
+        self.assertTrue(
+            AlarmConnector_unshelve_alarms.called,
+            'The alarm connector unshelve method should have been called'
+        )
+        AlarmConnector_unshelve_alarms.assert_called_with(expected_timedout)
