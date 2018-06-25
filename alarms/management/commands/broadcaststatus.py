@@ -140,7 +140,7 @@ class Command(BaseCommand):
         # TODO: Check if this needs to be restructured
         unshelve_task = tornado.ioloop.PeriodicCallback(
             sync_to_async(shelve_timeout_clock),
-            10000
+            60000
         )
         unshelve_task.start()
 
