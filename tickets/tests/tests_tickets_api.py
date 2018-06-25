@@ -179,11 +179,9 @@ class TicketsApiTestCase(TestCase):
             acknowledged_ticket.acknowledged_at, None,
             'The acknowledged ticket datetime was not correctly recorded'
         )
-        # Alarm 1 has tickets in cleared_unack so the alarm is not ack yet
-        self.assertFalse(
+        self.assertTrue(
             AlarmConnector_acknowledge_alarms.called,
-            'The alarm connector acknowledge method should not be called if \
-            message the alarm has cleared_unack tickets'
+            'The alarm connector acknowledge was not called'
         )
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')

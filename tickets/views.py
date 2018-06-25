@@ -37,7 +37,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         """ Acknowledge multiple tickets with the same message and timestamp"""
         message = self.request.data['message']
         alarms_ids = self.request.data['alarms_ids']
-        filter = 'only-set'
+        filter = 'all'
         if 'filter' in self.request.data:
             filter = self.request.data['filter']
 

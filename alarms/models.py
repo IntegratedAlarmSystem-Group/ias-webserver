@@ -210,13 +210,10 @@ class Alarm:
             True by default
 
         Returns:
-            boolean: True if it was acknowledged, False if not
+            boolean: the final ack status
         """
-        if self.value == 0:
-            return False
-        else:
-            self.ack = ack
-            return self.ack
+        self.ack = ack
+        return self.ack
 
     def shelve(self):
         """
