@@ -1,5 +1,6 @@
 import datetime
 import time
+import copy
 import pytest
 from pytest_mock import mocker
 from freezegun import freeze_time
@@ -10,8 +11,9 @@ from alarms.connectors import CdbConnector as CdbConn
 from alarms.connectors import TicketConnector
 
 
-class TestAlarmsCollection:
-    """This class defines the test suite for the Alarms Collection"""
+class TestAlarmsCollectionHandling:
+    """ This class defines the test suite for the Alarms Collection
+    general handling """
 
     @freeze_time("2012-01-14")
     @pytest.mark.asyncio
@@ -71,6 +73,150 @@ class TestAlarmsCollection:
             AlarmCollection.get('MOCK-ALARM').core_timestamp
         assert timestamp == new_timestamp, \
             'A newer alarm than the stored alarm must be updated'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_record_parent_reference(self):
+        """ Test if an alarm with dependencies is created, it records itself as
+        a parent of its dependencies """
+        # Arrange:
+        AlarmCollection.reset()
+        alarm = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=10000,
+            core_id='core_id',
+            running_id='({}:IASIO)'.format('core_id'),
+            dependencies=['child_id']
+        )
+        # Act:
+        status = await AlarmCollection.add_or_update_and_notify(alarm)
+        # Assert:
+        assert status == 'created-alarm', 'The status must be created-alarm'
+        assert 'core_id' in AlarmCollection.get_all_as_dict(), \
+            'New alarms should be created'
+        assert 'core_id' in AlarmCollection._get_parents('child_id'), \
+            'The alarm core_id should be added as a parent of the dependency \
+            alarm in the collection'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_record_multiple_parent_references(self):
+        """ Test if an alarm with dependencies is created, and the alarms in the
+        dependencies already have another parent, it adds itself to the list of
+        parents associated with the alarm in the dependencies
+        """
+        # Arrange:
+        AlarmCollection.reset()
+        alarm_1 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=10000,
+            core_id='core_id_1',
+            running_id='({}:IASIO)'.format('core_id_1'),
+            dependencies=['child_id']
+        )
+        alarm_2 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=10000,
+            core_id='core_id_2',
+            running_id='({}:IASIO)'.format('core_id_2'),
+            dependencies=['child_id']
+        )
+        # Act:
+        status_1 = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        status_2 = await AlarmCollection.add_or_update_and_notify(alarm_2)
+        # Assert:
+        assert status_1 == 'created-alarm' and status_2 == 'created-alarm', \
+            'The status of both must be created-alarm'
+        assert 'core_id_1' in AlarmCollection.get_all_as_dict() and \
+            'core_id_2' in AlarmCollection.get_all_as_dict(), \
+            'New alarms should be created'
+        parents = AlarmCollection._get_parents('child_id')
+        assert 'core_id_1' in parents and 'core_id_2' in parents, \
+            'The core_id of the both parent alarms should be added as a parent \
+            of dependency alarm in the collection'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_ignore_old_alarm(self):
+        """ Test if an alarm older than a stored alarm with the same core_id
+        is ignored """
+        # Arrange:
+        old_timestamp = int(round(time.time() * 1000))
+        new_timestamp = old_timestamp - 10
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+        old_alarm = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=old_timestamp,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        await AlarmCollection.add_or_update_and_notify(old_alarm)
+        new_alarm = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=new_timestamp,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        # Act:
+        status = await AlarmCollection.add_or_update_and_notify(new_alarm)
+        # Assert:
+        assert status == 'ignored-old-alarm', \
+            'The status must be ignored-old-alarm'
+
+        timestamp = \
+            AlarmCollection.get('MOCK-ALARM').core_timestamp
+
+        assert timestamp == old_timestamp, \
+            'An older alarm than the stored must not be updated'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_recalculation_alarms_validity(self):
+        """ Test if the alarms in the AlarmCollection are revalidated """
+        # Arrange:
+        # Prepare the AlarmCollection with valid alarms and current timestamp
+        AlarmCollection.reset()
+        alarm_keys = ['AlarmType-ID', 'AlarmType-ID1', 'AlarmType-ID2']
+        for core_id in alarm_keys:
+            alarm = AlarmFactory.get_valid_alarm(core_id=core_id)
+            await AlarmCollection.add_or_update_and_notify(alarm)
+        initial_alarm_list = [
+            a.to_dict() for a in AlarmCollection.get_all_as_list()
+        ]
+        # Act:
+        # Recalculate the AlarmCollection validation after 5 seconds
+        max_interval = CdbConn.refresh_rate + CdbConn.tolerance + 1
+        max_timedelta = datetime.timedelta(milliseconds=max_interval)
+        initial_time = datetime.datetime.now() + max_timedelta
+        with freeze_time(initial_time):
+            AlarmCollection.update_all_alarms_validity()
+        final_alarm_list = [
+            a.to_dict() for a in AlarmCollection.get_all_as_list()
+        ]
+        # Assert:
+        assert final_alarm_list != initial_alarm_list, \
+            'The alarms in the AlarmCollection are not invalidated as expected'
+
+        for alarm in AlarmCollection.get_all_as_list():
+            assert alarm.validity == 0, \
+                'The alarm {} was not correctly invalidated'.format(
+                    alarm.core_id)
+
+
+class TestAlarmsCollectionAcknowledge:
+    """ This class defines the test suite for the Alarms Collection
+    acknowledge and ticket handling """
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
@@ -163,73 +309,6 @@ class TestAlarmsCollection:
             'When an Alarm changes to CLEAR, its status should still be ack'
         assert AlarmCollection._create_ticket.call_count == 1, \
             'When an Alarm changes to CLEAR, it should not create a new ticket'
-
-    @pytest.mark.asyncio
-    @pytest.mark.django_db
-    async def test_record_parent_reference(self):
-        """ Test if an alarm with dependencies is created, it records itself as
-        a parent of its dependencies """
-        # Arrange:
-        AlarmCollection.reset()
-        alarm = Alarm(
-            value=1,
-            mode=7,
-            validity=0,
-            core_timestamp=10000,
-            core_id='core_id',
-            running_id='({}:IASIO)'.format('core_id'),
-            dependencies=['child_id']
-        )
-        # Act:
-        status = await AlarmCollection.add_or_update_and_notify(alarm)
-        # Assert:
-        assert status == 'created-alarm', 'The status must be created-alarm'
-        assert 'core_id' in AlarmCollection.get_all_as_dict(), \
-            'New alarms should be created'
-        assert 'core_id' in AlarmCollection.get_parents('child_id'), \
-            'The alarm core_id should be added as a parent of the dependency \
-            alarm in the collection'
-
-    @pytest.mark.asyncio
-    @pytest.mark.django_db
-    async def test_record_multiple_parent_references(self):
-        """ Test if an alarm with dependencies is created, and the alarms in the
-        dependencies already have another parent, it adds itself to the list of
-        parents associated with the alarm in the dependencies
-        """
-        # Arrange:
-        AlarmCollection.reset()
-        alarm_1 = Alarm(
-            value=1,
-            mode=7,
-            validity=0,
-            core_timestamp=10000,
-            core_id='core_id_1',
-            running_id='({}:IASIO)'.format('core_id_1'),
-            dependencies=['child_id']
-        )
-        alarm_2 = Alarm(
-            value=1,
-            mode=7,
-            validity=0,
-            core_timestamp=10000,
-            core_id='core_id_2',
-            running_id='({}:IASIO)'.format('core_id_2'),
-            dependencies=['child_id']
-        )
-        # Act:
-        status_1 = await AlarmCollection.add_or_update_and_notify(alarm_1)
-        status_2 = await AlarmCollection.add_or_update_and_notify(alarm_2)
-        # Assert:
-        assert status_1 == 'created-alarm' and status_2 == 'created-alarm', \
-            'The status of both must be created-alarm'
-        assert 'core_id_1' in AlarmCollection.get_all_as_dict() and \
-            'core_id_2' in AlarmCollection.get_all_as_dict(), \
-            'New alarms should be created'
-        parents = AlarmCollection.get_parents('child_id')
-        assert 'core_id_1' in parents and 'core_id_2' in parents, \
-            'The core_id of the both parent alarms should be added as a parent \
-            of dependency alarm in the collection'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
@@ -452,74 +531,96 @@ class TestAlarmsCollection:
         assert AlarmCollection._clear_ticket.call_count == 1, \
             'When the Alarm changes CLEAR, the ticket should be updated'
 
+
+class TestAlarmsCollectionShelve:
+    """ This class defines the test suite for the Alarms Collection
+    shelve and registry handling """
+
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_ignore_old_alarm(self):
-        """ Test if an alarm older than a stored alarm with the same core_id
-        is ignored """
-        # Arrange:
-        old_timestamp = int(round(time.time() * 1000))
-        new_timestamp = old_timestamp - 10
+    async def test_alarm_shelving(self):
+        """ Test if an alarm can be shelved and unshelved """
+        # 1. Create Alarm:
+        timestamp_1 = int(round(time.time() * 1000))
         AlarmCollection.reset()
         core_id = 'MOCK-ALARM'
-        old_alarm = Alarm(
-            value=1,
+        alarm_1 = Alarm(
+            value=0,
             mode=7,
             validity=0,
-            core_timestamp=old_timestamp,
+            core_timestamp=timestamp_1,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
         )
-        await AlarmCollection.add_or_update_and_notify(old_alarm)
-        new_alarm = Alarm(
-            value=1,
-            mode=7,
-            validity=0,
-            core_timestamp=new_timestamp,
-            core_id=core_id,
-            running_id='({}:IASIO)'.format(core_id)
-        )
-        # Act:
-        status = await AlarmCollection.add_or_update_and_notify(new_alarm)
-        # Assert:
-        assert status == 'ignored-old-alarm', \
-            'The status must be ignored-old-alarm'
+        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'created-alarm', 'The status must be created-alarm'
+        assert retrieved_alarm.shelved is False, \
+            'A new Alarm must be unshelved'
 
-        timestamp = \
-            AlarmCollection.get('MOCK-ALARM').core_timestamp
+        # 2. Shelve Alarm:
+        status = await AlarmCollection.shelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status is True, 'The status must be True'
+        assert retrieved_alarm.shelved is True, \
+            'When an Alarm is shelved its shelved status should be True'
 
-        assert timestamp == old_timestamp, \
-            'An older alarm than the stored must not be updated'
+        # 3. Unshelve Alarm:
+        status = await AlarmCollection.unshelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status is True, 'The status must be True'
+        assert retrieved_alarm.shelved is False, \
+            'When an Alarm is unshelved its shelved status should be False'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_recalculation_alarms_validity(self):
-        """ Test if the alarms in the AlarmCollection are revalidated """
-        # Arrange:
-        # Prepare the AlarmCollection with valid alarms and current timestamp
-        AlarmCollection.reset()
-        alarm_keys = ['AlarmType-ID', 'AlarmType-ID1', 'AlarmType-ID2']
-        for core_id in alarm_keys:
-            alarm = AlarmFactory.get_valid_alarm(core_id=core_id)
-            await AlarmCollection.add_or_update_and_notify(alarm)
-        initial_alarm_list = [
-            a.to_dict() for a in AlarmCollection.get_all_as_list()
-        ]
-        # Act:
-        # Recalculate the AlarmCollection validation after 5 seconds
-        max_interval = CdbConn.refresh_rate + CdbConn.tolerance + 1
-        max_timedelta = datetime.timedelta(milliseconds=max_interval)
-        initial_time = datetime.datetime.now() + max_timedelta
-        with freeze_time(initial_time):
-            AlarmCollection.update_all_alarms_validity()
-        final_alarm_list = [
-            a.to_dict() for a in AlarmCollection.get_all_as_list()
-        ]
-        # Assert:
-        assert final_alarm_list != initial_alarm_list, \
-            'The alarms in the AlarmCollection are not invalidated as expected'
+    async def test_no_ticket_for_shelved_alarm(self, mocker):
+        """ Test if tickets are not created for Alarms in shelved status """
+        # Mock AlarmCollection._create_ticket to assert if it was called
+        # and avoid calling the real function
+        mocker.patch.object(AlarmCollection, '_create_ticket')
 
-        for alarm in AlarmCollection.get_all_as_list():
-            assert alarm.validity == 0, \
-                'The alarm {} was not correctly invalidated'.format(
-                    alarm.core_id)
+        # 1. Create Alarm:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+        alarm_1 = Alarm(
+            value=0,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id),
+        )
+        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'created-alarm', 'The status must be created-alarm'
+        assert retrieved_alarm.ack is True, \
+            'A new CLEARED Alarm must be acknowledged'
+        assert AlarmCollection._create_ticket.call_count == 0, \
+            'A new Alarm in CLEARED state should not create a new ticket'
+
+        # 2. Shelve Alarm:
+        status = await AlarmCollection.shelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status is True, 'The status must be True'
+        assert retrieved_alarm.shelved is True, \
+            'When an Alarm is shelved its shelved status should be True'
+
+        # 3. Change Alarm to SET:
+        alarm_2 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1 + 100,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id),
+        )
+        status = await AlarmCollection.add_or_update_and_notify(alarm_2)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 'updated-alarm', 'The status must be updated-alarm'
+        assert retrieved_alarm.ack is True, \
+            'When a shelved Alarm changes to SET, its ack should not change'
+        assert AlarmCollection._create_ticket.call_count == 0, \
+            'When a shelved Alarm changes to SET, a new ticket should not be \
+            created'

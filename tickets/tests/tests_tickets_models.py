@@ -51,99 +51,22 @@ class TicketsModelsTestCase(TestCase):
             response = ticket.acknowledge(message='This ticket was solved')
             retrieved_ticket = Ticket.objects.get(alarm_id='alarm_id')
 
-            # Asserts:
-            self.assertEqual(
-                retrieved_ticket.status,
-                int(TicketStatus.get_choices_by_name()['ACK']),
-                'Solved ticket status must be closed (0)'
-            )
-            self.assertEqual(
-                retrieved_ticket.acknowledged_at, resolution_dt,
-                'When the ticket is solved the acknowledge_at time must be \
-                greater than the created_at datetime'
-            )
-            self.assertEqual(
-                retrieved_ticket.message, 'This ticket was solved',
-                'When the ticket is created the message must be none'
-            )
-            self.assertEqual(
-                response, 'solved',
-                'Valid resolution is not solved correctly'
-            )
-
-    def test_cleared_an_unacknowledge_ticket(self):
-        """ Test if we can cleared an unacknowledge tickets and it records the
-        time and update de status """
-        # Arrange:
-        ticket = Ticket(alarm_id='alarm_id')
-        ticket.save()
-
-        # Act:
-        resolution_dt = timezone.now()
-        with freeze_time(resolution_dt):
-            ticket.clear()
-            retrieved_ticket = Ticket.objects.get(alarm_id='alarm_id')
-
-            # Asserts:
-            self.assertEqual(
-                retrieved_ticket.status,
-                int(TicketStatus.get_choices_by_name()['CLEARED_UNACK']),
-                'Solved ticket status must be cleared but unack (2)'
-            )
-            self.assertEqual(
-                retrieved_ticket.cleared_at, resolution_dt,
-                'When the ticket is cleared the cleared_at time must be \
-                greater than the created_at datetime'
-            )
-
-    def test_cleared_an_acknowledge_ticket(self):
-        """ Test if we can cleared an acknowledge tickets and it records the
-        time and update de status """
-        # Arrange:
-        ticket = Ticket(alarm_id='alarm_id')
-        ticket.save()
-        ticket.acknowledge(message='This ticket was solved')
-
-        # Act:
-        resolution_dt = timezone.now()
-        with freeze_time(resolution_dt):
-            ticket.clear()
-            retrieved_ticket = Ticket.objects.get(alarm_id='alarm_id')
-
-            # Asserts:
-            self.assertEqual(
-                retrieved_ticket.status,
-                int(TicketStatus.get_choices_by_name()['CLEARED_ACK']),
-                'Solved ticket status must be cleared and ack (3)'
-            )
-            self.assertEqual(
-                retrieved_ticket.cleared_at, resolution_dt,
-                'When the ticket is cleared the cleared_at time must be \
-                greater than the created_at datetime'
-            )
-
-    def test_acknowledge_a_cleared_ticket(self):
-        """ Test if we can acknowledge a cleared ticket and it records the
-        time and update de status correctly """
-        # Arrange:
-        ticket = Ticket(alarm_id='alarm_id')
-        ticket.save()
-        ticket.clear()
-
-        # Act:
-        resolution_dt = timezone.now()
-        with freeze_time(resolution_dt):
-            ticket.acknowledge(message='This ticket was solved')
-            retrieved_ticket = Ticket.objects.get(alarm_id='alarm_id')
-
-            # Asserts:
-            self.assertEqual(
-                retrieved_ticket.status,
-                int(TicketStatus.get_choices_by_name()['CLEARED_ACK']),
-                'Solved ticket status must be cleared and ack (3)'
-            )
-            self.assertEqual(
-                retrieved_ticket.acknowledged_at, resolution_dt,
-                'When the ticket is cleared the acknowledged_at time must be \
-                greater than the created_at datetime'
-            )
+        # Asserts:
+        self.assertEqual(
+            retrieved_ticket.status,
+            int(TicketStatus.get_choices_by_name()['ACK']),
+            'Solved ticket status must be closed (0)'
+        )
+        self.assertEqual(
+            retrieved_ticket.acknowledged_at, resolution_dt,
+            'When the ticket is solved the acknowledge_at time must be \
+            greater than the created_at datetime'
+        )
+        self.assertEqual(
+            retrieved_ticket.message, 'This ticket was solved',
+            'When the ticket is created the message must be none'
+        )
+        self.assertEqual(
+            response, 'solved',
+            'Valid resolution is not solved correctly'
+        )

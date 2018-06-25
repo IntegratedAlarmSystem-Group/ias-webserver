@@ -8,7 +8,7 @@ from tickets.serializers import TicketSerializer
 
 
 class TicketsApiTestCase(TestCase):
-    """Test suite for the api views."""
+    """Test suite for the tickets api views."""
 
     def setUp(self):
         # Arrange:

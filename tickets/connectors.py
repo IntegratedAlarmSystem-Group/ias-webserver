@@ -1,5 +1,4 @@
-from asgiref.sync import async_to_sync
-from alarms.collections import AlarmCollection
+from alarms.interfaces import IAlarms
 
 
 class AlarmConnector:
@@ -15,4 +14,24 @@ class AlarmConnector:
         Args:
             alarms_id (list): List of IDs of the Alarms to acknowledge
         """
-        async_to_sync(AlarmCollection.acknowledge)(alarm_ids)
+        IAlarms.acknowledge_alarms(alarm_ids)
+
+    @classmethod
+    def shelve_alarm(self, alarm_id):
+        """
+        Shelve an Alarm based on an Alarm ID
+
+        Args:
+            alarm_id (string): ID of the Alarms to shelve
+        """
+        IAlarms.shelve_alarm(alarm_id)
+
+    @classmethod
+    def unshelve_alarms(self, alarm_ids):
+        """
+        Unshelve Alarms based on a list of Alarm IDs
+
+        Args:
+            alarms_id (list): List of IDs of the Alarms to unshelve
+        """
+        IAlarms.unshelve_alarms(alarm_ids)

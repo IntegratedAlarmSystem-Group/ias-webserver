@@ -1,27 +1,59 @@
-import pytest
-from pytest_mock import mocker
+import mock
+from django.test import TestCase
 from tickets.connectors import AlarmConnector
-from alarms.collections import AlarmCollection
+from alarms.interfaces import IAlarms
 
 
-class AlarmConnectorTestCase:
+class TestAlarmConnector(TestCase):
     """This class defines the test suite for the Alarms Connector"""
 
-    @pytest.mark.asyncio
-    def test_acknowledge_alarms(self, mocker):
+    @mock.patch('alarms.interfaces.IAlarms.acknowledge_alarms')
+    def test_acknowledge_alarms(self, IAlarms_acknowledge_alarms):
         """
         Test that AlarmConnector.acknowledge_alarms calls
-        AlarmCollection.acknowledge
+        IAlarms.acknowledge_alarms
         """
         # Arrange:
-        # Mock AlarmCollection.acknowledge to assert if it was called
-        # and avoid calling the real function
-        mocker.patch.object(AlarmCollection, 'acknowledge')
-        AlarmCollection.reset()
         core_ids = ['MOCK-ALARM']
         # Act:
         AlarmConnector.acknowledge_alarms(core_ids)
         # Assert:
-        assert AlarmCollection.acknowledge.call_count == 1, \
-            'The AlarmCollection.acknowledge function was not called'
-        AlarmCollection.acknowledge.assert_called_with(core_ids)
+        self.assertTrue(
+            IAlarms_acknowledge_alarms.called,
+            'The IAlarms.acknowledge_alarms function was not called'
+        )
+        IAlarms_acknowledge_alarms.assert_called_with(core_ids)
+
+    @mock.patch('alarms.interfaces.IAlarms.shelve_alarm')
+    def test_shelve_alarm(self, IAlarms_shelve_alarm):
+        """
+        Test that AlarmConnector.shelve_alarm calls
+        IAlarms.shelve_alarm
+        """
+        # Arrange:
+        core_id = 'MOCK-ALARM'
+        # Act:
+        AlarmConnector.shelve_alarm(core_id)
+        # Assert:
+        self.assertTrue(
+            IAlarms_shelve_alarm.called,
+            'The IAlarms.shelve_alarm function was not called'
+        )
+        IAlarms_shelve_alarm.assert_called_with(core_id)
+
+    @mock.patch('alarms.interfaces.IAlarms.unshelve_alarms')
+    def test_unshelve_alarms(self, IAlarms_unshelve_alarms):
+        """
+        Test that AlarmConnector.unshelve_alarms calls
+        IAlarms.unshelve_alarms
+        """
+        # Arrange:
+        core_ids = ['MOCK-ALARM']
+        # Act:
+        AlarmConnector.unshelve_alarms(core_ids)
+        # Assert:
+        self.assertTrue(
+            IAlarms_unshelve_alarms.called,
+            'The IAlarms.unshelve_alarms function was not called'
+        )
+        IAlarms_unshelve_alarms.assert_called_with(core_ids)
