@@ -7,13 +7,14 @@ subscribed to the webserver stream according to a selected rate
 """
 
 import json
+from asgiref.sync import sync_to_async
 from django.core.management.base import BaseCommand
+from django.urls import reverse
+from rest_framework.test import APIClient
 import tornado
 from tornado.websocket import websocket_connect
-from alarms.connectors import CdbConnector
 from ias_webserver.settings import BROADCAST_RATE_FACTOR
-from rest_framework.test import APIClient
-from django.urls import reverse
+from alarms.connectors import CdbConnector
 
 DEFAULT_HOSTNAME = 'localhost'
 DEFAULT_PORT = '8000'
@@ -138,7 +139,9 @@ class Command(BaseCommand):
 
         # TODO: Check if this needs to be restructured
         unshelve_task = tornado.ioloop.PeriodicCallback(
-            shelve_timeout_clock, 60000)
+            sync_to_async(shelve_timeout_clock),
+            10000
+        )
         unshelve_task.start()
 
         tornado.ioloop.IOLoop.current().start()

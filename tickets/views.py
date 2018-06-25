@@ -159,6 +159,7 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
     @action(methods=['put'], detail=False)
     def check_timeouts(self, request):
         """ Check if the timeouts of the registries are reached """
+        print('Checking Shelved Alarms timeouts')
         # TODO: Move this to a classmethod and here call that method
         registries_to_unshelve = []
         registries = ShelveRegistry.objects.filter(
