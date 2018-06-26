@@ -227,7 +227,9 @@ class AlarmCollection:
 
         alarms = []
         for core_id in core_ids:
-            alarms += self._recursive_acknowledge(core_id)
+            alarm = self.singleton_collection[core_id]
+            alarms.append(alarm)
+            alarm.acknowledge()
 
         await asyncio.gather(
             *[self.notify_observers(alarm, 'update') for alarm in alarms]
