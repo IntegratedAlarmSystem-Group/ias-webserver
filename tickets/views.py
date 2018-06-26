@@ -41,7 +41,14 @@ class TicketViewSet(viewsets.ModelViewSet):
         if 'filter' in self.request.data:
             filter = self.request.data['filter']
 
-        queryset = Ticket.objects.filter(alarm_id__in=alarms_ids)
+        alarms_ids_with_dependencies = set()
+        for alarm_id in alarms_ids:
+            dependencies = AlarmConnector.get_alarm_dependencies(alarm_id)
+            for dependency_id in dependencies:
+                alarms_ids_with_dependencies.add(dependency_id)
+
+        queryset = Ticket.objects.filter(
+            alarm_id__in=list(alarms_ids_with_dependencies))
 
         # possible unack states
         unack = TicketStatus.get_choices_by_name()['UNACK']
