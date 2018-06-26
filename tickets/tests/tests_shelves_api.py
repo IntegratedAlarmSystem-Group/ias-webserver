@@ -33,7 +33,8 @@ class ShelveRegistrysApiTestCase(TestCase):
         self.client = APIClient()
 
     # ******* CREATE
-    def test_api_can_create_registry(self):
+    @mock.patch('tickets.connectors.AlarmConnector.shelve_alarm')
+    def test_api_can_create_registry(self, AlarmConnector_shelve_alarm):
         """ Test that the api can create a registry """
         # Arrange
         new_reg_data = {
@@ -61,6 +62,10 @@ class ShelveRegistrysApiTestCase(TestCase):
             self.response.data,
             ShelveRegistrySerializer(created_reg).data,
             'The response does not match the created registry'
+        )
+        self.assertTrue(
+            AlarmConnector_shelve_alarm.called,
+            'The alarm connector shelve method should have been called'
         )
 
     def test_api_cannot_create_registry_with_no_message(self):

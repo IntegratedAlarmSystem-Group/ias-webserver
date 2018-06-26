@@ -112,6 +112,15 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
     queryset = ShelveRegistry.objects.all()
     serializer_class = ShelveRegistrySerializer
 
+    def create(self, request, *args, **kwargs):
+        """ Redefine create method in order to notify to the alarms app """
+        response = super(ShelveRegistryViewSet, self).create(
+            request, *args, **kwargs
+        )
+        if response.status_code == status.HTTP_201_CREATED:
+            AlarmConnector.shelve_alarm(response.data['alarm_id'])
+        return response
+
     @action(detail=False)
     def filters(self, request):
         """ Retrieve the list of tickets filtered by alarm and status """
