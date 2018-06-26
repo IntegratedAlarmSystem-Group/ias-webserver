@@ -1,6 +1,5 @@
 import datetime
 import time
-import copy
 import pytest
 from pytest_mock import mocker
 from freezegun import freeze_time
@@ -366,6 +365,92 @@ class TestAlarmsCollectionAcknowledge:
             'Alarm 2 should have been acknowledged as it was CLEAR'
         assert retrieved_alarm_3.ack is True, \
             'Alarm 3 should have been acknowledged'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_get_dependencies_recursively(self):
+        """ Test if the AlarmCollection can retrieve the list of dependencies
+        of an alarm """
+        # Arrange:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset()
+        # Create two alarms without dependencies alarm_1 and alarm_2
+        core_id_1 = 'MOCK-SET-ALARM-1'
+        alarm_1 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_1,
+            running_id='({}:IASIO)'.format(core_id_1),
+            ack=False
+        )
+        core_id_2 = 'MOCK-SET-ALARM-2'
+        alarm_2 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_2,
+            running_id='({}:IASIO)'.format(core_id_2),
+            ack=False
+        )
+        # Create an Alarm with alarm_1 as dependency
+        core_id_3 = 'MOCK-SET-ALARM-3'
+        alarm_3 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_3,
+            running_id='({}:IASIO)'.format(core_id_3),
+            dependencies=[core_id_1],
+            ack=False
+        )
+        # Create an Alarm with alarm_2 and alarm_3 as dependency
+        core_id_4 = 'MOCK-SET-ALARM-4'
+        alarm_4 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_4,
+            running_id='({}:IASIO)'.format(core_id_4),
+            dependencies=[core_id_2, core_id_3],
+            ack=False
+        )
+        # Create an Alarm with alarm_4 as dependecy
+        core_id_5 = 'MOCK-SET-ALARM-5'
+        alarm_5 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_5,
+            running_id='({}:IASIO)'.format(core_id_5),
+            dependencies=[core_id_4],
+            ack=False
+        )
+        await AlarmCollection.add_or_update_and_notify(alarm_1)
+        await AlarmCollection.add_or_update_and_notify(alarm_2)
+        await AlarmCollection.add_or_update_and_notify(alarm_3)
+        await AlarmCollection.add_or_update_and_notify(alarm_4)
+        await AlarmCollection.add_or_update_and_notify(alarm_5)
+        # Act:
+        dependencies = AlarmCollection.get_dependencies_recursively(core_id_5)
+        # Assert:
+        expected_dependencies = [
+            core_id_5, core_id_4, core_id_3, core_id_2, core_id_1
+        ]
+        assert dependencies.sort() == expected_dependencies.sort(), \
+            'The method is not returning the list of dependencies correctly'
+
+        # Act:
+        dependencies = AlarmCollection.get_dependencies_recursively(core_id_1)
+        # Assert:
+        expected_dependencies = [core_id_1]
+        assert dependencies.sort() == expected_dependencies.sort(), \
+            'The method is not returning the list of dependencies correctly'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db

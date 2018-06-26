@@ -99,6 +99,26 @@ class AlarmCollection:
             return None
 
     @classmethod
+    def get_dependencies_recursively(self, core_id):
+        """
+        Returns a list of alarm ids of all the dependencies of the specified
+        alarm
+
+        Returns:
+            list: A list of alarm ids dependencies of the alarm with core_id
+        """
+        response = []
+        alarm = AlarmCollection.get(core_id)
+        if alarm:
+            response.append(core_id)
+            for dependency_id in alarm.dependencies:
+                if dependency_id in self.singleton_collection.keys():
+                    response += AlarmCollection.get_dependencies_recursively(
+                        dependency_id
+                    )
+        return response
+
+    @classmethod
     def get_all_as_dict(self):
         """Returns all the Alarms as a dictionary indexed by core_id"""
         if self.singleton_collection is None:
