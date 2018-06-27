@@ -27,6 +27,9 @@ class TicketsApiTestCase(TestCase):
         self.ticket_other = Ticket(alarm_id='alarm_2')
         self.ticket_other.save()
 
+        self.ticket_unack_of_dependency = Ticket(alarm_id='alarm_3')
+        self.ticket_unack_of_dependency.save()
+
         self.client = APIClient()
 
     def test_api_can_retrieve_tickets(self):
@@ -53,7 +56,8 @@ class TicketsApiTestCase(TestCase):
             self.ticket_unack,
             self.ticket_ack,
             self.ticket_cleared_unack,
-            self.ticket_other
+            self.ticket_other,
+            self.ticket_unack_of_dependency
         ]
         expected_tickets_data = [TicketSerializer(t).data for t in tickets]
         # Act:
@@ -125,7 +129,11 @@ class TicketsApiTestCase(TestCase):
 
     def test_api_can_filter_tickets_by_status(self):
         """Test that the api can list the Tickets filtered by status"""
-        tickets = [self.ticket_unack, self.ticket_other]
+        tickets = [
+            self.ticket_unack,
+            self.ticket_other,
+            self.ticket_unack_of_dependency
+        ]
         expected_tickets_data = [TicketSerializer(t).data for t in tickets]
         # Act:
         url = reverse('ticket-filters')
@@ -409,3 +417,68 @@ class TicketsApiTestCase(TestCase):
             'AlarmConnector.acknowledge_alarms should have been called'
         )
         AlarmConnector_acknowledge_alarms.assert_called_with(['alarm_2'])
+
+    @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    @mock.patch(
+        'tickets.connectors.AlarmConnector.get_alarm_dependencies',
+        return_value=['alarm_1', 'alarm_2', 'alarm_3']
+    )
+    def test_api_can_acknowledge_multiple_tickets_with_dependencies(
+        self,
+        AlarmConnector_get_alarm_dependencies,
+        AlarmConnector_acknowledge_alarms
+    ):
+        """Test that the api can acknowledge multiple unacknowledged tickets
+        and their dependencies"""
+        # Act:
+        url = reverse('ticket-acknowledge')
+        alarms_to_ack = ['alarm_1', 'alarm_2']
+        data = {
+            'alarms_ids': alarms_to_ack,
+            'message': 'The ticket was acknowledged',
+            'filter': 'only-set'
+        }
+        self.response = self.client.put(url, data, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The status of the response is incorrect'
+        )
+        self.assertTrue(
+            # Because alarm_1 has cleared_unack tickets yet so it is not
+            # completly acknowledged
+            sorted(self.response.data) == ['alarm_2', 'alarm_3'],
+            'The response is not as expected'
+        )
+        acknowledged_tickets = [
+            Ticket.objects.get(pk=self.ticket_unack.pk),
+            Ticket.objects.get(pk=self.ticket_other.pk),
+            Ticket.objects.get(pk=self.ticket_unack_of_dependency.pk)
+        ]
+        expected_status = int(TicketStatus.get_choices_by_name()['ACK'])
+        self.assertTrue(
+            acknowledged_tickets[0].status == expected_status and
+            acknowledged_tickets[1].status == expected_status and
+            acknowledged_tickets[2].status == expected_status,
+            'The tickets was not correctly acknowledged'
+        )
+        self.assertEqual(
+            acknowledged_tickets[0].message, data['message'],
+            'The first ticket message was not correctly recorded'
+        )
+        self.assertEqual(
+            acknowledged_tickets[1].message, data['message'],
+            'The second ticket message was not correctly recorded'
+        )
+        self.assertEqual(
+            acknowledged_tickets[2].message, data['message'],
+            'The dependency ticket message was not correctly recorded'
+        )
+        self.assertEqual(
+            AlarmConnector_acknowledge_alarms.call_count, 1,
+            'AlarmConnector.acknowledge_alarms should have been called'
+        )
+        AlarmConnector_acknowledge_alarms.assert_called_with(
+            ['alarm_2', 'alarm_3']
+        )
