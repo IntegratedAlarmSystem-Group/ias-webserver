@@ -250,7 +250,6 @@ class AlarmCollection:
             *[self.notify_observers(alarm, 'update') for alarm in alarms]
         )
 
-        # TODO: Return list of acknowledge alarms
         return alarms_ids
 
     @classmethod
