@@ -1,6 +1,5 @@
 import datetime
 import time
-import copy
 import pytest
 from pytest_mock import mocker
 from freezegun import freeze_time
@@ -389,13 +388,10 @@ class TestAlarmsCollectionAcknowledge:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_recursive_ack(self, mocker):
-        """ Test if the AlarmCollection can acknowledge multiple Alarms
-        recursively.
-        """
+    async def test_get_dependencies_recursively(self):
+        """ Test if the AlarmCollection can retrieve the list of dependencies
+        of an alarm """
         # Arrange:
-        # Mock AlarmCollection._create_ticket to avoid calling it
-        mocker.patch.object(AlarmCollection, '_create_ticket')
         timestamp_1 = int(round(time.time() * 1000))
         AlarmCollection.reset()
         # Create two alarms without dependencies alarm_1 and alarm_2
@@ -460,27 +456,21 @@ class TestAlarmsCollectionAcknowledge:
         await AlarmCollection.add_or_update_and_notify(alarm_3)
         await AlarmCollection.add_or_update_and_notify(alarm_4)
         await AlarmCollection.add_or_update_and_notify(alarm_5)
-        # Act 1: Acknowledge the first leaf
-        await AlarmCollection.acknowledge([core_id_1])
-        # Assert
-        retrieved_alarm_1 = AlarmCollection.get(core_id_1)
-        retrieved_alarm_3 = AlarmCollection.get(core_id_3)
-        retrieved_alarm_4 = AlarmCollection.get(core_id_4)
-        assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
-            'The alarm_1 and its parent alarm_3 must be acknowledged'
-        assert not retrieved_alarm_4.ack, \
-            'The alarm_4 must not be acknowledged because its other \
-             child (alarm_2) has not been acknowledge yet'
-        # Act 2: Acknowledge the second leaf
-        await AlarmCollection.acknowledge([core_id_2])
-        # Assert
-        retrieved_alarm_2 = AlarmCollection.get(core_id_2)
-        retrieved_alarm_4 = AlarmCollection.get(core_id_4)
-        retrieved_alarm_5 = AlarmCollection.get(core_id_5)
-        assert retrieved_alarm_2.ack and retrieved_alarm_4.ack and \
-            retrieved_alarm_5.ack, \
-            'The alarm_2, its parent alarm_4 and its grandparent alarm_5 \
-            must be acknowledged'
+        # Act:
+        dependencies = AlarmCollection.get_dependencies_recursively(core_id_5)
+        # Assert:
+        expected_dependencies = [
+            core_id_1, core_id_2, core_id_3, core_id_4, core_id_5
+        ]
+        assert sorted(dependencies) == expected_dependencies, \
+            'The method is not returning the list of dependencies correctly'
+
+        # Act:
+        dependencies = AlarmCollection.get_dependencies_recursively(core_id_1)
+        # Assert:
+        expected_dependencies = [core_id_1]
+        assert dependencies == expected_dependencies, \
+            'The method is not returning the list of dependencies correctly'
 
     @pytest.mark.django_db
     def test_create_ticket(self, mocker):

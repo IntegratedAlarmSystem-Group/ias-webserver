@@ -27,6 +27,9 @@ class TicketsApiTestCase(TestCase):
         self.ticket_other = Ticket(alarm_id='alarm_2')
         self.ticket_other.save()
 
+        self.ticket_unack_of_dependency = Ticket(alarm_id='alarm_3')
+        self.ticket_unack_of_dependency.save()
+
         self.client = APIClient()
 
     def test_api_can_retrieve_tickets(self):
@@ -53,7 +56,8 @@ class TicketsApiTestCase(TestCase):
             self.ticket_unack,
             self.ticket_ack,
             self.ticket_cleared_unack,
-            self.ticket_other
+            self.ticket_other,
+            self.ticket_unack_of_dependency
         ]
         expected_tickets_data = [TicketSerializer(t).data for t in tickets]
         # Act:
@@ -125,7 +129,11 @@ class TicketsApiTestCase(TestCase):
 
     def test_api_can_filter_tickets_by_status(self):
         """Test that the api can list the Tickets filtered by status"""
-        tickets = [self.ticket_unack, self.ticket_other]
+        tickets = [
+            self.ticket_unack,
+            self.ticket_other,
+            self.ticket_unack_of_dependency
+        ]
         expected_tickets_data = [TicketSerializer(t).data for t in tickets]
         # Act:
         url = reverse('ticket-filters')
@@ -147,8 +155,14 @@ class TicketsApiTestCase(TestCase):
         )
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    @mock.patch(
+        'tickets.connectors.AlarmConnector.get_alarm_dependencies',
+        return_value=['alarm_1']
+    )
     def test_api_can_acknowledge_unack_tickets_by_alarm(
-        self, AlarmConnector_acknowledge_alarms
+        self,
+        AlarmConnector_get_alarm_dependencies,
+        AlarmConnector_acknowledge_alarms
     ):
         """Test that the api can ack unacknowledged tickets by default"""
         # Act:
@@ -183,10 +197,21 @@ class TicketsApiTestCase(TestCase):
             AlarmConnector_acknowledge_alarms.called,
             'The alarm connector acknowledge was not called'
         )
+        self.assertTrue(
+            AlarmConnector_get_alarm_dependencies.called,
+            'The alarm connector get dependencies was not called'
+        )
+        AlarmConnector_get_alarm_dependencies.assert_called_with('alarm_1')
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    @mock.patch(
+        'tickets.connectors.AlarmConnector.get_alarm_dependencies',
+        return_value=['alarm_1']
+    )
     def test_api_can_acknowledge_cleared_unack_tickets_by_alarm(
-        self, AlarmConnector_acknowledge_alarms
+        self,
+        AlarmConnector_get_alarm_dependencies,
+        AlarmConnector_acknowledge_alarms,
     ):
         """Test that the api can ack only cleared unacknowledged tickets
         if the data specify that the filter is 'only-cleared' """
@@ -232,14 +257,25 @@ class TicketsApiTestCase(TestCase):
             'The alarm connector acknowledge method should not be called if \
             message the alarm has unack tickets'
         )
+        self.assertTrue(
+            AlarmConnector_get_alarm_dependencies.called,
+            'The alarm connector get dependencies was not called'
+        )
+        AlarmConnector_get_alarm_dependencies.assert_called_with('alarm_1')
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    @mock.patch(
+        'tickets.connectors.AlarmConnector.get_alarm_dependencies',
+        return_value=['alarm_1']
+    )
     def test_api_can_acknowledge_all_tickets_by_alarm(
-        self, AlarmConnector_acknowledge_alarms
+        self,
+        AlarmConnector_get_alarm_dependencies,
+        AlarmConnector_acknowledge_alarms
     ):
         """Test that the api can ack unacknowledged tickets and cleared
         unacknowledged tickets if the data specify that the filter is 'all'"""
-        # Act:
+        # Assert:
         url = reverse('ticket-acknowledge')
         alarms_to_ack = ['alarm_1']
         data = {
@@ -247,6 +283,7 @@ class TicketsApiTestCase(TestCase):
             'alarms_ids': alarms_to_ack,
             'filter': 'all'
         }
+        # Act:
         self.response = self.client.put(url, data, format="json")
         # Assert:
         self.assertEqual(
@@ -290,10 +327,16 @@ class TicketsApiTestCase(TestCase):
         AlarmConnector_acknowledge_alarms.assert_called_with(
             alarms_to_ack
         )
+        AlarmConnector_get_alarm_dependencies.assert_called_with(
+            'alarm_1'
+        )
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    @mock.patch('tickets.connectors.AlarmConnector.get_alarm_dependencies')
     def test_api_can_not_acknowledge_tickets_by_alarm_without_message(
-        self, AlarmConnector_acknowledge_alarms
+        self,
+        AlarmConnector_get_alarm_dependencies,
+        AlarmConnector_acknowledge_alarms
     ):
         """Test that the api can not ack an unacknowledged ticket with an empty
         message"""
@@ -332,10 +375,21 @@ class TicketsApiTestCase(TestCase):
             'The alarm connector acknowledge method should not be called if \
             message is empty'
         )
+        self.assertFalse(
+            AlarmConnector_get_alarm_dependencies.called,
+            'The alarm connector get dependencies method should not be called \
+            if message is empty'
+        )
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    @mock.patch(
+        'tickets.connectors.AlarmConnector.get_alarm_dependencies',
+        return_value=['alarm_1', 'alarm_2']
+    )
     def test_api_can_acknowledge_multiple_tickets(
-        self, AlarmConnector_acknowledge_alarms
+        self,
+        AlarmConnector_get_alarm_dependencies,
+        AlarmConnector_acknowledge_alarms
     ):
         """Test that the api can acknowledge multiple unacknowledged tickets"""
         # Act:
@@ -381,3 +435,78 @@ class TicketsApiTestCase(TestCase):
             'AlarmConnector.acknowledge_alarms should have been called'
         )
         AlarmConnector_acknowledge_alarms.assert_called_with(['alarm_2'])
+        AlarmConnector_get_alarm_dependencies.assert_has_calls(
+            [mock.call('alarm_1'), mock.call('alarm_2')]
+        )
+
+    @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    @mock.patch(
+        'tickets.connectors.AlarmConnector.get_alarm_dependencies',
+        return_value=['alarm_1', 'alarm_2', 'alarm_3']
+    )
+    def test_api_can_acknowledge_multiple_tickets_with_dependencies(
+        self,
+        AlarmConnector_get_alarm_dependencies,
+        AlarmConnector_acknowledge_alarms
+    ):
+        """Test that the api can acknowledge multiple unacknowledged tickets
+        and their dependencies"""
+        # Act:
+        url = reverse('ticket-acknowledge')
+        alarms_to_ack = ['alarm_1', 'alarm_2']
+        data = {
+            'alarms_ids': alarms_to_ack,
+            'message': 'The ticket was acknowledged',
+            'filter': 'only-set'
+        }
+        self.response = self.client.put(url, data, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The status of the response is incorrect'
+        )
+        self.assertTrue(
+            # Because alarm_1 has cleared_unack tickets yet so it is not
+            # completly acknowledged
+            sorted(self.response.data) == ['alarm_2', 'alarm_3'],
+            'The response is not as expected'
+        )
+        acknowledged_tickets = [
+            Ticket.objects.get(pk=self.ticket_unack.pk),
+            Ticket.objects.get(pk=self.ticket_other.pk),
+            Ticket.objects.get(pk=self.ticket_unack_of_dependency.pk)
+        ]
+        expected_status = int(TicketStatus.get_choices_by_name()['ACK'])
+        self.assertTrue(
+            acknowledged_tickets[0].status == expected_status and
+            acknowledged_tickets[1].status == expected_status and
+            acknowledged_tickets[2].status == expected_status,
+            'The tickets was not correctly acknowledged'
+        )
+        self.assertEqual(
+            acknowledged_tickets[0].message, data['message'],
+            'The first ticket message was not correctly recorded'
+        )
+        self.assertEqual(
+            acknowledged_tickets[1].message, data['message'],
+            'The second ticket message was not correctly recorded'
+        )
+        self.assertEqual(
+            acknowledged_tickets[2].message, data['message'],
+            'The dependency ticket message was not correctly recorded'
+        )
+        self.assertEqual(
+            AlarmConnector_acknowledge_alarms.call_count, 1,
+            'AlarmConnector.acknowledge_alarms should have been called'
+        )
+        call_args, call_kwargs = AlarmConnector_acknowledge_alarms.call_args
+        for alarm_id in call_args[0]:
+            self.assertTrue(
+                alarm_id in ['alarm_2', 'alarm_3'],
+                'AlarmConnector.acknowledge_alarms was not called with the \
+                expected arguments'
+            )
+        AlarmConnector_get_alarm_dependencies.assert_has_calls(
+            [mock.call('alarm_1'), mock.call('alarm_2')]
+        )

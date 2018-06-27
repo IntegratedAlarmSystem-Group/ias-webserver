@@ -29,7 +29,7 @@ class TestIAlarm(TestCase):
         AlarmCollection_acknowledge.assert_called_with(core_ids)
 
     @mock.patch('alarms.collections.AlarmCollection.shelve')
-    def test_acknowledge_alarms(self, AlarmCollection_shelve):
+    def test_shelve_alarms(self, AlarmCollection_shelve):
         """
         Test that IAlarm.shelve_alarm calls
         AlarmCollection.shelve
@@ -67,3 +67,27 @@ class TestIAlarm(TestCase):
             'The AlarmCollection unshelve method should have been be called'
         )
         AlarmCollection_unshelve.assert_called_with(core_ids)
+
+    @mock.patch(
+        'alarms.collections.AlarmCollection.get_dependencies_recursively',
+        return_value=['MOCK-ALARM', 'MOCK-ALARM-DEPENDENCY'])
+    def test_get_alarm_dependencies(
+        self, AlarmCollection_get_dependencies_recursively
+    ):
+        """
+        Test that IAlarm.get_alarm_dependencies calls
+        AlarmCollection.get_dependencies_recursively
+        """
+        # Arrange:
+        core_id = 'MOCK-ALARM'
+        # Act:
+        IAlarms.get_alarm_dependencies(core_id)
+        # Assert:
+        self.assertTrue(
+            AlarmCollection_get_dependencies_recursively.called,
+            'The AlarmCollection get dependencies recursively method should \
+            have been be called'
+        )
+        AlarmCollection_get_dependencies_recursively.assert_called_with(
+            core_id
+        )

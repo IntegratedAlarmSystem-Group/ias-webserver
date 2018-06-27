@@ -35,3 +35,13 @@ class IAlarms:
             alarms_ids (list): List of IDs of the Alarms to unshelve
         """
         async_to_sync(AlarmCollection.unshelve)(alarm_ids)
+
+    @classmethod
+    def get_alarm_dependencies(self, alarm_id):
+        """
+        Get the dependencies of the specified alarm
+
+        Args:
+            alarm_id (string): The id of the alarm to get the dependencies
+        """
+        return AlarmCollection.get_dependencies_recursively(alarm_id)

@@ -35,3 +35,13 @@ class AlarmConnector:
             alarms_id (list): List of IDs of the Alarms to unshelve
         """
         IAlarms.unshelve_alarms(alarm_ids)
+
+    @classmethod
+    def get_alarm_dependencies(self, alarm_id):
+        """
+        Get the dependencies of the specified alarm
+
+        Args:
+        alarm_id (string): The id of the alarm to get the dependencies
+        """
+        return IAlarms.get_alarm_dependencies(alarm_id)
