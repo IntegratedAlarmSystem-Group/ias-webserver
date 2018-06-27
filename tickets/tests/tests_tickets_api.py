@@ -197,6 +197,11 @@ class TicketsApiTestCase(TestCase):
             AlarmConnector_acknowledge_alarms.called,
             'The alarm connector acknowledge was not called'
         )
+        self.assertTrue(
+            AlarmConnector_get_alarm_dependencies.called,
+            'The alarm connector get dependencies was not called'
+        )
+        AlarmConnector_get_alarm_dependencies.assert_called_with('alarm_1')
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
     @mock.patch(
@@ -252,6 +257,11 @@ class TicketsApiTestCase(TestCase):
             'The alarm connector acknowledge method should not be called if \
             message the alarm has unack tickets'
         )
+        self.assertTrue(
+            AlarmConnector_get_alarm_dependencies.called,
+            'The alarm connector get dependencies was not called'
+        )
+        AlarmConnector_get_alarm_dependencies.assert_called_with('alarm_1')
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
     @mock.patch(
@@ -322,8 +332,11 @@ class TicketsApiTestCase(TestCase):
         )
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
+    @mock.patch('tickets.connectors.AlarmConnector.get_alarm_dependencies')
     def test_api_can_not_acknowledge_tickets_by_alarm_without_message(
-        self, AlarmConnector_acknowledge_alarms
+        self,
+        AlarmConnector_get_alarm_dependencies,
+        AlarmConnector_acknowledge_alarms
     ):
         """Test that the api can not ack an unacknowledged ticket with an empty
         message"""
@@ -361,6 +374,11 @@ class TicketsApiTestCase(TestCase):
             AlarmConnector_acknowledge_alarms.called,
             'The alarm connector acknowledge method should not be called if \
             message is empty'
+        )
+        self.assertFalse(
+            AlarmConnector_get_alarm_dependencies.called,
+            'The alarm connector get dependencies method should not be called \
+            if message is empty'
         )
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
@@ -417,6 +435,9 @@ class TicketsApiTestCase(TestCase):
             'AlarmConnector.acknowledge_alarms should have been called'
         )
         AlarmConnector_acknowledge_alarms.assert_called_with(['alarm_2'])
+        AlarmConnector_get_alarm_dependencies.assert_has_calls(
+            [mock.call('alarm_1'), mock.call('alarm_2')]
+        )
 
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
     @mock.patch(
@@ -479,6 +500,13 @@ class TicketsApiTestCase(TestCase):
             AlarmConnector_acknowledge_alarms.call_count, 1,
             'AlarmConnector.acknowledge_alarms should have been called'
         )
-        AlarmConnector_acknowledge_alarms.assert_called_with(
-            ['alarm_2', 'alarm_3']
+        call_args, call_kwargs = AlarmConnector_acknowledge_alarms.call_args
+        for alarm_id in call_args[0]:
+            self.assertTrue(
+                alarm_id in ['alarm_2', 'alarm_3'],
+                'AlarmConnector.acknowledge_alarms was not called with the \
+                expected arguments'
+            )
+        AlarmConnector_get_alarm_dependencies.assert_has_calls(
+            [mock.call('alarm_1'), mock.call('alarm_2')]
         )
