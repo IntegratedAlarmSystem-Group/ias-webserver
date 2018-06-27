@@ -118,6 +118,15 @@ class AlarmCollection:
         return response
 
     @classmethod
+    def get_ancestors_recursively(self, core_id):
+        """ Return the list of parents and grandparents recursively of the
+        specified alarm """
+        response = self._get_parents(core_id)
+        for parent_id in response:
+            response += self.get_ancestors_recursively(parent_id)
+        return response
+
+    @classmethod
     def get_all_as_dict(self):
         """Returns all the Alarms as a dictionary indexed by core_id"""
         if self.singleton_collection is None:
