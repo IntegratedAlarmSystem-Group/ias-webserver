@@ -237,9 +237,7 @@ class AlarmCollection:
 
         alarms = []
         for core_id in core_ids:
-            alarm = self.singleton_collection[core_id]
-            alarms.append(alarm)
-            alarm.acknowledge()
+            alarms += self._recursive_acknowledge(core_id)
 
         await asyncio.gather(
             *[self.notify_observers(alarm, 'update') for alarm in alarms]
@@ -383,6 +381,16 @@ class AlarmCollection:
         self.parents_collection[alarm_id].add(parent_id)
 
     @classmethod
+    def _check_dependencies_ack(self, alarm):
+        """ Checks wether all the children Alarms of a given Alarm
+        are acknowledged or not """
+        for core_id in alarm.dependencies:
+            dependency = self.singleton_collection[core_id]
+            if not dependency.ack:
+                return False
+        return True
+
+    @classmethod
     def _clean_alarm_dependencies(self, alarm):
         """ Cleans the dependencies of given Alarm,
         maintaining only actual Alarms """
@@ -420,6 +428,27 @@ class AlarmCollection:
             return []
         else:
             return list(self.parents_collection[alarm_id])
+
+    @classmethod
+    def _recursive_acknowledge(self, core_id):
+        """
+        Acknowledges upstream Alarms recursively through the Alarms
+        dependendy graph starting from a given Alarm
+        Args:
+            core_id (string): core_id of the Alarms staring Alarm
+        Returns:
+            array of core_ids (string) of acknowleged alarms
+        """
+        alarms = []
+        if core_id in self.singleton_collection.keys():
+            alarm = self.singleton_collection[core_id]
+            if self._check_dependencies_ack(alarm):
+                alarm.acknowledge()
+                alarms.append(alarm)
+
+                for parent in self._get_parents(core_id):
+                    alarms += self._recursive_acknowledge(parent)
+        return alarms
 
     @classmethod
     def _unacknowledge(self, alarm):
