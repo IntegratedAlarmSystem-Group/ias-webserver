@@ -57,3 +57,20 @@ class TestAlarmConnector(TestCase):
             'The IAlarms.unshelve_alarms function was not called'
         )
         IAlarms_unshelve_alarms.assert_called_with(core_ids)
+
+    @mock.patch('alarms.interfaces.IAlarms.get_alarm_dependencies')
+    def test_get_alarm_dependencies(self, IAlarms_get_alarm_dependencies):
+        """
+        Test that AlarmConnector.get_alarm_dependencies calls
+        IAlarms.get_alarm_dependencies
+        """
+        # Arrange:
+        core_ids = ['MOCK-ALARM']
+        # Act:
+        AlarmConnector.get_alarm_dependencies(core_ids)
+        # Assert:
+        self.assertTrue(
+            IAlarms_get_alarm_dependencies.called,
+            'The IAlarms.get_alarm_dependencies function was not called'
+        )
+        IAlarms_get_alarm_dependencies.assert_called_with(core_ids)
