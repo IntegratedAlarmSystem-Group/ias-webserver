@@ -440,16 +440,16 @@ class TestAlarmsCollectionAcknowledge:
         dependencies = AlarmCollection.get_dependencies_recursively(core_id_5)
         # Assert:
         expected_dependencies = [
-            core_id_5, core_id_4, core_id_3, core_id_2, core_id_1
+            core_id_1, core_id_2, core_id_3, core_id_4, core_id_5
         ]
-        assert dependencies.sort() == expected_dependencies.sort(), \
+        assert sorted(dependencies) == expected_dependencies, \
             'The method is not returning the list of dependencies correctly'
 
         # Act:
         dependencies = AlarmCollection.get_dependencies_recursively(core_id_1)
         # Assert:
         expected_dependencies = [core_id_1]
-        assert dependencies.sort() == expected_dependencies.sort(), \
+        assert dependencies == expected_dependencies, \
             'The method is not returning the list of dependencies correctly'
 
     @pytest.mark.django_db
