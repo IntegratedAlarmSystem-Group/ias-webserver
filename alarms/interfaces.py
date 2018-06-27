@@ -14,7 +14,7 @@ class IAlarms:
         Args:
             alarms_ids (list): List of IDs of the Alarms to acknowledge
         """
-        async_to_sync(AlarmCollection.acknowledge)(alarm_ids)
+        return async_to_sync(AlarmCollection.acknowledge)(alarm_ids)
 
     @classmethod
     def shelve_alarm(self, alarm_id):

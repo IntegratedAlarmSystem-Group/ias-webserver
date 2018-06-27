@@ -15,18 +15,23 @@ class TestIAlarm(TestCase):
         AlarmCollection.acknowledge
         """
         # Arrange:
-        fake_function = asyncio.Future()
-        fake_function.set_result(True)
-        AlarmCollection_acknowledge.return_value = fake_function
         core_ids = ['MOCK-ALARM']
+        fake_function = asyncio.Future()
+        fake_function.set_result(core_ids)
+        AlarmCollection_acknowledge.return_value = fake_function
         # Act:
-        IAlarms.acknowledge_alarms(core_ids)
+        ack_alarms_ids = IAlarms.acknowledge_alarms(core_ids)
         # Assert:
         self.assertTrue(
             AlarmCollection_acknowledge.called,
             'The AlarmCollection acknowledge method should have been be called'
         )
         AlarmCollection_acknowledge.assert_called_with(core_ids)
+        self.assertEqual(
+            ack_alarms_ids, core_ids,
+            'The AlarmCollection acknowledge method should return a list of \
+            acknowledged alarms'
+        )
 
     @mock.patch('alarms.collections.AlarmCollection.shelve')
     def test_shelve_alarms(self, AlarmCollection_shelve):

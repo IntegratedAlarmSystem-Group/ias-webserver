@@ -521,7 +521,7 @@ class TestAlarmsCollectionAcknowledge:
         status = await AlarmCollection.add_or_update_and_notify(alarm_2)
         status = await AlarmCollection.add_or_update_and_notify(alarm_3)
         # Act:
-        await AlarmCollection.acknowledge(core_ids)
+        ack_alarms_ids = await AlarmCollection.acknowledge(core_ids)
         # Assert:
         retrieved_alarm_1 = AlarmCollection.get(core_id_1)
         retrieved_alarm_2 = AlarmCollection.get(core_id_2)
@@ -532,6 +532,8 @@ class TestAlarmsCollectionAcknowledge:
             'Alarm 2 should have been acknowledged as it was CLEAR'
         assert retrieved_alarm_3.ack is True, \
             'Alarm 3 should have been acknowledged'
+        assert sorted(ack_alarms_ids) == sorted(core_ids), \
+            'Acknowledge method did not return the list of expected ack alarms'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
@@ -607,7 +609,7 @@ class TestAlarmsCollectionAcknowledge:
         await AlarmCollection.add_or_update_and_notify(alarm_4)
         await AlarmCollection.add_or_update_and_notify(alarm_5)
         # Act 1: Acknowledge the first leaf
-        await AlarmCollection.acknowledge([core_id_1])
+        ack_alarms_ids = await AlarmCollection.acknowledge([core_id_1])
         # Assert
         retrieved_alarm_1 = AlarmCollection.get(core_id_1)
         retrieved_alarm_3 = AlarmCollection.get(core_id_3)
@@ -617,8 +619,10 @@ class TestAlarmsCollectionAcknowledge:
         assert not retrieved_alarm_4.ack, \
             'The alarm_4 must not be acknowledged because its other \
              child (alarm_2) has not been acknowledge yet'
+        assert sorted(ack_alarms_ids) == [core_id_1, core_id_3], \
+            'Acknowledge method did not return the list of expected ack alarms'
         # Act 2: Acknowledge the second leaf
-        await AlarmCollection.acknowledge([core_id_2])
+        ack_alarms_ids = await AlarmCollection.acknowledge([core_id_2])
         # Assert
         retrieved_alarm_2 = AlarmCollection.get(core_id_2)
         retrieved_alarm_4 = AlarmCollection.get(core_id_4)
@@ -627,6 +631,8 @@ class TestAlarmsCollectionAcknowledge:
             retrieved_alarm_5.ack, \
             'The alarm_2, its parent alarm_4 and its grandparent alarm_5 \
             must be acknowledged'
+        assert sorted(ack_alarms_ids) == [core_id_2, core_id_4, core_id_5], \
+            'Acknowledge method did not return the list of expected ack alarms'
 
     @pytest.mark.django_db
     def test_create_ticket(self, mocker):

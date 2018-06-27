@@ -231,17 +231,27 @@ class AlarmCollection:
         Args:
             core_ids (list or string): list of core_ids (or a single core_id)
             of the Alarms to acknowledge
+
+        Return:
+            (list of string): list of core_ids of the acknowledged alarms
+            including dependent alarms
         """
         if type(core_ids) is not list:
             core_ids = [core_ids]
 
         alarms = []
+        alarms_ids = []
         for core_id in core_ids:
-            alarms += self._recursive_acknowledge(core_id)
+            _alarms, _alarms_ids = self._recursive_acknowledge(core_id)
+            alarms += _alarms
+            alarms_ids += _alarms_ids
 
         await asyncio.gather(
             *[self.notify_observers(alarm, 'update') for alarm in alarms]
         )
+
+        # TODO: Return list of acknowledge alarms
+        return alarms_ids
 
     @classmethod
     def reset(self, iasios=None):
@@ -440,15 +450,19 @@ class AlarmCollection:
             array of core_ids (string) of acknowleged alarms
         """
         alarms = []
+        alarms_ids = []
         if core_id in self.singleton_collection.keys():
             alarm = self.singleton_collection[core_id]
             if self._check_dependencies_ack(alarm):
                 alarm.acknowledge()
                 alarms.append(alarm)
+                alarms_ids.append(alarm.core_id)
 
                 for parent in self._get_parents(core_id):
-                    alarms += self._recursive_acknowledge(parent)
-        return alarms
+                    _alarms, _alarms_ids = self._recursive_acknowledge(parent)
+                    alarms += _alarms
+                    alarms_ids += _alarms_ids
+        return alarms, alarms_ids
 
     @classmethod
     def _unacknowledge(self, alarm):
