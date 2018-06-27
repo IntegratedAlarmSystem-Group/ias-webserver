@@ -385,3 +385,38 @@ class TicketsApiTestCase(TestCase):
                 'AlarmConnector.acknowledge_alarms was not called with the \
                 expected arguments'
             )
+
+    @mock.patch('tickets.connectors.AlarmConnector.get_alarm_dependencies')
+    def test_api_can_retrieve_old_open_tickets_information(
+        self,
+        AlarmConnector_get_alarm_dependencies
+    ):
+        """Test that the api can retrieve cleared unack tickets information
+        of an specified alarm"""
+        # Arrange:
+        url = reverse('ticket-old-open-info')
+        data = {
+            'alarm_id': 'alarm_2'
+        }
+        AlarmConnector_get_alarm_dependencies.return_value = [
+            'alarm_1',
+            'alarm_2'
+        ]
+        expected_response = {
+            'alarm_1': [self.ticket_cleared_unack.pk],
+            'alarm_2': []
+        }
+        # Act:
+        self.response = self.client.get(url, data, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The Server did not retrieve the tickets'
+        )
+        print(self.response.data)
+        self.assertEqual(
+            self.response.data,
+            expected_response,
+            'The retrieved information did not match with the expected one'
+        )

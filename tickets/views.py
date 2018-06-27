@@ -32,6 +32,23 @@ class TicketViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
+    @action(detail=False)
+    def old_open_info(self, request):
+        """ Retrieve a dictionary with information of the open tickets related
+        with an alarm and its dependencies """
+        alarm_id = self.request.query_params.get('alarm_id', None)
+        data = {}
+        if(alarm_id):
+            all_alarms_ids = AlarmConnector.get_alarm_dependencies(alarm_id)
+            for alarm_id in all_alarms_ids:
+                queryset = Ticket.objects.filter(
+                    alarm_id=alarm_id,
+                    status=TicketStatus.get_choices_by_name()['CLEARED_UNACK']
+                )
+                data[alarm_id] = [ticket.pk for ticket in queryset]
+
+        return Response(data)
+
     @action(methods=['put'], detail=False)
     def acknowledge(self, request):
         """ Acknowledge multiple tickets with the same message and timestamp"""
