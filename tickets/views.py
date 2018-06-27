@@ -48,14 +48,17 @@ class TicketViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        alarms_ids_with_dependencies = set()
+        all_alarms = set()
         for alarm_id in alarms_ids:
             dependencies = AlarmConnector.get_alarm_dependencies(alarm_id)
             for dependency_id in dependencies:
-                alarms_ids_with_dependencies.add(dependency_id)
+                all_alarms.add(dependency_id)
+            ancestors = AlarmConnector.get_alarm_ancestors(alarm_id)
+            for ancestor_id in ancestors:
+                all_alarms.add(ancestor_id)
 
         queryset = Ticket.objects.filter(
-            alarm_id__in=list(alarms_ids_with_dependencies))
+            alarm_id__in=list(all_alarms))
 
         # possible unack states
         unack = TicketStatus.get_choices_by_name()['UNACK']
