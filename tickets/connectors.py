@@ -13,8 +13,10 @@ class AlarmConnector:
 
         Args:
             alarms_id (list): List of IDs of the Alarms to acknowledge
+        Return:
+            List of IDs of the acknowledged alarms
         """
-        IAlarms.acknowledge_alarms(alarm_ids)
+        return IAlarms.acknowledge_alarms(alarm_ids)
 
     @classmethod
     def shelve_alarm(self, alarm_id):

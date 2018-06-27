@@ -15,14 +15,20 @@ class TestAlarmConnector(TestCase):
         """
         # Arrange:
         core_ids = ['MOCK-ALARM']
+        IAlarms_acknowledge_alarms.return_value = core_ids
         # Act:
-        AlarmConnector.acknowledge_alarms(core_ids)
+        ack_alarms_ids = AlarmConnector.acknowledge_alarms(core_ids)
         # Assert:
         self.assertTrue(
             IAlarms_acknowledge_alarms.called,
             'The IAlarms.acknowledge_alarms function was not called'
         )
         IAlarms_acknowledge_alarms.assert_called_with(core_ids)
+        self.assertEqual(
+            ack_alarms_ids, core_ids,
+            'The IAlarm acknowledge method should return a list of \
+            acknowledged alarms'
+        )
 
     @mock.patch('alarms.interfaces.IAlarms.shelve_alarm')
     def test_shelve_alarm(self, IAlarms_shelve_alarm):
