@@ -81,6 +81,16 @@ class TestAlarmsCollectionHandling:
         a parent of its dependencies """
         # Arrange:
         AlarmCollection.reset()
+        child = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=10000,
+            core_id='child_id',
+            running_id='({}:IASIO)'.format('child_id'),
+            dependencies=[]
+        )
+        await AlarmCollection.add_or_update_and_notify(child)
         alarm = Alarm(
             value=1,
             mode=7,
@@ -109,6 +119,16 @@ class TestAlarmsCollectionHandling:
         """
         # Arrange:
         AlarmCollection.reset()
+        child = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=10000,
+            core_id='child_id',
+            running_id='({}:IASIO)'.format('child_id'),
+            dependencies=[]
+        )
+        await AlarmCollection.add_or_update_and_notify(child)
         alarm_1 = Alarm(
             value=1,
             mode=7,

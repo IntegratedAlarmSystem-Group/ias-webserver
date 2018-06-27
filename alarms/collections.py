@@ -118,6 +118,7 @@ class AlarmCollection:
         Args:
             alarm (Alarm): the Alarm object to delete
         """
+        alarm = self._clean_alarm_dependencies(alarm)
         if alarm.value == 0:
             alarm.ack = True
         else:
@@ -167,6 +168,7 @@ class AlarmCollection:
             (besides timestamp), 'updated-equal' if it was updated but the only
             change is the timestamp, and 'nopt-updated' if it was not updated
         """
+        alarm = self._clean_alarm_dependencies(alarm)
         stored_alarm = self.get(alarm.core_id)
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
             alarm.ack = stored_alarm.ack
@@ -360,6 +362,17 @@ class AlarmCollection:
                 if not dependency.ack:
                     return False
         return True
+
+    @classmethod
+    def _clean_alarm_dependencies(self, alarm):
+        """ Cleans the dependencies of given Alarm,
+        maintaining only actual Alarms """
+        dependencies = []
+        for core_id in alarm.dependencies:
+            if core_id in self.singleton_collection.keys():
+                dependencies.append(core_id)
+        alarm.dependencies = dependencies
+        return alarm
 
     @classmethod
     def _clear_ticket(self, core_id):
