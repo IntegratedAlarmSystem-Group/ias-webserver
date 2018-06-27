@@ -14,7 +14,7 @@ class IAlarms:
         Args:
             alarms_ids (list): List of IDs of the Alarms to acknowledge
         """
-        async_to_sync(AlarmCollection.acknowledge)(alarm_ids)
+        return async_to_sync(AlarmCollection.acknowledge)(alarm_ids)
 
     @classmethod
     def shelve_alarm(self, alarm_id):
@@ -45,3 +45,13 @@ class IAlarms:
             alarm_id (string): The id of the alarm to get the dependencies
         """
         return AlarmCollection.get_dependencies_recursively(alarm_id)
+
+    @classmethod
+    def get_alarm_ancestors(self, alarm_id):
+        """
+        Get the ancestors of the specified alarm
+
+        Args:
+        alarm_id (string): The id of the alarm to get the ancestors
+        """
+        return AlarmCollection.get_ancestors_recursively(alarm_id)

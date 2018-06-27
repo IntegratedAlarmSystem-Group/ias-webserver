@@ -13,8 +13,10 @@ class AlarmConnector:
 
         Args:
             alarms_id (list): List of IDs of the Alarms to acknowledge
+        Return:
+            List of IDs of the acknowledged alarms
         """
-        IAlarms.acknowledge_alarms(alarm_ids)
+        return IAlarms.acknowledge_alarms(alarm_ids)
 
     @classmethod
     def shelve_alarm(self, alarm_id):
@@ -45,3 +47,13 @@ class AlarmConnector:
         alarm_id (string): The id of the alarm to get the dependencies
         """
         return IAlarms.get_alarm_dependencies(alarm_id)
+
+    @classmethod
+    def get_alarm_ancestors(self, alarm_id):
+        """
+        Get the ancestors of the specified alarm
+
+        Args:
+        alarm_id (string): The id of the alarm to get the ancestors
+        """
+        return IAlarms.get_alarm_ancestors(alarm_id)

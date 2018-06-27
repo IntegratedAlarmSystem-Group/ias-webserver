@@ -37,9 +37,6 @@ class TicketViewSet(viewsets.ModelViewSet):
         """ Acknowledge multiple tickets with the same message and timestamp"""
         message = self.request.data['message']
         alarms_ids = self.request.data['alarms_ids']
-        filter = 'all'
-        if 'filter' in self.request.data:
-            filter = self.request.data['filter']
 
         # If empty Message then return Bad Request:
         if message.strip() is "":
@@ -48,71 +45,34 @@ class TicketViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        alarms_ids_with_dependencies = set()
-        for alarm_id in alarms_ids:
-            dependencies = AlarmConnector.get_alarm_dependencies(alarm_id)
-            for dependency_id in dependencies:
-                alarms_ids_with_dependencies.add(dependency_id)
-
-        queryset = Ticket.objects.filter(
-            alarm_id__in=list(alarms_ids_with_dependencies))
+        ack_alarms_ids = AlarmConnector.acknowledge_alarms(alarms_ids)
+        queryset = Ticket.objects.filter(alarm_id__in=ack_alarms_ids)
 
         # possible unack states
         unack = TicketStatus.get_choices_by_name()['UNACK']
         cleared_unack = TicketStatus.get_choices_by_name()['CLEARED_UNACK']
 
-        if filter and filter == 'only-cleared':
-            queryset = queryset.filter(
-                status=int(cleared_unack)
-            )
-        elif filter and filter == 'all':
-            queryset = queryset.filter(
-                status__in=[int(unack), int(cleared_unack)]
-            )
-        elif (filter and filter == 'only-set') or not filter:
-            queryset = queryset.filter(
-                status=int(unack)
-            )
+        queryset = queryset.filter(
+            status__in=[int(unack), int(cleared_unack)]
+        )
 
         return self._apply_acknowledgement(message, list(queryset))
 
     def _apply_acknowledgement(self, message, tickets):
         """ Applies the acknowledgement to a single or multiple tickets """
-        # Handle either single or multiple tickets:
-        if type(tickets) is not list:
-            tickets = [tickets]
         # Acknowledge each ticket:
-        alarms_to_ack = set()
+        ack_alarms = set()
         for ticket in tickets:
             response = ticket.acknowledge(message=message)
             if response == 'solved':
-                alarms_to_ack.add(ticket.alarm_id)
+                ack_alarms.add(ticket.alarm_id)
             else:
                 return Response(
                     'Unexpected response from a ticket acknowledgement',
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
-        list_of_alarms_to_ack = self._verify_acknowledge_alarms(
-            list(alarms_to_ack))
-        if list_of_alarms_to_ack:
-            AlarmConnector.acknowledge_alarms(list_of_alarms_to_ack)
-        return Response(list_of_alarms_to_ack, status=status.HTTP_200_OK)
-
-    def _verify_acknowledge_alarms(self, alarms_to_ack):
-        """Check the alarms list to build a new list that contains only the
-        alarms that have only ack or cleared_ack tickets"""
-        # possible unack states
-        unack = TicketStatus.get_choices_by_name()['UNACK']
-        cleared_unack = TicketStatus.get_choices_by_name()['CLEARED_UNACK']
-        completly_ack_alarms = []
-        for alarm_id in alarms_to_ack:
-            queryset = Ticket.objects.filter(alarm_id=alarm_id)
-            queryset = queryset.filter(
-                status__in=[int(unack), int(cleared_unack)]
-            )
-            if not queryset:
-                completly_ack_alarms.append(alarm_id)
-        return completly_ack_alarms
+                # TODO: Reset AlarmCollection (?)
+        return Response(list(ack_alarms), status=status.HTTP_200_OK)
 
 
 class ShelveRegistryViewSet(viewsets.ModelViewSet):

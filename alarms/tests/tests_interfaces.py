@@ -15,18 +15,23 @@ class TestIAlarm(TestCase):
         AlarmCollection.acknowledge
         """
         # Arrange:
-        fake_function = asyncio.Future()
-        fake_function.set_result(True)
-        AlarmCollection_acknowledge.return_value = fake_function
         core_ids = ['MOCK-ALARM']
+        fake_function = asyncio.Future()
+        fake_function.set_result(core_ids)
+        AlarmCollection_acknowledge.return_value = fake_function
         # Act:
-        IAlarms.acknowledge_alarms(core_ids)
+        ack_alarms_ids = IAlarms.acknowledge_alarms(core_ids)
         # Assert:
         self.assertTrue(
             AlarmCollection_acknowledge.called,
             'The AlarmCollection acknowledge method should have been be called'
         )
         AlarmCollection_acknowledge.assert_called_with(core_ids)
+        self.assertEqual(
+            ack_alarms_ids, core_ids,
+            'The AlarmCollection acknowledge method should return a list of \
+            acknowledged alarms'
+        )
 
     @mock.patch('alarms.collections.AlarmCollection.shelve')
     def test_shelve_alarms(self, AlarmCollection_shelve):
@@ -89,5 +94,29 @@ class TestIAlarm(TestCase):
             have been be called'
         )
         AlarmCollection_get_dependencies_recursively.assert_called_with(
+            core_id
+        )
+
+    @mock.patch(
+        'alarms.collections.AlarmCollection.get_ancestors_recursively',
+        return_value=['MOCK-ALARM', 'MOCK-ALARM-DEPENDENCY'])
+    def test_get_alarm_ancestors(
+        self, AlarmCollection_get_ancestors_recursively
+    ):
+        """
+        Test that IAlarm.get_alarm_ancestors calls
+        AlarmCollection.get_ancestors_recursively
+        """
+        # Arrange:
+        core_id = 'MOCK-ALARM'
+        # Act:
+        IAlarms.get_alarm_ancestors(core_id)
+        # Assert:
+        self.assertTrue(
+            AlarmCollection_get_ancestors_recursively.called,
+            'The AlarmCollection get ancestors recursively method should \
+            have been be called'
+        )
+        AlarmCollection_get_ancestors_recursively.assert_called_with(
             core_id
         )
