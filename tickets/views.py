@@ -41,6 +41,13 @@ class TicketViewSet(viewsets.ModelViewSet):
         if 'filter' in self.request.data:
             filter = self.request.data['filter']
 
+        # If empty Message then return Bad Request:
+        if message.strip() is "":
+            return Response(
+                "The message must not be empty",
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         alarms_ids_with_dependencies = set()
         for alarm_id in alarms_ids:
             dependencies = AlarmConnector.get_alarm_dependencies(alarm_id)
@@ -71,12 +78,6 @@ class TicketViewSet(viewsets.ModelViewSet):
 
     def _apply_acknowledgement(self, message, tickets):
         """ Applies the acknowledgement to a single or multiple tickets """
-        # If empty Message then return Bad Request:
-        if message.strip() is "":
-            return Response(
-                "The message must not be empty",
-                status=status.HTTP_400_BAD_REQUEST
-            )
         # Handle either single or multiple tickets:
         if type(tickets) is not list:
             tickets = [tickets]
