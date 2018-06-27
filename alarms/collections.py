@@ -112,10 +112,9 @@ class AlarmCollection:
         if alarm:
             response.append(core_id)
             for dependency_id in alarm.dependencies:
-                if dependency_id in self.singleton_collection.keys():
-                    response += AlarmCollection.get_dependencies_recursively(
-                        dependency_id
-                    )
+                response += AlarmCollection.get_dependencies_recursively(
+                    dependency_id
+                )
         return response
 
     @classmethod
