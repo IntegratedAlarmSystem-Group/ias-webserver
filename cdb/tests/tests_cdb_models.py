@@ -15,7 +15,8 @@ class CdbModelsTestCase(TestCase):
         # Act:
         iasio = Iasio(io_id='Test-ID',
                       short_desc='Test iasio',
-                      ias_type='double')
+                      ias_type='double',
+                      doc_url='www.dummy-doc.com')
         iasio.save()
         # Asserts:
         self.assertEqual(
@@ -27,7 +28,8 @@ class CdbModelsTestCase(TestCase):
             {
                 'io_id': 'Test-ID',
                 'short_desc': 'Test iasio',
-                'ias_type': 'DOUBLE'
+                'ias_type': 'DOUBLE',
+                'doc_url': 'www.dummy-doc.com'
             },
             'The iasio obtained with get_data method is not the expected'
         )

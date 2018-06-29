@@ -31,6 +31,10 @@ class TicketsModelsTestCase(TestCase):
                 'When the ticket is created the acknowledged time must be none'
             )
             self.assertEqual(
+                retrieved_ticket.cleared_at, None,
+                'When the ticket is created the cleared time must be none'
+            )
+            self.assertEqual(
                 retrieved_ticket.message, None,
                 'When the ticket is created the message must be none'
             )
@@ -47,22 +51,22 @@ class TicketsModelsTestCase(TestCase):
             response = ticket.acknowledge(message='This ticket was solved')
             retrieved_ticket = Ticket.objects.get(alarm_id='alarm_id')
 
-            # Asserts:
-            self.assertEqual(
-                retrieved_ticket.status,
-                int(TicketStatus.get_choices_by_name()['ACK']),
-                'Solved ticket status must be closed (0)'
-            )
-            self.assertEqual(
-                retrieved_ticket.acknowledged_at, resolution_dt,
-                'When the ticket is solved the acknowledge_at time must be \
-                greater than the created_at datetime'
-            )
-            self.assertEqual(
-                retrieved_ticket.message, 'This ticket was solved',
-                'When the ticket is created the message must be none'
-            )
-            self.assertEqual(
-                response, 'solved',
-                'Valid resolution is not solved correctly'
-            )
+        # Asserts:
+        self.assertEqual(
+            retrieved_ticket.status,
+            int(TicketStatus.get_choices_by_name()['ACK']),
+            'Solved ticket status must be closed (0)'
+        )
+        self.assertEqual(
+            retrieved_ticket.acknowledged_at, resolution_dt,
+            'When the ticket is solved the acknowledge_at time must be \
+            greater than the created_at datetime'
+        )
+        self.assertEqual(
+            retrieved_ticket.message, 'This ticket was solved',
+            'When the ticket is created the message must be none'
+        )
+        self.assertEqual(
+            response, 'solved',
+            'Valid resolution is not solved correctly'
+        )

@@ -156,8 +156,8 @@ class AlarmModelTestCase(TestCase):
             alarm.ack, True, 'A SET Alarm could not be acknowledged'
         )
 
-    def test_cannot_acknowledge_clear_alarms(self):
-        """ Test if a CLEAR alarm cannot be acknowledged """
+    def test_acknowledge_clear_alarms(self):
+        """ Test if a CLEAR alarm can be acknowledged """
         # Arrange:
         alarm = AlarmFactory.build()
         alarm.ack = False
@@ -166,5 +166,28 @@ class AlarmModelTestCase(TestCase):
         alarm.acknowledge()
         # Assert:
         self.assertEquals(
-            alarm.ack, False, 'A CLEAR Alarm should not be acknowledged'
+            alarm.ack, True, 'A CLEAR Alarm could not be acknowledged'
+        )
+
+    def test_shelve_alarm(self):
+        """ Test if an alarm can be shelved """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        # Act:
+        alarm.shelve()
+        # Assert:
+        self.assertEquals(
+            alarm.shelved, True, 'The Alarm was not shelved'
+        )
+
+    def test_unshelve_alarm(self):
+        """ Test if an alarm can be unshelved """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.shelve()
+        # Act:
+        alarm.unshelve()
+        # Assert:
+        self.assertEquals(
+            alarm.shelved, False, 'The Alarm was not unshelved'
         )

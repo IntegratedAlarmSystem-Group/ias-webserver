@@ -37,8 +37,8 @@ class TestTicketConnector(TestCase):
                 'When the ticket is created the message must be none'
             )
 
-    def test_close_ticket(self):
-        """ Test that the close_ticket function can close a ticket """
+    def test_clear_ticket(self):
+        """ Test that the clear_ticket function can clear a ticket """
         # Arrange:
         self.alarm_id = 'AlarmID'
         Ticket.objects.create(alarm_id=self.alarm_id)
@@ -46,25 +46,30 @@ class TestTicketConnector(TestCase):
         resolution_dt = timezone.now()
         with freeze_time(resolution_dt):
             # Act:
-            TicketConnector.close_ticket(self.alarm_id)
+            TicketConnector.clear_ticket(self.alarm_id)
             retrieved_ticket = Ticket.objects.get(alarm_id=self.alarm_id)
 
             # Assert:
             self.assertEqual(
                 retrieved_ticket.status,
-                int(TicketStatus.get_choices_by_name()['ACK']),
-                'Ticket must be closed'
-            )
-            self.assertTrue(
-                retrieved_ticket.created_at < retrieved_ticket.acknowledged_at,
-                'Ticket should be created before it is acknowledged'
+                int(TicketStatus.get_choices_by_name()['CLEARED_UNACK']),
+                'Ticket must be cleared but unack'
             )
             self.assertEqual(
-                retrieved_ticket.acknowledged_at, resolution_dt,
-                'Ticket should be acknowledged wit the correct timestamp'
+                retrieved_ticket.acknowledged_at, None,
+                'Ticket should not be acknowledged'
+            )
+            self.assertTrue(
+                retrieved_ticket.created_at < retrieved_ticket.cleared_at,
+                'Ticket should be cleared after it was created'
+            )
+            self.assertEqual(
+                retrieved_ticket.cleared_at, resolution_dt,
+                'Ticket should be cleared with the correct timestamp'
             )
             self.assertEqual(
                 retrieved_ticket.message,
-                'The alarm was cleared before it was acknowledged',
-                'When the ticket is created the message must be as expected'
+                None,
+                'When the ticket is clared but not acknowledged the message \
+                must be None'
             )

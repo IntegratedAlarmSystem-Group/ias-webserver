@@ -44,60 +44,6 @@ class AlarmCollection:
             *[observer.send_alarms_status() for observer in self.observers]
         )
 
-    # Private methods used to call TIcketConnector:
-    @classmethod
-    def _create_ticket(self, core_id):
-        """
-        Creates a ticket for an specified Alarm ID
-
-        Args:
-            core_id (string): Core ID of the Alarm associated to the Ticket
-        """
-        return TicketConnector.create_ticket(core_id)
-
-    @classmethod
-    def _close_ticket(self, core_id):
-        """
-        Closes the open tickets for an specified Alarm ID
-
-        Args:
-            core_id (string): Core ID of the Alarm associated to the Ticket
-        """
-        return TicketConnector.close_ticket(core_id)
-
-    # Private methods used to update the parent collection dictionary
-    @classmethod
-    def _add_parent(self, alarm_id, parent_id):
-        """ Add a parent to the list of parents of the alarm
-
-        Args:
-            alarm_id (string): Core ID of the alarm
-            parent_id (string): Core ID of the parent of the alarm
-        """
-        if alarm_id not in self.parents_collection.keys():
-            self.parents_collection[alarm_id] = set()
-        self.parents_collection[alarm_id].add(parent_id)
-
-    @classmethod
-    def _update_parents_collection(self, alarm):
-        """ Update the parents collection according the dependencies data of
-        the alarm
-
-        Args:
-            alarm (Alarm): Alarm used to update the collection
-        """
-        if alarm.dependencies:
-            for dependency in alarm.dependencies:
-                self._add_parent(dependency, alarm.core_id)
-
-    @classmethod
-    def get_parents(self, alarm_id):
-        """ Return the list of parents of the specified alarm """
-        if alarm_id not in self.parents_collection.keys():
-            return []
-        else:
-            return list(self.parents_collection[alarm_id])
-
     # Sync, non-notified methods:
     @classmethod
     def initialize(self, iasios=None):
@@ -127,6 +73,7 @@ class AlarmCollection:
                         core_id=iasio['io_id'],
                         running_id='({}:IASIO)'.format(iasio['io_id']),
                         ack=True,
+                        shelved=False,
                     )
                     self.add(alarm)
         return self.singleton_collection
@@ -152,6 +99,34 @@ class AlarmCollection:
             return None
 
     @classmethod
+    def get_dependencies_recursively(self, core_id):
+        """
+        Returns a list of alarm ids of all the dependencies of the specified
+        alarm
+
+        Returns:
+            list: A list of alarm ids dependencies of the alarm with core_id
+        """
+        response = []
+        alarm = AlarmCollection.get(core_id)
+        if alarm:
+            response.append(core_id)
+            for dependency_id in alarm.dependencies:
+                response += AlarmCollection.get_dependencies_recursively(
+                    dependency_id
+                )
+        return response
+
+    @classmethod
+    def get_ancestors_recursively(self, core_id):
+        """ Return the list of parents and grandparents recursively of the
+        specified alarm """
+        response = self._get_parents(core_id)
+        for parent_id in response:
+            response += self.get_ancestors_recursively(parent_id)
+        return response
+
+    @classmethod
     def get_all_as_dict(self):
         """Returns all the Alarms as a dictionary indexed by core_id"""
         if self.singleton_collection is None:
@@ -171,11 +146,11 @@ class AlarmCollection:
         Args:
             alarm (Alarm): the Alarm object to delete
         """
+        alarm = self._clean_alarm_dependencies(alarm)
         if alarm.value == 0:
             alarm.ack = True
         else:
-            alarm.ack = False
-            self._create_ticket(alarm.core_id)
+            self._unacknowledge(alarm)
         self.singleton_collection[alarm.core_id] = alarm
         self._update_parents_collection(alarm)
 
@@ -221,23 +196,22 @@ class AlarmCollection:
             (besides timestamp), 'updated-equal' if it was updated but the only
             change is the timestamp, and 'nopt-updated' if it was not updated
         """
+        alarm = self._clean_alarm_dependencies(alarm)
         stored_alarm = self.get(alarm.core_id)
         if alarm.core_timestamp >= stored_alarm.core_timestamp:
             alarm.ack = stored_alarm.ack
+            alarm.shelved = stored_alarm.shelved
             alarm.state_change_timestamp = stored_alarm.state_change_timestamp
             self.singleton_collection[alarm.core_id] = alarm
             # If the value changed from clear to set,
-            # the status is not acknowledged and a new ticket is be created
+            # the status is not acknowledged and a new ticket is created
             if stored_alarm.is_not_set() and alarm.is_set():
-                alarm.ack = False
-                alarm.state_change_timestamp = alarm.core_timestamp
-                self._create_ticket(alarm.core_id)
+                self._unacknowledge(alarm)
             # If the value changed from set to clear,
             # the status is acknowledged and the ticket is closed
             elif stored_alarm.is_set() and alarm.is_not_set():
-                alarm.ack = True
                 alarm.state_change_timestamp = alarm.core_timestamp
-                self._close_ticket(alarm.core_id)
+                self._clear_ticket(alarm.core_id)
 
             if stored_alarm.mode != alarm.mode:
                 alarm.state_change_timestamp = alarm.core_timestamp
@@ -257,48 +231,26 @@ class AlarmCollection:
         Args:
             core_ids (list or string): list of core_ids (or a single core_id)
             of the Alarms to acknowledge
+
+        Return:
+            (list of string): list of core_ids of the acknowledged alarms
+            including dependent alarms
         """
         if type(core_ids) is not list:
             core_ids = [core_ids]
 
         alarms = []
+        alarms_ids = []
         for core_id in core_ids:
-            alarms += self.recursive_acknowledge(core_id)
+            _alarms, _alarms_ids = self._recursive_acknowledge(core_id)
+            alarms += _alarms
+            alarms_ids += _alarms_ids
 
         await asyncio.gather(
             *[self.notify_observers(alarm, 'update') for alarm in alarms]
         )
 
-    @classmethod
-    def recursive_acknowledge(self, core_id):
-        """
-        Acknowledges upstream Alarms recursively through the Alarms
-        dependendy graph starting from a given Alarm
-
-        Args:
-            core_id (string): core_id of the Alarms staring Alarm
-        """
-        alarms = []
-        if core_id in self.singleton_collection.keys():
-            alarm = self.singleton_collection[core_id]
-            if self.check_dependencies_ack(alarm):
-                alarm.acknowledge()
-                alarms.append(alarm)
-
-                for parent in self.get_parents(core_id):
-                    alarms += self.recursive_acknowledge(parent)
-        return alarms
-
-    @classmethod
-    def check_dependencies_ack(self, alarm):
-        """ Checks wether all the children Alarms of a given Alarm
-        are acknowledged or not """
-        for core_id in alarm.dependencies:
-            if core_id in self.singleton_collection.keys():
-                dependency = self.singleton_collection[core_id]
-                if not dependency.ack:
-                    return False
-        return True
+        return alarms_ids
 
     @classmethod
     def reset(self, iasios=None):
@@ -382,6 +334,162 @@ class AlarmCollection:
             return 'deleted-alarm'
         else:
             return 'ignored-non-existing-alarm'
+
+    @classmethod
+    async def shelve(self, core_id):
+        """
+        Shelves an alarm
+
+        Args:
+            core_id (string): core_ids of the Alarm to shelve
+        """
+        alarm = self.singleton_collection[core_id]
+        if alarm.shelve():
+            await self.notify_observers(alarm, 'update')
+            return True
+        else:
+            return False
+
+    @classmethod
+    async def unshelve(self, core_ids):
+        """
+        Unshelves an alarm or a list of Alarms
+
+        Args:
+            core_ids (list or string): list of core_ids (or a single core_id)
+            of the Alarms to unshelve
+        """
+        if type(core_ids) is not list:
+            core_ids = [core_ids]
+
+        alarms = []
+        for core_id in core_ids:
+            alarm = self.singleton_collection[core_id]
+            if alarm.unshelve():
+                alarms.append(alarm)
+
+        if alarms:
+            await asyncio.gather(
+                *[self.notify_observers(alarm, 'update') for alarm in alarms]
+            )
+            return True
+        else:
+            return False
+
+    # Private methods used to call TicketConnector:
+    @classmethod
+    def _add_parent(self, alarm_id, parent_id):
+        """ Add a parent to the list of parents of the alarm
+
+        Args:
+            alarm_id (string): Core ID of the alarm
+            parent_id (string): Core ID of the parent of the alarm
+        """
+        if alarm_id not in self.parents_collection.keys():
+            self.parents_collection[alarm_id] = set()
+        self.parents_collection[alarm_id].add(parent_id)
+
+    @classmethod
+    def _check_dependencies_ack(self, alarm):
+        """ Checks wether all the children Alarms of a given Alarm
+        are acknowledged or not """
+        for core_id in alarm.dependencies:
+            dependency = self.singleton_collection[core_id]
+            if not dependency.ack:
+                return False
+        return True
+
+    @classmethod
+    def _clean_alarm_dependencies(self, alarm):
+        """ Cleans the dependencies of given Alarm,
+        maintaining only actual Alarms """
+        dependencies = []
+        for core_id in alarm.dependencies:
+            if core_id in self.singleton_collection.keys():
+                dependencies.append(core_id)
+        alarm.dependencies = dependencies
+        return alarm
+
+    @classmethod
+    def _clear_ticket(self, core_id):
+        """
+        Clear the open tickets for an specified Alarm ID
+
+        Args:
+            core_id (string): Core ID of the Alarm associated to the Ticket
+        """
+        return TicketConnector.clear_ticket(core_id)
+
+    @classmethod
+    def _create_ticket(self, core_id):
+        """
+        Creates a ticket for an specified Alarm ID
+
+        Args:
+            core_id (string): Core ID of the Alarm associated to the Ticket
+        """
+        return TicketConnector.create_ticket(core_id)
+
+    @classmethod
+    def _get_parents(self, alarm_id):
+        """ Return the list of parents of the specified alarm """
+        if alarm_id not in self.parents_collection.keys():
+            return []
+        else:
+            return list(self.parents_collection[alarm_id])
+
+    @classmethod
+    def _recursive_acknowledge(self, core_id):
+        """
+        Acknowledges upstream Alarms recursively through the Alarms
+        dependendy graph starting from a given Alarm
+        Args:
+            core_id (string): core_id of the Alarms staring Alarm
+        Returns:
+            array of core_ids (string) of acknowleged alarms
+        """
+        alarms = []
+        alarms_ids = []
+        if core_id in self.singleton_collection.keys():
+            alarm = self.singleton_collection[core_id]
+            if self._check_dependencies_ack(alarm):
+                alarm.acknowledge()
+                alarms.append(alarm)
+                alarms_ids.append(alarm.core_id)
+
+                for parent in self._get_parents(core_id):
+                    _alarms, _alarms_ids = self._recursive_acknowledge(parent)
+                    alarms += _alarms
+                    alarms_ids += _alarms_ids
+        return alarms, alarms_ids
+
+    @classmethod
+    def _unacknowledge(self, alarm):
+        """
+        Unacknowledges a given Alarm
+
+        Args:
+            alarm (Alarm): The Alarm to unacknowledge
+        """
+        if alarm.shelved:
+            return False
+        else:
+            alarm.ack = False
+            alarm.state_change_timestamp = alarm.core_timestamp
+            self._create_ticket(alarm.core_id)
+            return True
+
+    @classmethod
+    def _update_parents_collection(self, alarm):
+        """ Update the parents collection according the dependencies data of
+        the alarm
+
+        Args:
+            alarm (Alarm): Alarm used to update the collection
+        """
+        if alarm.dependencies:
+            for dependency in alarm.dependencies:
+                self._add_parent(dependency, alarm.core_id)
 
 
 class AlarmCollectionObserver(abc.ABC):

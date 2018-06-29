@@ -51,7 +51,7 @@ class TicketConnector():
         Ticket.objects.create(alarm_id=alarm_id)
 
     @classmethod
-    def close_ticket(self, alarm_id):
+    def clear_ticket(self, alarm_id):
         """
         Closes a ticket for a given Alarm ID
 
@@ -63,6 +63,4 @@ class TicketConnector():
             status=int(TicketStatus.get_choices_by_name()['UNACK'])
         )
         for ticket in queryset:
-            ticket.acknowledge(
-                'The alarm was cleared before it was acknowledged'
-            )
+            ticket.clear()

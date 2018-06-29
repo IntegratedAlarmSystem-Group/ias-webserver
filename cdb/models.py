@@ -91,6 +91,9 @@ class Iasio(models.Model):
     ias_type = models.CharField(max_length=16, null=False, db_column='iasType')
     """ Type of the IASIO """
 
+    doc_url = models.CharField(max_length=256, blank=True, db_column='docUrl')
+    """ Documentation URL of the IASIO """
+
     def save(self, *args, **kwargs):
         """ Method that saves changes to an IASIO in the CDB """
         self.ias_type = self.ias_type.upper()
@@ -107,5 +110,6 @@ class Iasio(models.Model):
         return {
             'io_id': self.io_id,
             'short_desc': self.short_desc,
-            'ias_type': self.ias_type
+            'ias_type': self.ias_type,
+            'doc_url': self.doc_url
         }

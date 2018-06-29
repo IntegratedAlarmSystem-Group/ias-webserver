@@ -1,10 +1,10 @@
-from alarms.interfaces import IAlarms
+from asgiref.sync import async_to_sync
+from alarms.collections import AlarmCollection
 
 
-class AlarmConnector:
-    """
-    This class defines methods to communicate the Ticket app with the Alarm app
-    """
+class IAlarms:
+    """ This class defines the methods that the Alarms app provides to be used
+    by other apps """
 
     @classmethod
     def acknowledge_alarms(self, alarm_ids):
@@ -12,11 +12,9 @@ class AlarmConnector:
         Akcnowledge Alarms based on a list of Alarm IDs
 
         Args:
-            alarms_id (list): List of IDs of the Alarms to acknowledge
-        Return:
-            List of IDs of the acknowledged alarms
+            alarms_ids (list): List of IDs of the Alarms to acknowledge
         """
-        return IAlarms.acknowledge_alarms(alarm_ids)
+        return async_to_sync(AlarmCollection.acknowledge)(alarm_ids)
 
     @classmethod
     def shelve_alarm(self, alarm_id):
@@ -26,7 +24,7 @@ class AlarmConnector:
         Args:
             alarm_id (string): ID of the Alarms to shelve
         """
-        IAlarms.shelve_alarm(alarm_id)
+        async_to_sync(AlarmCollection.shelve)(alarm_id)
 
     @classmethod
     def unshelve_alarms(self, alarm_ids):
@@ -34,9 +32,9 @@ class AlarmConnector:
         Unshelve Alarms based on a list of Alarm IDs
 
         Args:
-            alarms_id (list): List of IDs of the Alarms to unshelve
+            alarms_ids (list): List of IDs of the Alarms to unshelve
         """
-        IAlarms.unshelve_alarms(alarm_ids)
+        async_to_sync(AlarmCollection.unshelve)(alarm_ids)
 
     @classmethod
     def get_alarm_dependencies(self, alarm_id):
@@ -44,9 +42,9 @@ class AlarmConnector:
         Get the dependencies of the specified alarm
 
         Args:
-        alarm_id (string): The id of the alarm to get the dependencies
+            alarm_id (string): The id of the alarm to get the dependencies
         """
-        return IAlarms.get_alarm_dependencies(alarm_id)
+        return AlarmCollection.get_dependencies_recursively(alarm_id)
 
     @classmethod
     def get_alarm_ancestors(self, alarm_id):
@@ -56,4 +54,4 @@ class AlarmConnector:
         Args:
         alarm_id (string): The id of the alarm to get the ancestors
         """
-        return IAlarms.get_alarm_ancestors(alarm_id)
+        return AlarmCollection.get_ancestors_recursively(alarm_id)

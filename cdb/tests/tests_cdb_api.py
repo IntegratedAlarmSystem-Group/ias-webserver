@@ -17,13 +17,16 @@ class CdbApiTestCase(TestCase):
 
         self.iasio1 = Iasio(io_id='Test-ID1',
                             short_desc='Test iasio',
-                            ias_type='double')
+                            ias_type='double',
+                            doc_url='www.dummy-doc.com')
         self.iasio2 = Iasio(io_id='Test-ID2',
                             short_desc='Test iasio',
-                            ias_type='alarm')
+                            ias_type='alarm',
+                            doc_url='www.dummy-doc.com')
         self.iasio3 = Iasio(io_id='Test-ID3',
                             short_desc='Test iasio',
-                            ias_type='alarm')
+                            ias_type='alarm',
+                            doc_url='www.dummy-doc.com')
         self.iasio1.save()
         self.iasio2.save()
         self.iasio3.save()
