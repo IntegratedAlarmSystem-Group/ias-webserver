@@ -52,15 +52,162 @@
 <div class="section" id="module-tickets.tests.tests_connectors">
 <span id="tickets-tests-tests-connectors-module"></span><h2>tickets.tests.tests_connectors module<a class="headerlink" href="#module-tickets.tests.tests_connectors" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="tickets.tests.tests_connectors.AlarmConnectorTestCase">
-<em class="property">class </em><code class="descclassname">tickets.tests.tests_connectors.</code><code class="descname">AlarmConnectorTestCase</code><a class="headerlink" href="#tickets.tests.tests_connectors.AlarmConnectorTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dt id="tickets.tests.tests_connectors.TestAlarmConnector">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_connectors.</code><code class="descname">TestAlarmConnector</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_connectors.TestAlarmConnector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
 <p>This class defines the test suite for the Alarms Connector</p>
 <dl class="method">
-<dt id="tickets.tests.tests_connectors.AlarmConnectorTestCase.test_acknowledge_alarms">
-<code class="descname">test_acknowledge_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_connectors.AlarmConnectorTestCase.test_acknowledge_alarms" title="Permalink to this definition">¶</a></dt>
+<dt id="tickets.tests.tests_connectors.TestAlarmConnector.test_acknowledge_alarms">
+<code class="descname">test_acknowledge_alarms</code><span class="sig-paren">(</span><em>IAlarms_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_connectors.TestAlarmConnector.test_acknowledge_alarms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that AlarmConnector.acknowledge_alarms calls
-AlarmCollection.acknowledge</p>
+IAlarms.acknowledge_alarms</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_connectors.TestAlarmConnector.test_get_alarm_ancestors">
+<code class="descname">test_get_alarm_ancestors</code><span class="sig-paren">(</span><em>IAlarms_get_alarm_ancestors</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_connectors.TestAlarmConnector.test_get_alarm_ancestors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that AlarmConnector.get_alarm_ancestors calls
+IAlarms.get_alarm_ancestors</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_connectors.TestAlarmConnector.test_get_alarm_dependencies">
+<code class="descname">test_get_alarm_dependencies</code><span class="sig-paren">(</span><em>IAlarms_get_alarm_dependencies</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_connectors.TestAlarmConnector.test_get_alarm_dependencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that AlarmConnector.get_alarm_dependencies calls
+IAlarms.get_alarm_dependencies</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_connectors.TestAlarmConnector.test_shelve_alarm">
+<code class="descname">test_shelve_alarm</code><span class="sig-paren">(</span><em>IAlarms_shelve_alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_connectors.TestAlarmConnector.test_shelve_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that AlarmConnector.shelve_alarm calls
+IAlarms.shelve_alarm</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_connectors.TestAlarmConnector.test_unshelve_alarms">
+<code class="descname">test_unshelve_alarms</code><span class="sig-paren">(</span><em>IAlarms_unshelve_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_connectors.TestAlarmConnector.test_unshelve_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that AlarmConnector.unshelve_alarms calls
+IAlarms.unshelve_alarms</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets.tests.tests_shelves_api">
+<span id="tickets-tests-tests-shelves-api-module"></span><h2>tickets.tests.tests_shelves_api module<a class="headerlink" href="#module-tickets.tests.tests_shelves_api" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">ShelveRegistrysApiTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite for the registries api views.</p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_check_timeouts">
+<code class="descname">test_api_can_check_timeouts</code><span class="sig-paren">(</span><em>AlarmConnector_unshelve_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_check_timeouts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can check if active registries have timedout and
+notify accordingly</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_create_registry">
+<code class="descname">test_api_can_create_registry</code><span class="sig-paren">(</span><em>AlarmConnector_shelve_alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_create_registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can create a registry</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_delete_a_registry">
+<code class="descname">test_api_can_delete_a_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_delete_a_registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can delete a registry</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_filter_all_open_registries">
+<code class="descname">test_api_can_filter_all_open_registries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_filter_all_open_registries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can filter ShelveRegistrys by status</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_filter_registries_by_alarm_and_status">
+<code class="descname">test_api_can_filter_registries_by_alarm_and_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_filter_registries_by_alarm_and_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the ShelveRegistrys filtered by alarm id
+and status</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_list_registries">
+<code class="descname">test_api_can_list_registries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_list_registries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the ShelveRegistries</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_retrieve_registry">
+<code class="descname">test_api_can_retrieve_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_retrieve_registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve a registry</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_unshelve_multiple_registries">
+<code class="descname">test_api_can_unshelve_multiple_registries</code><span class="sig-paren">(</span><em>AlarmConnector_unshelve_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_unshelve_multiple_registries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can unshelve multiple ununshelved registries</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_update_registry">
+<code class="descname">test_api_can_update_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_update_registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can update a registry</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_create_registry_with_no_message">
+<code class="descname">test_api_cannot_create_registry_with_no_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_create_registry_with_no_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api cannot create a registry without a message</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_update_registry_to_have_no_message">
+<code class="descname">test_api_cannot_update_registry_to_have_no_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_update_registry_to_have_no_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api cannot update a registry and leave it without
+a message</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tickets.tests.tests_shelves_models">
+<span id="tickets-tests-tests-shelves-models-module"></span><h2>tickets.tests.tests_shelves_models module<a class="headerlink" href="#module-tickets.tests.tests_shelves_models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_models.</code><code class="descname">ShelveRegistryModelsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the ShelveRegistry model tests</p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase.test_cannot_create_registry_with_no_message">
+<code class="descname">test_cannot_create_registry_with_no_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase.test_cannot_create_registry_with_no_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we cannot create a shelve_registry without a message</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase.test_create_registry">
+<code class="descname">test_create_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase.test_create_registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a shelve_registry</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase.test_unshelve_a_registry">
+<code class="descname">test_unshelve_a_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase.test_unshelve_a_registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can unshelve an alarm</p>
 </dd></dl>
 
 </dd></dl>
@@ -72,7 +219,7 @@ AlarmCollection.acknowledge</p>
 <dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase">
 <em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">TicketsApiTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
-<p>Test suite for the api views.</p>
+<p>Test suite for the tickets api views.</p>
 <dl class="method">
 <dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.setUp" title="Permalink to this definition">¶</a></dt>
@@ -80,15 +227,23 @@ AlarmCollection.acknowledge</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_a_ticket">
-<code class="descname">test_api_can_acknowledge_a_ticket</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_a_ticket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can ack an unacknowledged ticket</p>
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_all_tickets_by_alarm">
+<code class="descname">test_api_can_acknowledge_all_tickets_by_alarm</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_all_tickets_by_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can ack unacknowledged tickets and cleared
+unacknowledged tickets</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets">
 <code class="descname">test_api_can_acknowledge_multiple_tickets</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that the api can acknowledge multiple unacknowledged tickets</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets_with_dependencies">
+<code class="descname">test_api_can_acknowledge_multiple_tickets_with_dependencies</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets_with_dependencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can acknowledge multiple unacknowledged tickets
+and their dependencies</p>
 </dd></dl>
 
 <dl class="method">
@@ -117,10 +272,17 @@ and status</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_not_acknowledge_a_ticket_without_message">
-<code class="descname">test_api_can_not_acknowledge_a_ticket_without_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_not_acknowledge_a_ticket_without_message" title="Permalink to this definition">¶</a></dt>
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_not_acknowledge_tickets_by_alarm_without_message">
+<code class="descname">test_api_can_not_acknowledge_tickets_by_alarm_without_message</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_not_acknowledge_tickets_by_alarm_without_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that the api can not ack an unacknowledged ticket with an empty
 message</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_retrieve_old_open_tickets_information">
+<code class="descname">test_api_can_retrieve_old_open_tickets_information</code><span class="sig-paren">(</span><em>AlarmConnector_get_alarm_dependencies</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_retrieve_old_open_tickets_information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve cleared unack tickets information
+of an specified alarm</p>
 </dd></dl>
 
 <dl class="method">

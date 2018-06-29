@@ -70,7 +70,7 @@ Consider that the alarms are not saved in any database</p>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.core_timestamp">
-<code class="descname">core_timestamp</code><em class="property"> = 1528310838498</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_timestamp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">core_timestamp</code><em class="property"> = 1530305289215</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_timestamp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Core timestamp of the Alarm to be created</p>
 </dd></dl>
 
@@ -132,7 +132,7 @@ of the Alarm to be returned</dd>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.value">
-<code class="descname">value</code><em class="property"> = 4</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.value" title="Permalink to this definition">¶</a></dt>
+<code class="descname">value</code><em class="property"> = 1</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Value of the Alarm to be created</p>
 </dd></dl>
 
@@ -242,84 +242,127 @@ to the ClientConsumer</p>
 <div class="section" id="module-alarms.tests.tests_collections">
 <span id="alarms-tests-tests-collections-module"></span><h2>alarms.tests.tests_collections module<a class="headerlink" href="#module-alarms.tests.tests_collections" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection">
-<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections.</code><code class="descname">TestAlarmsCollection</code><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections.</code><code class="descname">TestAlarmsCollectionAcknowledge</code><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class defines the test suite for the Alarms Collection</p>
+<p>This class defines the test suite for the Alarms Collection
+acknowledge and ticket handling</p>
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_ack_multiple_alarms">
-<code class="descname">test_ack_multiple_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_ack_multiple_alarms" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_ack_multiple_alarms">
+<code class="descname">test_ack_multiple_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_ack_multiple_alarms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the AlarmCollection can acknowledge multiple Alarms</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_alarm_cycle">
-<code class="descname">test_alarm_cycle</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_alarm_cycle" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_alarm_cycle">
+<code class="descname">test_alarm_cycle</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_alarm_cycle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if an alarm with a timestamp higher than a stored alarm with
 the same core_id is updated correctly</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_create_old_alarm">
-<code class="descname">test_create_old_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_create_old_alarm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if an alarm never created before to the alarm collection is
-created even if it is old</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_create_ticket">
-<code class="descname">test_create_ticket</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_create_ticket" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_create_ticket">
+<code class="descname">test_create_ticket</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_create_ticket" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that AlarmCollection._create_ticket calls
 TicketConnector.create_ticket</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_ignore_old_alarm">
-<code class="descname">test_ignore_old_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_ignore_old_alarm" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_new_set_alarm_ticket_is_updated_when_cleared">
+<code class="descname">test_new_set_alarm_ticket_is_updated_when_cleared</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_new_set_alarm_ticket_is_updated_when_cleared" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a ticket is created when a new SET Alarm arrives,
+and if the ticket is updated to cleared_ack or cleared_unack states
+accordingly when the Alarm changes to Clear</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_recursive_ack">
+<code class="descname">test_recursive_ack</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_recursive_ack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the AlarmCollection can acknowledge multiple Alarms
+recursively.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionHandling">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections.</code><code class="descname">TestAlarmsCollectionHandling</code><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionHandling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the test suite for the Alarms Collection
+general handling</p>
+<dl class="method">
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_create_old_alarm">
+<code class="descname">test_create_old_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_create_old_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if an alarm never created before to the alarm collection is
+created even if it is old</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_get_ancestors_recursively">
+<code class="descname">test_get_ancestors_recursively</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_get_ancestors_recursively" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the AlarmCollection can retrieve the list of ancestors</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_get_dependencies_recursively">
+<code class="descname">test_get_dependencies_recursively</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_get_dependencies_recursively" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the AlarmCollection can retrieve the list of dependencies
+of an alarm including itself</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_ignore_old_alarm">
+<code class="descname">test_ignore_old_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_ignore_old_alarm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if an alarm older than a stored alarm with the same core_id
 is ignored</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_new_set_alarm_ticket_is_ack_when_cleared">
-<code class="descname">test_new_set_alarm_ticket_is_ack_when_cleared</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_new_set_alarm_ticket_is_ack_when_cleared" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if a ticket is created when a new SET Alarm arrives,
-and if the ticket is acknowledged when the Alarm changes to Clear</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_recalculation_alarms_validity">
-<code class="descname">test_recalculation_alarms_validity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_recalculation_alarms_validity" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_recalculation_alarms_validity">
+<code class="descname">test_recalculation_alarms_validity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_recalculation_alarms_validity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the alarms in the AlarmCollection are revalidated</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_record_multiple_parent_references">
-<code class="descname">test_record_multiple_parent_references</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_record_multiple_parent_references" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_record_multiple_parent_references">
+<code class="descname">test_record_multiple_parent_references</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_record_multiple_parent_references" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if an alarm with dependencies is created, and the alarms in the
 dependencies already have another parent, it adds itself to the list of
 parents associated with the alarm in the dependencies</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_record_parent_reference">
-<code class="descname">test_record_parent_reference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_record_parent_reference" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_record_parent_reference">
+<code class="descname">test_record_parent_reference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_record_parent_reference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if an alarm with dependencies is created, it records itself as
 a parent of its dependencies</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_recursive_ack">
-<code class="descname">test_recursive_ack</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_recursive_ack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if the AlarmCollection can acknowledge multiple Alarms
-recursively.</p>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_update_alarm">
+<code class="descname">test_update_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_update_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if an alarm with a timestamp higher than a stored alarm with
+the same core_id is updated correctly</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionShelve">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections.</code><code class="descname">TestAlarmsCollectionShelve</code><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionShelve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the test suite for the Alarms Collection
+shelve and registry handling</p>
+<dl class="method">
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionShelve.test_alarm_shelving">
+<code class="descname">test_alarm_shelving</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionShelve.test_alarm_shelving" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if an alarm can be shelved and unshelved</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestAlarmsCollection.test_update_alarm">
-<code class="descname">test_update_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollection.test_update_alarm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if an alarm with a timestamp higher than a stored alarm with
-the same core_id is updated correctly</p>
+<dt id="alarms.tests.tests_collections.TestAlarmsCollectionShelve.test_no_ticket_for_shelved_alarm">
+<code class="descname">test_no_ticket_for_shelved_alarm</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestAlarmsCollectionShelve.test_no_ticket_for_shelved_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if tickets are not created for Alarms in shelved status</p>
 </dd></dl>
 
 </dd></dl>
@@ -333,9 +376,9 @@ the same core_id is updated correctly</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
 <p>This class defines the test suite for the Tickets Connector</p>
 <dl class="method">
-<dt id="alarms.tests.tests_connectors.TestTicketConnector.test_close_ticket">
-<code class="descname">test_close_ticket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_connectors.TestTicketConnector.test_close_ticket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the close_ticket function can close a ticket</p>
+<dt id="alarms.tests.tests_connectors.TestTicketConnector.test_clear_ticket">
+<code class="descname">test_clear_ticket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_connectors.TestTicketConnector.test_clear_ticket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the clear_ticket function can clear a ticket</p>
 </dd></dl>
 
 <dl class="method">
@@ -364,7 +407,7 @@ the same core_id is updated correctly</p>
 <dt id="alarms.tests.tests_core_consumer.TestCoreConsumer.test_create_alarm_on_dict">
 <code class="descname">test_create_alarm_on_dict</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer.TestCoreConsumer.test_create_alarm_on_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the core consumer updates the Alarm in the AlarmCollection
-when a new alarm arrived.</p>
+when a new alarm arrives</p>
 </dd></dl>
 
 <dl class="method">
@@ -388,6 +431,51 @@ running id field</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-alarms.tests.tests_interfaces">
+<span id="alarms-tests-tests-interfaces-module"></span><h2>alarms.tests.tests_interfaces module<a class="headerlink" href="#module-alarms.tests.tests_interfaces" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.tests.tests_interfaces.TestIAlarm">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_interfaces.</code><code class="descname">TestIAlarm</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_interfaces.TestIAlarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the Alarms Connector</p>
+<dl class="method">
+<dt id="alarms.tests.tests_interfaces.TestIAlarm.test_acknowledge_alarms">
+<code class="descname">test_acknowledge_alarms</code><span class="sig-paren">(</span><em>AlarmCollection_acknowledge</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_interfaces.TestIAlarm.test_acknowledge_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that IAlarm.acknowledge_alarms calls
+AlarmCollection.acknowledge</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_interfaces.TestIAlarm.test_get_alarm_ancestors">
+<code class="descname">test_get_alarm_ancestors</code><span class="sig-paren">(</span><em>AlarmCollection_get_ancestors_recursively</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_interfaces.TestIAlarm.test_get_alarm_ancestors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that IAlarm.get_alarm_ancestors calls
+AlarmCollection.get_ancestors_recursively</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_interfaces.TestIAlarm.test_get_alarm_dependencies">
+<code class="descname">test_get_alarm_dependencies</code><span class="sig-paren">(</span><em>AlarmCollection_get_dependencies_recursively</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_interfaces.TestIAlarm.test_get_alarm_dependencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that IAlarm.get_alarm_dependencies calls
+AlarmCollection.get_dependencies_recursively</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_interfaces.TestIAlarm.test_shelve_alarms">
+<code class="descname">test_shelve_alarms</code><span class="sig-paren">(</span><em>AlarmCollection_shelve</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_interfaces.TestIAlarm.test_shelve_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that IAlarm.shelve_alarm calls
+AlarmCollection.shelve</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_interfaces.TestIAlarm.test_unshelve_alarms">
+<code class="descname">test_unshelve_alarms</code><span class="sig-paren">(</span><em>AlarmCollection_unshelve</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_interfaces.TestIAlarm.test_unshelve_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that IAlarm.unshelve_alarms calls
+AlarmCollection.unshelve</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-alarms.tests.tests_models">
 <span id="alarms-tests-tests-models-module"></span><h2>alarms.tests.tests_models module<a class="headerlink" href="#module-alarms.tests.tests_models" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -395,6 +483,12 @@ running id field</p>
 <em class="property">class </em><code class="descclassname">alarms.tests.tests_models.</code><code class="descname">AlarmModelTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
 <p>This class defines the test suite for the Alarm model tests</p>
+<dl class="method">
+<dt id="alarms.tests.tests_models.AlarmModelTestCase.test_acknowledge_clear_alarms">
+<code class="descname">test_acknowledge_clear_alarms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_acknowledge_clear_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a CLEAR alarm can be acknowledged</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="alarms.tests.tests_models.AlarmModelTestCase.test_acknowledge_set_alarms">
 <code class="descname">test_acknowledge_set_alarms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_acknowledge_set_alarms" title="Permalink to this definition">¶</a></dt>
@@ -405,12 +499,6 @@ running id field</p>
 <dt id="alarms.tests.tests_models.AlarmModelTestCase.test_alarm_factory">
 <code class="descname">test_alarm_factory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_alarm_factory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the alarm factory is creating alarms as expected</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.tests.tests_models.AlarmModelTestCase.test_cannot_acknowledge_clear_alarms">
-<code class="descname">test_cannot_acknowledge_clear_alarms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_cannot_acknowledge_clear_alarms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if a CLEAR alarm cannot be acknowledged</p>
 </dd></dl>
 
 <dl class="method">
@@ -432,6 +520,18 @@ elapsed</p>
 <code class="descname">test_ignored_valid_alarm_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_ignored_valid_alarm_update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if a RELIABLE alarm keep the validity as RELIABLE if the
 validity is recalculated before the valid refresh time elapsed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_models.AlarmModelTestCase.test_shelve_alarm">
+<code class="descname">test_shelve_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_shelve_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if an alarm can be shelved</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_models.AlarmModelTestCase.test_unshelve_alarm">
+<code class="descname">test_unshelve_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_models.AlarmModelTestCase.test_unshelve_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if an alarm can be unshelved</p>
 </dd></dl>
 
 <dl class="method">

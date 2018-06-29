@@ -60,6 +60,14 @@ alarms.tests.tests\_core\_consumer module
     :undoc-members:
     :show-inheritance:
 
+alarms.tests.tests\_interfaces module
+-------------------------------------
+
+.. automodule:: alarms.tests.tests_interfaces
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alarms.tests.tests\_models module
 ---------------------------------
 

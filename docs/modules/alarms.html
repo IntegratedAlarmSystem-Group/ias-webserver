@@ -71,6 +71,7 @@
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_collections">alarms.tests.tests_collections module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_connectors">alarms.tests.tests_connectors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_core_consumer">alarms.tests.tests_core_consumer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_interfaces">alarms.tests.tests_interfaces module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_models">alarms.tests.tests_models module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests">Module contents</a></li>
 </ul>
@@ -129,6 +130,9 @@ in memory.</p>
 <dt>Args:</dt>
 <dd>core_ids (list or string): list of core_ids (or a single core_id)
 of the Alarms to acknowledge</dd>
+<dt>Return:</dt>
+<dd>(list of string): list of core_ids of the acknowledged alarms
+including dependent alarms</dd>
 </dl>
 </dd></dl>
 
@@ -161,13 +165,6 @@ has been not initialized before.</p>
 <dt id="alarms.collections.AlarmCollection.broadcast_status_to_observers">
 <em class="property">classmethod </em><code class="descname">broadcast_status_to_observers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.broadcast_status_to_observers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Notify to all observers the alarms list with its current status</p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.check_dependencies_ack">
-<em class="property">classmethod </em><code class="descname">check_dependencies_ack</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.check_dependencies_ack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks wether all the children Alarms of a given Alarm
-are acknowledged or not</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -230,9 +227,21 @@ initialized before.</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.get_parents">
-<em class="property">classmethod </em><code class="descname">get_parents</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.get_parents" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the list of parents of the specified alarm</p>
+<dt id="alarms.collections.AlarmCollection.get_ancestors_recursively">
+<em class="property">classmethod </em><code class="descname">get_ancestors_recursively</code><span class="sig-paren">(</span><em>core_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.get_ancestors_recursively" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of parents and grandparents recursively of the
+specified alarm</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.get_dependencies_recursively">
+<em class="property">classmethod </em><code class="descname">get_dependencies_recursively</code><span class="sig-paren">(</span><em>core_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.get_dependencies_recursively" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of alarm ids of all the dependencies of the specified
+alarm</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list: A list of alarm ids dependencies of the alarm with core_id</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
@@ -268,17 +277,6 @@ collection</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.recursive_acknowledge">
-<em class="property">classmethod </em><code class="descname">recursive_acknowledge</code><span class="sig-paren">(</span><em>core_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.recursive_acknowledge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Acknowledges upstream Alarms recursively through the Alarms
-dependendy graph starting from a given Alarm</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>core_id (string): core_id of the Alarms staring Alarm</dd>
-</dl>
-</dd></dl>
-
-<dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.register_observer">
 <em class="property">classmethod </em><code class="descname">register_observer</code><span class="sig-paren">(</span><em>observer</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.register_observer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an observer to the observers list</p>
@@ -296,10 +294,31 @@ initialization specification.</p>
 </dl>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.shelve">
+<em class="property">classmethod </em><code class="descname">shelve</code><span class="sig-paren">(</span><em>core_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.shelve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shelves an alarm</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>core_id (string): core_ids of the Alarm to shelve</dd>
+</dl>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="alarms.collections.AlarmCollection.singleton_collection">
-<code class="descname">singleton_collection</code><em class="property"> = {'Alarmdummy': &lt;alarms.models.Alarm object at 0x7ff2e20b9d30&gt;, 'WS-Meteo129-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e20b9c88&gt;, 'WS-Meteo129-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e20b9c18&gt;, 'WS-Meteo129-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e20b9c50&gt;, 'WS-Meteo130-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e20b9cf8&gt;, 'WS-Meteo130-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e20b9cc0&gt;, 'WS-Meteo131-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e20b9be0&gt;, 'WS-Meteo131-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e20b9b70&gt;, 'WS-Meteo131-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e20b9ba8&gt;, 'WS-Meteo201-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e20b9940&gt;, 'WS-Meteo201-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e20b9908&gt;, 'WS-Meteo201-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e20b98d0&gt;, 'WS-Meteo309-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e20b9a90&gt;, 'WS-Meteo309-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e20b9a20&gt;, 'WS-Meteo309-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e20b9a58&gt;, 'WS-Meteo410-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e20b9b38&gt;, 'WS-Meteo410-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e20b9ac8&gt;, 'WS-Meteo410-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e20b9b00&gt;, 'WS-MeteoCentral-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e20b99e8&gt;, 'WS-MeteoCentral-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e20b9978&gt;, 'WS-MeteoCentral-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e20b99b0&gt;, 'WS-MeteoItinerant-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e20a6eb8&gt;, 'WS-MeteoOSF-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e20a6e48&gt;, 'WS-MeteoOSF-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e21427b8&gt;, 'WS-MeteoOSF-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e20a6e80&gt;, 'WS-MeteoTB1-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e2142f60&gt;, 'WS-MeteoTB1-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e2142d68&gt;, 'WS-MeteoTB1-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e2794fd0&gt;, 'WS-MeteoTB2-Humidity': &lt;alarms.models.Alarm object at 0x7ff2e2142eb8&gt;, 'WS-MeteoTB2-Temperature': &lt;alarms.models.Alarm object at 0x7ff2e2142cf8&gt;, 'WS-MeteoTB2-WindSpeed': &lt;alarms.models.Alarm object at 0x7ff2e2142d30&gt;}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.singleton_collection" title="Permalink to this definition">¶</a></dt>
+<code class="descname">singleton_collection</code><em class="property"> = {'Alarmdummy': &lt;alarms.models.Alarm object at 0x7f65b53d4198&gt;, 'WS-Meteo129-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53d4128&gt;, 'WS-Meteo129-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0390&gt;, 'WS-Meteo129-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0518&gt;, 'WS-Meteo130-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53d4160&gt;, 'WS-Meteo130-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53d40f0&gt;, 'WS-Meteo131-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0588&gt;, 'WS-Meteo131-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c03c8&gt;, 'WS-Meteo131-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0470&gt;, 'WS-Meteo201-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0e80&gt;, 'WS-Meteo201-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0e10&gt;, 'WS-Meteo201-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0e48&gt;, 'WS-Meteo309-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0fd0&gt;, 'WS-Meteo309-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0f60&gt;, 'WS-Meteo309-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0f98&gt;, 'WS-Meteo410-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0550&gt;, 'WS-Meteo410-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0320&gt;, 'WS-Meteo410-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0d30&gt;, 'WS-MeteoCentral-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0f28&gt;, 'WS-MeteoCentral-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0eb8&gt;, 'WS-MeteoCentral-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0ef0&gt;, 'WS-MeteoItinerant-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0dd8&gt;, 'WS-MeteoOSF-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0d68&gt;, 'WS-MeteoOSF-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53a3358&gt;, 'WS-MeteoOSF-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0da0&gt;, 'WS-MeteoTB1-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53a31d0&gt;, 'WS-MeteoTB1-Temperature': &lt;alarms.models.Alarm object at 0x7f65b5453b70&gt;, 'WS-MeteoTB1-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53a3208&gt;, 'WS-MeteoTB2-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53a3400&gt;, 'WS-MeteoTB2-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53a32e8&gt;, 'WS-MeteoTB2-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53a3198&gt;}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.singleton_collection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store the Alarm objects, indexed by core_id</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.unshelve">
+<em class="property">classmethod </em><code class="descname">unshelve</code><span class="sig-paren">(</span><em>core_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.unshelve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unshelves an alarm or a list of Alarms</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>core_ids (list or string): list of core_ids (or a single core_id)
+of the Alarms to unshelve</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
@@ -387,8 +406,8 @@ calculation of validity</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class defines methods to communicate the Alarm app with the Ticket app</p>
 <dl class="classmethod">
-<dt id="alarms.connectors.TicketConnector.close_ticket">
-<em class="property">classmethod </em><code class="descname">close_ticket</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.TicketConnector.close_ticket" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.connectors.TicketConnector.clear_ticket">
+<em class="property">classmethod </em><code class="descname">clear_ticket</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.TicketConnector.clear_ticket" title="Permalink to this definition">¶</a></dt>
 <dd><p>Closes a ticket for a given Alarm ID</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -513,11 +532,70 @@ It delegates handling of the alarms received in the messages to
 </dd></dl>
 
 </div>
+<div class="section" id="module-alarms.interfaces">
+<span id="alarms-interfaces-module"></span><h2>alarms.interfaces module<a class="headerlink" href="#module-alarms.interfaces" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.interfaces.IAlarms">
+<em class="property">class </em><code class="descclassname">alarms.interfaces.</code><code class="descname">IAlarms</code><a class="headerlink" href="#alarms.interfaces.IAlarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the methods that the Alarms app provides to be used
+by other apps</p>
+<dl class="classmethod">
+<dt id="alarms.interfaces.IAlarms.acknowledge_alarms">
+<em class="property">classmethod </em><code class="descname">acknowledge_alarms</code><span class="sig-paren">(</span><em>alarm_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.interfaces.IAlarms.acknowledge_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Akcnowledge Alarms based on a list of Alarm IDs</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>alarms_ids (list): List of IDs of the Alarms to acknowledge</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.interfaces.IAlarms.get_alarm_ancestors">
+<em class="property">classmethod </em><code class="descname">get_alarm_ancestors</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.interfaces.IAlarms.get_alarm_ancestors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the ancestors of the specified alarm</p>
+<p>Args:
+alarm_id (string): The id of the alarm to get the ancestors</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.interfaces.IAlarms.get_alarm_dependencies">
+<em class="property">classmethod </em><code class="descname">get_alarm_dependencies</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.interfaces.IAlarms.get_alarm_dependencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dependencies of the specified alarm</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>alarm_id (string): The id of the alarm to get the dependencies</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.interfaces.IAlarms.shelve_alarm">
+<em class="property">classmethod </em><code class="descname">shelve_alarm</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.interfaces.IAlarms.shelve_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shelve an Alarm based on an Alarm ID</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>alarm_id (string): ID of the Alarms to shelve</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.interfaces.IAlarms.unshelve_alarms">
+<em class="property">classmethod </em><code class="descname">unshelve_alarms</code><span class="sig-paren">(</span><em>alarm_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.interfaces.IAlarms.unshelve_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unshelve Alarms based on a list of Alarm IDs</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>alarms_ids (list): List of IDs of the Alarms to unshelve</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-alarms.models">
 <span id="alarms-models-module"></span><h2>alarms.models module<a class="headerlink" href="#module-alarms.models" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="alarms.models.Alarm">
-<em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">Alarm</code><span class="sig-paren">(</span><em>core_timestamp</em>, <em>core_id</em>, <em>running_id</em>, <em>value=0</em>, <em>mode=0</em>, <em>validity=0</em>, <em>dependencies=[]</em>, <em>properties={}</em>, <em>timestamps={}</em>, <em>ack=False</em>, <em>state_change_timestamp=0</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">Alarm</code><span class="sig-paren">(</span><em>core_timestamp</em>, <em>core_id</em>, <em>running_id</em>, <em>value=0</em>, <em>mode=0</em>, <em>validity=0</em>, <em>dependencies=[]</em>, <em>properties={}</em>, <em>timestamps={}</em>, <em>ack=False</em>, <em>shelved=False</em>, <em>state_change_timestamp=0</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Alarm generated by some device in the observatory.</p>
 <dl class="method">
@@ -529,7 +607,7 @@ It delegates handling of the alarms received in the messages to
 <dd>ack (optional boolean): acknowledge status to update,
 True by default</dd>
 <dt>Returns:</dt>
-<dd>boolean: True if it was acknowledged, False if not</dd>
+<dd>boolean: the final ack status</dd>
 </dl>
 </dd></dl>
 
@@ -552,9 +630,29 @@ core_timestamp value, other timestamps values and the properties dict.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="alarms.models.Alarm.shelve">
+<code class="descname">shelve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm.shelve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shelves the Alarm</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>boolean: True if it was shelved, False if not</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="alarms.models.Alarm.to_dict">
 <code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dict with all the values of the different attributes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.models.Alarm.unshelve">
+<code class="descname">unshelve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm.unshelve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unshelves the Alarm</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>boolean: True if it was unshelved, False if not</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">

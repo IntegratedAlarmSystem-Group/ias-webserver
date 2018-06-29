@@ -52,6 +52,14 @@ alarms.consumers module
     :undoc-members:
     :show-inheritance:
 
+alarms.interfaces module
+------------------------
+
+.. automodule:: alarms.interfaces
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alarms.models module
 --------------------
 

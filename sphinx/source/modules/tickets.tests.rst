@@ -12,6 +12,22 @@ tickets.tests.tests\_connectors module
     :undoc-members:
     :show-inheritance:
 
+tickets.tests.tests\_shelves\_api module
+----------------------------------------
+
+.. automodule:: tickets.tests.tests_shelves_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tickets.tests.tests\_shelves\_models module
+-------------------------------------------
+
+.. automodule:: tickets.tests.tests_shelves_models
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 tickets.tests.tests\_tickets\_api module
 ----------------------------------------
 
