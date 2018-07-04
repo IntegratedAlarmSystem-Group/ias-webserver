@@ -64,3 +64,27 @@ class TicketConnector():
         )
         for ticket in queryset:
             ticket.clear()
+
+    @classmethod
+    def check_acnowledgement(self, alarm_id):
+        """
+        Check if the alarm has pending acknowledgements.
+
+        Args:
+            alarm_id (string): ID of the Alarm
+        Returns:
+            (bolean): true if the alarm is acknowledged otherwise false
+        """
+        return true
+
+    @classmethod
+    def check_shelving(self, alarm_id):
+        """
+        Check if the alarm is shelved.
+
+        Args:
+            alarm_id (string): ID of the Alarm
+        Returns:
+            (bolean): true if the alarm is acknowledged otherwise false
+        """
+        return true
