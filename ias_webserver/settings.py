@@ -35,10 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
     'channels',
     'rest_framework',
+    'corsheaders',
     'alarms.apps.AlarmConfig',
     'cdb',
     'tickets',
-    'corsheaders',
+    'timers',
 ]
 
 MIDDLEWARE = [
