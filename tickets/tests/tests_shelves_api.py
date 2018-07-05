@@ -19,16 +19,19 @@ class ShelveRegistrysApiTestCase(TestCase):
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
-            message=self.message
+            message=self.message,
+            timeout=datetime.timedelta(hours=2)
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
-            message=self.message
+            message=self.message,
+            timeout=datetime.timedelta(hours=2)
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
-            message=self.message
+            message=self.message,
+            timeout=datetime.timedelta(hours=2)
         )
         self.client = APIClient()
 
@@ -39,7 +42,8 @@ class ShelveRegistrysApiTestCase(TestCase):
         # Arrange
         new_reg_data = {
             'alarm_id': 'alarm_4',
-            'message': self.message
+            'message': self.message,
+            'timeout': '3:16:13'
         }
         # Act:
         url = reverse('shelveregistry-list')
@@ -53,8 +57,13 @@ class ShelveRegistrysApiTestCase(TestCase):
             status.HTTP_201_CREATED,
             'The server did not create the registry'
         )
+        retrieved_data = {
+            'alarm_id': created_reg.alarm_id,
+            'message': created_reg.message,
+            'timeout': str(created_reg.timeout),
+        }
         self.assertEqual(
-            {'alarm_id': created_reg.alarm_id, 'message': created_reg.message},
+            retrieved_data,
             new_reg_data,
             'The created registry does not match the data sent in the request'
         )

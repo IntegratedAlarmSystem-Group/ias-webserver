@@ -131,7 +131,7 @@ class ShelveRegistry(models.Model):
     message = models.CharField(max_length=256, null=False, blank=False)
     """ Message posted when the ticket is closed """
 
-    timeout = models.DurationField(default=timedelta(hours=2))
+    timeout = models.DurationField(default=timedelta(hours=12))
     """ Timeout after which a shelved Alarm must be unshelved """
 
     status = models.IntegerField(
