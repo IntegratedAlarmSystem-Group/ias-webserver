@@ -149,3 +149,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 ASGI_APPLICATION = "ias_webserver.routing.application"
 
 BROADCAST_RATE_FACTOR = 2
+UNSHELVE_CHECKING_RATE = 60
