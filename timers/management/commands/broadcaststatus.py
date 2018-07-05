@@ -64,25 +64,18 @@ class Command(BaseCommand):
 
         return 'http://{}:{}/'.format(hostname, port)
 
-    def handle(self, *args, **options):
-        """ Start periodic task and related ioloop"""
+    def get_websockets_tasks(self, options):
+        url = self.get_websocket_url(options)
+        ws_client = WSClient(url, options)
 
-        milliseconds_rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR
-
+        broadcast_rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR
         if options['rate'] is not None:
-            milliseconds_rate = options['rate']*1000.0
-
-        ws_url = self.get_websocket_url(options)
-        ws_client = WSClient(ws_url, options)
-        # TODO: Evaluate if it is a good idea (use apiclient)
-        api = APIClient()
-
-        log = \
-            'BROADCAST-STATUS | Sending global refresh to ' + str(ws_url) + \
-            ' every ' + str(milliseconds_rate) + ' milliseconds.'
+            broadcast_rate = options['rate']*1000.0
+        log = 'BROADCAST-STATUS | Sending global refresh to {} \
+            every {} milliseconds'.format(url, broadcast_rate)
         print(log)
 
-        def trigger_broadcast():
+        def send_broadcast():
             if ws_client.is_connected():
                 msg = {
                     'stream': 'broadcast',
@@ -92,32 +85,49 @@ class Command(BaseCommand):
                 }
                 ws_client.send_message(msg)
 
+        reconnection_rate = DEFAULT_RECONNECTION_RATE
+
         def ws_reconnection():
             if not ws_client.is_connected():
                 ws_client.reconnect()
 
-        def shelve_timeout_clock():
-            url = reverse('shelveregistry-check-timeouts')
-            response = api.put(url, {}, format="json")
-            print(response)
-
         broadcast_task = tornado.ioloop.PeriodicCallback(
-            trigger_broadcast,
-            milliseconds_rate
+            send_broadcast,
+            broadcast_rate
         )
-        broadcast_task.start()
 
         reconnection_task = tornado.ioloop.PeriodicCallback(
             ws_reconnection,
-            DEFAULT_RECONNECTION_RATE
+            reconnection_rate
         )
-        reconnection_task.start()
+        return [broadcast_task, reconnection_task]
 
-        # TODO: Check if this needs to be restructured
+    def get_http_tasks(self, options):
+        api = APIClient()
+        url = self.get_http_url(options)
+
+        unshelve_rate = DEFAULT_UNSHELVE_RATE
+        log = 'SHELF-TIMEOUT | Checking shelved alarms timeout from {} \
+            every {} milliseconds'.format(url, unshelve_rate)
+        print(log)
+
+        def send_timeout():
+            url = reverse('shelveregistry-check-timeouts')
+            response = api.put(url, {}, format="json")
+            print('SHELF-TIMEOUT | ', response)
+
         unshelve_task = tornado.ioloop.PeriodicCallback(
-            sync_to_async(shelve_timeout_clock),
-            DEFAULT_UNSHELVE_RATE
+            sync_to_async(send_timeout),
+            unshelve_rate
         )
-        unshelve_task.start()
+        return [unshelve_task]
+
+    def handle(self, *args, **options):
+        """ Start periodic task and related ioloop"""
+
+        websockets_tasks = self.get_websockets_tasks(options)
+        http_tasks = self.get_http_tasks(options)
+        for task in websockets_tasks + http_tasks:
+            task.start()
 
         tornado.ioloop.IOLoop.current().start()
