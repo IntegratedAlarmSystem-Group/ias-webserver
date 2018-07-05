@@ -7,62 +7,20 @@ subscribed to the webserver stream according to a selected rate
 """
 
 import json
+import tornado
 from asgiref.sync import sync_to_async
 from django.core.management.base import BaseCommand
 from django.urls import reverse
 from rest_framework.test import APIClient
-import tornado
-from tornado.websocket import websocket_connect
 from ias_webserver.settings import BROADCAST_RATE_FACTOR
+from timers.clients import WSClient
 from alarms.connectors import CdbConnector
 
 DEFAULT_HOSTNAME = 'localhost'
 DEFAULT_PORT = '8000'
 DEFAULT_MILLISECONDS_RATE = 10*1000
-
-
-class WSClient():
-    """ Tornado based websocket client """
-
-    def __init__(self, url, options):
-        self.url = url
-        self.options = options
-        self.connection = None
-        self.websocket_connect = None
-
-    def start_connection(self):
-        return websocket_connect(
-            self.url,
-            callback=self.on_open,
-            on_message_callback=self.on_message
-        )
-
-    def on_open(self, f):
-        try:
-            self.connection = f.result()
-            print('Connected.')
-        except Exception as e:
-            print(e)
-            self.websocket_connect = None
-
-    def on_message(self, message):
-        """ Callback on message
-        Note: None message is received if the connection is closed.
-        """
-        if self.options['verbose']:
-            print("Echo: {}".format(message))
-        if message is None:
-            print('Problem with the connection. Connection closed.')
-            self.connection = None
-            self.websocket_connect = None
-
-    def reconnect(self):
-        """ Reconnection method
-        This method is intended to be used by a tornado periodic callback
-        if there is no valid websocket client
-        """
-        print('Try reconnection')
-        self.websocket_connect = self.start_connection()
+DEFAULT_UNSHELVE_RATE = 60000
+DEFAULT_RECONNECTION_RATE = 1000  # One second to evaluate reconnection
 
 
 class Command(BaseCommand):
@@ -92,6 +50,20 @@ class Command(BaseCommand):
 
         return 'ws://{}:{}/stream/'.format(hostname, port)
 
+    def get_http_url(self, options):
+        """ Returns http url of the ias webserver """
+
+        hostname = DEFAULT_HOSTNAME
+        port = DEFAULT_PORT
+
+        if options['hostname'] is not None:
+            hostname = options['hostname']
+
+        if options['port'] is not None:
+            port = options['port']
+
+        return 'http://{}:{}/'.format(hostname, port)
+
     def handle(self, *args, **options):
         """ Start periodic task and related ioloop"""
 
@@ -100,47 +72,51 @@ class Command(BaseCommand):
         if options['rate'] is not None:
             milliseconds_rate = options['rate']*1000.0
 
-        url = self.get_websocket_url(options)
-        ws = WSClient(url, options)
+        ws_url = self.get_websocket_url(options)
+        ws_client = WSClient(ws_url, options)
         # TODO: Evaluate if it is a good idea (use apiclient)
         api = APIClient()
 
         log = \
-            'BROADCAST-STATUS | Sending global refresh to ' + str(url) + \
+            'BROADCAST-STATUS | Sending global refresh to ' + str(ws_url) + \
             ' every ' + str(milliseconds_rate) + ' milliseconds.'
         print(log)
 
         def trigger_broadcast():
-            if ws.connection is not None:
+            if ws_client.is_connected():
                 msg = {
                     'stream': 'broadcast',
                     'payload': {
                         'action': 'list'
                     }
                 }
-                ws.connection.write_message(json.dumps(msg))
+                ws_client.send_message(msg)
 
         def ws_reconnection():
-            if ws.websocket_connect is None:
-                ws.reconnect()
+            if not ws_client.is_connected():
+                ws_client.reconnect()
 
         def shelve_timeout_clock():
             url = reverse('shelveregistry-check-timeouts')
             response = api.put(url, {}, format="json")
             print(response)
 
-        main_task = tornado.ioloop.PeriodicCallback(
-            trigger_broadcast, milliseconds_rate)
-        main_task.start()
+        broadcast_task = tornado.ioloop.PeriodicCallback(
+            trigger_broadcast,
+            milliseconds_rate
+        )
+        broadcast_task.start()
 
         reconnection_task = tornado.ioloop.PeriodicCallback(
-            ws_reconnection, 1000)  # One second to evaluate reconnection
+            ws_reconnection,
+            DEFAULT_RECONNECTION_RATE
+        )
         reconnection_task.start()
 
         # TODO: Check if this needs to be restructured
         unshelve_task = tornado.ioloop.PeriodicCallback(
             sync_to_async(shelve_timeout_clock),
-            60000
+            DEFAULT_UNSHELVE_RATE
         )
         unshelve_task.start()
 
