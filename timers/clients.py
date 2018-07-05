@@ -30,7 +30,7 @@ class WSClient():
         """ Callback on message
         Note: None message is received if the connection is closed.
         """
-        if self.options['verbose']:
+        if self.options['verbosity'] and self.options['verbosity'] > 1:
             print("Echo: {}".format(message))
         if message is None:
             print('Problem with the connection. Connection closed.')

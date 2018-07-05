@@ -30,8 +30,6 @@ class Command(BaseCommand):
         parser.add_argument('--port', type=str, help='Webserver port number')
         parser.add_argument('--rate', type=float,
                             help='Broadcast rate in seconds')
-        parser.add_argument('--verbose', type=bool, default=False,
-                            help='Print option for received messages')
 
     def get_websocket_url(self, options):
         """
@@ -133,9 +131,12 @@ class Command(BaseCommand):
         Returns:
             list: A list of tasks
         """
-
         api = APIClient()
         url = self.get_http_url(options)
+        if options['verbosity'] is not None:
+            verbosity = options['verbosity']
+        else:
+            verbosity = 1
 
         unshelve_rate = UNSHELVE_CHECKING_RATE * 1000
         log = 'SHELF-TIMEOUT | Checking shelved alarms timeout from {} \
@@ -145,7 +146,8 @@ class Command(BaseCommand):
         def send_timeout():
             url = reverse('shelveregistry-check-timeouts')
             response = api.put(url, {}, format="json")
-            print('SHELF-TIMEOUT | ', response)
+            if verbosity > 1:
+                print('SHELF-TIMEOUT | ', response)
 
         unshelve_task = tornado.ioloop.PeriodicCallback(
             sync_to_async(send_timeout),
