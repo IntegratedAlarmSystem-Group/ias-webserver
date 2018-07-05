@@ -1,9 +1,9 @@
 import json
 import tornado
+import requests
 from asgiref.sync import sync_to_async
 from django.core.management.base import BaseCommand
 from django.urls import reverse
-from rest_framework.test import APIClient
 from alarms.connectors import CdbConnector
 from timers.clients import WSClient
 from ias_webserver.settings import (
@@ -131,8 +131,9 @@ class Command(BaseCommand):
         Returns:
             list: A list of tasks
         """
-        api = APIClient()
-        url = self.get_http_url(options)
+        url = self.get_http_url(options) + \
+            'tickets-api/shelve-registries/check_timeouts/'
+        print(url)
         if options['verbosity'] is not None:
             verbosity = options['verbosity']
         else:
@@ -144,8 +145,7 @@ class Command(BaseCommand):
         print(log)
 
         def send_timeout():
-            url = reverse('shelveregistry-check-timeouts')
-            response = api.put(url, {}, format="json")
+            response = requests.put(url, data={})
             if verbosity > 1:
                 print('SHELF-TIMEOUT | ', response)
 
