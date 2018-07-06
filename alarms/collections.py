@@ -60,21 +60,30 @@ class AlarmCollection:
         if self.singleton_collection is None:
             self.singleton_collection = {}
             self.parents_collection = {}
+            use_db = False
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
+                use_db = True
             for iasio in iasios:
                 if iasio['ias_type'].upper() == 'ALARM':
                     current_time_millis = int(round(time.time() * 1000))
+                    alarm_id = iasio['io_id']
                     alarm = Alarm(
                         value=0,
                         mode=7,
                         validity=0,
                         core_timestamp=current_time_millis,
-                        core_id=iasio['io_id'],
-                        running_id='({}:IASIO)'.format(iasio['io_id']),
+                        core_id=alarm_id,
+                        running_id='({}:IASIO)'.format(alarm_id),
                         ack=True,
                         shelved=False,
                     )
+                    if use_db:
+                        alarm.ack = TicketConnector.check_acknowledgement(
+                            alarm_id
+                        )
+                        alarm.shelved = TicketConnector.check_shelve(alarm_id)
+
                     self.add(alarm)
         return self.singleton_collection
 
