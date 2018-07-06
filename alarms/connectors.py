@@ -1,5 +1,6 @@
 from cdb.models import Iasio, Ias
 from tickets.models import Ticket, TicketStatus
+from tickets.models import ShelveRegistry, ShelveRegistryStatus
 
 
 class CdbConnector():
@@ -87,13 +88,17 @@ class TicketConnector():
         return True if ticket else False
 
     @classmethod
-    def check_shelving(self, alarm_id):
+    def check_shelve(self, alarm_id):
         """
         Check if the alarm is shelved.
 
         Args:
             alarm_id (string): ID of the Alarm
         Returns:
-            (bolean): true if the alarm is acknowledged otherwise false
+            (bolean): true if the alarm is shelved otherwise false
         """
-        return True
+        registry = ShelveRegistry.objects.filter(
+            alarm_id=alarm_id,
+            status=int(ShelveRegistryStatus.get_choices_by_name()['SHELVED'])
+        ).first()
+        return True if registry else False
