@@ -73,3 +73,40 @@ class TestTicketConnector(TestCase):
                 'When the ticket is clared but not acknowledged the message \
                 must be None'
             )
+
+    def test_check_acknowledgement(self):
+        """ Test if the check_acknowledgement return true or false depending
+        on if the alarm has open tickets (UNACK or CLEARED_UNACK) or not"""
+        # Arrange:
+        self.unack_alarm = 'unack_alarm'
+        Ticket.objects.create(alarm_id=self.unack_alarm)
+        self.ack_alarm = 'ack_alarm'
+        ticket_ack = Ticket.objects.create(alarm_id=self.ack_alarm)
+        ticket_ack.acknowledge('test')
+        self.unack_cleared_alarm = 'unack_cleared_alarm'
+        ticket_cleared = Ticket.objects.create(
+            alarm_id=self.unack_cleared_alarm
+        )
+        ticket_cleared.clear()
+        # Act:
+        unack_result = TicketConnector.check_acknowledgement(self.unack_alarm)
+        ack_result = TicketConnector.check_acknowledgement(self.ack_alarm)
+        unack_cleared_result = TicketConnector.check_acknowledgement(
+            self.unack_cleared_alarm
+        )
+        # Assert:
+        self.assertEqual(
+            unack_result, True,
+            'The check_acknowledgement should return True when the alarm has \
+            tickets with state UNACK'
+        )
+        self.assertEqual(
+            ack_result, False,
+            'The check_acknowledgement should return False when the alarm has \
+            all its tickets acknowledged'
+        )
+        self.assertEqual(
+            unack_cleared_result, True,
+            'The check_acknowledgement should return True when the alarm has \
+            tickets with CLEARED_UNACK'
+        )

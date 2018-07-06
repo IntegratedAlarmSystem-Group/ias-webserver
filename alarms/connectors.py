@@ -66,7 +66,7 @@ class TicketConnector():
             ticket.clear()
 
     @classmethod
-    def check_acnowledgement(self, alarm_id):
+    def check_acknowledgement(self, alarm_id):
         """
         Check if the alarm has pending acknowledgements.
 
@@ -75,7 +75,16 @@ class TicketConnector():
         Returns:
             (bolean): true if the alarm is acknowledged otherwise false
         """
-        return true
+        unack_statuses = [
+            int(TicketStatus.get_choices_by_name()['UNACK']),
+            int(TicketStatus.get_choices_by_name()['CLEARED_UNACK'])
+        ]
+        ticket = Ticket.objects.filter(
+            alarm_id=alarm_id,
+            status__in=unack_statuses
+        ).first()
+
+        return True if ticket else False
 
     @classmethod
     def check_shelving(self, alarm_id):
@@ -87,4 +96,4 @@ class TicketConnector():
         Returns:
             (bolean): true if the alarm is acknowledged otherwise false
         """
-        return true
+        return True
