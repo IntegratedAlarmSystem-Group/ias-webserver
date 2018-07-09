@@ -23,7 +23,6 @@ class TestCoreConsumer:
             'ias_type': "double"
         }
         self.iasios = [self.iasio_alarm, self.iasio_double]
-        AlarmCollection.reset(self.iasios)
 
     def test_get_core_id_from(self):
         """Test if the core_id value is extracted correctly from the full
@@ -100,6 +99,7 @@ class TestCoreConsumer:
             'The alarm was not converted correctly'
 
     @pytest.mark.asyncio
+    @pytest.mark.django_db
     async def test_create_alarm_on_dict(self, mocker):
         """ Test if the core consumer updates the Alarm in the AlarmCollection
         when a new alarm arrives """
@@ -109,6 +109,7 @@ class TestCoreConsumer:
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
+        AlarmCollection.reset(self.iasios)
         current_time = datetime.datetime.now()
         formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
         current_time_millis = CoreConsumer.get_timestamp_from(
