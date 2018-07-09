@@ -60,7 +60,6 @@ class AlarmCollection:
         if self.singleton_collection is None:
             self.singleton_collection = {}
             self.parents_collection = {}
-            use_db = False
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
             for iasio in iasios:
