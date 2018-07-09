@@ -97,19 +97,19 @@ class TestTicketConnector(TestCase):
         )
         # Assert:
         self.assertEqual(
-            unack_result, True,
-            'The check_acknowledgement should return True when the alarm has' +
-            'tickets with state UNACK'
+            unack_result, False,
+            'The check_acknowledgement should return False when the alarm' +
+            'has tickets with state UNACK'
         )
         self.assertEqual(
-            ack_result, False,
-            'The check_acknowledgement should return False when the alarm' +
+            ack_result, True,
+            'The check_acknowledgement should return True when the alarm' +
             'has all its tickets acknowledged'
         )
         self.assertEqual(
-            unack_cleared_result, True,
-            'The check_acknowledgement should return True when the alarm has' +
-            'tickets with CLEARED_UNACK'
+            unack_cleared_result, False,
+            'The check_acknowledgement should return False when the alarm' +
+            'has tickets with CLEARED_UNACK'
         )
 
     def test_check_shelve(self):

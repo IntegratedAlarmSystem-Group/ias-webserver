@@ -85,7 +85,7 @@ class TicketConnector():
             status__in=unack_statuses
         ).first()
 
-        return True if ticket else False
+        return False if ticket else True
 
     @classmethod
     def check_shelve(self, alarm_id):
