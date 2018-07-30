@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'alarms.apps.AlarmConfig',
     'cdb',
+    'panels',
     'tickets',
     'timers',
 ]
