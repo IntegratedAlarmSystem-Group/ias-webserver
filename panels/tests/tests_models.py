@@ -7,13 +7,17 @@ class FileModelsTestCase(TestCase):
 
     def setUp(self):
         self.url = 'dummy.url.com'
+        self.key = 'dummy_key'
         self.new_url = 'new_dummy.url.com'
         self.old_count = File.objects.count()
 
     def test_create_file(self):
         """ Test if we can create a file"""
         # Act:
-        file = File.objects.create(url=self.url)
+        file = File.objects.create(
+            key=self.key,
+            url=self.url
+        )
         # Asserts:
         self.new_count = File.objects.count()
         self.assertEqual(
@@ -24,7 +28,10 @@ class FileModelsTestCase(TestCase):
     def test_retrieve_file(self):
         """ Test if we can retrieve a file"""
         # Arrage:
-        file = File.objects.create(url=self.url)
+        file = File.objects.create(
+            key=self.key,
+            url=self.url
+        )
         # Act:
         retrieved_file = File.objects.get(pk=file.pk)
         # Asserts:
@@ -36,7 +43,10 @@ class FileModelsTestCase(TestCase):
     def test_update_file(self):
         """ Test if we can update a file"""
         # Arrage:
-        file = File.objects.create(url=self.url)
+        file = File.objects.create(
+            key=self.key,
+            url=self.url
+        )
         self.old_count = File.objects.count()
         # Act:
         file.url = self.new_url
@@ -56,7 +66,10 @@ class FileModelsTestCase(TestCase):
     def test_delete_file(self):
         """ Test if we can delete a file"""
         # Arrage:
-        file = File.objects.create(url=self.url)
+        file = File.objects.create(
+            key=self.key,
+            url=self.url
+        )
         self.old_count = File.objects.count()
         # Act:
         file.delete()

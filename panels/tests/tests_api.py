@@ -14,10 +14,29 @@ class FileApiTestCase(TestCase):
         # Arrange:
         """Define the test suite setup"""
         self.message = 'Shelved because of reasons'
-        self.new_data = {'url': 'my_dummy_url'}
+        self.new_data = {
+            'key': 'my_new_key',
+            'url': 'my_new_url'
+        }
         self.files = [
-            File.objects.create(url='my_url_1.com'),
-            File.objects.create(url='my_url_2.com')
+            File.objects.create(
+                key='my_file_1',
+                url='my_url_1.com'
+            ),
+            File.objects.create(
+                key='my_file_2',
+                url='my_url_2.com'
+            )
+        ]
+        self.files_contents = [
+            {
+                'key1': 'value1',
+                'key2': 'value2',
+            },
+            {
+                'key3': 'value3',
+                'key4': 'value4',
+            }
         ]
         self.old_count = File.objects.count()
         self.client = APIClient()
@@ -42,7 +61,7 @@ class FileApiTestCase(TestCase):
             File.objects.count(),
             'The server did not create a new file in the database'
         )
-        retrieved_data = {'url': created_file.url}
+        retrieved_data = created_file.to_dict()
         self.assertEqual(
             retrieved_data,
             self.new_data,
