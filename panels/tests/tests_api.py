@@ -1,3 +1,6 @@
+import json
+import mock
+import os
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
@@ -16,27 +19,17 @@ class FileApiTestCase(TestCase):
         self.message = 'Shelved because of reasons'
         self.new_data = {
             'key': 'my_new_key',
-            'url': 'my_new_url'
+            'url': 'my_new_url.json'
         }
         self.files = [
             File.objects.create(
                 key='my_file_1',
-                url='my_url_1.com'
+                url='mock.json'
             ),
             File.objects.create(
                 key='my_file_2',
-                url='my_url_2.com'
+                url='my_url_2.json'
             )
-        ]
-        self.files_contents = [
-            {
-                'key1': 'value1',
-                'key2': 'value2',
-            },
-            {
-                'key3': 'value3',
-                'key4': 'value4',
-            }
         ]
         self.old_count = File.objects.count()
         self.client = APIClient()
@@ -140,4 +133,50 @@ class FileApiTestCase(TestCase):
             self.old_count - 1,
             File.objects.count(),
             'The server did not delete the file in the database'
+        )
+
+    # ******* RETRIEVE FILE
+    @mock.patch('panels.models.File._get_absolute_location')
+    def test_api_can_get_json_from_file(self, mock):
+        """ Test that the api can get a json from a .json file """
+        # Arrange:
+        mock_location = os.path.join(os.getcwd(), 'panels', 'tests')
+        mock.return_value = mock_location
+        # Act:
+        url = reverse('file-get-json')
+        print(url)
+        data = {
+            'key': 'my_file_1'
+        }
+        response = self.client.get(url, data, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'The server did not retrieve the file'
+        )
+        file_url = self.files[0].get_full_url()
+        with open(file_url) as f:
+            expected_data = json.load(f)
+        print('expected_data = ', expected_data)
+        print('response.data = ', response.data)
+        self.assertNotEqual(
+            response.data,
+            expected_data,
+            'The retrieved file data does not match the file in the database'
+        )
+
+    def test_api_cannot_get_json_if_the_key_does_not_exist(self):
+        """ Test that the api cannot get a json if the key does not exist """
+        # Act:
+        url = reverse('file-get-json')
+        data = {
+            'key': 'my_fake_key'
+        }
+        response = self.client.get(url, data, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'The server did retrieve a file'
         )
