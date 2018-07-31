@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'alarms.apps.AlarmConfig',
     'cdb',
+    'panels',
     'tickets',
     'timers',
 ]
@@ -150,3 +151,4 @@ ASGI_APPLICATION = "ias_webserver.routing.application"
 
 BROADCAST_RATE_FACTOR = 2
 UNSHELVE_CHECKING_RATE = 60
+FILES_LOCATION = "static"
