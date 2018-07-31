@@ -144,7 +144,6 @@ class FileApiTestCase(TestCase):
         mock.return_value = mock_location
         # Act:
         url = reverse('file-get-json')
-        print(url)
         data = {
             'key': 'my_file_1'
         }
@@ -158,9 +157,7 @@ class FileApiTestCase(TestCase):
         file_url = self.files[0].get_full_url()
         with open(file_url) as f:
             expected_data = json.load(f)
-        print('expected_data = ', expected_data)
-        print('response.data = ', response.data)
-        self.assertNotEqual(
+        self.assertEqual(
             response.data,
             expected_data,
             'The retrieved file data does not match the file in the database'
