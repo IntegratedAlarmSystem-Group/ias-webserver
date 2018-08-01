@@ -108,3 +108,6 @@ ENV/
 
 # Visual Studio Code
 .vscode/*
+
+# Private files
+private_files/
