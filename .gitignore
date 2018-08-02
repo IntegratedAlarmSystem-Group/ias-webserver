@@ -110,4 +110,5 @@ ENV/
 .vscode/*
 
 # Private files
-private_files/
+private_files/**
+!private_files/.gitinclude
