@@ -133,7 +133,6 @@ class Command(BaseCommand):
         """
         url = self.get_http_url(options) + \
             'tickets-api/shelve-registries/check_timeouts/'
-        print(url)
         if options['verbosity'] is not None:
             verbosity = options['verbosity']
         else:

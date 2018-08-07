@@ -1,5 +1,6 @@
 import datetime
 import pytest
+import copy
 from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm
 from alarms.collections import AlarmCollection
@@ -15,12 +16,14 @@ class TestCoreConsumer:
         self.iasio_alarm = {
             'io_id': "AlarmType-ID",
             'short_desc': "Test iasio",
-            'ias_type': "alarm"
+            'ias_type': "alarm",
+            'doc_url': 'www.dummy-url.com'
         }
         self.iasio_double = {
             'io_id': "DoubleType-ID",
             'short_desc': "Test iasio",
-            'ias_type': "double"
+            'ias_type': "double",
+            'doc_url': 'www.dummy-url.com'
         }
         self.iasios = [self.iasio_alarm, self.iasio_double]
 
@@ -139,11 +142,13 @@ class TestCoreConsumer:
                 'dasuProductionTStamp': current_time_millis,
                 'sentToBsdbTStamp': current_time_millis
             },
+            description=self.iasio_alarm['short_desc'],
+            url=self.iasio_alarm['doc_url'],
             ack=False,
             shelved=False,
         )
         # Act:
-        alarm_before_send = AlarmCollection.get('AlarmType-ID')
+        alarm_before_send = copy.copy(AlarmCollection.get('AlarmType-ID'))
         await communicator.send_json_to(msg)
         response = await communicator.receive_from()
         alarm_after_send = AlarmCollection.get('AlarmType-ID')

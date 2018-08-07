@@ -73,6 +73,8 @@ class AlarmCollection:
                         core_timestamp=current_time_millis,
                         core_id=alarm_id,
                         running_id='({}:IASIO)'.format(alarm_id),
+                        description=iasio['short_desc'],
+                        url=iasio['doc_url'],
                     )
                     self.add(alarm)
         return self.singleton_collection
@@ -200,30 +202,15 @@ class AlarmCollection:
         """
         alarm = self._clean_alarm_dependencies(alarm)
         stored_alarm = self.get(alarm.core_id)
-        if alarm.core_timestamp >= stored_alarm.core_timestamp:
-            alarm.ack = stored_alarm.ack
-            alarm.shelved = stored_alarm.shelved
-            alarm.state_change_timestamp = stored_alarm.state_change_timestamp
-            self.singleton_collection[alarm.core_id] = alarm
-            # If the value changed from clear to set,
-            # the status is not acknowledged and a new ticket is created
-            if stored_alarm.is_not_set() and alarm.is_set():
-                self._unacknowledge(alarm)
-            # If the value changed from set to clear,
-            # the status is acknowledged and the ticket is closed
-            elif stored_alarm.is_set() and alarm.is_not_set():
-                alarm.state_change_timestamp = alarm.core_timestamp
-                self._clear_ticket(alarm.core_id)
+        (notify, transition) = stored_alarm.update(alarm)
+        if notify == 'not-updated':
+            return notify
 
-            if stored_alarm.mode != alarm.mode:
-                alarm.state_change_timestamp = alarm.core_timestamp
-
-            if alarm.equals_except_timestamp(stored_alarm):
-                return 'updated-equal'
-            else:
-                return 'updated-different'
-        else:
-            return 'not-updated'
+        if transition == 'clear-set':
+            self._unacknowledge(stored_alarm)
+        elif transition == 'set-clear':
+            self._clear_ticket(stored_alarm.core_id)
+        return notify
 
     @classmethod
     async def acknowledge(self, core_ids):

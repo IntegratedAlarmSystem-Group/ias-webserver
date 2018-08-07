@@ -45,6 +45,8 @@ class TestAlarmsCollectionHandling:
         # Arrange:
         old_timestamp = int(round(time.time() * 1000))
         new_timestamp = old_timestamp + 10
+        description = 'my-description'
+        url = 'dummy-url'
         AlarmCollection.reset()
         core_id = 'MOCK-ALARM'
         old_alarm = Alarm(
@@ -53,7 +55,9 @@ class TestAlarmsCollectionHandling:
             validity=0,
             core_timestamp=old_timestamp,
             core_id=core_id,
-            running_id='({}:IASIO)'.format(core_id)
+            running_id='({}:IASIO)'.format(core_id),
+            description=description,
+            url=url
         )
         await AlarmCollection.add_or_update_and_notify(old_alarm)
         new_alarm = Alarm(
@@ -68,10 +72,13 @@ class TestAlarmsCollectionHandling:
         status = await AlarmCollection.add_or_update_and_notify(new_alarm)
         # Assert:
         assert status == 'updated-alarm', 'The status must be updated-alarm'
-        timestamp = \
-            AlarmCollection.get('MOCK-ALARM').core_timestamp
-        assert timestamp == new_timestamp, \
+        alarm = AlarmCollection.get('MOCK-ALARM')
+        assert alarm.core_timestamp == new_timestamp, \
             'A newer alarm than the stored alarm must be updated'
+        assert alarm.description == description, \
+            'The alarm description was not maintained'
+        assert alarm.url == url, \
+            'The alarm url was not maintained'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
