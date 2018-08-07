@@ -298,7 +298,7 @@ class AlarmCollection:
             if status == 'not-updated':
                 return 'ignored-old-alarm'
             elif status == 'updated-different':
-                await self.notify_observers(alarm, 'update')
+                await self.notify_observers(self.get(alarm.core_id), 'update')
                 return 'updated-alarm'
             elif status == 'updated-equal':
                 return 'updated-alarm'
