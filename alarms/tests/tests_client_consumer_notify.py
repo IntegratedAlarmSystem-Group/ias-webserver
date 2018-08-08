@@ -56,8 +56,14 @@ class TestNotificationsToClientConsumer:
         assert response['payload']['action'] == 'update', \
             "Action should be 'update'"
         response_alarm = response['payload']['data']
-        assert response_alarm == modified_alarm.to_dict(), \
-            'Received alarm is different than expected'
+        modified_alarm_dict = modified_alarm.to_dict()
+        for key in response_alarm.keys():
+            if key != 'state_change_timestamp':
+                assert response_alarm[key] == modified_alarm_dict[key], \
+                    'Received alarm is different than expected'
+            else:
+                assert response_alarm[key] != modified_alarm_dict[key], \
+                    'Received alarm must have the state change tstamp updated'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
