@@ -1,4 +1,5 @@
 import pytest
+import copy
 from channels.testing import WebsocketCommunicator
 from alarms.consumers import ClientConsumer
 from alarms.collections import AlarmCollection
@@ -40,30 +41,32 @@ class TestNotificationsToClientConsumer:
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
+
         # Arrange:
-        # Create an alarm and then receive from the communicator to keep clean
-        # the ClientConsumer channel
+        # Create a cleared alarm and then receive from the communicator to keep
+        # clean the ClientConsumer channel
         alarm = AlarmFactory.get_valid_alarm(core_id='test')
+        alarm.value = 0
         await AlarmCollection.add_or_update_and_notify(alarm)
         response = await communicator.receive_json_from()
+
         # Act:
-        # Update the alarm replacing it with an invalid alarm and receive the
+        # Update the alarm replacing it with a set alarm and receive the
         # notification from the communicator
-        modified_alarm = AlarmFactory.get_invalid_alarm(core_id='test')
+        # modified_alarm = AlarmFactory.get_invalid_alarm(core_id='test')
+        modified_alarm = copy.deepcopy(alarm)
+        modified_alarm.core_timestamp = modified_alarm.core_timestamp + 10
+        modified_alarm.value = 1
         await AlarmCollection.add_or_update_and_notify(modified_alarm)
         response = await communicator.receive_json_from()
+        expected_data = AlarmCollection.get(alarm.core_id).to_dict()
+
         # Assert
         assert response['payload']['action'] == 'update', \
             "Action should be 'update'"
         response_alarm = response['payload']['data']
-        modified_alarm_dict = modified_alarm.to_dict()
-        for key in response_alarm.keys():
-            if key != 'state_change_timestamp':
-                assert response_alarm[key] == modified_alarm_dict[key], \
-                    'Received alarm is different than expected'
-            else:
-                assert response_alarm[key] != modified_alarm_dict[key], \
-                    'Received alarm must have the state change tstamp updated'
+        assert response_alarm == expected_data, \
+            'Received alarm must be equal to the alarm in the AlarmCollection'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
