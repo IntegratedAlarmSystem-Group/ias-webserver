@@ -1,6 +1,7 @@
 import datetime
 import time
 import pytest
+import mock
 from pytest_mock import mocker
 from freezegun import freeze_time
 from alarms.models import Alarm
@@ -39,10 +40,12 @@ class TestAlarmsCollectionHandling:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_update_alarm(self):
-        """ Test if an alarm with a timestamp higher than a stored alarm with
-        the same core_id is updated correctly """
+    async def test_update_alarm_and_ntify(self, mocker):
+        """ Test if an alarm with a different relevant field
+        (in this case validity) and a timestamp higher than before
+        is updated correctly and notified to observers """
         # Arrange:
+        mocker.spy(AlarmCollection, 'notify_observers')
         old_timestamp = int(round(time.time() * 1000))
         new_timestamp = old_timestamp + 10
         description = 'my-description'
@@ -63,7 +66,7 @@ class TestAlarmsCollectionHandling:
         new_alarm = Alarm(
             value=1,
             mode=7,
-            validity=0,
+            validity=1,
             core_timestamp=new_timestamp,
             core_id=core_id,
             running_id='({}:IASIO)'.format(core_id)
@@ -79,6 +82,54 @@ class TestAlarmsCollectionHandling:
             'The alarm description was not maintained'
         assert alarm.url == url, \
             'The alarm url was not maintained'
+        assert AlarmCollection.notify_observers.call_count == 2, \
+            'Observers should have been notified twice: create and update'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_update_alarm_no_notification(self, mocker):
+        """ Test if an alarm with no different relevant fields and a timestamp
+        higher than before is updated correctly but not notified """
+        # Arrange:
+        mocker.spy(AlarmCollection, 'notify_observers')
+        old_timestamp = int(round(time.time() * 1000))
+        new_timestamp = old_timestamp + 10
+        description = 'my-description'
+        url = 'dummy-url'
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+        old_alarm = Alarm(
+            value=1,
+            mode=7,
+            validity=1,
+            core_timestamp=old_timestamp,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id),
+            description=description,
+            url=url
+        )
+        await AlarmCollection.add_or_update_and_notify(old_alarm)
+        new_alarm = Alarm(
+            value=1,
+            mode=7,
+            validity=1,
+            core_timestamp=new_timestamp,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id)
+        )
+        # Act:
+        status = await AlarmCollection.add_or_update_and_notify(new_alarm)
+        # Assert:
+        assert status == 'updated-alarm', 'The status must be updated-alarm'
+        alarm = AlarmCollection.get('MOCK-ALARM')
+        assert alarm.core_timestamp == new_timestamp, \
+            'A newer alarm than the stored alarm must be updated'
+        assert alarm.description == description, \
+            'The alarm description was not maintained'
+        assert alarm.url == url, \
+            'The alarm url was not maintained'
+        assert AlarmCollection.notify_observers.call_count == 1, \
+            'Observers should have been notified only once: create, not update'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
