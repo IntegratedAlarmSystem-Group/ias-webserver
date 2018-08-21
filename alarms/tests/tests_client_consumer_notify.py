@@ -53,7 +53,6 @@ class TestNotificationsToClientConsumer:
         # Act:
         # Update the alarm replacing it with a set alarm and receive the
         # notification from the communicator
-        # modified_alarm = AlarmFactory.get_invalid_alarm(core_id='test')
         modified_alarm = copy.deepcopy(alarm)
         modified_alarm.core_timestamp = modified_alarm.core_timestamp + 10
         modified_alarm.value = 1
