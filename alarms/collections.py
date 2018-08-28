@@ -198,7 +198,7 @@ class AlarmCollection:
         Returns:
             string: 'updated-different' if the alarm was different
             (besides timestamp), 'updated-equal' if it was updated but the only
-            change is the timestamp, and 'nopt-updated' if it was not updated
+            change is the timestamp, and 'not-updated' if it was not updated
         """
         alarm = self._clean_alarm_dependencies(alarm)
         stored_alarm = self.get(alarm.core_id)
@@ -207,7 +207,8 @@ class AlarmCollection:
             return notify
 
         if transition == 'clear-set':
-            self._unacknowledge(stored_alarm)
+            self._recursive_unacknowledge(stored_alarm.core_id)
+            stored_alarm.state_change_timestamp = stored_alarm.core_timestamp
         elif transition == 'set-clear':
             self._clear_ticket(stored_alarm.core_id)
         return notify
@@ -433,7 +434,7 @@ class AlarmCollection:
         Acknowledges upstream Alarms recursively through the Alarms
         dependendy graph starting from a given Alarm
         Args:
-            core_id (string): core_id of the Alarms staring Alarm
+            core_id (string): core_id of the starting Alarm
         Returns:
             array of core_ids (string) of acknowleged alarms
         """
@@ -464,9 +465,32 @@ class AlarmCollection:
             return False
         else:
             alarm.ack = False
-            alarm.state_change_timestamp = alarm.core_timestamp
             self._create_ticket(alarm.core_id)
             return True
+
+    @classmethod
+    def _recursive_unacknowledge(self, core_id):
+        """
+        Unacknowledges upstream Alarms recursively through the Alarms
+        dependendy graph starting from a given Alarm
+        Args:
+            core_id (string): core_id of the starting Alarm
+        Returns:
+            array of core_ids (string) of unacknowleged alarms
+        """
+        alarms = []
+        alarms_ids = []
+        alarm = self.singleton_collection[core_id]
+        result = self._unacknowledge(alarm)
+        if result:
+            alarms.append(alarm)
+            alarms_ids.append(core_id)
+
+            for parent in self._get_parents(core_id):
+                _alarms, _alarms_ids = self._recursive_unacknowledge(parent)
+                alarms += _alarms
+                alarms_ids += _alarms_ids
+        return alarms, alarms_ids
 
     @classmethod
     def _update_parents_collection(self, alarm):
