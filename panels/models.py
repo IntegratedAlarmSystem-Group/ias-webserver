@@ -30,3 +30,16 @@ class File(models.Model):
     @classmethod
     def _get_absolute_location(self):
         return os.path.join(os.getcwd(), FILES_LOCATION)
+
+
+class AlarmConfig(models.Model):
+    """ Relation between alarms and view elements """
+
+    alarm_id = models.CharField(max_length=64, null=False)
+    """ ID of the ALARM """
+
+    view = ForeignKey(View, related_name='alarms')
+    """ Related View """
+
+    type = ForeignKey(Type, related_name='alarms')
+    """ Type of the alarm """  
