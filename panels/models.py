@@ -32,14 +32,43 @@ class File(models.Model):
         return os.path.join(os.getcwd(), FILES_LOCATION)
 
 
+class View(models.Model):
+    """ Available Views """
+
+    name = models.CharField(max_length=15, null=False)
+    """ Name of the View """
+
+
+class Type(models.Model):
+    """ Available Alarms Types """
+
+    name = models.CharField(max_length=15, null=False)
+    """ Name of the Type """
+
+
 class AlarmConfig(models.Model):
     """ Relation between alarms and view elements """
 
     alarm_id = models.CharField(max_length=64, null=False)
     """ ID of the ALARM """
 
-    view = ForeignKey(View, related_name='alarms')
+    view = models.ForeignKey(
+        View, on_delete=models.CASCADE, related_name='alarms'
+    )
     """ Related View """
 
-    type = ForeignKey(Type, related_name='alarms')
-    """ Type of the alarm """  
+    type = models.ForeignKey(
+        Type, on_delete=models.CASCADE, related_name='alarms'
+    )
+    """ Type of the alarm """
+
+    parent = models.ForeignKey(
+        'self', on_delete=models.SET_NULL, null=True,
+        related_name='nested_alarms'
+    )
+    """ Reference to an alarm which is displayed as a parent of this alarm """
+
+    class Meta:
+        """ Meta class of the AlarmConfig """
+
+        unique_together = ("alarm_id", "view")
