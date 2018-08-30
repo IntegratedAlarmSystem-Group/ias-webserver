@@ -5,13 +5,12 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from ias_webserver.settings import FILES_LOCATION
-from panels.models import File
+from panels.models import File, AlarmConfig, View, Type
 from panels.serializers import FileSerializer
 
 
 class FileApiTestCase(TestCase):
-    """Test suite for the registries api views."""
+    """Test suite for the files api views."""
 
     def setUp(self):
         # Arrange:
@@ -172,6 +171,106 @@ class FileApiTestCase(TestCase):
         }
         response = self.client.get(url, data, format='json')
         # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'The server did retrieve a file'
+        )
+
+
+class AlarmConfigApiTestCase(TestCase):
+    """Test suite for the AlarmConfig api views."""
+
+    def setUp(self):
+        # Arrange:
+        """Define the test suite setup"""
+        self.temperature_type = Type.objects.create(name='temperature')
+        self.humidity_type = Type.objects.create(name='humidity')
+        self.windspeed_type = Type.objects.create(name='windspeed')
+        self.station_type = Type.objects.create(name='station')
+        self.weather_view = View.objects.create(name='weather')
+        self.antennas_view = View.objects.create(name='antennas')
+        self.stations_alarms_config = [
+            AlarmConfig.objects.create(
+                alarm_id="station_alarm_1",
+                view=self.weather_view,
+                type=self.station_type,
+                placemark="placemark_1"
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="station_alarm_2",
+                view=self.weather_view,
+                type=self.station_type,
+                placemark="placemark_2"
+            )
+        ]
+        self.sensors_alarms_config = [
+            AlarmConfig.objects.create(
+                alarm_id="temperature_alarm_1",
+                view=self.weather_view,
+                type=self.temperature_type,
+                parent=self.stations_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="humidity_alarm_1",
+                view=self.weather_view,
+                type=self.humidity_type,
+                parent=self.stations_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="windspeed_alarm_1",
+                view=self.weather_view,
+                type=self.windspeed_type,
+                parent=self.stations_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="temperature_alarm_2",
+                view=self.weather_view,
+                type=self.temperature_type,
+                parent=self.stations_alarms_config[1]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="humidity_alarm_2",
+                view=self.weather_view,
+                type=self.humidity_type,
+                parent=self.stations_alarms_config[1]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="windspeed_alarm_2",
+                view=self.weather_view,
+                type=self.windspeed_type,
+                parent=self.stations_alarms_config[1]
+            ),
+        ]
+
+        self.old_count = AlarmConfig.objects.count()
+        self.client = APIClient()
+
+    def test_api_can_get_weather_configuration(self):
+        """ Test that the api can retrieve a correct json"""
+        # Arrange:
+        expected_result = {
+            'placemark_1': {
+                'placemark': 'placemark_1',
+                'station': 'station_alarm_1',
+                'temperature': 'temperature_alarm_1',
+                'windspeed': 'windspeed_alarm_1',
+                'humidity': 'humidity_alarm_1',
+            },
+            'placemark_2': {
+                'placemark': 'placemark_2',
+                'station': 'station_alarm_2',
+                'temperature': 'temperature_alarm_2',
+                'windspeed': 'windspeed_alarm_2',
+                'humidity': 'humidity_alarm_2',
+            },
+        }
+
+        # Act:
+        url = reverse('alarmconfig-get-weather-configuration')
+        response = self.client.get(url, format='json')
+        # Assert:
+        print(response)
         self.assertEqual(
             response.status_code,
             status.HTTP_404_NOT_FOUND,
