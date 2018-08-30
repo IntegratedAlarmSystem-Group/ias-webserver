@@ -14,7 +14,7 @@ class FileModelsTestCase(TestCase):
     def test_create_file(self):
         """ Test if we can create a file"""
         # Act:
-        file = File.objects.create(
+        File.objects.create(
             key=self.key,
             url=self.url
         )
@@ -92,7 +92,7 @@ class ViewModelsTestCase(TestCase):
     def test_create_view(self):
         """ Test if we can create a view"""
         # Act:
-        view = View.objects.create(
+        View.objects.create(
             name=self.view_name
         )
         # Asserts:
@@ -166,7 +166,7 @@ class TypeModelsTestCase(TestCase):
     def test_create_type(self):
         """ Test if we can create a type"""
         # Act:
-        type = Type.objects.create(
+        Type.objects.create(
             name=self.type_name
         )
         # Asserts:
@@ -248,7 +248,7 @@ class AlarmConfigModelsTestCase(TestCase):
     def test_create_alarm_config(self):
         """ Test if we can create a alarm_config"""
         # Act:
-        alarm_config = AlarmConfig.objects.create(
+        AlarmConfig.objects.create(
             alarm_id=self.alarm_id,
             view=self.view,
             type=self.type
