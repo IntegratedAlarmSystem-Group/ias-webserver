@@ -68,8 +68,14 @@ class AlarmConfig(models.Model):
     )
     """ Reference to an alarm which is displayed as a parent of this alarm """
 
+    custom_name = models.CharField(max_length=15, null=True, blank=True)
+    """ Custom name to show in the display """
+
     placemark = models.CharField(max_length=15, null=True, blank=True)
     """ Id of the position in the maps """
+
+    tags = models.CharField(max_length=64, null=True, blank=True)
+    """ Other custom data """
 
     class Meta:
         """ Meta class of the AlarmConfig """

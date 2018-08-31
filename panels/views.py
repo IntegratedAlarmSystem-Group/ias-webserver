@@ -66,3 +66,32 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             }
 
         return Response(data)
+
+    @action(detail=False)
+    def get_antennas_configuration(self, request):
+        """ Retrieve the configuration used in the weather display """
+        antennas_view = View.objects.get(name="antennas")
+        antenna_type = Type.objects.get(name="antenna")
+        antennas_station_alarms = self.queryset.filter(
+            view=antennas_view,
+            type=antenna_type
+        )
+
+        data = {}
+        # for station_alarm in weather_station_alarms:
+        #     nested_alarms = station_alarm.nested_alarms.all()
+        #     data[station_alarm.placemark] = {
+        #         "placemark": station_alarm.placemark,
+        #         "station": station_alarm.alarm_id,
+        #         "temperature": nested_alarms.get(
+        #             type=Type.objects.get(name="temperature")
+        #         ).alarm_id,
+        #         "windspeed": nested_alarms.get(
+        #             type=Type.objects.get(name="windspeed")
+        #         ).alarm_id,
+        #         "humidity": nested_alarms.get(
+        #             type=Type.objects.get(name="humidity")
+        #         ).alarm_id,
+        #     }
+
+        return Response(data)

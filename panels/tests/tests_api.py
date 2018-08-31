@@ -188,6 +188,7 @@ class AlarmConfigApiTestCase(TestCase):
         self.humidity_type = Type.objects.create(name='humidity')
         self.windspeed_type = Type.objects.create(name='windspeed')
         self.station_type = Type.objects.create(name='station')
+        self.antenna_type = Type.objects.create(name='antenna')
         self.weather_view = View.objects.create(name='weather')
         self.antennas_view = View.objects.create(name='antennas')
         self.stations_alarms_config = [
@@ -242,6 +243,32 @@ class AlarmConfigApiTestCase(TestCase):
                 parent=self.stations_alarms_config[1]
             ),
         ]
+        self.antennas_alarms_config = [
+            AlarmConfig.objects.create(
+                alarm_id="antennas_alarm_1",
+                view=self.antennas_view,
+                type=self.antenna_type,
+                placemark="placemark_1",
+                custom_name="A001",
+                tags="group_A"
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antennas_alarm_2",
+                view=self.antennas_view,
+                type=self.antenna_type,
+                placemark="placemark_2",
+                custom_name="A002",
+                tags="group_A"
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antennas_alarm_3",
+                view=self.antennas_view,
+                type=self.antenna_type,
+                placemark="placemark_3",
+                custom_name="A003",
+                tags="group_B"
+            )
+        ]
 
         self.old_count = AlarmConfig.objects.count()
         self.client = APIClient()
@@ -249,7 +276,7 @@ class AlarmConfigApiTestCase(TestCase):
     def test_api_can_get_weather_configuration(self):
         """ Test that the api can retrieve a correct json"""
         # Arrange:
-        expected_result = {
+        expected_data = {
             'placemark_1': {
                 'placemark': 'placemark_1',
                 'station': 'station_alarm_1',
@@ -270,9 +297,53 @@ class AlarmConfigApiTestCase(TestCase):
         url = reverse('alarmconfig-get-weather-configuration')
         response = self.client.get(url, format='json')
         # Assert:
-        print(response)
         self.assertEqual(
             response.status_code,
-            status.HTTP_404_NOT_FOUND,
-            'The server did retrieve a file'
+            status.HTTP_200_OK,
+            'The server did not retrieve the information'
+        )
+        self.assertEqual(
+            response.data,
+            expected_data,
+            'The information retrieved is different to the expected one'
+        )
+
+    def test_api_can_get_antennas_configuration(self):
+        """ Test that the api can retrieve a correct json"""
+        # Arrange:
+        expected_data = {
+            'group_A': [
+                {
+                    'antenna': 'A001',
+                    'placemark': 'placemark_1',
+                    'alarm': 'antenna_alarm_1',
+                },
+                {
+                    'antenna': 'A002',
+                    'placemark': 'placemark_2',
+                    'alarm': 'antenna_alarm_2',
+                }
+            ],
+            'group_B': [
+                {
+                    'antenna': 'A003',
+                    'placemark': 'placemark_3',
+                    'alarm': 'antenna_alarm_3',
+                },
+            ]
+        }
+
+        # Act:
+        url = reverse('alarmconfig-get-antennas-configuration')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'The server did not retrieve the information'
+        )
+        self.assertEqual(
+            response.data,
+            expected_data,
+            'The information retrieved is different to the expected one'
         )
