@@ -39,13 +39,13 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
     serializer_class = AlarmConfigSerializer
 
     @action(detail=False)
-    def get_weather_configuration(self, request):
+    def weather_config(self, request):
         """ Retrieve the configuration used in the weather display """
-        weather_view = View.objects.get(name="weather")
-        station_type = Type.objects.get(name="station")
+        view = View.objects.get(name="weather")
+        type = Type.objects.get(name="station")
         weather_station_alarms = self.queryset.filter(
-            view=weather_view,
-            type=station_type
+            view=view,
+            type=type
         )
 
         data = {}
@@ -68,13 +68,13 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
         return Response(data)
 
     @action(detail=False)
-    def get_antennas_configuration(self, request):
+    def antennas_config(self, request):
         """ Retrieve the configuration used in the weather display """
-        antennas_view = View.objects.get(name="antennas")
-        antenna_type = Type.objects.get(name="antenna")
+        view = View.objects.get(name="antennas")
+        type = Type.objects.get(name="antenna")
         antenna_alarms = self.queryset.filter(
-            view=antennas_view,
-            type=antenna_type
+            view=view,
+            type=type
         )
 
         data = {}
@@ -88,5 +88,36 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                   "alarm": alarm.alarm_id,
                 }
             )
+
+        return Response(data)
+
+    @action(detail=False)
+    def antennas_summary_config(self, request):
+        """ Retrieve the configuration used in the antennas summary display """
+        view = View.objects.get(name="summary")
+        type = Type.objects.get(name="antenna")
+        summary_alarm = self.queryset.get(view=view, type=type)
+
+        return Response(summary_alarm.alarm_id)
+
+    @action(detail=False)
+    def weather_summary_config(self, request):
+        """ Retrieve the configuration used in the weather summary display """
+        view = View.objects.get(name="summary")
+        humidity_alarm = self.queryset.get(
+            view=view, type=Type.objects.get(name="humidity")
+        )
+        temperature_alarm = self.queryset.get(
+            view=view, type=Type.objects.get(name="temperature")
+        )
+        windspeed_alarm = self.queryset.get(
+            view=view, type=Type.objects.get(name="windspeed")
+        )
+
+        data = {
+            "humidityAlarmId": humidity_alarm.alarm_id,
+            "tempAlarmId": temperature_alarm.alarm_id,
+            "windsAlarmId": windspeed_alarm.alarm_id
+        }
 
         return Response(data)

@@ -52,7 +52,7 @@
     "model": "panels.view",
     "pk": 3,
     "fields": {
-      "name": "overview"
+      "name": "summary"
     }
   },
   {
@@ -1072,6 +1072,15 @@
       "placemark": "S306",
       "custom_name": "PM04",
       "tags": "PM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 90,
+    "fields": {
+      "alarm_id": "Alarmdummy-Global",
+      "view": 3,
+      "type": 5
     }
   }
 ]
