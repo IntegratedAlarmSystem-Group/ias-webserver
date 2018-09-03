@@ -1,1 +1,1394 @@
-[{"model": "cdb.iasio", "pk": "WS-MeteoTB1-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station MeteoTB1", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB1-Temperature", "fields": {"short_desc": "Temperature reported by the weather station MeteoTB1 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB1-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoTB1", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB1-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoTB1 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB1-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station MeteoTB1", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB1-Humidity", "fields": {"short_desc": "Humidity reported by the weather station MeteoTB1 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB2-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station MeteoTB2", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB2-Temperature", "fields": {"short_desc": "Temperature reported by the weather station MeteoTB2 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB2-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoTB2", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB2-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoTB2 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB2-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station MeteoTB2", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoTB2-Humidity", "fields": {"short_desc": "Humidity reported by the weather station MeteoTB2 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoOSF-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station MeteoOSF", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoOSF-Temperature", "fields": {"short_desc": "Temperature reported by the weather station MeteoOSF out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoOSF-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoOSF", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoOSF-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoOSF out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoOSF-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station MeteoOSF", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoOSF-Humidity", "fields": {"short_desc": "Humidity reported by the weather station MeteoOSF out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoItinerant-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoItinerant", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoItinerant-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoItinerant out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo201-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station Meteo201", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo201-Temperature", "fields": {"short_desc": "Temperature reported by the weather station Meteo201 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo201-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo201", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo201-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo201 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo201-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station Meteo201", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo201-Humidity", "fields": {"short_desc": "Humidity reported by the weather station Meteo201 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoCentral-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station MeteoCentral", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoCentral-Temperature", "fields": {"short_desc": "Temperature reported by the weather station MeteoCentral out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoCentral-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoCentral", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoCentral-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station MeteoCentral out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-MeteoCentral-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station MeteoCentral", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-MeteoCentral-Humidity", "fields": {"short_desc": "Humidity reported by the weather station MeteoCentral out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo309-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station Meteo309", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo309-Temperature", "fields": {"short_desc": "Temperature reported by the weather station Meteo309 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo309-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo309", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo309-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo309 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo309-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station Meteo309", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo309-Humidity", "fields": {"short_desc": "Humidity reported by the weather station Meteo309 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo410-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station Meteo410", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo410-Temperature", "fields": {"short_desc": "Temperature reported by the weather station Meteo410 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo410-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo410", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo410-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo410 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo410-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station Meteo410", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo410-Humidity", "fields": {"short_desc": "Humidity reported by the weather station Meteo410 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo131-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station Meteo131", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo131-Temperature", "fields": {"short_desc": "Temperature reported by the weather station Meteo131 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo131-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo131", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo131-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo131 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo131-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station Meteo131", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo131-Humidity", "fields": {"short_desc": "Humidity reported by the weather station Meteo131 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo129-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station Meteo129", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo129-Temperature", "fields": {"short_desc": "Temperature reported by the weather station Meteo129 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo129-WindSpeed-Value", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo129", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo129-WindSpeed", "fields": {"short_desc": "WindSpeed reported by the weather station Meteo129 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo129-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station Meteo129", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo129-Humidity", "fields": {"short_desc": "Humidity reported by the weather station Meteo129 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo130-Temperature-Value", "fields": {"short_desc": "Temperature reported by the weather station Meteo130", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo130-Temperature", "fields": {"short_desc": "Temperature reported by the weather station Meteo130 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo130-Humidity-Value", "fields": {"short_desc": "Humidity reported by the weather station Meteo130", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo130-Humidity", "fields": {"short_desc": "Humidity reported by the weather station Meteo130 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Meteo130-WindSpeed-Value", "fields": {"short_desc": "Wind speed reported by the weather station Meteo130", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Meteo130-WindSpeed", "fields": {"short_desc": "Wind speed reported by the weather station Meteo130 out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "dummy", "fields": {"short_desc": "dummy reported by the weather station ", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "Alarmdummy", "fields": {"short_desc": "dummy reported by the weather station  out of range", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-ACA-Selected-Humidity", "fields": {"short_desc": "Selected humidity of the ACA WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-TP-Selected-Humidity", "fields": {"short_desc": "Selected humidity of the TP WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Inner-Selected-Humidity", "fields": {"short_desc": "Selected humidity of the Inner WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-W-Selected-Humidity", "fields": {"short_desc": "Selected humidity of the W WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-P-Selected-Humidity", "fields": {"short_desc": "Selected humidity of the P WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-S-Selected-Humidity", "fields": {"short_desc": "Selected humidity of the S WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-ACA-Delay-Humidity", "fields": {"short_desc": "Delayed humidity alarm of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-TP-Delay-Humidity", "fields": {"short_desc": "Delayed humidity alarm of the T[ WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Inner-Delay-Humidity", "fields": {"short_desc": "Delayed humidity alarm of the Inner WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-W-Delay-Humidity", "fields": {"short_desc": "Delayed humidity alarm of the W WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-P-Delay-Humidity", "fields": {"short_desc": "Delayed humidity alarm of the P WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-S-Delay-Humidity", "fields": {"short_desc": "Delayed humidity alarm of the S WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-ACA-WindSpeed-Threshold20", "fields": {"short_desc": "Wind spped over 20m/s of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-TP-WindSpeed-Threshold20", "fields": {"short_desc": "Wind spped over 20m/s of the TP WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Inner-WindSpeed-Threshold20", "fields": {"short_desc": "Wind spped over 20m/s of the Inner WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-W-WindSpeed-Threshold20", "fields": {"short_desc": "Wind spped over 20m/s of the W WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-P-WindSpeed-Threshold20", "fields": {"short_desc": "Wind spped over 20m/s of the P WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-S-WindSpeed-Threshold20", "fields": {"short_desc": "Wind spped over 20m/s of the S WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-ACA-WindSpeed-Threshold15", "fields": {"short_desc": "Wind spped over 15m/s of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-TP-WindSpeed-Threshold15", "fields": {"short_desc": "Wind spped over 15m/s of the TP WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Inner-WindSpeed-Threshold15", "fields": {"short_desc": "Wind spped over 15m/s of the Inner WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-W-WindSpeed-Threshold15", "fields": {"short_desc": "Wind spped over 15m/s of the W WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-P-WindSpeed-Threshold15", "fields": {"short_desc": "Wind spped over 15m/s of the P WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-S-WindSpeed-Threshold15", "fields": {"short_desc": "Wind spped over 15m/s of the S WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-ACA-Selected-WindSpeed", "fields": {"short_desc": "Selected wind speed of the ACA WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-TP-Selected-WindSpeed", "fields": {"short_desc": "Selected wind speed of the TP WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Inner-Selected-WindSpeed", "fields": {"short_desc": "Selected wind speed of the Inner WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-W-Selected-WindSpeed", "fields": {"short_desc": "Selected wind speed of the W WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-P-Selected-WindSpeed", "fields": {"short_desc": "Selected wind speed of the P WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-S-Selected-WindSpeed", "fields": {"short_desc": "Selected wind speed of the S WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-ACA-Delaied15-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-TP-Delaied15-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm TP WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Inner-Delaied15-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm Inner WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-P-Delaied15-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm P WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-W-Delaied15-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm W WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-S-Delaied15-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm S WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-ACA-Delaied20-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-TP-Delaied20-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm TP WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Inner-Delaied20-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm Inner WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-P-Delaied20-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm P WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-W-Delaied20-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm W WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-S-Delaied20-WindSpeed", "fields": {"short_desc": "Delayed wind spped alarm S WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-ACA-Temperature-Threshold", "fields": {"short_desc": "Temperature threshold alarm of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-TP-Temperature-Threshold", "fields": {"short_desc": "Temperature threshold alarm of the TP WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Inner-Temperature-Threshold", "fields": {"short_desc": "Temperature threshold alarm of the Inner WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-W-Temperature-Threshold", "fields": {"short_desc": "Temperature threshold alarm of the W WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-P-Temperature-Threshold", "fields": {"short_desc": "Temperature threshold alarm of the P WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-S-Temperature-Threshold", "fields": {"short_desc": "Temperature threshold alarm of the S WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-ACA-Selected-Temperature", "fields": {"short_desc": "Selected Temperature of the ACA WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-TP-Selected-Temperature", "fields": {"short_desc": "Selected Temperature of the TP WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-Inner-Selected-Temperature", "fields": {"short_desc": "Selected Temperature of the Inner WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-W-Selected-Temperature", "fields": {"short_desc": "Selected Temperature of the W WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-P-Selected-Temperature", "fields": {"short_desc": "Selected Temperature of the P WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-S-Selected-Temperature", "fields": {"short_desc": "Selected Temperature of the S WS", "ias_type": "DOUBLE"}}, {"model": "cdb.iasio", "pk": "WS-ACA-Humidity", "fields": {"short_desc": "Humidity alarm of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-TP-Humidity", "fields": {"short_desc": "Humidity alarm of the TP WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Inner-Humidity", "fields": {"short_desc": "Humidity alarm of the Inner WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-W-Humidity", "fields": {"short_desc": "Humidity alarm of the W WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-P-Humidity", "fields": {"short_desc": "Humidity alarm of the P WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-S-Humidity", "fields": {"short_desc": "Humidity alarm of the S WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-ACA-Temperature", "fields": {"short_desc": "Temperature alarm of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-TP-Temperature", "fields": {"short_desc": "Temperature alarm of the TP WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Inner-Temperature", "fields": {"short_desc": "Temperature alarm of the Inner WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-W-Temperature", "fields": {"short_desc": "Temperature alarm of the W WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-P-Temperature", "fields": {"short_desc": "Temperature alarm of the P WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-S-Temperature", "fields": {"short_desc": "Temperature alarm of the S WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-ACA-WindSpeed", "fields": {"short_desc": "Wind speed over 20m/s of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-TP-WindSpeed", "fields": {"short_desc": "Wind speed over 20m/s of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Inner-WindSpeed", "fields": {"short_desc": "Wind speed over 20m/s of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-W-WindSpeed", "fields": {"short_desc": "Wind speed over 20m/s of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-P-WindSpeed", "fields": {"short_desc": "Wind speed over 20m/s of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-S-WindSpeed", "fields": {"short_desc": "Wind speed over 20m/s of the ACA WS", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Temperature", "fields": {"short_desc": "Temperature at the AOS too low", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-Humidity", "fields": {"short_desc": "Humidity too at the AOS high", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "WS-WindSpeed", "fields": {"short_desc": "Wind spped too at the AOS high", "ias_type": "ALARM"}}, {"model": "cdb.iasio", "pk": "Array-AntennasToPads", "fields": {"short_desc": "Association of antennas to pads", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV01", "fields": {"short_desc": "Status of DV01 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV02", "fields": {"short_desc": "Status of DV02 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV03", "fields": {"short_desc": "Status of DV03 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV04", "fields": {"short_desc": "Status of DV04 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV05", "fields": {"short_desc": "Status of DV05 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV06", "fields": {"short_desc": "Status of DV06 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV07", "fields": {"short_desc": "Status of DV07 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV08", "fields": {"short_desc": "Status of DV08 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV09", "fields": {"short_desc": "Status of DV09 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV10", "fields": {"short_desc": "Status of DV10 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV11", "fields": {"short_desc": "Status of DV11 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV12", "fields": {"short_desc": "Status of DV12 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV13", "fields": {"short_desc": "Status of DV13 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV14", "fields": {"short_desc": "Status of DV14 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV15", "fields": {"short_desc": "Status of DV15 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV16", "fields": {"short_desc": "Status of DV16 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV17", "fields": {"short_desc": "Status of DV17 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV18", "fields": {"short_desc": "Status of DV18 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV19", "fields": {"short_desc": "Status of DV19 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV20", "fields": {"short_desc": "Status of DV20 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV21", "fields": {"short_desc": "Status of DV21 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV22", "fields": {"short_desc": "Status of DV22 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV23", "fields": {"short_desc": "Status of DV23 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV24", "fields": {"short_desc": "Status of DV24 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DV25", "fields": {"short_desc": "Status of DV25 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA41", "fields": {"short_desc": "Status of DA41 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA42", "fields": {"short_desc": "Status of DA42 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA43", "fields": {"short_desc": "Status of DA43 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA44", "fields": {"short_desc": "Status of DA44 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA45", "fields": {"short_desc": "Status of DA45 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA46", "fields": {"short_desc": "Status of DA46 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA47", "fields": {"short_desc": "Status of DA47 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA48", "fields": {"short_desc": "Status of DA48 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA49", "fields": {"short_desc": "Status of DA49 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA50", "fields": {"short_desc": "Status of DA50 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA51", "fields": {"short_desc": "Status of DA51 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA52", "fields": {"short_desc": "Status of DA52 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA53", "fields": {"short_desc": "Status of DA53 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA54", "fields": {"short_desc": "Status of DA54 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA55", "fields": {"short_desc": "Status of DA55 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA56", "fields": {"short_desc": "Status of DA56 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA57", "fields": {"short_desc": "Status of DA57 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA58", "fields": {"short_desc": "Status of DA58 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA59", "fields": {"short_desc": "Status of DA59 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA60", "fields": {"short_desc": "Status of DA60 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA61", "fields": {"short_desc": "Status of DA61 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA62", "fields": {"short_desc": "Status of DA62 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA63", "fields": {"short_desc": "Status of DA63 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA64", "fields": {"short_desc": "Status of DA64 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-DA65", "fields": {"short_desc": "Status of DA65 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM01", "fields": {"short_desc": "Status of CM01 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM02", "fields": {"short_desc": "Status of CM02 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM03", "fields": {"short_desc": "Status of CM03 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM04", "fields": {"short_desc": "Status of CM04 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM05", "fields": {"short_desc": "Status of CM05 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM06", "fields": {"short_desc": "Status of CM06 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM07", "fields": {"short_desc": "Status of CM07 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM08", "fields": {"short_desc": "Status of CM08 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM09", "fields": {"short_desc": "Status of CM09 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM10", "fields": {"short_desc": "Status of CM10 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM11", "fields": {"short_desc": "Status of CM11 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-CM12", "fields": {"short_desc": "Status of CM12 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-PM01", "fields": {"short_desc": "Status of PM01 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-PM02", "fields": {"short_desc": "Status of PM02 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-PM03", "fields": {"short_desc": "Status of PM03 from utility module", "ias_type": "STRING"}}, {"model": "cdb.iasio", "pk": "Array-UMStatus-PM04", "fields": {"short_desc": "Status of PM04 from utility module", "ias_type": "STRING"}}]
+[
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoTB1-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station MeteoTB1",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoTB1-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station MeteoTB1",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoTB1-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station MeteoTB1",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoTB2-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station MeteoTB2",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoTB2-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station MeteoTB2",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoTB2-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station MeteoTB2",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoOSF-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station MeteoOSF",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoOSF-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station MeteoOSF",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoOSF-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station MeteoOSF",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoItinerant-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station MeteoItinerant",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo201-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station Meteo201",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo201-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station Meteo201",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo201-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station Meteo201",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoCentral-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station MeteoCentral",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoCentral-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station MeteoCentral",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-MeteoCentral-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station MeteoCentral",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo309-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station Meteo309",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo309-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station Meteo309",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo309-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station Meteo309",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo410-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station Meteo410",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo410-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station Meteo410",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo410-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station Meteo410",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo131-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station Meteo131",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo131-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station Meteo131",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo131-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station Meteo131",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo129-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station Meteo129",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo129-WindSpeed-Value",
+    "fields": {
+      "short_desc": "WindSpeed reported by the weather station Meteo129",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo129-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station Meteo129",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo130-Temperature-Value",
+    "fields": {
+      "short_desc": "Temperature reported by the weather station Meteo130",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo130-Humidity-Value",
+    "fields": {
+      "short_desc": "Humidity reported by the weather station Meteo130",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Meteo130-WindSpeed-Value",
+    "fields": {
+      "short_desc": "Wind speed reported by the weather station Meteo130",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "dummy",
+    "fields": {
+      "short_desc": "dummy reported by the weather station ",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "dummy-21",
+    "fields": {
+      "short_desc": "dummy reported by the weather station ",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "dummy-22",
+    "fields": {
+      "short_desc": "dummy reported by the weather station ",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Alarmdummy",
+    "fields": {
+      "short_desc": "dummy reported by the weather station  out of range",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Alarmdummy-21",
+    "fields": {
+      "short_desc": "dummy reported by the weather station  out of range",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Alarmdummy-22",
+    "fields": {
+      "short_desc": "dummy reported by the weather station  out of range",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Alarmdummy-2",
+    "fields": {
+      "short_desc": "dummy reported by the weather station  out of range",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Alarmdummy-Global",
+    "fields": {
+      "short_desc": "dummy reported by the weather station  out of range",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-Selected-Humidity",
+    "fields": {
+      "short_desc": "Selected humidity of the ACA WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-Selected-Humidity",
+    "fields": {
+      "short_desc": "Selected humidity of the Inner WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Selected-Humidity",
+    "fields": {
+      "short_desc": "Selected humidity of the W WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Selected-Humidity",
+    "fields": {
+      "short_desc": "Selected humidity of the P WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Selected-Humidity",
+    "fields": {
+      "short_desc": "Selected humidity of the S WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-Delay-Humidity",
+    "fields": {
+      "short_desc": "Delayed humidity alarm of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-Delay-Humidity",
+    "fields": {
+      "short_desc": "Delayed humidity alarm of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Delay-Humidity",
+    "fields": {
+      "short_desc": "Delayed humidity alarm of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Delay-Humidity",
+    "fields": {
+      "short_desc": "Delayed humidity alarm of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Delay-Humidity",
+    "fields": {
+      "short_desc": "Delayed humidity alarm of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-WindSpeed-Threshold20",
+    "fields": {
+      "short_desc": "Wind spped over 20m/s of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed-Threshold20",
+    "fields": {
+      "short_desc": "Wind spped over 20m/s of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed-Threshold20",
+    "fields": {
+      "short_desc": "Wind spped over 20m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed-Threshold20",
+    "fields": {
+      "short_desc": "Wind spped over 20m/s of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-WindSpeed-Threshold20",
+    "fields": {
+      "short_desc": "Wind spped over 20m/s of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-WindSpeed-Threshold15",
+    "fields": {
+      "short_desc": "Wind spped over 15m/s of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed-Threshold15",
+    "fields": {
+      "short_desc": "Wind spped over 15m/s of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed-Threshold15",
+    "fields": {
+      "short_desc": "Wind spped over 15m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed-Threshold15",
+    "fields": {
+      "short_desc": "Wind spped over 15m/s of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-WindSpeed-Threshold15",
+    "fields": {
+      "short_desc": "Wind spped over 15m/s of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-Selected-WindSpeed",
+    "fields": {
+      "short_desc": "Selected wind speed of the ACA WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-Selected-WindSpeed",
+    "fields": {
+      "short_desc": "Selected wind speed of the Inner WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Selected-WindSpeed",
+    "fields": {
+      "short_desc": "Selected wind speed of the W WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Selected-WindSpeed",
+    "fields": {
+      "short_desc": "Selected wind speed of the P WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Selected-WindSpeed",
+    "fields": {
+      "short_desc": "Selected wind speed of the S WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-Delaied15-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-Delaied15-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Delaied15-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Delaied15-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Delaied15-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-Delaied20-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-Delaied20-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Delaied20-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Delaied20-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Delaied20-WindSpeed",
+    "fields": {
+      "short_desc": "Delayed wind spped alarm S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-Temperature-Threshold",
+    "fields": {
+      "short_desc": "Temperature threshold alarm of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-Temperature-Threshold",
+    "fields": {
+      "short_desc": "Temperature threshold alarm of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Temperature-Threshold",
+    "fields": {
+      "short_desc": "Temperature threshold alarm of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Temperature-Threshold",
+    "fields": {
+      "short_desc": "Temperature threshold alarm of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Temperature-Threshold",
+    "fields": {
+      "short_desc": "Temperature threshold alarm of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-Selected-Temperature",
+    "fields": {
+      "short_desc": "Selected Temperature of the ACA WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-Selected-Temperature",
+    "fields": {
+      "short_desc": "Selected Temperature of the Inner WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Selected-Temperature",
+    "fields": {
+      "short_desc": "Selected Temperature of the W WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Selected-Temperature",
+    "fields": {
+      "short_desc": "Selected Temperature of the P WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Selected-Temperature",
+    "fields": {
+      "short_desc": "Selected Temperature of the S WS",
+      "ias_type": "DOUBLE"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-Temperature",
+    "fields": {
+      "short_desc": "Temperature alarm of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-Temperature",
+    "fields": {
+      "short_desc": "Temperature alarm of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Temperature",
+    "fields": {
+      "short_desc": "Temperature alarm of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Temperature",
+    "fields": {
+      "short_desc": "Temperature alarm of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Temperature",
+    "fields": {
+      "short_desc": "Temperature alarm of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA-WindSpeed",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-WindSpeed",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-ACA",
+    "fields": {
+      "short_desc": "Global alarm of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner",
+    "fields": {
+      "short_desc": "Global alarm of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W",
+    "fields": {
+      "short_desc": "Global alarm of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P",
+    "fields": {
+      "short_desc": "Global alarm of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S",
+    "fields": {
+      "short_desc": "Global alarm of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Temperature",
+    "fields": {
+      "short_desc": "Temperature at the AOS too low",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Humidity",
+    "fields": {
+      "short_desc": "Humidity too at the AOS high",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-WindSpeed",
+    "fields": {
+      "short_desc": "Wind spped too at the AOS high",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-AntennasToPads",
+    "fields": {
+      "short_desc": "Association of antennas to pads",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV01",
+    "fields": {
+      "short_desc": "Status of DV01 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV02",
+    "fields": {
+      "short_desc": "Status of DV02 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV03",
+    "fields": {
+      "short_desc": "Status of DV03 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV04",
+    "fields": {
+      "short_desc": "Status of DV04 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV05",
+    "fields": {
+      "short_desc": "Status of DV05 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV06",
+    "fields": {
+      "short_desc": "Status of DV06 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV07",
+    "fields": {
+      "short_desc": "Status of DV07 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV08",
+    "fields": {
+      "short_desc": "Status of DV08 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV09",
+    "fields": {
+      "short_desc": "Status of DV09 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV10",
+    "fields": {
+      "short_desc": "Status of DV10 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV11",
+    "fields": {
+      "short_desc": "Status of DV11 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV12",
+    "fields": {
+      "short_desc": "Status of DV12 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV13",
+    "fields": {
+      "short_desc": "Status of DV13 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV14",
+    "fields": {
+      "short_desc": "Status of DV14 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV15",
+    "fields": {
+      "short_desc": "Status of DV15 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV16",
+    "fields": {
+      "short_desc": "Status of DV16 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV17",
+    "fields": {
+      "short_desc": "Status of DV17 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV18",
+    "fields": {
+      "short_desc": "Status of DV18 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV19",
+    "fields": {
+      "short_desc": "Status of DV19 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV20",
+    "fields": {
+      "short_desc": "Status of DV20 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV21",
+    "fields": {
+      "short_desc": "Status of DV21 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV22",
+    "fields": {
+      "short_desc": "Status of DV22 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV23",
+    "fields": {
+      "short_desc": "Status of DV23 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV24",
+    "fields": {
+      "short_desc": "Status of DV24 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DV25",
+    "fields": {
+      "short_desc": "Status of DV25 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA41",
+    "fields": {
+      "short_desc": "Status of DA41 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA42",
+    "fields": {
+      "short_desc": "Status of DA42 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA43",
+    "fields": {
+      "short_desc": "Status of DA43 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA44",
+    "fields": {
+      "short_desc": "Status of DA44 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA45",
+    "fields": {
+      "short_desc": "Status of DA45 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA46",
+    "fields": {
+      "short_desc": "Status of DA46 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA47",
+    "fields": {
+      "short_desc": "Status of DA47 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA48",
+    "fields": {
+      "short_desc": "Status of DA48 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA49",
+    "fields": {
+      "short_desc": "Status of DA49 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA50",
+    "fields": {
+      "short_desc": "Status of DA50 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA51",
+    "fields": {
+      "short_desc": "Status of DA51 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA52",
+    "fields": {
+      "short_desc": "Status of DA52 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA53",
+    "fields": {
+      "short_desc": "Status of DA53 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA54",
+    "fields": {
+      "short_desc": "Status of DA54 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA55",
+    "fields": {
+      "short_desc": "Status of DA55 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA56",
+    "fields": {
+      "short_desc": "Status of DA56 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA57",
+    "fields": {
+      "short_desc": "Status of DA57 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA58",
+    "fields": {
+      "short_desc": "Status of DA58 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA59",
+    "fields": {
+      "short_desc": "Status of DA59 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA60",
+    "fields": {
+      "short_desc": "Status of DA60 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA61",
+    "fields": {
+      "short_desc": "Status of DA61 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA62",
+    "fields": {
+      "short_desc": "Status of DA62 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA63",
+    "fields": {
+      "short_desc": "Status of DA63 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA64",
+    "fields": {
+      "short_desc": "Status of DA64 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-DA65",
+    "fields": {
+      "short_desc": "Status of DA65 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM01",
+    "fields": {
+      "short_desc": "Status of CM01 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM02",
+    "fields": {
+      "short_desc": "Status of CM02 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM03",
+    "fields": {
+      "short_desc": "Status of CM03 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM04",
+    "fields": {
+      "short_desc": "Status of CM04 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM05",
+    "fields": {
+      "short_desc": "Status of CM05 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM06",
+    "fields": {
+      "short_desc": "Status of CM06 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM07",
+    "fields": {
+      "short_desc": "Status of CM07 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM08",
+    "fields": {
+      "short_desc": "Status of CM08 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM09",
+    "fields": {
+      "short_desc": "Status of CM09 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM10",
+    "fields": {
+      "short_desc": "Status of CM10 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM11",
+    "fields": {
+      "short_desc": "Status of CM11 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-CM12",
+    "fields": {
+      "short_desc": "Status of CM12 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-PM01",
+    "fields": {
+      "short_desc": "Status of PM01 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-PM02",
+    "fields": {
+      "short_desc": "Status of PM02 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-PM03",
+    "fields": {
+      "short_desc": "Status of PM03 from utility module",
+      "ias_type": "STRING"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UMStatus-PM04",
+    "fields": {
+      "short_desc": "Status of PM04 from utility module",
+      "ias_type": "STRING"
+    }
+  }
+]
