@@ -182,7 +182,7 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
     """ Test suite for the error responses in case of bad configuration """
 
     def test_api_weather_config_response_errors(self):
-        """ Test that the api can retrieve a correct json"""
+        """ Test that the api return error code if there is no weather data """
         # Act:
         url = reverse('alarmconfig-weather-config')
         response = self.client.get(url, format='json')
@@ -193,7 +193,7 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
             'If the view weather does not exist the api must return a 404 code'
         )
         # Act:
-        self.weather_view = View.objects.create(name='weather')
+        weather_view = View.objects.create(name='weather')
         response = self.client.get(url, format='json')
         # Assert:
         self.assertEqual(
@@ -202,7 +202,7 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
             'If the type station does not exist the api must return a 404 code'
         )
         # Act:
-        self.station_type = Type.objects.create(name='station')
+        station_type = Type.objects.create(name='station')
         response = self.client.get(url, format='json')
         # Assert:
         self.assertEqual(
@@ -211,20 +211,147 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
             'If there is not weather config the api must return a 404 code'
         )
         # Act:
-        self.stations_alarms_config = [
-            AlarmConfig.objects.create(
-                alarm_id="station_alarm_1",
-                view=self.weather_view,
-                type=self.station_type,
-                placemark="placemark_1"
-            )
-        ]
+        AlarmConfig.objects.create(
+            alarm_id="station_alarm_1",
+            view=weather_view,
+            type=station_type,
+            placemark="placemark_1"
+        )
         response = self.client.get(url, format='json')
         # Assert:
         self.assertEqual(
             response.status_code,
             status.HTTP_200_OK,
             'If there is weather config the api must return a 200 code'
+        )
+
+    def test_api_antennas_config_response_errors(self):
+        """Test that the api returns error code if there is no antennas data"""
+        # Act:
+        url = reverse('alarmconfig-antennas-config')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If the view antennas does not exist the api should return a 404'
+        )
+        # Act:
+        antennas_view = View.objects.create(name='antennas')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If the type antenna does not exist the api should return a 404'
+        )
+        # Act:
+        antenna_type = Type.objects.create(name='antenna')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If the there is not antennas config the api should return a 404'
+        )
+        # Act:
+        AlarmConfig.objects.create(
+            alarm_id="antenna_alarm_1",
+            view=antennas_view,
+            type=antenna_type,
+            placemark="placemark_1",
+            custom_name="A001",
+            tags="group_A"
+        )
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'If there is antennas config the api must return a 200 code'
+        )
+
+    def test_api_antennas_summary_config_response_errors(self):
+        """Test that the api returns error code if there is no summary data"""
+        # Act:
+        url = reverse('alarmconfig-antennas-summary-config')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If the view summary does not exist the api should return a 404'
+        )
+        # Act:
+        summary_view = View.objects.create(name='summary')
+        antenna_type = Type.objects.create(name='antenna')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If there is not antennas config for the summary the api \
+             should return a 404'
+        )
+        # Act:
+        AlarmConfig.objects.create(
+            alarm_id="antennas_summary",
+            view=summary_view,
+            type=antenna_type
+        )
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'If there is antennas config for the summary view \
+             the api should return a 200'
+        )
+
+    def test_api_weather_summary_config_response_errors(self):
+        """Test that the api returns error code if there is no summary data"""
+        # Act:
+        url = reverse('alarmconfig-weather-summary-config')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If the view summary does not exist the api should return a 404'
+        )
+        # Act:
+        summary_view = View.objects.create(name='summary')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If there is not temperature, windspeed or humidity config the api \
+             should return a 404'
+        )
+        # Act:
+        temperature_type = Type.objects.create(name='temperature')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If there is not temperature, windspeed or humidity configuration \
+             for the summary view the api should return a 404'
+        )
+        # Act:
+        AlarmConfig.objects.create(
+            alarm_id="weather_summary_temp",
+            view=summary_view,
+            type=temperature_type
+        )
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'If there is any of temperature, windspeed or humidity config \
+             for the summary view the api should return a 200'
         )
 
 
@@ -445,6 +572,8 @@ class AlarmConfigApiTestCase(TestCase):
         """ Test that the api can retrieve a correct json"""
         # Arrange:
         expected_data = {
+            "placemark": "",
+            "station": "",
             "temperature": "weather_summary_temp",
             "humidity": "weather_summary_hum",
             "windspeed": "weather_summary_wind"

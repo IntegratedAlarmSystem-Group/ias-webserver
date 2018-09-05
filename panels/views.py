@@ -78,25 +78,15 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
     def antennas_config(self, request):
         """ Retrieve the configuration used in the weather display """
 
-        try:
-            view = View.objects.get(name="antennas")
-        except View.DoesNotExist:
-            return Response(
-                'There is no configuration for antennas displays',
-                status=status.HTTP_404_NOT_FOUND
-            )
-        try:
-            type = Type.objects.get(name="antenna")
-        except Type.DoesNotExist:
-            return Response(
-                'There is no configuration for antennas alarms',
-                status=status.HTTP_404_NOT_FOUND
-            )
-
         antenna_alarms = self.queryset.filter(
-            view=view,
-            type=type
+            view__name="antennas",
+            type__name="antenna"
         )
+        if not len(antenna_alarms):
+            return Response(
+                'There is no configuration for antennas display',
+                status=status.HTTP_404_NOT_FOUND
+            )
 
         data = {}
         for alarm in antenna_alarms:
@@ -115,96 +105,53 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
     @action(detail=False)
     def antennas_summary_config(self, request):
         """ Retrieve the configuration used in the antennas summary display """
-        try:
-            view = View.objects.get(name="summary")
-        except View.DoesNotExist:
-            return Response(
-                'There is no configuration for summary displays',
-                status=status.HTTP_404_NOT_FOUND
-            )
 
-        try:
-            type = Type.objects.get(name="antenna")
-        except Type.DoesNotExist:
-            return Response(
-                'There is no configuration for antennas alarms',
-                status=status.HTTP_404_NOT_FOUND
-            )
+        summary_alarm = self.queryset.filter(
+            view__name="summary",
+            type__name="antenna"
+        )
 
-        try:
-            summary_alarm = self.queryset.get(view=view, type=type)
-            response = summary_alarm.alarm_id
-            return Response(response)
-        except AlarmConfig.DoesNotExist:
+        if not summary_alarm:
             return Response(
                 'There is no configuration for antennas summary',
                 status=status.HTTP_404_NOT_FOUND
             )
 
+        return Response(summary_alarm[0].alarm_id)
+
     @action(detail=False)
     def weather_summary_config(self, request):
         """ Retrieve the configuration used in the weather summary display """
-        try:
-            view = View.objects.get(name="summary")
-        except View.DoesNotExist:
-            return Response(
-                'There is no configuration for summary displays',
-                status=status.HTTP_404_NOT_FOUND
-            )
 
-        try:
-            humidity_type = Type.objects.get(name="humidity")
-        except Type.DoesNotExist:
-            return Response(
-                'There is no configuration for himidity alarms',
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-        try:
-            temperature_type = Type.objects.get(name="temperature")
-        except Type.DoesNotExist:
-            return Response(
-                'There is no configuration for temperature alarms',
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-        try:
-            windspeed_type = Type.objects.get(name="windspeed")
-        except Type.DoesNotExist:
-            return Response(
-                'There is no configuration for windspeed alarms',
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-        data = {}
+        data = {
+            "placemark": "",
+            "station": "",
+            "humidity": "",
+            "temperature": "",
+            "windspeed": ""
+        }
         configuration_available = False
 
-        try:
-            humidity_alarm = self.queryset.get(
-                view=view, type=humidity_type
-            )
-            data["humidity"] = humidity_alarm.alarm_id
+        humidity_alarm = self.queryset.filter(
+            view__name="summary", type__name="humidity"
+        )
+        if humidity_alarm:
+            data["humidity"] = humidity_alarm[0].alarm_id
             configuration_available = True
-        except AlarmConfig.DoesNotExist:
-            data["humidity"] = ""
 
-        try:
-            temperature_alarm = self.queryset.get(
-                view=view, type=temperature_type
-            )
-            data["temperature"] = temperature_alarm.alarm_id
+        temperature_alarm = self.queryset.filter(
+            view__name="summary", type__name="temperature"
+        )
+        if temperature_alarm:
+            data["temperature"] = temperature_alarm[0].alarm_id
             configuration_available = True
-        except AlarmConfig.DoesNotExist:
-            data["temperature"] = ""
 
-        try:
-            windspeed_alarm = self.queryset.get(
-                view=view, type=windspeed_type
-            )
-            data["windspeed"] = windspeed_alarm.alarm_id
+        windspeed_alarm = self.queryset.filter(
+            view__name="summary", type__name="windspeed"
+        )
+        if windspeed_alarm:
+            data["windspeed"] = windspeed_alarm[0].alarm_id
             configuration_available = True
-        except AlarmConfig.DoesNotExist:
-            data["windspeed"] = ""
 
         if configuration_available:
             return Response(data)
