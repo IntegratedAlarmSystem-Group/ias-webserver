@@ -63,7 +63,7 @@ class AlarmConfig(models.Model):
     """ Type of the alarm """
 
     parent = models.ForeignKey(
-        'self', on_delete=models.SET_NULL, null=True,
+        'self', on_delete=models.SET_NULL, null=True, blank=True,
         related_name='nested_alarms'
     )
     """ Reference to an alarm which is displayed as a parent of this alarm """
