@@ -38,12 +38,20 @@ class View(models.Model):
     name = models.CharField(max_length=15, null=False)
     """ Name of the View """
 
+    def __str__(self):
+        """ Return a string representation of the view """
+        return str(self.name)
+
 
 class Type(models.Model):
     """ Available Alarms Types """
 
     name = models.CharField(max_length=15, null=False)
     """ Name of the Type """
+
+    def __str__(self):
+        """ Return a string representation of the type """
+        return str(self.name)
 
 
 class AlarmConfig(models.Model):
@@ -81,3 +89,7 @@ class AlarmConfig(models.Model):
         """ Meta class of the AlarmConfig """
 
         unique_together = ("alarm_id", "view")
+
+    def __str__(self):
+        """ Return a string representation of the AlarmConfig """
+        return str(self.view.name) + ": " + str(self.alarm_id)
