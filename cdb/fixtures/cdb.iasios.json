@@ -1390,5 +1390,534 @@
       "short_desc": "Status of PM04 from utility module",
       "ias_type": "STRING"
     }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-DV01-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV01",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV02-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV02",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV03-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV03",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV04-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV04",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV05-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV05",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV06-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV06",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV07-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV07",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV08-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV08",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV09-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV09",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV10-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV10",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV11-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV11",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV12-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV12",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV13-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV13",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV14-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV14",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV15-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV15",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV16-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV16",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV17-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV17",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV18-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV18",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV19-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV19",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV20-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV20",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV21-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV21",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV22-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV22",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV23-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV23",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV24-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV24",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DV25-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DV25",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA41-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA41",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA42-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA42",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA43-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA43",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA44-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA44",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA45-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA45",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA46-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA46",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA47-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA47",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA48-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA48",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA49-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA49",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA50-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA50",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA51-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA51",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA52-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA52",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA53-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA53",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA54-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA54",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA55-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA55",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA56-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA56",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA57-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA57",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA58-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA58",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA59-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA59",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA60-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA60",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA61-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA61",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA62-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA62",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA63-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA63",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA64-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA64",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-DA65-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of DA65",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM01-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM01",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM02-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM02",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM03-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM03",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM04-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM04",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM05-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM05",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM06-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM06",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM07-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM07",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM08-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM08",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM09-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM09",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM10-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM10",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM11-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM11",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-CM12-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of CM12",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-PM01-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of PM01",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-PM02-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of PM02",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-PM03-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of PM03",
+      "ias_type": "ALARM"
+    }
+  },
+{
+    "model": "cdb.iasio",
+    "pk": "Array-PM04-Alarm",
+    "fields": {
+      "short_desc": "Multiplicity Alarm of PM04",
+      "ias_type": "ALARM"
+    }
   }
+
 ]
