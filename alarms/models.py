@@ -211,7 +211,9 @@ class Alarm:
         else:
             transition = None
 
-        if self.mode != alarm.mode or self.value != alarm.value:
+        if self.mode != alarm.mode or self.value != alarm.value or \
+           (self.state_change_timestamp == 0 and
+               alarm.validity == 1):
             self.state_change_timestamp = alarm.core_timestamp
 
         ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
