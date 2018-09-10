@@ -97,46 +97,6 @@
   },
   {
     "model": "panels.alarmconfig",
-    "pk": 5,
-    "fields": {
-      "alarm_id": "WS-ACA",
-      "view": 2,
-      "type": 1,
-      "placemark":"ACA"
-    }
-  },
-  {
-    "model": "panels.alarmconfig",
-    "pk": 6,
-    "fields": {
-      "alarm_id": "WS-ACA-Temperature",
-      "view": 2,
-      "type": 2,
-      "parent": 5
-    }
-  },
-  {
-    "model": "panels.alarmconfig",
-    "pk": 7,
-    "fields": {
-      "alarm_id": "WS-ACA-Windspeed",
-      "view": 2,
-      "type": 3,
-      "parent": 5
-    }
-  },
-  {
-    "model": "panels.alarmconfig",
-    "pk": 8,
-    "fields": {
-      "alarm_id": "WS-ACA-Humidity",
-      "view": 2,
-      "type": 4,
-      "parent": 5
-    }
-  },
-  {
-    "model": "panels.alarmconfig",
     "pk": 9,
     "fields": {
       "alarm_id": "WS-W",
