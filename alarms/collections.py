@@ -202,7 +202,9 @@ class AlarmCollection:
         """
         alarm = self._clean_alarm_dependencies(alarm)
         stored_alarm = self.get(alarm.core_id)
-        (notify, transition) = stored_alarm.update(alarm)
+        (notify, transition, dependencies_changed) = stored_alarm.update(alarm)
+        if dependencies_changed:
+            self._update_parents_collection(alarm)
         if notify == 'not-updated':
             return notify
 
@@ -446,7 +448,6 @@ class AlarmCollection:
                 alarm.acknowledge()
                 alarms.append(alarm)
                 alarms_ids.append(alarm.core_id)
-
                 for parent in self._get_parents(core_id):
                     _alarms, _alarms_ids = self._recursive_acknowledge(parent)
                     alarms += _alarms
