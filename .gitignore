@@ -112,3 +112,6 @@ ENV/
 # Private files
 private_files/**
 !private_files/.gitinclude
+
+# Mac files
+*.DS_Store

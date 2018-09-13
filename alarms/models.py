@@ -1,4 +1,5 @@
 import time
+from collections import Counter
 from utils.choice_enum import ChoiceEnum
 from alarms.connectors import CdbConnector
 
@@ -196,12 +197,13 @@ class Alarm:
         Args:
             alarm (Alarm): The new alarm object
         Returns:
-            (string, string): A tuple with the state of the update
-            (not-updated, updated-equal, updated-different) and the
-            transition of the alarm value (clear-set, set-clear or None).
+            (string, string, boolean): A tuple with the state of the update
+            (not-updated, updated-equal, updated-different), the
+            transition of the alarm value (clear-set, set-clear or None) and
+            wether or not the dependencies of the alarm have been updated
         """
         if alarm.core_timestamp <= self.core_timestamp:
-            return ('not-updated', None)
+            return ('not-updated', None, False)
 
         # Evaluate alarm state transition between set and unset states:
         if self.is_not_set() and alarm.is_set():
@@ -211,7 +213,8 @@ class Alarm:
         else:
             transition = None
 
-        if self.mode != alarm.mode or self.value != alarm.value:
+        if self.mode != alarm.mode or self.value != alarm.value or \
+           (self.state_change_timestamp == 0 and alarm.validity == 1):
             self.state_change_timestamp = alarm.core_timestamp
 
         ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
@@ -219,6 +222,11 @@ class Alarm:
             ['ack', 'shelved', 'description', 'url', 'state_change_timestamp']
 
         notify = 'updated-equal'
+        if Counter(self.dependencies) == Counter(alarm.dependencies):
+            dependencies_changed = True
+        else:
+            dependencies_changed = False
+
         for field in alarm.__dict__.keys():
             if field in unchanged_fields:
                 continue
@@ -228,7 +236,7 @@ class Alarm:
                 notify = 'updated-different'
             setattr(self, field, new_value)
 
-        return (notify, transition)
+        return (notify, transition, dependencies_changed)
 
     def update_validity(self):
         """
