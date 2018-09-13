@@ -1038,7 +1038,7 @@
     "model": "panels.alarmconfig",
     "pk": 90,
     "fields": {
-      "alarm_id": "Alarmdummy-Global",
+      "alarm_id": "Array-Global-Alarm",
       "view": 3,
       "type": 5
     }
