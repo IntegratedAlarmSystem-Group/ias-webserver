@@ -1,5 +1,6 @@
 from cdb.models import Iasio, Ias
 from tickets.models import Ticket, TicketStatus
+from tickets.models import ShelveRegistry, ShelveRegistryStatus
 
 
 class CdbConnector():
@@ -64,3 +65,40 @@ class TicketConnector():
         )
         for ticket in queryset:
             ticket.clear()
+
+    @classmethod
+    def check_acknowledgement(self, alarm_id):
+        """
+        Check if the alarm has pending acknowledgements.
+
+        Args:
+            alarm_id (string): ID of the Alarm
+        Returns:
+            (bolean): true if the alarm is acknowledged otherwise false
+        """
+        unack_statuses = [
+            int(TicketStatus.get_choices_by_name()['UNACK']),
+            int(TicketStatus.get_choices_by_name()['CLEARED_UNACK'])
+        ]
+        ticket = Ticket.objects.filter(
+            alarm_id=alarm_id,
+            status__in=unack_statuses
+        ).first()
+
+        return False if ticket else True
+
+    @classmethod
+    def check_shelve(self, alarm_id):
+        """
+        Check if the alarm is shelved.
+
+        Args:
+            alarm_id (string): ID of the Alarm
+        Returns:
+            (bolean): true if the alarm is shelved otherwise false
+        """
+        registry = ShelveRegistry.objects.filter(
+            alarm_id=alarm_id,
+            status=int(ShelveRegistryStatus.get_choices_by_name()['SHELVED'])
+        ).first()
+        return True if registry else False

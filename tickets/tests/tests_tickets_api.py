@@ -414,7 +414,6 @@ class TicketsApiTestCase(TestCase):
             status.HTTP_200_OK,
             'The Server did not retrieve the tickets'
         )
-        print(self.response.data)
         self.assertEqual(
             self.response.data,
             expected_response,

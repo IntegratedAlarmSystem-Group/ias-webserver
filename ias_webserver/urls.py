@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^core/', test_core),
     url(r'^cdb-api/', include('cdb.urls')),
     url(r'^tickets-api/', include('tickets.urls')),
+    url(r'^panels-api/', include('panels.urls')),
 ]

@@ -65,15 +65,16 @@ class AlarmCollection:
             for iasio in iasios:
                 if iasio['ias_type'].upper() == 'ALARM':
                     current_time_millis = int(round(time.time() * 1000))
+                    alarm_id = iasio['io_id']
                     alarm = Alarm(
                         value=0,
                         mode=7,
                         validity=0,
                         core_timestamp=current_time_millis,
-                        core_id=iasio['io_id'],
-                        running_id='({}:IASIO)'.format(iasio['io_id']),
-                        ack=True,
-                        shelved=False,
+                        core_id=alarm_id,
+                        running_id='({}:IASIO)'.format(alarm_id),
+                        description=iasio['short_desc'],
+                        url=iasio['doc_url'],
                     )
                     self.add(alarm)
         return self.singleton_collection
@@ -148,9 +149,12 @@ class AlarmCollection:
         """
         alarm = self._clean_alarm_dependencies(alarm)
         if alarm.value == 0:
-            alarm.ack = True
+            alarm.ack = TicketConnector.check_acknowledgement(
+                alarm.core_id
+            )
         else:
             self._unacknowledge(alarm)
+        alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         self._update_parents_collection(alarm)
 
@@ -194,34 +198,22 @@ class AlarmCollection:
         Returns:
             string: 'updated-different' if the alarm was different
             (besides timestamp), 'updated-equal' if it was updated but the only
-            change is the timestamp, and 'nopt-updated' if it was not updated
+            change is the timestamp, and 'not-updated' if it was not updated
         """
         alarm = self._clean_alarm_dependencies(alarm)
         stored_alarm = self.get(alarm.core_id)
-        if alarm.core_timestamp >= stored_alarm.core_timestamp:
-            alarm.ack = stored_alarm.ack
-            alarm.shelved = stored_alarm.shelved
-            alarm.state_change_timestamp = stored_alarm.state_change_timestamp
-            self.singleton_collection[alarm.core_id] = alarm
-            # If the value changed from clear to set,
-            # the status is not acknowledged and a new ticket is created
-            if stored_alarm.is_not_set() and alarm.is_set():
-                self._unacknowledge(alarm)
-            # If the value changed from set to clear,
-            # the status is acknowledged and the ticket is closed
-            elif stored_alarm.is_set() and alarm.is_not_set():
-                alarm.state_change_timestamp = alarm.core_timestamp
-                self._clear_ticket(alarm.core_id)
+        (notify, transition, dependencies_changed) = stored_alarm.update(alarm)
+        if dependencies_changed:
+            self._update_parents_collection(alarm)
+        if notify == 'not-updated':
+            return notify
 
-            if stored_alarm.mode != alarm.mode:
-                alarm.state_change_timestamp = alarm.core_timestamp
-
-            if alarm.equals_except_timestamp(stored_alarm):
-                return 'updated-equal'
-            else:
-                return 'updated-different'
-        else:
-            return 'not-updated'
+        if transition == 'clear-set':
+            self._recursive_unacknowledge(stored_alarm.core_id)
+            stored_alarm.state_change_timestamp = stored_alarm.core_timestamp
+        elif transition == 'set-clear':
+            self._clear_ticket(stored_alarm.core_id)
+        return notify
 
     @classmethod
     async def acknowledge(self, core_ids):
@@ -309,7 +301,7 @@ class AlarmCollection:
             if status == 'not-updated':
                 return 'ignored-old-alarm'
             elif status == 'updated-different':
-                await self.notify_observers(alarm, 'update')
+                await self.notify_observers(self.get(alarm.core_id), 'update')
                 return 'updated-alarm'
             elif status == 'updated-equal':
                 return 'updated-alarm'
@@ -444,7 +436,7 @@ class AlarmCollection:
         Acknowledges upstream Alarms recursively through the Alarms
         dependendy graph starting from a given Alarm
         Args:
-            core_id (string): core_id of the Alarms staring Alarm
+            core_id (string): core_id of the starting Alarm
         Returns:
             array of core_ids (string) of acknowleged alarms
         """
@@ -456,7 +448,6 @@ class AlarmCollection:
                 alarm.acknowledge()
                 alarms.append(alarm)
                 alarms_ids.append(alarm.core_id)
-
                 for parent in self._get_parents(core_id):
                     _alarms, _alarms_ids = self._recursive_acknowledge(parent)
                     alarms += _alarms
@@ -475,9 +466,32 @@ class AlarmCollection:
             return False
         else:
             alarm.ack = False
-            alarm.state_change_timestamp = alarm.core_timestamp
             self._create_ticket(alarm.core_id)
             return True
+
+    @classmethod
+    def _recursive_unacknowledge(self, core_id):
+        """
+        Unacknowledges upstream Alarms recursively through the Alarms
+        dependendy graph starting from a given Alarm
+        Args:
+            core_id (string): core_id of the starting Alarm
+        Returns:
+            array of core_ids (string) of unacknowleged alarms
+        """
+        alarms = []
+        alarms_ids = []
+        alarm = self.singleton_collection[core_id]
+        result = self._unacknowledge(alarm)
+        if result:
+            alarms.append(alarm)
+            alarms_ids.append(core_id)
+
+            for parent in self._get_parents(core_id):
+                _alarms, _alarms_ids = self._recursive_unacknowledge(parent)
+                alarms += _alarms
+                alarms_ids += _alarms_ids
+        return alarms, alarms_ids
 
     @classmethod
     def _update_parents_collection(self, alarm):

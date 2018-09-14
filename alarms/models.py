@@ -1,4 +1,5 @@
 import time
+from collections import Counter
 from utils.choice_enum import ChoiceEnum
 from alarms.connectors import CdbConnector
 
@@ -63,7 +64,8 @@ class Alarm:
 
     def __init__(self, core_timestamp, core_id, running_id, value=0, mode=0,
                  validity=0, dependencies=[], properties={}, timestamps={},
-                 ack=False, shelved=False, state_change_timestamp=0):
+                 ack=False, shelved=False, state_change_timestamp=0,
+                 description='', url=''):
         """ Constructor of the class,
         only executed when there a new instance is created.
         Receives and validates values for the attributes of the object """
@@ -81,6 +83,8 @@ class Alarm:
         self.shelved = self.__check_shelved(shelved)
         self.state_change_timestamp = self.__check_int_type(
             state_change_timestamp)
+        self.description = self.__check_str_type(description)
+        self.url = self.__check_str_type(url)
 
     def __check_value(self, value):
         """ Validates the Alarm value """
@@ -166,6 +170,8 @@ class Alarm:
             'dependencies': self.dependencies,
             'ack': self.ack,
             'shelved': self.shelved,
+            'description': self.description,
+            'url': self.url,
         }
 
     def equals_except_timestamp(self, alarm):
@@ -174,8 +180,7 @@ class Alarm:
         retrieved in params, the verification does not consider the
         core_timestamp value, other timestamps values and the properties dict.
         """
-        for key in self.__dict__.keys():
-            field = key
+        for field in self.__dict__.keys():
             if field == 'core_timestamp' or field == 'id' or \
                field == 'timestamps' or field == 'properties':
                 continue
@@ -184,6 +189,54 @@ class Alarm:
             if self_attribute != alarm_attribute:
                 return False
         return True
+
+    def update(self, alarm):
+        """
+        Updates the alarm with attributes from another given alarm if the
+        timestamp of the given alarm is greater than the stored alarm.
+        Args:
+            alarm (Alarm): The new alarm object
+        Returns:
+            (string, string, boolean): A tuple with the state of the update
+            (not-updated, updated-equal, updated-different), the
+            transition of the alarm value (clear-set, set-clear or None) and
+            wether or not the dependencies of the alarm have been updated
+        """
+        if alarm.core_timestamp <= self.core_timestamp:
+            return ('not-updated', None, False)
+
+        # Evaluate alarm state transition between set and unset states:
+        if self.is_not_set() and alarm.is_set():
+            transition = 'clear-set'
+        elif self.is_set() and alarm.is_not_set():
+            transition = 'set-clear'
+        else:
+            transition = None
+
+        if self.mode != alarm.mode or self.value != alarm.value or \
+           (self.state_change_timestamp == 0 and alarm.validity == 1):
+            self.state_change_timestamp = alarm.core_timestamp
+
+        ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
+        unchanged_fields = \
+            ['ack', 'shelved', 'description', 'url', 'state_change_timestamp']
+
+        notify = 'updated-equal'
+        if Counter(self.dependencies) == Counter(alarm.dependencies):
+            dependencies_changed = True
+        else:
+            dependencies_changed = False
+
+        for field in alarm.__dict__.keys():
+            if field in unchanged_fields:
+                continue
+            old_value = getattr(self, field)
+            new_value = getattr(alarm, field)
+            if (field not in ignored_fields) and old_value != new_value:
+                notify = 'updated-different'
+            setattr(self, field, new_value)
+
+        return (notify, transition, dependencies_changed)
 
     def update_validity(self):
         """

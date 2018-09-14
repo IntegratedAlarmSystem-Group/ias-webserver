@@ -1,0 +1,1046 @@
+[
+  {
+    "model": "panels.type",
+    "pk": 1,
+    "fields": {
+      "name": "station"
+    }
+  },
+  {
+    "model": "panels.type",
+    "pk": 2,
+    "fields": {
+      "name": "temperature"
+    }
+  },
+  {
+    "model": "panels.type",
+    "pk": 3,
+    "fields": {
+      "name": "windspeed"
+    }
+  },
+  {
+    "model": "panels.type",
+    "pk": 4,
+    "fields": {
+      "name": "humidity"
+    }
+  },
+  {
+    "model": "panels.type",
+    "pk": 5,
+    "fields": {
+      "name": "antenna"
+    }
+  },
+  {
+    "model": "panels.view",
+    "pk": 1,
+    "fields": {
+      "name": "antennas"
+    }
+  },
+  {
+    "model": "panels.view",
+    "pk": 2,
+    "fields": {
+      "name": "weather"
+    }
+  },
+  {
+    "model": "panels.view",
+    "pk": 3,
+    "fields": {
+      "name": "summary"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 1,
+    "fields": {
+      "alarm_id": "WS-Inner",
+      "view": 2,
+      "type": 1,
+      "placemark":"MeteoCentral"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 2,
+    "fields": {
+      "alarm_id": "WS-Inner-Temperature",
+      "view": 2,
+      "type": 2,
+      "parent": 1
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 3,
+    "fields": {
+      "alarm_id": "WS-Inner-Windspeed",
+      "view": 2,
+      "type": 3,
+      "parent": 1
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 4,
+    "fields": {
+      "alarm_id": "WS-Inner-Humidity",
+      "view": 2,
+      "type": 4,
+      "parent": 1
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 9,
+    "fields": {
+      "alarm_id": "WS-W",
+      "view": 2,
+      "type": 1,
+      "placemark":"Meteo201"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 10,
+    "fields": {
+      "alarm_id": "WS-W-Temperature",
+      "view": 2,
+      "type": 2,
+      "parent": 9
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 11,
+    "fields": {
+      "alarm_id": "WS-W-Windspeed",
+      "view": 2,
+      "type": 3,
+      "parent": 9
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 12,
+    "fields": {
+      "alarm_id": "WS-W-Humidity",
+      "view": 2,
+      "type": 4,
+      "parent": 9
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 13,
+    "fields": {
+      "alarm_id": "WS-P",
+      "view": 2,
+      "type": 1,
+      "placemark":"Meteo410"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 14,
+    "fields": {
+      "alarm_id": "WS-P-Temperature",
+      "view": 2,
+      "type": 2,
+      "parent": 13
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 15,
+    "fields": {
+      "alarm_id": "WS-P-Windspeed",
+      "view": 2,
+      "type": 3,
+      "parent": 13
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 16,
+    "fields": {
+      "alarm_id": "WS-P-Humidity",
+      "view": 2,
+      "type": 4,
+      "parent": 13
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 17,
+    "fields": {
+      "alarm_id": "WS-S",
+      "view": 2,
+      "type": 1,
+      "placemark":"Meteo309"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 18,
+    "fields": {
+      "alarm_id": "WS-S-Temperature",
+      "view": 2,
+      "type": 2,
+      "parent": 17
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 19,
+    "fields": {
+      "alarm_id": "WS-S-Windspeed",
+      "view": 2,
+      "type": 3,
+      "parent": 17
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 20,
+    "fields": {
+      "alarm_id": "WS-S-Humidity",
+      "view": 2,
+      "type": 4,
+      "parent": 17
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 21,
+    "fields": {
+      "alarm_id": "WS-Temperature",
+      "view": 3,
+      "type": 2
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 22,
+    "fields": {
+      "alarm_id": "WS-WindSpeed",
+      "view": 3,
+      "type": 3
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 23,
+    "fields": {
+      "alarm_id": "WS-Humidity",
+      "view": 3,
+      "type": 4
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 24,
+    "fields": {
+      "alarm_id": "Array-DV01-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A045",
+      "custom_name": "DV01",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 25,
+    "fields": {
+      "alarm_id": "Array-DV02-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A104",
+      "custom_name": "DV02",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 26,
+    "fields": {
+      "alarm_id": "Array-DV03-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A049",
+      "custom_name": "DV03",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 27,
+    "fields": {
+      "alarm_id": "Array-DV04-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A066",
+      "custom_name": "DV04",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 28,
+    "fields": {
+      "alarm_id": "Array-DV05-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A007",
+      "custom_name": "DV05",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 29,
+    "fields": {
+      "alarm_id": "Array-DV06-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A027",
+      "custom_name": "DV06",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 30,
+    "fields": {
+      "alarm_id": "Array-DV07-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A001",
+      "custom_name": "DV07",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 31,
+    "fields": {
+      "alarm_id": "Array-DV08-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A042",
+      "custom_name": "DV08",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 32,
+    "fields": {
+      "alarm_id": "Array-DV09-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A074",
+      "custom_name": "DV09",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 33,
+    "fields": {
+      "alarm_id": "Array-DV10-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A062",
+      "custom_name": "DV10",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 34,
+    "fields": {
+      "alarm_id": "Array-DV11-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A044",
+      "custom_name": "DV11",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 35,
+    "fields": {
+      "alarm_id": "Array-DV12-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A092",
+      "custom_name": "DV12",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 36,
+    "fields": {
+      "alarm_id": "Array-DV13-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A050",
+      "custom_name": "DV13",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 37,
+    "fields": {
+      "alarm_id": "Array-DV14-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A087",
+      "custom_name": "DV14",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 38,
+    "fields": {
+      "alarm_id": "Array-DV15-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A047",
+      "custom_name": "DV15",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 39,
+    "fields": {
+      "alarm_id": "Array-DV16-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A069",
+      "custom_name": "DV16",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 40,
+    "fields": {
+      "alarm_id": "Array-DV17-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A060",
+      "custom_name": "DV17",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 41,
+    "fields": {
+      "alarm_id": "Array-DV18-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A075",
+      "custom_name": "DV18",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 42,
+    "fields": {
+      "alarm_id": "Array-DV19-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A093",
+      "custom_name": "DV19",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 43,
+    "fields": {
+      "alarm_id": "Array-DV20-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A072",
+      "custom_name": "DV20",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 44,
+    "fields": {
+      "alarm_id": "Array-DV21-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A011",
+      "custom_name": "DV21",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 45,
+    "fields": {
+      "alarm_id": "Array-DV22-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A083",
+      "custom_name": "DV22",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 46,
+    "fields": {
+      "alarm_id": "Array-DV23-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A022",
+      "custom_name": "DV23",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 47,
+    "fields": {
+      "alarm_id": "Array-DV24-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A088",
+      "custom_name": "DV24",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 48,
+    "fields": {
+      "alarm_id": "Array-DV25-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A086",
+      "custom_name": "DV25",
+      "tags": "DV"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 49,
+    "fields": {
+      "alarm_id": "Array-DA41-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A023",
+      "custom_name": "DA41",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 50,
+    "fields": {
+      "alarm_id": "Array-DA42-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A008",
+      "custom_name": "DA42",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 51,
+    "fields": {
+      "alarm_id": "Array-DA43-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A058",
+      "custom_name": "DA43",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 52,
+    "fields": {
+      "alarm_id": "Array-DA44-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A016",
+      "custom_name": "DA44",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 53,
+    "fields": {
+      "alarm_id": "Array-DA45-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A134",
+      "custom_name": "DA45",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 54,
+    "fields": {
+      "alarm_id": "Array-DA46-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A096",
+      "custom_name": "DA46",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 55,
+    "fields": {
+      "alarm_id": "Array-DA47-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A035",
+      "custom_name": "DA47",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 56,
+    "fields": {
+      "alarm_id": "Array-DA48-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A070",
+      "custom_name": "DA48",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 57,
+    "fields": {
+      "alarm_id": "Array-DA49-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A024",
+      "custom_name": "DA49",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 58,
+    "fields": {
+      "alarm_id": "Array-DA50-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A105",
+      "custom_name": "DA50",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 59,
+    "fields": {
+      "alarm_id": "Array-DA51-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A101",
+      "custom_name": "DA51",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 60,
+    "fields": {
+      "alarm_id": "Array-DA52-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A082",
+      "custom_name": "DA52",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 61,
+    "fields": {
+      "alarm_id": "Array-DA53-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A033",
+      "custom_name": "DA53",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 62,
+    "fields": {
+      "alarm_id": "Array-DA54-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A073",
+      "custom_name": "DA54",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 63,
+    "fields": {
+      "alarm_id": "Array-DA55-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A108",
+      "custom_name": "DA55",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 64,
+    "fields": {
+      "alarm_id": "Array-DA56-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A091",
+      "custom_name": "DA56",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 65,
+    "fields": {
+      "alarm_id": "Array-DA57-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A089",
+      "custom_name": "DA57",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 66,
+    "fields": {
+      "alarm_id": "Array-DA58-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A090",
+      "custom_name": "DA58",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 67,
+    "fields": {
+      "alarm_id": "Array-DA59-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A076",
+      "custom_name": "DA59",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 68,
+    "fields": {
+      "alarm_id": "Array-DA60-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A043",
+      "custom_name": "DA60",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 69,
+    "fields": {
+      "alarm_id": "Array-DA61-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A094",
+      "custom_name": "DA61",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 70,
+    "fields": {
+      "alarm_id": "Array-DA62-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A135",
+      "custom_name": "DA62",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 71,
+    "fields": {
+      "alarm_id": "Array-DA63-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A085",
+      "custom_name": "DA63",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 72,
+    "fields": {
+      "alarm_id": "Array-DA64-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A015",
+      "custom_name": "DA64",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 73,
+    "fields": {
+      "alarm_id": "Array-DA65-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "A068",
+      "custom_name": "DA65",
+      "tags": "DA"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 74,
+    "fields": {
+      "alarm_id": "Array-CM01-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "N602",
+      "custom_name": "CM01",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 75,
+    "fields": {
+      "alarm_id": "Array-CM02-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "J502",
+      "custom_name": "CM02",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 76,
+    "fields": {
+      "alarm_id": "Array-CM03-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "J503",
+      "custom_name": "CM03",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 77,
+    "fields": {
+      "alarm_id": "Array-CM04-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "N605",
+      "custom_name": "CM04",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 78,
+    "fields": {
+      "alarm_id": "Array-CM05-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "J506",
+      "custom_name": "CM05",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 79,
+    "fields": {
+      "alarm_id": "Array-CM06-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "N606",
+      "custom_name": "CM06",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 80,
+    "fields": {
+      "alarm_id": "Array-CM07-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "N601",
+      "custom_name": "CM07",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 81,
+    "fields": {
+      "alarm_id": "Array-CM08-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "J505",
+      "custom_name": "CM08",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 82,
+    "fields": {
+      "alarm_id": "Array-CM09-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "N603",
+      "custom_name": "CM09",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 83,
+    "fields": {
+      "alarm_id": "Array-CM10-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "J501",
+      "custom_name": "CM10",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 84,
+    "fields": {
+      "alarm_id": "Array-CM11-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "N604",
+      "custom_name": "CM11",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 85,
+    "fields": {
+      "alarm_id": "Array-CM12-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "J504",
+      "custom_name": "CM12",
+      "tags": "CM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 86,
+    "fields": {
+      "alarm_id": "Array-PM01-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "T703",
+      "custom_name": "PM01",
+      "tags": "PM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 87,
+    "fields": {
+      "alarm_id": "Array-PM02-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "T701",
+      "custom_name": "PM02",
+      "tags": "PM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 88,
+    "fields": {
+      "alarm_id": "Array-PM03-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "T702",
+      "custom_name": "PM03",
+      "tags": "PM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 89,
+    "fields": {
+      "alarm_id": "Array-PM04-Alarm",
+      "view": 1,
+      "type": 5,
+      "placemark": "T704",
+      "custom_name": "PM04",
+      "tags": "PM"
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 90,
+    "fields": {
+      "alarm_id": "Array-Global-Alarm",
+      "view": 3,
+      "type": 5
+    }
+  }
+]

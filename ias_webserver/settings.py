@@ -35,10 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
     'channels',
     'rest_framework',
+    'corsheaders',
     'alarms.apps.AlarmConfig',
     'cdb',
+    'panels',
     'tickets',
-    'corsheaders',
+    'timers',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +150,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 ASGI_APPLICATION = "ias_webserver.routing.application"
 
 BROADCAST_RATE_FACTOR = 2
+UNSHELVE_CHECKING_RATE = 60
+FILES_LOCATION = "private_files"

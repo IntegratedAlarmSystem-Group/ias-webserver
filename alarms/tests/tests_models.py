@@ -1,9 +1,10 @@
+import copy
+import datetime
+from freezegun import freeze_time
 from django.test import TestCase
 from alarms.models import Alarm, Validity, OperationalMode, Value
 from alarms.connectors import CdbConnector as CdbConn
 from alarms.tests.factories import AlarmFactory
-from freezegun import freeze_time
-import datetime
 
 
 class AlarmModelTestCase(TestCase):
@@ -61,6 +62,102 @@ class AlarmModelTestCase(TestCase):
         self.assertEqual(
             alarm.ack, False,
             'The default value of ack field must be False'
+        )
+
+    def test_update_alarm_value(self):
+        """ Test that an Alarm value can be updated and its
+        state_change_timestamp is updated accordingly """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.value = 0
+        new_alarm = copy.deepcopy(alarm)
+        new_alarm.core_timestamp = alarm.core_timestamp + 10
+        new_alarm.value = 1
+        expected_data = dict(new_alarm.to_dict())
+        old_state_change = alarm.state_change_timestamp
+        # Act:
+        alarm.update(new_alarm)
+        # Assert:
+        new_state_change = alarm.state_change_timestamp
+        updated_data = dict(alarm.to_dict())
+        expected_state_change = expected_data['state_change_timestamp']
+        del updated_data['state_change_timestamp']
+        del expected_data['state_change_timestamp']
+        self.assertEqual(
+            updated_data, expected_data,
+            'The Alarm was not updated correctly'
+        )
+        self.assertTrue(
+            old_state_change < new_state_change,
+            'The Alarm state_change_timestamp should have been updated'
+        )
+        self.assertEqual(
+            new_state_change, alarm.core_timestamp,
+            'The Alarm state_change_timestamp should have been updated'
+        )
+
+    def test_update_alarm_mode(self):
+        """ Test that an Alarm mode can be updated and its
+        state_change_timestamp is updated accordingly """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.mode = 0
+        new_alarm = copy.deepcopy(alarm)
+        new_alarm.core_timestamp = alarm.core_timestamp + 10
+        new_alarm.mode = 1
+        expected_data = dict(new_alarm.to_dict())
+        old_state_change = alarm.state_change_timestamp
+        # Act:
+        alarm.update(new_alarm)
+        # Assert:
+        new_state_change = alarm.state_change_timestamp
+        updated_data = dict(alarm.to_dict())
+        expected_state_change = expected_data['state_change_timestamp']
+        del updated_data['state_change_timestamp']
+        del expected_data['state_change_timestamp']
+        self.assertEqual(
+            updated_data, expected_data,
+            'The Alarm was not updated correctly'
+        )
+        self.assertTrue(
+            old_state_change < new_state_change,
+            'The state_change_timestamp should have increased'
+        )
+        self.assertEqual(
+            new_state_change, alarm.core_timestamp,
+            'The state_change_timestamp should be equal to the core_timestamp'
+        )
+
+    def test_update_alarm_validity(self):
+        """ Test that an Alarm validity can be updated and its
+        state_change_timestamp stays unchanged """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.validity = 0
+        new_alarm = copy.deepcopy(alarm)
+        new_alarm.core_timestamp = alarm.core_timestamp + 10
+        new_alarm.validity = 1
+        expected_data = dict(new_alarm.to_dict())
+        old_state_change = alarm.state_change_timestamp
+        # Act:
+        alarm.update(new_alarm)
+        # Assert:
+        new_state_change = alarm.state_change_timestamp
+        updated_data = dict(alarm.to_dict())
+        expected_state_change = expected_data['state_change_timestamp']
+        del updated_data['state_change_timestamp']
+        del expected_data['state_change_timestamp']
+        self.assertEqual(
+            updated_data, expected_data,
+            'The Alarm was not updated correctly'
+        )
+        self.assertEqual(
+            old_state_change, new_state_change,
+            'The state_change_timestamp should not have changed'
+        )
+        self.assertTrue(
+            new_state_change < alarm.core_timestamp,
+            'state_change_timestamp should not be updated to core_timestamp'
         )
 
     def test_ignored_invalid_alarms_update(self):

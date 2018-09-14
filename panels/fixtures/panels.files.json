@@ -1,0 +1,10 @@
+[
+  {
+    "model": "panels.file",
+    "pk": 1,
+    "fields": {
+      "key": "weather",
+      "url": "weather_map.json"
+    }
+  }
+]

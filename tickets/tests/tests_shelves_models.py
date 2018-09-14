@@ -41,8 +41,8 @@ class ShelveRegistryModelsTestCase(TestCase):
             'When the registry is created the message must not be none'
         )
         self.assertEqual(
-            retrieved_reg.timeout, timedelta(hours=2),
-            'The default timeout should be 2 hours'
+            retrieved_reg.timeout, timedelta(hours=12),
+            'The default timeout should be 12 hours'
         )
 
     def test_cannot_create_registry_with_no_message(self):
