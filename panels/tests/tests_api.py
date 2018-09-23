@@ -366,6 +366,11 @@ class AlarmConfigApiTestCase(TestCase):
         self.windspeed_type = Type.objects.create(name='windspeed')
         self.station_type = Type.objects.create(name='station')
         self.antenna_type = Type.objects.create(name='antenna')
+        self.fire_type = Type.objects.create(name='fire')
+        self.fire_sys_type = Type.objects.create(name='fire-malfunction')
+        self.ups_type = Type.objects.create(name='ups')
+        self.hvac_type = Type.objects.create(name='hvac')
+        self.power_type = Type.objects.create(name='power')
         self.weather_view = View.objects.create(name='weather')
         self.antennas_view = View.objects.create(name='antennas')
         self.summary_view = View.objects.create(name='summary')
@@ -447,6 +452,43 @@ class AlarmConfigApiTestCase(TestCase):
                 tags="group_B"
             )
         ]
+        self.antennas_devices_alarms_config = [
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_fire",
+                view=self.antennas_view,
+                type=self.fire_type,
+                custom_name="Fire",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_fire_malfunction",
+                view=self.antennas_view,
+                type=self.fire_sys_type,
+                custom_name="Fire Malfunction",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_ups",
+                view=self.antennas_view,
+                type=self.ups_type,
+                custom_name="UPS",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_hvac",
+                view=self.antennas_view,
+                type=self.hvac_type,
+                custom_name="HVAC",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_power",
+                view=self.antennas_view,
+                type=self.power_type,
+                custom_name="Power",
+                parent=self.antennas_alarms_config[0]
+            ),
+        ]
         self.summary_alarms_config = [
             AlarmConfig.objects.create(
                 alarm_id="antennas_summary",
@@ -517,11 +559,21 @@ class AlarmConfigApiTestCase(TestCase):
                     'antenna': 'A001',
                     'placemark': 'placemark_1',
                     'alarm': 'antenna_alarm_1',
+                    'fire': 'antenna_alarm_1_fire',
+                    'fire-malfunction': 'antenna_alarm_1_fire_malfunction',
+                    'ups': 'antenna_alarm_1_ups',
+                    'hvac': 'antenna_alarm_1_hvac',
+                    'power': 'antenna_alarm_1_power'
                 },
                 {
                     'antenna': 'A002',
                     'placemark': 'placemark_2',
                     'alarm': 'antenna_alarm_2',
+                    'fire': '',
+                    'fire-malfunction': '',
+                    'ups': '',
+                    'hvac': '',
+                    'power': ''
                 }
             ],
             'group_B': [
@@ -529,6 +581,11 @@ class AlarmConfigApiTestCase(TestCase):
                     'antenna': 'A003',
                     'placemark': 'placemark_3',
                     'alarm': 'antenna_alarm_3',
+                    'fire': '',
+                    'fire-malfunction': '',
+                    'ups': '',
+                    'hvac': '',
+                    'power': ''
                 },
             ]
         }
