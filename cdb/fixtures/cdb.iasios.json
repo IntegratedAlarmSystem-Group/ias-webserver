@@ -313,374 +313,6 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "WS-ACA-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the ACA WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the Inner WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the W WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the P WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the S WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the ACA WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the Inner WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the W WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the P WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the S WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the ACA WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the Inner WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the W WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the P WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the S WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Humidity",
-    "fields": {
-      "short_desc": "Humidity alarm of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
     "pk": "WS-Inner-Humidity",
     "fields": {
       "short_desc": "Humidity alarm of the Inner WS",
@@ -689,33 +321,9 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "WS-W-Humidity",
+    "pk": " WS-Inner-Humidity-Threshold",
     "fields": {
-      "short_desc": "Humidity alarm of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Humidity",
-    "fields": {
-      "short_desc": "Humidity alarm of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Humidity",
-    "fields": {
-      "short_desc": "Humidity alarm of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Temperature",
-    "fields": {
-      "short_desc": "Temperature alarm of the ACA WS",
+      "short_desc": "Inner Humidity Threshold",
       "ias_type": "ALARM"
     }
   },
@@ -729,9 +337,169 @@
   },
   {
     "model": "cdb.iasio",
+    "pk": " WS-Inner-Temperature-Threshold",
+    "fields": {
+      "short_desc": "Inner Temperature Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed",
+    "fields": {
+      "short_desc": "Inner Wind speed Alarm",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed15",
+    "fields": {
+      "short_desc": "Wind speed over 15m/s of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed20",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed30",
+    "fields": {
+      "short_desc": "Wind speed over 30m/s of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-Inner-WindSpeed15-Threshold",
+    "fields": {
+      "short_desc": "Inner WindSpeed15 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-Inner-WindSpeed20-Threshold",
+    "fields": {
+      "short_desc": "Inner WindSpeed20 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-Inner-WindSpeed30-Threshold",
+    "fields": {
+      "short_desc": "Inner WindSpeed30 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-Humidity-Threshold",
+    "fields": {
+      "short_desc": "W Humidity Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
     "pk": "WS-W-Temperature",
     "fields": {
       "short_desc": "Temperature alarm of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-Temperature-Threshold",
+    "fields": {
+      "short_desc": "W Temperature Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed15",
+    "fields": {
+      "short_desc": "Wind speed over 15m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed20",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed30",
+    "fields": {
+      "short_desc": "Wind speed over 30m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-WindSpeed15-Threshold",
+    "fields": {
+      "short_desc": "W WindSpeed15 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-WindSpeed20-Threshold",
+    "fields": {
+      "short_desc": "W WindSpeed20 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-WindSpeed30-Threshold",
+    "fields": {
+      "short_desc": "W WindSpeed30 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-P-Humidity-Threshold",
+    "fields": {
+      "short_desc": "P Humidity Threshold",
       "ias_type": "ALARM"
     }
   },
@@ -745,6 +513,86 @@
   },
   {
     "model": "cdb.iasio",
+    "pk": " WS-P-Temperature-Threshold",
+    "fields": {
+      "short_desc": "P Temperature Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed",
+    "fields": {
+      "short_desc": "P Wind speed Alarm",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed15",
+    "fields": {
+      "short_desc": "Wind speed over 15m/s of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed20",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed30",
+    "fields": {
+      "short_desc": "Wind speed over 30m/s of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-P-WindSpeed15-Threshold",
+    "fields": {
+      "short_desc": "P WindSpeed15 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-P-WindSpeed20-Threshold",
+    "fields": {
+      "short_desc": "P WindSpeed20 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-P-WindSpeed30-Threshold",
+    "fields": {
+      "short_desc": "P WindSpeed30 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-S-Humidity-Threshold",
+    "fields": {
+      "short_desc": "S Humidity Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
     "pk": "WS-S-Temperature",
     "fields": {
       "short_desc": "Temperature alarm of the S WS",
@@ -753,33 +601,9 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "WS-ACA-WindSpeed",
+    "pk": " WS-S-Temperature-Threshold",
     "fields": {
-      "short_desc": "Wind speed over 20m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-WindSpeed",
-    "fields": {
-      "short_desc": "Wind speed over 20m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-WindSpeed",
-    "fields": {
-      "short_desc": "Wind speed over 20m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-WindSpeed",
-    "fields": {
-      "short_desc": "Wind speed over 20m/s of the ACA WS",
+      "short_desc": "S Temperature Threshold",
       "ias_type": "ALARM"
     }
   },
@@ -793,9 +617,49 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "WS-ACA",
+    "pk": "WS-S-WindSpeed15",
     "fields": {
-      "short_desc": "Global alarm of the ACA WS",
+      "short_desc": "Wind speed over 15m/s of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-WindSpeed20",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-WindSpeed30",
+    "fields": {
+      "short_desc": "Wind speed over 30m/s of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-S-WindSpeed15-Threshold",
+    "fields": {
+      "short_desc": "S WindSpeed15 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-S-WindSpeed20-Threshold",
+    "fields": {
+      "short_desc": "S WindSpeed20 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-S-WindSpeed30-Threshold",
+    "fields": {
+      "short_desc": "S WindSpeed30 Threshold",
       "ias_type": "ALARM"
     }
   },
@@ -865,1059 +729,3698 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV01",
+    "pk": "Array-Value-Ant[!#1!]",
     "fields": {
-      "short_desc": "Status of DV01 from utility module",
+      "short_desc": "Templated antennas input value [!#1!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV02",
+    "pk": "Array-Value-Ant[!#2!]",
     "fields": {
-      "short_desc": "Status of DV02 from utility module",
+      "short_desc": "Templated antennas input value [!#2!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV03",
+    "pk": "Array-Value-Ant[!#3!]",
     "fields": {
-      "short_desc": "Status of DV03 from utility module",
+      "short_desc": "Templated antennas input value [!#3!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV04",
+    "pk": "Array-Value-Ant[!#4!]",
     "fields": {
-      "short_desc": "Status of DV04 from utility module",
+      "short_desc": "Templated antennas input value [!#4!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV05",
+    "pk": "Array-Value-Ant[!#5!]",
     "fields": {
-      "short_desc": "Status of DV05 from utility module",
+      "short_desc": "Templated antennas input value [!#5!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV06",
+    "pk": "Array-Value-Ant[!#6!]",
     "fields": {
-      "short_desc": "Status of DV06 from utility module",
+      "short_desc": "Templated antennas input value [!#6!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV07",
+    "pk": "Array-Value-Ant[!#7!]",
     "fields": {
-      "short_desc": "Status of DV07 from utility module",
+      "short_desc": "Templated antennas input value [!#7!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV08",
+    "pk": "Array-Value-Ant[!#8!]",
     "fields": {
-      "short_desc": "Status of DV08 from utility module",
+      "short_desc": "Templated antennas input value [!#8!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV09",
+    "pk": "Array-Value-Ant[!#9!]",
     "fields": {
-      "short_desc": "Status of DV09 from utility module",
+      "short_desc": "Templated antennas input value [!#9!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV10",
+    "pk": "Array-Value-Ant[!#10!]",
     "fields": {
-      "short_desc": "Status of DV10 from utility module",
+      "short_desc": "Templated antennas input value [!#10!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV11",
+    "pk": "Array-Value-Ant[!#11!]",
     "fields": {
-      "short_desc": "Status of DV11 from utility module",
+      "short_desc": "Templated antennas input value [!#11!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV12",
+    "pk": "Array-Value-Ant[!#12!]",
     "fields": {
-      "short_desc": "Status of DV12 from utility module",
+      "short_desc": "Templated antennas input value [!#12!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV13",
+    "pk": "Array-Value-Ant[!#13!]",
     "fields": {
-      "short_desc": "Status of DV13 from utility module",
+      "short_desc": "Templated antennas input value [!#13!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV14",
+    "pk": "Array-Value-Ant[!#14!]",
     "fields": {
-      "short_desc": "Status of DV14 from utility module",
+      "short_desc": "Templated antennas input value [!#14!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV15",
+    "pk": "Array-Value-Ant[!#15!]",
     "fields": {
-      "short_desc": "Status of DV15 from utility module",
+      "short_desc": "Templated antennas input value [!#15!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV16",
+    "pk": "Array-Value-Ant[!#16!]",
     "fields": {
-      "short_desc": "Status of DV16 from utility module",
+      "short_desc": "Templated antennas input value [!#16!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV17",
+    "pk": "Array-Value-Ant[!#17!]",
     "fields": {
-      "short_desc": "Status of DV17 from utility module",
+      "short_desc": "Templated antennas input value [!#17!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV18",
+    "pk": "Array-Value-Ant[!#18!]",
     "fields": {
-      "short_desc": "Status of DV18 from utility module",
+      "short_desc": "Templated antennas input value [!#18!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV19",
+    "pk": "Array-Value-Ant[!#19!]",
     "fields": {
-      "short_desc": "Status of DV19 from utility module",
+      "short_desc": "Templated antennas input value [!#19!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV20",
+    "pk": "Array-Value-Ant[!#20!]",
     "fields": {
-      "short_desc": "Status of DV20 from utility module",
+      "short_desc": "Templated antennas input value [!#20!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV21",
+    "pk": "Array-Value-Ant[!#21!]",
     "fields": {
-      "short_desc": "Status of DV21 from utility module",
+      "short_desc": "Templated antennas input value [!#21!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV22",
+    "pk": "Array-Value-Ant[!#22!]",
     "fields": {
-      "short_desc": "Status of DV22 from utility module",
+      "short_desc": "Templated antennas input value [!#22!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV23",
+    "pk": "Array-Value-Ant[!#23!]",
     "fields": {
-      "short_desc": "Status of DV23 from utility module",
+      "short_desc": "Templated antennas input value [!#23!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV24",
+    "pk": "Array-Value-Ant[!#24!]",
     "fields": {
-      "short_desc": "Status of DV24 from utility module",
+      "short_desc": "Templated antennas input value [!#24!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV25",
+    "pk": "Array-Value-Ant[!#25!]",
     "fields": {
-      "short_desc": "Status of DV25 from utility module",
+      "short_desc": "Templated antennas input value [!#25!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA41",
+    "pk": "Array-Value-Ant[!#26!]",
     "fields": {
-      "short_desc": "Status of DA41 from utility module",
+      "short_desc": "Templated antennas input value [!#26!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA42",
+    "pk": "Array-Value-Ant[!#27!]",
     "fields": {
-      "short_desc": "Status of DA42 from utility module",
+      "short_desc": "Templated antennas input value [!#27!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA43",
+    "pk": "Array-Value-Ant[!#28!]",
     "fields": {
-      "short_desc": "Status of DA43 from utility module",
+      "short_desc": "Templated antennas input value [!#28!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA44",
+    "pk": "Array-Value-Ant[!#29!]",
     "fields": {
-      "short_desc": "Status of DA44 from utility module",
+      "short_desc": "Templated antennas input value [!#29!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA45",
+    "pk": "Array-Value-Ant[!#30!]",
     "fields": {
-      "short_desc": "Status of DA45 from utility module",
+      "short_desc": "Templated antennas input value [!#30!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA46",
+    "pk": "Array-Value-Ant[!#31!]",
     "fields": {
-      "short_desc": "Status of DA46 from utility module",
+      "short_desc": "Templated antennas input value [!#31!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA47",
+    "pk": "Array-Value-Ant[!#32!]",
     "fields": {
-      "short_desc": "Status of DA47 from utility module",
+      "short_desc": "Templated antennas input value [!#32!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA48",
+    "pk": "Array-Value-Ant[!#33!]",
     "fields": {
-      "short_desc": "Status of DA48 from utility module",
+      "short_desc": "Templated antennas input value [!#33!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA49",
+    "pk": "Array-Value-Ant[!#34!]",
     "fields": {
-      "short_desc": "Status of DA49 from utility module",
+      "short_desc": "Templated antennas input value [!#34!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA50",
+    "pk": "Array-Value-Ant[!#35!]",
     "fields": {
-      "short_desc": "Status of DA50 from utility module",
+      "short_desc": "Templated antennas input value [!#35!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA51",
+    "pk": "Array-Value-Ant[!#36!]",
     "fields": {
-      "short_desc": "Status of DA51 from utility module",
+      "short_desc": "Templated antennas input value [!#36!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA52",
+    "pk": "Array-Value-Ant[!#37!]",
     "fields": {
-      "short_desc": "Status of DA52 from utility module",
+      "short_desc": "Templated antennas input value [!#37!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA53",
+    "pk": "Array-Value-Ant[!#38!]",
     "fields": {
-      "short_desc": "Status of DA53 from utility module",
+      "short_desc": "Templated antennas input value [!#38!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA54",
+    "pk": "Array-Value-Ant[!#39!]",
     "fields": {
-      "short_desc": "Status of DA54 from utility module",
+      "short_desc": "Templated antennas input value [!#39!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA55",
+    "pk": "Array-Value-Ant[!#40!]",
     "fields": {
-      "short_desc": "Status of DA55 from utility module",
+      "short_desc": "Templated antennas input value [!#40!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA56",
+    "pk": "Array-Value-Ant[!#41!]",
     "fields": {
-      "short_desc": "Status of DA56 from utility module",
+      "short_desc": "Templated antennas input value [!#41!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA57",
+    "pk": "Array-Value-Ant[!#42!]",
     "fields": {
-      "short_desc": "Status of DA57 from utility module",
+      "short_desc": "Templated antennas input value [!#42!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA58",
+    "pk": "Array-Value-Ant[!#43!]",
     "fields": {
-      "short_desc": "Status of DA58 from utility module",
+      "short_desc": "Templated antennas input value [!#43!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA59",
+    "pk": "Array-Value-Ant[!#44!]",
     "fields": {
-      "short_desc": "Status of DA59 from utility module",
+      "short_desc": "Templated antennas input value [!#44!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA60",
+    "pk": "Array-Value-Ant[!#45!]",
     "fields": {
-      "short_desc": "Status of DA60 from utility module",
+      "short_desc": "Templated antennas input value [!#45!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA61",
+    "pk": "Array-Value-Ant[!#46!]",
     "fields": {
-      "short_desc": "Status of DA61 from utility module",
+      "short_desc": "Templated antennas input value [!#46!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA62",
+    "pk": "Array-Value-Ant[!#47!]",
     "fields": {
-      "short_desc": "Status of DA62 from utility module",
+      "short_desc": "Templated antennas input value [!#47!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA63",
+    "pk": "Array-Value-Ant[!#48!]",
     "fields": {
-      "short_desc": "Status of DA63 from utility module",
+      "short_desc": "Templated antennas input value [!#48!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA64",
+    "pk": "Array-Value-Ant[!#49!]",
     "fields": {
-      "short_desc": "Status of DA64 from utility module",
+      "short_desc": "Templated antennas input value [!#49!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA65",
+    "pk": "Array-Value-Ant[!#50!]",
     "fields": {
-      "short_desc": "Status of DA65 from utility module",
+      "short_desc": "Templated antennas input value [!#50!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM01",
+    "pk": "Array-Value-Ant[!#51!]",
     "fields": {
-      "short_desc": "Status of CM01 from utility module",
+      "short_desc": "Templated antennas input value [!#51!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM02",
+    "pk": "Array-Value-Ant[!#52!]",
     "fields": {
-      "short_desc": "Status of CM02 from utility module",
+      "short_desc": "Templated antennas input value [!#52!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM03",
+    "pk": "Array-Value-Ant[!#53!]",
     "fields": {
-      "short_desc": "Status of CM03 from utility module",
+      "short_desc": "Templated antennas input value [!#53!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM04",
+    "pk": "Array-Value-Ant[!#54!]",
     "fields": {
-      "short_desc": "Status of CM04 from utility module",
+      "short_desc": "Templated antennas input value [!#54!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM05",
+    "pk": "Array-Value-Ant[!#55!]",
     "fields": {
-      "short_desc": "Status of CM05 from utility module",
+      "short_desc": "Templated antennas input value [!#55!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM06",
+    "pk": "Array-Value-Ant[!#56!]",
     "fields": {
-      "short_desc": "Status of CM06 from utility module",
+      "short_desc": "Templated antennas input value [!#56!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM07",
+    "pk": "Array-Value-Ant[!#57!]",
     "fields": {
-      "short_desc": "Status of CM07 from utility module",
+      "short_desc": "Templated antennas input value [!#57!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM08",
+    "pk": "Array-Value-Ant[!#58!]",
     "fields": {
-      "short_desc": "Status of CM08 from utility module",
+      "short_desc": "Templated antennas input value [!#58!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM09",
+    "pk": "Array-Value-Ant[!#59!]",
     "fields": {
-      "short_desc": "Status of CM09 from utility module",
+      "short_desc": "Templated antennas input value [!#59!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM10",
+    "pk": "Array-Value-Ant[!#60!]",
     "fields": {
-      "short_desc": "Status of CM10 from utility module",
+      "short_desc": "Templated antennas input value [!#60!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM11",
+    "pk": "Array-Value-Ant[!#61!]",
     "fields": {
-      "short_desc": "Status of CM11 from utility module",
+      "short_desc": "Templated antennas input value [!#61!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM12",
+    "pk": "Array-Value-Ant[!#62!]",
     "fields": {
-      "short_desc": "Status of CM12 from utility module",
+      "short_desc": "Templated antennas input value [!#62!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-PM01",
+    "pk": "Array-Value-Ant[!#63!]",
     "fields": {
-      "short_desc": "Status of PM01 from utility module",
+      "short_desc": "Templated antennas input value [!#63!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-PM02",
+    "pk": "Array-Value-Ant[!#64!]",
     "fields": {
-      "short_desc": "Status of PM02 from utility module",
+      "short_desc": "Templated antennas input value [!#64!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-PM03",
+    "pk": "Array-Value-Ant[!#65!]",
     "fields": {
-      "short_desc": "Status of PM03 from utility module",
+      "short_desc": "Templated antennas input value [!#65!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-PM04",
+    "pk": "Array-Value-Ant[!#66!]",
     "fields": {
-      "short_desc": "Status of PM04 from utility module",
+      "short_desc": "Templated antennas input value [!#66!]",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-DV01-Alarm",
+    "pk": "Array-Ant[!#1!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV01",
+      "short_desc": "Templated antennas output alarm [!#1!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#2!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#2!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#3!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#3!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#4!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#4!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#5!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#5!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#6!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#6!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#7!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#7!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#8!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#8!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#9!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#9!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#10!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#10!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#11!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#11!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#12!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#12!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#13!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#13!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#14!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#14!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#15!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#15!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#16!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#16!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#17!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#17!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#18!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#18!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#19!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#19!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#20!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#20!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#21!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#21!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#22!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#22!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#23!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#23!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#24!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#24!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#25!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#25!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#26!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#26!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#27!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#27!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#28!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#28!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#29!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#29!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#30!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#30!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#31!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#31!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#32!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#32!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#33!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#33!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#34!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#34!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#35!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#35!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#36!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#36!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#37!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#37!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#38!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#38!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#39!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#39!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#40!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#40!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#41!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#41!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#42!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#42!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#43!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#43!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#44!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#44!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#45!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#45!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#46!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#46!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#47!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#47!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#48!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#48!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#49!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#49!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#50!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#50!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#51!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#51!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#52!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#52!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#53!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#53!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#54!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#54!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#55!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#55!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#56!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#56!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#57!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#57!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#58!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#58!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#59!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#59!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#60!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#60!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#61!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#61!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#62!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#62!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#63!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#63!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#64!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#64!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#65!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#65!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Ant[!#66!]",
+    "fields": {
+      "short_desc": "Templated antennas output alarm [!#66!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#1!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#1!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#2!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#2!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#3!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#3!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#4!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#4!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#5!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#5!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#6!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#6!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#7!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#7!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#8!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#8!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#9!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#9!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#10!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#10!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#11!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#11!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#12!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#12!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#13!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#13!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#14!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#14!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#15!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#15!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#16!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#16!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#17!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#17!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#18!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#18!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#19!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#19!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#20!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#20!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#21!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#21!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#22!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#22!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#23!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#23!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#24!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#24!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#25!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#25!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#26!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#26!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#27!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#27!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#28!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#28!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#29!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#29!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#30!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#30!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#31!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#31!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#32!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#32!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#33!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#33!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#34!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#34!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#35!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#35!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#36!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#36!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#37!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#37!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#38!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#38!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#39!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#39!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#40!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#40!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#41!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#41!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#42!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#42!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#43!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#43!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#44!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#44!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#45!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#45!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#46!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#46!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#47!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#47!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#48!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#48!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#49!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#49!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#50!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#50!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#51!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#51!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#52!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#52!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#53!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#53!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#54!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#54!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#55!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#55!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#56!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#56!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#57!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#57!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#58!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#58!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#59!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#59!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#60!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#60!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#61!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#61!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#62!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#62!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#63!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#63!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#64!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#64!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#65!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#65!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-Fire-Ant[!#66!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas Fire [!#66!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#1!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#1!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#2!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#2!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#3!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#3!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#4!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#4!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#5!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#5!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#6!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#6!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#7!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#7!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#8!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#8!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#9!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#9!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#10!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#10!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#11!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#11!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#12!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#12!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#13!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#13!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#14!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#14!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#15!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#15!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#16!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#16!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#17!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#17!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#18!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#18!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#19!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#19!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#20!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#20!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#21!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#21!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#22!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#22!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#23!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#23!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#24!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#24!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#25!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#25!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#26!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#26!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#27!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#27!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#28!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#28!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#29!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#29!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#30!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#30!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#31!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#31!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#32!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#32!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#33!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#33!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#34!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#34!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#35!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#35!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#36!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#36!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#37!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#37!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#38!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#38!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#39!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#39!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#40!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#40!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#41!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#41!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#42!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#42!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#43!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#43!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#44!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#44!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#45!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#45!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#46!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#46!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#47!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#47!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#48!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#48!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#49!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#49!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#50!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#50!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#51!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#51!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#52!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#52!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#53!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#53!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#54!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#54!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#55!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#55!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#56!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#56!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#57!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#57!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#58!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#58!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#59!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#59!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#60!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#60!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#61!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#61!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#62!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#62!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#63!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#63!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#64!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#64!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#65!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#65!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-FireMalfunction-Ant[!#66!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas FireMalfunction [!#66!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#1!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#1!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#2!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#2!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#3!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#3!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#4!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#4!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#5!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#5!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#6!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#6!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#7!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#7!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#8!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#8!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#9!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#9!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#10!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#10!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#11!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#11!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#12!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#12!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#13!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#13!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#14!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#14!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#15!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#15!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#16!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#16!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#17!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#17!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#18!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#18!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#19!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#19!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#20!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#20!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#21!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#21!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#22!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#22!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#23!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#23!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#24!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#24!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#25!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#25!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#26!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#26!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#27!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#27!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#28!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#28!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#29!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#29!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#30!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#30!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#31!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#31!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#32!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#32!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#33!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#33!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#34!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#34!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#35!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#35!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#36!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#36!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#37!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#37!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#38!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#38!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#39!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#39!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#40!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#40!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#41!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#41!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#42!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#42!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#43!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#43!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#44!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#44!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#45!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#45!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#46!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#46!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#47!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#47!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#48!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#48!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#49!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#49!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#50!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#50!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#51!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#51!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#52!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#52!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#53!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#53!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#54!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#54!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#55!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#55!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#56!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#56!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#57!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#57!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#58!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#58!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#59!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#59!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#60!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#60!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#61!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#61!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#62!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#62!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#63!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#63!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#64!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#64!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#65!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#65!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-UpsFail-Ant[!#66!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas UPS [!#66!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#1!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#1!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#2!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#2!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#3!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#3!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#4!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#4!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#5!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#5!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#6!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#6!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#7!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#7!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#8!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#8!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#9!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#9!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#10!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#10!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#11!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#11!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#12!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#12!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#13!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#13!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#14!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#14!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#15!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#15!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#16!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#16!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#17!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#17!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#18!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#18!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#19!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#19!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#20!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#20!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#21!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#21!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#22!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#22!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#23!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#23!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#24!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#24!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#25!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#25!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#26!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#26!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#27!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#27!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#28!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#28!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#29!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#29!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#30!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#30!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#31!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#31!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#32!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#32!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#33!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#33!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#34!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#34!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#35!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#35!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#36!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#36!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#37!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#37!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#38!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#38!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#39!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#39!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#40!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#40!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#41!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#41!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#42!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#42!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#43!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#43!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#44!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#44!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#45!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#45!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#46!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#46!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#47!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#47!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#48!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#48!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#49!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#49!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#50!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#50!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#51!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#51!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#52!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#52!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#53!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#53!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#54!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#54!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#55!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#55!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#56!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#56!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#57!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#57!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#58!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#58!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#59!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#59!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#60!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#60!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#61!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#61!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#62!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#62!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#63!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#63!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#64!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#64!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#65!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#65!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-HvacFail-Ant[!#66!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas HVAC [!#66!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "Array-PowerCut-Ant[!#1!]",
+    "fields": {
+      "short_desc": "Templated alarm for antennas PowerCut [!#1!]",
+      "ias_type": "ALARM"
+    }
+  },
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV02-Alarm",
+    "pk": "Array-PowerCut-Ant[!#2!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV02",
+      "short_desc": "Templated alarm for antennas PowerCut [!#2!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV03-Alarm",
+    "pk": "Array-PowerCut-Ant[!#3!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV03",
+      "short_desc": "Templated alarm for antennas PowerCut [!#3!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV04-Alarm",
+    "pk": "Array-PowerCut-Ant[!#4!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV04",
+      "short_desc": "Templated alarm for antennas PowerCut [!#4!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV05-Alarm",
+    "pk": "Array-PowerCut-Ant[!#5!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV05",
+      "short_desc": "Templated alarm for antennas PowerCut [!#5!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV06-Alarm",
+    "pk": "Array-PowerCut-Ant[!#6!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV06",
+      "short_desc": "Templated alarm for antennas PowerCut [!#6!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV07-Alarm",
+    "pk": "Array-PowerCut-Ant[!#7!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV07",
+      "short_desc": "Templated alarm for antennas PowerCut [!#7!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV08-Alarm",
+    "pk": "Array-PowerCut-Ant[!#8!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV08",
+      "short_desc": "Templated alarm for antennas PowerCut [!#8!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV09-Alarm",
+    "pk": "Array-PowerCut-Ant[!#9!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV09",
+      "short_desc": "Templated alarm for antennas PowerCut [!#9!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV10-Alarm",
+    "pk": "Array-PowerCut-Ant[!#10!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV10",
+      "short_desc": "Templated alarm for antennas PowerCut [!#10!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV11-Alarm",
+    "pk": "Array-PowerCut-Ant[!#11!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV11",
+      "short_desc": "Templated alarm for antennas PowerCut [!#11!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV12-Alarm",
+    "pk": "Array-PowerCut-Ant[!#12!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV12",
+      "short_desc": "Templated alarm for antennas PowerCut [!#12!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV13-Alarm",
+    "pk": "Array-PowerCut-Ant[!#13!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV13",
+      "short_desc": "Templated alarm for antennas PowerCut [!#13!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV14-Alarm",
+    "pk": "Array-PowerCut-Ant[!#14!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV14",
+      "short_desc": "Templated alarm for antennas PowerCut [!#14!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV15-Alarm",
+    "pk": "Array-PowerCut-Ant[!#15!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV15",
+      "short_desc": "Templated alarm for antennas PowerCut [!#15!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV16-Alarm",
+    "pk": "Array-PowerCut-Ant[!#16!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV16",
+      "short_desc": "Templated alarm for antennas PowerCut [!#16!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV17-Alarm",
+    "pk": "Array-PowerCut-Ant[!#17!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV17",
+      "short_desc": "Templated alarm for antennas PowerCut [!#17!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV18-Alarm",
+    "pk": "Array-PowerCut-Ant[!#18!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV18",
+      "short_desc": "Templated alarm for antennas PowerCut [!#18!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV19-Alarm",
+    "pk": "Array-PowerCut-Ant[!#19!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV19",
+      "short_desc": "Templated alarm for antennas PowerCut [!#19!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV20-Alarm",
+    "pk": "Array-PowerCut-Ant[!#20!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV20",
+      "short_desc": "Templated alarm for antennas PowerCut [!#20!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV21-Alarm",
+    "pk": "Array-PowerCut-Ant[!#21!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV21",
+      "short_desc": "Templated alarm for antennas PowerCut [!#21!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV22-Alarm",
+    "pk": "Array-PowerCut-Ant[!#22!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV22",
+      "short_desc": "Templated alarm for antennas PowerCut [!#22!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV23-Alarm",
+    "pk": "Array-PowerCut-Ant[!#23!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV23",
+      "short_desc": "Templated alarm for antennas PowerCut [!#23!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV24-Alarm",
+    "pk": "Array-PowerCut-Ant[!#24!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV24",
+      "short_desc": "Templated alarm for antennas PowerCut [!#24!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DV25-Alarm",
+    "pk": "Array-PowerCut-Ant[!#25!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DV25",
+      "short_desc": "Templated alarm for antennas PowerCut [!#25!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA41-Alarm",
+    "pk": "Array-PowerCut-Ant[!#26!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA41",
+      "short_desc": "Templated alarm for antennas PowerCut [!#26!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA42-Alarm",
+    "pk": "Array-PowerCut-Ant[!#27!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA42",
+      "short_desc": "Templated alarm for antennas PowerCut [!#27!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA43-Alarm",
+    "pk": "Array-PowerCut-Ant[!#28!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA43",
+      "short_desc": "Templated alarm for antennas PowerCut [!#28!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA44-Alarm",
+    "pk": "Array-PowerCut-Ant[!#29!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA44",
+      "short_desc": "Templated alarm for antennas PowerCut [!#29!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA45-Alarm",
+    "pk": "Array-PowerCut-Ant[!#30!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA45",
+      "short_desc": "Templated alarm for antennas PowerCut [!#30!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA46-Alarm",
+    "pk": "Array-PowerCut-Ant[!#31!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA46",
+      "short_desc": "Templated alarm for antennas PowerCut [!#31!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA47-Alarm",
+    "pk": "Array-PowerCut-Ant[!#32!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA47",
+      "short_desc": "Templated alarm for antennas PowerCut [!#32!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA48-Alarm",
+    "pk": "Array-PowerCut-Ant[!#33!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA48",
+      "short_desc": "Templated alarm for antennas PowerCut [!#33!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA49-Alarm",
+    "pk": "Array-PowerCut-Ant[!#34!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA49",
+      "short_desc": "Templated alarm for antennas PowerCut [!#34!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA50-Alarm",
+    "pk": "Array-PowerCut-Ant[!#35!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA50",
+      "short_desc": "Templated alarm for antennas PowerCut [!#35!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA51-Alarm",
+    "pk": "Array-PowerCut-Ant[!#36!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA51",
+      "short_desc": "Templated alarm for antennas PowerCut [!#36!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA52-Alarm",
+    "pk": "Array-PowerCut-Ant[!#37!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA52",
+      "short_desc": "Templated alarm for antennas PowerCut [!#37!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA53-Alarm",
+    "pk": "Array-PowerCut-Ant[!#38!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA53",
+      "short_desc": "Templated alarm for antennas PowerCut [!#38!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA54-Alarm",
+    "pk": "Array-PowerCut-Ant[!#39!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA54",
+      "short_desc": "Templated alarm for antennas PowerCut [!#39!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA55-Alarm",
+    "pk": "Array-PowerCut-Ant[!#40!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA55",
+      "short_desc": "Templated alarm for antennas PowerCut [!#40!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA56-Alarm",
+    "pk": "Array-PowerCut-Ant[!#41!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA56",
+      "short_desc": "Templated alarm for antennas PowerCut [!#41!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA57-Alarm",
+    "pk": "Array-PowerCut-Ant[!#42!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA57",
+      "short_desc": "Templated alarm for antennas PowerCut [!#42!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA58-Alarm",
+    "pk": "Array-PowerCut-Ant[!#43!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA58",
+      "short_desc": "Templated alarm for antennas PowerCut [!#43!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA59-Alarm",
+    "pk": "Array-PowerCut-Ant[!#44!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA59",
+      "short_desc": "Templated alarm for antennas PowerCut [!#44!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA60-Alarm",
+    "pk": "Array-PowerCut-Ant[!#45!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA60",
+      "short_desc": "Templated alarm for antennas PowerCut [!#45!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA61-Alarm",
+    "pk": "Array-PowerCut-Ant[!#46!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA61",
+      "short_desc": "Templated alarm for antennas PowerCut [!#46!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA62-Alarm",
+    "pk": "Array-PowerCut-Ant[!#47!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA62",
+      "short_desc": "Templated alarm for antennas PowerCut [!#47!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA63-Alarm",
+    "pk": "Array-PowerCut-Ant[!#48!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA63",
+      "short_desc": "Templated alarm for antennas PowerCut [!#48!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA64-Alarm",
+    "pk": "Array-PowerCut-Ant[!#49!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA64",
+      "short_desc": "Templated alarm for antennas PowerCut [!#49!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-DA65-Alarm",
+    "pk": "Array-PowerCut-Ant[!#50!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of DA65",
+      "short_desc": "Templated alarm for antennas PowerCut [!#50!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM01-Alarm",
+    "pk": "Array-PowerCut-Ant[!#51!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM01",
+      "short_desc": "Templated alarm for antennas PowerCut [!#51!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM02-Alarm",
+    "pk": "Array-PowerCut-Ant[!#52!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM02",
+      "short_desc": "Templated alarm for antennas PowerCut [!#52!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM03-Alarm",
+    "pk": "Array-PowerCut-Ant[!#53!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM03",
+      "short_desc": "Templated alarm for antennas PowerCut [!#53!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM04-Alarm",
+    "pk": "Array-PowerCut-Ant[!#54!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM04",
+      "short_desc": "Templated alarm for antennas PowerCut [!#54!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM05-Alarm",
+    "pk": "Array-PowerCut-Ant[!#55!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM05",
+      "short_desc": "Templated alarm for antennas PowerCut [!#55!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM06-Alarm",
+    "pk": "Array-PowerCut-Ant[!#56!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM06",
+      "short_desc": "Templated alarm for antennas PowerCut [!#56!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM07-Alarm",
+    "pk": "Array-PowerCut-Ant[!#57!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM07",
+      "short_desc": "Templated alarm for antennas PowerCut [!#57!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM08-Alarm",
+    "pk": "Array-PowerCut-Ant[!#58!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM08",
+      "short_desc": "Templated alarm for antennas PowerCut [!#58!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM09-Alarm",
+    "pk": "Array-PowerCut-Ant[!#59!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM09",
+      "short_desc": "Templated alarm for antennas PowerCut [!#59!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM10-Alarm",
+    "pk": "Array-PowerCut-Ant[!#60!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM10",
+      "short_desc": "Templated alarm for antennas PowerCut [!#60!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM11-Alarm",
+    "pk": "Array-PowerCut-Ant[!#61!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM11",
+      "short_desc": "Templated alarm for antennas PowerCut [!#61!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM12-Alarm",
+    "pk": "Array-PowerCut-Ant[!#62!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM12",
+      "short_desc": "Templated alarm for antennas PowerCut [!#62!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-PM01-Alarm",
+    "pk": "Array-PowerCut-Ant[!#63!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of PM01",
+      "short_desc": "Templated alarm for antennas PowerCut [!#63!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-PM02-Alarm",
+    "pk": "Array-PowerCut-Ant[!#64!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of PM02",
+      "short_desc": "Templated alarm for antennas PowerCut [!#64!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-PM03-Alarm",
+    "pk": "Array-PowerCut-Ant[!#65!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of PM03",
+      "short_desc": "Templated alarm for antennas PowerCut [!#65!]",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-PM04-Alarm",
+    "pk": "Array-PowerCut-Ant[!#66!]",
     "fields": {
-      "short_desc": "Multiplicity Alarm of PM04",
+      "short_desc": "Templated alarm for antennas PowerCut [!#66!]",
       "ias_type": "ALARM"
     }
   }
-
 ]
