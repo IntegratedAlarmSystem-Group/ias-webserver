@@ -79,7 +79,7 @@
     "model": "panels.alarmconfig",
     "pk": 3,
     "fields": {
-      "alarm_id": "WS-Inner-Windspeed",
+      "alarm_id": "WS-Inner-WindSpeed",
       "view": 2,
       "type": 3,
       "parent": 1
@@ -119,7 +119,7 @@
     "model": "panels.alarmconfig",
     "pk": 11,
     "fields": {
-      "alarm_id": "WS-W-Windspeed",
+      "alarm_id": "WS-W-WindSpeed",
       "view": 2,
       "type": 3,
       "parent": 9
@@ -159,7 +159,7 @@
     "model": "panels.alarmconfig",
     "pk": 15,
     "fields": {
-      "alarm_id": "WS-P-Windspeed",
+      "alarm_id": "WS-P-WindSpeed",
       "view": 2,
       "type": 3,
       "parent": 13
@@ -199,7 +199,7 @@
     "model": "panels.alarmconfig",
     "pk": 19,
     "fields": {
-      "alarm_id": "WS-S-Windspeed",
+      "alarm_id": "WS-S-WindSpeed",
       "view": 2,
       "type": 3,
       "parent": 17
