@@ -367,7 +367,7 @@ class AlarmConfigApiTestCase(TestCase):
         self.station_type = Type.objects.create(name='station')
         self.antenna_type = Type.objects.create(name='antenna')
         self.fire_type = Type.objects.create(name='fire')
-        self.fire_sys_type = Type.objects.create(name='fire-malfunction')
+        self.fire_sys_type = Type.objects.create(name='fire_malfunction')
         self.ups_type = Type.objects.create(name='ups')
         self.hvac_type = Type.objects.create(name='hvac')
         self.power_type = Type.objects.create(name='power')
@@ -560,7 +560,7 @@ class AlarmConfigApiTestCase(TestCase):
                     'placemark': 'placemark_1',
                     'alarm': 'antenna_alarm_1',
                     'fire': 'antenna_alarm_1_fire',
-                    'fire-malfunction': 'antenna_alarm_1_fire_malfunction',
+                    'fire_malfunction': 'antenna_alarm_1_fire_malfunction',
                     'ups': 'antenna_alarm_1_ups',
                     'hvac': 'antenna_alarm_1_hvac',
                     'power': 'antenna_alarm_1_power'
@@ -570,7 +570,7 @@ class AlarmConfigApiTestCase(TestCase):
                     'placemark': 'placemark_2',
                     'alarm': 'antenna_alarm_2',
                     'fire': '',
-                    'fire-malfunction': '',
+                    'fire_malfunction': '',
                     'ups': '',
                     'hvac': '',
                     'power': ''
@@ -582,7 +582,7 @@ class AlarmConfigApiTestCase(TestCase):
                     'placemark': 'placemark_3',
                     'alarm': 'antenna_alarm_3',
                     'fire': '',
-                    'fire-malfunction': '',
+                    'fire_malfunction': '',
                     'ups': '',
                     'hvac': '',
                     'power': ''

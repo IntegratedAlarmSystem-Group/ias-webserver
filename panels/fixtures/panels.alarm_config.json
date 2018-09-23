@@ -45,7 +45,7 @@
     "model": "panels.type",
     "pk": 7,
     "fields": {
-      "name": "fire-malfunction"
+      "name": "fire_malfunction"
     }
   },
   {

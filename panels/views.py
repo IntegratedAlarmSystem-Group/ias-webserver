@@ -94,7 +94,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                 type__name="fire")
 
             fire_sys = alarm.nested_alarms.filter(
-                type__name="fire-malfunction")
+                type__name="fire_malfunction")
 
             ups = alarm.nested_alarms.filter(
                 type__name="ups")
@@ -113,7 +113,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                   "placemark": alarm.placemark,
                   "alarm": alarm.alarm_id,
                   "fire": fire[0].alarm_id if fire else "",
-                  "fire-malfunction": fire_sys[0].alarm_id if fire_sys else "",
+                  "fire_malfunction": fire_sys[0].alarm_id if fire_sys else "",
                   "ups": ups[0].alarm_id if ups else "",
                   "hvac": hvac[0].alarm_id if hvac else "",
                   "power": power[0].alarm_id if power else ""
