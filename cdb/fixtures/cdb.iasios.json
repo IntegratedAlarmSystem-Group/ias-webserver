@@ -313,374 +313,6 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "WS-ACA-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the ACA WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the Inner WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the W WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the P WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Selected-Humidity",
-    "fields": {
-      "short_desc": "Selected humidity of the S WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Delay-Humidity",
-    "fields": {
-      "short_desc": "Delayed humidity alarm of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-WindSpeed-Threshold20",
-    "fields": {
-      "short_desc": "Wind spped over 20m/s of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-WindSpeed-Threshold15",
-    "fields": {
-      "short_desc": "Wind spped over 15m/s of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the ACA WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the Inner WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the W WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the P WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Selected-WindSpeed",
-    "fields": {
-      "short_desc": "Selected wind speed of the S WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Delaied15-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Delaied20-WindSpeed",
-    "fields": {
-      "short_desc": "Delayed wind spped alarm S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the Inner WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Temperature-Threshold",
-    "fields": {
-      "short_desc": "Temperature threshold alarm of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the ACA WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the Inner WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the W WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the P WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Selected-Temperature",
-    "fields": {
-      "short_desc": "Selected Temperature of the S WS",
-      "ias_type": "DOUBLE"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Humidity",
-    "fields": {
-      "short_desc": "Humidity alarm of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
     "pk": "WS-Inner-Humidity",
     "fields": {
       "short_desc": "Humidity alarm of the Inner WS",
@@ -689,33 +321,9 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "WS-W-Humidity",
+    "pk": " WS-Inner-Humidity-Threshold",
     "fields": {
-      "short_desc": "Humidity alarm of the W WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-Humidity",
-    "fields": {
-      "short_desc": "Humidity alarm of the P WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-S-Humidity",
-    "fields": {
-      "short_desc": "Humidity alarm of the S WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-ACA-Temperature",
-    "fields": {
-      "short_desc": "Temperature alarm of the ACA WS",
+      "short_desc": "Inner Humidity Threshold",
       "ias_type": "ALARM"
     }
   },
@@ -729,9 +337,169 @@
   },
   {
     "model": "cdb.iasio",
+    "pk": " WS-Inner-Temperature-Threshold",
+    "fields": {
+      "short_desc": "Inner Temperature Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed",
+    "fields": {
+      "short_desc": "Inner Wind speed Alarm",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed15",
+    "fields": {
+      "short_desc": "Wind speed over 15m/s of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed20",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-Inner-WindSpeed30",
+    "fields": {
+      "short_desc": "Wind speed over 30m/s of the Inner WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-Inner-WindSpeed15-Threshold",
+    "fields": {
+      "short_desc": "Inner WindSpeed15 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-Inner-WindSpeed20-Threshold",
+    "fields": {
+      "short_desc": "Inner WindSpeed20 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-Inner-WindSpeed30-Threshold",
+    "fields": {
+      "short_desc": "Inner WindSpeed30 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-Humidity-Threshold",
+    "fields": {
+      "short_desc": "W Humidity Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
     "pk": "WS-W-Temperature",
     "fields": {
       "short_desc": "Temperature alarm of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-Temperature-Threshold",
+    "fields": {
+      "short_desc": "W Temperature Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed15",
+    "fields": {
+      "short_desc": "Wind speed over 15m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed20",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-W-WindSpeed30",
+    "fields": {
+      "short_desc": "Wind speed over 30m/s of the W WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-WindSpeed15-Threshold",
+    "fields": {
+      "short_desc": "W WindSpeed15 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-WindSpeed20-Threshold",
+    "fields": {
+      "short_desc": "W WindSpeed20 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-W-WindSpeed30-Threshold",
+    "fields": {
+      "short_desc": "W WindSpeed30 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-P-Humidity-Threshold",
+    "fields": {
+      "short_desc": "P Humidity Threshold",
       "ias_type": "ALARM"
     }
   },
@@ -745,6 +513,86 @@
   },
   {
     "model": "cdb.iasio",
+    "pk": " WS-P-Temperature-Threshold",
+    "fields": {
+      "short_desc": "P Temperature Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed",
+    "fields": {
+      "short_desc": "P Wind speed Alarm",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed15",
+    "fields": {
+      "short_desc": "Wind speed over 15m/s of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed20",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the P WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-P-WindSpeed30",
+    "fields": {
+      "short_desc": "Wind speed over 30m/s of the ACA WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-P-WindSpeed15-Threshold",
+    "fields": {
+      "short_desc": "P WindSpeed15 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-P-WindSpeed20-Threshold",
+    "fields": {
+      "short_desc": "P WindSpeed20 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-P-WindSpeed30-Threshold",
+    "fields": {
+      "short_desc": "P WindSpeed30 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-Humidity",
+    "fields": {
+      "short_desc": "Humidity alarm of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-S-Humidity-Threshold",
+    "fields": {
+      "short_desc": "S Humidity Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
     "pk": "WS-S-Temperature",
     "fields": {
       "short_desc": "Temperature alarm of the S WS",
@@ -753,33 +601,9 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "WS-ACA-WindSpeed",
+    "pk": " WS-S-Temperature-Threshold",
     "fields": {
-      "short_desc": "Wind speed over 20m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-Inner-WindSpeed",
-    "fields": {
-      "short_desc": "Wind speed over 20m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-W-WindSpeed",
-    "fields": {
-      "short_desc": "Wind speed over 20m/s of the ACA WS",
-      "ias_type": "ALARM"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "WS-P-WindSpeed",
-    "fields": {
-      "short_desc": "Wind speed over 20m/s of the ACA WS",
+      "short_desc": "S Temperature Threshold",
       "ias_type": "ALARM"
     }
   },
@@ -793,9 +617,49 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "WS-ACA",
+    "pk": "WS-S-WindSpeed15",
     "fields": {
-      "short_desc": "Global alarm of the ACA WS",
+      "short_desc": "Wind speed over 15m/s of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-WindSpeed20",
+    "fields": {
+      "short_desc": "Wind speed over 20m/s of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": "WS-S-WindSpeed30",
+    "fields": {
+      "short_desc": "Wind speed over 30m/s of the S WS",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-S-WindSpeed15-Threshold",
+    "fields": {
+      "short_desc": "S WindSpeed15 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-S-WindSpeed20-Threshold",
+    "fields": {
+      "short_desc": "S WindSpeed20 Threshold",
+      "ias_type": "ALARM"
+    }
+  },
+  {
+    "model": "cdb.iasio",
+    "pk": " WS-S-WindSpeed30-Threshold",
+    "fields": {
+      "short_desc": "S WindSpeed30 Threshold",
       "ias_type": "ALARM"
     }
   },
@@ -865,1059 +729,58 @@
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV01",
+    "pk": "Array-Value-Ant",
     "fields": {
-      "short_desc": "Status of DV01 from utility module",
+      "short_desc": "Templated antennas input value",
       "ias_type": "STRING"
     }
   },
   {
     "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV02",
+    "pk": "Array-Ant",
     "fields": {
-      "short_desc": "Status of DV02 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV03",
-    "fields": {
-      "short_desc": "Status of DV03 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV04",
-    "fields": {
-      "short_desc": "Status of DV04 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV05",
-    "fields": {
-      "short_desc": "Status of DV05 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV06",
-    "fields": {
-      "short_desc": "Status of DV06 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV07",
-    "fields": {
-      "short_desc": "Status of DV07 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV08",
-    "fields": {
-      "short_desc": "Status of DV08 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV09",
-    "fields": {
-      "short_desc": "Status of DV09 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV10",
-    "fields": {
-      "short_desc": "Status of DV10 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV11",
-    "fields": {
-      "short_desc": "Status of DV11 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV12",
-    "fields": {
-      "short_desc": "Status of DV12 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV13",
-    "fields": {
-      "short_desc": "Status of DV13 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV14",
-    "fields": {
-      "short_desc": "Status of DV14 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV15",
-    "fields": {
-      "short_desc": "Status of DV15 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV16",
-    "fields": {
-      "short_desc": "Status of DV16 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV17",
-    "fields": {
-      "short_desc": "Status of DV17 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV18",
-    "fields": {
-      "short_desc": "Status of DV18 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV19",
-    "fields": {
-      "short_desc": "Status of DV19 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV20",
-    "fields": {
-      "short_desc": "Status of DV20 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV21",
-    "fields": {
-      "short_desc": "Status of DV21 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV22",
-    "fields": {
-      "short_desc": "Status of DV22 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV23",
-    "fields": {
-      "short_desc": "Status of DV23 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV24",
-    "fields": {
-      "short_desc": "Status of DV24 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DV25",
-    "fields": {
-      "short_desc": "Status of DV25 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA41",
-    "fields": {
-      "short_desc": "Status of DA41 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA42",
-    "fields": {
-      "short_desc": "Status of DA42 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA43",
-    "fields": {
-      "short_desc": "Status of DA43 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA44",
-    "fields": {
-      "short_desc": "Status of DA44 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA45",
-    "fields": {
-      "short_desc": "Status of DA45 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA46",
-    "fields": {
-      "short_desc": "Status of DA46 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA47",
-    "fields": {
-      "short_desc": "Status of DA47 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA48",
-    "fields": {
-      "short_desc": "Status of DA48 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA49",
-    "fields": {
-      "short_desc": "Status of DA49 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA50",
-    "fields": {
-      "short_desc": "Status of DA50 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA51",
-    "fields": {
-      "short_desc": "Status of DA51 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA52",
-    "fields": {
-      "short_desc": "Status of DA52 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA53",
-    "fields": {
-      "short_desc": "Status of DA53 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA54",
-    "fields": {
-      "short_desc": "Status of DA54 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA55",
-    "fields": {
-      "short_desc": "Status of DA55 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA56",
-    "fields": {
-      "short_desc": "Status of DA56 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA57",
-    "fields": {
-      "short_desc": "Status of DA57 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA58",
-    "fields": {
-      "short_desc": "Status of DA58 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA59",
-    "fields": {
-      "short_desc": "Status of DA59 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA60",
-    "fields": {
-      "short_desc": "Status of DA60 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA61",
-    "fields": {
-      "short_desc": "Status of DA61 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA62",
-    "fields": {
-      "short_desc": "Status of DA62 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA63",
-    "fields": {
-      "short_desc": "Status of DA63 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA64",
-    "fields": {
-      "short_desc": "Status of DA64 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-DA65",
-    "fields": {
-      "short_desc": "Status of DA65 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM01",
-    "fields": {
-      "short_desc": "Status of CM01 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM02",
-    "fields": {
-      "short_desc": "Status of CM02 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM03",
-    "fields": {
-      "short_desc": "Status of CM03 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM04",
-    "fields": {
-      "short_desc": "Status of CM04 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM05",
-    "fields": {
-      "short_desc": "Status of CM05 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM06",
-    "fields": {
-      "short_desc": "Status of CM06 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM07",
-    "fields": {
-      "short_desc": "Status of CM07 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM08",
-    "fields": {
-      "short_desc": "Status of CM08 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM09",
-    "fields": {
-      "short_desc": "Status of CM09 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM10",
-    "fields": {
-      "short_desc": "Status of CM10 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM11",
-    "fields": {
-      "short_desc": "Status of CM11 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-CM12",
-    "fields": {
-      "short_desc": "Status of CM12 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-PM01",
-    "fields": {
-      "short_desc": "Status of PM01 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-PM02",
-    "fields": {
-      "short_desc": "Status of PM02 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-PM03",
-    "fields": {
-      "short_desc": "Status of PM03 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-UMStatus-PM04",
-    "fields": {
-      "short_desc": "Status of PM04 from utility module",
-      "ias_type": "STRING"
-    }
-  },
-  {
-    "model": "cdb.iasio",
-    "pk": "Array-DV01-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV01",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV02-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV02",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV03-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV03",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV04-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV04",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV05-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV05",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV06-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV06",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV07-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV07",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV08-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV08",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV09-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV09",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV10-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV10",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV11-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV11",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV12-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV12",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV13-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV13",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV14-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV14",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV15-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV15",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV16-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV16",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV17-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV17",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV18-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV18",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV19-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV19",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV20-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV20",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV21-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV21",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV22-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV22",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV23-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV23",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV24-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV24",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DV25-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DV25",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA41-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA41",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA42-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA42",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA43-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA43",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA44-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA44",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA45-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA45",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA46-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA46",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA47-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA47",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA48-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA48",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA49-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA49",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA50-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA50",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA51-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA51",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA52-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA52",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA53-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA53",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA54-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA54",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA55-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA55",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA56-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA56",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA57-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA57",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA58-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA58",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA59-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA59",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA60-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA60",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA61-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA61",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA62-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA62",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA63-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA63",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA64-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA64",
+      "short_desc": "Templated antennas output alarm",
       "ias_type": "ALARM"
     }
   },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-DA65-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of DA65",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM01-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM01",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM02-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM02",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM03-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM03",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM04-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM04",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM05-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM05",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM06-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM06",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM07-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM07",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM08-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM08",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM09-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM09",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM10-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM10",
-      "ias_type": "ALARM"
-    }
-  },
-{
-    "model": "cdb.iasio",
-    "pk": "Array-CM11-Alarm",
-    "fields": {
-      "short_desc": "Multiplicity Alarm of CM11",
-      "ias_type": "ALARM"
-    }
-  },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-CM12-Alarm",
+    "pk": "Array-Fire-Ant",
     "fields": {
-      "short_desc": "Multiplicity Alarm of CM12",
+      "short_desc": "Templated alarm for antennas Fire",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-PM01-Alarm",
+    "pk": "Array-FireMalfunction-Ant",
     "fields": {
-      "short_desc": "Multiplicity Alarm of PM01",
+      "short_desc": "Templated alarm for antennas FireMalfunction",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-PM02-Alarm",
+    "pk": "Array-UpsFail-Ant",
     "fields": {
-      "short_desc": "Multiplicity Alarm of PM02",
+      "short_desc": "Templated alarm for antennas UPS",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-PM03-Alarm",
+    "pk": "Array-HvacFail-Ant",
     "fields": {
-      "short_desc": "Multiplicity Alarm of PM03",
+      "short_desc": "Templated alarm for antennas HVAC",
       "ias_type": "ALARM"
     }
   },
-{
+  {
     "model": "cdb.iasio",
-    "pk": "Array-PM04-Alarm",
+    "pk": "Array-PowerCut-Ant",
     "fields": {
-      "short_desc": "Multiplicity Alarm of PM04",
+      "short_desc": "Templated alarm for antennas PowerCut",
       "ias_type": "ALARM"
     }
   }
-
 ]
