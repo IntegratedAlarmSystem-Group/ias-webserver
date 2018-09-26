@@ -20,7 +20,7 @@
     "pk": 0,
     "fields": {
       "log_level": "DEBUG",
-      "refresh_rate": "3",
+      "refresh_rate": "4",
       "tolerance": "1",
       "properties": [
         0,
