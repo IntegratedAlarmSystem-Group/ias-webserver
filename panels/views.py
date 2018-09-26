@@ -90,6 +90,21 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
 
         data = {}
         for alarm in antenna_alarms:
+            fire = alarm.nested_alarms.filter(
+                type__name="fire")
+
+            fire_sys = alarm.nested_alarms.filter(
+                type__name="fire_malfunction")
+
+            ups = alarm.nested_alarms.filter(
+                type__name="ups")
+
+            hvac = alarm.nested_alarms.filter(
+                type__name="hvac")
+
+            power = alarm.nested_alarms.filter(
+                type__name="power")
+
             if alarm.tags and alarm.tags not in data:
                 data[alarm.tags] = []
             data[alarm.tags].append(
@@ -97,6 +112,11 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                   "antenna": alarm.custom_name,
                   "placemark": alarm.placemark,
                   "alarm": alarm.alarm_id,
+                  "fire": fire[0].alarm_id if fire else "",
+                  "fire_malfunction": fire_sys[0].alarm_id if fire_sys else "",
+                  "ups": ups[0].alarm_id if ups else "",
+                  "hvac": hvac[0].alarm_id if hvac else "",
+                  "power": power[0].alarm_id if power else ""
                 }
             )
 
