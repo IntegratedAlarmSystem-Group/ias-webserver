@@ -15,6 +15,7 @@ class OperationalMode(ChoiceEnum):
     OPERATIONAL = 5
     DEGRADED = 6
     UNKNOWN = 7
+    MALFUNCTIONING = 8
 
     @classmethod
     def options(cls):
