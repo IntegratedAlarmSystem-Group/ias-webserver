@@ -320,14 +320,14 @@ class IASValue:
             state_change_timestamp)
 
     def __check_mode(self, mode):
-        """ Validates the Alarm mode """
+        """ Validates the IASValue mode """
         if mode not in [int(x[0]) for x in OperationalMode.options()]:
             raise TypeError
         else:
             return int(mode)
 
     def __check_validity(self, validity):
-        """ Validates the Alarm validity """
+        """ Validates the IASValue validity """
         if validity not in [int(x[0]) for x in Validity.options()]:
             raise TypeError
         else:
