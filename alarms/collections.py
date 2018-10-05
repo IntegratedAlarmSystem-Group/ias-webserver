@@ -339,14 +339,14 @@ class AlarmCollection:
     @classmethod
     def add_or_update_value(self, value):
         """
-        Adds the alarm if it isn't in the AlarmCollection already or updates
-        the alarm in the other case. It also initializes the Collection if it
-        has been not initialized before.
+        Adds the ias value if it isn't in the values collection already or
+        updates the ias value in the other case.
 
-        Notifies the observers on either action
+        It does not notify the observers on change. It only mantains updated
+        the collection to respond to user requests.
 
         Args:
-            alarm (Alarm): the Alarm object to add or update
+            value (IASValue): the IASValue object to add or update
 
         Returns:
             message (String): a string message sumarizing what happened
