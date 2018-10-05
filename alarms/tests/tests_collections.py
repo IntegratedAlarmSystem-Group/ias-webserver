@@ -437,6 +437,20 @@ class TestAlarmsCollectionHandling:
                 'The alarm {} was not correctly invalidated'.format(
                     alarm.core_id)
 
+    def test_add_value_to_collection(self):
+        """ Test if the other types of values are added successfully
+        to values_collection """
+        # Arrange:
+        value = AlarmCollection.get_value('A')
+        assert value is None, \
+            'The value must not be in the collection at the beginning'
+
+        # Act:
+        AlarmCollection.add_value('A', 'test_value')
+        value = AlarmCollection.get_value('A')
+        assert value == 'test_value', \
+            'The value must be in the collection indexed by A'
+
 
 class TestAlarmsCollectionAcknowledge:
     """ This class defines the test suite for the Alarms Collection

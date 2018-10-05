@@ -19,6 +19,9 @@ class AlarmCollection:
     parents_collection = None
     """ Dictionary to store the parents of each alarm """
 
+    values_collection = None
+    """ Dictionary to store other type of values, indexed by core_id """
+
     observers = []
     """ List to store references to the observers subscribed to changes in the
     collection """
@@ -60,6 +63,7 @@ class AlarmCollection:
         if self.singleton_collection is None:
             self.singleton_collection = {}
             self.parents_collection = {}
+            self.values_collection = {}
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
             for iasio in iasios:
@@ -157,6 +161,30 @@ class AlarmCollection:
         alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         self._update_parents_collection(alarm)
+
+    @classmethod
+    def add_value(self, id, value):
+        """
+        Adds the value to the values collection dictionary
+
+        Args:
+            id (string): The core id of the value
+            value (any): core value
+        """
+        self.values_collection[id] = value
+
+    @classmethod
+    def get_value(self, id):
+        """
+        Returns the value indexed by id in the values collection dictionary
+
+        Args:
+            id (string): The core id of the value
+        """
+        if id in self.values_collection:
+            return self.values_collection[id]
+        else:
+            return None
 
     @classmethod
     def delete(self, alarm):
