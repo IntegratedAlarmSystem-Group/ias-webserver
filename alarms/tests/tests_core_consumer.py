@@ -2,7 +2,7 @@ import datetime
 import pytest
 import copy
 from channels.testing import WebsocketCommunicator
-from alarms.models import Alarm
+from alarms.models import Alarm, IASValue
 from alarms.collections import AlarmCollection
 from alarms.consumers import CoreConsumer
 
@@ -100,6 +100,51 @@ class TestCoreConsumer:
         # Assert:
         assert alarm.to_dict() == expected_alarm.to_dict(), \
             'The alarm was not converted correctly'
+
+    def test_get_value_from_core_message(self):
+        # Arrange:
+        current_time = datetime.datetime.now()
+        formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        current_time_millis = CoreConsumer.get_timestamp_from(
+                                formatted_current_time)
+        ID = "(S{0}:SUPERVISOR)@(d{0}:DASU)@(a{0}:ASCE)@(IASIOID{0}:STRING)"
+        msg = {
+            "value": "SOME_VALUE",
+            "readFromMonSysTStamp": formatted_current_time,
+            "pluginProductionTStamp": formatted_current_time,
+            "sentToConverterTStamp": formatted_current_time,
+            "receivedFromPluginTStamp": formatted_current_time,
+            "convertedProductionTStamp": formatted_current_time,
+            "sentToBsdbTStamp": formatted_current_time,
+            "readFromBsdbTStamp": formatted_current_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": ID.format(3),
+            "valueType": "STRING"
+        }
+
+        expected_ias_value = IASValue(
+            value="SOME_VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=current_time_millis,
+            core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
+            running_id=msg['fullRunningId'],
+            timestamps={
+                'readFromMonSysTStamp': current_time_millis,
+                'pluginProductionTStamp': current_time_millis,
+                'sentToConverterTStamp': current_time_millis,
+                'receivedFromPluginTStamp': current_time_millis,
+                'convertedProductionTStamp': current_time_millis,
+                'sentToBsdbTStamp': current_time_millis,
+                'readFromBsdbTStamp': current_time_millis,
+            }
+        )
+        # Act:
+        ias_value = CoreConsumer.get_value_from_core_msg(msg)
+        # Assert:
+        assert ias_value.to_dict() == expected_ias_value.to_dict(), \
+            'The ias value was not converted correctly'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
