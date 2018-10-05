@@ -300,7 +300,7 @@ class Alarm:
         return True if self.value in Value.unset_options() else False
 
 
-class IASValue:
+class IASValue( Alarm ):
     """ IASValue from some device in the observatory. """
 
     def __init__(self, core_timestamp, core_id, running_id, value, mode=0,
@@ -309,57 +309,17 @@ class IASValue:
         only executed when there a new instance is created.
         Receives and validates values for the attributes of the object """
 
-        self.core_timestamp = self.__check_int_type(core_timestamp)
-        self.core_id = self.__check_str_type(core_id)
-        self.running_id = self.__check_str_type(running_id)
-        self.value = value
-        self.mode = self.__check_mode(mode)
-        self.validity = self.__check_validity(validity)
-        self.timestamps = self.__check_dict_type(timestamps)      # optional
-        self.state_change_timestamp = self.__check_int_type(
-            state_change_timestamp)
+        Alarm.__init__(self, core_timestamp, core_id, running_id, mode=mode,
+                        validity=validity, timestamps=timestamps,
+                        state_change_timestamp=state_change_timestamp)
+        self.value = self.__check_value(value)
 
-    def __check_mode(self, mode):
-        """ Validates the IASValue mode """
-        if mode not in [int(x[0]) for x in OperationalMode.options()]:
+    def __check_value(self, value):
+        """ Validates the IASValue value """
+        if type(value) is not str:
             raise TypeError
         else:
-            return int(mode)
-
-    def __check_validity(self, validity):
-        """ Validates the IASValue validity """
-        if validity not in [int(x[0]) for x in Validity.options()]:
-            raise TypeError
-        else:
-            return int(validity)
-
-    def __check_int_type(self, field):
-        """ Validates an integer field """
-        if type(field) is not int:
-            raise TypeError
-        else:
-            return field
-
-    def __check_str_type(self, field):
-        """ Validates a string field """
-        if type(field) is not str:
-            raise TypeError
-        else:
-            return field
-
-    def __check_list_type(self, field):
-        """ Validates a list field """
-        if type(field) is not list:
-            raise TypeError
-        else:
-            return field
-
-    def __check_dict_type(self, field):
-        """ Validates a dict field """
-        if type(field) is not dict:
-            raise TypeError
-        else:
-            return field
+            return value
 
     def to_dict(self):
         """ Returns a dict with all the values of the different attributes """
