@@ -1,5 +1,6 @@
 import time
 import datetime
+import re
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from alarms.models import Alarm, OperationalMode, Validity, Value
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
@@ -7,6 +8,9 @@ from alarms.collections import AlarmCollection, AlarmCollectionObserver
 
 class CoreConsumer(AsyncJsonWebsocketConsumer):
     """ Consumer for messages from the core system """
+
+    pattern = re.compile('\\[!#\\d+!\\]')
+    num_pattern = re.compile('\d+')
 
     def get_core_id_from(full_id):
         """Return the core_id value extracted from the full running id field
@@ -21,7 +25,18 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
             string: The core id value. According to the previous example, the
             value would be C_value
         """
-        return full_id.rsplit('@', 1)[1].strip('()').split(':')[0]
+        # Extract the core_id
+        core_id = full_id.rsplit('@', 1)[1].strip('()').split(':')[0]
+
+        # If it matches the pattern, it is edited accordingly
+        match = CoreConsumer.pattern.search(core_id)
+        if match:
+            core_id_start = core_id[0:match.start()]
+            matched = match.group()
+            num_matched = CoreConsumer.num_pattern.search(matched).group()
+            core_id = core_id_start + ' instance ' + num_matched
+
+        return core_id
 
     def get_timestamp_from(bsdbTStamp):
         """Return the bsdbTStamp transformed to timestamp in milliseconds
