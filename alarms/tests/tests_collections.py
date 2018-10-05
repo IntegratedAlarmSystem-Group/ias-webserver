@@ -4,7 +4,7 @@ import pytest
 import mock
 from pytest_mock import mocker
 from freezegun import freeze_time
-from alarms.models import Alarm
+from alarms.models import Alarm, IASValue
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from alarms.connectors import CdbConnector as CdbConn
@@ -441,15 +441,32 @@ class TestAlarmsCollectionHandling:
         """ Test if the other types of values are added successfully
         to values_collection """
         # Arrange:
-        value = AlarmCollection.get_value('A')
+        current_time = int(round(time.time() * 1000))
+        ias_value = IASValue(
+            value="SOME TEST VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=current_time,
+            core_id="TEST-CORE-ID",
+            running_id="FULL-TEST-CORE-ID",
+            timestamps={
+                'pluginProductionTStamp': current_time,
+                'sentToConverterTStamp': current_time,
+                'receivedFromPluginTStamp': current_time,
+                'convertedProductionTStamp': current_time,
+                'sentToBsdbTStamp': current_time,
+                'readFromBsdbTStamp': current_time
+            }
+        )
+        value = AlarmCollection.get_value('TEST-CORE-ID')
         assert value is None, \
             'The value must not be in the collection at the beginning'
 
         # Act:
-        AlarmCollection.add_value('A', 'test_value')
-        value = AlarmCollection.get_value('A')
-        assert value == 'test_value', \
-            'The value must be in the collection indexed by A'
+        AlarmCollection.add_value(ias_value)
+        value = AlarmCollection.get_value('TEST-CORE-ID')
+        assert value == ias_value, \
+            'The value must be in the collection'
 
 
 class TestAlarmsCollectionAcknowledge:
