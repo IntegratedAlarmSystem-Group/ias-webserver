@@ -132,7 +132,8 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         else:
             value = CoreConsumer.get_value_from_core_msg(content)
             value.update_validity()
-            AlarmCollection.add_value(value.core_id, value)
+            status = AlarmCollection.add_or_update_value(value)
+            print(status)
             response = 'ignored-non-alarm'
         await self.send(response)
 

@@ -163,30 +163,6 @@ class AlarmCollection:
         self._update_parents_collection(alarm)
 
     @classmethod
-    def add_value(self, id, value):
-        """
-        Adds the value to the values collection dictionary
-
-        Args:
-            id (string): The core id of the value
-            value (any): core value
-        """
-        self.values_collection[id] = value
-
-    @classmethod
-    def get_value(self, id):
-        """
-        Returns the value indexed by id in the values collection dictionary
-
-        Args:
-            id (string): The core id of the value
-        """
-        if id in self.values_collection:
-            return self.values_collection[id]
-        else:
-            return None
-
-    @classmethod
     def delete(self, alarm):
         """
         Deletes the Alarm object in the AlarmCollection dictionary
@@ -335,6 +311,54 @@ class AlarmCollection:
                 return 'updated-alarm'
             else:
                 raise Exception('ERROR: incorrect update status')
+
+    @classmethod
+    def add_value(self, value):
+        """
+        Adds the value to the values collection dictionary
+
+        Args:
+            id (string): The core id of the value
+            value (any): core value
+        """
+        self.values_collection[value.core_id] = value
+
+    @classmethod
+    def get_value(self, core_id):
+        """
+        Returns the value indexed by core_id in the values collection dictionary
+
+        Args:
+            core_id (string): The core core_id of the value
+        """
+        if core_id in self.values_collection:
+            return self.values_collection[core_id]
+        else:
+            return None
+
+    @classmethod
+    def add_or_update_value(self, value):
+        """
+        Adds the alarm if it isn't in the AlarmCollection already or updates
+        the alarm in the other case. It also initializes the Collection if it
+        has been not initialized before.
+
+        Notifies the observers on either action
+
+        Args:
+            alarm (Alarm): the Alarm object to add or update
+
+        Returns:
+            message (String): a string message sumarizing what happened
+        """
+
+        if value.core_id not in self.values_collection:
+            self.add_value(value)
+            return 'created-value'
+        else:
+            stored_value = self.get_value(value.core_id)
+            status = stored_value.update(value)
+            return status
 
     @classmethod
     async def delete_and_notify(self, alarm):

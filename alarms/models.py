@@ -333,3 +333,38 @@ class IASValue( Alarm ):
             'running_id': self.running_id,
             'timestamps': self.timestamps
         }
+
+    def update(self, ias_value):
+        """
+        Updates the ias_value with attributes from another given ias_value if
+        the timestamp of the given ias_value is greater than the stored ias
+        value.
+        Args:
+            isa_value (IASValue): The new ias_value object
+        Returns:
+            string: the state of the update (not-updated, updated-equal,
+            updated-different)
+        """
+        if ias_value.core_timestamp <= self.core_timestamp:
+            return ('not-updated', None, False)
+
+        if self.mode != ias_value.mode or self.value != ias_value.value or \
+           (self.state_change_timestamp == 0 and ias_value.validity == 1):
+            self.state_change_timestamp = ias_value.core_timestamp
+
+        ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
+        unchanged_fields = \
+            ['ack', 'shelved', 'description', 'url', 'state_change_timestamp']
+
+        notify = 'updated-equal'
+
+        for field in ias_value.__dict__.keys():
+            if field in unchanged_fields:
+                continue
+            old_value = getattr(self, field)
+            new_value = getattr(ias_value, field)
+            if (field not in ignored_fields) and old_value != new_value:
+                notify = 'updated-different'
+            setattr(self, field, new_value)
+
+        return notify
