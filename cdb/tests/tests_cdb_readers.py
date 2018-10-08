@@ -49,7 +49,6 @@ class IasiosReaderTestCase(TestCase):
         in the CDB """
         # Act:
         dasu_outputs = IasiosReader.read_dasus_outputs()
-        print("dasu_outputs: ", dasu_outputs)
         # Asserts:
         expected_data = [
             "IASIO_DUMMY_ALARM_1",
@@ -88,14 +87,42 @@ class IasiosReaderTestCase(TestCase):
                 "docUrl": "http://www.alma.cl"
             },
             {
-                "id": "IASIO_DUMMY_TEMPLATED_1",
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 3",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 4",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 5",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 6",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 7",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 8",
                 "shortDesc": "Dummy teplated Iasio 1",
                 "iasType": "ALARM",
                 "templateId": "template-ID1"
             },
         ]
-        print("\n iasios_data: ", iasios_data)
-        print("\n expected_data: ", expected_data)
         self.assertEqual(
             iasios_data, expected_data,
             'The data obtained is not the expected'
