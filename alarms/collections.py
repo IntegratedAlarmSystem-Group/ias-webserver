@@ -62,6 +62,7 @@ class AlarmCollection:
             self.parents_collection = {}
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
+            print('iasios: ', iasios)
             for iasio in iasios:
                 if iasio['ias_type'].upper() == 'ALARM':
                     current_time_millis = int(round(time.time() * 1000))

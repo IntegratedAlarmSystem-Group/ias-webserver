@@ -40,6 +40,19 @@ class TestCoreConsumer:
         assert id == 'AlarmType-ID', \
             'The core_id was not extracted correctly from the running_id'
 
+    def test_get_templated_core_id_from(self):
+        """Test if the core_id corresponding to a templated alarm is extracted
+        and cleaned correctly from running id field"""
+        # Arrange:
+        full_running_id = '(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)@' +\
+                          '(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@' +\
+                          '(AlarmType-Ant[!#66!]:IASIO)'
+        # Act:
+        id = CoreConsumer.get_core_id_from(full_running_id)
+        # Assert:
+        assert id == 'AlarmType-Ant instance 66', \
+            'The core_id was not extracted correctly from the running_id'
+
     def test_get_timestamp_from(self):
         """Tests if the timestamp in milliseconds is calculated correctly"""
         # Arrange:
