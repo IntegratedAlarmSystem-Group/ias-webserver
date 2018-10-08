@@ -352,7 +352,9 @@ class IASValue( Alarm ):
            (self.state_change_timestamp == 0 and ias_value.validity == 1):
             self.state_change_timestamp = ias_value.core_timestamp
 
-        ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
+        ignored_fields = \
+            ['core_timestamp', 'id', 'timestamps', 'properties', 'mode',
+            'validity']
         unchanged_fields = \
             ['ack', 'shelved', 'description', 'url', 'state_change_timestamp']
 

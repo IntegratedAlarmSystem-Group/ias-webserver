@@ -1002,3 +1002,38 @@ class TestAlarmsCollectionShelve:
         assert AlarmCollection._create_ticket.call_count == 0, \
             'When a shelved Alarm changes to SET, a new ticket should not be \
             created'
+
+class TestIasValueUpdates:
+    """ This class defines the test suite for the Alarms Collection management
+    of IASValues that are not of type Alarm """
+
+    def test_add_value(self):
+        # Arrange:
+        timestamp = int(round(time.time() * 1000))
+        value = IASValue(
+            value="SOME_VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp,
+            core_id='dummy_value',
+            running_id='dummy_value',
+            timestamps={
+                'sentToBsdbTStamp': timestamp,
+                'readFromBsdbTStamp': timestamp
+            }
+        )
+        assert not 'dummy_value' in AlarmCollection.values_collection
+
+        # Act:
+        AlarmCollection.add_value(value)
+        new_value = AlarmCollection.values_collection['dummy_value']
+
+        # Assert:
+        assert new_value == value, \
+            'The value was not the expected'
+
+    def test_get_value(self):
+        assert(True)
+
+    def test_add_or_update_value(self):
+        assert(True)

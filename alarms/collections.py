@@ -2,7 +2,7 @@ import time
 import abc
 import asyncio
 from alarms.models import Alarm
-from alarms.connectors import CdbConnector, TicketConnector
+from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 
 
 class AlarmCollection:
@@ -354,10 +354,15 @@ class AlarmCollection:
 
         if value.core_id not in self.values_collection:
             self.add_value(value)
+            if value.core_id == "Array-AntennasToPads":
+                PanelsConnector.update_antennas_configuration(value.value)
             return 'created-value'
         else:
             stored_value = self.get_value(value.core_id)
             status = stored_value.update(value)
+            if status == 'updated-different':
+                if value.core_id == "Array-AntennasToPads":
+                    PanelsConnector.update_antennas_configuration(value.value)
             return status
 
     @classmethod
