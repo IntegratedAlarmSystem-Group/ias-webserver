@@ -152,3 +152,7 @@ ASGI_APPLICATION = "ias_webserver.routing.application"
 BROADCAST_RATE_FACTOR = 2
 UNSHELVE_CHECKING_RATE = 60
 FILES_LOCATION = "private_files"
+CDB_LOCATION = "cdb/tests/CDB/"
+IAS_FILE = "ias.json"
+IASIOS_FILE = "IASIO/iasios.json"
+DASUS_FOLDER = "DASU/"
