@@ -110,6 +110,17 @@ class IasiosReader:
 
     @classmethod
     def find_template_range(self, template_id, templates):
+        """
+        Returns the range of the temaplate
+
+        Args:
+            template_id (string): the themplate of the ID
+            templates (list): list of dictionaries with the templates
+
+        Returns:
+            dict: A range with the numbers of the template
+            (including max and min)
+        """
         for template in templates:
             if template['id'] == template_id:
                 return range(int(template['min']), int(template['max']) + 1)
