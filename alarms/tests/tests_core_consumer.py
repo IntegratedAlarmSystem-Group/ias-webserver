@@ -123,7 +123,7 @@ class TestCoreConsumer:
             "valueType": "STRING"
         }
 
-        expected_ias_value = IASValue(
+        expected_value = IASValue(
             value="SOME_VALUE",
             mode=5,
             validity=1,
@@ -141,9 +141,9 @@ class TestCoreConsumer:
             }
         )
         # Act:
-        ias_value = CoreConsumer.get_value_from_core_msg(msg)
+        value = CoreConsumer.get_value_from_core_msg(msg)
         # Assert:
-        assert ias_value.to_dict() == expected_ias_value.to_dict(), \
+        assert value.to_dict() == expected_value.to_dict(), \
             'The ias value was not converted correctly'
 
     @pytest.mark.asyncio
@@ -203,5 +203,146 @@ class TestCoreConsumer:
             'The alarm was not updated'
         assert alarm_after_send.to_dict() == expected_alarm.to_dict(), \
             'The alarm was not updated as expected, some fields are different'
+        # Close:
+        await communicator.disconnect()
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_create_value_on_values_dict(self, mocker):
+        """ Test if the core consumer creates the IASValue in the
+        AlarmCollection when a new IasValue (no alarm) arrives """
+        # Connect:
+        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        connected, subprotocol = await communicator.connect()
+        assert connected, 'The communicator was not connected'
+        # Arrange:
+        AlarmCollection.reset(self.iasios)
+        current_time = datetime.datetime.now()
+        formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        current_time_millis = CoreConsumer.get_timestamp_from(
+                                formatted_current_time)
+        msg = {
+            "value": "SOME_VALUE",
+            "sentToBsdbTStamp": formatted_current_time,
+            "readFromBsdbTStamp": formatted_current_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(IasValue-ID:IASIO)",
+            "valueType": "STRING"
+        }
+        expected_value = IASValue(
+            value="SOME_VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=current_time_millis,
+            core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
+            running_id=msg['fullRunningId'],
+            timestamps={
+                'sentToBsdbTStamp': current_time_millis,
+                'readFromBsdbTStamp': current_time_millis
+            }
+        )
+
+        # Act:
+        value_before_send = copy.copy(AlarmCollection.get_value('IasValue-ID'))
+        await communicator.send_json_to(msg)
+        response = await communicator.receive_from()
+        value_after_send = AlarmCollection.get_value('IasValue-ID')
+        # Assert:
+        assert response == 'created-value', 'The value was not created'
+        assert value_before_send == None, \
+            'The value was created before as expected'
+        assert value_after_send.to_dict() == expected_value.to_dict(), \
+            'The value was not created as expected, some fields are \
+            different'
+        # Close:
+        await communicator.disconnect()
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_update_value_on_values_dict(self, mocker):
+        """ Test if the core consumer updates the IASValue in the
+        AlarmCollection when a new IasValue (no alarm) arrives """
+        # Connect:
+        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        connected, subprotocol = await communicator.connect()
+        assert connected, 'The communicator was not connected'
+
+        # Arrange:
+        AlarmCollection.reset(self.iasios)
+        first_time = datetime.datetime.now()
+        formatted_first_time = first_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        first_time_millis = CoreConsumer.get_timestamp_from(
+                                formatted_first_time)
+        first_msg = {
+            "value": "SOME_VALUE",
+            "sentToBsdbTStamp": formatted_first_time,
+            "readFromBsdbTStamp": formatted_first_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(IasValue-ID:IASIO)",
+            "valueType": "STRING"
+        }
+
+        await communicator.send_json_to(first_msg)
+        response = await communicator.receive_from()
+        assert response == 'created-value', 'The value was not created'
+
+        # Close:
+        await communicator.disconnect()
+
+        # Connect:
+        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        connected, subprotocol = await communicator.connect()
+        assert connected, 'The communicator was not connected'
+
+        # Arrange:
+        second_time = datetime.datetime.now()
+        formatted_second_time = second_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        second_time_millis = CoreConsumer.get_timestamp_from(
+                                formatted_second_time)
+        second_msg = {
+            "value": "SOME_VALUE_UPDATED",
+            "sentToBsdbTStamp": formatted_second_time,
+            "readFromBsdbTStamp": formatted_second_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Monitored-System-ID:MONITORED_SOFTWARE_SYS" +
+                             "TEM)@(plugin-ID:PLUGIN)@(Converter-ID:CONVER" +
+                             "TER)@(IasValue-ID:IASIO)",
+            "valueType": "STRING"
+        }
+
+        expected_value = IASValue(
+            value="SOME_VALUE_UPDATED",
+            mode=5,
+            validity=1,
+            core_timestamp=second_time_millis,
+            state_change_timestamp=second_time_millis,
+            core_id=CoreConsumer.get_core_id_from(second_msg['fullRunningId']),
+            running_id=second_msg['fullRunningId'],
+            timestamps={
+                'sentToBsdbTStamp': second_time_millis,
+                'readFromBsdbTStamp': second_time_millis
+            }
+        )
+
+        # Act:
+        value_before_send = copy.copy(AlarmCollection.get_value('IasValue-ID'))
+        await communicator.send_json_to(second_msg)
+        response = await communicator.receive_from()
+        value_after_send = AlarmCollection.get_value('IasValue-ID')
+
+        # Assert:
+        assert response == 'updated-different', 'The value was not updated'
+        assert value_before_send.to_dict() != expected_value.to_dict(), \
+            'The value was not the expected before send the message'
+        assert value_after_send.to_dict() == expected_value.to_dict(), \
+            'The value was not created as expected, some fields are \
+            different'
         # Close:
         await communicator.disconnect()
