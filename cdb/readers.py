@@ -45,7 +45,7 @@ class IasiosReader:
         if not dasu_outputs or dasu_outputs == []:
             return None
         for iasio in iasios:
-            if "id" not in iasio or iasio["id"] not in dasu_outputs:
+            if iasio["id"] not in dasu_outputs or iasio["iasType"] != "ALARM":
                 continue
             if "templateId" not in iasio:
                 valid_iasios.append(iasio)
