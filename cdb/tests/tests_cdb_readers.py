@@ -1,5 +1,6 @@
 from django.test import TestCase
 from cdb.readers import IasReader, IasiosReader
+from ias_webserver.settings import BROADCAST_RATE_FACTOR
 
 
 class CdbReaderTestCase(TestCase):
@@ -14,6 +15,7 @@ class CdbReaderTestCase(TestCase):
             'refreshRate': '3',
             'tolerance': '1',
             'hbFrequency': '5',
+            'broadcastFactor': str(BROADCAST_RATE_FACTOR),
             'props': [
                 {'name': 'Prop1-Name', 'value': 'The value of P1'},
                 {'name': 'Prop2-Name', 'value': 'The value of P2'}

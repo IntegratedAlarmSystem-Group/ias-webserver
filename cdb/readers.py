@@ -5,7 +5,8 @@ from ias_webserver.settings import (
     IAS_FILE,
     IASIOS_FILE,
     DASUS_FOLDER,
-    TEMPLATES_FILE
+    TEMPLATES_FILE,
+    BROADCAST_RATE_FACTOR
 )
 
 
@@ -21,9 +22,10 @@ class IasReader:
         Returns:
             dict: A dictionary with the IAS configuration data
         """
-        filepath = CDB_LOCATION +  IAS_FILE
+        filepath = CDB_LOCATION + IAS_FILE
         with open(filepath) as file:
             ias_data = json.load(file)
+        ias_data['broadcastFactor'] = str(BROADCAST_RATE_FACTOR)
         return ias_data
 
 
@@ -68,7 +70,7 @@ class IasiosReader:
         Returns:
             dict: A list of IASIOs data
         """
-        filepath = CDB_LOCATION +  IASIOS_FILE
+        filepath = CDB_LOCATION + IASIOS_FILE
         with open(filepath) as file:
             iasios = json.load(file)
         return iasios
@@ -81,7 +83,7 @@ class IasiosReader:
         Returns:
             dict: A list IASIOs ids
         """
-        folder = CDB_LOCATION +  DASUS_FOLDER
+        folder = CDB_LOCATION + DASUS_FOLDER
         filepaths = [
             folder + f for f in os.listdir(folder) if f.endswith('.json')
         ]
@@ -103,7 +105,7 @@ class IasiosReader:
         Returns:
             dict: A list of templates data
         """
-        filepath = CDB_LOCATION +  TEMPLATES_FILE
+        filepath = CDB_LOCATION + TEMPLATES_FILE
         with open(filepath) as file:
             templates = json.load(file)
         return templates
@@ -124,4 +126,4 @@ class IasiosReader:
         for template in templates:
             if template['id'] == template_id:
                 return range(int(template['min']), int(template['max']) + 1)
-        return null
+        return None

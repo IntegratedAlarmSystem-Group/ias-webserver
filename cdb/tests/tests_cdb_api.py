@@ -12,7 +12,7 @@ class CdbApiTestCase(TestCase):
         # Arrange:
         expected_ias_data = IasReader.read_ias()
         # Act:
-        url = reverse('retrieve-ias')
+        url = reverse('ias')
         self.response = self.client.get(url, format="json")
         # Assert:
         self.assertEqual(
@@ -32,7 +32,7 @@ class CdbApiTestCase(TestCase):
         # Arrange:
         expected_ias_data = IasReader.read_ias()
         # Act:
-        url = reverse('retrieve-ias')
+        url = reverse('ias')
         self.response = self.client.get(url, kwargs={'pk': 0}, format="json")
         # Assert:
         self.assertEqual(
