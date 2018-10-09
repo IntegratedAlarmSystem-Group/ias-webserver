@@ -1,4 +1,3 @@
-import json
 from django.test import TestCase
 from cdb.readers import IasReader, IasiosReader
 
@@ -12,12 +11,12 @@ class CdbReaderTestCase(TestCase):
         # Asserts:
         expected_data = {
             'logLevel': 'INFO',
-            'refreshRate': '4',
+            'refreshRate': '3',
             'tolerance': '1',
-            'hbFrequency':'5',
-            'props':[
-                {'name':'Prop1-Name','value':'The value of P1'},
-                {'name':'Prop2-Name','value':'The value of P2'}
+            'hbFrequency': '5',
+            'props': [
+                {'name': 'Prop1-Name', 'value': 'The value of P1'},
+                {'name': 'Prop2-Name', 'value': 'The value of P2'}
             ]
         }
         self.assertEqual(

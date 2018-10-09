@@ -77,8 +77,6 @@ class Ias(models.Model):
         }
 
 
-
-
 class Iasio(models.Model):
     """ IASIO objects represent the monitoring points """
 

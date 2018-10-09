@@ -14,16 +14,16 @@ class TestCoreConsumer:
         """TestCase setup, executed before each test of the TestCase"""
         # Arrange:
         self.iasio_alarm = {
-            'io_id': "AlarmType-ID",
-            'short_desc': "Test iasio",
-            'ias_type': "alarm",
-            'doc_url': 'www.dummy-url.com'
+            'id': "AlarmType-ID",
+            'shortDesc': "Test iasio",
+            'iasType': "alarm",
+            'docUrl': 'www.dummy-url.com'
         }
         self.iasio_double = {
-            'io_id': "DoubleType-ID",
-            'short_desc': "Test iasio",
-            'ias_type': "double",
-            'doc_url': 'www.dummy-url.com'
+            'id': "DoubleType-ID",
+            'shortDesc': "Test iasio",
+            'iasType': "double",
+            'docUrl': 'www.dummy-url.com'
         }
         self.iasios = [self.iasio_alarm, self.iasio_double]
 
@@ -155,8 +155,8 @@ class TestCoreConsumer:
                 'dasuProductionTStamp': current_time_millis,
                 'sentToBsdbTStamp': current_time_millis
             },
-            description=self.iasio_alarm['short_desc'],
-            url=self.iasio_alarm['doc_url'],
+            description=self.iasio_alarm['shortDesc'],
+            url=self.iasio_alarm['docUrl'],
             ack=False,
             shelved=False,
         )
