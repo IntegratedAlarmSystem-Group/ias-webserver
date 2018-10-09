@@ -6,7 +6,7 @@ from alarms.models import Alarm, IASValue
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from alarms.connectors import CdbConnector as CdbConn
-from alarms.connectors import TicketConnector
+from alarms.connectors import TicketConnector, PanelsConnector
 
 
 class TestAlarmsCollectionHandling:
@@ -1006,8 +1006,11 @@ class TestIasValueUpdates:
     """ This class defines the test suite for the Alarms Collection management
     of IASValues that are not of type Alarm """
 
+    @pytest.mark.django_db
     def test_add_value(self):
+        """ Test if the value is added to the values collection """
         # Arrange:
+        AlarmCollection.reset()
         timestamp = int(round(time.time() * 1000))
         value = IASValue(
             value="SOME_VALUE",
@@ -1016,10 +1019,6 @@ class TestIasValueUpdates:
             core_timestamp=timestamp,
             core_id='dummy_value',
             running_id='dummy_value',
-            timestamps={
-                'sentToBsdbTStamp': timestamp,
-                'readFromBsdbTStamp': timestamp
-            }
         )
         assert 'dummy_value' not in AlarmCollection.values_collection
 
@@ -1031,8 +1030,106 @@ class TestIasValueUpdates:
         assert new_value == value, \
             'The value was not the expected'
 
+    @pytest.mark.django_db
     def test_get_value(self):
-        assert(True)
+        """ Test if the AlarmCollection can get a value from the collection"""
+        # Arrange:
+        AlarmCollection.reset()
+        timestamp = int(round(time.time() * 1000))
+        value = IASValue(
+            value="SOME_VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp,
+            core_id='dummy_value',
+            running_id='dummy_value',
+        )
+        assert 'dummy_value' not in AlarmCollection.values_collection
+        AlarmCollection.add_value(value)
 
-    def test_add_or_update_value(self):
-        assert(True)
+        # Act:
+        new_value = AlarmCollection.get_value('dummy_value')
+
+        # Assert:
+        assert new_value == value, \
+            'The value was not the expected'
+
+    @pytest.mark.django_db
+    def test_add_or_update_value(self, mocker):
+        """ Test if the AlarmCollection add or update a value """
+        # Mock PanelsConnector.update_antennas_configuration to assert if it
+        # was called and avoid calling the real function
+        mocker.patch.object(PanelsConnector, 'update_antennas_configuration')
+
+        # Arrange:
+        AlarmCollection.reset()
+        timestamp = int(round(time.time() * 1000))
+        value_1 = IASValue(
+            value="SOME_VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp,
+            core_id='dummy_value',
+            running_id='dummy_value',
+        )
+        value_2 = IASValue(
+            value="SOME_VALUE_UPDATED",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp+1,
+            core_id='dummy_value',
+            running_id='dummy_value',
+        )
+        assert 'dummy_value' not in AlarmCollection.values_collection
+
+        # Act:
+        status = AlarmCollection.add_or_update_value(value_1)
+        new_value = AlarmCollection.get_value('dummy_value')
+
+        # Assert:
+        assert status == 'created-value'
+        assert new_value == value_1, \
+            'The value was not the expected'
+        assert PanelsConnector.update_antennas_configuration.call_count == 0, \
+            'When the value received is not an AntennasToPads update the \
+            panels connector should not update the database'
+
+        # Act:
+        status = AlarmCollection.add_or_update_value(value_2)
+        new_value = AlarmCollection.get_value('dummy_value')
+
+        # Assert:
+        assert status == 'updated-different'
+        assert new_value.value == value_2.value, \
+            'The value was not the expected'
+        assert new_value.state_change_timestamp != 0, \
+            'The state change timestamp was not updated'
+        assert PanelsConnector.update_antennas_configuration.call_count == 0, \
+            'When the value received is not an AntennasToPads update the \
+            panels connector should not update the database'
+
+    @pytest.mark.django_db
+    def test_add_or_update_antennas_pad_value(self, mocker):
+        # Mock PanelsConnector.update_antennas_configuration to assert if it
+        # was called and avoid calling the real function
+        mocker.patch.object(PanelsConnector, 'update_antennas_configuration')
+
+        # Arrange:
+        AlarmCollection.reset()
+        timestamp = int(round(time.time() * 1000))
+        value = IASValue(
+            value="A000:PAD0,A001:PAD1,A002:PAD2",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp,
+            core_id='Array-AntennasToPads',
+            running_id='Array-AntennasToPads',
+        )
+
+        # Act:
+        AlarmCollection.add_or_update_value(value)
+
+        # Assert:
+        assert PanelsConnector.update_antennas_configuration.call_count == 1, \
+            'When the value received is an AntennasToPads update the panels \
+            connector should update the database'

@@ -260,6 +260,7 @@ class AlarmCollection:
         """
         self.singleton_collection = None
         self.parents_collection = None
+        self.values_collection = None
         self.initialize(iasios)
 
     @classmethod
