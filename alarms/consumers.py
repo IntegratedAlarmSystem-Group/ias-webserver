@@ -1,7 +1,7 @@
 import time
 import datetime
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
-from alarms.models import Alarm, OperationalMode, Validity, Value
+from alarms.models import Alarm, OperationalMode, Validity, Value, IASValue
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
 
 
@@ -90,6 +90,32 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         }
         return Alarm(**params)
 
+    def get_value_from_core_msg(content):
+        """
+        Returns an IASValue based on the message content
+
+        Args:
+            content (dict): the content of the messsage
+
+        Returns:
+            IASValue: an Object based on the message content
+        """
+        mode_options = OperationalMode.get_choices_by_name()
+        validity_options = Validity.get_choices_by_name()
+        core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
+        core_timestamp = CoreConsumer.get_timestamp_from(
+            content['sentToBsdbTStamp'])
+        params = {
+            'value': content['value'],
+            'core_timestamp': core_timestamp,
+            'mode': mode_options[content['mode']],
+            'validity': validity_options[content['iasValidity']],
+            'core_id': core_id,
+            'running_id': content['fullRunningId'],
+            'timestamps': CoreConsumer.get_timestamps(content)
+        }
+        return IASValue(**params)
+
     async def receive_json(self, content, **kwargs):
         """
         Handles the messages received by this consumer.
@@ -104,7 +130,10 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
             alarm.update_validity()
             response = await AlarmCollection.add_or_update_and_notify(alarm)
         else:
-            response = 'ignored-non-alarm'
+            value = CoreConsumer.get_value_from_core_msg(content)
+            value.update_validity()
+            status = AlarmCollection.add_or_update_value(value)
+            response = status
         await self.send(response)
 
 

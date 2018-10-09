@@ -1,7 +1,8 @@
+import mock
 from freezegun import freeze_time
 from django.test import TestCase
 from django.utils import timezone
-from alarms.connectors import TicketConnector
+from alarms.connectors import TicketConnector, PanelsConnector
 from tickets.models import Ticket, TicketStatus, ShelveRegistry
 
 
@@ -149,3 +150,24 @@ class TestTicketConnector(TestCase):
             'The check_shelve should return False if the alarm has not' +
             'related ShelveRegistries'
         )
+
+
+class TestPanelsConnector(TestCase):
+    """This class defines the test suite for the Tickets Connector"""
+
+    @mock.patch('panels.interfaces.IPanels.update_antennas_configuration')
+    def test_update_antennas_conf(self, IPanels_update_antennas_configuration):
+        """
+        Test that PanelsConnector.update_antennas_configuration calls
+        IPanels.update_antennas_configuration
+        """
+        # Arrange:
+        association = "A000:PAD0,A001:PAD1,A002:PAD2"
+        # Act:
+        PanelsConnector.update_antennas_configuration(association)
+        # Assert:
+        self.assertTrue(
+            IPanels_update_antennas_configuration.called,
+            'The IPanels_update_antennas_configuration function was not called'
+        )
+        IPanels_update_antennas_configuration.assert_called_with(association)

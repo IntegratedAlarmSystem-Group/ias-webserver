@@ -1,14 +1,12 @@
 import datetime
 import time
 import pytest
-import mock
-from pytest_mock import mocker
 from freezegun import freeze_time
-from alarms.models import Alarm
+from alarms.models import Alarm, IASValue
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from alarms.connectors import CdbConnector as CdbConn
-from alarms.connectors import TicketConnector
+from alarms.connectors import TicketConnector, PanelsConnector
 
 
 class TestAlarmsCollectionHandling:
@@ -437,6 +435,37 @@ class TestAlarmsCollectionHandling:
                 'The alarm {} was not correctly invalidated'.format(
                     alarm.core_id)
 
+    def test_add_value_to_collection(self):
+        """ Test if the other types of values are added successfully
+        to values_collection """
+        # Arrange:
+        current_time = int(round(time.time() * 1000))
+        ias_value = IASValue(
+            value="SOME TEST VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=current_time,
+            core_id="TEST-CORE-ID",
+            running_id="FULL-TEST-CORE-ID",
+            timestamps={
+                'pluginProductionTStamp': current_time,
+                'sentToConverterTStamp': current_time,
+                'receivedFromPluginTStamp': current_time,
+                'convertedProductionTStamp': current_time,
+                'sentToBsdbTStamp': current_time,
+                'readFromBsdbTStamp': current_time
+            }
+        )
+        value = AlarmCollection.get_value('TEST-CORE-ID')
+        assert value is None, \
+            'The value must not be in the collection at the beginning'
+
+        # Act:
+        AlarmCollection.add_value(ias_value)
+        value = AlarmCollection.get_value('TEST-CORE-ID')
+        assert value == ias_value, \
+            'The value must be in the collection'
+
 
 class TestAlarmsCollectionAcknowledge:
     """ This class defines the test suite for the Alarms Collection
@@ -575,9 +604,9 @@ class TestAlarmsCollectionAcknowledge:
             core_id_2,
             core_id_3,
         ]
-        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
-        status = await AlarmCollection.add_or_update_and_notify(alarm_2)
-        status = await AlarmCollection.add_or_update_and_notify(alarm_3)
+        await AlarmCollection.add_or_update_and_notify(alarm_1)
+        await AlarmCollection.add_or_update_and_notify(alarm_2)
+        await AlarmCollection.add_or_update_and_notify(alarm_3)
         # Act:
         ack_alarms_ids = await AlarmCollection.acknowledge(core_ids)
         # Assert:
@@ -800,7 +829,7 @@ class TestAlarmsCollectionAcknowledge:
         retrieved_alarm_3 = AlarmCollection.get(core_id_3)
         retrieved_alarm_4 = AlarmCollection.get(core_id_4)
         retrieved_alarm_5 = AlarmCollection.get(core_id_5)
-        assert retrieved_alarm_2.ack == False, \
+        assert not retrieved_alarm_2.ack, \
             'The alarm_2 must be unacknowleged'
         assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
             'The alarm_1 and its parent alarm_3 must remain acknowledged'
@@ -971,3 +1000,136 @@ class TestAlarmsCollectionShelve:
         assert AlarmCollection._create_ticket.call_count == 0, \
             'When a shelved Alarm changes to SET, a new ticket should not be \
             created'
+
+
+class TestIasValueUpdates:
+    """ This class defines the test suite for the Alarms Collection management
+    of IASValues that are not of type Alarm """
+
+    @pytest.mark.django_db
+    def test_add_value(self):
+        """ Test if the value is added to the values collection """
+        # Arrange:
+        AlarmCollection.reset()
+        timestamp = int(round(time.time() * 1000))
+        value = IASValue(
+            value="SOME_VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp,
+            core_id='dummy_value',
+            running_id='dummy_value',
+        )
+        assert 'dummy_value' not in AlarmCollection.values_collection
+
+        # Act:
+        AlarmCollection.add_value(value)
+        new_value = AlarmCollection.values_collection['dummy_value']
+
+        # Assert:
+        assert new_value == value, \
+            'The value was not the expected'
+
+    @pytest.mark.django_db
+    def test_get_value(self):
+        """ Test if the AlarmCollection can get a value from the collection"""
+        # Arrange:
+        AlarmCollection.reset()
+        timestamp = int(round(time.time() * 1000))
+        value = IASValue(
+            value="SOME_VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp,
+            core_id='dummy_value',
+            running_id='dummy_value',
+        )
+        assert 'dummy_value' not in AlarmCollection.values_collection
+        AlarmCollection.add_value(value)
+
+        # Act:
+        new_value = AlarmCollection.get_value('dummy_value')
+
+        # Assert:
+        assert new_value == value, \
+            'The value was not the expected'
+
+    @pytest.mark.django_db
+    def test_add_or_update_value(self, mocker):
+        """ Test if the AlarmCollection add or update a value """
+        # Mock PanelsConnector.update_antennas_configuration to assert if it
+        # was called and avoid calling the real function
+        mocker.patch.object(PanelsConnector, 'update_antennas_configuration')
+
+        # Arrange:
+        AlarmCollection.reset()
+        timestamp = int(round(time.time() * 1000))
+        value_1 = IASValue(
+            value="SOME_VALUE",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp,
+            core_id='dummy_value',
+            running_id='dummy_value',
+        )
+        value_2 = IASValue(
+            value="SOME_VALUE_UPDATED",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp+1,
+            core_id='dummy_value',
+            running_id='dummy_value',
+        )
+        assert 'dummy_value' not in AlarmCollection.values_collection
+
+        # Act:
+        status = AlarmCollection.add_or_update_value(value_1)
+        new_value = AlarmCollection.get_value('dummy_value')
+
+        # Assert:
+        assert status == 'created-value'
+        assert new_value == value_1, \
+            'The value was not the expected'
+        assert PanelsConnector.update_antennas_configuration.call_count == 0, \
+            'When the value received is not an AntennasToPads update the \
+            panels connector should not update the database'
+
+        # Act:
+        status = AlarmCollection.add_or_update_value(value_2)
+        new_value = AlarmCollection.get_value('dummy_value')
+
+        # Assert:
+        assert status == 'updated-different'
+        assert new_value.value == value_2.value, \
+            'The value was not the expected'
+        assert new_value.state_change_timestamp != 0, \
+            'The state change timestamp was not updated'
+        assert PanelsConnector.update_antennas_configuration.call_count == 0, \
+            'When the value received is not an AntennasToPads update the \
+            panels connector should not update the database'
+
+    @pytest.mark.django_db
+    def test_add_or_update_antennas_pad_value(self, mocker):
+        # Mock PanelsConnector.update_antennas_configuration to assert if it
+        # was called and avoid calling the real function
+        mocker.patch.object(PanelsConnector, 'update_antennas_configuration')
+
+        # Arrange:
+        AlarmCollection.reset()
+        timestamp = int(round(time.time() * 1000))
+        value = IASValue(
+            value="A000:PAD0,A001:PAD1,A002:PAD2",
+            mode=5,
+            validity=1,
+            core_timestamp=timestamp,
+            core_id='Array-AntennasToPads',
+            running_id='Array-AntennasToPads',
+        )
+
+        # Act:
+        AlarmCollection.add_or_update_value(value)
+
+        # Assert:
+        assert PanelsConnector.update_antennas_configuration.call_count == 1, \
+            'When the value received is an AntennasToPads update the panels \
+            connector should update the database'

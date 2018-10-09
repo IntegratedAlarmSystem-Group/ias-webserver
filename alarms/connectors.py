@@ -1,6 +1,7 @@
 from cdb.models import Iasio, Ias
 from tickets.models import Ticket, TicketStatus
 from tickets.models import ShelveRegistry, ShelveRegistryStatus
+from panels.interfaces import IPanels
 
 
 class CdbConnector():
@@ -102,3 +103,21 @@ class TicketConnector():
             status=int(ShelveRegistryStatus.get_choices_by_name()['SHELVED'])
         ).first()
         return True if registry else False
+
+
+class PanelsConnector():
+        """
+        This class defines methods to communicate the Alarm app with the Panels
+        app
+        """
+
+        @classmethod
+        def update_antennas_configuration(self, antennas_pads_association):
+            """
+            Updates the antennas pad association in the panels configuration
+
+            Args:
+                antennas_pads_association (String): Association between
+                antennas and pads got from ias core value Array-AntennasToPads
+            """
+            IPanels.update_antennas_configuration(antennas_pads_association)
