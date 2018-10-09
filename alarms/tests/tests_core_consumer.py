@@ -252,7 +252,7 @@ class TestCoreConsumer:
         value_after_send = AlarmCollection.get_value('IasValue-ID')
         # Assert:
         assert response == 'created-value', 'The value was not created'
-        assert value_before_send == None, \
+        assert value_before_send is None, \
             'The value was created before as expected'
         assert value_after_send.to_dict() == expected_value.to_dict(), \
             'The value was not created as expected, some fields are \
@@ -274,8 +274,6 @@ class TestCoreConsumer:
         AlarmCollection.reset(self.iasios)
         first_time = datetime.datetime.now()
         formatted_first_time = first_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        first_time_millis = CoreConsumer.get_timestamp_from(
-                                formatted_first_time)
         first_msg = {
             "value": "SOME_VALUE",
             "sentToBsdbTStamp": formatted_first_time,

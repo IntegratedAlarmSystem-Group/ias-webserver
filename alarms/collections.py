@@ -326,7 +326,7 @@ class AlarmCollection:
     @classmethod
     def get_value(self, core_id):
         """
-        Returns the value indexed by core_id in the values collection dictionary
+        Returns the value indexed by core_id in the values collection dict
 
         Args:
             core_id (string): The core core_id of the value

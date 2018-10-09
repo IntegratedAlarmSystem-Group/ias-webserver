@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 from alarms.connectors import TicketConnector, PanelsConnector
 from tickets.models import Ticket, TicketStatus, ShelveRegistry
-from panels.interfaces import IPanels
+
 
 class TestTicketConnector(TestCase):
     """This class defines the test suite for the Tickets Connector"""
@@ -150,6 +150,7 @@ class TestTicketConnector(TestCase):
             'The check_shelve should return False if the alarm has not' +
             'related ShelveRegistries'
         )
+
 
 class TestPanelsConnector(TestCase):
     """This class defines the test suite for the Tickets Connector"""

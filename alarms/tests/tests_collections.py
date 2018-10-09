@@ -1,8 +1,6 @@
 import datetime
 import time
 import pytest
-import mock
-from pytest_mock import mocker
 from freezegun import freeze_time
 from alarms.models import Alarm, IASValue
 from alarms.tests.factories import AlarmFactory
@@ -606,9 +604,9 @@ class TestAlarmsCollectionAcknowledge:
             core_id_2,
             core_id_3,
         ]
-        status = await AlarmCollection.add_or_update_and_notify(alarm_1)
-        status = await AlarmCollection.add_or_update_and_notify(alarm_2)
-        status = await AlarmCollection.add_or_update_and_notify(alarm_3)
+        await AlarmCollection.add_or_update_and_notify(alarm_1)
+        await AlarmCollection.add_or_update_and_notify(alarm_2)
+        await AlarmCollection.add_or_update_and_notify(alarm_3)
         # Act:
         ack_alarms_ids = await AlarmCollection.acknowledge(core_ids)
         # Assert:
@@ -831,7 +829,7 @@ class TestAlarmsCollectionAcknowledge:
         retrieved_alarm_3 = AlarmCollection.get(core_id_3)
         retrieved_alarm_4 = AlarmCollection.get(core_id_4)
         retrieved_alarm_5 = AlarmCollection.get(core_id_5)
-        assert retrieved_alarm_2.ack == False, \
+        assert not retrieved_alarm_2.ack, \
             'The alarm_2 must be unacknowleged'
         assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
             'The alarm_1 and its parent alarm_3 must remain acknowledged'
@@ -1003,6 +1001,7 @@ class TestAlarmsCollectionShelve:
             'When a shelved Alarm changes to SET, a new ticket should not be \
             created'
 
+
 class TestIasValueUpdates:
     """ This class defines the test suite for the Alarms Collection management
     of IASValues that are not of type Alarm """
@@ -1022,7 +1021,7 @@ class TestIasValueUpdates:
                 'readFromBsdbTStamp': timestamp
             }
         )
-        assert not 'dummy_value' in AlarmCollection.values_collection
+        assert 'dummy_value' not in AlarmCollection.values_collection
 
         # Act:
         AlarmCollection.add_value(value)
