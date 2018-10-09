@@ -1,4 +1,3 @@
-from cdb.models import Iasio
 from cdb.readers import IasReader, IasiosReader
 from tickets.models import Ticket, TicketStatus
 from tickets.models import ShelveRegistry, ShelveRegistryStatus
