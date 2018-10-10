@@ -53,21 +53,20 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             )
 
         data = []
-        for station_alarm in weather_station_alarms:
+        for alarm in weather_station_alarms:
 
-            temperature = station_alarm.nested_alarms.filter(
+            temperature = alarm.nested_alarms.filter(
                 type__name="temperature")
 
-            windspeed = station_alarm.nested_alarms.filter(
+            windspeed = alarm.nested_alarms.filter(
                 type__name="windspeed")
 
-            humidity = station_alarm.nested_alarms.filter(
+            humidity = alarm.nested_alarms.filter(
                 type__name="humidity")
 
-            p = station_alarm.placemark.name if station_alarm.placemark else ""
             data.append({
-                "placemark": p,
-                "station": station_alarm.alarm_id,
+                "placemark": alarm.placemark.name if alarm.placemark else "",
+                "station": alarm.alarm_id,
                 "temperature": temperature[0].alarm_id if temperature else "",
                 "windspeed": windspeed[0].alarm_id if windspeed else "",
                 "humidity": humidity[0].alarm_id if humidity else ""
