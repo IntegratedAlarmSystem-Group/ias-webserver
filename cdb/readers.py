@@ -2,6 +2,7 @@ import json
 import os
 from ias_webserver.settings import (
     CDB_LOCATION,
+    TEST_CDB_LOCATION,
     IAS_FILE,
     IASIOS_FILE,
     DASUS_FOLDER,
@@ -14,6 +15,14 @@ class CdbReader:
     """ Defines a reader for the CDB """
 
     @classmethod
+    def get_cdb_location(self):
+        testing = os.environ.get('TESTING', False)
+        if testing:
+            return TEST_CDB_LOCATION
+        else:
+            return CDB_LOCATION
+
+    @classmethod
     def read_ias(self):
         """
         Reads the ias.json file of the CDB and initializes what is necessary
@@ -22,7 +31,7 @@ class CdbReader:
         Returns:
             dict: A dictionary with the IAS configuration data
         """
-        filepath = CDB_LOCATION + IAS_FILE
+        filepath = self.get_cdb_location() + IAS_FILE
         with open(filepath) as file:
             ias_data = json.load(file)
         ias_data['broadcastFactor'] = str(BROADCAST_RATE_FACTOR)
@@ -66,7 +75,7 @@ class CdbReader:
         Returns:
             dict: A list of IASIOs data
         """
-        filepath = CDB_LOCATION + IASIOS_FILE
+        filepath = self.get_cdb_location() + IASIOS_FILE
         with open(filepath) as file:
             iasios = json.load(file)
         return iasios
@@ -79,7 +88,7 @@ class CdbReader:
         Returns:
             dict: A list IASIOs ids
         """
-        folder = CDB_LOCATION + DASUS_FOLDER
+        folder = self.get_cdb_location() + DASUS_FOLDER
         filepaths = [
             folder + f for f in os.listdir(folder) if f.endswith('.json')
         ]
@@ -101,7 +110,7 @@ class CdbReader:
         Returns:
             dict: A list of templates data
         """
-        filepath = CDB_LOCATION + TEMPLATES_FILE
+        filepath = self.get_cdb_location() + TEMPLATES_FILE
         with open(filepath) as file:
             templates = json.load(file)
         return templates
