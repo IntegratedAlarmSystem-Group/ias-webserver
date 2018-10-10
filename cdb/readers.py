@@ -32,8 +32,12 @@ class CdbReader:
             dict: A dictionary with the IAS configuration data
         """
         filepath = self.get_cdb_location() + IAS_FILE
-        with open(filepath) as file:
-            ias_data = json.load(file)
+        try:
+            with open(filepath) as file:
+                ias_data = json.load(file)
+        except IOError:
+            print('WARNING: ', filepath, ' not found. IAS config not read')
+            ias_data = []
         ias_data['broadcastFactor'] = str(BROADCAST_RATE_FACTOR)
         return ias_data
 
@@ -76,8 +80,12 @@ class CdbReader:
             dict: A list of IASIOs data
         """
         filepath = self.get_cdb_location() + IASIOS_FILE
-        with open(filepath) as file:
-            iasios = json.load(file)
+        try:
+            with open(filepath) as file:
+                iasios = json.load(file)
+        except IOError:
+            print('WARNING: ', filepath, ' not found. IASIOS not initialized')
+            return []
         return iasios
 
     @classmethod
@@ -89,13 +97,22 @@ class CdbReader:
             dict: A list IASIOs ids
         """
         folder = self.get_cdb_location() + DASUS_FOLDER
-        filepaths = [
-            folder + f for f in os.listdir(folder) if f.endswith('.json')
-        ]
+        try:
+            filepaths = [
+                folder + f for f in os.listdir(folder) if f.endswith('.json')
+            ]
+        except IOError:
+            print('WARNING: ', folder, ' folder not found. DASUs not read')
+            return []
         iasios = []
         for filepath in filepaths:
-            with open(filepath) as file:
-                dasu = json.load(file)
+            try:
+                with open(filepath) as file:
+                    dasu = json.load(file)
+            except IOError:
+                print('WARNING: ', filepath, ' not found. DASUs not read')
+                return []
+
             if "outputId" not in dasu:
                 continue
             output = dasu["outputId"]
@@ -111,8 +128,12 @@ class CdbReader:
             dict: A list of templates data
         """
         filepath = self.get_cdb_location() + TEMPLATES_FILE
-        with open(filepath) as file:
-            templates = json.load(file)
+        try:
+            with open(filepath) as file:
+                templates = json.load(file)
+        except IOError:
+            print('WARNING: ', filepath, ' not found. template not read')
+            return []
         return templates
 
     @classmethod
