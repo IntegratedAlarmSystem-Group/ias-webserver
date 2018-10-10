@@ -1,0 +1,194 @@
+[
+  {
+    "id": "IASIO-DUMMY_DOUBLE_1",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_DOUBLE_2",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_DOUBLE_3",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_DOUBLE_4",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_DOUBLE_5",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_DOUBLE_6",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_DOUBLE_7",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_DOUBLE_8",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_DOUBLE_9",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_DOUBLE_10",
+    "shortDesc": "Dummy Iasio of tyoe DOUBLE",
+    "iasType": "DOUBLE",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_1",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_2",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_3",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_4",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_5",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_6",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_7",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_8",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_9",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO-DUMMY_STRING_10",
+    "shortDesc": "Dummy Iasio of tyoe STRING",
+    "iasType": "STRING",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_1",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_2",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_3",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_4",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_5",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_6",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_7",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_8",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_9",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_ALARM_10",
+    "shortDesc": "Dummy Iasio of tyoe ALARM",
+    "iasType": "ALARM",
+    "docUrl": "http://www.alma.cl"
+  },
+  {
+    "id": "IASIO_DUMMY_TEMPLATED_1",
+    "shortDesc": "Dummy teplated Iasio 1",
+    "iasType": "ALARM",
+    "templateId": "template-ID1"
+  },
+  {
+    "id": "IASIO_DUMMY_TEMPLATED_2",
+    "shortDesc": "Dummy teplated Iasio 2",
+    "iasType": "ALARM",
+    "templateId": "template-ID2"
+  }
+]
