@@ -2,7 +2,7 @@ import time
 import abc
 import asyncio
 from alarms.models import Alarm
-from alarms.connectors import CdbConnector, TicketConnector
+from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 
 
 class AlarmCollection:
@@ -18,6 +18,9 @@ class AlarmCollection:
 
     parents_collection = None
     """ Dictionary to store the parents of each alarm """
+
+    values_collection = None
+    """ Dictionary to store other type of values, indexed by core_id """
 
     observers = []
     """ List to store references to the observers subscribed to changes in the
@@ -60,6 +63,7 @@ class AlarmCollection:
         if self.singleton_collection is None:
             self.singleton_collection = {}
             self.parents_collection = {}
+            self.values_collection = {}
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
             for iasio in iasios:
@@ -260,6 +264,7 @@ class AlarmCollection:
         """
         self.singleton_collection = None
         self.parents_collection = None
+        self.values_collection = None
         self.initialize(iasios)
 
     @classmethod
@@ -311,6 +316,59 @@ class AlarmCollection:
                 return 'updated-alarm'
             else:
                 raise Exception('ERROR: incorrect update status')
+
+    @classmethod
+    def add_value(self, value):
+        """
+        Adds the value to the values collection dictionary
+
+        Args:
+            id (string): The core id of the value
+            value (any): core value
+        """
+        self.values_collection[value.core_id] = value
+
+    @classmethod
+    def get_value(self, core_id):
+        """
+        Returns the value indexed by core_id in the values collection dict
+
+        Args:
+            core_id (string): The core core_id of the value
+        """
+        if core_id in self.values_collection:
+            return self.values_collection[core_id]
+        else:
+            return None
+
+    @classmethod
+    def add_or_update_value(self, value):
+        """
+        Adds the ias value if it isn't in the values collection already or
+        updates the ias value in the other case.
+
+        It does not notify the observers on change. It only mantains updated
+        the collection to respond to user requests.
+
+        Args:
+            value (IASValue): the IASValue object to add or update
+
+        Returns:
+            message (String): a string message sumarizing what happened
+        """
+
+        if value.core_id not in self.values_collection:
+            self.add_value(value)
+            if value.core_id == "Array-AntennasToPads":
+                PanelsConnector.update_antennas_configuration(value.value)
+            return 'created-value'
+        else:
+            stored_value = self.get_value(value.core_id)
+            status = stored_value.update(value)
+            if status == 'updated-different':
+                if value.core_id == "Array-AntennasToPads":
+                    PanelsConnector.update_antennas_configuration(value.value)
+            return status
 
     @classmethod
     async def delete_and_notify(self, alarm):

@@ -298,3 +298,75 @@ class Alarm:
 
     def is_not_set(self):
         return True if self.value in Value.unset_options() else False
+
+
+class IASValue( Alarm ):
+    """ IASValue from some device in the observatory. """
+
+    def __init__(self, core_timestamp, core_id, running_id, value, mode=0,
+                 validity=0, timestamps={}, state_change_timestamp=0):
+        """ Constructor of the class,
+        only executed when there a new instance is created.
+        Receives and validates values for the attributes of the object """
+
+        Alarm.__init__(self, core_timestamp, core_id, running_id, mode=mode,
+                        validity=validity, timestamps=timestamps,
+                        state_change_timestamp=state_change_timestamp)
+        self.value = self.__check_value(value)
+
+    def __check_value(self, value):
+        """ Validates the IASValue value """
+        if type(value) is not str:
+            raise TypeError
+        else:
+            return value
+
+    def to_dict(self):
+        """ Returns a dict with all the values of the different attributes """
+        return {
+            'value': self.value,
+            'mode': self.mode,
+            'validity': self.validity,
+            'core_timestamp': self.core_timestamp,
+            'state_change_timestamp': self.state_change_timestamp,
+            'core_id': self.core_id,
+            'running_id': self.running_id,
+            'timestamps': self.timestamps
+        }
+
+    def update(self, ias_value):
+        """
+        Updates the ias_value with attributes from another given ias_value if
+        the timestamp of the given ias_value is greater than the stored ias
+        value.
+        Args:
+            isa_value (IASValue): The new ias_value object
+        Returns:
+            string: the state of the update (not-updated, updated-equal,
+            updated-different)
+        """
+        if ias_value.core_timestamp <= self.core_timestamp:
+            return ('not-updated', None, False)
+
+        if self.mode != ias_value.mode or self.value != ias_value.value or \
+           (self.state_change_timestamp == 0 and ias_value.validity == 1):
+            self.state_change_timestamp = ias_value.core_timestamp
+
+        ignored_fields = \
+            ['core_timestamp', 'id', 'timestamps', 'properties', 'mode',
+            'validity']
+        unchanged_fields = \
+            ['ack', 'shelved', 'description', 'url', 'state_change_timestamp']
+
+        notify = 'updated-equal'
+
+        for field in ias_value.__dict__.keys():
+            if field in unchanged_fields:
+                continue
+            old_value = getattr(self, field)
+            new_value = getattr(ias_value, field)
+            if (field not in ignored_fields) and old_value != new_value:
+                notify = 'updated-different'
+            setattr(self, field, new_value)
+
+        return notify
