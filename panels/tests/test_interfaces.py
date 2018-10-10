@@ -1,6 +1,14 @@
 from panels.interfaces import IPanels
 from django.test import TestCase
-from panels.models import AlarmConfig, View, Type
+from panels.models import (
+    AlarmConfig,
+    View,
+    Type,
+    Placemark,
+    PlacemarkType,
+    CoordinateType
+)
+
 
 class TestIPanels(TestCase):
     """This class defines the test suite for the Panels Interfaces"""
@@ -9,7 +17,7 @@ class TestIPanels(TestCase):
         # Arrange:
         """Define the test suite setup"""
 
-        self.antenna_pad_association = "A000:PAD0,A001:PAD1,A002:PAD2,A003:PAD3"
+        self.antenna_pad_association = "A000:PAD0,A001:PAD1,A002:PAD2"
         self.antennas_view = View.objects.create(name='antennas')
         self.antenna_type = Type.objects.create(name='antenna')
         self.alarm_config_items = [
@@ -17,7 +25,6 @@ class TestIPanels(TestCase):
                 alarm_id="antenna_alarm_0",
                 view=self.antennas_view,
                 type=self.antenna_type,
-                placemark="",
                 custom_name="A000",
                 tags="group_A"
             ),
@@ -25,7 +32,6 @@ class TestIPanels(TestCase):
                 alarm_id="antenna_alarm_1",
                 view=self.antennas_view,
                 type=self.antenna_type,
-                placemark="",
                 custom_name="A001",
                 tags="group_A"
             ),
@@ -33,17 +39,32 @@ class TestIPanels(TestCase):
                 alarm_id="antenna_alarm_2",
                 view=self.antennas_view,
                 type=self.antenna_type,
-                placemark="",
                 custom_name="A002",
                 tags="group_A"
+            )
+        ]
+        self.placemark_type = PlacemarkType.objects.create(name='pad')
+        self.placemarks = [
+            Placemark.objects.create(
+                name="PAD0",
+                x=0.0,
+                y=0.0,
+                coordinates_type=CoordinateType.GEOGRAPHICAL,
+                type=self.placemark_type
             ),
-            AlarmConfig.objects.create(
-                alarm_id="antenna_alarm_3",
-                view=self.antennas_view,
-                type=self.antenna_type,
-                placemark="",
-                custom_name="A003",
-                tags="group_A"
+            Placemark.objects.create(
+                name="PAD1",
+                x=0.0,
+                y=0.0,
+                coordinates_type=CoordinateType.GEOGRAPHICAL,
+                type=self.placemark_type
+            ),
+            Placemark.objects.create(
+                name="PAD2",
+                x=0.0,
+                y=0.0,
+                coordinates_type=CoordinateType.GEOGRAPHICAL,
+                type=self.placemark_type
             )
         ]
 
@@ -57,7 +78,8 @@ class TestIPanels(TestCase):
                             type__name="antenna"
                           )
         for item in antennas_config:
-            self.assertTrue(item.placemark == "",
+            self.assertTrue(
+                item.placemark is None,
                 "The antennas have placemarks associated before the update")
         # Act:
         IPanels.update_antennas_configuration(self.antenna_pad_association)
@@ -67,5 +89,6 @@ class TestIPanels(TestCase):
                             type__name="antenna"
                           )
         for i, item in enumerate(antennas_config):
-            self.assertTrue(item.placemark == "PAD{}".format(i),
+            self.assertTrue(
+                item.placemark.name == "PAD{}".format(i),
                 "The antennas have not been updated as expected")

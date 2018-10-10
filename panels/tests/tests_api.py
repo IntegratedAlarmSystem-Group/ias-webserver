@@ -5,7 +5,15 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from panels.models import File, AlarmConfig, View, Type
+from panels.models import (
+    File,
+    AlarmConfig,
+    View,
+    Type,
+    Placemark,
+    PlacemarkType,
+    CoordinateType
+)
 from panels.serializers import FileSerializer
 
 
@@ -181,6 +189,17 @@ class FileApiTestCase(TestCase):
 class AlarmConfigApiErrorResponsesTestCase(TestCase):
     """ Test suite for the error responses in case of bad configuration """
 
+    def setUp(self):
+        """ Define the test suite setup """
+        self.placemark_type = PlacemarkType.objects.create(name='pad')
+        self.placemark = Placemark.objects.create(
+            name="placemark_1",
+            x=0.0,
+            y=0.0,
+            coordinates_type=CoordinateType.GEOGRAPHICAL,
+            type=self.placemark_type
+        )
+
     def test_api_weather_config_response_errors(self):
         """ Test that the api return error code if there is no weather data """
         # Act:
@@ -215,7 +234,7 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
             alarm_id="station_alarm_1",
             view=weather_view,
             type=station_type,
-            placemark="placemark_1"
+            placemark=self.placemark
         )
         response = self.client.get(url, format='json')
         # Assert:
@@ -259,7 +278,7 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
             alarm_id="antenna_alarm_1",
             view=antennas_view,
             type=antenna_type,
-            placemark="placemark_1",
+            placemark=self.placemark,
             custom_name="A001",
             tags="group_A"
         )
@@ -374,18 +393,56 @@ class AlarmConfigApiTestCase(TestCase):
         self.weather_view = View.objects.create(name='weather')
         self.antennas_view = View.objects.create(name='antennas')
         self.summary_view = View.objects.create(name='summary')
+        self.placemark_type = PlacemarkType.objects.create(name='pad')
+        self.placemarks = [
+            Placemark.objects.create(
+                name="placemark_station_1",
+                x=0.0,
+                y=0.0,
+                coordinates_type=CoordinateType.GEOGRAPHICAL,
+                type=self.placemark_type
+            ),
+            Placemark.objects.create(
+                name="placemark_station_2",
+                x=0.0,
+                y=0.0,
+                coordinates_type=CoordinateType.GEOGRAPHICAL,
+                type=self.placemark_type
+            ),
+            Placemark.objects.create(
+                name="placemark_pad_1",
+                x=0.0,
+                y=0.0,
+                coordinates_type=CoordinateType.GEOGRAPHICAL,
+                type=self.placemark_type
+            ),
+            Placemark.objects.create(
+                name="placemark_pad_2",
+                x=0.0,
+                y=0.0,
+                coordinates_type=CoordinateType.GEOGRAPHICAL,
+                type=self.placemark_type
+            ),
+            Placemark.objects.create(
+                name="placemark_pad_3",
+                x=0.0,
+                y=0.0,
+                coordinates_type=CoordinateType.GEOGRAPHICAL,
+                type=self.placemark_type
+            ),
+        ]
         self.stations_alarms_config = [
             AlarmConfig.objects.create(
                 alarm_id="station_alarm_1",
                 view=self.weather_view,
                 type=self.station_type,
-                placemark="placemark_1"
+                placemark=self.placemarks[0]
             ),
             AlarmConfig.objects.create(
                 alarm_id="station_alarm_2",
                 view=self.weather_view,
                 type=self.station_type,
-                placemark="placemark_2"
+                placemark=self.placemarks[1]
             )
         ]
         self.sensors_alarms_config = [
@@ -431,7 +488,7 @@ class AlarmConfigApiTestCase(TestCase):
                 alarm_id="antenna_alarm_1",
                 view=self.antennas_view,
                 type=self.antenna_type,
-                placemark="placemark_1",
+                placemark=self.placemarks[2],
                 custom_name="A001",
                 tags="group_A"
             ),
@@ -439,7 +496,7 @@ class AlarmConfigApiTestCase(TestCase):
                 alarm_id="antenna_alarm_2",
                 view=self.antennas_view,
                 type=self.antenna_type,
-                placemark="placemark_2",
+                placemark=self.placemarks[3],
                 custom_name="A002",
                 tags="group_A"
             ),
@@ -447,7 +504,7 @@ class AlarmConfigApiTestCase(TestCase):
                 alarm_id="antenna_alarm_3",
                 view=self.antennas_view,
                 type=self.antenna_type,
-                placemark="placemark_3",
+                placemark=self.placemarks[4],
                 custom_name="A003",
                 tags="group_B"
             )
@@ -520,14 +577,14 @@ class AlarmConfigApiTestCase(TestCase):
         # Arrange:
         expected_data = [
             {
-                'placemark': 'placemark_1',
+                'placemark': 'placemark_station_1',
                 'station': 'station_alarm_1',
                 'temperature': 'temperature_alarm_1',
                 'windspeed': 'windspeed_alarm_1',
                 'humidity': 'humidity_alarm_1',
             },
             {
-                'placemark': 'placemark_2',
+                'placemark': 'placemark_station_2',
                 'station': 'station_alarm_2',
                 'temperature': 'temperature_alarm_2',
                 'windspeed': 'windspeed_alarm_2',
@@ -557,7 +614,7 @@ class AlarmConfigApiTestCase(TestCase):
             'group_A': [
                 {
                     'antenna': 'A001',
-                    'placemark': 'placemark_1',
+                    'placemark': 'placemark_pad_1',
                     'alarm': 'antenna_alarm_1',
                     'fire': 'antenna_alarm_1_fire',
                     'fire_malfunction': 'antenna_alarm_1_fire_malfunction',
@@ -567,7 +624,7 @@ class AlarmConfigApiTestCase(TestCase):
                 },
                 {
                     'antenna': 'A002',
-                    'placemark': 'placemark_2',
+                    'placemark': 'placemark_pad_2',
                     'alarm': 'antenna_alarm_2',
                     'fire': '',
                     'fire_malfunction': '',
@@ -579,7 +636,7 @@ class AlarmConfigApiTestCase(TestCase):
             'group_B': [
                 {
                     'antenna': 'A003',
-                    'placemark': 'placemark_3',
+                    'placemark': 'placemark_pad_3',
                     'alarm': 'antenna_alarm_3',
                     'fire': '',
                     'fire_malfunction': '',

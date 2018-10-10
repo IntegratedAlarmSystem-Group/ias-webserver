@@ -64,8 +64,9 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             humidity = station_alarm.nested_alarms.filter(
                 type__name="humidity")
 
+            p = station_alarm.placemark.name if station_alarm.placemark else ""
             data.append({
-                "placemark": station_alarm.placemark,
+                "placemark": p,
                 "station": station_alarm.alarm_id,
                 "temperature": temperature[0].alarm_id if temperature else "",
                 "windspeed": windspeed[0].alarm_id if windspeed else "",
@@ -110,7 +111,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             data[alarm.tags].append(
                 {
                   "antenna": alarm.custom_name,
-                  "placemark": alarm.placemark,
+                  "placemark": alarm.placemark.name if alarm.placemark else "",
                   "alarm": alarm.alarm_id,
                   "fire": fire[0].alarm_id if fire else "",
                   "fire_malfunction": fire_sys[0].alarm_id if fire_sys else "",
