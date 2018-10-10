@@ -1,6 +1,5 @@
 import os
 from django.db import models
-from utils.choice_enum import ChoiceEnum
 from ias_webserver.settings import FILES_LOCATION
 
 
