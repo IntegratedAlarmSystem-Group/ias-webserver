@@ -1,5 +1,5 @@
 from django.test import TestCase
-from cdb.readers import IasReader, IasiosReader
+from cdb.readers import CdbReader
 from ias_webserver.settings import BROADCAST_RATE_FACTOR
 
 
@@ -8,7 +8,7 @@ class CdbReaderTestCase(TestCase):
     def test_read_ias(self):
         """ Test if we can read ths IAS json file from the CDB """
         # Act:
-        ias_data = IasReader.read_ias()
+        ias_data = CdbReader.read_ias()
         # Asserts:
         expected_data = {
             'logLevel': 'INFO',
@@ -26,13 +26,10 @@ class CdbReaderTestCase(TestCase):
             'The data obtained with the read_data method is not the expected'
         )
 
-
-class IasiosReaderTestCase(TestCase):
-
     def test_read_iasios_basefile(self):
         """ Test if we can read the IASIOS json file from the CDB """
         # Act:
-        iasios_data = IasiosReader.read_iasios_file()
+        iasios_data = CdbReader.read_iasios_file()
         # Asserts:
         expected_entry = {
             "id": "IASIO-DUMMY_DOUBLE_1",
@@ -49,7 +46,7 @@ class IasiosReaderTestCase(TestCase):
         """ Test if we can read the iasios that are actually output of DASUs
         in the CDB """
         # Act:
-        dasu_outputs = IasiosReader.read_dasus_outputs()
+        dasu_outputs = CdbReader.read_dasus_outputs()
         # Asserts:
         expected_data = [
             "IASIO_DUMMY_ALARM_1",
@@ -66,7 +63,7 @@ class IasiosReaderTestCase(TestCase):
         """ Test if we can read the validated IASIOS that are actual outputs
         of DASUSs in the CDB """
         # Act:
-        iasios_data = IasiosReader.read_alarm_iasios()
+        iasios_data = CdbReader.read_alarm_iasios()
         # Asserts:
         expected_data = [
             {

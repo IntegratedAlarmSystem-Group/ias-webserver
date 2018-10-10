@@ -10,13 +10,13 @@ from ias_webserver.settings import (
 )
 
 
-class IasReader:
-    """ Class that defines a reader for the ias.json file of the CDB """
+class CdbReader:
+    """ Defines a reader for the CDB """
 
     @classmethod
     def read_ias(self):
         """
-        Reads the IAS json file of the CDB and initializes what is necessary
+        Reads the ias.json file of the CDB and initializes what is necessary
         for the application to start
 
         Returns:
@@ -27,10 +27,6 @@ class IasReader:
             ias_data = json.load(file)
         ias_data['broadcastFactor'] = str(BROADCAST_RATE_FACTOR)
         return ias_data
-
-
-class IasiosReader:
-    """ Class that defines a reader for the IASIOs from the CDB """
 
     @classmethod
     def read_alarm_iasios(self):
@@ -52,7 +48,7 @@ class IasiosReader:
             if "templateId" not in iasio:
                 valid_iasios.append(iasio)
             else:
-                template_range = IasiosReader.find_template_range(
+                template_range = CdbReader.find_template_range(
                     iasio['templateId'], templates
                 )
                 for i in template_range:

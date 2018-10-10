@@ -1,4 +1,4 @@
-from cdb.readers import IasReader, IasiosReader
+from cdb.readers import CdbReader
 from tickets.models import Ticket, TicketStatus
 from tickets.models import ShelveRegistry, ShelveRegistryStatus
 
@@ -18,17 +18,12 @@ class CdbConnector():
     @classmethod
     def get_iasios(self, type=None):
         """ Return a list of iasios filtered by type formatted as dict """
-        return IasiosReader.read_alarm_iasios()
-        # if type:
-        #     iasios = Iasio.objects.filter(ias_type=type.upper())
-        # else:
-        #     iasios = Iasio.objects.all()
-        # return [iasio.get_data() for iasio in iasios]
+        return CdbReader.read_alarm_iasios()
 
     @classmethod
     def initialize_ias(self, pk=0):
         """ Return the ias if exist or None if it is not. """
-        data = IasReader.read_ias()
+        data = CdbReader.read_ias()
         if data and "refreshRate" in data and "tolerance" in data:
             self.refresh_rate = int(data['refreshRate'])*1000
             self.tolerance = int(data['tolerance'])*1000
