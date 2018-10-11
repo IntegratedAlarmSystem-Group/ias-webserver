@@ -105,6 +105,38 @@
     }
   },
   {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "INNER",
+      "description": "Inner array, including central cluster and ACA"
+    },
+    "pk": 0
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "W",
+      "description": "Western arm of the array"
+    },
+    "pk": 1
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "S",
+      "description": "Southern arm of the array"
+    },
+    "pk": 2
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "P",
+      "description": "Pampa La Bola arm"
+    },
+    "pk": 3
+  },
+  {
     "model": "panels.placemark",
     "pk": 1,
     "fields": {
@@ -112,7 +144,8 @@
       "x": 0.0,
       "y": 0.0,
       "coordinates_type": "G",
-      "type": 1
+      "type": 1,
+      "group": 0
     }
   },
   {
@@ -123,7 +156,8 @@
       "x": 0.0,
       "y": 0.0,
       "coordinates_type": "G",
-      "type": 1
+      "type": 1,
+      "group": 1
     }
   },
   {
@@ -134,7 +168,8 @@
       "x": 0.0,
       "y": 0.0,
       "coordinates_type": "G",
-      "type": 1
+      "type": 1,
+      "group": 3
     }
   },
   {
@@ -145,7 +180,8 @@
       "x": 0.0,
       "y": 0.0,
       "coordinates_type": "G",
-      "type": 1
+      "type": 1,
+      "group": 2
     }
   },
   {

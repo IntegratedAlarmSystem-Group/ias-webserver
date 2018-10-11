@@ -395,20 +395,28 @@ class AlarmConfigApiTestCase(TestCase):
         self.antennas_view = View.objects.create(name='antennas')
         self.summary_view = View.objects.create(name='summary')
         self.placemark_type = PlacemarkType.objects.create(name='pad')
+        self.placemark_groups = [
+            PlacemarkGroup.objects.create(name='group1'),
+            PlacemarkGroup.objects.create(name='group2')
+        ]
+
         self.placemarks = [
             Placemark.objects.create(
                 name="placemark_station_1",
                 x=0.0,
                 y=0.0,
                 coordinates_type=CoordinateType.GEOGRAPHICAL,
-                type=self.placemark_type
+                type=self.placemark_type,
+                group=self.placemark_groups[0]
             ),
             Placemark.objects.create(
                 name="placemark_station_2",
                 x=0.0,
                 y=0.0,
                 coordinates_type=CoordinateType.GEOGRAPHICAL,
-                type=self.placemark_type
+                type=self.placemark_type,
+                group=self.placemark_groups[1]
+
             ),
             Placemark.objects.create(
                 name="placemark_pad_1",
@@ -579,6 +587,7 @@ class AlarmConfigApiTestCase(TestCase):
         expected_data = [
             {
                 'placemark': 'placemark_station_1',
+                'group': 'group1',
                 'station': 'station_alarm_1',
                 'temperature': 'temperature_alarm_1',
                 'windspeed': 'windspeed_alarm_1',
@@ -586,6 +595,7 @@ class AlarmConfigApiTestCase(TestCase):
             },
             {
                 'placemark': 'placemark_station_2',
+                'group': 'group2',
                 'station': 'station_alarm_2',
                 'temperature': 'temperature_alarm_2',
                 'windspeed': 'windspeed_alarm_2',
@@ -744,7 +754,14 @@ class PlacemarkApiTestCase(TestCase):
                 coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type,
                 group=self.placemark_groups[1]
-            )
+            ),
+            Placemark.objects.create(
+                name="PAD4",
+                x=0.0,
+                y=0.0,
+                coordinates_type=CoordinateType.GEOGRAPHICAL,
+                type=self.placemark_type
+            ),
         ]
         self.antenna_type = Type.objects.create(name='antenna')
         self.antennas_view = View.objects.create(name='antennas')
@@ -771,7 +788,15 @@ class PlacemarkApiTestCase(TestCase):
                 type=self.antenna_type,
                 custom_name="A003",
                 tags="group_B"
-            )
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_4",
+                view=self.antennas_view,
+                type=self.antenna_type,
+                placemark=self.placemarks[3],
+                custom_name="A004",
+                tags="group_A"
+            ),
         ]
 
         self.client = APIClient()
@@ -780,12 +805,8 @@ class PlacemarkApiTestCase(TestCase):
         """ Test can retrieve the pads by group in the required format """
         # Arrange:
         expected_response = {
-            "members": {
+            "GROUP1": {
                 "PAD1": "A001"
-            },
-            "not_members": {
-                "PAD2": "A002",
-                "PAD3": None
             }
         }
 
@@ -811,12 +832,15 @@ class PlacemarkApiTestCase(TestCase):
         """ Test can retrieve the pads without group in the required format """
         # Arrange:
         expected_response = {
-            "members": {
-                "PAD1": "A001",
+            "GROUP1": {
+                "PAD1": "A001"
+            },
+            "GROUP2": {
                 "PAD2": "A002",
                 "PAD3": None
             },
-            "not_members": {
+            "other": {
+                "PAD4": "A004"
             }
         }
 

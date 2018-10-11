@@ -66,8 +66,12 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             humidity = alarm.nested_alarms.filter(
                 type__name="humidity")
 
+            group_name = ""
+            if alarm.placemark and alarm.placemark.group:
+                group_name = alarm.placemark.group.name
             data.append({
                 "placemark": alarm.placemark.name if alarm.placemark else "",
+                "group": group_name,
                 "station": alarm.alarm_id,
                 "temperature": temperature[0].alarm_id if temperature else "",
                 "windspeed": windspeed[0].alarm_id if windspeed else "",
@@ -202,24 +206,30 @@ class PlacemarkViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+        response = {}
         pads = self.queryset.filter(type__name="pad")
-        member_pads = None
-        not_member_pads = None
         if group_name:
+            response[group_name] = {}
             member_pads = pads.filter(group__name=group_name)
-            not_member_pads = pads.filter(~Q(group__name=group_name))
+            for pad in member_pads:
+                antenna = None
+                if hasattr(pad, 'alarm'):
+                    antenna = pad.alarm.custom_name
+                response[group_name][pad.name] = antenna
+
         else:
-            member_pads = pads
-            not_member_pads = []
+            for pad in pads:
+                antenna = None
+                if hasattr(pad, 'alarm'):
+                    antenna = pad.alarm.custom_name
+                group = pad.group.name if pad.group else None
+                if group:
+                    if group not in response:
+                        response[group] = {}
+                    response[group][pad.name] = antenna
+                else:
+                    if 'other' not in response:
+                        response['other'] = {}
+                    response['other'][pad.name] = antenna
 
-        members = {}
-        for pad in member_pads:
-            antenna = pad.alarm.custom_name if hasattr(pad, 'alarm') else None
-            members[pad.name] = antenna
-
-        not_members = {}
-        for pad in not_member_pads:
-            antenna = pad.alarm.custom_name if hasattr(pad, 'alarm') else None
-            not_members[pad.name] = antenna
-
-        return Response({"members": members, "not_members": not_members})
+        return Response(response)
