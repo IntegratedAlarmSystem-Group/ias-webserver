@@ -67,9 +67,13 @@ class AlarmCollection:
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
             for iasio in iasios:
-                if iasio['ias_type'].upper() == 'ALARM':
+                if iasio['iasType'].upper() == 'ALARM':
                     current_time_millis = int(round(time.time() * 1000))
-                    alarm_id = iasio['io_id']
+                    alarm_id = iasio['id']
+                    if 'shortDesc'not in iasio:
+                        iasio['shortDesc'] = ""
+                    if 'docUrl'not in iasio:
+                        iasio['docUrl'] = ""
                     alarm = Alarm(
                         value=0,
                         mode=7,
@@ -77,8 +81,8 @@ class AlarmCollection:
                         core_timestamp=current_time_millis,
                         core_id=alarm_id,
                         running_id='({}:IASIO)'.format(alarm_id),
-                        description=iasio['short_desc'],
-                        url=iasio['doc_url'],
+                        description=iasio['shortDesc'],
+                        url=iasio['docUrl'],
                     )
                     self.add(alarm)
         return self.singleton_collection
