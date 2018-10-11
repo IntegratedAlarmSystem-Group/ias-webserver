@@ -91,13 +91,71 @@
     }
   },
   {
+    "model": "panels.placemarktype",
+    "pk": 1,
+    "fields": {
+      "name": "primary_station"
+    }
+  },
+  {
+    "model": "panels.placemarktype",
+    "pk": 2,
+    "fields": {
+      "name": "secondary_station"
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "pk": 1,
+    "fields": {
+      "name": "MeteoCentral",
+      "x": 0.0,
+      "y": 0.0,
+      "coordinates_type": "G",
+      "type": 1
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "pk": 2,
+    "fields": {
+      "name": "Meteo201",
+      "x": 0.0,
+      "y": 0.0,
+      "coordinates_type": "G",
+      "type": 1
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "pk": 3,
+    "fields": {
+      "name": "Meteo410",
+      "x": 0.0,
+      "y": 0.0,
+      "coordinates_type": "G",
+      "type": 1
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "pk": 4,
+    "fields": {
+      "name": "Meteo309",
+      "x": 0.0,
+      "y": 0.0,
+      "coordinates_type": "G",
+      "type": 1
+    }
+  },
+  {
     "model": "panels.alarmconfig",
     "pk": 1,
     "fields": {
       "alarm_id": "WS-Inner",
       "view": 2,
       "type": 1,
-      "placemark":"MeteoCentral"
+      "placemark": 1
     }
   },
   {
@@ -137,7 +195,7 @@
       "alarm_id": "WS-W",
       "view": 2,
       "type": 1,
-      "placemark":"Meteo201"
+      "placemark": 2
     }
   },
   {
@@ -177,7 +235,7 @@
       "alarm_id": "WS-P",
       "view": 2,
       "type": 1,
-      "placemark":"Meteo410"
+      "placemark": 3
     }
   },
   {
@@ -217,7 +275,7 @@
       "alarm_id": "WS-S",
       "view": 2,
       "type": 1,
-      "placemark":"Meteo309"
+      "placemark": 4
     }
   },
   {
@@ -284,7 +342,6 @@
       "alarm_id": "Array-Ant instance 1",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV01",
       "tags": "DV"
     }
@@ -296,7 +353,6 @@
       "alarm_id": "Array-Ant instance 2",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV02",
       "tags": "DV"
     }
@@ -308,7 +364,6 @@
       "alarm_id": "Array-Ant instance 3",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV03",
       "tags": "DV"
     }
@@ -320,7 +375,6 @@
       "alarm_id": "Array-Ant instance 4",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV04",
       "tags": "DV"
     }
@@ -332,7 +386,6 @@
       "alarm_id": "Array-Ant instance 5",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV05",
       "tags": "DV"
     }
@@ -344,7 +397,6 @@
       "alarm_id": "Array-Ant instance 6",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV06",
       "tags": "DV"
     }
@@ -356,7 +408,6 @@
       "alarm_id": "Array-Ant instance 7",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV07",
       "tags": "DV"
     }
@@ -368,7 +419,6 @@
       "alarm_id": "Array-Ant instance 8",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV08",
       "tags": "DV"
     }
@@ -380,7 +430,6 @@
       "alarm_id": "Array-Ant instance 9",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV09",
       "tags": "DV"
     }
@@ -392,7 +441,6 @@
       "alarm_id": "Array-Ant instance 10",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV10",
       "tags": "DV"
     }
@@ -404,7 +452,6 @@
       "alarm_id": "Array-Ant instance 11",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV11",
       "tags": "DV"
     }
@@ -416,7 +463,6 @@
       "alarm_id": "Array-Ant instance 12",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV12",
       "tags": "DV"
     }
@@ -428,7 +474,6 @@
       "alarm_id": "Array-Ant instance 13",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV13",
       "tags": "DV"
     }
@@ -440,7 +485,6 @@
       "alarm_id": "Array-Ant instance 14",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV14",
       "tags": "DV"
     }
@@ -452,7 +496,6 @@
       "alarm_id": "Array-Ant instance 15",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV15",
       "tags": "DV"
     }
@@ -464,7 +507,6 @@
       "alarm_id": "Array-Ant instance 16",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV16",
       "tags": "DV"
     }
@@ -476,7 +518,6 @@
       "alarm_id": "Array-Ant instance 17",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV17",
       "tags": "DV"
     }
@@ -488,7 +529,6 @@
       "alarm_id": "Array-Ant instance 18",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV18",
       "tags": "DV"
     }
@@ -500,7 +540,6 @@
       "alarm_id": "Array-Ant instance 19",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV19",
       "tags": "DV"
     }
@@ -512,7 +551,6 @@
       "alarm_id": "Array-Ant instance 20",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV20",
       "tags": "DV"
     }
@@ -524,7 +562,6 @@
       "alarm_id": "Array-Ant instance 21",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV21",
       "tags": "DV"
     }
@@ -536,7 +573,6 @@
       "alarm_id": "Array-Ant instance 22",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV22",
       "tags": "DV"
     }
@@ -548,7 +584,6 @@
       "alarm_id": "Array-Ant instance 23",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV23",
       "tags": "DV"
     }
@@ -560,7 +595,6 @@
       "alarm_id": "Array-Ant instance 24",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV24",
       "tags": "DV"
     }
@@ -572,7 +606,6 @@
       "alarm_id": "Array-Ant instance 25",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DV25",
       "tags": "DV"
     }
@@ -584,7 +617,6 @@
       "alarm_id": "Array-Ant instance 26",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA41",
       "tags": "DA"
     }
@@ -596,7 +628,6 @@
       "alarm_id": "Array-Ant instance 27",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA42",
       "tags": "DA"
     }
@@ -608,7 +639,6 @@
       "alarm_id": "Array-Ant instance 28",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA43",
       "tags": "DA"
     }
@@ -620,7 +650,6 @@
       "alarm_id": "Array-Ant instance 29",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA44",
       "tags": "DA"
     }
@@ -632,7 +661,6 @@
       "alarm_id": "Array-Ant instance 30",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA45",
       "tags": "DA"
     }
@@ -644,7 +672,6 @@
       "alarm_id": "Array-Ant instance 31",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA46",
       "tags": "DA"
     }
@@ -656,7 +683,6 @@
       "alarm_id": "Array-Ant instance 32",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA47",
       "tags": "DA"
     }
@@ -668,7 +694,6 @@
       "alarm_id": "Array-Ant instance 33",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA48",
       "tags": "DA"
     }
@@ -680,7 +705,6 @@
       "alarm_id": "Array-Ant instance 34",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA49",
       "tags": "DA"
     }
@@ -692,7 +716,6 @@
       "alarm_id": "Array-Ant instance 35",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA50",
       "tags": "DA"
     }
@@ -704,7 +727,6 @@
       "alarm_id": "Array-Ant instance 36",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA51",
       "tags": "DA"
     }
@@ -716,7 +738,6 @@
       "alarm_id": "Array-Ant instance 37",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA52",
       "tags": "DA"
     }
@@ -728,7 +749,6 @@
       "alarm_id": "Array-Ant instance 38",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA53",
       "tags": "DA"
     }
@@ -740,7 +760,6 @@
       "alarm_id": "Array-Ant instance 39",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA54",
       "tags": "DA"
     }
@@ -752,7 +771,6 @@
       "alarm_id": "Array-Ant instance 40",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA55",
       "tags": "DA"
     }
@@ -764,7 +782,6 @@
       "alarm_id": "Array-Ant instance 41",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA56",
       "tags": "DA"
     }
@@ -776,7 +793,6 @@
       "alarm_id": "Array-Ant instance 42",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA57",
       "tags": "DA"
     }
@@ -788,7 +804,6 @@
       "alarm_id": "Array-Ant instance 43",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA58",
       "tags": "DA"
     }
@@ -800,7 +815,6 @@
       "alarm_id": "Array-Ant instance 44",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA59",
       "tags": "DA"
     }
@@ -812,7 +826,6 @@
       "alarm_id": "Array-Ant instance 45",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA60",
       "tags": "DA"
     }
@@ -824,7 +837,6 @@
       "alarm_id": "Array-Ant instance 46",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA61",
       "tags": "DA"
     }
@@ -836,7 +848,6 @@
       "alarm_id": "Array-Ant instance 47",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA62",
       "tags": "DA"
     }
@@ -848,7 +859,6 @@
       "alarm_id": "Array-Ant instance 48",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA63",
       "tags": "DA"
     }
@@ -860,7 +870,6 @@
       "alarm_id": "Array-Ant instance 49",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA64",
       "tags": "DA"
     }
@@ -872,7 +881,6 @@
       "alarm_id": "Array-Ant instance 50",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "DA65",
       "tags": "DA"
     }
@@ -884,7 +892,6 @@
       "alarm_id": "Array-Ant instance 51",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM01",
       "tags": "CM"
     }
@@ -896,7 +903,6 @@
       "alarm_id": "Array-Ant instance 52",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM02",
       "tags": "CM"
     }
@@ -908,7 +914,6 @@
       "alarm_id": "Array-Ant instance 53",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM03",
       "tags": "CM"
     }
@@ -920,7 +925,6 @@
       "alarm_id": "Array-Ant instance 54",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM04",
       "tags": "CM"
     }
@@ -932,7 +936,6 @@
       "alarm_id": "Array-Ant instance 55",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM05",
       "tags": "CM"
     }
@@ -944,7 +947,6 @@
       "alarm_id": "Array-Ant instance 56",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM06",
       "tags": "CM"
     }
@@ -956,7 +958,6 @@
       "alarm_id": "Array-Ant instance 57",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM07",
       "tags": "CM"
     }
@@ -968,7 +969,6 @@
       "alarm_id": "Array-Ant instance 58",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM08",
       "tags": "CM"
     }
@@ -980,7 +980,6 @@
       "alarm_id": "Array-Ant instance 59",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM09",
       "tags": "CM"
     }
@@ -992,7 +991,6 @@
       "alarm_id": "Array-Ant instance 60",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM10",
       "tags": "CM"
     }
@@ -1004,7 +1002,6 @@
       "alarm_id": "Array-Ant instance 61",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM11",
       "tags": "CM"
     }
@@ -1016,7 +1013,6 @@
       "alarm_id": "Array-Ant instance 62",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "CM12",
       "tags": "CM"
     }
@@ -1028,7 +1024,6 @@
       "alarm_id": "Array-Ant instance 63",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "PM01",
       "tags": "PM"
     }
@@ -1040,7 +1035,6 @@
       "alarm_id": "Array-Ant instance 64",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "PM02",
       "tags": "PM"
     }
@@ -1052,7 +1046,6 @@
       "alarm_id": "Array-Ant instance 65",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "PM03",
       "tags": "PM"
     }
@@ -1064,7 +1057,6 @@
       "alarm_id": "Array-Ant instance 66",
       "view": 1,
       "type": 5,
-      "placemark": "",
       "custom_name": "PM04",
       "tags": "PM"
     }

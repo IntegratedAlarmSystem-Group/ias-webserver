@@ -3,8 +3,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from panels.models import File, AlarmConfig, View, Type
+from panels.models import (
+    File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
 from panels.serializers import FileSerializer, AlarmConfigSerializer
+from django.db.models import Q
 
 
 class FileViewSet(viewsets.ModelViewSet):
@@ -53,20 +55,20 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             )
 
         data = []
-        for station_alarm in weather_station_alarms:
+        for alarm in weather_station_alarms:
 
-            temperature = station_alarm.nested_alarms.filter(
+            temperature = alarm.nested_alarms.filter(
                 type__name="temperature")
 
-            windspeed = station_alarm.nested_alarms.filter(
+            windspeed = alarm.nested_alarms.filter(
                 type__name="windspeed")
 
-            humidity = station_alarm.nested_alarms.filter(
+            humidity = alarm.nested_alarms.filter(
                 type__name="humidity")
 
             data.append({
-                "placemark": station_alarm.placemark,
-                "station": station_alarm.alarm_id,
+                "placemark": alarm.placemark.name if alarm.placemark else "",
+                "station": alarm.alarm_id,
                 "temperature": temperature[0].alarm_id if temperature else "",
                 "windspeed": windspeed[0].alarm_id if windspeed else "",
                 "humidity": humidity[0].alarm_id if humidity else ""
@@ -110,7 +112,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             data[alarm.tags].append(
                 {
                   "antenna": alarm.custom_name,
-                  "placemark": alarm.placemark,
+                  "placemark": alarm.placemark.name if alarm.placemark else "",
                   "alarm": alarm.alarm_id,
                   "fire": fire[0].alarm_id if fire else "",
                   "fire_malfunction": fire_sys[0].alarm_id if fire_sys else "",
@@ -180,3 +182,44 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                 'There is no configuration for weather summary alarms',
                 status=status.HTTP_404_NOT_FOUND
             )
+
+
+class PlacemarkViewSet(viewsets.ModelViewSet):
+    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Files."""
+
+    queryset = Placemark.objects.all()
+    groups = PlacemarkGroup.objects.all()
+
+    @action(detail=False)
+    def pads_by_group(self, request):
+        """ Retrieve the list of pads and their associated antenna by group """
+        group_name = self.request.query_params.get('group', None)
+
+        group = self.groups.filter(name=group_name).first()
+        if group_name and not group:
+            return Response(
+                'There is no group with the given name',
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        pads = self.queryset.filter(type__name="pad")
+        member_pads = None
+        not_member_pads = None
+        if group_name:
+            member_pads = pads.filter(group__name=group_name)
+            not_member_pads = pads.filter(~Q(group__name=group_name))
+        else:
+            member_pads = pads
+            not_member_pads = []
+
+        members = {}
+        for pad in member_pads:
+            antenna = pad.alarm.custom_name if hasattr(pad, 'alarm') else None
+            members[pad.name] = antenna
+
+        not_members = {}
+        for pad in not_member_pads:
+            antenna = pad.alarm.custom_name if hasattr(pad, 'alarm') else None
+            not_members[pad.name] = antenna
+
+        return Response({"members": members, "not_members": not_members})
