@@ -339,7 +339,7 @@
     "model": "panels.alarmconfig",
     "pk": 24,
     "fields": {
-      "alarm_id": "Array-Ant[!#1!]",
+      "alarm_id": "Array-Ant instance 1",
       "view": 1,
       "type": 5,
       "custom_name": "DV01",
@@ -350,7 +350,7 @@
     "model": "panels.alarmconfig",
     "pk": 25,
     "fields": {
-      "alarm_id": "Array-Ant[!#2!]",
+      "alarm_id": "Array-Ant instance 2",
       "view": 1,
       "type": 5,
       "custom_name": "DV02",
@@ -361,7 +361,7 @@
     "model": "panels.alarmconfig",
     "pk": 26,
     "fields": {
-      "alarm_id": "Array-Ant[!#3!]",
+      "alarm_id": "Array-Ant instance 3",
       "view": 1,
       "type": 5,
       "custom_name": "DV03",
@@ -372,7 +372,7 @@
     "model": "panels.alarmconfig",
     "pk": 27,
     "fields": {
-      "alarm_id": "Array-Ant[!#4!]",
+      "alarm_id": "Array-Ant instance 4",
       "view": 1,
       "type": 5,
       "custom_name": "DV04",
@@ -383,7 +383,7 @@
     "model": "panels.alarmconfig",
     "pk": 28,
     "fields": {
-      "alarm_id": "Array-Ant[!#5!]",
+      "alarm_id": "Array-Ant instance 5",
       "view": 1,
       "type": 5,
       "custom_name": "DV05",
@@ -394,7 +394,7 @@
     "model": "panels.alarmconfig",
     "pk": 29,
     "fields": {
-      "alarm_id": "Array-Ant[!#6!]",
+      "alarm_id": "Array-Ant instance 6",
       "view": 1,
       "type": 5,
       "custom_name": "DV06",
@@ -405,7 +405,7 @@
     "model": "panels.alarmconfig",
     "pk": 30,
     "fields": {
-      "alarm_id": "Array-Ant[!#7!]",
+      "alarm_id": "Array-Ant instance 7",
       "view": 1,
       "type": 5,
       "custom_name": "DV07",
@@ -416,7 +416,7 @@
     "model": "panels.alarmconfig",
     "pk": 31,
     "fields": {
-      "alarm_id": "Array-Ant[!#8!]",
+      "alarm_id": "Array-Ant instance 8",
       "view": 1,
       "type": 5,
       "custom_name": "DV08",
@@ -427,7 +427,7 @@
     "model": "panels.alarmconfig",
     "pk": 32,
     "fields": {
-      "alarm_id": "Array-Ant[!#9!]",
+      "alarm_id": "Array-Ant instance 9",
       "view": 1,
       "type": 5,
       "custom_name": "DV09",
@@ -438,7 +438,7 @@
     "model": "panels.alarmconfig",
     "pk": 33,
     "fields": {
-      "alarm_id": "Array-Ant[!#10!]",
+      "alarm_id": "Array-Ant instance 10",
       "view": 1,
       "type": 5,
       "custom_name": "DV10",
@@ -449,7 +449,7 @@
     "model": "panels.alarmconfig",
     "pk": 34,
     "fields": {
-      "alarm_id": "Array-Ant[!#11!]",
+      "alarm_id": "Array-Ant instance 11",
       "view": 1,
       "type": 5,
       "custom_name": "DV11",
@@ -460,7 +460,7 @@
     "model": "panels.alarmconfig",
     "pk": 35,
     "fields": {
-      "alarm_id": "Array-Ant[!#12!]",
+      "alarm_id": "Array-Ant instance 12",
       "view": 1,
       "type": 5,
       "custom_name": "DV12",
@@ -471,7 +471,7 @@
     "model": "panels.alarmconfig",
     "pk": 36,
     "fields": {
-      "alarm_id": "Array-Ant[!#13!]",
+      "alarm_id": "Array-Ant instance 13",
       "view": 1,
       "type": 5,
       "custom_name": "DV13",
@@ -482,7 +482,7 @@
     "model": "panels.alarmconfig",
     "pk": 37,
     "fields": {
-      "alarm_id": "Array-Ant[!#14!]",
+      "alarm_id": "Array-Ant instance 14",
       "view": 1,
       "type": 5,
       "custom_name": "DV14",
@@ -493,7 +493,7 @@
     "model": "panels.alarmconfig",
     "pk": 38,
     "fields": {
-      "alarm_id": "Array-Ant[!#15!]",
+      "alarm_id": "Array-Ant instance 15",
       "view": 1,
       "type": 5,
       "custom_name": "DV15",
@@ -504,7 +504,7 @@
     "model": "panels.alarmconfig",
     "pk": 39,
     "fields": {
-      "alarm_id": "Array-Ant[!#16!]",
+      "alarm_id": "Array-Ant instance 16",
       "view": 1,
       "type": 5,
       "custom_name": "DV16",
@@ -515,7 +515,7 @@
     "model": "panels.alarmconfig",
     "pk": 40,
     "fields": {
-      "alarm_id": "Array-Ant[!#17!]",
+      "alarm_id": "Array-Ant instance 17",
       "view": 1,
       "type": 5,
       "custom_name": "DV17",
@@ -526,7 +526,7 @@
     "model": "panels.alarmconfig",
     "pk": 41,
     "fields": {
-      "alarm_id": "Array-Ant[!#18!]",
+      "alarm_id": "Array-Ant instance 18",
       "view": 1,
       "type": 5,
       "custom_name": "DV18",
@@ -537,7 +537,7 @@
     "model": "panels.alarmconfig",
     "pk": 42,
     "fields": {
-      "alarm_id": "Array-Ant[!#19!]",
+      "alarm_id": "Array-Ant instance 19",
       "view": 1,
       "type": 5,
       "custom_name": "DV19",
@@ -548,7 +548,7 @@
     "model": "panels.alarmconfig",
     "pk": 43,
     "fields": {
-      "alarm_id": "Array-Ant[!#20!]",
+      "alarm_id": "Array-Ant instance 20",
       "view": 1,
       "type": 5,
       "custom_name": "DV20",
@@ -559,7 +559,7 @@
     "model": "panels.alarmconfig",
     "pk": 44,
     "fields": {
-      "alarm_id": "Array-Ant[!#21!]",
+      "alarm_id": "Array-Ant instance 21",
       "view": 1,
       "type": 5,
       "custom_name": "DV21",
@@ -570,7 +570,7 @@
     "model": "panels.alarmconfig",
     "pk": 45,
     "fields": {
-      "alarm_id": "Array-Ant[!#22!]",
+      "alarm_id": "Array-Ant instance 22",
       "view": 1,
       "type": 5,
       "custom_name": "DV22",
@@ -581,7 +581,7 @@
     "model": "panels.alarmconfig",
     "pk": 46,
     "fields": {
-      "alarm_id": "Array-Ant[!#23!]",
+      "alarm_id": "Array-Ant instance 23",
       "view": 1,
       "type": 5,
       "custom_name": "DV23",
@@ -592,7 +592,7 @@
     "model": "panels.alarmconfig",
     "pk": 47,
     "fields": {
-      "alarm_id": "Array-Ant[!#24!]",
+      "alarm_id": "Array-Ant instance 24",
       "view": 1,
       "type": 5,
       "custom_name": "DV24",
@@ -603,7 +603,7 @@
     "model": "panels.alarmconfig",
     "pk": 48,
     "fields": {
-      "alarm_id": "Array-Ant[!#25!]",
+      "alarm_id": "Array-Ant instance 25",
       "view": 1,
       "type": 5,
       "custom_name": "DV25",
@@ -614,7 +614,7 @@
     "model": "panels.alarmconfig",
     "pk": 49,
     "fields": {
-      "alarm_id": "Array-Ant[!#26!]",
+      "alarm_id": "Array-Ant instance 26",
       "view": 1,
       "type": 5,
       "custom_name": "DA41",
@@ -625,7 +625,7 @@
     "model": "panels.alarmconfig",
     "pk": 50,
     "fields": {
-      "alarm_id": "Array-Ant[!#27!]",
+      "alarm_id": "Array-Ant instance 27",
       "view": 1,
       "type": 5,
       "custom_name": "DA42",
@@ -636,7 +636,7 @@
     "model": "panels.alarmconfig",
     "pk": 51,
     "fields": {
-      "alarm_id": "Array-Ant[!#28!]",
+      "alarm_id": "Array-Ant instance 28",
       "view": 1,
       "type": 5,
       "custom_name": "DA43",
@@ -647,7 +647,7 @@
     "model": "panels.alarmconfig",
     "pk": 52,
     "fields": {
-      "alarm_id": "Array-Ant[!#29!]",
+      "alarm_id": "Array-Ant instance 29",
       "view": 1,
       "type": 5,
       "custom_name": "DA44",
@@ -658,7 +658,7 @@
     "model": "panels.alarmconfig",
     "pk": 53,
     "fields": {
-      "alarm_id": "Array-Ant[!#30!]",
+      "alarm_id": "Array-Ant instance 30",
       "view": 1,
       "type": 5,
       "custom_name": "DA45",
@@ -669,7 +669,7 @@
     "model": "panels.alarmconfig",
     "pk": 54,
     "fields": {
-      "alarm_id": "Array-Ant[!#31!]",
+      "alarm_id": "Array-Ant instance 31",
       "view": 1,
       "type": 5,
       "custom_name": "DA46",
@@ -680,7 +680,7 @@
     "model": "panels.alarmconfig",
     "pk": 55,
     "fields": {
-      "alarm_id": "Array-Ant[!#32!]",
+      "alarm_id": "Array-Ant instance 32",
       "view": 1,
       "type": 5,
       "custom_name": "DA47",
@@ -691,7 +691,7 @@
     "model": "panels.alarmconfig",
     "pk": 56,
     "fields": {
-      "alarm_id": "Array-Ant[!#33!]",
+      "alarm_id": "Array-Ant instance 33",
       "view": 1,
       "type": 5,
       "custom_name": "DA48",
@@ -702,7 +702,7 @@
     "model": "panels.alarmconfig",
     "pk": 57,
     "fields": {
-      "alarm_id": "Array-Ant[!#34!]",
+      "alarm_id": "Array-Ant instance 34",
       "view": 1,
       "type": 5,
       "custom_name": "DA49",
@@ -713,7 +713,7 @@
     "model": "panels.alarmconfig",
     "pk": 58,
     "fields": {
-      "alarm_id": "Array-Ant[!#35!]",
+      "alarm_id": "Array-Ant instance 35",
       "view": 1,
       "type": 5,
       "custom_name": "DA50",
@@ -724,7 +724,7 @@
     "model": "panels.alarmconfig",
     "pk": 59,
     "fields": {
-      "alarm_id": "Array-Ant[!#36!]",
+      "alarm_id": "Array-Ant instance 36",
       "view": 1,
       "type": 5,
       "custom_name": "DA51",
@@ -735,7 +735,7 @@
     "model": "panels.alarmconfig",
     "pk": 60,
     "fields": {
-      "alarm_id": "Array-Ant[!#37!]",
+      "alarm_id": "Array-Ant instance 37",
       "view": 1,
       "type": 5,
       "custom_name": "DA52",
@@ -746,7 +746,7 @@
     "model": "panels.alarmconfig",
     "pk": 61,
     "fields": {
-      "alarm_id": "Array-Ant[!#38!]",
+      "alarm_id": "Array-Ant instance 38",
       "view": 1,
       "type": 5,
       "custom_name": "DA53",
@@ -757,7 +757,7 @@
     "model": "panels.alarmconfig",
     "pk": 62,
     "fields": {
-      "alarm_id": "Array-Ant[!#39!]",
+      "alarm_id": "Array-Ant instance 39",
       "view": 1,
       "type": 5,
       "custom_name": "DA54",
@@ -768,7 +768,7 @@
     "model": "panels.alarmconfig",
     "pk": 63,
     "fields": {
-      "alarm_id": "Array-Ant[!#40!]",
+      "alarm_id": "Array-Ant instance 40",
       "view": 1,
       "type": 5,
       "custom_name": "DA55",
@@ -779,7 +779,7 @@
     "model": "panels.alarmconfig",
     "pk": 64,
     "fields": {
-      "alarm_id": "Array-Ant[!#41!]",
+      "alarm_id": "Array-Ant instance 41",
       "view": 1,
       "type": 5,
       "custom_name": "DA56",
@@ -790,7 +790,7 @@
     "model": "panels.alarmconfig",
     "pk": 65,
     "fields": {
-      "alarm_id": "Array-Ant[!#42!]",
+      "alarm_id": "Array-Ant instance 42",
       "view": 1,
       "type": 5,
       "custom_name": "DA57",
@@ -801,7 +801,7 @@
     "model": "panels.alarmconfig",
     "pk": 66,
     "fields": {
-      "alarm_id": "Array-Ant[!#43!]",
+      "alarm_id": "Array-Ant instance 43",
       "view": 1,
       "type": 5,
       "custom_name": "DA58",
@@ -812,7 +812,7 @@
     "model": "panels.alarmconfig",
     "pk": 67,
     "fields": {
-      "alarm_id": "Array-Ant[!#44!]",
+      "alarm_id": "Array-Ant instance 44",
       "view": 1,
       "type": 5,
       "custom_name": "DA59",
@@ -823,7 +823,7 @@
     "model": "panels.alarmconfig",
     "pk": 68,
     "fields": {
-      "alarm_id": "Array-Ant[!#45!]",
+      "alarm_id": "Array-Ant instance 45",
       "view": 1,
       "type": 5,
       "custom_name": "DA60",
@@ -834,7 +834,7 @@
     "model": "panels.alarmconfig",
     "pk": 69,
     "fields": {
-      "alarm_id": "Array-Ant[!#46!]",
+      "alarm_id": "Array-Ant instance 46",
       "view": 1,
       "type": 5,
       "custom_name": "DA61",
@@ -845,7 +845,7 @@
     "model": "panels.alarmconfig",
     "pk": 70,
     "fields": {
-      "alarm_id": "Array-Ant[!#47!]",
+      "alarm_id": "Array-Ant instance 47",
       "view": 1,
       "type": 5,
       "custom_name": "DA62",
@@ -856,7 +856,7 @@
     "model": "panels.alarmconfig",
     "pk": 71,
     "fields": {
-      "alarm_id": "Array-Ant[!#48!]",
+      "alarm_id": "Array-Ant instance 48",
       "view": 1,
       "type": 5,
       "custom_name": "DA63",
@@ -867,7 +867,7 @@
     "model": "panels.alarmconfig",
     "pk": 72,
     "fields": {
-      "alarm_id": "Array-Ant[!#49!]",
+      "alarm_id": "Array-Ant instance 49",
       "view": 1,
       "type": 5,
       "custom_name": "DA64",
@@ -878,7 +878,7 @@
     "model": "panels.alarmconfig",
     "pk": 73,
     "fields": {
-      "alarm_id": "Array-Ant[!#50!]",
+      "alarm_id": "Array-Ant instance 50",
       "view": 1,
       "type": 5,
       "custom_name": "DA65",
@@ -889,7 +889,7 @@
     "model": "panels.alarmconfig",
     "pk": 74,
     "fields": {
-      "alarm_id": "Array-Ant[!#51!]",
+      "alarm_id": "Array-Ant instance 51",
       "view": 1,
       "type": 5,
       "custom_name": "CM01",
@@ -900,7 +900,7 @@
     "model": "panels.alarmconfig",
     "pk": 75,
     "fields": {
-      "alarm_id": "Array-Ant[!#52!]",
+      "alarm_id": "Array-Ant instance 52",
       "view": 1,
       "type": 5,
       "custom_name": "CM02",
@@ -911,7 +911,7 @@
     "model": "panels.alarmconfig",
     "pk": 76,
     "fields": {
-      "alarm_id": "Array-Ant[!#53!]",
+      "alarm_id": "Array-Ant instance 53",
       "view": 1,
       "type": 5,
       "custom_name": "CM03",
@@ -922,7 +922,7 @@
     "model": "panels.alarmconfig",
     "pk": 77,
     "fields": {
-      "alarm_id": "Array-Ant[!#54!]",
+      "alarm_id": "Array-Ant instance 54",
       "view": 1,
       "type": 5,
       "custom_name": "CM04",
@@ -933,7 +933,7 @@
     "model": "panels.alarmconfig",
     "pk": 78,
     "fields": {
-      "alarm_id": "Array-Ant[!#55!]",
+      "alarm_id": "Array-Ant instance 55",
       "view": 1,
       "type": 5,
       "custom_name": "CM05",
@@ -944,7 +944,7 @@
     "model": "panels.alarmconfig",
     "pk": 79,
     "fields": {
-      "alarm_id": "Array-Ant[!#56!]",
+      "alarm_id": "Array-Ant instance 56",
       "view": 1,
       "type": 5,
       "custom_name": "CM06",
@@ -955,7 +955,7 @@
     "model": "panels.alarmconfig",
     "pk": 80,
     "fields": {
-      "alarm_id": "Array-Ant[!#57!]",
+      "alarm_id": "Array-Ant instance 57",
       "view": 1,
       "type": 5,
       "custom_name": "CM07",
@@ -966,7 +966,7 @@
     "model": "panels.alarmconfig",
     "pk": 81,
     "fields": {
-      "alarm_id": "Array-Ant[!#58!]",
+      "alarm_id": "Array-Ant instance 58",
       "view": 1,
       "type": 5,
       "custom_name": "CM08",
@@ -977,7 +977,7 @@
     "model": "panels.alarmconfig",
     "pk": 82,
     "fields": {
-      "alarm_id": "Array-Ant[!#59!]",
+      "alarm_id": "Array-Ant instance 59",
       "view": 1,
       "type": 5,
       "custom_name": "CM09",
@@ -988,7 +988,7 @@
     "model": "panels.alarmconfig",
     "pk": 83,
     "fields": {
-      "alarm_id": "Array-Ant[!#60!]",
+      "alarm_id": "Array-Ant instance 60",
       "view": 1,
       "type": 5,
       "custom_name": "CM10",
@@ -999,7 +999,7 @@
     "model": "panels.alarmconfig",
     "pk": 84,
     "fields": {
-      "alarm_id": "Array-Ant[!#61!]",
+      "alarm_id": "Array-Ant instance 61",
       "view": 1,
       "type": 5,
       "custom_name": "CM11",
@@ -1010,7 +1010,7 @@
     "model": "panels.alarmconfig",
     "pk": 85,
     "fields": {
-      "alarm_id": "Array-Ant[!#62!]",
+      "alarm_id": "Array-Ant instance 62",
       "view": 1,
       "type": 5,
       "custom_name": "CM12",
@@ -1021,7 +1021,7 @@
     "model": "panels.alarmconfig",
     "pk": 86,
     "fields": {
-      "alarm_id": "Array-Ant[!#63!]",
+      "alarm_id": "Array-Ant instance 63",
       "view": 1,
       "type": 5,
       "custom_name": "PM01",
@@ -1032,7 +1032,7 @@
     "model": "panels.alarmconfig",
     "pk": 87,
     "fields": {
-      "alarm_id": "Array-Ant[!#64!]",
+      "alarm_id": "Array-Ant instance 64",
       "view": 1,
       "type": 5,
       "custom_name": "PM02",
@@ -1043,7 +1043,7 @@
     "model": "panels.alarmconfig",
     "pk": 88,
     "fields": {
-      "alarm_id": "Array-Ant[!#65!]",
+      "alarm_id": "Array-Ant instance 65",
       "view": 1,
       "type": 5,
       "custom_name": "PM03",
@@ -1054,7 +1054,7 @@
     "model": "panels.alarmconfig",
     "pk": 89,
     "fields": {
-      "alarm_id": "Array-Ant[!#66!]",
+      "alarm_id": "Array-Ant instance 66",
       "view": 1,
       "type": 5,
       "custom_name": "PM04",
@@ -1074,7 +1074,7 @@
     "model": "panels.alarmconfig",
     "pk": 91,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#1!]",
+      "alarm_id": "Array-Fire-Ant instance 1",
       "view": 1,
       "type": 6,
       "parent": 24
@@ -1084,7 +1084,7 @@
     "model": "panels.alarmconfig",
     "pk": 92,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#2!]",
+      "alarm_id": "Array-Fire-Ant instance 2",
       "view": 1,
       "type": 6,
       "parent": 25
@@ -1093,7 +1093,7 @@
     "model": "panels.alarmconfig",
     "pk": 93,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#3!]",
+      "alarm_id": "Array-Fire-Ant instance 3",
       "view": 1,
       "type": 6,
       "parent": 26
@@ -1102,7 +1102,7 @@
     "model": "panels.alarmconfig",
     "pk": 94,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#4!]",
+      "alarm_id": "Array-Fire-Ant instance 4",
       "view": 1,
       "type": 6,
       "parent": 27
@@ -1111,7 +1111,7 @@
     "model": "panels.alarmconfig",
     "pk": 95,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#5!]",
+      "alarm_id": "Array-Fire-Ant instance 5",
       "view": 1,
       "type": 6,
       "parent": 28
@@ -1120,7 +1120,7 @@
     "model": "panels.alarmconfig",
     "pk": 96,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#6!]",
+      "alarm_id": "Array-Fire-Ant instance 6",
       "view": 1,
       "type": 6,
       "parent": 29
@@ -1129,7 +1129,7 @@
     "model": "panels.alarmconfig",
     "pk": 97,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#7!]",
+      "alarm_id": "Array-Fire-Ant instance 7",
       "view": 1,
       "type": 6,
       "parent": 30
@@ -1138,7 +1138,7 @@
     "model": "panels.alarmconfig",
     "pk": 98,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#8!]",
+      "alarm_id": "Array-Fire-Ant instance 8",
       "view": 1,
       "type": 6,
       "parent": 31
@@ -1147,7 +1147,7 @@
     "model": "panels.alarmconfig",
     "pk": 99,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#9!]",
+      "alarm_id": "Array-Fire-Ant instance 9",
       "view": 1,
       "type": 6,
       "parent": 32
@@ -1156,7 +1156,7 @@
     "model": "panels.alarmconfig",
     "pk": 100,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#10!]",
+      "alarm_id": "Array-Fire-Ant instance 10",
       "view": 1,
       "type": 6,
       "parent": 33
@@ -1165,7 +1165,7 @@
     "model": "panels.alarmconfig",
     "pk": 101,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#11!]",
+      "alarm_id": "Array-Fire-Ant instance 11",
       "view": 1,
       "type": 6,
       "parent": 34
@@ -1174,7 +1174,7 @@
     "model": "panels.alarmconfig",
     "pk": 102,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#12!]",
+      "alarm_id": "Array-Fire-Ant instance 12",
       "view": 1,
       "type": 6,
       "parent": 35
@@ -1183,7 +1183,7 @@
     "model": "panels.alarmconfig",
     "pk": 103,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#13!]",
+      "alarm_id": "Array-Fire-Ant instance 13",
       "view": 1,
       "type": 6,
       "parent": 36
@@ -1192,7 +1192,7 @@
     "model": "panels.alarmconfig",
     "pk": 104,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#14!]",
+      "alarm_id": "Array-Fire-Ant instance 14",
       "view": 1,
       "type": 6,
       "parent": 37
@@ -1201,7 +1201,7 @@
     "model": "panels.alarmconfig",
     "pk": 105,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#15!]",
+      "alarm_id": "Array-Fire-Ant instance 15",
       "view": 1,
       "type": 6,
       "parent": 38
@@ -1210,7 +1210,7 @@
     "model": "panels.alarmconfig",
     "pk": 106,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#16!]",
+      "alarm_id": "Array-Fire-Ant instance 16",
       "view": 1,
       "type": 6,
       "parent": 39
@@ -1219,7 +1219,7 @@
     "model": "panels.alarmconfig",
     "pk": 107,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#17!]",
+      "alarm_id": "Array-Fire-Ant instance 17",
       "view": 1,
       "type": 6,
       "parent": 40
@@ -1228,7 +1228,7 @@
     "model": "panels.alarmconfig",
     "pk": 108,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#18!]",
+      "alarm_id": "Array-Fire-Ant instance 18",
       "view": 1,
       "type": 6,
       "parent": 41
@@ -1237,7 +1237,7 @@
     "model": "panels.alarmconfig",
     "pk": 109,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#19!]",
+      "alarm_id": "Array-Fire-Ant instance 19",
       "view": 1,
       "type": 6,
       "parent": 42
@@ -1246,7 +1246,7 @@
     "model": "panels.alarmconfig",
     "pk": 110,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#20!]",
+      "alarm_id": "Array-Fire-Ant instance 20",
       "view": 1,
       "type": 6,
       "parent": 43
@@ -1255,7 +1255,7 @@
     "model": "panels.alarmconfig",
     "pk": 111,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#21!]",
+      "alarm_id": "Array-Fire-Ant instance 21",
       "view": 1,
       "type": 6,
       "parent": 44
@@ -1264,7 +1264,7 @@
     "model": "panels.alarmconfig",
     "pk": 112,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#22!]",
+      "alarm_id": "Array-Fire-Ant instance 22",
       "view": 1,
       "type": 6,
       "parent": 45
@@ -1273,7 +1273,7 @@
     "model": "panels.alarmconfig",
     "pk": 113,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#23!]",
+      "alarm_id": "Array-Fire-Ant instance 23",
       "view": 1,
       "type": 6,
       "parent": 46
@@ -1282,7 +1282,7 @@
     "model": "panels.alarmconfig",
     "pk": 114,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#24!]",
+      "alarm_id": "Array-Fire-Ant instance 24",
       "view": 1,
       "type": 6,
       "parent": 47
@@ -1291,7 +1291,7 @@
     "model": "panels.alarmconfig",
     "pk": 115,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#25!]",
+      "alarm_id": "Array-Fire-Ant instance 25",
       "view": 1,
       "type": 6,
       "parent": 48
@@ -1300,7 +1300,7 @@
     "model": "panels.alarmconfig",
     "pk": 116,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#26!]",
+      "alarm_id": "Array-Fire-Ant instance 26",
       "view": 1,
       "type": 6,
       "parent": 49
@@ -1309,7 +1309,7 @@
     "model": "panels.alarmconfig",
     "pk": 117,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#27!]",
+      "alarm_id": "Array-Fire-Ant instance 27",
       "view": 1,
       "type": 6,
       "parent": 50
@@ -1318,7 +1318,7 @@
     "model": "panels.alarmconfig",
     "pk": 118,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#28!]",
+      "alarm_id": "Array-Fire-Ant instance 28",
       "view": 1,
       "type": 6,
       "parent": 51
@@ -1327,7 +1327,7 @@
     "model": "panels.alarmconfig",
     "pk": 119,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#29!]",
+      "alarm_id": "Array-Fire-Ant instance 29",
       "view": 1,
       "type": 6,
       "parent": 52
@@ -1336,7 +1336,7 @@
     "model": "panels.alarmconfig",
     "pk": 120,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#30!]",
+      "alarm_id": "Array-Fire-Ant instance 30",
       "view": 1,
       "type": 6,
       "parent": 53
@@ -1345,7 +1345,7 @@
     "model": "panels.alarmconfig",
     "pk": 121,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#31!]",
+      "alarm_id": "Array-Fire-Ant instance 31",
       "view": 1,
       "type": 6,
       "parent": 54
@@ -1354,7 +1354,7 @@
     "model": "panels.alarmconfig",
     "pk": 122,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#32!]",
+      "alarm_id": "Array-Fire-Ant instance 32",
       "view": 1,
       "type": 6,
       "parent": 55
@@ -1363,7 +1363,7 @@
     "model": "panels.alarmconfig",
     "pk": 123,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#33!]",
+      "alarm_id": "Array-Fire-Ant instance 33",
       "view": 1,
       "type": 6,
       "parent": 56
@@ -1372,7 +1372,7 @@
     "model": "panels.alarmconfig",
     "pk": 124,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#34!]",
+      "alarm_id": "Array-Fire-Ant instance 34",
       "view": 1,
       "type": 6,
       "parent": 57
@@ -1381,7 +1381,7 @@
     "model": "panels.alarmconfig",
     "pk": 125,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#35!]",
+      "alarm_id": "Array-Fire-Ant instance 35",
       "view": 1,
       "type": 6,
       "parent": 58
@@ -1390,7 +1390,7 @@
     "model": "panels.alarmconfig",
     "pk": 126,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#36!]",
+      "alarm_id": "Array-Fire-Ant instance 36",
       "view": 1,
       "type": 6,
       "parent": 59
@@ -1399,7 +1399,7 @@
     "model": "panels.alarmconfig",
     "pk": 127,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#37!]",
+      "alarm_id": "Array-Fire-Ant instance 37",
       "view": 1,
       "type": 6,
       "parent": 60
@@ -1408,7 +1408,7 @@
     "model": "panels.alarmconfig",
     "pk": 128,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#38!]",
+      "alarm_id": "Array-Fire-Ant instance 38",
       "view": 1,
       "type": 6,
       "parent": 61
@@ -1417,7 +1417,7 @@
     "model": "panels.alarmconfig",
     "pk": 129,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#39!]",
+      "alarm_id": "Array-Fire-Ant instance 39",
       "view": 1,
       "type": 6,
       "parent": 62
@@ -1426,7 +1426,7 @@
     "model": "panels.alarmconfig",
     "pk": 130,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#40!]",
+      "alarm_id": "Array-Fire-Ant instance 40",
       "view": 1,
       "type": 6,
       "parent": 63
@@ -1435,7 +1435,7 @@
     "model": "panels.alarmconfig",
     "pk": 131,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#41!]",
+      "alarm_id": "Array-Fire-Ant instance 41",
       "view": 1,
       "type": 6,
       "parent": 64
@@ -1444,7 +1444,7 @@
     "model": "panels.alarmconfig",
     "pk": 132,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#42!]",
+      "alarm_id": "Array-Fire-Ant instance 42",
       "view": 1,
       "type": 6,
       "parent": 65
@@ -1453,7 +1453,7 @@
     "model": "panels.alarmconfig",
     "pk": 133,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#43!]",
+      "alarm_id": "Array-Fire-Ant instance 43",
       "view": 1,
       "type": 6,
       "parent": 66
@@ -1462,7 +1462,7 @@
     "model": "panels.alarmconfig",
     "pk": 134,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#44!]",
+      "alarm_id": "Array-Fire-Ant instance 44",
       "view": 1,
       "type": 6,
       "parent": 67
@@ -1471,7 +1471,7 @@
     "model": "panels.alarmconfig",
     "pk": 135,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#45!]",
+      "alarm_id": "Array-Fire-Ant instance 45",
       "view": 1,
       "type": 6,
       "parent": 68
@@ -1480,7 +1480,7 @@
     "model": "panels.alarmconfig",
     "pk": 136,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#46!]",
+      "alarm_id": "Array-Fire-Ant instance 46",
       "view": 1,
       "type": 6,
       "parent": 69
@@ -1489,7 +1489,7 @@
     "model": "panels.alarmconfig",
     "pk": 137,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#47!]",
+      "alarm_id": "Array-Fire-Ant instance 47",
       "view": 1,
       "type": 6,
       "parent": 70
@@ -1498,7 +1498,7 @@
     "model": "panels.alarmconfig",
     "pk": 138,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#48!]",
+      "alarm_id": "Array-Fire-Ant instance 48",
       "view": 1,
       "type": 6,
       "parent": 71
@@ -1507,7 +1507,7 @@
     "model": "panels.alarmconfig",
     "pk": 139,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#49!]",
+      "alarm_id": "Array-Fire-Ant instance 49",
       "view": 1,
       "type": 6,
       "parent": 72
@@ -1516,7 +1516,7 @@
     "model": "panels.alarmconfig",
     "pk": 140,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#50!]",
+      "alarm_id": "Array-Fire-Ant instance 50",
       "view": 1,
       "type": 6,
       "parent": 73
@@ -1525,7 +1525,7 @@
     "model": "panels.alarmconfig",
     "pk": 141,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#51!]",
+      "alarm_id": "Array-Fire-Ant instance 51",
       "view": 1,
       "type": 6,
       "parent": 74
@@ -1534,7 +1534,7 @@
     "model": "panels.alarmconfig",
     "pk": 142,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#52!]",
+      "alarm_id": "Array-Fire-Ant instance 52",
       "view": 1,
       "type": 6,
       "parent": 75
@@ -1543,7 +1543,7 @@
     "model": "panels.alarmconfig",
     "pk": 143,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#53!]",
+      "alarm_id": "Array-Fire-Ant instance 53",
       "view": 1,
       "type": 6,
       "parent": 76
@@ -1552,7 +1552,7 @@
     "model": "panels.alarmconfig",
     "pk": 144,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#54!]",
+      "alarm_id": "Array-Fire-Ant instance 54",
       "view": 1,
       "type": 6,
       "parent": 77
@@ -1561,7 +1561,7 @@
     "model": "panels.alarmconfig",
     "pk": 145,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#55!]",
+      "alarm_id": "Array-Fire-Ant instance 55",
       "view": 1,
       "type": 6,
       "parent": 78
@@ -1570,7 +1570,7 @@
     "model": "panels.alarmconfig",
     "pk": 146,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#56!]",
+      "alarm_id": "Array-Fire-Ant instance 56",
       "view": 1,
       "type": 6,
       "parent": 79
@@ -1579,7 +1579,7 @@
     "model": "panels.alarmconfig",
     "pk": 147,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#57!]",
+      "alarm_id": "Array-Fire-Ant instance 57",
       "view": 1,
       "type": 6,
       "parent": 80
@@ -1588,7 +1588,7 @@
     "model": "panels.alarmconfig",
     "pk": 148,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#58!]",
+      "alarm_id": "Array-Fire-Ant instance 58",
       "view": 1,
       "type": 6,
       "parent": 81
@@ -1597,7 +1597,7 @@
     "model": "panels.alarmconfig",
     "pk": 149,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#59!]",
+      "alarm_id": "Array-Fire-Ant instance 59",
       "view": 1,
       "type": 6,
       "parent": 82
@@ -1606,7 +1606,7 @@
     "model": "panels.alarmconfig",
     "pk": 150,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#60!]",
+      "alarm_id": "Array-Fire-Ant instance 60",
       "view": 1,
       "type": 6,
       "parent": 83
@@ -1615,7 +1615,7 @@
     "model": "panels.alarmconfig",
     "pk": 151,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#61!]",
+      "alarm_id": "Array-Fire-Ant instance 61",
       "view": 1,
       "type": 6,
       "parent": 84
@@ -1624,7 +1624,7 @@
     "model": "panels.alarmconfig",
     "pk": 152,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#62!]",
+      "alarm_id": "Array-Fire-Ant instance 62",
       "view": 1,
       "type": 6,
       "parent": 85
@@ -1634,7 +1634,7 @@
     "model": "panels.alarmconfig",
     "pk": 153,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#63!]",
+      "alarm_id": "Array-Fire-Ant instance 63",
       "view": 1,
       "type": 6,
       "parent": 86
@@ -1644,7 +1644,7 @@
     "model": "panels.alarmconfig",
     "pk": 154,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#64!]",
+      "alarm_id": "Array-Fire-Ant instance 64",
       "view": 1,
       "type": 6,
       "parent": 87
@@ -1654,7 +1654,7 @@
     "model": "panels.alarmconfig",
     "pk": 155,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#65!]",
+      "alarm_id": "Array-Fire-Ant instance 65",
       "view": 1,
       "type": 6,
       "parent": 88
@@ -1664,7 +1664,7 @@
     "model": "panels.alarmconfig",
     "pk": 156,
     "fields": {
-      "alarm_id": "Array-Fire-Ant[!#66!]",
+      "alarm_id": "Array-Fire-Ant instance 66",
       "view": 1,
       "type": 6,
       "parent": 89
@@ -1674,7 +1674,7 @@
     "model": "panels.alarmconfig",
     "pk": 157,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#1!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 1",
       "view": 1,
       "type": 7,
       "parent": 24
@@ -1684,7 +1684,7 @@
     "model": "panels.alarmconfig",
     "pk": 158,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#2!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 2",
       "view": 1,
       "type": 7,
       "parent": 25
@@ -1694,7 +1694,7 @@
     "model": "panels.alarmconfig",
     "pk": 159,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#3!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 3",
       "view": 1,
       "type": 7,
       "parent": 26
@@ -1704,7 +1704,7 @@
     "model": "panels.alarmconfig",
     "pk": 160,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#4!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 4",
       "view": 1,
       "type": 7,
       "parent": 27
@@ -1714,7 +1714,7 @@
     "model": "panels.alarmconfig",
     "pk": 161,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#5!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 5",
       "view": 1,
       "type": 7,
       "parent": 28
@@ -1724,7 +1724,7 @@
     "model": "panels.alarmconfig",
     "pk": 162,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#6!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 6",
       "view": 1,
       "type": 7,
       "parent": 29
@@ -1734,7 +1734,7 @@
     "model": "panels.alarmconfig",
     "pk": 163,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#7!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 7",
       "view": 1,
       "type": 7,
       "parent": 30
@@ -1744,7 +1744,7 @@
     "model": "panels.alarmconfig",
     "pk": 164,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#8!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 8",
       "view": 1,
       "type": 7,
       "parent": 31
@@ -1754,7 +1754,7 @@
     "model": "panels.alarmconfig",
     "pk": 165,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#9!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 9",
       "view": 1,
       "type": 7,
       "parent": 32
@@ -1764,7 +1764,7 @@
     "model": "panels.alarmconfig",
     "pk": 166,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#10!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 10",
       "view": 1,
       "type": 7,
       "parent": 33
@@ -1774,7 +1774,7 @@
     "model": "panels.alarmconfig",
     "pk": 167,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#11!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 11",
       "view": 1,
       "type": 7,
       "parent": 34
@@ -1784,7 +1784,7 @@
     "model": "panels.alarmconfig",
     "pk": 168,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#12!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 12",
       "view": 1,
       "type": 7,
       "parent": 35
@@ -1794,7 +1794,7 @@
     "model": "panels.alarmconfig",
     "pk": 169,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#13!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 13",
       "view": 1,
       "type": 7,
       "parent": 36
@@ -1804,7 +1804,7 @@
     "model": "panels.alarmconfig",
     "pk": 170,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#14!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 14",
       "view": 1,
       "type": 7,
       "parent": 37
@@ -1814,7 +1814,7 @@
     "model": "panels.alarmconfig",
     "pk": 171,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#15!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 15",
       "view": 1,
       "type": 7,
       "parent": 38
@@ -1824,7 +1824,7 @@
     "model": "panels.alarmconfig",
     "pk": 172,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#16!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 16",
       "view": 1,
       "type": 7,
       "parent": 39
@@ -1834,7 +1834,7 @@
     "model": "panels.alarmconfig",
     "pk": 173,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#17!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 17",
       "view": 1,
       "type": 7,
       "parent": 40
@@ -1844,7 +1844,7 @@
     "model": "panels.alarmconfig",
     "pk": 174,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#18!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 18",
       "view": 1,
       "type": 7,
       "parent": 41
@@ -1854,7 +1854,7 @@
     "model": "panels.alarmconfig",
     "pk": 175,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#19!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 19",
       "view": 1,
       "type": 7,
       "parent": 42
@@ -1864,7 +1864,7 @@
     "model": "panels.alarmconfig",
     "pk": 176,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#20!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 20",
       "view": 1,
       "type": 7,
       "parent": 43
@@ -1874,7 +1874,7 @@
     "model": "panels.alarmconfig",
     "pk": 177,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#21!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 21",
       "view": 1,
       "type": 7,
       "parent": 44
@@ -1884,7 +1884,7 @@
     "model": "panels.alarmconfig",
     "pk": 178,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#22!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 22",
       "view": 1,
       "type": 7,
       "parent": 45
@@ -1894,7 +1894,7 @@
     "model": "panels.alarmconfig",
     "pk": 179,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#23!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 23",
       "view": 1,
       "type": 7,
       "parent": 46
@@ -1904,7 +1904,7 @@
     "model": "panels.alarmconfig",
     "pk": 180,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#24!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 24",
       "view": 1,
       "type": 7,
       "parent": 47
@@ -1914,7 +1914,7 @@
     "model": "panels.alarmconfig",
     "pk": 181,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#25!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 25",
       "view": 1,
       "type": 7,
       "parent": 48
@@ -1924,7 +1924,7 @@
     "model": "panels.alarmconfig",
     "pk": 182,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#26!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 26",
       "view": 1,
       "type": 7,
       "parent": 49
@@ -1934,7 +1934,7 @@
     "model": "panels.alarmconfig",
     "pk": 183,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#27!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 27",
       "view": 1,
       "type": 7,
       "parent": 50
@@ -1944,7 +1944,7 @@
     "model": "panels.alarmconfig",
     "pk": 184,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#28!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 28",
       "view": 1,
       "type": 7,
       "parent": 51
@@ -1954,7 +1954,7 @@
     "model": "panels.alarmconfig",
     "pk": 185,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#29!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 29",
       "view": 1,
       "type": 7,
       "parent": 52
@@ -1964,7 +1964,7 @@
     "model": "panels.alarmconfig",
     "pk": 186,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#30!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 30",
       "view": 1,
       "type": 7,
       "parent": 53
@@ -1974,7 +1974,7 @@
     "model": "panels.alarmconfig",
     "pk": 187,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#31!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 31",
       "view": 1,
       "type": 7,
       "parent": 54
@@ -1984,7 +1984,7 @@
     "model": "panels.alarmconfig",
     "pk": 188,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#32!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 32",
       "view": 1,
       "type": 7,
       "parent": 55
@@ -1994,7 +1994,7 @@
     "model": "panels.alarmconfig",
     "pk": 189,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#33!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 33",
       "view": 1,
       "type": 7,
       "parent": 56
@@ -2004,7 +2004,7 @@
     "model": "panels.alarmconfig",
     "pk": 190,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#34!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 34",
       "view": 1,
       "type": 7,
       "parent": 57
@@ -2014,7 +2014,7 @@
     "model": "panels.alarmconfig",
     "pk": 191,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#35!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 35",
       "view": 1,
       "type": 7,
       "parent": 58
@@ -2024,7 +2024,7 @@
     "model": "panels.alarmconfig",
     "pk": 192,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#36!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 36",
       "view": 1,
       "type": 7,
       "parent": 59
@@ -2034,7 +2034,7 @@
     "model": "panels.alarmconfig",
     "pk": 193,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#37!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 37",
       "view": 1,
       "type": 7,
       "parent": 60
@@ -2044,7 +2044,7 @@
     "model": "panels.alarmconfig",
     "pk": 194,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#38!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 38",
       "view": 1,
       "type": 7,
       "parent": 61
@@ -2054,7 +2054,7 @@
     "model": "panels.alarmconfig",
     "pk": 195,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#39!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 39",
       "view": 1,
       "type": 7,
       "parent": 62
@@ -2064,7 +2064,7 @@
     "model": "panels.alarmconfig",
     "pk": 196,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#40!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 40",
       "view": 1,
       "type": 7,
       "parent": 63
@@ -2074,7 +2074,7 @@
     "model": "panels.alarmconfig",
     "pk": 197,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#41!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 41",
       "view": 1,
       "type": 7,
       "parent": 64
@@ -2084,7 +2084,7 @@
     "model": "panels.alarmconfig",
     "pk": 198,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#42!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 42",
       "view": 1,
       "type": 7,
       "parent": 65
@@ -2094,7 +2094,7 @@
     "model": "panels.alarmconfig",
     "pk": 199,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#43!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 43",
       "view": 1,
       "type": 7,
       "parent": 66
@@ -2104,7 +2104,7 @@
     "model": "panels.alarmconfig",
     "pk": 200,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#44!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 44",
       "view": 1,
       "type": 7,
       "parent": 67
@@ -2114,7 +2114,7 @@
     "model": "panels.alarmconfig",
     "pk": 201,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#45!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 45",
       "view": 1,
       "type": 7,
       "parent": 68
@@ -2124,7 +2124,7 @@
     "model": "panels.alarmconfig",
     "pk": 202,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#46!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 46",
       "view": 1,
       "type": 7,
       "parent": 69
@@ -2134,7 +2134,7 @@
     "model": "panels.alarmconfig",
     "pk": 203,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#47!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 47",
       "view": 1,
       "type": 7,
       "parent": 70
@@ -2144,7 +2144,7 @@
     "model": "panels.alarmconfig",
     "pk": 204,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#48!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 48",
       "view": 1,
       "type": 7,
       "parent": 71
@@ -2154,7 +2154,7 @@
     "model": "panels.alarmconfig",
     "pk": 205,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#49!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 49",
       "view": 1,
       "type": 7,
       "parent": 72
@@ -2164,7 +2164,7 @@
     "model": "panels.alarmconfig",
     "pk": 206,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#50!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 50",
       "view": 1,
       "type": 7,
       "parent": 73
@@ -2174,7 +2174,7 @@
     "model": "panels.alarmconfig",
     "pk": 207,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#51!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 51",
       "view": 1,
       "type": 7,
       "parent": 74
@@ -2184,7 +2184,7 @@
     "model": "panels.alarmconfig",
     "pk": 208,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#52!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 52",
       "view": 1,
       "type": 7,
       "parent": 75
@@ -2194,7 +2194,7 @@
     "model": "panels.alarmconfig",
     "pk": 209,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#53!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 53",
       "view": 1,
       "type": 7,
       "parent": 76
@@ -2204,7 +2204,7 @@
     "model": "panels.alarmconfig",
     "pk": 210,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#54!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 54",
       "view": 1,
       "type": 7,
       "parent": 77
@@ -2214,7 +2214,7 @@
     "model": "panels.alarmconfig",
     "pk": 211,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#55!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 55",
       "view": 1,
       "type": 7,
       "parent": 78
@@ -2224,7 +2224,7 @@
     "model": "panels.alarmconfig",
     "pk": 212,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#56!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 56",
       "view": 1,
       "type": 7,
       "parent": 79
@@ -2234,7 +2234,7 @@
     "model": "panels.alarmconfig",
     "pk": 213,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#57!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 57",
       "view": 1,
       "type": 7,
       "parent": 80
@@ -2244,7 +2244,7 @@
     "model": "panels.alarmconfig",
     "pk": 214,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#58!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 58",
       "view": 1,
       "type": 7,
       "parent": 81
@@ -2254,7 +2254,7 @@
     "model": "panels.alarmconfig",
     "pk": 215,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#59!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 59",
       "view": 1,
       "type": 7,
       "parent": 82
@@ -2264,7 +2264,7 @@
     "model": "panels.alarmconfig",
     "pk": 216,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#60!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 60",
       "view": 1,
       "type": 7,
       "parent": 83
@@ -2274,7 +2274,7 @@
     "model": "panels.alarmconfig",
     "pk": 217,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#61!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 61",
       "view": 1,
       "type": 7,
       "parent": 84
@@ -2284,7 +2284,7 @@
     "model": "panels.alarmconfig",
     "pk": 218,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#62!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 62",
       "view": 1,
       "type": 7,
       "parent": 85
@@ -2294,7 +2294,7 @@
     "model": "panels.alarmconfig",
     "pk": 219,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#63!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 63",
       "view": 1,
       "type": 7,
       "parent": 86
@@ -2304,7 +2304,7 @@
     "model": "panels.alarmconfig",
     "pk": 220,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#64!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 64",
       "view": 1,
       "type": 7,
       "parent": 87
@@ -2314,7 +2314,7 @@
     "model": "panels.alarmconfig",
     "pk": 221,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#65!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 65",
       "view": 1,
       "type": 7,
       "parent": 88
@@ -2324,7 +2324,7 @@
     "model": "panels.alarmconfig",
     "pk": 222,
     "fields": {
-      "alarm_id": "Array-FireMalfunction-Ant[!#66!]",
+      "alarm_id": "Array-FireMalfunction-Ant instance 66",
       "view": 1,
       "type": 7,
       "parent": 89
@@ -2334,7 +2334,7 @@
     "model": "panels.alarmconfig",
     "pk": 223,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#1!]",
+      "alarm_id": "Array-HvacFail-Ant instance 1",
       "view": 1,
       "type": 8,
       "parent": 24
@@ -2344,7 +2344,7 @@
     "model": "panels.alarmconfig",
     "pk": 224,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#2!]",
+      "alarm_id": "Array-HvacFail-Ant instance 2",
       "view": 1,
       "type": 8,
       "parent": 25
@@ -2354,7 +2354,7 @@
     "model": "panels.alarmconfig",
     "pk": 225,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#3!]",
+      "alarm_id": "Array-HvacFail-Ant instance 3",
       "view": 1,
       "type": 8,
       "parent": 26
@@ -2364,7 +2364,7 @@
     "model": "panels.alarmconfig",
     "pk": 226,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#4!]",
+      "alarm_id": "Array-HvacFail-Ant instance 4",
       "view": 1,
       "type": 8,
       "parent": 27
@@ -2374,7 +2374,7 @@
     "model": "panels.alarmconfig",
     "pk": 227,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#5!]",
+      "alarm_id": "Array-HvacFail-Ant instance 5",
       "view": 1,
       "type": 8,
       "parent": 28
@@ -2384,7 +2384,7 @@
     "model": "panels.alarmconfig",
     "pk": 228,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#6!]",
+      "alarm_id": "Array-HvacFail-Ant instance 6",
       "view": 1,
       "type": 8,
       "parent": 29
@@ -2394,7 +2394,7 @@
     "model": "panels.alarmconfig",
     "pk": 229,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#7!]",
+      "alarm_id": "Array-HvacFail-Ant instance 7",
       "view": 1,
       "type": 8,
       "parent": 30
@@ -2404,7 +2404,7 @@
     "model": "panels.alarmconfig",
     "pk": 230,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#8!]",
+      "alarm_id": "Array-HvacFail-Ant instance 8",
       "view": 1,
       "type": 8,
       "parent": 31
@@ -2414,7 +2414,7 @@
     "model": "panels.alarmconfig",
     "pk": 231,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#9!]",
+      "alarm_id": "Array-HvacFail-Ant instance 9",
       "view": 1,
       "type": 8,
       "parent": 32
@@ -2424,7 +2424,7 @@
     "model": "panels.alarmconfig",
     "pk": 232,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#10!]",
+      "alarm_id": "Array-HvacFail-Ant instance 10",
       "view": 1,
       "type": 8,
       "parent": 33
@@ -2434,7 +2434,7 @@
     "model": "panels.alarmconfig",
     "pk": 233,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#11!]",
+      "alarm_id": "Array-HvacFail-Ant instance 11",
       "view": 1,
       "type": 8,
       "parent": 34
@@ -2444,7 +2444,7 @@
     "model": "panels.alarmconfig",
     "pk": 234,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#12!]",
+      "alarm_id": "Array-HvacFail-Ant instance 12",
       "view": 1,
       "type": 8,
       "parent": 35
@@ -2454,7 +2454,7 @@
     "model": "panels.alarmconfig",
     "pk": 235,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#13!]",
+      "alarm_id": "Array-HvacFail-Ant instance 13",
       "view": 1,
       "type": 8,
       "parent": 36
@@ -2464,7 +2464,7 @@
     "model": "panels.alarmconfig",
     "pk": 236,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#14!]",
+      "alarm_id": "Array-HvacFail-Ant instance 14",
       "view": 1,
       "type": 8,
       "parent": 37
@@ -2474,7 +2474,7 @@
     "model": "panels.alarmconfig",
     "pk": 237,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#15!]",
+      "alarm_id": "Array-HvacFail-Ant instance 15",
       "view": 1,
       "type": 8,
       "parent": 38
@@ -2484,7 +2484,7 @@
     "model": "panels.alarmconfig",
     "pk": 238,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#16!]",
+      "alarm_id": "Array-HvacFail-Ant instance 16",
       "view": 1,
       "type": 8,
       "parent": 39
@@ -2494,7 +2494,7 @@
     "model": "panels.alarmconfig",
     "pk": 239,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#17!]",
+      "alarm_id": "Array-HvacFail-Ant instance 17",
       "view": 1,
       "type": 8,
       "parent": 40
@@ -2504,7 +2504,7 @@
     "model": "panels.alarmconfig",
     "pk": 240,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#18!]",
+      "alarm_id": "Array-HvacFail-Ant instance 18",
       "view": 1,
       "type": 8,
       "parent": 41
@@ -2514,7 +2514,7 @@
     "model": "panels.alarmconfig",
     "pk": 241,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#19!]",
+      "alarm_id": "Array-HvacFail-Ant instance 19",
       "view": 1,
       "type": 8,
       "parent": 42
@@ -2524,7 +2524,7 @@
     "model": "panels.alarmconfig",
     "pk": 242,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#20!]",
+      "alarm_id": "Array-HvacFail-Ant instance 20",
       "view": 1,
       "type": 8,
       "parent": 43
@@ -2534,7 +2534,7 @@
     "model": "panels.alarmconfig",
     "pk": 243,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#21!]",
+      "alarm_id": "Array-HvacFail-Ant instance 21",
       "view": 1,
       "type": 8,
       "parent": 44
@@ -2544,7 +2544,7 @@
     "model": "panels.alarmconfig",
     "pk": 244,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#22!]",
+      "alarm_id": "Array-HvacFail-Ant instance 22",
       "view": 1,
       "type": 8,
       "parent": 45
@@ -2554,7 +2554,7 @@
     "model": "panels.alarmconfig",
     "pk": 245,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#23!]",
+      "alarm_id": "Array-HvacFail-Ant instance 23",
       "view": 1,
       "type": 8,
       "parent": 46
@@ -2564,7 +2564,7 @@
     "model": "panels.alarmconfig",
     "pk": 246,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#24!]",
+      "alarm_id": "Array-HvacFail-Ant instance 24",
       "view": 1,
       "type": 8,
       "parent": 47
@@ -2574,7 +2574,7 @@
     "model": "panels.alarmconfig",
     "pk": 247,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#25!]",
+      "alarm_id": "Array-HvacFail-Ant instance 25",
       "view": 1,
       "type": 8,
       "parent": 48
@@ -2584,7 +2584,7 @@
     "model": "panels.alarmconfig",
     "pk": 248,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#26!]",
+      "alarm_id": "Array-HvacFail-Ant instance 26",
       "view": 1,
       "type": 8,
       "parent": 49
@@ -2594,7 +2594,7 @@
     "model": "panels.alarmconfig",
     "pk": 249,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#27!]",
+      "alarm_id": "Array-HvacFail-Ant instance 27",
       "view": 1,
       "type": 8,
       "parent": 50
@@ -2604,7 +2604,7 @@
     "model": "panels.alarmconfig",
     "pk": 250,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#28!]",
+      "alarm_id": "Array-HvacFail-Ant instance 28",
       "view": 1,
       "type": 8,
       "parent": 51
@@ -2614,7 +2614,7 @@
     "model": "panels.alarmconfig",
     "pk": 251,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#29!]",
+      "alarm_id": "Array-HvacFail-Ant instance 29",
       "view": 1,
       "type": 8,
       "parent": 52
@@ -2624,7 +2624,7 @@
     "model": "panels.alarmconfig",
     "pk": 252,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#30!]",
+      "alarm_id": "Array-HvacFail-Ant instance 30",
       "view": 1,
       "type": 8,
       "parent": 53
@@ -2634,7 +2634,7 @@
     "model": "panels.alarmconfig",
     "pk": 253,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#31!]",
+      "alarm_id": "Array-HvacFail-Ant instance 31",
       "view": 1,
       "type": 8,
       "parent": 54
@@ -2644,7 +2644,7 @@
     "model": "panels.alarmconfig",
     "pk": 254,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#32!]",
+      "alarm_id": "Array-HvacFail-Ant instance 32",
       "view": 1,
       "type": 8,
       "parent": 55
@@ -2654,7 +2654,7 @@
     "model": "panels.alarmconfig",
     "pk": 255,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#33!]",
+      "alarm_id": "Array-HvacFail-Ant instance 33",
       "view": 1,
       "type": 8,
       "parent": 56
@@ -2664,7 +2664,7 @@
     "model": "panels.alarmconfig",
     "pk": 256,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#34!]",
+      "alarm_id": "Array-HvacFail-Ant instance 34",
       "view": 1,
       "type": 8,
       "parent": 57
@@ -2674,7 +2674,7 @@
     "model": "panels.alarmconfig",
     "pk": 257,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#35!]",
+      "alarm_id": "Array-HvacFail-Ant instance 35",
       "view": 1,
       "type": 8,
       "parent": 58
@@ -2684,7 +2684,7 @@
     "model": "panels.alarmconfig",
     "pk": 258,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#36!]",
+      "alarm_id": "Array-HvacFail-Ant instance 36",
       "view": 1,
       "type": 8,
       "parent": 59
@@ -2694,7 +2694,7 @@
     "model": "panels.alarmconfig",
     "pk": 259,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#37!]",
+      "alarm_id": "Array-HvacFail-Ant instance 37",
       "view": 1,
       "type": 8,
       "parent": 60
@@ -2704,7 +2704,7 @@
     "model": "panels.alarmconfig",
     "pk": 260,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#38!]",
+      "alarm_id": "Array-HvacFail-Ant instance 38",
       "view": 1,
       "type": 8,
       "parent": 61
@@ -2714,7 +2714,7 @@
     "model": "panels.alarmconfig",
     "pk": 261,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#39!]",
+      "alarm_id": "Array-HvacFail-Ant instance 39",
       "view": 1,
       "type": 8,
       "parent": 62
@@ -2724,7 +2724,7 @@
     "model": "panels.alarmconfig",
     "pk": 262,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#40!]",
+      "alarm_id": "Array-HvacFail-Ant instance 40",
       "view": 1,
       "type": 8,
       "parent": 63
@@ -2734,7 +2734,7 @@
     "model": "panels.alarmconfig",
     "pk": 263,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#41!]",
+      "alarm_id": "Array-HvacFail-Ant instance 41",
       "view": 1,
       "type": 8,
       "parent": 64
@@ -2744,7 +2744,7 @@
     "model": "panels.alarmconfig",
     "pk": 264,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#42!]",
+      "alarm_id": "Array-HvacFail-Ant instance 42",
       "view": 1,
       "type": 8,
       "parent": 65
@@ -2754,7 +2754,7 @@
     "model": "panels.alarmconfig",
     "pk": 265,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#43!]",
+      "alarm_id": "Array-HvacFail-Ant instance 43",
       "view": 1,
       "type": 8,
       "parent": 66
@@ -2764,7 +2764,7 @@
     "model": "panels.alarmconfig",
     "pk": 266,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#44!]",
+      "alarm_id": "Array-HvacFail-Ant instance 44",
       "view": 1,
       "type": 8,
       "parent": 67
@@ -2774,7 +2774,7 @@
     "model": "panels.alarmconfig",
     "pk": 267,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#45!]",
+      "alarm_id": "Array-HvacFail-Ant instance 45",
       "view": 1,
       "type": 8,
       "parent": 68
@@ -2784,7 +2784,7 @@
     "model": "panels.alarmconfig",
     "pk": 268,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#46!]",
+      "alarm_id": "Array-HvacFail-Ant instance 46",
       "view": 1,
       "type": 8,
       "parent": 69
@@ -2794,7 +2794,7 @@
     "model": "panels.alarmconfig",
     "pk": 269,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#47!]",
+      "alarm_id": "Array-HvacFail-Ant instance 47",
       "view": 1,
       "type": 8,
       "parent": 70
@@ -2804,7 +2804,7 @@
     "model": "panels.alarmconfig",
     "pk": 270,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#48!]",
+      "alarm_id": "Array-HvacFail-Ant instance 48",
       "view": 1,
       "type": 8,
       "parent": 71
@@ -2814,7 +2814,7 @@
     "model": "panels.alarmconfig",
     "pk": 271,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#49!]",
+      "alarm_id": "Array-HvacFail-Ant instance 49",
       "view": 1,
       "type": 8,
       "parent": 72
@@ -2824,7 +2824,7 @@
     "model": "panels.alarmconfig",
     "pk": 272,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#50!]",
+      "alarm_id": "Array-HvacFail-Ant instance 50",
       "view": 1,
       "type": 8,
       "parent": 73
@@ -2834,7 +2834,7 @@
     "model": "panels.alarmconfig",
     "pk": 273,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#51!]",
+      "alarm_id": "Array-HvacFail-Ant instance 51",
       "view": 1,
       "type": 8,
       "parent": 74
@@ -2844,7 +2844,7 @@
     "model": "panels.alarmconfig",
     "pk": 274,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#52!]",
+      "alarm_id": "Array-HvacFail-Ant instance 52",
       "view": 1,
       "type": 8,
       "parent": 75
@@ -2854,7 +2854,7 @@
     "model": "panels.alarmconfig",
     "pk": 275,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#53!]",
+      "alarm_id": "Array-HvacFail-Ant instance 53",
       "view": 1,
       "type": 8,
       "parent": 76
@@ -2864,7 +2864,7 @@
     "model": "panels.alarmconfig",
     "pk": 276,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#54!]",
+      "alarm_id": "Array-HvacFail-Ant instance 54",
       "view": 1,
       "type": 8,
       "parent": 77
@@ -2874,7 +2874,7 @@
     "model": "panels.alarmconfig",
     "pk": 277,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#55!]",
+      "alarm_id": "Array-HvacFail-Ant instance 55",
       "view": 1,
       "type": 8,
       "parent": 78
@@ -2884,7 +2884,7 @@
     "model": "panels.alarmconfig",
     "pk": 278,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#56!]",
+      "alarm_id": "Array-HvacFail-Ant instance 56",
       "view": 1,
       "type": 8,
       "parent": 79
@@ -2894,7 +2894,7 @@
     "model": "panels.alarmconfig",
     "pk": 279,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#57!]",
+      "alarm_id": "Array-HvacFail-Ant instance 57",
       "view": 1,
       "type": 8,
       "parent": 80
@@ -2904,7 +2904,7 @@
     "model": "panels.alarmconfig",
     "pk": 280,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#58!]",
+      "alarm_id": "Array-HvacFail-Ant instance 58",
       "view": 1,
       "type": 8,
       "parent": 81
@@ -2914,7 +2914,7 @@
     "model": "panels.alarmconfig",
     "pk": 281,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#59!]",
+      "alarm_id": "Array-HvacFail-Ant instance 59",
       "view": 1,
       "type": 8,
       "parent": 82
@@ -2924,7 +2924,7 @@
     "model": "panels.alarmconfig",
     "pk": 282,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#60!]",
+      "alarm_id": "Array-HvacFail-Ant instance 60",
       "view": 1,
       "type": 8,
       "parent": 83
@@ -2934,7 +2934,7 @@
     "model": "panels.alarmconfig",
     "pk": 283,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#61!]",
+      "alarm_id": "Array-HvacFail-Ant instance 61",
       "view": 1,
       "type": 8,
       "parent": 84
@@ -2944,7 +2944,7 @@
     "model": "panels.alarmconfig",
     "pk": 284,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#62!]",
+      "alarm_id": "Array-HvacFail-Ant instance 62",
       "view": 1,
       "type": 8,
       "parent": 85
@@ -2954,7 +2954,7 @@
     "model": "panels.alarmconfig",
     "pk": 285,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#63!]",
+      "alarm_id": "Array-HvacFail-Ant instance 63",
       "view": 1,
       "type": 8,
       "parent": 86
@@ -2964,7 +2964,7 @@
     "model": "panels.alarmconfig",
     "pk": 286,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#64!]",
+      "alarm_id": "Array-HvacFail-Ant instance 64",
       "view": 1,
       "type": 8,
       "parent": 87
@@ -2974,7 +2974,7 @@
     "model": "panels.alarmconfig",
     "pk": 287,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#65!]",
+      "alarm_id": "Array-HvacFail-Ant instance 65",
       "view": 1,
       "type": 8,
       "parent": 88
@@ -2984,7 +2984,7 @@
     "model": "panels.alarmconfig",
     "pk": 288,
     "fields": {
-      "alarm_id": "Array-HvacFail-Ant[!#66!]",
+      "alarm_id": "Array-HvacFail-Ant instance 66",
       "view": 1,
       "type": 8,
       "parent": 89
@@ -2994,7 +2994,7 @@
     "model": "panels.alarmconfig",
     "pk": 289,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#1!]",
+      "alarm_id": "Array-UpsFail-Ant instance 1",
       "view": 1,
       "type": 9,
       "parent": 24
@@ -3004,7 +3004,7 @@
     "model": "panels.alarmconfig",
     "pk": 290,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#2!]",
+      "alarm_id": "Array-UpsFail-Ant instance 2",
       "view": 1,
       "type": 9,
       "parent": 25
@@ -3014,7 +3014,7 @@
     "model": "panels.alarmconfig",
     "pk": 291,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#3!]",
+      "alarm_id": "Array-UpsFail-Ant instance 3",
       "view": 1,
       "type": 9,
       "parent": 26
@@ -3024,7 +3024,7 @@
     "model": "panels.alarmconfig",
     "pk": 292,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#4!]",
+      "alarm_id": "Array-UpsFail-Ant instance 4",
       "view": 1,
       "type": 9,
       "parent": 27
@@ -3034,7 +3034,7 @@
     "model": "panels.alarmconfig",
     "pk": 293,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#5!]",
+      "alarm_id": "Array-UpsFail-Ant instance 5",
       "view": 1,
       "type": 9,
       "parent": 28
@@ -3044,7 +3044,7 @@
     "model": "panels.alarmconfig",
     "pk": 294,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#6!]",
+      "alarm_id": "Array-UpsFail-Ant instance 6",
       "view": 1,
       "type": 9,
       "parent": 29
@@ -3054,7 +3054,7 @@
     "model": "panels.alarmconfig",
     "pk": 295,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#7!]",
+      "alarm_id": "Array-UpsFail-Ant instance 7",
       "view": 1,
       "type": 9,
       "parent": 30
@@ -3064,7 +3064,7 @@
     "model": "panels.alarmconfig",
     "pk": 296,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#8!]",
+      "alarm_id": "Array-UpsFail-Ant instance 8",
       "view": 1,
       "type": 9,
       "parent": 31
@@ -3074,7 +3074,7 @@
     "model": "panels.alarmconfig",
     "pk": 297,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#9!]",
+      "alarm_id": "Array-UpsFail-Ant instance 9",
       "view": 1,
       "type": 9,
       "parent": 32
@@ -3084,7 +3084,7 @@
     "model": "panels.alarmconfig",
     "pk": 298,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#10!]",
+      "alarm_id": "Array-UpsFail-Ant instance 10",
       "view": 1,
       "type": 9,
       "parent": 33
@@ -3094,7 +3094,7 @@
     "model": "panels.alarmconfig",
     "pk": 299,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#11!]",
+      "alarm_id": "Array-UpsFail-Ant instance 11",
       "view": 1,
       "type": 9,
       "parent": 34
@@ -3104,7 +3104,7 @@
     "model": "panels.alarmconfig",
     "pk": 300,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#12!]",
+      "alarm_id": "Array-UpsFail-Ant instance 12",
       "view": 1,
       "type": 9,
       "parent": 35
@@ -3114,7 +3114,7 @@
     "model": "panels.alarmconfig",
     "pk": 301,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#13!]",
+      "alarm_id": "Array-UpsFail-Ant instance 13",
       "view": 1,
       "type": 9,
       "parent": 36
@@ -3124,7 +3124,7 @@
     "model": "panels.alarmconfig",
     "pk": 302,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#14!]",
+      "alarm_id": "Array-UpsFail-Ant instance 14",
       "view": 1,
       "type": 9,
       "parent": 37
@@ -3134,7 +3134,7 @@
     "model": "panels.alarmconfig",
     "pk": 303,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#15!]",
+      "alarm_id": "Array-UpsFail-Ant instance 15",
       "view": 1,
       "type": 9,
       "parent": 38
@@ -3144,7 +3144,7 @@
     "model": "panels.alarmconfig",
     "pk": 304,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#16!]",
+      "alarm_id": "Array-UpsFail-Ant instance 16",
       "view": 1,
       "type": 9,
       "parent": 39
@@ -3154,7 +3154,7 @@
     "model": "panels.alarmconfig",
     "pk": 305,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#17!]",
+      "alarm_id": "Array-UpsFail-Ant instance 17",
       "view": 1,
       "type": 9,
       "parent": 40
@@ -3164,7 +3164,7 @@
     "model": "panels.alarmconfig",
     "pk": 306,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#18!]",
+      "alarm_id": "Array-UpsFail-Ant instance 18",
       "view": 1,
       "type": 9,
       "parent": 41
@@ -3174,7 +3174,7 @@
     "model": "panels.alarmconfig",
     "pk": 307,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#19!]",
+      "alarm_id": "Array-UpsFail-Ant instance 19",
       "view": 1,
       "type": 9,
       "parent": 42
@@ -3184,7 +3184,7 @@
     "model": "panels.alarmconfig",
     "pk": 308,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#20!]",
+      "alarm_id": "Array-UpsFail-Ant instance 20",
       "view": 1,
       "type": 9,
       "parent": 43
@@ -3194,7 +3194,7 @@
     "model": "panels.alarmconfig",
     "pk": 309,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#21!]",
+      "alarm_id": "Array-UpsFail-Ant instance 21",
       "view": 1,
       "type": 9,
       "parent": 44
@@ -3204,7 +3204,7 @@
     "model": "panels.alarmconfig",
     "pk": 310,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#22!]",
+      "alarm_id": "Array-UpsFail-Ant instance 22",
       "view": 1,
       "type": 9,
       "parent": 45
@@ -3214,7 +3214,7 @@
     "model": "panels.alarmconfig",
     "pk": 311,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#23!]",
+      "alarm_id": "Array-UpsFail-Ant instance 23",
       "view": 1,
       "type": 9,
       "parent": 46
@@ -3224,7 +3224,7 @@
     "model": "panels.alarmconfig",
     "pk": 312,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#24!]",
+      "alarm_id": "Array-UpsFail-Ant instance 24",
       "view": 1,
       "type": 9,
       "parent": 47
@@ -3234,7 +3234,7 @@
     "model": "panels.alarmconfig",
     "pk": 313,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#25!]",
+      "alarm_id": "Array-UpsFail-Ant instance 25",
       "view": 1,
       "type": 9,
       "parent": 48
@@ -3244,7 +3244,7 @@
     "model": "panels.alarmconfig",
     "pk": 314,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#26!]",
+      "alarm_id": "Array-UpsFail-Ant instance 26",
       "view": 1,
       "type": 9,
       "parent": 49
@@ -3254,7 +3254,7 @@
     "model": "panels.alarmconfig",
     "pk": 315,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#27!]",
+      "alarm_id": "Array-UpsFail-Ant instance 27",
       "view": 1,
       "type": 9,
       "parent": 50
@@ -3264,7 +3264,7 @@
     "model": "panels.alarmconfig",
     "pk": 316,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#28!]",
+      "alarm_id": "Array-UpsFail-Ant instance 28",
       "view": 1,
       "type": 9,
       "parent": 51
@@ -3274,7 +3274,7 @@
     "model": "panels.alarmconfig",
     "pk": 317,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#29!]",
+      "alarm_id": "Array-UpsFail-Ant instance 29",
       "view": 1,
       "type": 9,
       "parent": 52
@@ -3284,7 +3284,7 @@
     "model": "panels.alarmconfig",
     "pk": 318,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#30!]",
+      "alarm_id": "Array-UpsFail-Ant instance 30",
       "view": 1,
       "type": 9,
       "parent": 53
@@ -3294,7 +3294,7 @@
     "model": "panels.alarmconfig",
     "pk": 319,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#31!]",
+      "alarm_id": "Array-UpsFail-Ant instance 31",
       "view": 1,
       "type": 9,
       "parent": 54
@@ -3304,7 +3304,7 @@
     "model": "panels.alarmconfig",
     "pk": 320,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#32!]",
+      "alarm_id": "Array-UpsFail-Ant instance 32",
       "view": 1,
       "type": 9,
       "parent": 55
@@ -3314,7 +3314,7 @@
     "model": "panels.alarmconfig",
     "pk": 321,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#33!]",
+      "alarm_id": "Array-UpsFail-Ant instance 33",
       "view": 1,
       "type": 9,
       "parent": 56
@@ -3324,7 +3324,7 @@
     "model": "panels.alarmconfig",
     "pk": 322,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#34!]",
+      "alarm_id": "Array-UpsFail-Ant instance 34",
       "view": 1,
       "type": 9,
       "parent": 57
@@ -3334,7 +3334,7 @@
     "model": "panels.alarmconfig",
     "pk": 323,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#35!]",
+      "alarm_id": "Array-UpsFail-Ant instance 35",
       "view": 1,
       "type": 9,
       "parent": 58
@@ -3344,7 +3344,7 @@
     "model": "panels.alarmconfig",
     "pk": 324,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#36!]",
+      "alarm_id": "Array-UpsFail-Ant instance 36",
       "view": 1,
       "type": 9,
       "parent": 59
@@ -3354,7 +3354,7 @@
     "model": "panels.alarmconfig",
     "pk": 325,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#37!]",
+      "alarm_id": "Array-UpsFail-Ant instance 37",
       "view": 1,
       "type": 9,
       "parent": 60
@@ -3364,7 +3364,7 @@
     "model": "panels.alarmconfig",
     "pk": 326,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#38!]",
+      "alarm_id": "Array-UpsFail-Ant instance 38",
       "view": 1,
       "type": 9,
       "parent": 61
@@ -3374,7 +3374,7 @@
     "model": "panels.alarmconfig",
     "pk": 327,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#39!]",
+      "alarm_id": "Array-UpsFail-Ant instance 39",
       "view": 1,
       "type": 9,
       "parent": 62
@@ -3384,7 +3384,7 @@
     "model": "panels.alarmconfig",
     "pk": 328,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#40!]",
+      "alarm_id": "Array-UpsFail-Ant instance 40",
       "view": 1,
       "type": 9,
       "parent": 63
@@ -3394,7 +3394,7 @@
     "model": "panels.alarmconfig",
     "pk": 329,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#41!]",
+      "alarm_id": "Array-UpsFail-Ant instance 41",
       "view": 1,
       "type": 9,
       "parent": 64
@@ -3404,7 +3404,7 @@
     "model": "panels.alarmconfig",
     "pk": 330,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#42!]",
+      "alarm_id": "Array-UpsFail-Ant instance 42",
       "view": 1,
       "type": 9,
       "parent": 65
@@ -3414,7 +3414,7 @@
     "model": "panels.alarmconfig",
     "pk": 331,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#43!]",
+      "alarm_id": "Array-UpsFail-Ant instance 43",
       "view": 1,
       "type": 9,
       "parent": 66
@@ -3424,7 +3424,7 @@
     "model": "panels.alarmconfig",
     "pk": 332,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#44!]",
+      "alarm_id": "Array-UpsFail-Ant instance 44",
       "view": 1,
       "type": 9,
       "parent": 67
@@ -3434,7 +3434,7 @@
     "model": "panels.alarmconfig",
     "pk": 333,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#45!]",
+      "alarm_id": "Array-UpsFail-Ant instance 45",
       "view": 1,
       "type": 9,
       "parent": 68
@@ -3444,7 +3444,7 @@
     "model": "panels.alarmconfig",
     "pk": 334,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#46!]",
+      "alarm_id": "Array-UpsFail-Ant instance 46",
       "view": 1,
       "type": 9,
       "parent": 69
@@ -3454,7 +3454,7 @@
     "model": "panels.alarmconfig",
     "pk": 335,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#47!]",
+      "alarm_id": "Array-UpsFail-Ant instance 47",
       "view": 1,
       "type": 9,
       "parent": 70
@@ -3464,7 +3464,7 @@
     "model": "panels.alarmconfig",
     "pk": 336,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#48!]",
+      "alarm_id": "Array-UpsFail-Ant instance 48",
       "view": 1,
       "type": 9,
       "parent": 71
@@ -3474,7 +3474,7 @@
     "model": "panels.alarmconfig",
     "pk": 337,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#49!]",
+      "alarm_id": "Array-UpsFail-Ant instance 49",
       "view": 1,
       "type": 9,
       "parent": 72
@@ -3484,7 +3484,7 @@
     "model": "panels.alarmconfig",
     "pk": 338,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#50!]",
+      "alarm_id": "Array-UpsFail-Ant instance 50",
       "view": 1,
       "type": 9,
       "parent": 73
@@ -3494,7 +3494,7 @@
     "model": "panels.alarmconfig",
     "pk": 339,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#51!]",
+      "alarm_id": "Array-UpsFail-Ant instance 51",
       "view": 1,
       "type": 9,
       "parent": 74
@@ -3504,7 +3504,7 @@
     "model": "panels.alarmconfig",
     "pk": 340,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#52!]",
+      "alarm_id": "Array-UpsFail-Ant instance 52",
       "view": 1,
       "type": 9,
       "parent": 75
@@ -3514,7 +3514,7 @@
     "model": "panels.alarmconfig",
     "pk": 341,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#53!]",
+      "alarm_id": "Array-UpsFail-Ant instance 53",
       "view": 1,
       "type": 9,
       "parent": 76
@@ -3524,7 +3524,7 @@
     "model": "panels.alarmconfig",
     "pk": 342,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#54!]",
+      "alarm_id": "Array-UpsFail-Ant instance 54",
       "view": 1,
       "type": 9,
       "parent": 77
@@ -3534,7 +3534,7 @@
     "model": "panels.alarmconfig",
     "pk": 343,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#55!]",
+      "alarm_id": "Array-UpsFail-Ant instance 55",
       "view": 1,
       "type": 9,
       "parent": 78
@@ -3544,7 +3544,7 @@
     "model": "panels.alarmconfig",
     "pk": 344,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#56!]",
+      "alarm_id": "Array-UpsFail-Ant instance 56",
       "view": 1,
       "type": 9,
       "parent": 79
@@ -3554,7 +3554,7 @@
     "model": "panels.alarmconfig",
     "pk": 345,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#57!]",
+      "alarm_id": "Array-UpsFail-Ant instance 57",
       "view": 1,
       "type": 9,
       "parent": 80
@@ -3564,7 +3564,7 @@
     "model": "panels.alarmconfig",
     "pk": 346,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#58!]",
+      "alarm_id": "Array-UpsFail-Ant instance 58",
       "view": 1,
       "type": 9,
       "parent": 81
@@ -3574,7 +3574,7 @@
     "model": "panels.alarmconfig",
     "pk": 347,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#59!]",
+      "alarm_id": "Array-UpsFail-Ant instance 59",
       "view": 1,
       "type": 9,
       "parent": 82
@@ -3584,7 +3584,7 @@
     "model": "panels.alarmconfig",
     "pk": 348,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#60!]",
+      "alarm_id": "Array-UpsFail-Ant instance 60",
       "view": 1,
       "type": 9,
       "parent": 83
@@ -3594,7 +3594,7 @@
     "model": "panels.alarmconfig",
     "pk": 349,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#61!]",
+      "alarm_id": "Array-UpsFail-Ant instance 61",
       "view": 1,
       "type": 9,
       "parent": 84
@@ -3604,7 +3604,7 @@
     "model": "panels.alarmconfig",
     "pk": 350,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#62!]",
+      "alarm_id": "Array-UpsFail-Ant instance 62",
       "view": 1,
       "type": 9,
       "parent": 85
@@ -3614,7 +3614,7 @@
     "model": "panels.alarmconfig",
     "pk": 351,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#63!]",
+      "alarm_id": "Array-UpsFail-Ant instance 63",
       "view": 1,
       "type": 9,
       "parent": 86
@@ -3624,7 +3624,7 @@
     "model": "panels.alarmconfig",
     "pk": 352,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#64!]",
+      "alarm_id": "Array-UpsFail-Ant instance 64",
       "view": 1,
       "type": 9,
       "parent": 87
@@ -3634,7 +3634,7 @@
     "model": "panels.alarmconfig",
     "pk": 353,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#65!]",
+      "alarm_id": "Array-UpsFail-Ant instance 65",
       "view": 1,
       "type": 9,
       "parent": 88
@@ -3644,7 +3644,7 @@
     "model": "panels.alarmconfig",
     "pk": 354,
     "fields": {
-      "alarm_id": "Array-UpsFail-Ant[!#66!]",
+      "alarm_id": "Array-UpsFail-Ant instance 66",
       "view": 1,
       "type": 9,
       "parent": 89
@@ -3654,7 +3654,7 @@
     "model": "panels.alarmconfig",
     "pk": 355,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#1!]",
+      "alarm_id": "Array-PowerCut-Ant instance 1",
       "view": 1,
       "type": 10,
       "parent": 24
@@ -3664,7 +3664,7 @@
     "model": "panels.alarmconfig",
     "pk": 356,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#2!]",
+      "alarm_id": "Array-PowerCut-Ant instance 2",
       "view": 1,
       "type": 10,
       "parent": 25
@@ -3674,7 +3674,7 @@
     "model": "panels.alarmconfig",
     "pk": 357,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#3!]",
+      "alarm_id": "Array-PowerCut-Ant instance 3",
       "view": 1,
       "type": 10,
       "parent": 26
@@ -3684,7 +3684,7 @@
     "model": "panels.alarmconfig",
     "pk": 358,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#4!]",
+      "alarm_id": "Array-PowerCut-Ant instance 4",
       "view": 1,
       "type": 10,
       "parent": 27
@@ -3694,7 +3694,7 @@
     "model": "panels.alarmconfig",
     "pk": 359,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#5!]",
+      "alarm_id": "Array-PowerCut-Ant instance 5",
       "view": 1,
       "type": 10,
       "parent": 28
@@ -3704,7 +3704,7 @@
     "model": "panels.alarmconfig",
     "pk": 360,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#6!]",
+      "alarm_id": "Array-PowerCut-Ant instance 6",
       "view": 1,
       "type": 10,
       "parent": 29
@@ -3714,7 +3714,7 @@
     "model": "panels.alarmconfig",
     "pk": 361,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#7!]",
+      "alarm_id": "Array-PowerCut-Ant instance 7",
       "view": 1,
       "type": 10,
       "parent": 30
@@ -3724,7 +3724,7 @@
     "model": "panels.alarmconfig",
     "pk": 362,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#8!]",
+      "alarm_id": "Array-PowerCut-Ant instance 8",
       "view": 1,
       "type": 10,
       "parent": 31
@@ -3734,7 +3734,7 @@
     "model": "panels.alarmconfig",
     "pk": 363,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#9!]",
+      "alarm_id": "Array-PowerCut-Ant instance 9",
       "view": 1,
       "type": 10,
       "parent": 32
@@ -3744,7 +3744,7 @@
     "model": "panels.alarmconfig",
     "pk": 364,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#10!]",
+      "alarm_id": "Array-PowerCut-Ant instance 10",
       "view": 1,
       "type": 10,
       "parent": 33
@@ -3754,7 +3754,7 @@
     "model": "panels.alarmconfig",
     "pk": 365,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#11!]",
+      "alarm_id": "Array-PowerCut-Ant instance 11",
       "view": 1,
       "type": 10,
       "parent": 34
@@ -3764,7 +3764,7 @@
     "model": "panels.alarmconfig",
     "pk": 366,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#12!]",
+      "alarm_id": "Array-PowerCut-Ant instance 12",
       "view": 1,
       "type": 10,
       "parent": 35
@@ -3774,7 +3774,7 @@
     "model": "panels.alarmconfig",
     "pk": 367,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#13!]",
+      "alarm_id": "Array-PowerCut-Ant instance 13",
       "view": 1,
       "type": 10,
       "parent": 36
@@ -3784,7 +3784,7 @@
     "model": "panels.alarmconfig",
     "pk": 368,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#14!]",
+      "alarm_id": "Array-PowerCut-Ant instance 14",
       "view": 1,
       "type": 10,
       "parent": 37
@@ -3794,7 +3794,7 @@
     "model": "panels.alarmconfig",
     "pk": 369,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#15!]",
+      "alarm_id": "Array-PowerCut-Ant instance 15",
       "view": 1,
       "type": 10,
       "parent": 38
@@ -3804,7 +3804,7 @@
     "model": "panels.alarmconfig",
     "pk": 370,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#16!]",
+      "alarm_id": "Array-PowerCut-Ant instance 16",
       "view": 1,
       "type": 10,
       "parent": 39
@@ -3814,7 +3814,7 @@
     "model": "panels.alarmconfig",
     "pk": 371,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#17!]",
+      "alarm_id": "Array-PowerCut-Ant instance 17",
       "view": 1,
       "type": 10,
       "parent": 40
@@ -3824,7 +3824,7 @@
     "model": "panels.alarmconfig",
     "pk": 372,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#18!]",
+      "alarm_id": "Array-PowerCut-Ant instance 18",
       "view": 1,
       "type": 10,
       "parent": 41
@@ -3834,7 +3834,7 @@
     "model": "panels.alarmconfig",
     "pk": 373,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#19!]",
+      "alarm_id": "Array-PowerCut-Ant instance 19",
       "view": 1,
       "type": 10,
       "parent": 42
@@ -3844,7 +3844,7 @@
     "model": "panels.alarmconfig",
     "pk": 374,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#20!]",
+      "alarm_id": "Array-PowerCut-Ant instance 20",
       "view": 1,
       "type": 10,
       "parent": 43
@@ -3854,7 +3854,7 @@
     "model": "panels.alarmconfig",
     "pk": 375,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#21!]",
+      "alarm_id": "Array-PowerCut-Ant instance 21",
       "view": 1,
       "type": 10,
       "parent": 44
@@ -3864,7 +3864,7 @@
     "model": "panels.alarmconfig",
     "pk": 376,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#22!]",
+      "alarm_id": "Array-PowerCut-Ant instance 22",
       "view": 1,
       "type": 10,
       "parent": 45
@@ -3874,7 +3874,7 @@
     "model": "panels.alarmconfig",
     "pk": 377,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#23!]",
+      "alarm_id": "Array-PowerCut-Ant instance 23",
       "view": 1,
       "type": 10,
       "parent": 46
@@ -3884,7 +3884,7 @@
     "model": "panels.alarmconfig",
     "pk": 378,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#24!]",
+      "alarm_id": "Array-PowerCut-Ant instance 24",
       "view": 1,
       "type": 10,
       "parent": 47
@@ -3894,7 +3894,7 @@
     "model": "panels.alarmconfig",
     "pk": 379,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#25!]",
+      "alarm_id": "Array-PowerCut-Ant instance 25",
       "view": 1,
       "type": 10,
       "parent": 48
@@ -3904,7 +3904,7 @@
     "model": "panels.alarmconfig",
     "pk": 380,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#26!]",
+      "alarm_id": "Array-PowerCut-Ant instance 26",
       "view": 1,
       "type": 10,
       "parent": 49
@@ -3914,7 +3914,7 @@
     "model": "panels.alarmconfig",
     "pk": 381,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#27!]",
+      "alarm_id": "Array-PowerCut-Ant instance 27",
       "view": 1,
       "type": 10,
       "parent": 50
@@ -3924,7 +3924,7 @@
     "model": "panels.alarmconfig",
     "pk": 382,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#28!]",
+      "alarm_id": "Array-PowerCut-Ant instance 28",
       "view": 1,
       "type": 10,
       "parent": 51
@@ -3934,7 +3934,7 @@
     "model": "panels.alarmconfig",
     "pk": 383,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#29!]",
+      "alarm_id": "Array-PowerCut-Ant instance 29",
       "view": 1,
       "type": 10,
       "parent": 52
@@ -3944,7 +3944,7 @@
     "model": "panels.alarmconfig",
     "pk": 384,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#30!]",
+      "alarm_id": "Array-PowerCut-Ant instance 30",
       "view": 1,
       "type": 10,
       "parent": 53
@@ -3954,7 +3954,7 @@
     "model": "panels.alarmconfig",
     "pk": 385,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#31!]",
+      "alarm_id": "Array-PowerCut-Ant instance 31",
       "view": 1,
       "type": 10,
       "parent": 54
@@ -3964,7 +3964,7 @@
     "model": "panels.alarmconfig",
     "pk": 386,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#32!]",
+      "alarm_id": "Array-PowerCut-Ant instance 32",
       "view": 1,
       "type": 10,
       "parent": 55
@@ -3974,7 +3974,7 @@
     "model": "panels.alarmconfig",
     "pk": 387,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#33!]",
+      "alarm_id": "Array-PowerCut-Ant instance 33",
       "view": 1,
       "type": 10,
       "parent": 56
@@ -3984,7 +3984,7 @@
     "model": "panels.alarmconfig",
     "pk": 388,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#34!]",
+      "alarm_id": "Array-PowerCut-Ant instance 34",
       "view": 1,
       "type": 10,
       "parent": 57
@@ -3994,7 +3994,7 @@
     "model": "panels.alarmconfig",
     "pk": 389,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#35!]",
+      "alarm_id": "Array-PowerCut-Ant instance 35",
       "view": 1,
       "type": 10,
       "parent": 58
@@ -4004,7 +4004,7 @@
     "model": "panels.alarmconfig",
     "pk": 390,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#36!]",
+      "alarm_id": "Array-PowerCut-Ant instance 36",
       "view": 1,
       "type": 10,
       "parent": 59
@@ -4014,7 +4014,7 @@
     "model": "panels.alarmconfig",
     "pk": 391,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#37!]",
+      "alarm_id": "Array-PowerCut-Ant instance 37",
       "view": 1,
       "type": 10,
       "parent": 60
@@ -4024,7 +4024,7 @@
     "model": "panels.alarmconfig",
     "pk": 392,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#38!]",
+      "alarm_id": "Array-PowerCut-Ant instance 38",
       "view": 1,
       "type": 10,
       "parent": 61
@@ -4034,7 +4034,7 @@
     "model": "panels.alarmconfig",
     "pk": 393,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#39!]",
+      "alarm_id": "Array-PowerCut-Ant instance 39",
       "view": 1,
       "type": 10,
       "parent": 62
@@ -4044,7 +4044,7 @@
     "model": "panels.alarmconfig",
     "pk": 394,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#40!]",
+      "alarm_id": "Array-PowerCut-Ant instance 40",
       "view": 1,
       "type": 10,
       "parent": 63
@@ -4054,7 +4054,7 @@
     "model": "panels.alarmconfig",
     "pk": 395,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#41!]",
+      "alarm_id": "Array-PowerCut-Ant instance 41",
       "view": 1,
       "type": 10,
       "parent": 64
@@ -4064,7 +4064,7 @@
     "model": "panels.alarmconfig",
     "pk": 396,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#42!]",
+      "alarm_id": "Array-PowerCut-Ant instance 42",
       "view": 1,
       "type": 10,
       "parent": 65
@@ -4074,7 +4074,7 @@
     "model": "panels.alarmconfig",
     "pk": 397,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#43!]",
+      "alarm_id": "Array-PowerCut-Ant instance 43",
       "view": 1,
       "type": 10,
       "parent": 66
@@ -4084,7 +4084,7 @@
     "model": "panels.alarmconfig",
     "pk": 398,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#44!]",
+      "alarm_id": "Array-PowerCut-Ant instance 44",
       "view": 1,
       "type": 10,
       "parent": 67
@@ -4094,7 +4094,7 @@
     "model": "panels.alarmconfig",
     "pk": 399,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#45!]",
+      "alarm_id": "Array-PowerCut-Ant instance 45",
       "view": 1,
       "type": 10,
       "parent": 68
@@ -4104,7 +4104,7 @@
     "model": "panels.alarmconfig",
     "pk": 400,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#46!]",
+      "alarm_id": "Array-PowerCut-Ant instance 46",
       "view": 1,
       "type": 10,
       "parent": 69
@@ -4114,7 +4114,7 @@
     "model": "panels.alarmconfig",
     "pk": 401,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#47!]",
+      "alarm_id": "Array-PowerCut-Ant instance 47",
       "view": 1,
       "type": 10,
       "parent": 70
@@ -4124,7 +4124,7 @@
     "model": "panels.alarmconfig",
     "pk": 402,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#48!]",
+      "alarm_id": "Array-PowerCut-Ant instance 48",
       "view": 1,
       "type": 10,
       "parent": 71
@@ -4134,7 +4134,7 @@
     "model": "panels.alarmconfig",
     "pk": 403,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#49!]",
+      "alarm_id": "Array-PowerCut-Ant instance 49",
       "view": 1,
       "type": 10,
       "parent": 72
@@ -4144,7 +4144,7 @@
     "model": "panels.alarmconfig",
     "pk": 404,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#50!]",
+      "alarm_id": "Array-PowerCut-Ant instance 50",
       "view": 1,
       "type": 10,
       "parent": 73
@@ -4154,7 +4154,7 @@
     "model": "panels.alarmconfig",
     "pk": 405,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#51!]",
+      "alarm_id": "Array-PowerCut-Ant instance 51",
       "view": 1,
       "type": 10,
       "parent": 74
@@ -4164,7 +4164,7 @@
     "model": "panels.alarmconfig",
     "pk": 406,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#52!]",
+      "alarm_id": "Array-PowerCut-Ant instance 52",
       "view": 1,
       "type": 10,
       "parent": 75
@@ -4174,7 +4174,7 @@
     "model": "panels.alarmconfig",
     "pk": 407,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#53!]",
+      "alarm_id": "Array-PowerCut-Ant instance 53",
       "view": 1,
       "type": 10,
       "parent": 76
@@ -4184,7 +4184,7 @@
     "model": "panels.alarmconfig",
     "pk": 408,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#54!]",
+      "alarm_id": "Array-PowerCut-Ant instance 54",
       "view": 1,
       "type": 10,
       "parent": 77
@@ -4194,7 +4194,7 @@
     "model": "panels.alarmconfig",
     "pk": 409,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#55!]",
+      "alarm_id": "Array-PowerCut-Ant instance 55",
       "view": 1,
       "type": 10,
       "parent": 78
@@ -4204,7 +4204,7 @@
     "model": "panels.alarmconfig",
     "pk": 410,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#56!]",
+      "alarm_id": "Array-PowerCut-Ant instance 56",
       "view": 1,
       "type": 10,
       "parent": 79
@@ -4214,7 +4214,7 @@
     "model": "panels.alarmconfig",
     "pk": 411,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#57!]",
+      "alarm_id": "Array-PowerCut-Ant instance 57",
       "view": 1,
       "type": 10,
       "parent": 80
@@ -4224,7 +4224,7 @@
     "model": "panels.alarmconfig",
     "pk": 412,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#58!]",
+      "alarm_id": "Array-PowerCut-Ant instance 58",
       "view": 1,
       "type": 10,
       "parent": 81
@@ -4234,7 +4234,7 @@
     "model": "panels.alarmconfig",
     "pk": 413,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#59!]",
+      "alarm_id": "Array-PowerCut-Ant instance 59",
       "view": 1,
       "type": 10,
       "parent": 82
@@ -4244,7 +4244,7 @@
     "model": "panels.alarmconfig",
     "pk": 414,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#60!]",
+      "alarm_id": "Array-PowerCut-Ant instance 60",
       "view": 1,
       "type": 10,
       "parent": 83
@@ -4254,7 +4254,7 @@
     "model": "panels.alarmconfig",
     "pk": 415,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#61!]",
+      "alarm_id": "Array-PowerCut-Ant instance 61",
       "view": 1,
       "type": 10,
       "parent": 84
@@ -4264,7 +4264,7 @@
     "model": "panels.alarmconfig",
     "pk": 416,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#62!]",
+      "alarm_id": "Array-PowerCut-Ant instance 62",
       "view": 1,
       "type": 10,
       "parent": 85
@@ -4274,7 +4274,7 @@
     "model": "panels.alarmconfig",
     "pk": 417,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#63!]",
+      "alarm_id": "Array-PowerCut-Ant instance 63",
       "view": 1,
       "type": 10,
       "parent": 86
@@ -4284,7 +4284,7 @@
     "model": "panels.alarmconfig",
     "pk": 418,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#64!]",
+      "alarm_id": "Array-PowerCut-Ant instance 64",
       "view": 1,
       "type": 10,
       "parent": 87
@@ -4294,7 +4294,7 @@
     "model": "panels.alarmconfig",
     "pk": 419,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#65!]",
+      "alarm_id": "Array-PowerCut-Ant instance 65",
       "view": 1,
       "type": 10,
       "parent": 88
@@ -4304,7 +4304,7 @@
     "model": "panels.alarmconfig",
     "pk": 420,
     "fields": {
-      "alarm_id": "Array-PowerCut-Ant[!#66!]",
+      "alarm_id": "Array-PowerCut-Ant instance 66",
       "view": 1,
       "type": 10,
       "parent": 89

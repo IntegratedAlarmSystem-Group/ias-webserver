@@ -14,16 +14,16 @@ class TestCoreConsumer:
         """TestCase setup, executed before each test of the TestCase"""
         # Arrange:
         self.iasio_alarm = {
-            'io_id': "AlarmType-ID",
-            'short_desc': "Test iasio",
-            'ias_type': "alarm",
-            'doc_url': 'www.dummy-url.com'
+            'id': "AlarmType-ID",
+            'shortDesc': "Test iasio",
+            'iasType': "alarm",
+            'docUrl': 'www.dummy-url.com'
         }
         self.iasio_double = {
-            'io_id': "DoubleType-ID",
-            'short_desc': "Test iasio",
-            'ias_type': "double",
-            'doc_url': 'www.dummy-url.com'
+            'id': "DoubleType-ID",
+            'shortDesc': "Test iasio",
+            'iasType': "double",
+            'docUrl': 'www.dummy-url.com'
         }
         self.iasios = [self.iasio_alarm, self.iasio_double]
 
@@ -38,6 +38,19 @@ class TestCoreConsumer:
         id = CoreConsumer.get_core_id_from(full_running_id)
         # Assert:
         assert id == 'AlarmType-ID', \
+            'The core_id was not extracted correctly from the running_id'
+
+    def test_get_templated_core_id_from(self):
+        """Test if the core_id corresponding to a templated alarm is extracted
+        and cleaned correctly from running id field"""
+        # Arrange:
+        full_running_id = '(Monitored-System-ID:MONITORED_SOFTWARE_SYSTEM)@' +\
+                          '(plugin-ID:PLUGIN)@(Converter-ID:CONVERTER)@' +\
+                          '(AlarmType-Ant[!#66!]:IASIO)'
+        # Act:
+        id = CoreConsumer.get_core_id_from(full_running_id)
+        # Assert:
+        assert id == 'AlarmType-Ant instance 66', \
             'The core_id was not extracted correctly from the running_id'
 
     def test_get_timestamp_from(self):
@@ -187,8 +200,8 @@ class TestCoreConsumer:
                 'dasuProductionTStamp': current_time_millis,
                 'sentToBsdbTStamp': current_time_millis
             },
-            description=self.iasio_alarm['short_desc'],
-            url=self.iasio_alarm['doc_url'],
+            description=self.iasio_alarm['shortDesc'],
+            url=self.iasio_alarm['docUrl'],
             ack=False,
             shelved=False,
         )

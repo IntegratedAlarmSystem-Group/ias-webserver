@@ -26,6 +26,7 @@ py
 pytest
 pytest-asyncio
 pytest-django
+pytest-env
 pytest-mock
 python-dateutil
 pytz

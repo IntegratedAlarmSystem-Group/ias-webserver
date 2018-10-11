@@ -113,5 +113,9 @@ ENV/
 private_files/**
 !private_files/.gitinclude
 
+# Config Database
+CDB/**
+!CDB/.gitinclude
+
 # Mac files
 *.DS_Store
