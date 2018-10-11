@@ -1,1938 +1,2163 @@
 [
   {
     "model": "panels.placemarktype",
+    "pk": 3,
     "fields": {
       "name": "pad"
+    }
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "INNER",
+      "description": "Inner array, including central cluster and ACA"
+    },
+    "pk": 0
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "W",
+      "description": "Western arm of the array"
+    },
+    "pk": 1
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "S",
+      "description": "Southern arm of the array"
+    },
+    "pk": 2
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "P",
+      "description": "Pampa La Bola arm"
     },
     "pk": 3
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A016",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A087",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A123",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A062",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "N605",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J502",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W203",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "S307",
-      "y": 0.0,
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A018",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A047",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "Master0",
-      "y": 0.0,
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A055",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A005",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A098",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P408",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A073",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A093",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A095",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J509",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A111",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A011",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W206",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P411",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J511",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A056",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A121",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A133",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W209",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A116",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W202",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A127",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A085",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "T704",
-      "y": 0.0,
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P409",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J501",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A063",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A071",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A034",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A020",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A132",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A060",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A027",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "S309",
-      "y": 0.0,
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "T703",
-      "y": 0.0,
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A049",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A044",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A104",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A006",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A026",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A077",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A094",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A078",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W204",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A092",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A054",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P404",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A038",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A052",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P410",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A136",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A074",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W207",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A079",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A084",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A114",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A108",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W201",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P401",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A001",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A070",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A105",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A058",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A107",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A021",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A101",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A037",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "S304",
-      "y": 0.0,
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A030",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A009",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "S308",
-      "y": 0.0,
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P412",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W210",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A134",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A113",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A096",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A042",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A023",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A118",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J506",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A109",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J505",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A129",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A064",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A090",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J512",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A089",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A028",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "S302",
-      "y": 0.0,
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A122",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A035",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "S305",
-      "y": 0.0,
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A112",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P402",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A091",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P407",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A126",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A100",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A106",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "N606",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A086",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A065",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A029",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P406",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J507",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A041",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A102",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A022",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A061",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A036",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A068",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A015",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A066",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A119",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A080",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P413",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A024",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A128",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W208",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P405",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A013",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A103",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A007",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A032",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A135",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A076",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A110",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A002",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "T701",
-      "y": 0.0,
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A004",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A075",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A131",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A031",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A130",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A137",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A003",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A048",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "N603",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A067",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A088",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A097",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A069",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J503",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A072",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A117",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A039",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A053",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A033",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A099",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "W205",
-      "y": 0.0,
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A051",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A012",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "S301",
-      "y": 0.0,
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "S303",
-      "y": 0.0,
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A115",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A040",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A059",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J510",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A019",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A057",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A081",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A008",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J504",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A014",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "J508",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "N602",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A046",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A025",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A124",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A138",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "T702",
-      "y": 0.0,
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A083",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A125",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "P403",
-      "y": 0.0,
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A045",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A120",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A017",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A010",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A050",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "N604",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "S306",
-      "y": 0.0,
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "A082",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
+      "y": 0.0,
       "name": "N601",
-      "y": 0.0,
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   },
   {
     "model": "panels.placemark",
     "fields": {
-      "type": 3,
-      "coordinates_type": "G",
-      "name": "A043",
       "y": 0.0,
+      "name": "A043",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
       "x": 0.0
     }
   }
