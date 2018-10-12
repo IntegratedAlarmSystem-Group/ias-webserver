@@ -3,8 +3,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from panels.models import File, AlarmConfig, View, Type
+from panels.models import (
+    File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
 from panels.serializers import FileSerializer, AlarmConfigSerializer
+from django.db.models import Q
 
 
 class FileViewSet(viewsets.ModelViewSet):
@@ -53,20 +55,24 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             )
 
         data = []
-        for station_alarm in weather_station_alarms:
+        for alarm in weather_station_alarms:
 
-            temperature = station_alarm.nested_alarms.filter(
+            temperature = alarm.nested_alarms.filter(
                 type__name="temperature")
 
-            windspeed = station_alarm.nested_alarms.filter(
+            windspeed = alarm.nested_alarms.filter(
                 type__name="windspeed")
 
-            humidity = station_alarm.nested_alarms.filter(
+            humidity = alarm.nested_alarms.filter(
                 type__name="humidity")
 
+            group_name = ""
+            if alarm.placemark and alarm.placemark.group:
+                group_name = alarm.placemark.group.name
             data.append({
-                "placemark": station_alarm.placemark,
-                "station": station_alarm.alarm_id,
+                "placemark": alarm.placemark.name if alarm.placemark else "",
+                "group": group_name,
+                "station": alarm.alarm_id,
                 "temperature": temperature[0].alarm_id if temperature else "",
                 "windspeed": windspeed[0].alarm_id if windspeed else "",
                 "humidity": humidity[0].alarm_id if humidity else ""
@@ -110,7 +116,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             data[alarm.tags].append(
                 {
                   "antenna": alarm.custom_name,
-                  "placemark": alarm.placemark,
+                  "placemark": alarm.placemark.name if alarm.placemark else "",
                   "alarm": alarm.alarm_id,
                   "fire": fire[0].alarm_id if fire else "",
                   "fire_malfunction": fire_sys[0].alarm_id if fire_sys else "",
@@ -180,3 +186,50 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                 'There is no configuration for weather summary alarms',
                 status=status.HTTP_404_NOT_FOUND
             )
+
+
+class PlacemarkViewSet(viewsets.ModelViewSet):
+    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Files."""
+
+    queryset = Placemark.objects.all()
+    groups = PlacemarkGroup.objects.all()
+
+    @action(detail=False)
+    def pads_by_group(self, request):
+        """ Retrieve the list of pads and their associated antenna by group """
+        group_name = self.request.query_params.get('group', None)
+
+        group = self.groups.filter(name=group_name).first()
+        if group_name and not group:
+            return Response(
+                'There is no group with the given name',
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        response = {}
+        pads = self.queryset.filter(type__name="pad")
+        if group_name:
+            response[group_name] = {}
+            member_pads = pads.filter(group__name=group_name)
+            for pad in member_pads:
+                antenna = None
+                if hasattr(pad, 'alarm'):
+                    antenna = pad.alarm.custom_name
+                response[group_name][pad.name] = antenna
+
+        else:
+            for pad in pads:
+                antenna = None
+                if hasattr(pad, 'alarm'):
+                    antenna = pad.alarm.custom_name
+                group = pad.group.name if pad.group else None
+                if group:
+                    if group not in response:
+                        response[group] = {}
+                    response[group][pad.name] = antenna
+                else:
+                    if 'other' not in response:
+                        response['other'] = {}
+                    response['other'][pad.name] = antenna
+
+        return Response(response)

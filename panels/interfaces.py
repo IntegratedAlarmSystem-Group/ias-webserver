@@ -1,4 +1,4 @@
-from panels.models import AlarmConfig
+from panels.models import AlarmConfig, Placemark
 
 
 class IPanels:
@@ -19,7 +19,7 @@ class IPanels:
         # Parse antennas pads association
         associations = {}
         for item in antennas_pads_association.split(','):
-            antenna_pad = item.split(':') #ANTENNA:PAD
+            antenna_pad = item.split(':')  # ANTENNA:PAD
             associations[antenna_pad[0]] = antenna_pad[1]
 
         antennas_configuration = AlarmConfig.objects.filter(
@@ -27,5 +27,7 @@ class IPanels:
                                     type__name="antenna"
                                 )
         for config in antennas_configuration:
-            config.placemark = associations[config.custom_name]
+            placemark_name = associations[config.custom_name]
+            config.placemark = Placemark.objects.filter(
+                name=placemark_name).first()
             config.save()

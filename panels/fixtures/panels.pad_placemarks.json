@@ -1,0 +1,2164 @@
+[
+  {
+    "model": "panels.placemarktype",
+    "pk": 3,
+    "fields": {
+      "name": "pad"
+    }
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "INNER",
+      "description": "Inner array, including central cluster and ACA"
+    },
+    "pk": 0
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "W",
+      "description": "Western arm of the array"
+    },
+    "pk": 1
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "S",
+      "description": "Southern arm of the array"
+    },
+    "pk": 2
+  },
+  {
+    "model": "panels.placemarkgroup",
+    "fields": {
+      "name": "P",
+      "description": "Pampa La Bola arm"
+    },
+    "pk": 3
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A016",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A087",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A123",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A062",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "N605",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J502",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W203",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "S307",
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A018",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A047",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "Master0",
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A055",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A005",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A098",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P408",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A073",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A093",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A095",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J509",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A111",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A011",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W206",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P411",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J511",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A056",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A121",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A133",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W209",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A116",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W202",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A127",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A085",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "T704",
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P409",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J501",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A063",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A071",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A034",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A020",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A132",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A060",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A027",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "S309",
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "T703",
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A049",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A044",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A104",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A006",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A026",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A077",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A094",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A078",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W204",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A092",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A054",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P404",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A038",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A052",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P410",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A136",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A074",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W207",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A079",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A084",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A114",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A108",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W201",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P401",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A001",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A070",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A105",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A058",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A107",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A021",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A101",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A037",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "S304",
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A030",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A009",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "S308",
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P412",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W210",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A134",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A113",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A096",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A042",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A023",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A118",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J506",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A109",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J505",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A129",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A064",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A090",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J512",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A089",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A028",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "S302",
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A122",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A035",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "S305",
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A112",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P402",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A091",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P407",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A126",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A100",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A106",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "N606",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A086",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A065",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A029",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P406",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J507",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A041",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A102",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A022",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A061",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A036",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A068",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A015",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A066",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A119",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A080",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P413",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A024",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A128",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W208",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P405",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A013",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A103",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A007",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A032",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A135",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A076",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A110",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A002",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "T701",
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A004",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A075",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A131",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A031",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A130",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A137",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A003",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A048",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "N603",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A067",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A088",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A097",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A069",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J503",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A072",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A117",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A039",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A053",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A033",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A099",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "W205",
+      "type": 3,
+      "group": 1,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A051",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A012",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "S301",
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "S303",
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A115",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A040",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A059",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J510",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A019",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A057",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A081",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A008",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J504",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A014",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "J508",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "N602",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A046",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A025",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A124",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A138",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "T702",
+      "type": 3,
+      "group": null,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A083",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A125",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "P403",
+      "type": 3,
+      "group": 3,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A045",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A120",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A017",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A010",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A050",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "N604",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "S306",
+      "type": 3,
+      "group": 2,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A082",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "N601",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  },
+  {
+    "model": "panels.placemark",
+    "fields": {
+      "y": 0.0,
+      "name": "A043",
+      "type": 3,
+      "group": 0,
+      "coordinates_type": "G",
+      "x": 0.0
+    }
+  }
+]
