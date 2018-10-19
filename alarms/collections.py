@@ -79,11 +79,11 @@ class AlarmCollection:
                         else:
                             found = True
                         if iasio['iasType'].upper() == 'ALARM':
-                            alarm = self._create_alarm(iasio)
+                            alarm = self._create_alarm_from_iasio(iasio)
                             self.add(alarm)
                         break
                     if not found:
-                        alarm = self._create_alarm({'id': alarm_id})
+                        alarm = self._create_alarm_from_iasio({'id': alarm_id})
                         self.add(alarm)
                         print(
                             'WARNING: ID {} was not found in the CDB, ' +
@@ -92,11 +92,20 @@ class AlarmCollection:
                         )
             else:
                 for iasio in iasios:
-                    alarm = self._create_alarm(iasio)
+                    alarm = self._create_alarm_from_iasio(iasio)
                     self.add(alarm)
         return self.singleton_collection
 
-    def _create_alarm(iasio):
+    def _create_alarm_from_iasio(iasio):
+        """
+        Auxiliary method used to create an Alarm from an IASIO
+
+        Args:
+            iasio (dict): A dictionary with the IASIO info
+
+        Returns:
+            alarm: an Alarm object
+        """
         current_time = int(round(time.time() * 1000))
         if 'shortDesc'not in iasio:
             iasio['shortDesc'] = ""
