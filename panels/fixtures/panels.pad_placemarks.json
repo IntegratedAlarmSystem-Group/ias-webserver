@@ -42,9 +42,38 @@
     "fields": {
       "group": 0,
       "name": "A016",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
+      "type": 3
+    },
+    "model": "panels.placemark"
+  },
+  {
+    "fields": {
+      "group": 0,
+      "name": "T704",
+      "type": 3
+    },
+    "model": "panels.placemark"
+  },
+  {
+    "fields": {
+      "group": 0,
+      "name": "T703",
+      "type": 3
+    },
+    "model": "panels.placemark"
+  },
+  {
+    "fields": {
+      "group": 0,
+      "name": "T701",
+      "type": 3
+    },
+    "model": "panels.placemark"
+  },
+  {
+    "fields": {
+      "group": 0,
+      "name": "T702",
       "type": 3
     },
     "model": "panels.placemark"
@@ -53,9 +82,6 @@
     "fields": {
       "group": 0,
       "name": "A087",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -64,9 +90,6 @@
     "fields": {
       "group": 0,
       "name": "A123",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -75,9 +98,6 @@
     "fields": {
       "group": 0,
       "name": "A062",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -86,9 +106,6 @@
     "fields": {
       "group": 0,
       "name": "N605",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -97,9 +114,6 @@
     "fields": {
       "group": 0,
       "name": "J502",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -108,9 +122,6 @@
     "fields": {
       "group": 0,
       "name": "A018",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -119,9 +130,6 @@
     "fields": {
       "group": 0,
       "name": "A047",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -130,9 +138,6 @@
     "fields": {
       "group": 0,
       "name": "A055",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -141,9 +146,6 @@
     "fields": {
       "group": 0,
       "name": "A005",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -152,9 +154,6 @@
     "fields": {
       "group": 0,
       "name": "A098",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -163,9 +162,6 @@
     "fields": {
       "group": 0,
       "name": "A073",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -174,9 +170,6 @@
     "fields": {
       "group": 0,
       "name": "A093",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -185,9 +178,6 @@
     "fields": {
       "group": 0,
       "name": "A095",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -196,9 +186,6 @@
     "fields": {
       "group": 0,
       "name": "J509",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -207,9 +194,6 @@
     "fields": {
       "group": 0,
       "name": "A111",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -218,9 +202,6 @@
     "fields": {
       "group": 0,
       "name": "A011",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -229,9 +210,6 @@
     "fields": {
       "group": 0,
       "name": "J511",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -240,9 +218,6 @@
     "fields": {
       "group": 0,
       "name": "A056",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -251,9 +226,6 @@
     "fields": {
       "group": 0,
       "name": "A121",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -262,9 +234,6 @@
     "fields": {
       "group": 0,
       "name": "A133",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -273,9 +242,6 @@
     "fields": {
       "group": 0,
       "name": "A116",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -284,9 +250,6 @@
     "fields": {
       "group": 0,
       "name": "A127",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -295,9 +258,6 @@
     "fields": {
       "group": 0,
       "name": "A085",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -306,9 +266,6 @@
     "fields": {
       "group": 0,
       "name": "J501",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -317,9 +274,6 @@
     "fields": {
       "group": 0,
       "name": "A063",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -328,9 +282,6 @@
     "fields": {
       "group": 0,
       "name": "A071",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -339,9 +290,6 @@
     "fields": {
       "group": 0,
       "name": "A034",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -350,9 +298,6 @@
     "fields": {
       "group": 0,
       "name": "A020",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -361,9 +306,6 @@
     "fields": {
       "group": 0,
       "name": "A132",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -372,9 +314,6 @@
     "fields": {
       "group": 0,
       "name": "A060",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -383,9 +322,6 @@
     "fields": {
       "group": 0,
       "name": "A027",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -394,9 +330,6 @@
     "fields": {
       "group": 0,
       "name": "A049",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -405,9 +338,6 @@
     "fields": {
       "group": 0,
       "name": "A044",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -416,9 +346,6 @@
     "fields": {
       "group": 0,
       "name": "A104",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -427,9 +354,6 @@
     "fields": {
       "group": 0,
       "name": "A006",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -438,9 +362,6 @@
     "fields": {
       "group": 0,
       "name": "A026",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -449,9 +370,6 @@
     "fields": {
       "group": 0,
       "name": "A077",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -460,9 +378,6 @@
     "fields": {
       "group": 0,
       "name": "A094",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -471,9 +386,6 @@
     "fields": {
       "group": 0,
       "name": "A078",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -482,9 +394,6 @@
     "fields": {
       "group": 0,
       "name": "A092",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -493,9 +402,6 @@
     "fields": {
       "group": 0,
       "name": "A054",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -504,9 +410,6 @@
     "fields": {
       "group": 0,
       "name": "A038",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -515,9 +418,6 @@
     "fields": {
       "group": 0,
       "name": "A052",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -526,9 +426,6 @@
     "fields": {
       "group": 0,
       "name": "A136",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -537,9 +434,6 @@
     "fields": {
       "group": 0,
       "name": "A074",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -548,9 +442,6 @@
     "fields": {
       "group": 0,
       "name": "A079",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -559,9 +450,6 @@
     "fields": {
       "group": 0,
       "name": "A084",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -570,9 +458,6 @@
     "fields": {
       "group": 0,
       "name": "A114",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -581,9 +466,6 @@
     "fields": {
       "group": 0,
       "name": "A108",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -592,9 +474,6 @@
     "fields": {
       "group": 0,
       "name": "A001",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -603,9 +482,6 @@
     "fields": {
       "group": 0,
       "name": "A070",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -614,9 +490,6 @@
     "fields": {
       "group": 0,
       "name": "A105",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -625,9 +498,6 @@
     "fields": {
       "group": 0,
       "name": "A058",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -636,9 +506,6 @@
     "fields": {
       "group": 0,
       "name": "A107",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -647,9 +514,6 @@
     "fields": {
       "group": 0,
       "name": "A021",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -658,9 +522,6 @@
     "fields": {
       "group": 0,
       "name": "A101",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -669,9 +530,6 @@
     "fields": {
       "group": 0,
       "name": "A037",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -680,9 +538,6 @@
     "fields": {
       "group": 0,
       "name": "A030",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -691,9 +546,6 @@
     "fields": {
       "group": 0,
       "name": "A009",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -702,9 +554,6 @@
     "fields": {
       "group": 0,
       "name": "A134",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -713,9 +562,6 @@
     "fields": {
       "group": 0,
       "name": "A113",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -724,9 +570,6 @@
     "fields": {
       "group": 0,
       "name": "A096",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -735,9 +578,6 @@
     "fields": {
       "group": 0,
       "name": "A042",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -746,9 +586,6 @@
     "fields": {
       "group": 0,
       "name": "A023",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -757,9 +594,6 @@
     "fields": {
       "group": 0,
       "name": "A118",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -768,9 +602,6 @@
     "fields": {
       "group": 0,
       "name": "J506",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -779,9 +610,6 @@
     "fields": {
       "group": 0,
       "name": "A109",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -790,9 +618,6 @@
     "fields": {
       "group": 0,
       "name": "J505",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -801,9 +626,6 @@
     "fields": {
       "group": 0,
       "name": "A129",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -812,9 +634,6 @@
     "fields": {
       "group": 0,
       "name": "A064",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -823,9 +642,6 @@
     "fields": {
       "group": 0,
       "name": "A090",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -834,9 +650,6 @@
     "fields": {
       "group": 0,
       "name": "J512",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -845,9 +658,6 @@
     "fields": {
       "group": 0,
       "name": "A089",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -856,9 +666,6 @@
     "fields": {
       "group": 0,
       "name": "A028",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -867,9 +674,6 @@
     "fields": {
       "group": 0,
       "name": "A122",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -878,9 +682,6 @@
     "fields": {
       "group": 0,
       "name": "A035",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -889,9 +690,6 @@
     "fields": {
       "group": 0,
       "name": "A112",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -900,9 +698,6 @@
     "fields": {
       "group": 0,
       "name": "A091",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -911,9 +706,6 @@
     "fields": {
       "group": 0,
       "name": "A126",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -922,9 +714,6 @@
     "fields": {
       "group": 0,
       "name": "A100",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -933,9 +722,6 @@
     "fields": {
       "group": 0,
       "name": "A106",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -944,9 +730,6 @@
     "fields": {
       "group": 0,
       "name": "N606",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -955,9 +738,6 @@
     "fields": {
       "group": 0,
       "name": "A086",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -966,9 +746,6 @@
     "fields": {
       "group": 0,
       "name": "A065",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -977,9 +754,6 @@
     "fields": {
       "group": 0,
       "name": "A029",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -988,9 +762,6 @@
     "fields": {
       "group": 0,
       "name": "J507",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -999,9 +770,6 @@
     "fields": {
       "group": 0,
       "name": "A041",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1010,9 +778,6 @@
     "fields": {
       "group": 0,
       "name": "A102",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1021,9 +786,6 @@
     "fields": {
       "group": 0,
       "name": "A022",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1032,9 +794,6 @@
     "fields": {
       "group": 0,
       "name": "A061",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1043,9 +802,6 @@
     "fields": {
       "group": 0,
       "name": "A036",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1054,9 +810,6 @@
     "fields": {
       "group": 0,
       "name": "A068",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1065,9 +818,6 @@
     "fields": {
       "group": 0,
       "name": "A015",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1076,9 +826,6 @@
     "fields": {
       "group": 0,
       "name": "A066",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1087,9 +834,6 @@
     "fields": {
       "group": 0,
       "name": "A119",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1098,9 +842,6 @@
     "fields": {
       "group": 0,
       "name": "A080",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1109,9 +850,6 @@
     "fields": {
       "group": 0,
       "name": "A024",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1120,9 +858,6 @@
     "fields": {
       "group": 0,
       "name": "A128",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1131,9 +866,6 @@
     "fields": {
       "group": 0,
       "name": "A013",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1142,9 +874,6 @@
     "fields": {
       "group": 0,
       "name": "A103",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1153,9 +882,6 @@
     "fields": {
       "group": 0,
       "name": "A007",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1164,9 +890,6 @@
     "fields": {
       "group": 0,
       "name": "A032",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1175,9 +898,6 @@
     "fields": {
       "group": 0,
       "name": "A135",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1186,9 +906,6 @@
     "fields": {
       "group": 0,
       "name": "A076",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1197,9 +914,6 @@
     "fields": {
       "group": 0,
       "name": "A110",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1208,9 +922,6 @@
     "fields": {
       "group": 0,
       "name": "A002",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1219,9 +930,6 @@
     "fields": {
       "group": 0,
       "name": "A004",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1230,9 +938,6 @@
     "fields": {
       "group": 0,
       "name": "A075",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1241,9 +946,6 @@
     "fields": {
       "group": 0,
       "name": "A131",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1252,9 +954,6 @@
     "fields": {
       "group": 0,
       "name": "A031",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1263,9 +962,6 @@
     "fields": {
       "group": 0,
       "name": "A130",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1274,9 +970,6 @@
     "fields": {
       "group": 0,
       "name": "A137",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1285,9 +978,6 @@
     "fields": {
       "group": 0,
       "name": "A003",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1296,9 +986,6 @@
     "fields": {
       "group": 0,
       "name": "A048",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1307,9 +994,6 @@
     "fields": {
       "group": 0,
       "name": "N603",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1318,9 +1002,6 @@
     "fields": {
       "group": 0,
       "name": "A067",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1329,9 +1010,6 @@
     "fields": {
       "group": 0,
       "name": "A088",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1340,9 +1018,6 @@
     "fields": {
       "group": 0,
       "name": "A097",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1351,9 +1026,6 @@
     "fields": {
       "group": 0,
       "name": "A069",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1362,9 +1034,6 @@
     "fields": {
       "group": 0,
       "name": "J503",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1373,9 +1042,6 @@
     "fields": {
       "group": 0,
       "name": "A072",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1384,9 +1050,6 @@
     "fields": {
       "group": 0,
       "name": "A117",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1395,9 +1058,6 @@
     "fields": {
       "group": 2,
       "name": "S307",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1406,9 +1066,6 @@
     "fields": {
       "group": 2,
       "name": "S309",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1417,9 +1074,6 @@
     "fields": {
       "group": 2,
       "name": "S304",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1428,9 +1082,6 @@
     "fields": {
       "group": 2,
       "name": "S308",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1439,9 +1090,6 @@
     "fields": {
       "group": 2,
       "name": "S302",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1450,9 +1098,6 @@
     "fields": {
       "group": 2,
       "name": "S305",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1461,9 +1106,6 @@
     "fields": {
       "group": 2,
       "name": "S301",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1472,9 +1114,6 @@
     "fields": {
       "group": 2,
       "name": "S303",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1483,9 +1122,6 @@
     "fields": {
       "group": 2,
       "name": "S306",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1494,9 +1130,6 @@
     "fields": {
       "group": 0,
       "name": "A039",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1505,9 +1138,6 @@
     "fields": {
       "group": 0,
       "name": "A053",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1516,9 +1146,6 @@
     "fields": {
       "group": 0,
       "name": "A033",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1527,9 +1154,6 @@
     "fields": {
       "group": 0,
       "name": "A099",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1538,9 +1162,6 @@
     "fields": {
       "group": 0,
       "name": "A051",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1549,9 +1170,6 @@
     "fields": {
       "group": 0,
       "name": "A012",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1560,9 +1178,6 @@
     "fields": {
       "group": 0,
       "name": "A115",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1571,9 +1186,6 @@
     "fields": {
       "group": 0,
       "name": "A040",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1582,9 +1194,6 @@
     "fields": {
       "group": 0,
       "name": "A059",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1593,9 +1202,6 @@
     "fields": {
       "group": 0,
       "name": "J510",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1604,9 +1210,6 @@
     "fields": {
       "group": 0,
       "name": "A019",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1615,9 +1218,6 @@
     "fields": {
       "group": 0,
       "name": "A057",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1626,9 +1226,6 @@
     "fields": {
       "group": 0,
       "name": "A081",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1637,9 +1234,6 @@
     "fields": {
       "group": 0,
       "name": "A008",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1648,9 +1242,6 @@
     "fields": {
       "group": 0,
       "name": "J504",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1659,9 +1250,6 @@
     "fields": {
       "group": 0,
       "name": "A014",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1670,9 +1258,6 @@
     "fields": {
       "group": 0,
       "name": "J508",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1681,9 +1266,6 @@
     "fields": {
       "group": 0,
       "name": "N602",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1692,9 +1274,6 @@
     "fields": {
       "group": 0,
       "name": "A046",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1703,9 +1282,6 @@
     "fields": {
       "group": 0,
       "name": "A025",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1714,9 +1290,6 @@
     "fields": {
       "group": 0,
       "name": "A124",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1725,9 +1298,6 @@
     "fields": {
       "group": 0,
       "name": "A138",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1736,9 +1306,6 @@
     "fields": {
       "group": 0,
       "name": "A083",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1747,9 +1314,6 @@
     "fields": {
       "group": 0,
       "name": "A125",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1758,9 +1322,6 @@
     "fields": {
       "group": 0,
       "name": "A045",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1769,9 +1330,6 @@
     "fields": {
       "group": 0,
       "name": "A120",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1780,9 +1338,6 @@
     "fields": {
       "group": 0,
       "name": "A017",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1791,9 +1346,6 @@
     "fields": {
       "group": 0,
       "name": "A010",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1802,9 +1354,6 @@
     "fields": {
       "group": 0,
       "name": "A050",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1813,9 +1362,6 @@
     "fields": {
       "group": 0,
       "name": "N604",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1824,9 +1370,6 @@
     "fields": {
       "group": 0,
       "name": "A082",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1835,9 +1378,6 @@
     "fields": {
       "group": 0,
       "name": "N601",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1846,9 +1386,6 @@
     "fields": {
       "group": 0,
       "name": "A043",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1857,9 +1394,6 @@
     "fields": {
       "group": 3,
       "name": "P408",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1868,9 +1402,6 @@
     "fields": {
       "group": 3,
       "name": "P411",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1879,9 +1410,6 @@
     "fields": {
       "group": 3,
       "name": "P409",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1890,9 +1418,6 @@
     "fields": {
       "group": 3,
       "name": "P404",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1901,9 +1426,6 @@
     "fields": {
       "group": 3,
       "name": "P410",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1912,9 +1434,6 @@
     "fields": {
       "group": 3,
       "name": "P401",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1923,9 +1442,6 @@
     "fields": {
       "group": 3,
       "name": "P412",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1934,9 +1450,6 @@
     "fields": {
       "group": 3,
       "name": "P402",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1945,9 +1458,6 @@
     "fields": {
       "group": 3,
       "name": "P407",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1956,9 +1466,6 @@
     "fields": {
       "group": 3,
       "name": "P406",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1967,9 +1474,6 @@
     "fields": {
       "group": 3,
       "name": "P413",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1978,9 +1482,6 @@
     "fields": {
       "group": 3,
       "name": "P405",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -1989,9 +1490,6 @@
     "fields": {
       "group": 3,
       "name": "P403",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2000,9 +1498,6 @@
     "fields": {
       "group": 1,
       "name": "W203",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2011,9 +1506,6 @@
     "fields": {
       "group": 1,
       "name": "W206",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2022,9 +1514,6 @@
     "fields": {
       "group": 1,
       "name": "W209",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2033,9 +1522,6 @@
     "fields": {
       "group": 1,
       "name": "W202",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2044,9 +1530,6 @@
     "fields": {
       "group": 1,
       "name": "W204",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2055,9 +1538,6 @@
     "fields": {
       "group": 1,
       "name": "W207",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2066,9 +1546,6 @@
     "fields": {
       "group": 1,
       "name": "W201",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2077,9 +1554,6 @@
     "fields": {
       "group": 1,
       "name": "W210",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2088,9 +1562,6 @@
     "fields": {
       "group": 1,
       "name": "W208",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"
@@ -2099,9 +1570,6 @@
     "fields": {
       "group": 1,
       "name": "W205",
-      "coordinates_type": "G",
-      "y": 0.0,
-      "x": 0.0,
       "type": 3
     },
     "model": "panels.placemark"

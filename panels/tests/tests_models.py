@@ -6,8 +6,7 @@ from panels.models import (
     AlarmConfig,
     PlacemarkType,
     PlacemarkGroup,
-    Placemark,
-    CoordinateType
+    Placemark
 )
 
 
@@ -408,9 +407,6 @@ class PlacemarkTestCase(TestCase):
         # Act:
         Placemark.objects.create(
             name=self.name,
-            x=12.3,
-            y=12.1,
-            coordinates_type=CoordinateType.GEOGRAPHICAL,
             type=self.type
         )
         # Asserts:
@@ -425,9 +421,6 @@ class PlacemarkTestCase(TestCase):
         # Act:
         Placemark.objects.create(
             name=self.name,
-            x=12.3,
-            y=12.1,
-            coordinates_type=CoordinateType.CARTESIAN,
             type=self.type,
             group=self.group
         )
@@ -443,9 +436,6 @@ class PlacemarkTestCase(TestCase):
         # Arrage:
         placemark = Placemark.objects.create(
             name=self.name,
-            x=12.3,
-            y=12.1,
-            coordinates_type=CoordinateType.GEOGRAPHICAL,
             type=self.type
         )
         # Act:
@@ -461,9 +451,6 @@ class PlacemarkTestCase(TestCase):
         # Arrage:
         placemark = Placemark.objects.create(
             name=self.name,
-            x=12.3,
-            y=12.1,
-            coordinates_type=CoordinateType.GEOGRAPHICAL,
             type=self.type
         )
         self.old_count = Placemark.objects.count()
@@ -487,9 +474,6 @@ class PlacemarkTestCase(TestCase):
         # Arrage:
         placemark = Placemark.objects.create(
             name=self.name,
-            x=12.3,
-            y=12.1,
-            coordinates_type=CoordinateType.GEOGRAPHICAL,
             type=self.type
         )
         self.old_count = Placemark.objects.count()
@@ -633,9 +617,6 @@ class AlarmConfigModelsTestCase(TestCase):
         )
         placemark = Placemark.objects.create(
             name="placemark",
-            x=0.0,
-            y=0.0,
-            coordinates_type=CoordinateType.GEOGRAPHICAL,
             type=placemark_type
         )
         # Act:

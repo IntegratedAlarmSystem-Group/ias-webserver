@@ -32,21 +32,6 @@ class File(models.Model):
         return os.path.join(os.getcwd(), FILES_LOCATION)
 
 
-class CoordinateType():
-    """ Type of coordinates supported for placemarks position """
-
-    GEOGRAPHICAL = "G"
-    CARTESIAN = "C"
-
-    @classmethod
-    def options(self):
-        """ Return a list of tuples with the valid options. """
-        return (
-            (self.GEOGRAPHICAL, "Geographical (lat,lon)"),
-            (self.CARTESIAN, "Cartesian Coordinates (x,y)")
-        )
-
-
 class PlacemarkType(models.Model):
     """ Type of placemark """
 
@@ -76,18 +61,6 @@ class Placemark(models.Model):
 
     description = models.CharField(max_length=256, null=True, blank=True)
     """ Brief description of the placemark """
-
-    x = models.FloatField(null=False)
-    """ Latitude or X coordinate of the element """
-
-    y = models.FloatField(null=False)
-    """ Longitude or Y coordinate of the element """
-
-    coordinates_type = models.CharField(
-        max_length=1,
-        choices=CoordinateType.options()
-    )
-    """ Type of coordinates supported for placemark position """
 
     type = models.ForeignKey(
         PlacemarkType, on_delete=models.CASCADE, related_name='placemarks'

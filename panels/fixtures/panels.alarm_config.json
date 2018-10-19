@@ -141,9 +141,6 @@
     "pk": 1,
     "fields": {
       "name": "MeteoCentral",
-      "x": 0.0,
-      "y": 0.0,
-      "coordinates_type": "G",
       "type": 1,
       "group": 0
     }
@@ -153,9 +150,6 @@
     "pk": 2,
     "fields": {
       "name": "Meteo201",
-      "x": 0.0,
-      "y": 0.0,
-      "coordinates_type": "G",
       "type": 1,
       "group": 1
     }
@@ -165,9 +159,6 @@
     "pk": 3,
     "fields": {
       "name": "Meteo410",
-      "x": 0.0,
-      "y": 0.0,
-      "coordinates_type": "G",
       "type": 1,
       "group": 3
     }
@@ -177,9 +168,6 @@
     "pk": 4,
     "fields": {
       "name": "Meteo309",
-      "x": 0.0,
-      "y": 0.0,
-      "coordinates_type": "G",
       "type": 1,
       "group": 2
     }
