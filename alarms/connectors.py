@@ -116,3 +116,13 @@ class PanelsConnector():
                 antennas and pads got from ias core value Array-AntennasToPads
             """
             IPanels.update_antennas_configuration(antennas_pads_association)
+
+        @classmethod
+        def get_alarm_ids_of_alarm_configs(self):
+            """
+            Returns a list with the ids (alarm_id) of all the AlarmConfigs
+
+            Returns:
+                (list): the list of alarm ids
+            """
+            return IPanels.get_alarm_ids_of_alarm_configs()

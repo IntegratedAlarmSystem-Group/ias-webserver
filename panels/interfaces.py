@@ -31,3 +31,15 @@ class IPanels:
             config.placemark = Placemark.objects.filter(
                 name=placemark_name).first()
             config.save()
+
+    @classmethod
+    def get_alarm_ids_of_alarm_configs(self):
+        """
+        Returns a list with the ids (alarm_id) of all the AlarmConfigs
+
+        Returns:
+            (list): the list of alarm ids
+        """
+        configs = AlarmConfig.objects.all()
+        ids = [config.alarm_id for config in configs]
+        return ids
