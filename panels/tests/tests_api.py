@@ -12,8 +12,7 @@ from panels.models import (
     Type,
     Placemark,
     PlacemarkType,
-    PlacemarkGroup,
-    CoordinateType
+    PlacemarkGroup
 )
 from panels.serializers import FileSerializer
 
@@ -195,9 +194,6 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
         self.placemark_type = PlacemarkType.objects.create(name='pad')
         self.placemark = Placemark.objects.create(
             name="placemark_1",
-            x=0.0,
-            y=0.0,
-            coordinates_type=CoordinateType.GEOGRAPHICAL,
             type=self.placemark_type
         )
 
@@ -403,40 +399,25 @@ class AlarmConfigApiTestCase(TestCase):
         self.placemarks = [
             Placemark.objects.create(
                 name="placemark_station_1",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type,
                 group=self.placemark_groups[0]
             ),
             Placemark.objects.create(
                 name="placemark_station_2",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type,
                 group=self.placemark_groups[1]
 
             ),
             Placemark.objects.create(
                 name="placemark_pad_1",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type
             ),
             Placemark.objects.create(
                 name="placemark_pad_2",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type
             ),
             Placemark.objects.create(
                 name="placemark_pad_3",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type
             ),
         ]
@@ -733,33 +714,21 @@ class PlacemarkApiTestCase(TestCase):
         self.placemarks = [
             Placemark.objects.create(
                 name="PAD1",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type,
                 group=self.placemark_groups[0]
             ),
             Placemark.objects.create(
                 name="PAD2",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type,
                 group=self.placemark_groups[1]
             ),
             Placemark.objects.create(
                 name="PAD3",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type,
                 group=self.placemark_groups[1]
             ),
             Placemark.objects.create(
                 name="PAD4",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type
             ),
         ]

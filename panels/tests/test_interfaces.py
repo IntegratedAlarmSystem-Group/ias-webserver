@@ -5,8 +5,7 @@ from panels.models import (
     View,
     Type,
     Placemark,
-    PlacemarkType,
-    CoordinateType
+    PlacemarkType
 )
 
 
@@ -47,23 +46,14 @@ class TestIPanels(TestCase):
         self.placemarks = [
             Placemark.objects.create(
                 name="PAD0",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type
             ),
             Placemark.objects.create(
                 name="PAD1",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type
             ),
             Placemark.objects.create(
                 name="PAD2",
-                x=0.0,
-                y=0.0,
-                coordinates_type=CoordinateType.GEOGRAPHICAL,
                 type=self.placemark_type
             )
         ]
