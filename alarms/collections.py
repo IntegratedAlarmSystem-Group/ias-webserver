@@ -64,16 +64,35 @@ class AlarmCollection:
             self.singleton_collection = {}
             self.parents_collection = {}
             self.values_collection = {}
+            alarms_to_search = PanelsConnector.get_alarm_ids_of_alarm_configs()
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
-            for iasio in iasios:
-                if iasio['iasType'].upper() == 'ALARM':
-                    current_time_millis = int(round(time.time() * 1000))
-                    alarm_id = iasio['id']
-                    if 'shortDesc'not in iasio:
-                        iasio['shortDesc'] = ""
-                    if 'docUrl'not in iasio:
-                        iasio['docUrl'] = ""
+            for alarm_id in alarms_to_search:
+                found = False
+                for iasio in iasios:
+                    if alarm_id != iasio['id']:
+                        continue
+                    else:
+                        found = True
+                    if iasio['iasType'].upper() == 'ALARM':
+                        current_time_millis = int(round(time.time() * 1000))
+                        if 'shortDesc'not in iasio:
+                            iasio['shortDesc'] = ""
+                        if 'docUrl'not in iasio:
+                            iasio['docUrl'] = ""
+                        alarm = Alarm(
+                            value=0,
+                            mode=7,
+                            validity=0,
+                            core_timestamp=current_time_millis,
+                            core_id=alarm_id,
+                            running_id='({}:IASIO)'.format(alarm_id),
+                            description=iasio['shortDesc'],
+                            url=iasio['docUrl'],
+                        )
+                        self.add(alarm)
+                        break
+                if not found:
                     alarm = Alarm(
                         value=0,
                         mode=7,
@@ -81,10 +100,15 @@ class AlarmCollection:
                         core_timestamp=current_time_millis,
                         core_id=alarm_id,
                         running_id='({}:IASIO)'.format(alarm_id),
-                        description=iasio['shortDesc'],
-                        url=iasio['docUrl'],
+                        description='',
+                        url='',
                     )
                     self.add(alarm)
+                    print(
+                        'WARNING: ID {} was not found in the CDB, ' +
+                        'initializing with empty description and url ',
+                        alarm_id
+                    )
         return self.singleton_collection
 
     @classmethod
