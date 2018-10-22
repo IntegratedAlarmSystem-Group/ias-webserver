@@ -86,9 +86,9 @@ class AlarmCollection:
                         alarm = self._create_alarm_from_iasio({'id': alarm_id})
                         self.add(alarm)
                         print(
-                            'WARNING: ID {} was not found in the CDB, ' +
-                            'initializing with empty description and url ',
-                            alarm_id
+                            'WARNING: ID ' + alarm_id +
+                            ' was not found in the CDB, initializing with ' +
+                            'empty description and url '
                         )
             else:
                 for iasio in iasios:
