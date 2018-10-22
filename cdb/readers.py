@@ -90,7 +90,7 @@ class CdbReader:
         return iasios
 
     @classmethod
-    def read_dasus_outputs(self):
+    def read_dasus_outputs(self, dasus_to_read=[]):
         """
         Reads the DASU json files and returns a list with all their outputs
 
@@ -114,7 +114,9 @@ class CdbReader:
                 print('WARNING: ', filepath, ' not found. DASUs not read')
                 return []
 
-            if "outputId" not in dasu:
+            if "outputId" not in dasu or "id" not in dasu:
+                continue
+            if dasus_to_read != [] and dasu["id"] not in dasus_to_read:
                 continue
             output = dasu["outputId"]
             iasios.append(output)

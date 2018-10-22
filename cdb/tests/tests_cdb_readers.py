@@ -59,9 +59,9 @@ class CdbReaderTestCase(TestCase):
             'The data obtained with the read_data method is not the expected'
         )
 
-    def test_read_dasu_outputs(self):
+    def test_read_dasu_outputs_no_filter(self):
         """ Test if we can read the iasios that are actually output of DASUs
-        in the CDB """
+        in the CDB when no filters are applied """
         # Act:
         dasu_outputs = CdbReader.read_dasus_outputs()
         # Asserts:
@@ -69,6 +69,25 @@ class CdbReaderTestCase(TestCase):
             "IASIO_DUMMY_ALARM_1",
             "IASIO_DUMMY_ALARM_2",
             "IASIO_DUMMY_ALARM_8",
+            "IASIO_DUMMY_TEMPLATED_1",
+        ]
+        self.assertEqual(
+            sorted(dasu_outputs), sorted(expected_data),
+            'The data obtained is not the expected'
+        )
+
+    def test_read_dasu_outputs_with_filter(self):
+        """ Test if we can read the iasios that are actually output of DASUs
+        in the CDB when filters are applied """
+        # Act:
+        filter = [
+            "DASU_IASIO_DUMMY_ALARM_2",
+            "DASU_IASIO_DUMMY_TEMPLATED_1",
+        ]
+        dasu_outputs = CdbReader.read_dasus_outputs(filter)
+        # Asserts:
+        expected_data = [
+            "IASIO_DUMMY_ALARM_2",
             "IASIO_DUMMY_TEMPLATED_1",
         ]
         self.assertEqual(
