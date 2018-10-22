@@ -1142,46 +1142,55 @@ class TestIasValueUpdates:
         # Arrange:
         mock_ids = [
             'mock_alarm_1',
-            'mock_alarm_2',
+            'mock_alarm_3',
             'mock_alarm_4',
         ]
         mock_iasios = [
             {
                 "id": "mock_alarm_0",
-                "shortDesc": "Dummy Iasio of type ALARM",
+                "shortDesc": "Dummy Iasio of type ALARM 0",
                 "iasType": "ALARM",
-                "docUrl": "http://www.alma.cl"
+                "docUrl": "http://www.alma0.cl"
             },
             {
                 "id": "mock_alarm_1",
-                "shortDesc": "Dummy Iasio of type ALARM",
+                "shortDesc": "Dummy Iasio of type ALARM 1",
                 "iasType": "ALARM",
-                "docUrl": "http://www.alma.cl"
+                "docUrl": "http://www.alma1.cl"
             },
             {
                 "id": "mock_alarm_2",
-                "shortDesc": "Dummy Iasio of type ALARM",
+                "shortDesc": "Dummy Iasio of type ALARM 2",
                 "iasType": "ALARM",
-                "docUrl": "http://www.alma.cl"
+                "docUrl": "http://www.alma2.cl"
             },
             {
                 "id": "mock_alarm_3",
-                "shortDesc": "Dummy Iasio of type ALARM",
+                "shortDesc": "Dummy Iasio of type ALARM 3",
                 "iasType": "ALARM",
-                "docUrl": "http://www.alma.cl"
+                "docUrl": "http://www.alma3.cl"
             },
-            {
-                "id": "mock_alarm_4",
-                "shortDesc": "Dummy Iasio of type ALARM",
-                "iasType": "ALARM",
-                "docUrl": "http://www.alma.cl"
-            },
-            {
-                "id": "mock_alarm_5",
-                "shortDesc": "Dummy Iasio of type ALARM",
-                "iasType": "ALARM",
-                "docUrl": "http://www.alma.cl"
-            },
+        ]
+        expected_alarm_ids = [
+            'mock_alarm_0',
+            'mock_alarm_1',
+            'mock_alarm_2',
+            'mock_alarm_3',
+            'mock_alarm_4',
+        ]
+        expected_alarm_descriptions = [
+            mock_iasios[0]['shortDesc'],
+            mock_iasios[1]['shortDesc'],
+            mock_iasios[2]['shortDesc'],
+            mock_iasios[3]['shortDesc'],
+            '',
+        ]
+        expected_alarm_urls = [
+            mock_iasios[0]['docUrl'],
+            mock_iasios[1]['docUrl'],
+            mock_iasios[2]['docUrl'],
+            mock_iasios[3]['docUrl'],
+            '',
         ]
         PanelsConnector_get_alarm_ids_of_alarm_configs = \
             mocker.patch.object(
@@ -1192,14 +1201,14 @@ class TestIasValueUpdates:
             CdbConnector, 'get_iasios'
         )
         PanelsConnector_get_alarm_ids_of_alarm_configs.return_value = mock_ids
-        CdbConnector_get_iasios.return_value = [
-            mock_iasios[1],
-            mock_iasios[2],
-            mock_iasios[4],
-        ]
+        CdbConnector_get_iasios.return_value = mock_iasios
         # Act:
         AlarmCollection.reset()
         # Assert:
-        retrieved_alarms_ids = \
-            [a.core_id for a in AlarmCollection.get_all_as_list()]
-        assert retrieved_alarms_ids == mock_ids
+        alarms = AlarmCollection.get_all_as_list()
+        retrieved_alarms_ids = [a.core_id for a in alarms]
+        retrieved_alarms_descriptions = [a.description for a in alarms]
+        retrieved_alarms_urls = [a.url for a in alarms]
+        assert retrieved_alarms_ids == expected_alarm_ids
+        assert retrieved_alarms_descriptions == expected_alarm_descriptions
+        assert retrieved_alarms_urls == expected_alarm_urls

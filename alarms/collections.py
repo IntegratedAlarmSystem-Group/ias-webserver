@@ -71,18 +71,14 @@ class AlarmCollection:
             alarms_to_search = PanelsConnector.get_alarm_ids_of_alarm_configs()
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
+
+                for iasio in iasios:
+                    if iasio['iasType'].upper() == 'ALARM':
+                        alarm = self._create_alarm_from_iasio(iasio)
+                        self.add(alarm)
+
                 for alarm_id in alarms_to_search:
-                    found = False
-                    for iasio in iasios:
-                        if alarm_id != iasio['id']:
-                            continue
-                        else:
-                            found = True
-                        if iasio['iasType'].upper() == 'ALARM':
-                            alarm = self._create_alarm_from_iasio(iasio)
-                            self.add(alarm)
-                        break
-                    if not found:
+                    if self.get(alarm_id) is None:
                         alarm = self._create_alarm_from_iasio({'id': alarm_id})
                         self.add(alarm)
                         print(
@@ -90,6 +86,7 @@ class AlarmCollection:
                             ' was not found in the CDB, initializing with ' +
                             'empty description and url '
                         )
+
             else:
                 for iasio in iasios:
                     alarm = self._create_alarm_from_iasio(iasio)
