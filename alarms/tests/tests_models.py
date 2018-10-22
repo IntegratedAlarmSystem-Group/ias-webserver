@@ -63,6 +63,10 @@ class AlarmModelTestCase(TestCase):
             alarm.ack, False,
             'The default value of ack field must be False'
         )
+        self.assertEqual(
+            alarm.shelved, False,
+            'The default value of shelved field must be False'
+        )
 
     def test_update_alarm_value(self):
         """ Test that an Alarm value can be updated and its
@@ -80,7 +84,6 @@ class AlarmModelTestCase(TestCase):
         # Assert:
         new_state_change = alarm.state_change_timestamp
         updated_data = dict(alarm.to_dict())
-        expected_state_change = expected_data['state_change_timestamp']
         del updated_data['state_change_timestamp']
         del expected_data['state_change_timestamp']
         self.assertEqual(
@@ -112,7 +115,6 @@ class AlarmModelTestCase(TestCase):
         # Assert:
         new_state_change = alarm.state_change_timestamp
         updated_data = dict(alarm.to_dict())
-        expected_state_change = expected_data['state_change_timestamp']
         del updated_data['state_change_timestamp']
         del expected_data['state_change_timestamp']
         self.assertEqual(
@@ -144,7 +146,6 @@ class AlarmModelTestCase(TestCase):
         # Assert:
         new_state_change = alarm.state_change_timestamp
         updated_data = dict(alarm.to_dict())
-        expected_state_change = expected_data['state_change_timestamp']
         del updated_data['state_change_timestamp']
         del expected_data['state_change_timestamp']
         self.assertEqual(

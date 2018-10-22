@@ -30,6 +30,9 @@ class AlarmFactory:
     ack = False
     """ Acknowledgement status of the Alarm """
 
+    shelved = False
+    """ Shelved status of the Alarm """
+
     @classmethod
     def build(self):
         core_id = self._base_core_id.format(self.sequence)

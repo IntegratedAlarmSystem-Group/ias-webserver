@@ -66,7 +66,7 @@ class Alarm:
     def __init__(self, core_timestamp, core_id, running_id, value=0, mode=0,
                  validity=0, dependencies=[], properties={}, timestamps={},
                  ack=False, shelved=False, state_change_timestamp=0,
-                 description='', url=''):
+                 description='', url='', sound=''):
         """ Constructor of the class,
         only executed when there a new instance is created.
         Receives and validates values for the attributes of the object """
@@ -86,6 +86,7 @@ class Alarm:
             state_change_timestamp)
         self.description = self.__check_str_type(description)
         self.url = self.__check_str_type(url)
+        self.sound = self.__check_str_type(sound)
 
     def __check_value(self, value):
         """ Validates the Alarm value """
@@ -173,6 +174,7 @@ class Alarm:
             'shelved': self.shelved,
             'description': self.description,
             'url': self.url,
+            'sound': self.sound,
         }
 
     def equals_except_timestamp(self, alarm):
@@ -300,7 +302,7 @@ class Alarm:
         return True if self.value in Value.unset_options() else False
 
 
-class IASValue( Alarm ):
+class IASValue(Alarm):
     """ IASValue from some device in the observatory. """
 
     def __init__(self, core_timestamp, core_id, running_id, value, mode=0,
@@ -309,9 +311,11 @@ class IASValue( Alarm ):
         only executed when there a new instance is created.
         Receives and validates values for the attributes of the object """
 
-        Alarm.__init__(self, core_timestamp, core_id, running_id, mode=mode,
-                        validity=validity, timestamps=timestamps,
-                        state_change_timestamp=state_change_timestamp)
+        Alarm.__init__(
+            self, core_timestamp, core_id, running_id, mode=mode,
+            validity=validity, timestamps=timestamps,
+            state_change_timestamp=state_change_timestamp
+        )
         self.value = self.__check_value(value)
 
     def __check_value(self, value):
@@ -354,7 +358,7 @@ class IASValue( Alarm ):
 
         ignored_fields = \
             ['core_timestamp', 'id', 'timestamps', 'properties', 'mode',
-            'validity']
+                'validity']
         unchanged_fields = \
             ['ack', 'shelved', 'description', 'url', 'state_change_timestamp']
 

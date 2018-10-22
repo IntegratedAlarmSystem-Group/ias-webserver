@@ -108,6 +108,8 @@ class AlarmCollection:
             iasio['shortDesc'] = ""
         if 'docUrl'not in iasio:
             iasio['docUrl'] = ""
+        if 'sound'not in iasio:
+            iasio['sound'] = ""
         alarm_id = iasio['id']
         alarm = Alarm(
             value=0,
@@ -118,6 +120,7 @@ class AlarmCollection:
             running_id='({}:IASIO)'.format(alarm_id),
             description=iasio['shortDesc'],
             url=iasio['docUrl'],
+            sound=iasio['sound'],
         )
         return alarm
 
