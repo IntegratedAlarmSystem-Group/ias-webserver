@@ -53,7 +53,8 @@ class CdbReader:
         iasios = self.read_iasios_file()
         templates = self.read_templates()
         valid_iasios = []
-        dasu_outputs = self.read_dasus_outputs()
+        dasus_to_deploy = self.read_supervisors_dasus()
+        dasu_outputs = self.read_dasus_outputs(dasus_to_deploy)
         if not dasu_outputs or dasu_outputs == []:
             return None
         for iasio in iasios:

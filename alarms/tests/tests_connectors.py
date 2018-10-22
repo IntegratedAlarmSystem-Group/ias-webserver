@@ -41,12 +41,6 @@ class TestCdbConnector(TestCase):
                 "docUrl": "http://www.alma.cl"
             },
             {
-                "id": "IASIO_DUMMY_ALARM_2",
-                "shortDesc": "Dummy Iasio of tyoe ALARM",
-                "iasType": "ALARM",
-                "docUrl": "http://www.alma.cl"
-            },
-            {
                 "id": "IASIO_DUMMY_ALARM_8",
                 "shortDesc": "Dummy Iasio of tyoe ALARM",
                 "iasType": "ALARM",
