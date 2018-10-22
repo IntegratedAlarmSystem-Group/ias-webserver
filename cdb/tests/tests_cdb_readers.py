@@ -26,6 +26,23 @@ class CdbReaderTestCase(TestCase):
             'The data obtained with the read_data method is not the expected'
         )
 
+    def test_read_supervisors_dasus(self):
+        """ Test if we can read the dasus that are actually deployed by
+        Supervisors in the CDB """
+        # Act:
+        dasus_to_deploy = CdbReader.read_supervisors_dasus()
+        # Asserts:
+        expected_data = [
+            "DASU_IASIO_DUMMY_ALARM_1",
+            "DASU_IASIO_DUMMY_ALARM_8",
+            "DASU_IASIO_DUMMY_TEMPLATED_1",
+        ]
+        print('dasus_to_deploy: ', dasus_to_deploy)
+        self.assertEqual(
+            sorted(dasus_to_deploy), sorted(expected_data),
+            'The data obtained is not the expected'
+        )
+
     def test_read_iasios_basefile(self):
         """ Test if we can read the IASIOS json file from the CDB """
         # Act:
@@ -42,9 +59,9 @@ class CdbReaderTestCase(TestCase):
             'The data obtained with the read_data method is not the expected'
         )
 
-    def test_read_dasu_outputs(self):
+    def test_read_dasu_outputs_no_filter(self):
         """ Test if we can read the iasios that are actually output of DASUs
-        in the CDB """
+        in the CDB when no filters are applied """
         # Act:
         dasu_outputs = CdbReader.read_dasus_outputs()
         # Asserts:
@@ -52,6 +69,25 @@ class CdbReaderTestCase(TestCase):
             "IASIO_DUMMY_ALARM_1",
             "IASIO_DUMMY_ALARM_2",
             "IASIO_DUMMY_ALARM_8",
+            "IASIO_DUMMY_TEMPLATED_1",
+        ]
+        self.assertEqual(
+            sorted(dasu_outputs), sorted(expected_data),
+            'The data obtained is not the expected'
+        )
+
+    def test_read_dasu_outputs_with_filter(self):
+        """ Test if we can read the iasios that are actually output of DASUs
+        in the CDB when filters are applied """
+        # Act:
+        filter = [
+            "DASU_IASIO_DUMMY_ALARM_2",
+            "DASU_IASIO_DUMMY_TEMPLATED_1",
+        ]
+        dasu_outputs = CdbReader.read_dasus_outputs(filter)
+        # Asserts:
+        expected_data = [
+            "IASIO_DUMMY_ALARM_2",
             "IASIO_DUMMY_TEMPLATED_1",
         ]
         self.assertEqual(
@@ -68,12 +104,6 @@ class CdbReaderTestCase(TestCase):
         expected_data = [
             {
                 "id": "IASIO_DUMMY_ALARM_1",
-                "shortDesc": "Dummy Iasio of tyoe ALARM",
-                "iasType": "ALARM",
-                "docUrl": "http://www.alma.cl"
-            },
-            {
-                "id": "IASIO_DUMMY_ALARM_2",
                 "shortDesc": "Dummy Iasio of tyoe ALARM",
                 "iasType": "ALARM",
                 "docUrl": "http://www.alma.cl"

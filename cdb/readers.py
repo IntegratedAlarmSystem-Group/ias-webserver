@@ -5,6 +5,7 @@ from ias_webserver.settings import (
     TEST_CDB_LOCATION,
     IAS_FILE,
     IASIOS_FILE,
+    SUPERVISORS_FOLDER,
     DASUS_FOLDER,
     TEMPLATES_FILE,
     BROADCAST_RATE_FACTOR
@@ -52,7 +53,8 @@ class CdbReader:
         iasios = self.read_iasios_file()
         templates = self.read_templates()
         valid_iasios = []
-        dasu_outputs = self.read_dasus_outputs()
+        dasus_to_deploy = self.read_supervisors_dasus()
+        dasu_outputs = self.read_dasus_outputs(dasus_to_deploy)
         if not dasu_outputs or dasu_outputs == []:
             return None
         for iasio in iasios:
@@ -89,20 +91,20 @@ class CdbReader:
         return iasios
 
     @classmethod
-    def read_dasus_outputs(self):
+    def read_dasus_outputs(self, dasus_to_read=[]):
         """
         Reads the DASU json files and returns a list with all their outputs
 
         Returns:
-            dict: A list IASIOs ids
+            dict: A list of IASIOs ids
         """
-        folder = self.get_cdb_location() + DASUS_FOLDER
+        dir = self.get_cdb_location() + DASUS_FOLDER
         try:
             filepaths = [
-                folder + f for f in os.listdir(folder) if f.endswith('.json')
+                dir + f for f in os.listdir(dir) if f.endswith('.json')
             ]
         except IOError:
-            print('WARNING: ', folder, ' folder not found. DASUs not read')
+            print('WARNING: ', dir, ' folder not found. DASUs not read')
             return []
         iasios = []
         for filepath in filepaths:
@@ -113,11 +115,45 @@ class CdbReader:
                 print('WARNING: ', filepath, ' not found. DASUs not read')
                 return []
 
-            if "outputId" not in dasu:
+            if "outputId" not in dasu or "id" not in dasu:
+                continue
+            if dasus_to_read != [] and dasu["id"] not in dasus_to_read:
                 continue
             output = dasu["outputId"]
             iasios.append(output)
         return iasios
+
+    @classmethod
+    def read_supervisors_dasus(self):
+        """
+        Reads the Supervisor json files and returns a list with all their DASUs
+
+        Returns:
+            dict: A list of DASUs to deploy
+        """
+        dir = self.get_cdb_location() + SUPERVISORS_FOLDER
+        try:
+            filepaths = [
+                dir + f for f in os.listdir(dir) if f.endswith('.json')
+            ]
+        except IOError:
+            print('WARNING:', dir, ' folder not found. Supervisors not read')
+            return []
+        dasus = []
+        for filepath in filepaths:
+            try:
+                with open(filepath) as file:
+                    supervisor = json.load(file)
+            except IOError:
+                print('WARNING:', filepath, ' not found. Supervisors not read')
+                return []
+
+            if "dasusToDeploy" not in supervisor:
+                continue
+            output = supervisor["dasusToDeploy"]
+            for dasu in output:
+                dasus.append(dasu["dasuId"])
+        return dasus
 
     @classmethod
     def read_templates(self):
