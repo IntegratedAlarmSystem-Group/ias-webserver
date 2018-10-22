@@ -1,0 +1,8 @@
+{
+        "id": "SUPERVISOR-DUMMY-2",
+        "dasusToDeploy": [
+            { "dasuId":"DASU_IASIO_DUMMY_ALARM_8","templateId":null,"instance":null}
+        ],
+        "hostName": "almaias.eso.org",
+        "logLevel": "INFO"
+    }

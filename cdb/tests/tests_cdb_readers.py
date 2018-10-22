@@ -26,6 +26,23 @@ class CdbReaderTestCase(TestCase):
             'The data obtained with the read_data method is not the expected'
         )
 
+    def test_read_supervisors_dasus(self):
+        """ Test if we can read the dasus that are actually deployed by
+        Supervisors in the CDB """
+        # Act:
+        dasus_to_deploy = CdbReader.read_supervisors_dasus()
+        # Asserts:
+        expected_data = [
+            "DASU_IASIO_DUMMY_ALARM_1",
+            "DASU_IASIO_DUMMY_ALARM_8",
+            "DASU_IASIO_DUMMY_TEMPLATED_1",
+        ]
+        print('dasus_to_deploy: ', dasus_to_deploy)
+        self.assertEqual(
+            sorted(dasus_to_deploy), sorted(expected_data),
+            'The data obtained is not the expected'
+        )
+
     def test_read_iasios_basefile(self):
         """ Test if we can read the IASIOS json file from the CDB """
         # Act:
