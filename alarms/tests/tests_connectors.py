@@ -257,6 +257,22 @@ class TestPanelsConnector(TestCase):
         # Assert:
         self.assertTrue(
             IPanels_update_antennas_configuration.called,
-            'The IPanels_update_antennas_configuration function was not called'
+            'The IPanels.update_antennas_configuration function was not called'
         )
         IPanels_update_antennas_configuration.assert_called_with(association)
+
+    @mock.patch('panels.interfaces.IPanels.get_alarm_ids_of_alarm_configs')
+    def test_get_alarm_ids_of_alarm_configs(
+        self, IPanels_get_alarm_ids_of_alarm_configs
+    ):
+        """
+        Test that PanelsConnector.get_alarm_ids_of_alarm_configs calls
+        IPanels.get_alarm_ids_of_alarm_configs
+        """
+        # Act:
+        PanelsConnector.get_alarm_ids_of_alarm_configs()
+        # Assert:
+        self.assertTrue(
+            IPanels_get_alarm_ids_of_alarm_configs.called,
+            'IPanels.get_alarm_ids_of_alarm_configs() was not called'
+        )

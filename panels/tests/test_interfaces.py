@@ -82,3 +82,24 @@ class TestIPanels(TestCase):
             self.assertTrue(
                 item.placemark.name == "PAD{}".format(i),
                 "The antennas have not been updated as expected")
+
+    def test_get_alarm_ids_of_alarm_configs(self):
+        """
+        Test that IPanels.get_alarm_ids_of_alarm_configs returns the alarm_ids
+        """
+        # Arrange:
+        antennas_config = AlarmConfig.objects.filter(
+                            view__name="antennas",
+                            type__name="antenna"
+                          )
+        for item in antennas_config:
+            self.assertTrue(
+                item.placemark is None,
+                "The antennas have placemarks associated before the update")
+        # Act:
+        ids = IPanels.get_alarm_ids_of_alarm_configs()
+        # Assert:
+        self.assertEqual(
+            ids,
+            ["antenna_alarm_0", "antenna_alarm_1", "antenna_alarm_2"]
+        )

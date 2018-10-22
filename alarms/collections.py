@@ -51,11 +51,15 @@ class AlarmCollection:
     @classmethod
     def initialize(self, iasios=None):
         """
-        Initializes the alarms collection with default alarms created
-        considering the iasios core_ids or CDB iasios core_ids
+        Initializes the alarms collection with default alarms.
+        If a list of iasios is passed, it initializes Alarms only for those
+        iasios.
+        If not, it initializes Alarms based on the alarm_ids used in
+        AlarmConfig objects of the Panels app, getting their description and
+        documentation urls from the CDB.
 
         Args:
-            iasios (list): A list of iasio objects
+            iasios (list): An optional list of iasio objects
 
         Returns:
             dict: A dictionary of Alarm objects
@@ -64,28 +68,61 @@ class AlarmCollection:
             self.singleton_collection = {}
             self.parents_collection = {}
             self.values_collection = {}
+            alarms_to_search = PanelsConnector.get_alarm_ids_of_alarm_configs()
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
-            for iasio in iasios:
-                if iasio['iasType'].upper() == 'ALARM':
-                    current_time_millis = int(round(time.time() * 1000))
-                    alarm_id = iasio['id']
-                    if 'shortDesc'not in iasio:
-                        iasio['shortDesc'] = ""
-                    if 'docUrl'not in iasio:
-                        iasio['docUrl'] = ""
-                    alarm = Alarm(
-                        value=0,
-                        mode=7,
-                        validity=0,
-                        core_timestamp=current_time_millis,
-                        core_id=alarm_id,
-                        running_id='({}:IASIO)'.format(alarm_id),
-                        description=iasio['shortDesc'],
-                        url=iasio['docUrl'],
-                    )
+                for alarm_id in alarms_to_search:
+                    found = False
+                    for iasio in iasios:
+                        if alarm_id != iasio['id']:
+                            continue
+                        else:
+                            found = True
+                        if iasio['iasType'].upper() == 'ALARM':
+                            alarm = self._create_alarm_from_iasio(iasio)
+                            self.add(alarm)
+                        break
+                    if not found:
+                        alarm = self._create_alarm_from_iasio({'id': alarm_id})
+                        self.add(alarm)
+                        print(
+                            'WARNING: ID {} was not found in the CDB, ' +
+                            'initializing with empty description and url ',
+                            alarm_id
+                        )
+            else:
+                for iasio in iasios:
+                    alarm = self._create_alarm_from_iasio(iasio)
                     self.add(alarm)
         return self.singleton_collection
+
+    def _create_alarm_from_iasio(iasio):
+        """
+        Auxiliary method used to create an Alarm from an IASIO
+
+        Args:
+            iasio (dict): A dictionary with the IASIO info
+
+        Returns:
+            alarm: an Alarm object
+        """
+        current_time = int(round(time.time() * 1000))
+        if 'shortDesc'not in iasio:
+            iasio['shortDesc'] = ""
+        if 'docUrl'not in iasio:
+            iasio['docUrl'] = ""
+        alarm_id = iasio['id']
+        alarm = Alarm(
+            value=0,
+            mode=7,
+            validity=0,
+            core_timestamp=current_time,
+            core_id=alarm_id,
+            running_id='({}:IASIO)'.format(alarm_id),
+            description=iasio['shortDesc'],
+            url=iasio['docUrl'],
+        )
+        return alarm
 
     @classmethod
     def get(self, core_id):

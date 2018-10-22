@@ -11,23 +11,20 @@ class TestPeriodicBroadcastCase:
     """This class defines the test suite for periodic notification of changes
     to consumer clients"""
 
-    def setup_method(self):
-        """TestCase setup, executed before each test of the TestCase"""
-        # Arrange:
-        AlarmCollection.reset([])
-
     @pytest.mark.asyncio
     @pytest.mark.django_db
     async def test_broadcast_status(self):
         """ Test that the periodic request is sent
         and Alarms are invalidated after timeout """
+        AlarmCollection.reset([])
 
         # Connect:
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
 
-        communicator_observer = WebsocketCommunicator(ClientConsumer, "/stream/")
+        communicator_observer = \
+            WebsocketCommunicator(ClientConsumer, "/stream/")
         connected_observer, subprotocol_observer = await communicator.connect()
         assert connected_observer, 'The communicator was not connected'
 

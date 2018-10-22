@@ -5,8 +5,7 @@ from freezegun import freeze_time
 from alarms.models import Alarm, IASValue
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
-from alarms.connectors import CdbConnector as CdbConn
-from alarms.connectors import TicketConnector, PanelsConnector
+from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 
 
 class TestAlarmsCollectionHandling:
@@ -418,7 +417,7 @@ class TestAlarmsCollectionHandling:
         ]
         # Act:
         # Recalculate the AlarmCollection validation after 5 seconds
-        max_interval = CdbConn.refresh_rate + CdbConn.tolerance + 1
+        max_interval = CdbConnector.refresh_rate + CdbConnector.tolerance + 1
         max_timedelta = datetime.timedelta(milliseconds=max_interval)
         initial_time = datetime.datetime.now() + max_timedelta
         with freeze_time(initial_time):
@@ -1056,7 +1055,7 @@ class TestIasValueUpdates:
 
     @pytest.mark.django_db
     def test_add_or_update_value(self, mocker):
-        """ Test if the AlarmCollection add or update a value """
+        """ Test if the AlarmCollection can add or update a value """
         # Mock PanelsConnector.update_antennas_configuration to assert if it
         # was called and avoid calling the real function
         mocker.patch.object(PanelsConnector, 'update_antennas_configuration')
@@ -1110,6 +1109,9 @@ class TestIasValueUpdates:
 
     @pytest.mark.django_db
     def test_add_or_update_antennas_pad_value(self, mocker):
+        """
+        Test if the AlarmCollection can add or update an antennas-pad value
+        """
         # Mock PanelsConnector.update_antennas_configuration to assert if it
         # was called and avoid calling the real function
         mocker.patch.object(PanelsConnector, 'update_antennas_configuration')
@@ -1133,3 +1135,71 @@ class TestIasValueUpdates:
         assert PanelsConnector.update_antennas_configuration.call_count == 1, \
             'When the value received is an AntennasToPads update the panels \
             connector should update the database'
+
+    @pytest.mark.django_db
+    def test_initialize(self, mocker):
+        """ Test the AlarmCollection initialization """
+        # Arrange:
+        mock_ids = [
+            'mock_alarm_1',
+            'mock_alarm_2',
+            'mock_alarm_4',
+        ]
+        mock_iasios = [
+            {
+                "id": "mock_alarm_0",
+                "shortDesc": "Dummy Iasio of type ALARM",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma.cl"
+            },
+            {
+                "id": "mock_alarm_1",
+                "shortDesc": "Dummy Iasio of type ALARM",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma.cl"
+            },
+            {
+                "id": "mock_alarm_2",
+                "shortDesc": "Dummy Iasio of type ALARM",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma.cl"
+            },
+            {
+                "id": "mock_alarm_3",
+                "shortDesc": "Dummy Iasio of type ALARM",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma.cl"
+            },
+            {
+                "id": "mock_alarm_4",
+                "shortDesc": "Dummy Iasio of type ALARM",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma.cl"
+            },
+            {
+                "id": "mock_alarm_5",
+                "shortDesc": "Dummy Iasio of type ALARM",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma.cl"
+            },
+        ]
+        PanelsConnector_get_alarm_ids_of_alarm_configs = \
+            mocker.patch.object(
+                PanelsConnector, 'get_alarm_ids_of_alarm_configs'
+            )
+
+        CdbConnector_get_iasios = mocker.patch.object(
+            CdbConnector, 'get_iasios'
+        )
+        PanelsConnector_get_alarm_ids_of_alarm_configs.return_value = mock_ids
+        CdbConnector_get_iasios.return_value = [
+            mock_iasios[1],
+            mock_iasios[2],
+            mock_iasios[4],
+        ]
+        # Act:
+        AlarmCollection.reset()
+        # Assert:
+        retrieved_alarms_ids = \
+            [a.core_id for a in AlarmCollection.get_all_as_list()]
+        assert retrieved_alarms_ids == mock_ids
