@@ -222,7 +222,8 @@ class Alarm:
 
         ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
         unchanged_fields = \
-            ['ack', 'shelved', 'description', 'url', 'state_change_timestamp']
+            ['ack', 'shelved', 'description', 'url', 'sound',
+                'state_change_timestamp']
 
         notify = 'updated-equal'
         if Counter(self.dependencies) == Counter(alarm.dependencies):

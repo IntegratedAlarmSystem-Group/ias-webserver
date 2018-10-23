@@ -104,11 +104,11 @@ class AlarmCollection:
             alarm: an Alarm object
         """
         current_time = int(round(time.time() * 1000))
-        if 'shortDesc'not in iasio:
+        if 'shortDesc' not in iasio:
             iasio['shortDesc'] = ""
-        if 'docUrl'not in iasio:
+        if 'docUrl' not in iasio:
             iasio['docUrl'] = ""
-        if 'sound'not in iasio:
+        if 'sound' not in iasio:
             iasio['sound'] = ""
         alarm_id = iasio['id']
         alarm = Alarm(
