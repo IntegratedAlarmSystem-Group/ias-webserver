@@ -93,7 +93,8 @@ class AlarmCollection:
                     self.add(alarm)
         return self.singleton_collection
 
-    def _create_alarm_from_iasio(iasio):
+    @classmethod
+    def _create_alarm_from_iasio(self, iasio):
         """
         Auxiliary method used to create an Alarm from an IASIO
 
@@ -123,9 +124,23 @@ class AlarmCollection:
             description=iasio['shortDesc'],
             url=iasio['docUrl'],
             sound=iasio['sound'],
-            can_shelve=iasio['canShelve'],
+            can_shelve=self._parseBool(iasio['canShelve']),
         )
         return alarm
+
+    @classmethod
+    def _parseBool(self, input):
+        """
+        Auxiliary method used to parse a field that could be either string
+        or bool to bool
+
+        Args:
+            input (string or bool): the input
+
+        Returns:
+            bool: True or False
+        """
+        return input == "True" or input == "true" or input == True
 
     @classmethod
     def get(self, core_id):
