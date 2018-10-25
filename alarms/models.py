@@ -288,7 +288,7 @@ class Alarm:
         Returns:
             boolean: True if it was shelved, False if not
         """
-        if self.shelved:
+        if self.shelved or not self.can_shelve:
             return False
         self.shelved = True
         return True
