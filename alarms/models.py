@@ -66,7 +66,7 @@ class Alarm:
     def __init__(self, core_timestamp, core_id, running_id, value=0, mode=0,
                  validity=0, dependencies=[], properties={}, timestamps={},
                  ack=False, shelved=False, state_change_timestamp=0,
-                 description='', url='', sound=''):
+                 description='', url='', sound='', can_shelve=False):
         """ Constructor of the class,
         only executed when there a new instance is created.
         Receives and validates values for the attributes of the object """
@@ -87,6 +87,7 @@ class Alarm:
         self.description = self.__check_str_type(description)
         self.url = self.__check_str_type(url)
         self.sound = self.__check_str_type(sound)
+        self.can_shelve = self.__check_bool_type(can_shelve)
 
     def __check_value(self, value):
         """ Validates the Alarm value """
@@ -137,6 +138,13 @@ class Alarm:
         else:
             return field
 
+    def __check_bool_type(self, field):
+        """ Validates a bool field """
+        if type(field) is not bool:
+            raise TypeError
+        else:
+            return field
+
     def __check_ack(self, ack):
         """ Validates the Alarm shelving status.
         Which should be True if the Alarm is shelved and False if not """
@@ -175,6 +183,7 @@ class Alarm:
             'description': self.description,
             'url': self.url,
             'sound': self.sound,
+            'can_shelve': self.can_shelve,
         }
 
     def equals_except_timestamp(self, alarm):

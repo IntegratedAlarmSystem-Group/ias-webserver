@@ -110,6 +110,8 @@ class AlarmCollection:
             iasio['docUrl'] = ""
         if 'sound' not in iasio:
             iasio['sound'] = ""
+        if 'canShelve' not in iasio:
+            iasio['canShelve'] = False
         alarm_id = iasio['id']
         alarm = Alarm(
             value=0,
@@ -121,6 +123,7 @@ class AlarmCollection:
             description=iasio['shortDesc'],
             url=iasio['docUrl'],
             sound=iasio['sound'],
+            can_shelve=iasio['canShelve'],
         )
         return alarm
 
