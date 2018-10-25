@@ -140,7 +140,7 @@ class AlarmCollection:
         Returns:
             bool: True or False
         """
-        return input == "True" or input == "true" or input == True
+        return input == "True" or input == "true" or input is True
 
     @classmethod
     def get(self, core_id):
@@ -451,13 +451,15 @@ class AlarmCollection:
 
         Args:
             core_id (string): core_ids of the Alarm to shelve
+
+        Returns:
+            int: 1 if it was shelved, 0 if not, -1 if shelving is not allowed
         """
         alarm = self.singleton_collection[core_id]
-        if alarm.shelve():
+        status = alarm.shelve()
+        if status == 1:
             await self.notify_observers(alarm, 'update')
-            return True
-        else:
-            return False
+        return status
 
     @classmethod
     async def unshelve(self, core_ids):
@@ -467,6 +469,9 @@ class AlarmCollection:
         Args:
             core_ids (list or string): list of core_ids (or a single core_id)
             of the Alarms to unshelve
+
+        Returns:
+            boolean: True if it was unshelved, False if not
         """
         if type(core_ids) is not list:
             core_ids = [core_ids]

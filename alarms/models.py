@@ -286,12 +286,14 @@ class Alarm:
         Shelves the Alarm
 
         Returns:
-            boolean: True if it was shelved, False if not
+            int: 1 if it was shelved, 0 if not, -1 if shelving is not allowed
         """
-        if self.shelved or not self.can_shelve:
-            return False
+        if not self.can_shelve:
+            return -1
+        if self.shelved:
+            return 0
         self.shelved = True
-        return True
+        return 1
 
     def unshelve(self):
         """
