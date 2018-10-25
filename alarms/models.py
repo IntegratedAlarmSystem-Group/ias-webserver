@@ -231,7 +231,7 @@ class Alarm:
 
         ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
         unchanged_fields = \
-            ['ack', 'shelved', 'description', 'url', 'sound',
+            ['ack', 'shelved', 'description', 'url', 'sound', 'can_shelve',
                 'state_change_timestamp']
 
         notify = 'updated-equal'
