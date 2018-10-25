@@ -271,11 +271,24 @@ class AlarmModelTestCase(TestCase):
         """ Test if an alarm can be shelved """
         # Arrange:
         alarm = AlarmFactory.build()
+        alarm.can_shelve = True
         # Act:
         alarm.shelve()
         # Assert:
         self.assertEquals(
             alarm.shelved, True, 'The Alarm was not shelved'
+        )
+
+    def test_cannot_shelve_non_shelvable_alarm(self):
+        """ Test if a non-shelvable alarm cannot be shelved """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.can_shelve = False
+        # Act:
+        alarm.shelve()
+        # Assert:
+        self.assertEquals(
+            alarm.shelved, False, 'The Alarm was shelved'
         )
 
     def test_unshelve_alarm(self):

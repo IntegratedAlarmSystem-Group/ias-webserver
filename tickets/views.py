@@ -99,11 +99,24 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         """ Redefine create method in order to notify to the alarms app """
+        alarm_id = request.data['alarm_id']
+        shelve_status = AlarmConnector.shelve_alarm(alarm_id)
+        if shelve_status == -1:
+            return Response(
+                'Shelving is forbiden for this alarm, check the CDB',
+                status=status.HTTP_403_FORBIDDEN
+            )
+        elif shelve_status == 0:
+            return Response(
+                'This alarm was already shelved',
+                status=status.HTTP_200_OK
+            )
+
         response = super(ShelveRegistryViewSet, self).create(
             request, *args, **kwargs
         )
-        if response.status_code == status.HTTP_201_CREATED:
-            AlarmConnector.shelve_alarm(response.data['alarm_id'])
+        if response.status_code != status.HTTP_201_CREATED:
+            AlarmConnector.unshelve_alarms([alarm_id])
         return response
 
     @action(detail=False)
