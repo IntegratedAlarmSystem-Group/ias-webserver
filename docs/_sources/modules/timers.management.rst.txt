@@ -1,4 +1,4 @@
-alarms.management package
+timers.management package
 =========================
 
 Subpackages
@@ -6,12 +6,12 @@ Subpackages
 
 .. toctree::
 
-    alarms.management.commands
+    timers.management.commands
 
 Module contents
 ---------------
 
-.. automodule:: alarms.management
+.. automodule:: timers.management
     :members:
     :undoc-members:
     :show-inheritance:

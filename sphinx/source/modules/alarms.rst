@@ -6,7 +6,6 @@ Subpackages
 
 .. toctree::
 
-    alarms.management
     alarms.tests
 
 Submodules

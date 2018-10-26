@@ -206,8 +206,10 @@ class Alarm:
         """
         Updates the alarm with attributes from another given alarm if the
         timestamp of the given alarm is greater than the stored alarm.
+
         Args:
             alarm (Alarm): The new alarm object
+
         Returns:
             (string, string, boolean): A tuple with the state of the update
             (not-updated, updated-equal, updated-different), the
@@ -355,8 +357,10 @@ class IASValue(Alarm):
         Updates the ias_value with attributes from another given ias_value if
         the timestamp of the given ias_value is greater than the stored ias
         value.
+
         Args:
             isa_value (IASValue): The new ias_value object
+
         Returns:
             string: the state of the update (not-updated, updated-equal,
             updated-different)

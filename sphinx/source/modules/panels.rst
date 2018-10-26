@@ -1,4 +1,4 @@
-alarms package
+panels package
 ==============
 
 Subpackages
@@ -6,71 +6,63 @@ Subpackages
 
 .. toctree::
 
-    alarms.tests
+    panels.tests
 
 Submodules
 ----------
 
-alarms.admin module
+panels.admin module
 -------------------
 
-.. automodule:: alarms.admin
+.. automodule:: panels.admin
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms.apps module
+panels.apps module
 ------------------
 
-.. automodule:: alarms.apps
+.. automodule:: panels.apps
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms.collections module
--------------------------
-
-.. automodule:: alarms.collections
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alarms.connectors module
+panels.interfaces module
 ------------------------
 
-.. automodule:: alarms.connectors
+.. automodule:: panels.interfaces
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms.consumers module
------------------------
-
-.. automodule:: alarms.consumers
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alarms.interfaces module
-------------------------
-
-.. automodule:: alarms.interfaces
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alarms.models module
+panels.models module
 --------------------
 
-.. automodule:: alarms.models
+.. automodule:: panels.models
     :members:
     :undoc-members:
     :show-inheritance:
 
-alarms.views module
+panels.serializers module
+-------------------------
+
+.. automodule:: panels.serializers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+panels.urls module
+------------------
+
+.. automodule:: panels.urls
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+panels.views module
 -------------------
 
-.. automodule:: alarms.views
+.. automodule:: panels.views
     :members:
     :undoc-members:
     :show-inheritance:
@@ -79,7 +71,7 @@ alarms.views module
 Module contents
 ---------------
 
-.. automodule:: alarms
+.. automodule:: panels
     :members:
     :undoc-members:
     :show-inheritance:

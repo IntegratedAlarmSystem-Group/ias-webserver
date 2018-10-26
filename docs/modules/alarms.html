@@ -15,7 +15,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="alarms.management package" href="alarms.management.html" />
+    <link rel="next" title="alarms.tests package" href="alarms.tests.html" />
     <link rel="prev" title="ias-webserver" href="modules.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="alarms.management.html" title="alarms.management package"
+          <a href="alarms.tests.html" title="alarms.tests package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="modules.html" title="ias-webserver"
@@ -49,19 +49,6 @@
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="alarms.management.html">alarms.management package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="alarms.management.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="alarms.management.commands.html">alarms.management.commands package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="alarms.management.commands.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="alarms.management.commands.html#module-alarms.management.commands.broadcaststatus">alarms.management.commands.broadcaststatus module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="alarms.management.commands.html#module-alarms.management.commands">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="alarms.management.html#module-alarms.management">Module contents</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="alarms.tests.html">alarms.tests package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.factories">alarms.tests.factories module</a></li>
@@ -162,6 +149,32 @@ has been not initialized before.</p>
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.add_or_update_value">
+<em class="property">classmethod </em><code class="descname">add_or_update_value</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.add_or_update_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the ias value if it isn’t in the values collection already or
+updates the ias value in the other case.</p>
+<p>It does not notify the observers on change. It only mantains updated
+the collection to respond to user requests.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>value (IASValue): the IASValue object to add or update</dd>
+<dt>Returns:</dt>
+<dd>message (String): a string message sumarizing what happened</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.add_value">
+<em class="property">classmethod </em><code class="descname">add_value</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.add_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the value to the values collection dictionary</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>id (string): The core id of the value
+value (any): core value</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.broadcast_status_to_observers">
 <em class="property">classmethod </em><code class="descname">broadcast_status_to_observers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.broadcast_status_to_observers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Notify to all observers the alarms list with its current status</p>
@@ -245,13 +258,27 @@ alarm</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.initialize">
-<em class="property">classmethod </em><code class="descname">initialize</code><span class="sig-paren">(</span><em>iasios=None</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.initialize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes the alarms collection with default alarms created
-considering the iasios core_ids or CDB iasios core_ids</p>
+<dt id="alarms.collections.AlarmCollection.get_value">
+<em class="property">classmethod </em><code class="descname">get_value</code><span class="sig-paren">(</span><em>core_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.get_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value indexed by core_id in the values collection dict</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>iasios (list): A list of iasio objects</dd>
+<dd>core_id (string): The core core_id of the value</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.initialize">
+<em class="property">classmethod </em><code class="descname">initialize</code><span class="sig-paren">(</span><em>iasios=None</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the alarms collection with default alarms.
+If a list of iasios is passed, it initializes Alarms only for those
+iasios.
+If not, it initializes Alarms based on the alarm_ids used in
+AlarmConfig objects of the Panels app, getting their description and
+documentation urls from the CDB.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>iasios (list): An optional list of iasio objects</dd>
 <dt>Returns:</dt>
 <dd>dict: A dictionary of Alarm objects</dd>
 </dl>
@@ -301,12 +328,14 @@ initialization specification.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>core_id (string): core_ids of the Alarm to shelve</dd>
+<dt>Returns:</dt>
+<dd>int: 1 if it was shelved, 0 if not, -1 if shelving is not allowed</dd>
 </dl>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.collections.AlarmCollection.singleton_collection">
-<code class="descname">singleton_collection</code><em class="property"> = {'Alarmdummy': &lt;alarms.models.Alarm object at 0x7f65b53d4198&gt;, 'WS-Meteo129-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53d4128&gt;, 'WS-Meteo129-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0390&gt;, 'WS-Meteo129-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0518&gt;, 'WS-Meteo130-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53d4160&gt;, 'WS-Meteo130-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53d40f0&gt;, 'WS-Meteo131-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0588&gt;, 'WS-Meteo131-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c03c8&gt;, 'WS-Meteo131-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0470&gt;, 'WS-Meteo201-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0e80&gt;, 'WS-Meteo201-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0e10&gt;, 'WS-Meteo201-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0e48&gt;, 'WS-Meteo309-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0fd0&gt;, 'WS-Meteo309-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0f60&gt;, 'WS-Meteo309-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0f98&gt;, 'WS-Meteo410-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0550&gt;, 'WS-Meteo410-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0320&gt;, 'WS-Meteo410-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0d30&gt;, 'WS-MeteoCentral-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0f28&gt;, 'WS-MeteoCentral-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53c0eb8&gt;, 'WS-MeteoCentral-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0ef0&gt;, 'WS-MeteoItinerant-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0dd8&gt;, 'WS-MeteoOSF-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53c0d68&gt;, 'WS-MeteoOSF-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53a3358&gt;, 'WS-MeteoOSF-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53c0da0&gt;, 'WS-MeteoTB1-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53a31d0&gt;, 'WS-MeteoTB1-Temperature': &lt;alarms.models.Alarm object at 0x7f65b5453b70&gt;, 'WS-MeteoTB1-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53a3208&gt;, 'WS-MeteoTB2-Humidity': &lt;alarms.models.Alarm object at 0x7f65b53a3400&gt;, 'WS-MeteoTB2-Temperature': &lt;alarms.models.Alarm object at 0x7f65b53a32e8&gt;, 'WS-MeteoTB2-WindSpeed': &lt;alarms.models.Alarm object at 0x7f65b53a3198&gt;}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.singleton_collection" title="Permalink to this definition">¶</a></dt>
+<code class="descname">singleton_collection</code><em class="property"> = {}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.singleton_collection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store the Alarm objects, indexed by core_id</p>
 </dd></dl>
 
@@ -318,6 +347,8 @@ initialization specification.</p>
 <dt>Args:</dt>
 <dd>core_ids (list or string): list of core_ids (or a single core_id)
 of the Alarms to unshelve</dd>
+<dt>Returns:</dt>
+<dd>boolean: True if it was unshelved, False if not</dd>
 </dl>
 </dd></dl>
 
@@ -332,7 +363,7 @@ the new Alarm instance has a later timestamp than the stored ALARM</p>
 <dt>Returns:</dt>
 <dd>string: ‘updated-different’ if the alarm was different
 (besides timestamp), ‘updated-equal’ if it was updated but the only
-change is the timestamp, and ‘nopt-updated’ if it was not updated</dd>
+change is the timestamp, and ‘not-updated’ if it was not updated</dd>
 </dl>
 </dd></dl>
 
@@ -346,6 +377,12 @@ specification.</p>
 <dt>Returns:</dt>
 <dd>dict: the AlarmCollection as a dictionary after the validity update</dd>
 </dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.values_collection">
+<code class="descname">values_collection</code><em class="property"> = {}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.values_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary to store other type of values, indexed by core_id</p>
 </dd></dl>
 
 </dd></dl>
@@ -380,7 +417,7 @@ to notifiy</p>
 
 <dl class="classmethod">
 <dt id="alarms.connectors.CdbConnector.initialize_ias">
-<em class="property">classmethod </em><code class="descname">initialize_ias</code><span class="sig-paren">(</span><em>pk</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.CdbConnector.initialize_ias" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">initialize_ias</code><span class="sig-paren">(</span><em>pk=0</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.CdbConnector.initialize_ias" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the ias if exist or None if it is not.</p>
 </dd></dl>
 
@@ -401,10 +438,63 @@ calculation of validity</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="alarms.connectors.PanelsConnector">
+<em class="property">class </em><code class="descclassname">alarms.connectors.</code><code class="descname">PanelsConnector</code><a class="headerlink" href="#alarms.connectors.PanelsConnector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines methods to communicate the Alarm app with the Panels
+app</p>
+<dl class="classmethod">
+<dt id="alarms.connectors.PanelsConnector.get_alarm_ids_of_alarm_configs">
+<em class="property">classmethod </em><code class="descname">get_alarm_ids_of_alarm_configs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.PanelsConnector.get_alarm_ids_of_alarm_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list with the ids (alarm_id) of all the AlarmConfigs</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>(list): the list of alarm ids</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.connectors.PanelsConnector.update_antennas_configuration">
+<em class="property">classmethod </em><code class="descname">update_antennas_configuration</code><span class="sig-paren">(</span><em>antennas_pads_association</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.PanelsConnector.update_antennas_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the antennas pad association in the panels configuration</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>antennas_pads_association (String): Association between
+antennas and pads got from ias core value Array-AntennasToPads</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="alarms.connectors.TicketConnector">
 <em class="property">class </em><code class="descclassname">alarms.connectors.</code><code class="descname">TicketConnector</code><a class="headerlink" href="#alarms.connectors.TicketConnector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class defines methods to communicate the Alarm app with the Ticket app</p>
+<dl class="classmethod">
+<dt id="alarms.connectors.TicketConnector.check_acknowledgement">
+<em class="property">classmethod </em><code class="descname">check_acknowledgement</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.TicketConnector.check_acknowledgement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the alarm has pending acknowledgements.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>alarm_id (string): ID of the Alarm</dd>
+<dt>Returns:</dt>
+<dd>(bolean): true if the alarm is acknowledged otherwise false</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.connectors.TicketConnector.check_shelve">
+<em class="property">classmethod </em><code class="descname">check_shelve</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.TicketConnector.check_shelve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the alarm is shelved.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>alarm_id (string): ID of the Alarm</dd>
+<dt>Returns:</dt>
+<dd>(bolean): true if the alarm is shelved otherwise false</dd>
+</dl>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="alarms.connectors.TicketConnector.clear_ticket">
 <em class="property">classmethod </em><code class="descname">clear_ticket</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.TicketConnector.clear_ticket" title="Permalink to this definition">¶</a></dt>
@@ -520,6 +610,28 @@ value would be C_value</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="alarms.consumers.CoreConsumer.get_value_from_core_msg">
+<code class="descname">get_value_from_core_msg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.get_value_from_core_msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an IASValue based on the message content</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>content (dict): the content of the messsage</dd>
+<dt>Returns:</dt>
+<dd>IASValue: an Object based on the message content</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.consumers.CoreConsumer.num_pattern">
+<code class="descname">num_pattern</code><em class="property"> = re.compile('\\d+')</em><a class="headerlink" href="#alarms.consumers.CoreConsumer.num_pattern" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.consumers.CoreConsumer.pattern">
+<code class="descname">pattern</code><em class="property"> = re.compile('\\[!#\\d+!\\]')</em><a class="headerlink" href="#alarms.consumers.CoreConsumer.pattern" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="alarms.consumers.CoreConsumer.receive_json">
 <code class="descname">receive_json</code><span class="sig-paren">(</span><em>content</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.receive_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handles the messages received by this consumer.
@@ -595,7 +707,7 @@ alarm_id (string): The id of the alarm to get the ancestors</p>
 <span id="alarms-models-module"></span><h2>alarms.models module<a class="headerlink" href="#module-alarms.models" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="alarms.models.Alarm">
-<em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">Alarm</code><span class="sig-paren">(</span><em>core_timestamp</em>, <em>core_id</em>, <em>running_id</em>, <em>value=0</em>, <em>mode=0</em>, <em>validity=0</em>, <em>dependencies=[]</em>, <em>properties={}</em>, <em>timestamps={}</em>, <em>ack=False</em>, <em>shelved=False</em>, <em>state_change_timestamp=0</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">Alarm</code><span class="sig-paren">(</span><em>core_timestamp</em>, <em>core_id</em>, <em>running_id</em>, <em>value=0</em>, <em>mode=0</em>, <em>validity=0</em>, <em>dependencies=[]</em>, <em>properties={}</em>, <em>timestamps={}</em>, <em>ack=False</em>, <em>shelved=False</em>, <em>state_change_timestamp=0</em>, <em>description=''</em>, <em>url=''</em>, <em>sound=''</em>, <em>can_shelve=False</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Alarm generated by some device in the observatory.</p>
 <dl class="method">
@@ -635,7 +747,7 @@ core_timestamp value, other timestamps values and the properties dict.</p>
 <dd><p>Shelves the Alarm</p>
 <dl class="docutils">
 <dt>Returns:</dt>
-<dd>boolean: True if it was shelved, False if not</dd>
+<dd>int: 1 if it was shelved, 0 if not, -1 if shelving is not allowed</dd>
 </dl>
 </dd></dl>
 
@@ -656,10 +768,54 @@ core_timestamp value, other timestamps values and the properties dict.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="alarms.models.Alarm.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the alarm with attributes from another given alarm if the
+timestamp of the given alarm is greater than the stored alarm.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>alarm (Alarm): The new alarm object</dd>
+<dt>Returns:</dt>
+<dd>(string, string, boolean): A tuple with the state of the update
+(not-updated, updated-equal, updated-different), the
+transition of the alarm value (clear-set, set-clear or None) and
+wether or not the dependencies of the alarm have been updated</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="alarms.models.Alarm.update_validity">
 <code class="descname">update_validity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm.update_validity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the validity of the alarm considering the current time,
 the refresh rate and a previously defined delta time</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.models.IASValue">
+<em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">IASValue</code><span class="sig-paren">(</span><em>core_timestamp</em>, <em>core_id</em>, <em>running_id</em>, <em>value</em>, <em>mode=0</em>, <em>validity=0</em>, <em>timestamps={}</em>, <em>state_change_timestamp=0</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.IASValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#alarms.models.Alarm" title="alarms.models.Alarm"><code class="xref py py-class docutils literal notranslate"><span class="pre">alarms.models.Alarm</span></code></a></p>
+<p>IASValue from some device in the observatory.</p>
+<dl class="method">
+<dt id="alarms.models.IASValue.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.IASValue.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dict with all the values of the different attributes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.models.IASValue.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>ias_value</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.IASValue.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the ias_value with attributes from another given ias_value if
+the timestamp of the given ias_value is greater than the stored ias
+value.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>isa_value (IASValue): The new ias_value object</dd>
+<dt>Returns:</dt>
+<dd>string: the state of the update (not-updated, updated-equal,
+updated-different)</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -687,6 +843,11 @@ the refresh rate and a previously defined delta time</p>
 <dl class="attribute">
 <dt id="alarms.models.OperationalMode.MAINTENANCE">
 <code class="descname">MAINTENANCE</code><em class="property"> = 4</em><a class="headerlink" href="#alarms.models.OperationalMode.MAINTENANCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.models.OperationalMode.MALFUNCTIONING">
+<code class="descname">MALFUNCTIONING</code><em class="property"> = 8</em><a class="headerlink" href="#alarms.models.OperationalMode.MALFUNCTIONING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -789,8 +950,8 @@ to network problems or any other reason.</p>
   <p class="topless"><a href="modules.html"
                         title="previous chapter">ias-webserver</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="alarms.management.html"
-                        title="next chapter">alarms.management package</a></p>
+  <p class="topless"><a href="alarms.tests.html"
+                        title="next chapter">alarms.tests package</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <div class="searchformwrapper">
@@ -817,7 +978,7 @@ to network problems or any other reason.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="alarms.management.html" title="alarms.management package"
+          <a href="alarms.tests.html" title="alarms.tests package"
              >next</a> |</li>
         <li class="right" >
           <a href="modules.html" title="ias-webserver"

@@ -1,0 +1,573 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>panels.tests package &#8212; IAS Web Server 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="tickets package" href="tickets.html" />
+    <link rel="prev" title="panels package" href="panels.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tickets.html" title="tickets package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="panels.html" title="panels package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="panels.html" accesskey="U">panels package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="panels-tests-package">
+<h1>panels.tests package<a class="headerlink" href="#panels-tests-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-panels.tests.test_interfaces">
+<span id="panels-tests-test-interfaces-module"></span><h2>panels.tests.test_interfaces module<a class="headerlink" href="#module-panels.tests.test_interfaces" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="panels.tests.test_interfaces.TestIPanels">
+<em class="property">class </em><code class="descclassname">panels.tests.test_interfaces.</code><code class="descname">TestIPanels</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.test_interfaces.TestIPanels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the Panels Interfaces</p>
+<dl class="method">
+<dt id="panels.tests.test_interfaces.TestIPanels.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.test_interfaces.TestIPanels.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.test_interfaces.TestIPanels.test_get_alarm_ids_of_alarm_configs">
+<code class="descname">test_get_alarm_ids_of_alarm_configs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.test_interfaces.TestIPanels.test_get_alarm_ids_of_alarm_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that IPanels.get_alarm_ids_of_alarm_configs returns the alarm_ids</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.test_interfaces.TestIPanels.test_update_antennas_configuration">
+<code class="descname">test_update_antennas_configuration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.test_interfaces.TestIPanels.test_update_antennas_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that IPanels.update_antennas_configuration update the values</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-panels.tests.tests_api">
+<span id="panels-tests-tests-api-module"></span><h2>panels.tests.tests_api module<a class="headerlink" href="#module-panels.tests.tests_api" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_api.</code><code class="descname">AlarmConfigApiErrorResponsesTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite for the error responses in case of bad configuration</p>
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.test_api_antennas_config_response_errors">
+<code class="descname">test_api_antennas_config_response_errors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.test_api_antennas_config_response_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api returns error code if there is no antennas data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.test_api_antennas_summary_config_response_errors">
+<code class="descname">test_api_antennas_summary_config_response_errors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.test_api_antennas_summary_config_response_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api returns error code if there is no summary data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.test_api_weather_config_response_errors">
+<code class="descname">test_api_weather_config_response_errors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.test_api_weather_config_response_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api return error code if there is no weather data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.test_api_weather_summary_config_response_errors">
+<code class="descname">test_api_weather_summary_config_response_errors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiErrorResponsesTestCase.test_api_weather_summary_config_response_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api returns error code if there is no summary data</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.tests.tests_api.AlarmConfigApiTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_api.</code><code class="descname">AlarmConfigApiTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite for the AlarmConfig api views.</p>
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiTestCase.test_api_can_get_antennas_config">
+<code class="descname">test_api_can_get_antennas_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiTestCase.test_api_can_get_antennas_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve a correct json</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiTestCase.test_api_can_get_antennas_summary_config">
+<code class="descname">test_api_can_get_antennas_summary_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiTestCase.test_api_can_get_antennas_summary_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve a correct json</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiTestCase.test_api_can_get_weather_config">
+<code class="descname">test_api_can_get_weather_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiTestCase.test_api_can_get_weather_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve a correct json</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.AlarmConfigApiTestCase.test_api_can_get_weather_summary_config">
+<code class="descname">test_api_can_get_weather_summary_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.AlarmConfigApiTestCase.test_api_can_get_weather_summary_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve a correct json</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.tests.tests_api.FileApiTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_api.</code><code class="descname">FileApiTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.FileApiTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite for the files api views.</p>
+<dl class="method">
+<dt id="panels.tests.tests_api.FileApiTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.FileApiTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.FileApiTestCase.test_api_can_create_file">
+<code class="descname">test_api_can_create_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.FileApiTestCase.test_api_can_create_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can create a file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.FileApiTestCase.test_api_can_delete_a_file">
+<code class="descname">test_api_can_delete_a_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.FileApiTestCase.test_api_can_delete_a_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can delete a file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.FileApiTestCase.test_api_can_get_json_from_file">
+<code class="descname">test_api_can_get_json_from_file</code><span class="sig-paren">(</span><em>mock</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.FileApiTestCase.test_api_can_get_json_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can get a json from a .json file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.FileApiTestCase.test_api_can_list_the_files">
+<code class="descname">test_api_can_list_the_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.FileApiTestCase.test_api_can_list_the_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the files</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.FileApiTestCase.test_api_can_retrieve_a_file">
+<code class="descname">test_api_can_retrieve_a_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.FileApiTestCase.test_api_can_retrieve_a_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve a file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.FileApiTestCase.test_api_can_update_a_file">
+<code class="descname">test_api_can_update_a_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.FileApiTestCase.test_api_can_update_a_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can update a file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.FileApiTestCase.test_api_cannot_get_json_if_the_key_does_not_exist">
+<code class="descname">test_api_cannot_get_json_if_the_key_does_not_exist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.FileApiTestCase.test_api_cannot_get_json_if_the_key_does_not_exist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api cannot get a json if the key does not exist</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.tests.tests_api.PlacemarkApiTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_api.</code><code class="descname">PlacemarkApiTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.PlacemarkApiTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite for the placemarks api</p>
+<dl class="method">
+<dt id="panels.tests.tests_api.PlacemarkApiTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.PlacemarkApiTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.PlacemarkApiTestCase.test_api_can_get_pads_by_group">
+<code class="descname">test_api_can_get_pads_by_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.PlacemarkApiTestCase.test_api_can_get_pads_by_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test can retrieve the pads by group in the required format</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_api.PlacemarkApiTestCase.test_api_can_get_pads_by_group_without_group">
+<code class="descname">test_api_can_get_pads_by_group_without_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_api.PlacemarkApiTestCase.test_api_can_get_pads_by_group_without_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test can retrieve the pads without group in the required format</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-panels.tests.tests_models">
+<span id="panels-tests-tests-models-module"></span><h2>panels.tests.tests_models module<a class="headerlink" href="#module-panels.tests.tests_models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="panels.tests.tests_models.AlarmConfigModelsTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_models.</code><code class="descname">AlarmConfigModelsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.AlarmConfigModelsTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the AlarmConfig model tests</p>
+<dl class="method">
+<dt id="panels.tests.tests_models.AlarmConfigModelsTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.AlarmConfigModelsTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config">
+<code class="descname">test_create_alarm_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a alarm_config</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config_with_parent">
+<code class="descname">test_create_alarm_config_with_parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config_with_parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config_with_placemark">
+<code class="descname">test_create_alarm_config_with_placemark</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config_with_placemark" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.AlarmConfigModelsTestCase.test_delete_alarm_config">
+<code class="descname">test_delete_alarm_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.AlarmConfigModelsTestCase.test_delete_alarm_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can delete a alarm_config</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.AlarmConfigModelsTestCase.test_retrieve_alarm_config">
+<code class="descname">test_retrieve_alarm_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.AlarmConfigModelsTestCase.test_retrieve_alarm_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can retrieve a alarm_config</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.AlarmConfigModelsTestCase.test_update_alarm_config">
+<code class="descname">test_update_alarm_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.AlarmConfigModelsTestCase.test_update_alarm_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can update a alarm_config</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.tests.tests_models.FileModelsTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_models.</code><code class="descname">FileModelsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.FileModelsTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the File model tests</p>
+<dl class="method">
+<dt id="panels.tests.tests_models.FileModelsTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.FileModelsTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.FileModelsTestCase.test_create_file">
+<code class="descname">test_create_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.FileModelsTestCase.test_create_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.FileModelsTestCase.test_delete_file">
+<code class="descname">test_delete_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.FileModelsTestCase.test_delete_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can delete a file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.FileModelsTestCase.test_retrieve_file">
+<code class="descname">test_retrieve_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.FileModelsTestCase.test_retrieve_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can retrieve a file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.FileModelsTestCase.test_update_file">
+<code class="descname">test_update_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.FileModelsTestCase.test_update_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can update a file</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.tests.tests_models.PlacemarkGroupModelsTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_models.</code><code class="descname">PlacemarkGroupModelsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkGroupModelsTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the Placemark Group model tests</p>
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkGroupModelsTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkGroupModelsTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_create_group">
+<code class="descname">test_create_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_create_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_delete_group">
+<code class="descname">test_delete_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_delete_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can delete a type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_retrieve_group">
+<code class="descname">test_retrieve_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_retrieve_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can retrieve a type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_update_group">
+<code class="descname">test_update_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_update_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can update a type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.tests.tests_models.PlacemarkTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_models.</code><code class="descname">PlacemarkTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the Placemark model tests</p>
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTestCase.test_create_placemark">
+<code class="descname">test_create_placemark</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTestCase.test_create_placemark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a placemark</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTestCase.test_create_placemark_with_group">
+<code class="descname">test_create_placemark_with_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTestCase.test_create_placemark_with_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a placemark with a group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTestCase.test_delete_placemark">
+<code class="descname">test_delete_placemark</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTestCase.test_delete_placemark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can delete a placemark</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTestCase.test_retrieve_placemark">
+<code class="descname">test_retrieve_placemark</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTestCase.test_retrieve_placemark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can retrieve a placemark</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTestCase.test_update_placemark">
+<code class="descname">test_update_placemark</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTestCase.test_update_placemark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can update a placemark</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.tests.tests_models.PlacemarkTypeModelsTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_models.</code><code class="descname">PlacemarkTypeModelsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTypeModelsTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the Placemark Type model tests</p>
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTypeModelsTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTypeModelsTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_create_type">
+<code class="descname">test_create_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_create_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_delete_type">
+<code class="descname">test_delete_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_delete_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can delete a type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_retrieve_type">
+<code class="descname">test_retrieve_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_retrieve_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can retrieve a type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_update_type">
+<code class="descname">test_update_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_update_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can update a type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.tests.tests_models.TypeModelsTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_models.</code><code class="descname">TypeModelsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.TypeModelsTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the Type model tests</p>
+<dl class="method">
+<dt id="panels.tests.tests_models.TypeModelsTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.TypeModelsTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.TypeModelsTestCase.test_create_type">
+<code class="descname">test_create_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.TypeModelsTestCase.test_create_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.TypeModelsTestCase.test_delete_type">
+<code class="descname">test_delete_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.TypeModelsTestCase.test_delete_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can delete a type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.TypeModelsTestCase.test_retrieve_type">
+<code class="descname">test_retrieve_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.TypeModelsTestCase.test_retrieve_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can retrieve a type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.TypeModelsTestCase.test_update_type">
+<code class="descname">test_update_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.TypeModelsTestCase.test_update_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can update a type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.tests.tests_models.ViewModelsTestCase">
+<em class="property">class </em><code class="descclassname">panels.tests.tests_models.</code><code class="descname">ViewModelsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.ViewModelsTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class defines the test suite for the View model tests</p>
+<dl class="method">
+<dt id="panels.tests.tests_models.ViewModelsTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.ViewModelsTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.ViewModelsTestCase.test_create_view">
+<code class="descname">test_create_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.ViewModelsTestCase.test_create_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can create a view</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.ViewModelsTestCase.test_delete_view">
+<code class="descname">test_delete_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.ViewModelsTestCase.test_delete_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can delete a view</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.ViewModelsTestCase.test_retrieve_view">
+<code class="descname">test_retrieve_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.ViewModelsTestCase.test_retrieve_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can retrieve a view</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.tests.tests_models.ViewModelsTestCase.test_update_view">
+<code class="descname">test_update_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.tests.tests_models.ViewModelsTestCase.test_update_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can update a view</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-panels.tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-panels.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="panels.html"
+                        title="previous chapter">panels package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tickets.html"
+                        title="next chapter">tickets package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tickets.html" title="tickets package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="panels.html" title="panels package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="panels.html" >panels package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Inria Chile.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>
