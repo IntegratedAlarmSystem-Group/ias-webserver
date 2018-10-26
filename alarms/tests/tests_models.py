@@ -63,6 +63,10 @@ class AlarmModelTestCase(TestCase):
             alarm.ack, False,
             'The default value of ack field must be False'
         )
+        self.assertEqual(
+            alarm.shelved, False,
+            'The default value of shelved field must be False'
+        )
 
     def test_update_alarm_value(self):
         """ Test that an Alarm value can be updated and its
@@ -80,7 +84,6 @@ class AlarmModelTestCase(TestCase):
         # Assert:
         new_state_change = alarm.state_change_timestamp
         updated_data = dict(alarm.to_dict())
-        expected_state_change = expected_data['state_change_timestamp']
         del updated_data['state_change_timestamp']
         del expected_data['state_change_timestamp']
         self.assertEqual(
@@ -112,7 +115,6 @@ class AlarmModelTestCase(TestCase):
         # Assert:
         new_state_change = alarm.state_change_timestamp
         updated_data = dict(alarm.to_dict())
-        expected_state_change = expected_data['state_change_timestamp']
         del updated_data['state_change_timestamp']
         del expected_data['state_change_timestamp']
         self.assertEqual(
@@ -144,7 +146,6 @@ class AlarmModelTestCase(TestCase):
         # Assert:
         new_state_change = alarm.state_change_timestamp
         updated_data = dict(alarm.to_dict())
-        expected_state_change = expected_data['state_change_timestamp']
         del updated_data['state_change_timestamp']
         del expected_data['state_change_timestamp']
         self.assertEqual(
@@ -270,11 +271,24 @@ class AlarmModelTestCase(TestCase):
         """ Test if an alarm can be shelved """
         # Arrange:
         alarm = AlarmFactory.build()
+        alarm.can_shelve = True
         # Act:
         alarm.shelve()
         # Assert:
         self.assertEquals(
             alarm.shelved, True, 'The Alarm was not shelved'
+        )
+
+    def test_cannot_shelve_non_shelvable_alarm(self):
+        """ Test if a non-shelvable alarm cannot be shelved """
+        # Arrange:
+        alarm = AlarmFactory.build()
+        alarm.can_shelve = False
+        # Act:
+        alarm.shelve()
+        # Assert:
+        self.assertEquals(
+            alarm.shelved, False, 'The Alarm was shelved'
         )
 
     def test_unshelve_alarm(self):

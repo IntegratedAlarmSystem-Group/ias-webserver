@@ -10,16 +10,12 @@ class TestNotificationsToClientConsumer:
     """This class defines the test suite for the notification of changes
     to the ClientConsumer"""
 
-    def setup_method(self):
-        """TestCase setup, executed before each test of the TestCase"""
-        # Arrange:
-        AlarmCollection.reset([])
-
     @pytest.mark.asyncio
     @pytest.mark.django_db
     async def test_outbound_create(self):
         """Test if clients are notified when an alarm is created"""
         # Connect:
+        AlarmCollection.reset([])
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
@@ -37,6 +33,7 @@ class TestNotificationsToClientConsumer:
     @pytest.mark.django_db
     async def test_outbound_update(self):
         """Test if clients are notified when an alarm is updated"""
+        AlarmCollection.reset([])
         # Connect:
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
@@ -71,6 +68,7 @@ class TestNotificationsToClientConsumer:
     @pytest.mark.django_db
     async def test_outbound_acknowledge(self):
         """Test if clients are notified when an alarm is acknowledged"""
+        AlarmCollection.reset([])
         # Connect:
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
@@ -97,6 +95,7 @@ class TestNotificationsToClientConsumer:
     @pytest.mark.django_db
     async def test_outbound_delete(self):
         """Test if clients are notified when an alarm is deleted"""
+        AlarmCollection.reset([])
         # Connect:
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()

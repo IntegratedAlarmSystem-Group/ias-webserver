@@ -1,6 +1,7 @@
-from cdb.models import Iasio, Ias
+from cdb.readers import CdbReader
 from tickets.models import Ticket, TicketStatus
 from tickets.models import ShelveRegistry, ShelveRegistryStatus
+from panels.interfaces import IPanels
 
 
 class CdbConnector():
@@ -18,20 +19,15 @@ class CdbConnector():
     @classmethod
     def get_iasios(self, type=None):
         """ Return a list of iasios filtered by type formatted as dict """
-        if type:
-            iasios = Iasio.objects.filter(ias_type=type.upper())
-        else:
-            iasios = Iasio.objects.all()
-        return [iasio.get_data() for iasio in iasios]
+        return CdbReader.read_alarm_iasios()
 
     @classmethod
-    def initialize_ias(self, pk):
+    def initialize_ias(self, pk=0):
         """ Return the ias if exist or None if it is not. """
-        ias = Ias.objects.filter(pk=pk).first()
-        if ias:
-            data = ias.get_data()
-            self.refresh_rate = data['refresh_rate']*1000
-            self.tolerance = data['tolerance']*1000
+        data = CdbReader.read_ias()
+        if data and "refreshRate" in data and "tolerance" in data:
+            self.refresh_rate = int(data['refreshRate'])*1000
+            self.tolerance = int(data['tolerance'])*1000
         else:
             return None
 
@@ -102,3 +98,31 @@ class TicketConnector():
             status=int(ShelveRegistryStatus.get_choices_by_name()['SHELVED'])
         ).first()
         return True if registry else False
+
+
+class PanelsConnector():
+        """
+        This class defines methods to communicate the Alarm app with the Panels
+        app
+        """
+
+        @classmethod
+        def update_antennas_configuration(self, antennas_pads_association):
+            """
+            Updates the antennas pad association in the panels configuration
+
+            Args:
+                antennas_pads_association (String): Association between
+                antennas and pads got from ias core value Array-AntennasToPads
+            """
+            IPanels.update_antennas_configuration(antennas_pads_association)
+
+        @classmethod
+        def get_alarm_ids_of_alarm_configs(self):
+            """
+            Returns a list with the ids (alarm_id) of all the AlarmConfigs
+
+            Returns:
+                (list): the list of alarm ids
+            """
+            return IPanels.get_alarm_ids_of_alarm_configs()

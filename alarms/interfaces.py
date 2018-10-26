@@ -24,7 +24,7 @@ class IAlarms:
         Args:
             alarm_id (string): ID of the Alarms to shelve
         """
-        async_to_sync(AlarmCollection.shelve)(alarm_id)
+        return async_to_sync(AlarmCollection.shelve)(alarm_id)
 
     @classmethod
     def unshelve_alarms(self, alarm_ids):
@@ -34,7 +34,7 @@ class IAlarms:
         Args:
             alarms_ids (list): List of IDs of the Alarms to unshelve
         """
-        async_to_sync(AlarmCollection.unshelve)(alarm_ids)
+        return async_to_sync(AlarmCollection.unshelve)(alarm_ids)
 
     @classmethod
     def get_alarm_dependencies(self, alarm_id):

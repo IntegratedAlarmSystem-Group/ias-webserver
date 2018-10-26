@@ -11,15 +11,11 @@ class TestRequestsToClientConsumer:
     """This class defines the test suite for the requests messages
     to the ClientConsumer"""
 
-    def setup_method(self):
-        """TestCase setup, executed before each test of the TestCase"""
-        # Arrange:
-        AlarmCollection.reset([])
-
     @pytest.mark.asyncio
     @pytest.mark.django_db
     async def test_alarms_list(self):
         """Test if clients can request and receive a list of alarms"""
+        AlarmCollection.reset([])
         # Connect:
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
@@ -56,6 +52,7 @@ class TestRequestsToClientConsumer:
     @pytest.mark.django_db
     async def test_alarms_list_validity(self):
         """Test if clients receive a list of alarms with updated validity"""
+        AlarmCollection.reset([])
         # Connect:
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()
@@ -97,10 +94,12 @@ class TestRequestsToClientConsumer:
         await communicator.disconnect()
 
     @pytest.mark.asyncio
+    @pytest.mark.django_db
     async def test_unsupported_action(self):
         """
         Test if clients receive 'Unsupported action' when action is not 'list'
         """
+        AlarmCollection.reset([])
         # Connect:
         communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
         connected, subprotocol = await communicator.connect()

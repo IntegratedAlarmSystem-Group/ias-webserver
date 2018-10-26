@@ -1,8 +1,92 @@
+import mock
 from freezegun import freeze_time
 from django.test import TestCase
 from django.utils import timezone
-from alarms.connectors import TicketConnector
+from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 from tickets.models import Ticket, TicketStatus, ShelveRegistry
+
+
+class TestCdbConnector(TestCase):
+    """This class defines the test suite for the Tickets Connector"""
+
+    def test_initialize_ias(self):
+        """ Test that the initialize_ias function can read the refresh rate
+        and tolerance from the CDB """
+        # Arrange:
+        CdbConnector.refresh_rate = 0
+        CdbConnector.tolerance = 0
+        old_refresh_rate = CdbConnector.refresh_rate
+        old_tolerance = CdbConnector.tolerance
+        # Act:
+        CdbConnector.initialize_ias()
+        # Assert:
+        new_refresh_rate = CdbConnector.refresh_rate
+        new_tolerance = CdbConnector.tolerance
+        self.assertNotEqual(new_refresh_rate, old_refresh_rate)
+        self.assertNotEqual(new_tolerance, old_tolerance)
+        self.assertEqual(new_refresh_rate, 3000)
+        self.assertEqual(new_tolerance, 1000)
+
+    def test_read_get_iasios(self):
+        """ Test that the get_iasios function can the correct iasios
+        from the CDB """
+        # Act:
+        iasios_data = CdbConnector.get_iasios()
+        # Asserts:
+        expected_data = [
+            {
+                "id": "IASIO_DUMMY_ALARM_1",
+                "shortDesc": "Dummy Iasio of tyoe ALARM",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma.cl"
+            },
+            {
+                "id": "IASIO_DUMMY_ALARM_8",
+                "shortDesc": "Dummy Iasio of tyoe ALARM",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma.cl"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 3",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 4",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 5",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 6",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 7",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+            {
+                "id": "IASIO_DUMMY_TEMPLATED_1 instance 8",
+                "shortDesc": "Dummy teplated Iasio 1",
+                "iasType": "ALARM",
+                "templateId": "template-ID1"
+            },
+        ]
+        self.assertEqual(
+            iasios_data, expected_data,
+            'The data obtained is not the expected'
+        )
 
 
 class TestTicketConnector(TestCase):
@@ -148,4 +232,41 @@ class TestTicketConnector(TestCase):
             alarm_result, False,
             'The check_shelve should return False if the alarm has not' +
             'related ShelveRegistries'
+        )
+
+
+class TestPanelsConnector(TestCase):
+    """This class defines the test suite for the Tickets Connector"""
+
+    @mock.patch('panels.interfaces.IPanels.update_antennas_configuration')
+    def test_update_antennas_conf(self, IPanels_update_antennas_configuration):
+        """
+        Test that PanelsConnector.update_antennas_configuration calls
+        IPanels.update_antennas_configuration
+        """
+        # Arrange:
+        association = "A000:PAD0,A001:PAD1,A002:PAD2"
+        # Act:
+        PanelsConnector.update_antennas_configuration(association)
+        # Assert:
+        self.assertTrue(
+            IPanels_update_antennas_configuration.called,
+            'The IPanels.update_antennas_configuration function was not called'
+        )
+        IPanels_update_antennas_configuration.assert_called_with(association)
+
+    @mock.patch('panels.interfaces.IPanels.get_alarm_ids_of_alarm_configs')
+    def test_get_alarm_ids_of_alarm_configs(
+        self, IPanels_get_alarm_ids_of_alarm_configs
+    ):
+        """
+        Test that PanelsConnector.get_alarm_ids_of_alarm_configs calls
+        IPanels.get_alarm_ids_of_alarm_configs
+        """
+        # Act:
+        PanelsConnector.get_alarm_ids_of_alarm_configs()
+        # Assert:
+        self.assertTrue(
+            IPanels_get_alarm_ids_of_alarm_configs.called,
+            'IPanels.get_alarm_ids_of_alarm_configs() was not called'
         )

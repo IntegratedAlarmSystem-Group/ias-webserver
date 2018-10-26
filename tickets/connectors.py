@@ -26,7 +26,7 @@ class AlarmConnector:
         Args:
             alarm_id (string): ID of the Alarms to shelve
         """
-        IAlarms.shelve_alarm(alarm_id)
+        return IAlarms.shelve_alarm(alarm_id)
 
     @classmethod
     def unshelve_alarms(self, alarm_ids):
@@ -36,7 +36,7 @@ class AlarmConnector:
         Args:
             alarms_id (list): List of IDs of the Alarms to unshelve
         """
-        IAlarms.unshelve_alarms(alarm_ids)
+        return IAlarms.unshelve_alarms(alarm_ids)
 
     @classmethod
     def get_alarm_dependencies(self, alarm_id):

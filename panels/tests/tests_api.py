@@ -5,7 +5,15 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from panels.models import File, AlarmConfig, View, Type
+from panels.models import (
+    File,
+    AlarmConfig,
+    View,
+    Type,
+    Placemark,
+    PlacemarkType,
+    PlacemarkGroup
+)
 from panels.serializers import FileSerializer
 
 
@@ -181,6 +189,14 @@ class FileApiTestCase(TestCase):
 class AlarmConfigApiErrorResponsesTestCase(TestCase):
     """ Test suite for the error responses in case of bad configuration """
 
+    def setUp(self):
+        """ Define the test suite setup """
+        self.placemark_type = PlacemarkType.objects.create(name='pad')
+        self.placemark = Placemark.objects.create(
+            name="placemark_1",
+            type=self.placemark_type
+        )
+
     def test_api_weather_config_response_errors(self):
         """ Test that the api return error code if there is no weather data """
         # Act:
@@ -215,7 +231,7 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
             alarm_id="station_alarm_1",
             view=weather_view,
             type=station_type,
-            placemark="placemark_1"
+            placemark=self.placemark
         )
         response = self.client.get(url, format='json')
         # Assert:
@@ -259,7 +275,7 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
             alarm_id="antenna_alarm_1",
             view=antennas_view,
             type=antenna_type,
-            placemark="placemark_1",
+            placemark=self.placemark,
             custom_name="A001",
             tags="group_A"
         )
@@ -366,21 +382,57 @@ class AlarmConfigApiTestCase(TestCase):
         self.windspeed_type = Type.objects.create(name='windspeed')
         self.station_type = Type.objects.create(name='station')
         self.antenna_type = Type.objects.create(name='antenna')
+        self.fire_type = Type.objects.create(name='fire')
+        self.fire_sys_type = Type.objects.create(name='fire_malfunction')
+        self.ups_type = Type.objects.create(name='ups')
+        self.hvac_type = Type.objects.create(name='hvac')
+        self.power_type = Type.objects.create(name='power')
         self.weather_view = View.objects.create(name='weather')
         self.antennas_view = View.objects.create(name='antennas')
         self.summary_view = View.objects.create(name='summary')
+        self.placemark_type = PlacemarkType.objects.create(name='pad')
+        self.placemark_groups = [
+            PlacemarkGroup.objects.create(name='group1'),
+            PlacemarkGroup.objects.create(name='group2')
+        ]
+
+        self.placemarks = [
+            Placemark.objects.create(
+                name="placemark_station_1",
+                type=self.placemark_type,
+                group=self.placemark_groups[0]
+            ),
+            Placemark.objects.create(
+                name="placemark_station_2",
+                type=self.placemark_type,
+                group=self.placemark_groups[1]
+
+            ),
+            Placemark.objects.create(
+                name="placemark_pad_1",
+                type=self.placemark_type
+            ),
+            Placemark.objects.create(
+                name="placemark_pad_2",
+                type=self.placemark_type
+            ),
+            Placemark.objects.create(
+                name="placemark_pad_3",
+                type=self.placemark_type
+            ),
+        ]
         self.stations_alarms_config = [
             AlarmConfig.objects.create(
                 alarm_id="station_alarm_1",
                 view=self.weather_view,
                 type=self.station_type,
-                placemark="placemark_1"
+                placemark=self.placemarks[0]
             ),
             AlarmConfig.objects.create(
                 alarm_id="station_alarm_2",
                 view=self.weather_view,
                 type=self.station_type,
-                placemark="placemark_2"
+                placemark=self.placemarks[1]
             )
         ]
         self.sensors_alarms_config = [
@@ -426,7 +478,7 @@ class AlarmConfigApiTestCase(TestCase):
                 alarm_id="antenna_alarm_1",
                 view=self.antennas_view,
                 type=self.antenna_type,
-                placemark="placemark_1",
+                placemark=self.placemarks[2],
                 custom_name="A001",
                 tags="group_A"
             ),
@@ -434,7 +486,7 @@ class AlarmConfigApiTestCase(TestCase):
                 alarm_id="antenna_alarm_2",
                 view=self.antennas_view,
                 type=self.antenna_type,
-                placemark="placemark_2",
+                placemark=self.placemarks[3],
                 custom_name="A002",
                 tags="group_A"
             ),
@@ -442,10 +494,47 @@ class AlarmConfigApiTestCase(TestCase):
                 alarm_id="antenna_alarm_3",
                 view=self.antennas_view,
                 type=self.antenna_type,
-                placemark="placemark_3",
+                placemark=self.placemarks[4],
                 custom_name="A003",
                 tags="group_B"
             )
+        ]
+        self.antennas_devices_alarms_config = [
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_fire",
+                view=self.antennas_view,
+                type=self.fire_type,
+                custom_name="Fire",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_fire_malfunction",
+                view=self.antennas_view,
+                type=self.fire_sys_type,
+                custom_name="Fire Malfunction",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_ups",
+                view=self.antennas_view,
+                type=self.ups_type,
+                custom_name="UPS",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_hvac",
+                view=self.antennas_view,
+                type=self.hvac_type,
+                custom_name="HVAC",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_power",
+                view=self.antennas_view,
+                type=self.power_type,
+                custom_name="Power",
+                parent=self.antennas_alarms_config[0]
+            ),
         ]
         self.summary_alarms_config = [
             AlarmConfig.objects.create(
@@ -478,14 +567,16 @@ class AlarmConfigApiTestCase(TestCase):
         # Arrange:
         expected_data = [
             {
-                'placemark': 'placemark_1',
+                'placemark': 'placemark_station_1',
+                'group': 'group1',
                 'station': 'station_alarm_1',
                 'temperature': 'temperature_alarm_1',
                 'windspeed': 'windspeed_alarm_1',
                 'humidity': 'humidity_alarm_1',
             },
             {
-                'placemark': 'placemark_2',
+                'placemark': 'placemark_station_2',
+                'group': 'group2',
                 'station': 'station_alarm_2',
                 'temperature': 'temperature_alarm_2',
                 'windspeed': 'windspeed_alarm_2',
@@ -515,20 +606,35 @@ class AlarmConfigApiTestCase(TestCase):
             'group_A': [
                 {
                     'antenna': 'A001',
-                    'placemark': 'placemark_1',
+                    'placemark': 'placemark_pad_1',
                     'alarm': 'antenna_alarm_1',
+                    'fire': 'antenna_alarm_1_fire',
+                    'fire_malfunction': 'antenna_alarm_1_fire_malfunction',
+                    'ups': 'antenna_alarm_1_ups',
+                    'hvac': 'antenna_alarm_1_hvac',
+                    'power': 'antenna_alarm_1_power'
                 },
                 {
                     'antenna': 'A002',
-                    'placemark': 'placemark_2',
+                    'placemark': 'placemark_pad_2',
                     'alarm': 'antenna_alarm_2',
+                    'fire': '',
+                    'fire_malfunction': '',
+                    'ups': '',
+                    'hvac': '',
+                    'power': ''
                 }
             ],
             'group_B': [
                 {
                     'antenna': 'A003',
-                    'placemark': 'placemark_3',
+                    'placemark': 'placemark_pad_3',
                     'alarm': 'antenna_alarm_3',
+                    'fire': '',
+                    'fire_malfunction': '',
+                    'ups': '',
+                    'hvac': '',
+                    'power': ''
                 },
             ]
         }
@@ -592,4 +698,134 @@ class AlarmConfigApiTestCase(TestCase):
             response.data,
             expected_data,
             'The information retrieved is different to the expected one'
+        )
+
+
+class PlacemarkApiTestCase(TestCase):
+    """ Test suite for the placemarks api """
+
+    def setUp(self):
+        """ Define the test suite setup """
+        self.placemark_type = PlacemarkType.objects.create(name='pad')
+        self.placemark_groups = [
+            PlacemarkGroup.objects.create(name='GROUP1'),
+            PlacemarkGroup.objects.create(name='GROUP2')
+        ]
+        self.placemarks = [
+            Placemark.objects.create(
+                name="PAD1",
+                type=self.placemark_type,
+                group=self.placemark_groups[0]
+            ),
+            Placemark.objects.create(
+                name="PAD2",
+                type=self.placemark_type,
+                group=self.placemark_groups[1]
+            ),
+            Placemark.objects.create(
+                name="PAD3",
+                type=self.placemark_type,
+                group=self.placemark_groups[1]
+            ),
+            Placemark.objects.create(
+                name="PAD4",
+                type=self.placemark_type
+            ),
+        ]
+        self.antenna_type = Type.objects.create(name='antenna')
+        self.antennas_view = View.objects.create(name='antennas')
+        self.antennas_alarms_config = [
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1",
+                view=self.antennas_view,
+                type=self.antenna_type,
+                placemark=self.placemarks[0],
+                custom_name="A001",
+                tags="group_A"
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_2",
+                view=self.antennas_view,
+                type=self.antenna_type,
+                placemark=self.placemarks[1],
+                custom_name="A002",
+                tags="group_A"
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_3",
+                view=self.antennas_view,
+                type=self.antenna_type,
+                custom_name="A003",
+                tags="group_B"
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_4",
+                view=self.antennas_view,
+                type=self.antenna_type,
+                placemark=self.placemarks[3],
+                custom_name="A004",
+                tags="group_A"
+            ),
+        ]
+
+        self.client = APIClient()
+
+    def test_api_can_get_pads_by_group(self):
+        """ Test can retrieve the pads by group in the required format """
+        # Arrange:
+        expected_response = {
+            "GROUP1": {
+                "PAD1": "A001"
+            }
+        }
+
+        # Act:
+        url = reverse('placemark-pads-by-group')
+        data = {'group': "GROUP1"}
+        response = self.client.get(url, data, format='json')
+
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'The Server did not retrieve the pads'
+        )
+        retrieved_pads_data = response.data
+        self.assertEqual(
+            retrieved_pads_data,
+            expected_response,
+            'The retrieved pads do not match the expected ones'
+        )
+
+    def test_api_can_get_pads_by_group_without_group(self):
+        """ Test can retrieve the pads without group in the required format """
+        # Arrange:
+        expected_response = {
+            "GROUP1": {
+                "PAD1": "A001"
+            },
+            "GROUP2": {
+                "PAD2": "A002",
+                "PAD3": None
+            },
+            "other": {
+                "PAD4": "A004"
+            }
+        }
+
+        # Act:
+        url = reverse('placemark-pads-by-group')
+        response = self.client.get(url, format='json')
+
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'The Server did not retrieve the pads'
+        )
+        retrieved_pads_data = response.data
+        self.assertEqual(
+            retrieved_pads_data,
+            expected_response,
+            'The retrieved pads do not match the expected ones'
         )

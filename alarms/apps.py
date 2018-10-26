@@ -1,3 +1,4 @@
+import os
 from django.apps import AppConfig
 from django.db.utils import OperationalError
 
@@ -10,6 +11,8 @@ class AlarmConfig(AppConfig):
 
     def ready(self):
         """ Initializes AlarmCollection on application start """
+        if os.environ.get('TESTING', False):
+            return
         from alarms.collections import AlarmCollection
         try:
             AlarmCollection.initialize()

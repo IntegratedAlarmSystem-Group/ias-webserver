@@ -2,7 +2,7 @@ import time
 import abc
 import asyncio
 from alarms.models import Alarm
-from alarms.connectors import CdbConnector, TicketConnector
+from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 
 
 class AlarmCollection:
@@ -18,6 +18,9 @@ class AlarmCollection:
 
     parents_collection = None
     """ Dictionary to store the parents of each alarm """
+
+    values_collection = None
+    """ Dictionary to store other type of values, indexed by core_id """
 
     observers = []
     """ List to store references to the observers subscribed to changes in the
@@ -48,11 +51,15 @@ class AlarmCollection:
     @classmethod
     def initialize(self, iasios=None):
         """
-        Initializes the alarms collection with default alarms created
-        considering the iasios core_ids or CDB iasios core_ids
+        Initializes the alarms collection with default alarms.
+        If a list of iasios is passed, it initializes Alarms only for those
+        iasios.
+        If not, it initializes Alarms based on the alarm_ids used in
+        AlarmConfig objects of the Panels app, getting their description and
+        documentation urls from the CDB.
 
         Args:
-            iasios (list): A list of iasio objects
+            iasios (list): An optional list of iasio objects
 
         Returns:
             dict: A dictionary of Alarm objects
@@ -60,24 +67,80 @@ class AlarmCollection:
         if self.singleton_collection is None:
             self.singleton_collection = {}
             self.parents_collection = {}
+            self.values_collection = {}
+            alarms_to_search = PanelsConnector.get_alarm_ids_of_alarm_configs()
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
-            for iasio in iasios:
-                if iasio['ias_type'].upper() == 'ALARM':
-                    current_time_millis = int(round(time.time() * 1000))
-                    alarm_id = iasio['io_id']
-                    alarm = Alarm(
-                        value=0,
-                        mode=7,
-                        validity=0,
-                        core_timestamp=current_time_millis,
-                        core_id=alarm_id,
-                        running_id='({}:IASIO)'.format(alarm_id),
-                        description=iasio['short_desc'],
-                        url=iasio['doc_url'],
-                    )
+
+                for iasio in iasios:
+                    if iasio['iasType'].upper() == 'ALARM':
+                        alarm = self._create_alarm_from_iasio(iasio)
+                        self.add(alarm)
+
+                for alarm_id in alarms_to_search:
+                    if self.get(alarm_id) is None:
+                        alarm = self._create_alarm_from_iasio({'id': alarm_id})
+                        self.add(alarm)
+                        print(
+                            'WARNING: ID ' + alarm_id +
+                            ' was not found in the CDB, initializing with ' +
+                            'empty description and url '
+                        )
+
+            else:
+                for iasio in iasios:
+                    alarm = self._create_alarm_from_iasio(iasio)
                     self.add(alarm)
         return self.singleton_collection
+
+    @classmethod
+    def _create_alarm_from_iasio(self, iasio):
+        """
+        Auxiliary method used to create an Alarm from an IASIO
+
+        Args:
+            iasio (dict): A dictionary with the IASIO info
+
+        Returns:
+            alarm: an Alarm object
+        """
+        current_time = int(round(time.time() * 1000))
+        if 'shortDesc' not in iasio:
+            iasio['shortDesc'] = ""
+        if 'docUrl' not in iasio:
+            iasio['docUrl'] = ""
+        if 'sound' not in iasio:
+            iasio['sound'] = ""
+        if 'canShelve' not in iasio:
+            iasio['canShelve'] = False
+        alarm_id = iasio['id']
+        alarm = Alarm(
+            value=0,
+            mode=7,
+            validity=0,
+            core_timestamp=current_time,
+            core_id=alarm_id,
+            running_id='({}:IASIO)'.format(alarm_id),
+            description=iasio['shortDesc'],
+            url=iasio['docUrl'],
+            sound=iasio['sound'],
+            can_shelve=self._parseBool(iasio['canShelve']),
+        )
+        return alarm
+
+    @classmethod
+    def _parseBool(self, input):
+        """
+        Auxiliary method used to parse a field that could be either string
+        or bool to bool
+
+        Args:
+            input (string or bool): the input
+
+        Returns:
+            bool: True or False
+        """
+        return input == "True" or input == "true" or input is True
 
     @classmethod
     def get(self, core_id):
@@ -256,6 +319,7 @@ class AlarmCollection:
         """
         self.singleton_collection = None
         self.parents_collection = None
+        self.values_collection = None
         self.initialize(iasios)
 
     @classmethod
@@ -309,6 +373,59 @@ class AlarmCollection:
                 raise Exception('ERROR: incorrect update status')
 
     @classmethod
+    def add_value(self, value):
+        """
+        Adds the value to the values collection dictionary
+
+        Args:
+            id (string): The core id of the value
+            value (any): core value
+        """
+        self.values_collection[value.core_id] = value
+
+    @classmethod
+    def get_value(self, core_id):
+        """
+        Returns the value indexed by core_id in the values collection dict
+
+        Args:
+            core_id (string): The core core_id of the value
+        """
+        if core_id in self.values_collection:
+            return self.values_collection[core_id]
+        else:
+            return None
+
+    @classmethod
+    def add_or_update_value(self, value):
+        """
+        Adds the ias value if it isn't in the values collection already or
+        updates the ias value in the other case.
+
+        It does not notify the observers on change. It only mantains updated
+        the collection to respond to user requests.
+
+        Args:
+            value (IASValue): the IASValue object to add or update
+
+        Returns:
+            message (String): a string message sumarizing what happened
+        """
+
+        if value.core_id not in self.values_collection:
+            self.add_value(value)
+            if value.core_id == "Array-AntennasToPads":
+                PanelsConnector.update_antennas_configuration(value.value)
+            return 'created-value'
+        else:
+            stored_value = self.get_value(value.core_id)
+            status = stored_value.update(value)
+            if status == 'updated-different':
+                if value.core_id == "Array-AntennasToPads":
+                    PanelsConnector.update_antennas_configuration(value.value)
+            return status
+
+    @classmethod
     async def delete_and_notify(self, alarm):
         """
         Deletes the Alarm object in the AlarmCollection dictionary
@@ -334,13 +451,15 @@ class AlarmCollection:
 
         Args:
             core_id (string): core_ids of the Alarm to shelve
+
+        Returns:
+            int: 1 if it was shelved, 0 if not, -1 if shelving is not allowed
         """
         alarm = self.singleton_collection[core_id]
-        if alarm.shelve():
+        status = alarm.shelve()
+        if status == 1:
             await self.notify_observers(alarm, 'update')
-            return True
-        else:
-            return False
+        return status
 
     @classmethod
     async def unshelve(self, core_ids):
@@ -350,6 +469,9 @@ class AlarmCollection:
         Args:
             core_ids (list or string): list of core_ids (or a single core_id)
             of the Alarms to unshelve
+
+        Returns:
+            boolean: True if it was unshelved, False if not
         """
         if type(core_ids) is not list:
             core_ids = [core_ids]

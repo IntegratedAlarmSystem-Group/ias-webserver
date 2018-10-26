@@ -45,6 +45,7 @@ class ShelveRegistrysApiTestCase(TestCase):
             'message': self.message,
             'timeout': '3:16:13'
         }
+        AlarmConnector_shelve_alarm.return_value = 1
         # Act:
         url = reverse('shelveregistry-list')
         self.response = self.client.post(url, new_reg_data, format='json')
@@ -77,12 +78,17 @@ class ShelveRegistrysApiTestCase(TestCase):
             'The alarm connector shelve method should have been called'
         )
 
-    def test_api_cannot_create_registry_with_no_message(self):
+    @mock.patch('tickets.connectors.AlarmConnector.shelve_alarm')
+    @mock.patch('tickets.connectors.AlarmConnector.unshelve_alarms')
+    def test_api_cannot_create_registry_with_no_message(
+            self, AlarmConnector_shelve_alarm, AlarmConnector_unshelve_alarms
+    ):
         """ Test that the api cannot create a registry without a message """
         # Arrange:
         new_reg_data = {
             'alarm_id': 'alarm_4'
         }
+        AlarmConnector_shelve_alarm.return_value = 1
         # Act:
         url = reverse('shelveregistry-list')
         self.response = self.client.post(url, new_reg_data, format='json')
@@ -99,6 +105,78 @@ class ShelveRegistrysApiTestCase(TestCase):
             created_reg,
             [],
             'The registry was created'
+        )
+        self.assertTrue(
+            AlarmConnector_unshelve_alarms.called,
+            'The alarm connector unshelve method should have been called'
+        )
+
+    @mock.patch('tickets.connectors.AlarmConnector.shelve_alarm')
+    def test_api_cannot_create_registry_for_non_shelvable_alarm(
+        self, AlarmConnector_shelve_alarm
+    ):
+        """ Test that the api can create a registry """
+        # Arrange
+        new_reg_data = {
+            'alarm_id': 'alarm_4',
+            'message': self.message,
+            'timeout': '3:16:13'
+        }
+        AlarmConnector_shelve_alarm.return_value = -1
+        # Act:
+        url = reverse('shelveregistry-list')
+        self.response = self.client.post(url, new_reg_data, format='json')
+        # Assert:
+        created_reg = ShelveRegistry.objects.filter(
+            alarm_id=new_reg_data['alarm_id']
+        ).first()
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            'The server did not forbid to create the registry'
+        )
+        self.assertEqual(
+            created_reg,
+            None,
+            'The registry was created'
+        )
+        self.assertTrue(
+            AlarmConnector_shelve_alarm.called,
+            'The alarm connector shelve method should have been called'
+        )
+
+    @mock.patch('tickets.connectors.AlarmConnector.shelve_alarm')
+    def test_api_cannot_create_registry_for_already_shelved_alarm(
+        self, AlarmConnector_shelve_alarm
+    ):
+        """ Test that the api can create a registry """
+        # Arrange
+        new_reg_data = {
+            'alarm_id': 'alarm_4',
+            'message': self.message,
+            'timeout': '3:16:13'
+        }
+        AlarmConnector_shelve_alarm.return_value = 0
+        # Act:
+        url = reverse('shelveregistry-list')
+        self.response = self.client.post(url, new_reg_data, format='json')
+        # Assert:
+        created_reg = ShelveRegistry.objects.filter(
+            alarm_id=new_reg_data['alarm_id']
+        ).first()
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The server re-shelved the alarm'
+        )
+        self.assertEqual(
+            created_reg,
+            None,
+            'A new registry was created'
+        )
+        self.assertTrue(
+            AlarmConnector_shelve_alarm.called,
+            'The alarm connector shelve method should have been called'
         )
 
     # ******* RETRIEVE
