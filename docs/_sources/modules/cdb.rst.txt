@@ -35,6 +35,14 @@ cdb.models module
     :undoc-members:
     :show-inheritance:
 
+cdb.readers module
+------------------
+
+.. automodule:: cdb.readers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cdb.routers module
 ------------------
 

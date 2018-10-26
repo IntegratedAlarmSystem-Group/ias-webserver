@@ -1,0 +1,906 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>panels package &#8212; IAS Web Server 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="panels.tests package" href="panels.tests.html" />
+    <link rel="prev" title="manage module" href="manage.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="panels.tests.html" title="panels.tests package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="manage.html" title="manage module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">ias-webserver</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="panels-package">
+<h1>panels package<a class="headerlink" href="#panels-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="panels.tests.html">panels.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panels.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panels.tests.html#module-panels.tests.test_interfaces">panels.tests.test_interfaces module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panels.tests.html#module-panels.tests.tests_api">panels.tests.tests_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panels.tests.html#module-panels.tests.tests_models">panels.tests.tests_models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panels.tests.html#module-panels.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-panels.admin">
+<span id="panels-admin-module"></span><h2>panels.admin module<a class="headerlink" href="#module-panels.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-panels.apps">
+<span id="panels-apps-module"></span><h2>panels.apps module<a class="headerlink" href="#module-panels.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="panels.apps.PanelsConfig">
+<em class="property">class </em><code class="descclassname">panels.apps.</code><code class="descname">PanelsConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.apps.PanelsConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="panels.apps.PanelsConfig.name">
+<code class="descname">name</code><em class="property"> = 'panels'</em><a class="headerlink" href="#panels.apps.PanelsConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-panels.interfaces">
+<span id="panels-interfaces-module"></span><h2>panels.interfaces module<a class="headerlink" href="#module-panels.interfaces" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="panels.interfaces.IPanels">
+<em class="property">class </em><code class="descclassname">panels.interfaces.</code><code class="descname">IPanels</code><a class="headerlink" href="#panels.interfaces.IPanels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the methods that the Panels app provides to be used
+by other apps</p>
+<dl class="classmethod">
+<dt id="panels.interfaces.IPanels.get_alarm_ids_of_alarm_configs">
+<em class="property">classmethod </em><code class="descname">get_alarm_ids_of_alarm_configs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.interfaces.IPanels.get_alarm_ids_of_alarm_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list with the ids (alarm_id) of all the AlarmConfigs</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>(list): the list of alarm ids</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="panels.interfaces.IPanels.update_antennas_configuration">
+<em class="property">classmethod </em><code class="descname">update_antennas_configuration</code><span class="sig-paren">(</span><em>antennas_pads_association</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.interfaces.IPanels.update_antennas_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the antennas pad association in the panels configuration</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>antennas_pads_association (String): Association between
+antennas and pads got from ias core value Array-AntennasToPads
+The string must have the following form:
+ANTENNA1:PAD_A,ANTENNA2:PAD_B,..,ANTENNA_N:PAD_X</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-panels.models">
+<span id="panels-models-module"></span><h2>panels.models module<a class="headerlink" href="#module-panels.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="panels.models.AlarmConfig">
+<em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">AlarmConfig</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.AlarmConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Relation between alarms and view elements</p>
+<dl class="exception">
+<dt id="panels.models.AlarmConfig.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#panels.models.AlarmConfig.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="panels.models.AlarmConfig.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#panels.models.AlarmConfig.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.alarm_id">
+<code class="descname">alarm_id</code><a class="headerlink" href="#panels.models.AlarmConfig.alarm_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID of the ALARM</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.custom_name">
+<code class="descname">custom_name</code><a class="headerlink" href="#panels.models.AlarmConfig.custom_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom name to show in the display</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.id">
+<code class="descname">id</code><a class="headerlink" href="#panels.models.AlarmConfig.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.nested_alarms">
+<code class="descname">nested_alarms</code><a class="headerlink" href="#panels.models.AlarmConfig.nested_alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#panels.models.AlarmConfig.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.parent">
+<code class="descname">parent</code><a class="headerlink" href="#panels.models.AlarmConfig.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to an alarm which is displayed as a parent of this alarm</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.parent_id">
+<code class="descname">parent_id</code><a class="headerlink" href="#panels.models.AlarmConfig.parent_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.placemark">
+<code class="descname">placemark</code><a class="headerlink" href="#panels.models.AlarmConfig.placemark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Id of the position in the maps</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.placemark_id">
+<code class="descname">placemark_id</code><a class="headerlink" href="#panels.models.AlarmConfig.placemark_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.tags">
+<code class="descname">tags</code><a class="headerlink" href="#panels.models.AlarmConfig.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Other custom data</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.type">
+<code class="descname">type</code><a class="headerlink" href="#panels.models.AlarmConfig.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of the alarm</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.type_id">
+<code class="descname">type_id</code><a class="headerlink" href="#panels.models.AlarmConfig.type_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.view">
+<code class="descname">view</code><a class="headerlink" href="#panels.models.AlarmConfig.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Related View</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.AlarmConfig.view_id">
+<code class="descname">view_id</code><a class="headerlink" href="#panels.models.AlarmConfig.view_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.models.File">
+<em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">File</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.File" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>General purpose file</p>
+<dl class="exception">
+<dt id="panels.models.File.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#panels.models.File.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="panels.models.File.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#panels.models.File.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.models.File.get_full_url">
+<code class="descname">get_full_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.File.get_full_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the full url of the file</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.File.id">
+<code class="descname">id</code><a class="headerlink" href="#panels.models.File.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.File.key">
+<code class="descname">key</code><a class="headerlink" href="#panels.models.File.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key to identify the File on the client side</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.File.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#panels.models.File.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="panels.models.File.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.File.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ticket as a dictionary</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.File.url">
+<code class="descname">url</code><a class="headerlink" href="#panels.models.File.url" title="Permalink to this definition">¶</a></dt>
+<dd><p>URL with the location of the File</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.models.Placemark">
+<em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">Placemark</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.Placemark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Elements to be displayed in the graphical components
+(maps, floor plans, etc.)</p>
+<dl class="exception">
+<dt id="panels.models.Placemark.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#panels.models.Placemark.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="panels.models.Placemark.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#panels.models.Placemark.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Placemark.alarm">
+<code class="descname">alarm</code><a class="headerlink" href="#panels.models.Placemark.alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Placemark.description">
+<code class="descname">description</code><a class="headerlink" href="#panels.models.Placemark.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Brief description of the placemark</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Placemark.group">
+<code class="descname">group</code><a class="headerlink" href="#panels.models.Placemark.group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Placemark.group_id">
+<code class="descname">group_id</code><a class="headerlink" href="#panels.models.Placemark.group_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Placemark.id">
+<code class="descname">id</code><a class="headerlink" href="#panels.models.Placemark.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Placemark.name">
+<code class="descname">name</code><a class="headerlink" href="#panels.models.Placemark.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID of the placemark</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Placemark.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#panels.models.Placemark.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Placemark.type">
+<code class="descname">type</code><a class="headerlink" href="#panels.models.Placemark.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of the placemark</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Placemark.type_id">
+<code class="descname">type_id</code><a class="headerlink" href="#panels.models.Placemark.type_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.models.PlacemarkGroup">
+<em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">PlacemarkGroup</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.PlacemarkGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Groups of position marks, used to refer to layers of related position
+marks that interact with each other</p>
+<dl class="exception">
+<dt id="panels.models.PlacemarkGroup.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#panels.models.PlacemarkGroup.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="panels.models.PlacemarkGroup.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#panels.models.PlacemarkGroup.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.PlacemarkGroup.description">
+<code class="descname">description</code><a class="headerlink" href="#panels.models.PlacemarkGroup.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Brief description of the group</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.PlacemarkGroup.id">
+<code class="descname">id</code><a class="headerlink" href="#panels.models.PlacemarkGroup.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.PlacemarkGroup.name">
+<code class="descname">name</code><a class="headerlink" href="#panels.models.PlacemarkGroup.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the group</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.PlacemarkGroup.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#panels.models.PlacemarkGroup.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.PlacemarkGroup.placemarks">
+<code class="descname">placemarks</code><a class="headerlink" href="#panels.models.PlacemarkGroup.placemarks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.models.PlacemarkType">
+<em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">PlacemarkType</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.PlacemarkType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Type of placemark</p>
+<dl class="exception">
+<dt id="panels.models.PlacemarkType.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#panels.models.PlacemarkType.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="panels.models.PlacemarkType.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#panels.models.PlacemarkType.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.PlacemarkType.id">
+<code class="descname">id</code><a class="headerlink" href="#panels.models.PlacemarkType.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.PlacemarkType.name">
+<code class="descname">name</code><a class="headerlink" href="#panels.models.PlacemarkType.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the type</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.PlacemarkType.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#panels.models.PlacemarkType.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.PlacemarkType.placemarks">
+<code class="descname">placemarks</code><a class="headerlink" href="#panels.models.PlacemarkType.placemarks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.models.Type">
+<em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">Type</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.Type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Available Alarms Types</p>
+<dl class="exception">
+<dt id="panels.models.Type.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#panels.models.Type.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="panels.models.Type.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#panels.models.Type.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Type.alarms">
+<code class="descname">alarms</code><a class="headerlink" href="#panels.models.Type.alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Type.id">
+<code class="descname">id</code><a class="headerlink" href="#panels.models.Type.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Type.name">
+<code class="descname">name</code><a class="headerlink" href="#panels.models.Type.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the Type</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.Type.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#panels.models.Type.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.models.View">
+<em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">View</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.View" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Available Views</p>
+<dl class="exception">
+<dt id="panels.models.View.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#panels.models.View.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="panels.models.View.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#panels.models.View.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.View.alarms">
+<code class="descname">alarms</code><a class="headerlink" href="#panels.models.View.alarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.View.id">
+<code class="descname">id</code><a class="headerlink" href="#panels.models.View.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.View.name">
+<code class="descname">name</code><a class="headerlink" href="#panels.models.View.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the View</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.models.View.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#panels.models.View.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-panels.serializers">
+<span id="panels-serializers-module"></span><h2>panels.serializers module<a class="headerlink" href="#module-panels.serializers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="panels.serializers.AlarmConfigSerializer">
+<em class="property">class </em><code class="descclassname">panels.serializers.</code><code class="descname">AlarmConfigSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.serializers.AlarmConfigSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="panels.serializers.AlarmConfigSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#panels.serializers.AlarmConfigSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="panels.serializers.AlarmConfigSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#panels.serializers.AlarmConfigSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.serializers.AlarmConfigSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#panels.serializers.AlarmConfigSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#panels.models.AlarmConfig" title="panels.models.AlarmConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">panels.models.AlarmConfig</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.serializers.FileSerializer">
+<em class="property">class </em><code class="descclassname">panels.serializers.</code><code class="descname">FileSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.serializers.FileSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="panels.serializers.FileSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#panels.serializers.FileSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="panels.serializers.FileSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#panels.serializers.FileSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.serializers.FileSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#panels.serializers.FileSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#panels.models.File" title="panels.models.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">panels.models.File</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.serializers.TypeSerializer">
+<em class="property">class </em><code class="descclassname">panels.serializers.</code><code class="descname">TypeSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.serializers.TypeSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="panels.serializers.TypeSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#panels.serializers.TypeSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="panels.serializers.TypeSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#panels.serializers.TypeSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.serializers.TypeSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#panels.serializers.TypeSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#panels.models.Type" title="panels.models.Type"><code class="xref py py-class docutils literal notranslate"><span class="pre">panels.models.Type</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.serializers.ViewSerializer">
+<em class="property">class </em><code class="descclassname">panels.serializers.</code><code class="descname">ViewSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.serializers.ViewSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="panels.serializers.ViewSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#panels.serializers.ViewSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="panels.serializers.ViewSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#panels.serializers.ViewSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.serializers.ViewSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#panels.serializers.ViewSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#panels.models.View" title="panels.models.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">panels.models.View</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-panels.urls">
+<span id="panels-urls-module"></span><h2>panels.urls module<a class="headerlink" href="#module-panels.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-panels.views">
+<span id="panels-views-module"></span><h2>panels.views module<a class="headerlink" href="#module-panels.views" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="panels.views.AlarmConfigViewSet">
+<em class="property">class </em><code class="descclassname">panels.views.</code><code class="descname">AlarmConfigViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.views.AlarmConfigViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p><cite>List</cite>, <cite>Create</cite>, <cite>Retrieve</cite>, <cite>Update</cite> and <cite>Destroy</cite> Files.</p>
+<dl class="method">
+<dt id="panels.views.AlarmConfigViewSet.antennas_config">
+<code class="descname">antennas_config</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.views.AlarmConfigViewSet.antennas_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the configuration used in the weather display</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.views.AlarmConfigViewSet.antennas_summary_config">
+<code class="descname">antennas_summary_config</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.views.AlarmConfigViewSet.antennas_summary_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the configuration used in the antennas summary display</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.AlarmConfigViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#panels.views.AlarmConfigViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.AlarmConfigViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#panels.views.AlarmConfigViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.AlarmConfigViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;AlarmConfig: weather: WS-Inner&gt;, &lt;AlarmConfig: weather: WS-Inner-Temperature&gt;, &lt;AlarmConfig: weather: WS-Inner-WindSpeed&gt;, &lt;AlarmConfig: weather: WS-Inner-Humidity&gt;, &lt;AlarmConfig: weather: WS-W&gt;, &lt;AlarmConfig: weather: WS-W-Temperature&gt;, &lt;AlarmConfig: weather: WS-W-WindSpeed&gt;, &lt;AlarmConfig: weather: WS-W-Humidity&gt;, &lt;AlarmConfig: weather: WS-P&gt;, &lt;AlarmConfig: weather: WS-P-Temperature&gt;, &lt;AlarmConfig: weather: WS-P-WindSpeed&gt;, &lt;AlarmConfig: weather: WS-P-Humidity&gt;, &lt;AlarmConfig: weather: WS-S&gt;, &lt;AlarmConfig: weather: WS-S-Temperature&gt;, &lt;AlarmConfig: weather: WS-S-WindSpeed&gt;, &lt;AlarmConfig: weather: WS-S-Humidity&gt;, &lt;AlarmConfig: summary: WS-Temperature&gt;, &lt;AlarmConfig: summary: WS-WindSpeed&gt;, &lt;AlarmConfig: summary: WS-Humidity&gt;, &lt;AlarmConfig: antennas: Array-Ant instance 1&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#panels.views.AlarmConfigViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.AlarmConfigViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#panels.views.AlarmConfigViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#panels.serializers.AlarmConfigSerializer" title="panels.serializers.AlarmConfigSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">panels.serializers.AlarmConfigSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.AlarmConfigViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#panels.views.AlarmConfigViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.AlarmConfigViewSet.types">
+<code class="descname">types</code><em class="property"> = &lt;QuerySet [&lt;Type: station&gt;, &lt;Type: temperature&gt;, &lt;Type: windspeed&gt;, &lt;Type: humidity&gt;, &lt;Type: antenna&gt;, &lt;Type: fire&gt;, &lt;Type: fire_malfunction&gt;, &lt;Type: hvac&gt;, &lt;Type: ups&gt;, &lt;Type: power&gt;]&gt;</em><a class="headerlink" href="#panels.views.AlarmConfigViewSet.types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.AlarmConfigViewSet.views">
+<code class="descname">views</code><em class="property"> = &lt;QuerySet [&lt;View: antennas&gt;, &lt;View: weather&gt;, &lt;View: summary&gt;]&gt;</em><a class="headerlink" href="#panels.views.AlarmConfigViewSet.views" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="panels.views.AlarmConfigViewSet.weather_config">
+<code class="descname">weather_config</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.views.AlarmConfigViewSet.weather_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the configuration used in the weather display</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="panels.views.AlarmConfigViewSet.weather_summary_config">
+<code class="descname">weather_summary_config</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.views.AlarmConfigViewSet.weather_summary_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the configuration used in the weather summary display</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.views.FileViewSet">
+<em class="property">class </em><code class="descclassname">panels.views.</code><code class="descname">FileViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.views.FileViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p><cite>List</cite>, <cite>Create</cite>, <cite>Retrieve</cite>, <cite>Update</cite> and <cite>Destroy</cite> Files.</p>
+<dl class="attribute">
+<dt id="panels.views.FileViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#panels.views.FileViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.FileViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#panels.views.FileViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="panels.views.FileViewSet.get_json">
+<code class="descname">get_json</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.views.FileViewSet.get_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the list of tickets filtered by alarm and status</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.FileViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;File: weather:weather_map.json&gt;]&gt;</em><a class="headerlink" href="#panels.views.FileViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.FileViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#panels.views.FileViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#panels.serializers.FileSerializer" title="panels.serializers.FileSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">panels.serializers.FileSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.FileViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#panels.views.FileViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="panels.views.PlacemarkViewSet">
+<em class="property">class </em><code class="descclassname">panels.views.</code><code class="descname">PlacemarkViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.views.PlacemarkViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p><cite>List</cite>, <cite>Create</cite>, <cite>Retrieve</cite>, <cite>Update</cite> and <cite>Destroy</cite> Files.</p>
+<dl class="attribute">
+<dt id="panels.views.PlacemarkViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#panels.views.PlacemarkViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.PlacemarkViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#panels.views.PlacemarkViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.PlacemarkViewSet.groups">
+<code class="descname">groups</code><em class="property"> = &lt;QuerySet [&lt;PlacemarkGroup: PlacemarkGroup object (0)&gt;, &lt;PlacemarkGroup: PlacemarkGroup object (1)&gt;, &lt;PlacemarkGroup: PlacemarkGroup object (2)&gt;, &lt;PlacemarkGroup: PlacemarkGroup object (3)&gt;]&gt;</em><a class="headerlink" href="#panels.views.PlacemarkViewSet.groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="panels.views.PlacemarkViewSet.pads_by_group">
+<code class="descname">pads_by_group</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.views.PlacemarkViewSet.pads_by_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the list of pads and their associated antenna by group</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.PlacemarkViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Placemark: Placemark object (1)&gt;, &lt;Placemark: Placemark object (2)&gt;, &lt;Placemark: Placemark object (3)&gt;, &lt;Placemark: Placemark object (4)&gt;, &lt;Placemark: Placemark object (5)&gt;, &lt;Placemark: Placemark object (6)&gt;, &lt;Placemark: Placemark object (7)&gt;, &lt;Placemark: Placemark object (8)&gt;, &lt;Placemark: Placemark object (9)&gt;, &lt;Placemark: Placemark object (10)&gt;, &lt;Placemark: Placemark object (11)&gt;, &lt;Placemark: Placemark object (12)&gt;, &lt;Placemark: Placemark object (13)&gt;, &lt;Placemark: Placemark object (14)&gt;, &lt;Placemark: Placemark object (15)&gt;, &lt;Placemark: Placemark object (16)&gt;, &lt;Placemark: Placemark object (17)&gt;, &lt;Placemark: Placemark object (18)&gt;, &lt;Placemark: Placemark object (19)&gt;, &lt;Placemark: Placemark object (20)&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#panels.views.PlacemarkViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="panels.views.PlacemarkViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#panels.views.PlacemarkViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-panels">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-panels" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="manage.html"
+                        title="previous chapter">manage module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="panels.tests.html"
+                        title="next chapter">panels.tests package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="panels.tests.html" title="panels.tests package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="manage.html" title="manage module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Inria Chile.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

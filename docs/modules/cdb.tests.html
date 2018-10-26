@@ -57,80 +57,64 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
 <p>Test suite for the api views.</p>
 <dl class="method">
-<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define the test suite setup</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.tearDown">
-<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.tearDown" title="Permalink to this definition">¶</a></dt>
-<dd><p>TestCase teardown</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_list_iasios">
-<code class="descname">test_api_can_list_iasios</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_list_iasios" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can list the Iasios</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_list_iasios_of_type_alarm">
-<code class="descname">test_api_can_list_iasios_of_type_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_list_iasios_of_type_alarm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can list the Iasios with type Alarm</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_retrieve_ias">
-<code class="descname">test_api_can_retrieve_ias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_retrieve_ias" title="Permalink to this definition">¶</a></dt>
+<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_get_ias">
+<code class="descname">test_api_can_get_ias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_get_ias" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that the api can retrieve an Ias</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_retrieve_iasio">
-<code class="descname">test_api_can_retrieve_iasio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_retrieve_iasio" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can retrieve an Iasio</p>
+<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_list_ias">
+<code class="descname">test_api_can_list_ias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_list_ias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve an Ias</p>
 </dd></dl>
 
 </dd></dl>
 
 </div>
-<div class="section" id="module-cdb.tests.tests_cdb_models">
-<span id="cdb-tests-tests-cdb-models-module"></span><h2>cdb.tests.tests_cdb_models module<a class="headerlink" href="#module-cdb.tests.tests_cdb_models" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cdb.tests.tests_cdb_readers">
+<span id="cdb-tests-tests-cdb-readers-module"></span><h2>cdb.tests.tests_cdb_readers module<a class="headerlink" href="#module-cdb.tests.tests_cdb_readers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cdb.tests.tests_cdb_models.CdbModelsTestCase">
-<em class="property">class </em><code class="descclassname">cdb.tests.tests_cdb_models.</code><code class="descname">CdbModelsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_models.CdbModelsTestCase" title="Permalink to this definition">¶</a></dt>
+<dt id="cdb.tests.tests_cdb_readers.CdbReaderTestCase">
+<em class="property">class </em><code class="descclassname">cdb.tests.tests_cdb_readers.</code><code class="descname">CdbReaderTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_readers.CdbReaderTestCase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
 <dl class="method">
-<dt id="cdb.tests.tests_cdb_models.CdbModelsTestCase.tearDown">
-<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_models.CdbModelsTestCase.tearDown" title="Permalink to this definition">¶</a></dt>
-<dd><p>TestCase teardown</p>
+<dt id="cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_alarm_iasios">
+<code class="descname">test_read_alarm_iasios</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_alarm_iasios" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can read the validated IASIOS that are actual outputs
+of DASUSs in the CDB</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cdb.tests.tests_cdb_models.CdbModelsTestCase.test_add_ias_property_relation">
-<code class="descname">test_add_ias_property_relation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_models.CdbModelsTestCase.test_add_ias_property_relation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if we can add a relation between an ias and a property</p>
+<dt id="cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_dasu_outputs_no_filter">
+<code class="descname">test_read_dasu_outputs_no_filter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_dasu_outputs_no_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can read the iasios that are actually output of DASUs
+in the CDB when no filters are applied</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cdb.tests.tests_cdb_models.CdbModelsTestCase.test_create_ias">
-<code class="descname">test_create_ias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_models.CdbModelsTestCase.test_create_ias" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if we can create an Ias, with log_level in upper case
-and the refresh_rate and tolerance in miliseconds</p>
+<dt id="cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_dasu_outputs_with_filter">
+<code class="descname">test_read_dasu_outputs_with_filter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_dasu_outputs_with_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can read the iasios that are actually output of DASUs
+in the CDB when filters are applied</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cdb.tests.tests_cdb_models.CdbModelsTestCase.test_create_iasio">
-<code class="descname">test_create_iasio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_models.CdbModelsTestCase.test_create_iasio" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if we can create an Iasio, with type in upper case</p>
+<dt id="cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_ias">
+<code class="descname">test_read_ias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_ias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can read ths IAS json file from the CDB</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cdb.tests.tests_cdb_models.CdbModelsTestCase.test_create_property">
-<code class="descname">test_create_property</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_models.CdbModelsTestCase.test_create_property" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if we can create a Property, an add the relation with an Ias
-object</p>
+<dt id="cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_iasios_basefile">
+<code class="descname">test_read_iasios_basefile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_iasios_basefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can read the IASIOS json file from the CDB</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_supervisors_dasus">
+<code class="descname">test_read_supervisors_dasus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_supervisors_dasus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if we can read the dasus that are actually deployed by
+Supervisors in the CDB</p>
 </dd></dl>
 
 </dd></dl>

@@ -12,10 +12,10 @@ cdb.tests.tests\_cdb\_api module
     :undoc-members:
     :show-inheritance:
 
-cdb.tests.tests\_cdb\_models module
------------------------------------
+cdb.tests.tests\_cdb\_readers module
+------------------------------------
 
-.. automodule:: cdb.tests.tests_cdb_models
+.. automodule:: cdb.tests.tests_cdb_readers
     :members:
     :undoc-members:
     :show-inheritance:
