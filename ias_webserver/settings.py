@@ -87,18 +87,20 @@ CORS_ALLOW_CREDENTIALS = False
 LOGGING_CONFIG = None
 
 LOG_LEVEL = os.getenv('DJANGO_LOG_LEVEL', 'INFO')
-IAS_LOGS_FOLDER = os.getenv('IAS_LOGS_FOLDER', 'logs/')
+IAS_LOGS_FOLDER = 'logs/'
 
 logging.config.dictConfig({
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{asctime} | {levelname} [{filename}:{lineno}] [{thread:d}] {message}',
+            'datefmt': '%Y-%m-%dT%H:%M:%S',
+            'format': '{asctime} | {levelname} [{filename}:{lineno}] [{threadName}] {message}',
             'style': '{',
         },
         'simple': {
-            'format': '{asctime} |{levelname}| [{filename}:{lineno}] [{thread:d}] {message}',
+            'datefmt': '%Y-%m-%dT%H:%M:%S',
+            'format': '{asctime} |{levelname}| [{filename}:{lineno}] [{threadName}] {message}',
             'style': '{',
         },
     },
@@ -109,22 +111,22 @@ logging.config.dictConfig({
         },
         'alarms': {
             'class': 'logging.FileHandler',
-            'filename': IAS_LOGS_FOLDER + '/alarmsApp.log',
+            'filename': IAS_LOGS_FOLDER + '/webserver-alarmsApp.log',
             'formatter': 'verbose'
         },
         'cdb': {
             'class': 'logging.FileHandler',
-            'filename': IAS_LOGS_FOLDER + '/cdbApp.log',
+            'filename': IAS_LOGS_FOLDER + '/webserver-cdbApp.log',
             'formatter': 'verbose'
         },
         'panels': {
             'class': 'logging.FileHandler',
-            'filename': IAS_LOGS_FOLDER + '/panelsApp.log',
+            'filename': IAS_LOGS_FOLDER + '/webserver-panelsApp.log',
             'formatter': 'verbose'
         },
         'tickets': {
             'class': 'logging.FileHandler',
-            'filename': IAS_LOGS_FOLDER + '/ticketsApp.log',
+            'filename': IAS_LOGS_FOLDER + '/webserver-ticketsApp.log',
             'formatter': 'verbose'
         },
     },
