@@ -1,8 +1,10 @@
 import mock
 from django.test import TestCase
 from django.urls import reverse
+from django.contrib.auth.models import User, Permission
 from rest_framework import status
 from rest_framework.test import APIClient
+from rest_framework.authtoken.models import Token
 from tickets.models import Ticket, TicketStatus
 from tickets.serializers import TicketSerializer
 
@@ -32,22 +34,60 @@ class TicketsApiTestCase(TestCase):
 
         self.client = APIClient()
 
-    def test_api_can_retrieve_tickets(self):
-        """ Test that the api can retrieve a ticket """
-        # Arrange:
-        expected_ticket = Ticket.objects.get(pk=self.ticket_unack.pk)
+        self.username = 'user'
+        self.pwd = 'password'
+        self.email = 'user@user.cl'
+        self.user = User.objects.create_user(
+            self.username, password=self.pwd, email=self.email)
+        self.token = Token.objects.get(user__username=self.username)
+
+        self.retrieve_permission = Permission.objects.get(
+            codename='view_ticket')
+
+    def test_api_cannot_retrieve_tickets_to_unauthenticated_user(self):
+        """The api should not retrieve a ticket for an unauthenticated user"""
         # Act:
         url = reverse('ticket-detail', kwargs={'pk': self.ticket_unack.pk})
         self.response = self.client.get(url, format='json')
         # Assert:
         self.assertEqual(
             self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            'The server should retrieve an unauthorized response'
+        )
+
+    def test_api_cannot_retrieve_tickets_to_unauthorized_user(self):
+        """The api should not retrieve a ticket for an unauthorized user"""
+        # Act:
+        url = reverse('ticket-detail', kwargs={'pk': self.ticket_unack.pk})
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            'The server should retrieve a forbidden response'
+        )
+
+    def test_api_can_retrieve_tickets_to_authorized_user(self):
+        """ The api should retrieve a ticket for an authorized user """
+        # Arrange:
+        expected_ticket = Ticket.objects.get(pk=self.ticket_unack.pk)
+        # Act:
+        url = reverse('ticket-detail', kwargs={'pk': self.ticket_unack.pk})
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.retrieve_permission)
+        self.response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
             status.HTTP_200_OK,
-            'The server did not retrieve the ticket'
+            'The server should retrieve a 200 status'
         )
         self.assertEqual(
-            self.response.data,
-            TicketSerializer(expected_ticket).data
+            self.response.data['id'],
+            expected_ticket.pk,
+            'The server should retrieve the expected ticket'
         )
 
     def test_api_can_list_tickets(self):

@@ -4,6 +4,9 @@ from django.utils import timezone
 from utils.choice_enum import ChoiceEnum
 
 
+PERMISSIONS = ('add', 'change', 'delete', 'view')
+""" Models Permissions """
+
 class TicketStatus(ChoiceEnum):
     """ Status options of a Ticket """
 
@@ -48,6 +51,10 @@ class Ticket(models.Model):
         default=int(TicketStatus.get_choices_by_name()['UNACK']),
     )
     """ State of the ticket, default is open """
+
+    class Meta:
+        default_permissions = PERMISSIONS
+    """ Additional options for the model """
 
     def __str__(self):
         """ Return a string representation of the ticket """
@@ -99,6 +106,13 @@ class Ticket(models.Model):
         elif self.status == int(unack):
             self.status = int(cleared_unack)
         self.save()
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('tickets.view_ticket')
+
+    def has_object_read_permission(self, request):
+        return request.user.has_perm('tickets.view_ticket')
 
 
 class ShelveRegistryStatus(ChoiceEnum):

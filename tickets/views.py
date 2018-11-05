@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from dry_rest_permissions.generics import DRYPermissions
 from django.utils import timezone
 from tickets.connectors import AlarmConnector
 from tickets.models import (
@@ -18,6 +19,7 @@ class TicketViewSet(viewsets.ModelViewSet):
     """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Tickets."""
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def filters(self, request):
@@ -96,6 +98,7 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
     """`List`, `Create`, `Retrieve`, `Update` and `Destroy` ShelveRegistries"""
     queryset = ShelveRegistry.objects.all()
     serializer_class = ShelveRegistrySerializer
+    # permission_classes = (DRYPermissions,)
 
     def create(self, request, *args, **kwargs):
         """ Redefine create method in order to notify to the alarms app """
