@@ -1,8 +1,11 @@
 import time
 import abc
 import asyncio
+import logging
 from alarms.models import Alarm
 from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
+
+logger = logging.getLogger(__name__)
 
 
 class AlarmCollection:
@@ -32,6 +35,10 @@ class AlarmCollection:
         """Add an observer to the observers list"""
         if isinstance(observer, AlarmCollectionObserver):
             self.observers.append(observer)
+            logger.debug(
+                'new observer was subscribed to alarm collection: %s',
+                observer.__class__.__name__
+            )
 
     @classmethod
     async def notify_observers(self, alarm, action):
@@ -39,6 +46,9 @@ class AlarmCollection:
         await asyncio.gather(
             *[observer.update(alarm, action) for observer in self.observers]
         )
+        logger.debug(
+            'all the observers were notified (alarm %s, action: %s)',
+            alarm.core_id, action)
 
     @classmethod
     async def broadcast_status_to_observers(self):
@@ -46,6 +56,8 @@ class AlarmCollection:
         await asyncio.gather(
             *[observer.send_alarms_status() for observer in self.observers]
         )
+        logger.debug(
+            'all the observers were notified with the last alarms status')
 
     # Sync, non-notified methods:
     @classmethod
@@ -81,16 +93,19 @@ class AlarmCollection:
                     if self.get(alarm_id) is None:
                         alarm = self._create_alarm_from_iasio({'id': alarm_id})
                         self.add(alarm)
-                        print(
-                            'WARNING: ID ' + alarm_id +
+                        logger.warning(
+                            alarm_id +
                             ' was not found in the CDB, initializing with ' +
                             'empty description and url '
                         )
-
+                logger.info(
+                    'the collection was initialized based on configuration')
             else:
                 for iasio in iasios:
                     alarm = self._create_alarm_from_iasio(iasio)
                     self.add(alarm)
+                logger.info(
+                    'the collection was initialized in testing mode')
         return self.singleton_collection
 
     @classmethod
@@ -104,6 +119,10 @@ class AlarmCollection:
         Returns:
             alarm: an Alarm object
         """
+        logger.debug(
+            'creating an alarm based on iasio with id %s',
+            iasio['id']
+        )
         current_time = int(round(time.time() * 1000))
         if 'shortDesc' not in iasio:
             iasio['shortDesc'] = ""
@@ -160,6 +179,8 @@ class AlarmCollection:
         try:
             return self.singleton_collection[core_id]
         except KeyError:
+            logger.debug(
+                'the requested alarm does not exist in the collection')
             return None
 
     @classmethod
@@ -179,6 +200,9 @@ class AlarmCollection:
                 response += AlarmCollection.get_dependencies_recursively(
                     dependency_id
                 )
+        logger.debug(
+            'getting dependencies of alarm %s recursively: %s',
+            core_id, response)
         return response
 
     @classmethod
@@ -188,12 +212,16 @@ class AlarmCollection:
         response = self._get_parents(core_id)
         for parent_id in response:
             response += self.get_ancestors_recursively(parent_id)
+        logger.debug(
+            'getting ancestors of alarm %s recursively: %s',
+            core_id, response)
         return response
 
     @classmethod
     def get_all_as_dict(self):
         """Returns all the Alarms as a dictionary indexed by core_id"""
         if self.singleton_collection is None:
+            logger.debug('initializing the collection because it was empty')
             self.initialize()
         return self.singleton_collection
 
@@ -220,6 +248,7 @@ class AlarmCollection:
         alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         self._update_parents_collection(alarm)
+        logger.debug('the alarm %s was added to the collection', alarm.core_id)
 
     @classmethod
     def delete(self, alarm):
@@ -234,9 +263,14 @@ class AlarmCollection:
             False if the Alarm did not exist in the collection
         """
         if alarm.core_id in self.singleton_collection:
+            logger.debug('deleting alarm %s', alarm.core_id)
             del self.singleton_collection[alarm.core_id]
+            logger.debug(
+                'the alarm %s was deleted', alarm.core_id)
             return True
         else:
+            logger.debug(
+                'the alarm %s was not deleted because it did not exist')
             return False
 
     @classmethod
@@ -248,6 +282,7 @@ class AlarmCollection:
         if self.singleton_collection is None:
             self.initialize()
             self.singleton_collection.clear()
+        logger.debug('all the alarms in the collection were deleted')
 
     @classmethod
     def update(self, alarm):
@@ -266,6 +301,9 @@ class AlarmCollection:
         alarm = self._clean_alarm_dependencies(alarm)
         stored_alarm = self.get(alarm.core_id)
         (notify, transition, dependencies_changed) = stored_alarm.update(alarm)
+        logger.debug(
+            'the alarm %s was updated in the collection', alarm.core_id)
+
         if dependencies_changed:
             self._update_parents_collection(alarm)
         if notify == 'not-updated':
@@ -305,6 +343,7 @@ class AlarmCollection:
             *[self.notify_observers(alarm, 'update') for alarm in alarms]
         )
 
+        logger.debug('the alarms in %s were acknowledged', alarms_ids)
         return alarms_ids
 
     @classmethod
@@ -321,6 +360,7 @@ class AlarmCollection:
         self.parents_collection = None
         self.values_collection = None
         self.initialize(iasios)
+        logger.debug('the alarm collection was reset')
 
     @classmethod
     def update_all_alarms_validity(self):
@@ -336,6 +376,7 @@ class AlarmCollection:
             k: v.update_validity()
             for k, v in self.singleton_collection.items()
         }
+        logger.debug('all the validities of the alarms were updated')
         return self.singleton_collection
 
     # Async methods to handle alarm messages:
@@ -359,18 +400,22 @@ class AlarmCollection:
         if alarm.core_id not in self.singleton_collection:
             self.add(alarm)
             await self.notify_observers(alarm, 'create')
-            return 'created-alarm'
+            response = 'created-alarm'
         else:
             status = self.update(alarm)
             if status == 'not-updated':
-                return 'ignored-old-alarm'
+                response = 'ignored-old-alarm'
             elif status == 'updated-different':
                 await self.notify_observers(self.get(alarm.core_id), 'update')
-                return 'updated-alarm'
+                response = 'updated-alarm'
             elif status == 'updated-equal':
-                return 'updated-alarm'
+                response = 'updated-alarm'
             else:
                 raise Exception('ERROR: incorrect update status')
+        logger.debug(
+            'the alarm %s was added or updated in the collection (status %s)',
+            alarm.core_id, response)
+        return response
 
     @classmethod
     def add_value(self, value):
@@ -382,6 +427,9 @@ class AlarmCollection:
             value (any): core value
         """
         self.values_collection[value.core_id] = value
+        logger.debug(
+            'the ias value %s was added to the values collection',
+            value.core_id)
 
     @classmethod
     def get_value(self, core_id):
@@ -394,6 +442,9 @@ class AlarmCollection:
         if core_id in self.values_collection:
             return self.values_collection[core_id]
         else:
+            logger.debug(
+                'the ias value %s does not exist in the values collection',
+                core_id)
             return None
 
     @classmethod
@@ -411,19 +462,21 @@ class AlarmCollection:
         Returns:
             message (String): a string message sumarizing what happened
         """
-
         if value.core_id not in self.values_collection:
             self.add_value(value)
             if value.core_id == "Array-AntennasToPads":
                 PanelsConnector.update_antennas_configuration(value.value)
-            return 'created-value'
+            status = 'created-value'
         else:
             stored_value = self.get_value(value.core_id)
             status = stored_value.update(value)
             if status == 'updated-different':
                 if value.core_id == "Array-AntennasToPads":
                     PanelsConnector.update_antennas_configuration(value.value)
-            return status
+        logger.debug(
+            'the value %s was added or updated in the collection (status %s)',
+            value.core_id, status)
+        return status
 
     @classmethod
     async def delete_and_notify(self, alarm):
@@ -459,6 +512,7 @@ class AlarmCollection:
         status = alarm.shelve()
         if status == 1:
             await self.notify_observers(alarm, 'update')
+        logger.debug('the alarm %s was shelved (status: %s)', core_id, status)
         return status
 
     @classmethod
@@ -486,11 +540,12 @@ class AlarmCollection:
             await asyncio.gather(
                 *[self.notify_observers(alarm, 'update') for alarm in alarms]
             )
+            logger.debug('the list of alarms %s was unshelved', alarms)
             return True
         else:
+            logger.debug('any of the alarm in %s was unshelved', core_ids)
             return False
 
-    # Private methods used to call TicketConnector:
     @classmethod
     def _add_parent(self, alarm_id, parent_id):
         """ Add a parent to the list of parents of the alarm
@@ -502,6 +557,9 @@ class AlarmCollection:
         if alarm_id not in self.parents_collection.keys():
             self.parents_collection[alarm_id] = set()
         self.parents_collection[alarm_id].add(parent_id)
+        logger.debug(
+            'the alarm %s was added as a parent of alarm %s',
+            parent_id, alarm_id)
 
     @classmethod
     def _check_dependencies_ack(self, alarm):
@@ -510,6 +568,9 @@ class AlarmCollection:
         for core_id in alarm.dependencies:
             dependency = self.singleton_collection[core_id]
             if not dependency.ack:
+                logger.debug(
+                    'NOT all the dependencies of alarm %s were acknowledged',
+                    alarm.core_id)
                 return False
         return True
 
