@@ -134,18 +134,22 @@ logging.config.dictConfig({
         'alarms': {
             'level': LOG_LEVEL,
             'handlers': ['console', 'alarms'],
+            'propagate': False,
         },
         'cdb': {
             'level': LOG_LEVEL,
             'handlers': ['console', 'cdb'],
+            'propagate': False,
         },
         'panels': {
             'level': LOG_LEVEL,
             'handlers': ['console', 'panels'],
+            'propagate': False,
         },
         'tickets': {
             'level': LOG_LEVEL,
             'handlers': ['console', 'tickets'],
+            'propagate': False,
         },
     },
 })
