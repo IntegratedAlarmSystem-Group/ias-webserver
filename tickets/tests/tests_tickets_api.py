@@ -150,16 +150,44 @@ class TicketsApiTestCase(TestCase):
         )
 
     def test_api_can_filter_tickets_by_alarm_and_status(self):
-        """Test that the api can list the Tickets filtered by alarm id
-        and status"""
-        expected_tickets_data = [TicketSerializer(self.ticket_unack).data]
-        # Act:
-        url = reverse('ticket-filters')
+        """ Test that the api can list the Tickets
+            filtered by alarm id and status
+            only for an autorized user
+        """
+
+        filter_url = reverse('ticket-filters')
         data = {
             'alarm_id': 'alarm_1',
             'status': TicketStatus.get_choices_by_name()['UNACK']
         }
-        self.response = self.client.get(url, data, format="json")
+
+        # check conditions for an unauthenticated user
+        self.response = self.client.get(filter_url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            """Should not retrieve the filtered tickets for
+            an unauthenticated user
+            """
+        )
+
+        # check conditions for an unauthorized user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(filter_url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            """Should not retrieve the filtered tickets for
+            an unauthorized user
+            """
+        )
+
+        # check conditions for an authorized user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.retrieve_permission)
+        expected_tickets_data = [TicketSerializer(self.ticket_unack).data]
+        # Act:
+        self.response = self.client.get(filter_url, data, format="json")
         # Assert:
         self.assertEqual(
             self.response.status_code,
@@ -174,19 +202,47 @@ class TicketsApiTestCase(TestCase):
         )
 
     def test_api_can_filter_tickets_by_alarm(self):
-        """Test that the api can list the Tickets filtered by alarm id"""
+        """ Test that the api can list the Tickets
+            filtered by alarm id
+            only for an authorized user
+        """
         tickets = [
             self.ticket_unack,
             self.ticket_ack,
             self.ticket_cleared_unack
         ]
-        expected_tickets_data = [TicketSerializer(t).data for t in tickets]
-        # Act:
-        url = reverse('ticket-filters')
         data = {
             'alarm_id': 'alarm_1'
         }
-        self.response = self.client.get(url, data, format="json")
+        filter_url = reverse('ticket-filters')
+
+        # check conditions for an unauthenticated user
+        self.response = self.client.get(filter_url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            """Should not retrieve the filtered tickets for
+            an unauthenticated user
+            """
+        )
+
+        # check conditions for an unauthorized user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(filter_url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            """Should not retrieve the filtered tickets for
+            an unauthorized user
+            """
+        )
+
+        # check conditions for an authenticated user
+        expected_tickets_data = [TicketSerializer(t).data for t in tickets]
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.retrieve_permission)
+        # Act:
+        self.response = self.client.get(filter_url, data, format="json")
         # Assert:
         self.assertEqual(
             self.response.status_code,
@@ -201,19 +257,47 @@ class TicketsApiTestCase(TestCase):
         )
 
     def test_api_can_filter_tickets_by_status(self):
-        """Test that the api can list the Tickets filtered by status"""
+        """ Test that the api can list the Tickets
+            filtered by status
+            only for an authorized user
+        """
         tickets = [
             self.ticket_unack,
             self.ticket_other,
             self.ticket_dependency
         ]
-        expected_tickets_data = [TicketSerializer(t).data for t in tickets]
-        # Act:
-        url = reverse('ticket-filters')
         data = {
             'status': TicketStatus.get_choices_by_name()['UNACK']
         }
-        self.response = self.client.get(url, data, format="json")
+        filter_url = reverse('ticket-filters')
+
+        # check conditions for an unauthenticated user
+        self.response = self.client.get(filter_url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            """Should not retrieve the filtered tickets for
+            an unauthenticated user
+            """
+        )
+
+        # check conditions for an unauthorized user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(filter_url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            """Should not retrieve the filtered tickets for
+            an unauthorized user
+            """
+        )
+
+        # check conditions for an authenticated user
+        expected_tickets_data = [TicketSerializer(t).data for t in tickets]
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.retrieve_permission)
+        # Act:
+        self.response = self.client.get(filter_url, data, format="json")
         # Assert:
         self.assertEqual(
             self.response.status_code,
