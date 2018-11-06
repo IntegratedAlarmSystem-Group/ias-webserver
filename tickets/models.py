@@ -4,8 +4,11 @@ from django.utils import timezone
 from utils.choice_enum import ChoiceEnum
 
 
-PERMISSIONS = ('add', 'change', 'delete', 'view', 'acknowledge')
+PERMISSIONS = ('add', 'change', 'delete', 'view')
 """ Models Permissions """
+
+ACK_TICKET_PERMISSIONS = PERMISSIONS + ('acknowledge',)
+""" Ack ticket permissions """
 
 
 class TicketStatus(ChoiceEnum):
@@ -54,7 +57,7 @@ class Ticket(models.Model):
     """ State of the ticket, default is open """
 
     class Meta:
-        default_permissions = PERMISSIONS
+        default_permissions = ACK_TICKET_PERMISSIONS
     """ Additional options for the model """
 
     def __str__(self):
