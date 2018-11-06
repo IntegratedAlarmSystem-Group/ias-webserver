@@ -98,7 +98,7 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
     """`List`, `Create`, `Retrieve`, `Update` and `Destroy` ShelveRegistries"""
     queryset = ShelveRegistry.objects.all()
     serializer_class = ShelveRegistrySerializer
-    # permission_classes = (DRYPermissions,)
+    permission_classes = (DRYPermissions,)
 
     def create(self, request, *args, **kwargs):
         """ Redefine create method in order to notify to the alarms app """

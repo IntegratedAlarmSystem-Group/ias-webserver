@@ -10,6 +10,9 @@ PERMISSIONS = ('add', 'change', 'delete', 'view')
 ACK_TICKET_PERMISSIONS = PERMISSIONS + ('acknowledge',)
 """ Ack ticket permissions """
 
+SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('shelve',)
+""" Shelve registry permissions """
+
 
 class TicketStatus(ChoiceEnum):
     """ Status options of a Ticket """
@@ -162,6 +165,10 @@ class ShelveRegistry(models.Model):
     )
     """ State of the shelve_registry, default is shelved """
 
+    class Meta:
+        default_permissions = SHELVE_REGISTRY_PERMISSIONS
+    """ Additional options for the model """
+
     def __str__(self):
         """ Return a string representation of the shelve_registry """
         return str(self.shelved_at) + ' - ' + self.alarm_id
@@ -192,3 +199,10 @@ class ShelveRegistry(models.Model):
         self.unshelved_at = timezone.now()
         self.save()
         return "unshelved"
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('tickets.view_shelveregistry')
+
+    def has_object_read_permission(self, request):
+        return request.user.has_perm('tickets.view_shelveregistry')
