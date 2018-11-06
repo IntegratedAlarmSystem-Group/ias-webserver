@@ -378,7 +378,7 @@ class TicketsApiTestCase(TestCase):
         AlarmConnector_acknowledge_alarms
     ):
         """ Test that the api can ack unacknowledged tickets
-            and cleared unacknowledged tickets for a selected alarm id
+            and cleared unacknowledged tickets for an alarm
             for an authorized user
         """
 
@@ -469,8 +469,10 @@ class TicketsApiTestCase(TestCase):
         self,
         AlarmConnector_acknowledge_alarms
     ):
-        """Test that the api can not ack an unacknowledged ticket with an empty
-        message"""
+        """ Test that the api
+            can not ack an unacknowledged ticket with an empty message
+            for an authorized user
+        """
         # Arrange:
         url = reverse('ticket-acknowledge')
         alarms_to_ack = ['alarm_1']
@@ -478,6 +480,30 @@ class TicketsApiTestCase(TestCase):
             'message': ' ',
             'alarms_ids': alarms_to_ack
         }
+
+        # check conditions for an unauthenticated user
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            """Should not allow the ack action for an unauthenticated user
+            """
+        )
+
+        # check conditions for an unauthorized user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            """Should not allow the ack action for an unauthorized user
+            """
+        )
+
+        # check conditions for an authorized user
+        # Arrange:
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.acknowledge_permission)
         AlarmConnector_acknowledge_alarms.return_value = ['alarm_1']
         # Act:
         self.response = self.client.put(url, data, format="json")
@@ -513,7 +539,10 @@ class TicketsApiTestCase(TestCase):
         self,
         AlarmConnector_acknowledge_alarms
     ):
-        """Test that the api can acknowledge multiple unacknowledged tickets"""
+        """ Test that the api
+            can acknowledge multiple unacknowledged tickets
+            for an authorized user
+        """
         # Arrange:
         url = reverse('ticket-acknowledge')
         alarms_to_ack = ['alarm_1', 'alarm_2']
@@ -521,6 +550,30 @@ class TicketsApiTestCase(TestCase):
             'alarms_ids': alarms_to_ack,
             'message': 'The ticket was acknowledged'
         }
+
+        # check conditions for an unauthenticated user
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            """Should not allow the ack action for an unauthenticated user
+            """
+        )
+
+        # check conditions for an unauthorized user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            """Should not allow the ack action for an unauthorized user
+            """
+        )
+
+        # check conditions for an authorized user
+        # Arrange:
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.acknowledge_permission)
         AlarmConnector_acknowledge_alarms.return_value = alarms_to_ack
         # Act:
         self.response = self.client.put(url, data, format="json")
@@ -570,8 +623,11 @@ class TicketsApiTestCase(TestCase):
         self,
         AlarmConnector_acknowledge_alarms
     ):
-        """Test that the api can acknowledge multiple unacknowledged tickets
-        and their dependencies"""
+        """ Test that the api
+            can acknowledge multiple unacknowledged tickets
+            and their dependencies
+            for an authorized user
+        """
         # Arrange
         url = reverse('ticket-acknowledge')
         alarms_to_ack = ['alarm_1', 'alarm_2']
@@ -580,6 +636,30 @@ class TicketsApiTestCase(TestCase):
             'message': 'The ticket was acknowledged'
         }
         alarms_and_dependency = alarms_to_ack + ['alarm_dependency']
+
+        # check conditions for an unauthenticated user
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            """Should not allow the ack action for an unauthenticated user
+            """
+        )
+
+        # check conditions for an unauthorized user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            """Should not allow the ack action for an unauthorized user
+            """
+        )
+
+        # check conditions for an authorized user
+        # Arrange:
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.acknowledge_permission)
         AlarmConnector_acknowledge_alarms.return_value = alarms_and_dependency
         # Act:
         self.response = self.client.put(url, data, format="json")
