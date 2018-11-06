@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import logging.config
+from utils.logging import iasFormatter
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -82,6 +84,76 @@ CORS_ALLOW_CREDENTIALS = False
 #     '<DOMAIN>[:PORT]',
 # )
 
+# Disable Django's logging setup
+LOGGING_CONFIG = None
+
+LOG_LEVEL = os.getenv('DJANGO_LOG_LEVEL', 'INFO')
+IAS_LOGS_FOLDER = os.getenv('IAS_LOGS_FOLDER', 'logs/')
+
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'custom': {
+            '()': 'utils.logging.iasFormatter',
+            'format': '{asctime} |{levelname}| [{name}] [{filename}:{lineno}] [{threadName}] {message}',
+            'style': '{',
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'custom'
+        },
+        'alarms': {
+            'class': 'logging.FileHandler',
+            'filename': IAS_LOGS_FOLDER + '/webserver-alarmsApp.log',
+            'formatter': 'custom'
+        },
+        'cdb': {
+            'class': 'logging.FileHandler',
+            'filename': IAS_LOGS_FOLDER + '/webserver-cdbApp.log',
+            'formatter': 'custom'
+        },
+        'panels': {
+            'class': 'logging.FileHandler',
+            'filename': IAS_LOGS_FOLDER + '/webserver-panelsApp.log',
+            'formatter': 'custom'
+        },
+        'tickets': {
+            'class': 'logging.FileHandler',
+            'filename': IAS_LOGS_FOLDER + '/webserver-ticketsApp.log',
+            'formatter': 'custom'
+        },
+    },
+    'loggers': {
+        '': {
+            'level': LOG_LEVEL,
+            'handlers': ['console'],
+        },
+        'alarms': {
+            'level': LOG_LEVEL,
+            'handlers': ['console', 'alarms'],
+            'propagate': False,
+        },
+        'cdb': {
+            'level': LOG_LEVEL,
+            'handlers': ['console', 'cdb'],
+            'propagate': False,
+        },
+        'panels': {
+            'level': LOG_LEVEL,
+            'handlers': ['console', 'panels'],
+            'propagate': False,
+        },
+        'tickets': {
+            'level': LOG_LEVEL,
+            'handlers': ['console', 'tickets'],
+            'propagate': False,
+        },
+    },
+})
+
 # Database
 DATABASE_ROUTERS = ['cdb.routers.CdbRouter']
 
@@ -147,6 +219,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 #         }
 #     },
 # }
+
 ASGI_APPLICATION = "ias_webserver.routing.application"
 
 BROADCAST_RATE_FACTOR = 2
