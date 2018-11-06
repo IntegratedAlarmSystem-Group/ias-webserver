@@ -90,8 +90,39 @@ class TicketsApiTestCase(TestCase):
             'The server should retrieve the expected ticket'
         )
 
-    def test_api_can_list_tickets(self):
-        """Test that the api can list the Tickets"""
+    def test_api_cannot_list_tickets_to_unauthenticated_user(self):
+        """ Test that the api should not list the Tickets
+            to an unauthenticated user
+        """
+        # Act:
+        url = reverse('ticket-list')
+        self.response = self.client.get(url, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            'The Server should retrieve an unauthorized response'
+        )
+
+    def test_api_cannot_list_tickets_to_unauthorized_user(self):
+        """ Test that the api should not list the Tickets
+            to an unauthorized user
+        """
+        # Act:
+        url = reverse('ticket-list')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(url, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            'The Server should retrieve a forbidden response'
+        )
+
+    def test_api_can_list_tickets_to_authorized_user(self):
+        """Test that the api can list the Tickets
+            to an authorized user
+        """
         tickets = [
             self.ticket_unack,
             self.ticket_ack,
@@ -102,6 +133,8 @@ class TicketsApiTestCase(TestCase):
         expected_tickets_data = [TicketSerializer(t).data for t in tickets]
         # Act:
         url = reverse('ticket-list')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.retrieve_permission)
         self.response = self.client.get(url, format="json")
         # Assert:
         self.assertEqual(
