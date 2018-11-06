@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import logging.config
+from utils.logging import iasFormatter
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -87,47 +88,42 @@ CORS_ALLOW_CREDENTIALS = False
 LOGGING_CONFIG = None
 
 LOG_LEVEL = os.getenv('DJANGO_LOG_LEVEL', 'INFO')
-IAS_LOGS_FOLDER = 'logs/'
+IAS_LOGS_FOLDER = os.getenv('IAS_LOGS_FOLDER', 'logs/')
 
 logging.config.dictConfig({
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'verbose': {
-            'datefmt': '%Y-%m-%dT%H:%M:%S',
-            'format': '{asctime} | {levelname} [{filename}:{lineno}] [{threadName}] {message}',
+        'custom': {
+            '()': 'utils.logging.iasFormatter',
+            'format': '{asctime} |{levelname}| [{name}] [{filename}:{lineno}] [{threadName}] {message}',
             'style': '{',
-        },
-        'simple': {
-            'datefmt': '%Y-%m-%dT%H:%M:%S',
-            'format': '{asctime} |{levelname}| [{filename}:{lineno}] [{threadName}] {message}',
-            'style': '{',
-        },
+        }
     },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'custom'
         },
         'alarms': {
             'class': 'logging.FileHandler',
             'filename': IAS_LOGS_FOLDER + '/webserver-alarmsApp.log',
-            'formatter': 'verbose'
+            'formatter': 'custom'
         },
         'cdb': {
             'class': 'logging.FileHandler',
             'filename': IAS_LOGS_FOLDER + '/webserver-cdbApp.log',
-            'formatter': 'verbose'
+            'formatter': 'custom'
         },
         'panels': {
             'class': 'logging.FileHandler',
             'filename': IAS_LOGS_FOLDER + '/webserver-panelsApp.log',
-            'formatter': 'verbose'
+            'formatter': 'custom'
         },
         'tickets': {
             'class': 'logging.FileHandler',
             'filename': IAS_LOGS_FOLDER + '/webserver-ticketsApp.log',
-            'formatter': 'verbose'
+            'formatter': 'custom'
         },
     },
     'loggers': {
