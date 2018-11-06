@@ -4,8 +4,9 @@ from django.utils import timezone
 from utils.choice_enum import ChoiceEnum
 
 
-PERMISSIONS = ('add', 'change', 'delete', 'view')
+PERMISSIONS = ('add', 'change', 'delete', 'view', 'acknowledge')
 """ Models Permissions """
+
 
 class TicketStatus(ChoiceEnum):
     """ Status options of a Ticket """
@@ -113,6 +114,10 @@ class Ticket(models.Model):
 
     def has_object_read_permission(self, request):
         return request.user.has_perm('tickets.view_ticket')
+
+    @staticmethod
+    def has_acknowledge_permission(request):
+        return request.user.has_perm('tickets.acknowledge_ticket')
 
 
 class ShelveRegistryStatus(ChoiceEnum):

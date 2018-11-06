@@ -44,6 +44,9 @@ class TicketsApiTestCase(TestCase):
         self.retrieve_permission = Permission.objects.get(
             codename='view_ticket')
 
+        self.acknowledge_permission = Permission.objects.get(
+            codename='acknowledge_ticket')
+
     def test_api_cannot_retrieve_tickets_to_unauthenticated_user(self):
         """The api should not retrieve a ticket for an unauthenticated user"""
         # Act:
@@ -311,20 +314,104 @@ class TicketsApiTestCase(TestCase):
             'The retrieved filtered tickets do not match the expected ones'
         )
 
+    @mock.patch('tickets.connectors.AlarmConnector.get_alarm_dependencies')
+    def test_api_can_retrieve_old_open_tickets_information(
+        self,
+        AlarmConnector_get_alarm_dependencies
+    ):
+        """Test that the api can retrieve cleared unack tickets information
+        of an specified alarm"""
+
+        url = reverse('ticket-old-open-info')
+        data = {
+            'alarm_id': 'alarm_2'
+        }
+
+        # check conditions for an unauthenticated user
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            """Should not retrieve the tickets for an unauthenticated user
+            """
+        )
+
+        # check conditions for an unauthorized user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            """Should not retrieve the tickets for an unauthorized user
+            """
+        )
+
+        # check conditions for authorized user
+        # Arrange:
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.retrieve_permission)
+        AlarmConnector_get_alarm_dependencies.return_value = [
+            'alarm_1',
+            'alarm_2'
+        ]
+        expected_response = {
+            'alarm_1': [self.ticket_cleared_unack.pk],
+            'alarm_2': []
+        }
+        # Act:
+        self.response = self.client.get(url, data, format="json")
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The Server did not retrieve the tickets'
+        )
+        self.assertEqual(
+            self.response.data,
+            expected_response,
+            'The retrieved information did not match with the expected one'
+        )
+
     @mock.patch('tickets.connectors.AlarmConnector.acknowledge_alarms')
     def test_api_can_acknowledge_all_tickets_by_alarm(
         self,
         AlarmConnector_acknowledge_alarms
     ):
-        """Test that the api can ack unacknowledged tickets and cleared
-        unacknowledged tickets"""
-        # Assert:
+        """ Test that the api can ack unacknowledged tickets
+            and cleared unacknowledged tickets for a selected alarm id
+            for an authorized user
+        """
+
         url = reverse('ticket-acknowledge')
         alarms_to_ack = ['alarm_1']
         data = {
             'message': 'The ticket was acknowledged',
             'alarms_ids': alarms_to_ack
         }
+
+        # check conditions for an unauthenticated user
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            """Should not allow the ack action for an unauthenticated user
+            """
+        )
+
+        # check conditions for an unauthorized user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.response = self.client.get(url, data, format="json")
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            """Should not allow the ack action for an unauthorized user
+            """
+        )
+
+        # check conditions for an authorized user
+        # Arrange:
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.user.user_permissions.add(self.acknowledge_permission)
         AlarmConnector_acknowledge_alarms.return_value = ['alarm_1']
         # Act:
         self.response = self.client.put(url, data, format="json")
@@ -542,37 +629,3 @@ class TicketsApiTestCase(TestCase):
                 'AlarmConnector.acknowledge_alarms was not called with the \
                 expected arguments'
             )
-
-    @mock.patch('tickets.connectors.AlarmConnector.get_alarm_dependencies')
-    def test_api_can_retrieve_old_open_tickets_information(
-        self,
-        AlarmConnector_get_alarm_dependencies
-    ):
-        """Test that the api can retrieve cleared unack tickets information
-        of an specified alarm"""
-        # Arrange:
-        url = reverse('ticket-old-open-info')
-        data = {
-            'alarm_id': 'alarm_2'
-        }
-        AlarmConnector_get_alarm_dependencies.return_value = [
-            'alarm_1',
-            'alarm_2'
-        ]
-        expected_response = {
-            'alarm_1': [self.ticket_cleared_unack.pk],
-            'alarm_2': []
-        }
-        # Act:
-        self.response = self.client.get(url, data, format="json")
-        # Assert:
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_200_OK,
-            'The Server did not retrieve the tickets'
-        )
-        self.assertEqual(
-            self.response.data,
-            expected_response,
-            'The retrieved information did not match with the expected one'
-        )
