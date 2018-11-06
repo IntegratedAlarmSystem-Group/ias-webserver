@@ -1278,6 +1278,6 @@ class TestIasValueUpdates:
         retrieved_alarms_ids = [a.core_id for a in alarms]
         retrieved_alarms_descriptions = [a.description for a in alarms]
         retrieved_alarms_urls = [a.url for a in alarms]
-        assert retrieved_alarms_ids == expected_alarm_ids
-        assert retrieved_alarms_descriptions == expected_alarm_descriptions
-        assert retrieved_alarms_urls == expected_alarm_urls
+        assert sorted(retrieved_alarms_ids) == sorted(expected_alarm_ids)
+        assert sorted(retrieved_alarms_descriptions) == sorted(expected_alarm_descriptions)
+        assert sorted(retrieved_alarms_urls) == sorted(expected_alarm_urls)
