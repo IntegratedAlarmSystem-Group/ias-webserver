@@ -1,4 +1,5 @@
 import json
+import logging
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -6,7 +7,8 @@ from rest_framework.response import Response
 from panels.models import (
     File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
 from panels.serializers import FileSerializer, AlarmConfigSerializer
-from django.db.models import Q
+
+logger = logging.getLogger(__name__)
 
 
 class FileViewSet(viewsets.ModelViewSet):
@@ -22,6 +24,9 @@ class FileViewSet(viewsets.ModelViewSet):
         try:
             file = File.objects.get(key=key)
         except ObjectDoesNotExist:
+            logger.error(
+                'no file is associated to the given key %s (status %s)',
+                key, status.HTTP_404_NOT_FOUND)
             return Response(
                 'No file is asociated to the given key ' + key,
                 status=status.HTTP_404_NOT_FOUND
@@ -49,6 +54,9 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             type__name="station"
         )
         if not len(weather_station_alarms):
+            logger.warning(
+                'there is no configuration for alarms in weather display'
+            )
             return Response(
                 'There is no configuration for weather display',
                 status=status.HTTP_404_NOT_FOUND
@@ -89,6 +97,9 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             type__name="antenna"
         )
         if not len(antenna_alarms):
+            logger.warning(
+                'there is no configuration for antennas display'
+            )
             return Response(
                 'There is no configuration for antennas display',
                 status=status.HTTP_404_NOT_FOUND
@@ -138,6 +149,9 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
         )
 
         if not summary_alarm:
+            logger.warning(
+                'there is no configuration for antennas summary (main view)'
+            )
             return Response(
                 'There is no configuration for antennas summary',
                 status=status.HTTP_404_NOT_FOUND
@@ -182,6 +196,9 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
         if configuration_available:
             return Response(data)
         else:
+            logger.warning(
+                'there is no configuration for weather summary (main view)'
+            )
             return Response(
                 'There is no configuration for weather summary alarms',
                 status=status.HTTP_404_NOT_FOUND
@@ -201,6 +218,9 @@ class PlacemarkViewSet(viewsets.ModelViewSet):
 
         group = self.groups.filter(name=group_name).first()
         if group_name and not group:
+            logger.warning(
+                'there is no pad group with the given name %s', group_name
+            )
             return Response(
                 'There is no group with the given name',
                 status=status.HTTP_404_NOT_FOUND

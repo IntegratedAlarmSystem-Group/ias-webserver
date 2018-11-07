@@ -1,4 +1,7 @@
+import logging
 from panels.models import AlarmConfig, Placemark
+
+logger = logging.getLogger(__name__)
 
 
 class IPanels:
@@ -26,11 +29,19 @@ class IPanels:
                                     view__name="antennas",
                                     type__name="antenna"
                                 )
+        if not antennas_configuration:
+            logger.warning(
+                'there is no configuration for antenna alarm type ' +
+                'in the antennas view')
+
         for config in antennas_configuration:
             placemark_name = associations[config.custom_name]
             config.placemark = Placemark.objects.filter(
                 name=placemark_name).first()
             config.save()
+        logger.debug(
+            '%d antennas configuration were updated',
+            len(antennas_configuration))
 
     @classmethod
     def get_alarm_ids_of_alarm_configs(self):

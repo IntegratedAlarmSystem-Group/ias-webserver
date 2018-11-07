@@ -1,5 +1,6 @@
 import json
 import os
+import logging
 from ias_webserver.settings import (
     CDB_LOCATION,
     TEST_CDB_LOCATION,
@@ -10,6 +11,8 @@ from ias_webserver.settings import (
     TEMPLATES_FILE,
     BROADCAST_RATE_FACTOR
 )
+
+logger = logging.getLogger(__name__)
 
 
 class CdbReader:
@@ -37,7 +40,7 @@ class CdbReader:
             with open(filepath) as file:
                 ias_data = json.load(file)
         except IOError:
-            print('WARNING: ', filepath, ' not found. IAS config not read')
+            logger.warning('%s not found. IAS config not read', filepath)
             ias_data = []
         ias_data['broadcastFactor'] = str(BROADCAST_RATE_FACTOR)
         return ias_data
@@ -86,7 +89,7 @@ class CdbReader:
             with open(filepath) as file:
                 iasios = json.load(file)
         except IOError:
-            print('WARNING: ', filepath, ' not found. IASIOS not initialized')
+            logger.warning('%s not found. IASIOS not initialized', filepath)
             return []
         return iasios
 
@@ -104,7 +107,7 @@ class CdbReader:
                 dir + f for f in os.listdir(dir) if f.endswith('.json')
             ]
         except IOError:
-            print('WARNING: ', dir, ' folder not found. DASUs not read')
+            logger.warning('%s folder not found. DASUs not read', dir)
             return []
         iasios = []
         for filepath in filepaths:
@@ -112,7 +115,7 @@ class CdbReader:
                 with open(filepath) as file:
                     dasu = json.load(file)
             except IOError:
-                print('WARNING: ', filepath, ' not found. DASUs not read')
+                logger.warning('%s not found. DASUs not read', filepath)
                 return []
 
             if "outputId" not in dasu or "id" not in dasu:
@@ -137,7 +140,7 @@ class CdbReader:
                 dir + f for f in os.listdir(dir) if f.endswith('.json')
             ]
         except IOError:
-            print('WARNING:', dir, ' folder not found. Supervisors not read')
+            logger.warning('%s folder not found. Supervisors not read', dir)
             return []
         dasus = []
         for filepath in filepaths:
@@ -145,7 +148,7 @@ class CdbReader:
                 with open(filepath) as file:
                     supervisor = json.load(file)
             except IOError:
-                print('WARNING:', filepath, ' not found. Supervisors not read')
+                logger.warning('%s not found. Supervisors not read', filepath)
                 return []
 
             if "dasusToDeploy" not in supervisor:
@@ -168,7 +171,7 @@ class CdbReader:
             with open(filepath) as file:
                 templates = json.load(file)
         except IOError:
-            print('WARNING: ', filepath, ' not found. template not read')
+            logger.warning('%s not found. template not read', filepath)
             return []
         return templates
 

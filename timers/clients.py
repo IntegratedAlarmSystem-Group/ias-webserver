@@ -1,5 +1,8 @@
 import json
+import logging
 from tornado.websocket import websocket_connect
+
+logger = logging.getLogger(__name__)
 
 
 class WSClient():
@@ -21,9 +24,9 @@ class WSClient():
     def on_open(self, f):
         try:
             self.connection = f.result()
-            print('Connected.')
+            logger.info('websocket client connected')
         except Exception as e:
-            print(e)
+            logger.error(e)
             self.websocket_connect = None
 
     def on_message(self, message):
@@ -31,9 +34,9 @@ class WSClient():
         Note: None message is received if the connection is closed.
         """
         if self.options['verbosity'] and self.options['verbosity'] > 1:
-            print("Echo: {}".format(message))
+            logger.info("Echo: {}".format(message))
         if message is None:
-            print('Problem with the connection. Connection closed.')
+            logger.error('Problem with the connection. Connection closed.')
             self.connection = None
             self.websocket_connect = None
 
@@ -42,7 +45,7 @@ class WSClient():
         This method is intended to be used by a tornado periodic callback
         if there is no valid websocket client
         """
-        print('Try reconnection')
+        logger.info('try websocket client reconnection')
         self.websocket_connect = self.start_connection()
 
     def is_connected(self):
