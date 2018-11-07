@@ -1,7 +1,10 @@
+import logging
 from cdb.readers import CdbReader
 from tickets.models import Ticket, TicketStatus
 from tickets.models import ShelveRegistry, ShelveRegistryStatus
 from panels.interfaces import IPanels
+
+logger = logging.getLogger(__name__)
 
 
 class CdbConnector():
@@ -28,7 +31,11 @@ class CdbConnector():
         if data and "refreshRate" in data and "tolerance" in data:
             self.refresh_rate = int(data['refreshRate'])*1000
             self.tolerance = int(data['tolerance'])*1000
+            logger.info(
+                'cdb initialized with refresh_rate %d ms and tolerance %d ms',
+                self.refresh_rate, self.tolerance)
         else:
+            logger.warning('there is not config data to read')
             return None
 
 
@@ -61,6 +68,9 @@ class TicketConnector():
         )
         for ticket in queryset:
             ticket.clear()
+        logger.debug(
+            '%d ack tickets related to alarm %s were closed',
+            len(queryset), alarm_id)
 
     @classmethod
     def check_acknowledgement(self, alarm_id):
@@ -80,7 +90,6 @@ class TicketConnector():
             alarm_id=alarm_id,
             status__in=unack_statuses
         ).first()
-
         return False if ticket else True
 
     @classmethod
