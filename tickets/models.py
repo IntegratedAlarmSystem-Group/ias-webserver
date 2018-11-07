@@ -201,8 +201,30 @@ class ShelveRegistry(models.Model):
         return "unshelved"
 
     @staticmethod
+    def has_create_permission(request):
+        return request.user.has_perm('tickets.add_shelveregistry')
+
+    @staticmethod
     def has_read_permission(request):
         return request.user.has_perm('tickets.view_shelveregistry')
 
     def has_object_read_permission(self, request):
         return request.user.has_perm('tickets.view_shelveregistry')
+
+    @staticmethod
+    def has_update_permission(request):
+        return request.user.has_perm('tickets.change_shelveregistry')
+
+    def has_object_update_permission(self, request):
+        return request.user.has_perm('tickets.change_shelveregistry')
+
+    @staticmethod
+    def has_destroy_permission(request):
+        return request.user.has_perm('tickets.delete_shelveregistry')
+
+    def has_object_destroy_permission(self, request):
+        return request.user.has_perm('tickets.delete_shelveregistry')
+
+    @staticmethod
+    def has_check_timeouts_permission(request):
+        return True
