@@ -1,15 +1,16 @@
-import json
 import tornado
 import requests
+import logging
 from asgiref.sync import sync_to_async
 from django.core.management.base import BaseCommand
-from django.urls import reverse
 from alarms.connectors import CdbConnector
 from timers.clients import WSClient
 from ias_webserver.settings import (
     BROADCAST_RATE_FACTOR,
     UNSHELVE_CHECKING_RATE
 )
+
+logger = logging.getLogger(__name__)
 
 DEFAULT_HOSTNAME = 'localhost'
 DEFAULT_PORT = '8000'
@@ -90,9 +91,10 @@ class Command(BaseCommand):
         broadcast_rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR
         if options['rate'] is not None:
             broadcast_rate = options['rate']*1000.0
-        log = 'BROADCAST-STATUS | Sending global refresh to {} \
-            every {} milliseconds'.format(url, broadcast_rate)
-        print(log)
+        logger.info(
+            'BROADCAST-STATUS - Sending global refresh to %s \
+            every %d ms', url, broadcast_rate
+        )
 
         def send_broadcast():
             if ws_client.is_connected():
@@ -139,14 +141,15 @@ class Command(BaseCommand):
             verbosity = 1
 
         unshelve_rate = UNSHELVE_CHECKING_RATE * 1000
-        log = 'SHELF-TIMEOUT | Checking shelved alarms timeout from {} \
-            every {} milliseconds'.format(url, unshelve_rate)
-        print(log)
+        logger.info(
+            'SHELF-TIMEOUT - Checking shelved alarms timeout from %s \
+            every %d ms', url, unshelve_rate
+        )
 
         def send_timeout():
             response = requests.put(url, data={})
             if verbosity > 1:
-                print('SHELF-TIMEOUT | ', response)
+                logger.info('SHELF-TIMEOUT - %s', response)
 
         unshelve_task = tornado.ioloop.PeriodicCallback(
             sync_to_async(send_timeout),
