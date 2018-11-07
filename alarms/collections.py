@@ -609,6 +609,9 @@ class AlarmCollection:
     def _get_parents(self, alarm_id):
         """ Return the list of parents of the specified alarm """
         if alarm_id not in self.parents_collection.keys():
+            logger.debug(
+                'the list of parents is empty because the alarm %s is not in \
+                the collection', alarm_id)
             return []
         else:
             return list(self.parents_collection[alarm_id])
@@ -635,6 +638,7 @@ class AlarmCollection:
                     _alarms, _alarms_ids = self._recursive_acknowledge(parent)
                     alarms += _alarms
                     alarms_ids += _alarms_ids
+        logger.debug('the alarm %s were acknowledged recursively', alarms_ids)
         return alarms, alarms_ids
 
     @classmethod
@@ -646,10 +650,12 @@ class AlarmCollection:
             alarm (Alarm): The Alarm to unacknowledge
         """
         if alarm.shelved:
+            logger.debug('the alarm %s was already unshelved', alarm.core_id)
             return False
         else:
             alarm.ack = False
             self._create_ticket(alarm.core_id)
+            logger.debug('the alarm %s was shelved', alarm.core_id)
             return True
 
     @classmethod
@@ -674,6 +680,7 @@ class AlarmCollection:
                 _alarms, _alarms_ids = self._recursive_unacknowledge(parent)
                 alarms += _alarms
                 alarms_ids += _alarms_ids
+        logger.debug('the alarm %s were unack recursively', alarms_ids)
         return alarms, alarms_ids
 
     @classmethod
@@ -687,6 +694,7 @@ class AlarmCollection:
         if alarm.dependencies:
             for dependency in alarm.dependencies:
                 self._add_parent(dependency, alarm.core_id)
+        logger.debug('update parents of alarm %s', alarm.core_id)
 
 
 class AlarmCollectionObserver(abc.ABC):
