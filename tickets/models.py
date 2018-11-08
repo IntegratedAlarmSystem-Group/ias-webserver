@@ -150,6 +150,9 @@ class ShelveRegistry(models.Model):
     timeout = models.DurationField(default=timedelta(hours=12))
     """ Timeout after which a shelved Alarm must be unshelved """
 
+    user = models.CharField(max_length=150, null=False, blank=False)
+    """ User that shelve the alarm (create) """
+
     status = models.IntegerField(
         choices=ShelveRegistryStatus.options(),
         default=int(ShelveRegistryStatus.get_choices_by_name()['SHELVED']),
@@ -173,7 +176,8 @@ class ShelveRegistry(models.Model):
             'unshelved_at': str(self.unshelved_at),
             'alarm_id': self.alarm_id,
             'message': self.message,
-            'status': self.status
+            'status': self.status,
+            'user': self.user
         }
 
     def unshelve(self):

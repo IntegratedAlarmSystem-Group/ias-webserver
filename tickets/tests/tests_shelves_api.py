@@ -20,18 +20,21 @@ class ShelveRegistrysApiTestCase(TestCase):
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.client = APIClient()
 
@@ -43,7 +46,8 @@ class ShelveRegistrysApiTestCase(TestCase):
         new_reg_data = {
             'alarm_id': 'alarm_4',
             'message': self.message,
-            'timeout': '3:16:13'
+            'timeout': '3:16:13',
+            'user': 'testuser'
         }
         AlarmConnector_shelve_alarm.return_value = 1
         # Act:
@@ -62,6 +66,7 @@ class ShelveRegistrysApiTestCase(TestCase):
             'alarm_id': created_reg.alarm_id,
             'message': created_reg.message,
             'timeout': str(created_reg.timeout),
+            'user': created_reg.user
         }
         self.assertEqual(
             retrieved_data,
@@ -86,7 +91,8 @@ class ShelveRegistrysApiTestCase(TestCase):
         """ Test that the api cannot create a registry without a message """
         # Arrange:
         new_reg_data = {
-            'alarm_id': 'alarm_4'
+            'alarm_id': 'alarm_4',
+            'user': 'testuser'
         }
         AlarmConnector_shelve_alarm.return_value = 1
         # Act:
@@ -120,7 +126,8 @@ class ShelveRegistrysApiTestCase(TestCase):
         new_reg_data = {
             'alarm_id': 'alarm_4',
             'message': self.message,
-            'timeout': '3:16:13'
+            'timeout': '3:16:13',
+            'user': 'testuser'
         }
         AlarmConnector_shelve_alarm.return_value = -1
         # Act:
@@ -154,7 +161,8 @@ class ShelveRegistrysApiTestCase(TestCase):
         new_reg_data = {
             'alarm_id': 'alarm_4',
             'message': self.message,
-            'timeout': '3:16:13'
+            'timeout': '3:16:13',
+            'user': 'testuser'
         }
         AlarmConnector_shelve_alarm.return_value = 0
         # Act:

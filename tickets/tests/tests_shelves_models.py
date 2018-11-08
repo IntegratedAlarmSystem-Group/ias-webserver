@@ -11,6 +11,7 @@ class ShelveRegistryModelsTestCase(TestCase):
     def setUp(self):
         self.alarm_id = 'alarm_id'
         self.message = 'Shelving because of reasons'
+        self.user = 'testuser'
 
     def test_create_registry(self):
         """ Test if we can create a shelve_registry"""
@@ -18,7 +19,8 @@ class ShelveRegistryModelsTestCase(TestCase):
         with freeze_time(resolution_dt):
             # Act:
             registry = ShelveRegistry(
-                alarm_id=self.alarm_id, message=self.message)
+                alarm_id=self.alarm_id, message=self.message, user=self.user
+            )
             registry.save()
             retrieved_reg = ShelveRegistry.objects.get(alarm_id=self.alarm_id)
 
@@ -44,6 +46,10 @@ class ShelveRegistryModelsTestCase(TestCase):
             retrieved_reg.timeout, timedelta(hours=12),
             'The default timeout should be 12 hours'
         )
+        self.assertEqual(
+            retrieved_reg.user, self.user,
+            'When the registry is created the message must not be none'
+        )
 
     def test_cannot_create_registry_with_no_message(self):
         """ Test if we cannot create a shelve_registry without a message"""
@@ -55,7 +61,9 @@ class ShelveRegistryModelsTestCase(TestCase):
     def test_unshelve_a_registry(self):
         """ Test if we can unshelve an alarm """
         # Arrange:
-        registry = ShelveRegistry(alarm_id=self.alarm_id, message=self.message)
+        registry = ShelveRegistry(
+            alarm_id=self.alarm_id, message=self.message, user=self.user
+        )
         registry.save()
 
         # Act:
