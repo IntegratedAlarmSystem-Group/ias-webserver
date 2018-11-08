@@ -136,6 +136,10 @@ class Ticket(models.Model):
     def has_acknowledge_permission(request):
         return request.user.has_perm('tickets.acknowledge_ticket')
 
+    @staticmethod
+    def has_create_permission(request):
+        return False
+
 
 class ShelveRegistryStatus(ChoiceEnum):
     """ Status options of a ShelveRegistry """
