@@ -46,6 +46,9 @@ class Ticket(models.Model):
     message = models.CharField(max_length=256, null=True)
     """ Message posted when the ticket is closed """
 
+    user = models.CharField(max_length=150, null=True)
+    """ User that closes the ticket """
+
     status = models.IntegerField(
         choices=TicketStatus.options(),
         default=int(TicketStatus.get_choices_by_name()['UNACK']),
@@ -63,10 +66,11 @@ class Ticket(models.Model):
             'acknowledged_at': self.acknowledged_at,
             'alarm_id': self.alarm_id,
             'message': self.message,
-            'status': self.status
+            'status': self.status,
+            'user': self.user
         }
 
-    def acknowledge(self, message):
+    def acknowledge(self, message, user):
         """ Resolves the ticket modifying the status, the resolution timestamp
         and the message """
         ack = TicketStatus.get_choices_by_name()['ACK']
@@ -91,6 +95,7 @@ class Ticket(models.Model):
             self.status = int(cleared_ack)
         self.acknowledged_at = timezone.now()
         self.message = message
+        self.user = user
         self.save()
         logger.debug("the ticket %d was acknowledged", self.id)
         return "solved"

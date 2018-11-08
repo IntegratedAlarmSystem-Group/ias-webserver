@@ -18,7 +18,10 @@ class TicketsApiTestCase(TestCase):
 
         self.ticket_ack = Ticket(alarm_id='alarm_1')
         self.ticket_ack.save()
-        self.ticket_ack.acknowledge(message="Ticket was acknowledged")
+        self.ticket_ack.acknowledge(
+            message="Ticket was acknowledged",
+            user="testuser"
+        )
 
         self.ticket_cleared_unack = Ticket(alarm_id='alarm_1')
         self.ticket_cleared_unack.save()
@@ -166,6 +169,7 @@ class TicketsApiTestCase(TestCase):
         alarms_to_ack = ['alarm_1']
         data = {
             'message': 'The ticket was acknowledged',
+            'user': 'testuser',
             'alarms_ids': alarms_to_ack
         }
         AlarmConnector_acknowledge_alarms.return_value = ['alarm_1']
@@ -232,6 +236,7 @@ class TicketsApiTestCase(TestCase):
         alarms_to_ack = ['alarm_1']
         data = {
             'message': ' ',
+            'user': 'testuser',
             'alarms_ids': alarms_to_ack
         }
         AlarmConnector_acknowledge_alarms.return_value = ['alarm_1']
@@ -275,6 +280,7 @@ class TicketsApiTestCase(TestCase):
         alarms_to_ack = ['alarm_1', 'alarm_2']
         data = {
             'alarms_ids': alarms_to_ack,
+            'user': 'testuser',
             'message': 'The ticket was acknowledged'
         }
         AlarmConnector_acknowledge_alarms.return_value = alarms_to_ack
@@ -333,6 +339,7 @@ class TicketsApiTestCase(TestCase):
         alarms_to_ack = ['alarm_1', 'alarm_2']
         data = {
             'alarms_ids': alarms_to_ack,
+            'user': 'testuser',
             'message': 'The ticket was acknowledged'
         }
         alarms_and_dependency = alarms_to_ack + ['alarm_dependency']

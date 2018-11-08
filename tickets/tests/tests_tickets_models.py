@@ -38,6 +38,10 @@ class TicketsModelsTestCase(TestCase):
                 retrieved_ticket.message, None,
                 'When the ticket is created the message must be none'
             )
+            self.assertEqual(
+                retrieved_ticket.user, None,
+                'When the ticket is created the user must be none'
+            )
 
     def test_acknowledge_a_ticket(self):
         """ Test if we can acknowledge a ticket passing it a valid message """
@@ -48,7 +52,10 @@ class TicketsModelsTestCase(TestCase):
         # Act:
         resolution_dt = timezone.now()
         with freeze_time(resolution_dt):
-            response = ticket.acknowledge(message='This ticket was solved')
+            response = ticket.acknowledge(
+                user='testuser',
+                message='This ticket was solved'
+            )
             retrieved_ticket = Ticket.objects.get(alarm_id='alarm_id')
 
         # Asserts:
@@ -69,4 +76,8 @@ class TicketsModelsTestCase(TestCase):
         self.assertEqual(
             response, 'solved',
             'Valid resolution is not solved correctly'
+        )
+        self.assertEqual(
+            retrieved_ticket.user, 'testuser',
+            'The user saved is not the expected one'
         )

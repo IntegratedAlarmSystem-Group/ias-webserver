@@ -57,6 +57,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         """ Acknowledge multiple tickets with the same message and timestamp"""
         message = self.request.data['message']
         alarms_ids = self.request.data['alarms_ids']
+        user = self.request.data['user']
 
         # If empty Message then return Bad Request:
         if message.strip() is "":
@@ -76,14 +77,14 @@ class TicketViewSet(viewsets.ModelViewSet):
             status__in=[int(unack), int(cleared_unack)]
         )
 
-        return self._apply_acknowledgement(message, list(queryset))
+        return self._apply_acknowledgement(message, user, list(queryset))
 
-    def _apply_acknowledgement(self, message, tickets):
+    def _apply_acknowledgement(self, message, user, tickets):
         """ Applies the acknowledgement to a single or multiple tickets """
         # Acknowledge each ticket:
         ack_alarms = set()
         for ticket in tickets:
-            response = ticket.acknowledge(message=message)
+            response = ticket.acknowledge(message=message, user=user)
             if response == 'solved':
                 ack_alarms.add(ticket.alarm_id)
             else:
