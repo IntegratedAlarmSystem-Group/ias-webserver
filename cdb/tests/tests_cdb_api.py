@@ -25,27 +25,40 @@ class APITestBase:
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
 
-class CdbApiTestCase(APITestBase, TestCase):
-    """Test suite for the api views."""
+class ListIasConfigurationData(APITestBase, TestCase):
+    """Test suite to test the list request for the ias configuration"""
 
     def setUp(self):
         """Define the test suite setup"""
-        self.no_permissions_user = self.create_user(
-            username='user', password='123', permissions=[])
-        self.authenticated_client = APIClient()
+        # unauthenticated client
+        self.unauthenticated_client = APIClient()
+        # authenticated client
+        self.nopermissions_user = self.create_user(
+            username='authorized',
+            password='123',
+            permissions=[]
+        )
+        client = APIClient()
         self.authenticate_client_using_token(
-            self.authenticated_client,
-            Token.objects.get(user__username=self.no_permissions_user)
+            client, Token.objects.get(
+                user__username=self.nopermissions_user.username)
         )
-        self.client = self.authenticated_client
+        self.authenticated_client = client
 
-    def test_api_can_list_ias(self):
-        """ Test that the api can retrieve an Ias """
+    def target_request_from_client(self, client):
+        url = reverse('ias')
+        return client.get(url, format='json')
+
+    def test_api_can_list_ias_for_an_authenticated_user(self):
+        """ Test that the api can retrieve an Ias
+            for an authenticated user without specific permissions
+        """
         # Arrange:
         expected_ias_data = CdbReader.read_ias()
         # Act:
-        url = reverse('ias')
-        self.response = self.client.get(url, format="json")
+        self.response = self.target_request_from_client(
+            self.authenticated_client
+        )
         # Assert:
         self.assertEqual(
             self.response.status_code,
@@ -59,13 +72,51 @@ class CdbApiTestCase(APITestBase, TestCase):
             'The retrieved ias does not match the expected'
         )
 
-    def test_api_can_get_ias(self):
-        """ Test that the api can retrieve an Ias """
+    def test_api_cannot_allow_the_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
+
+
+class RetrieveIasConfigurationData(APITestBase, TestCase):
+    """Test suite to test the get request for the ias configuration"""
+
+    def setUp(self):
+        """Define the test suite setup"""
+        # unauthenticated client
+        self.unauthenticated_client = APIClient()
+        # authenticated client
+        self.nopermissions_user = self.create_user(
+            username='authorized',
+            password='123',
+            permissions=[]
+        )
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client, Token.objects.get(
+                user__username=self.nopermissions_user.username)
+        )
+        self.authenticated_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('ias')
+        return client.get(url, kwargs={'pk': 0}, format="json")
+
+    def test_api_can_get_ias_for_authenticated_user(self):
+        """ Test that the api can retrieve an Ias
+            for an authenticated user without specific permissions
+        """
         # Arrange:
         expected_ias_data = CdbReader.read_ias()
         # Act:
-        url = reverse('ias')
-        self.response = self.client.get(url, kwargs={'pk': 0}, format="json")
+        self.response = self.target_request_from_client(
+            self.authenticated_client
+        )
         # Assert:
         self.assertEqual(
             self.response.status_code,
@@ -77,4 +128,14 @@ class CdbApiTestCase(APITestBase, TestCase):
             retrieved_ias_data,
             expected_ias_data,
             'The retrieved ias does not match the expected'
+        )
+
+    def test_api_cannot_allow_the_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
         )
