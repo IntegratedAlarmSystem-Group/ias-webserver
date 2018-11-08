@@ -1,3 +1,4 @@
+import logging
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -13,6 +14,8 @@ from tickets.serializers import (
     TicketSerializer,
     ShelveRegistrySerializer,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class TicketViewSet(viewsets.ModelViewSet):
@@ -86,6 +89,10 @@ class TicketViewSet(viewsets.ModelViewSet):
             if response == 'solved':
                 ack_alarms.add(ticket.alarm_id)
             else:
+                logger.error(
+                    'Unexpected response from a ticket acknowledgement: %s',
+                    response
+                )
                 return Response(
                     'Unexpected response from a ticket acknowledgement',
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -159,6 +166,10 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
             if response == 'unshelved':
                 alarms_to_unshelve.append(registry.alarm_id)
             else:
+                logger.error(
+                    'Unexpected response from a registry unshelving: %s',
+                    response
+                )
                 return Response(
                     'Unexpected response from a registry unshelving',
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -169,7 +180,7 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
     @action(methods=['put'], detail=False)
     def check_timeouts(self, request):
         """ Check if the timeouts of the registries are reached """
-        print('Checking Shelved Alarms timeouts')
+        logger.debug('Checking Shelved Alarms timeouts')
         # TODO: Move this to a classmethod and here call that method
         registries_to_unshelve = []
         registries = ShelveRegistry.objects.filter(

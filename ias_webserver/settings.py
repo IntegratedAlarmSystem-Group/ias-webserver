@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import logging.config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -84,6 +85,65 @@ CORS_ALLOW_CREDENTIALS = False
 # CORS_ORIGIN_WHITELIST = (
 #     '<DOMAIN>[:PORT]',
 # )
+
+# Disable Django's logging setup
+LOGGING_CONFIG = None
+
+LOG_LEVEL = os.getenv('DJANGO_LOG_LEVEL', 'INFO')
+IAS_LOGS_FOLDER = os.getenv('IAS_LOGS_FOLDER', 'logs/')
+
+if not os.environ.get('TESTING', False):
+    logging.config.dictConfig({
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'custom': {
+                '()': 'utils.logging.iasFormatter',
+                'format': '{asctime} |{levelname}| [{name}] [{filename}:{lineno}] [{threadName}] {message}',
+                'style': '{',
+            }
+        },
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+                'formatter': 'custom'
+            },
+            'file': {
+                'class': 'logging.handlers.RotatingFileHandler',
+                'maxBytes': 100 * 1024 * 1024,
+                'backupCount': 5,
+                'filename': IAS_LOGS_FOLDER + '/webserver.log',
+                'formatter': 'custom'
+            },
+        },
+        'loggers': {
+            '': {
+                'level': LOG_LEVEL,
+                'handlers': ['console'],
+                'propagate': True
+            },
+            'alarms': {
+                'level': LOG_LEVEL,
+                'handlers': ['console', 'file'],
+                'propagate': False,
+            },
+            'cdb': {
+                'level': LOG_LEVEL,
+                'handlers': ['console', 'file'],
+                'propagate': False,
+            },
+            'panels': {
+                'level': LOG_LEVEL,
+                'handlers': ['console', 'file'],
+                'propagate': False,
+            },
+            'tickets': {
+                'level': LOG_LEVEL,
+                'handlers': ['console', 'file'],
+                'propagate': False,
+            },
+        },
+    })
 
 # Database
 DATABASE_ROUTERS = ['cdb.routers.CdbRouter']
