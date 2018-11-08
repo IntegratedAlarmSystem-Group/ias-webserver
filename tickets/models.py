@@ -13,7 +13,7 @@ PERMISSIONS = ('add', 'change', 'delete', 'view')
 ACK_TICKET_PERMISSIONS = PERMISSIONS + ('acknowledge',)
 """ Ack ticket permissions """
 
-SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('shelve', 'unshelve',)
+SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('unshelve',)
 """ Shelve registry permissions """
 
 
