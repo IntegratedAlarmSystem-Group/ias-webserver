@@ -29,31 +29,6 @@ class APITestBase:
         """ Authenticates a selected API Client using a related User token """
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
-    def call_api_request_from_client(self, client):
-        """ Call the API request according to the configuuration from the
-            request setup dictionary. Returns a None response is
-            the HTTP method is not valid
-        """
-        method = self.request_setup.get('method', None)
-        url = self.request_setup.get('url', None)
-        data = self.request_setup.get('data', None)
-        if method == 'get':
-            if 'data' is not None:
-                return client.get(url, data, format='json')
-            else:
-                return client.get(url, format='json')
-        if method == 'post':
-            if 'data' is not None:
-                return client.post(url, data, format='json')
-        if method == 'put':
-            if 'data' is not None:
-                return client.put(url, data, format='json')
-            else:
-                return client.put(url, format='json')
-        if method == 'delete':
-            return client.delete(url, format='json')
-        return None
-
     def _setup_common_users_and_clients(self):
         """ Add unauthenticated and unauthorized users """
         self.unauthorized_user = self.create_user(
@@ -67,12 +42,12 @@ class APITestBase:
 
 
 class RequestAPIAuthTestCase(APITestBase):
-    """ Base test case for a request with auth conditions"""
+    """ Base test case for a request with auth conditions """
 
     def test_api_cannot_allow_request_for_unauthenticated_user(self):
         """ The request should not be allowed for an unauthenticated user """
         client = self.unauthenticated_client
-        self.response = self.call_api_request_from_client(client)
+        self.response = self.target_request_from_client(client)
         self.assertEqual(
             self.response.status_code,
             status.HTTP_401_UNAUTHORIZED,
@@ -82,7 +57,7 @@ class RequestAPIAuthTestCase(APITestBase):
     def test_api_cannot_allow_request_for_unauthorized_user(self):
         """ The request should not be allowed for an unauthorized user """
         client = self.authenticated_unauthorized_client
-        self.response = self.call_api_request_from_client(client)
+        self.response = self.target_request_from_client(client)
         self.assertEqual(
             self.response.status_code,
             status.HTTP_403_FORBIDDEN,
@@ -100,11 +75,6 @@ class RetrieveRegistry(RequestAPIAuthTestCase, TestCase):
             message='Shelved because of reasons',
             timeout=datetime.timedelta(hours=2)
         )
-        self.request_setup = {
-            'method': 'get',
-            'url': reverse(
-                'shelveregistry-detail', kwargs={'pk': self.registry.pk})
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -116,13 +86,18 @@ class RetrieveRegistry(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse(
+            'shelveregistry-detail', kwargs={'pk': self.registry.pk})
+        return client.get(url, format='json')
+
     def test_api_can_retreive_registry_to_authorized_user(self):
         """ Test that the api should retrieve a ticket
             for an authorized user
         """
         # Act:
         expected_reg = ShelveRegistry.objects.get(pk=self.registry.pk)
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
@@ -158,10 +133,6 @@ class ListRegistry(RequestAPIAuthTestCase, TestCase):
             message=self.message,
             timeout=datetime.timedelta(hours=2)
         )
-        self.request_setup = {
-            'method': 'get',
-            'url': reverse('shelveregistry-list')
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -172,6 +143,10 @@ class ListRegistry(RequestAPIAuthTestCase, TestCase):
             self.authenticated_authorized_client,
             Token.objects.get(user__username=self.authorized_user.username)
         )
+
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-list')
+        return client.get(url, format='json')
 
     def test_api_can_list_registries(self):
         """ Test that the api can list the ShelveRegistries
@@ -186,7 +161,7 @@ class ListRegistry(RequestAPIAuthTestCase, TestCase):
         expected_registries_data = [
             ShelveRegistrySerializer(t).data for t in registries]
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
@@ -215,12 +190,6 @@ class UpdateRegistry(RequestAPIAuthTestCase, TestCase):
             'alarm_id': self.registry.alarm_id,
             'message': 'Another message'
         }
-        self.request_setup = {
-            'method': 'put',
-            'url': reverse(
-                'shelveregistry-detail', kwargs={'pk': self.registry.pk}),
-            'data': self.new_reg_data
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -232,12 +201,18 @@ class UpdateRegistry(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse(
+            'shelveregistry-detail', kwargs={'pk': self.registry.pk})
+        data = self.new_reg_data
+        return client.put(url, data, format='json')
+
     def test_api_can_update_registry(self):
         """ Test that the api can update a registry
             for an authorized user
         """
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         updated_reg = ShelveRegistry.objects.get(
@@ -273,12 +248,6 @@ class UpdateRegistryWithoutMessage(RequestAPIAuthTestCase, TestCase):
             'alarm_id': self.registry.alarm_id,
             'message': ''
         }
-        self.request_setup = {
-            'method': 'put',
-            'url': reverse(
-                'shelveregistry-detail', kwargs={'pk': self.registry.pk}),
-            'data': self.new_reg_data
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -290,12 +259,18 @@ class UpdateRegistryWithoutMessage(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse(
+            'shelveregistry-detail', kwargs={'pk': self.registry.pk})
+        data = self.new_reg_data
+        return client.put(url, data, format='json')
+
     def test_api_cannot_update_registry_to_have_no_message(self):
         """ Test that the api cannot update a registry and leave it
             without a message for an authorized user
         """
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         updated_reg = ShelveRegistry.objects.get(
@@ -328,11 +303,6 @@ class DeleteRegistry(RequestAPIAuthTestCase, TestCase):
             alarm_id='alarm_1',
             message='Shelve because of reasons'
         )
-        self.request_setup = {
-            'method': 'delete',
-            'url': reverse(
-                'shelveregistry-detail', kwargs={'pk': self.registry.pk}),
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -344,12 +314,17 @@ class DeleteRegistry(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse(
+            'shelveregistry-detail', kwargs={'pk': self.registry.pk})
+        return client.delete(url, format='json')
+
     def test_api_can_delete_a_registry(self):
         """ Test that the api can delete a registry
             for an authorized user
         """
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         retrieved_reg = list(
@@ -389,14 +364,6 @@ class FilterRegistryForAlarmAndShelvedCase(RequestAPIAuthTestCase, TestCase):
             message='New message',
             timeout=datetime.timedelta(hours=2)
         )
-        self.request_setup = {
-            'method': 'get',
-            'url': reverse('shelveregistry-filters'),
-            'data': {
-                'alarm_id': self.registry_2.alarm_id,
-                'status': ShelveRegistryStatus.get_choices_by_name()['SHELVED']
-            }
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -408,12 +375,20 @@ class FilterRegistryForAlarmAndShelvedCase(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-filters')
+        data = {
+            'alarm_id': self.registry_2.alarm_id,
+            'status': ShelveRegistryStatus.get_choices_by_name()['SHELVED']
+        }
+        return client.get(url, data, format='json')
+
     def test_api_can_filter_registries_by_alarms_and_shelve_status(self):
         """ Tets that the api can list the ShelveRegistrys filtered by alarm
             and shelved status for an authorized user
         """
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
 
         expected_registries_data = [
@@ -458,15 +433,6 @@ class FilterRegistryForAlarmAndUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             alarm_id=self.registry_2.alarm_id,
             message='New message'
         )
-        self.request_setup = {
-            'method': 'get',
-            'url': reverse('shelveregistry-filters'),
-            'data': {
-                'alarm_id': self.registry_2.alarm_id,
-                'status': ShelveRegistryStatus.get_choices_by_name()[
-                    'UNSHELVED']
-            }
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -478,6 +444,15 @@ class FilterRegistryForAlarmAndUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-filters')
+        data = {
+            'alarm_id': self.registry_2.alarm_id,
+            'status': ShelveRegistryStatus.get_choices_by_name()[
+                'UNSHELVED']
+        }
+        return client.get(url, data, format='json')
+
     def test_api_can_filter_registries_by_alarm_and_unshelved_status(self):
         """ Tets that the api can list the ShelveRegistrys filtered by
             alarm and unshelved status for an authorized user
@@ -487,7 +462,7 @@ class FilterRegistryForAlarmAndUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             ShelveRegistrySerializer(self.registry_2).data
         ]
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
@@ -524,13 +499,6 @@ class FilterRegistryForShelvedCase(RequestAPIAuthTestCase, TestCase):
             message=self.message,
             timeout=datetime.timedelta(hours=2)
         )
-        self.request_setup = {
-            'method': 'get',
-            'url': reverse('shelveregistry-filters'),
-            'data': {
-                'status': ShelveRegistryStatus.get_choices_by_name()['SHELVED']
-            }
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -542,6 +510,13 @@ class FilterRegistryForShelvedCase(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-filters')
+        data = {
+            'status': ShelveRegistryStatus.get_choices_by_name()['SHELVED']
+        }
+        return client.get(url, data, format='json')
+
     def test_api_can_filter_all_shelved_registries(self):
         """ Test that the api can filter ShelveRegistrys only by shelved status
             for an authenticated user
@@ -552,7 +527,7 @@ class FilterRegistryForShelvedCase(RequestAPIAuthTestCase, TestCase):
             ShelveRegistrySerializer(self.registry_3).data,
         ]
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
@@ -589,14 +564,6 @@ class FilterRegistryForUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             message=self.message,
             timeout=datetime.timedelta(hours=2)
         )
-        self.request_setup = {
-            'method': 'get',
-            'url': reverse('shelveregistry-filters'),
-            'data': {
-                'status': ShelveRegistryStatus.get_choices_by_name()[
-                    'UNSHELVED']
-            }
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -608,6 +575,14 @@ class FilterRegistryForUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-filters')
+        data = {
+            'status': ShelveRegistryStatus.get_choices_by_name()[
+                'UNSHELVED']
+        }
+        return client.get(url, data, format='json')
+
     def test_api_can_filter_all_open_registries(self):
         """ Test that the api can filter ShelveRegistrys by unshelved
             status for an authenticated user
@@ -617,7 +592,7 @@ class FilterRegistryForUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             ShelveRegistrySerializer(self.registry_2).data,
         ]
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
@@ -643,11 +618,6 @@ class CreateRegistry(RequestAPIAuthTestCase, TestCase):
             'message': self.message,
             'timeout': '3:16:13'
         }
-        self.request_setup = {
-            'method': 'post',
-            'url': reverse('shelveregistry-list'),
-            'data': self.new_reg_data
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -659,13 +629,18 @@ class CreateRegistry(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-list')
+        data = self.new_reg_data
+        return client.post(url, data, format='json')
+
     @mock.patch('tickets.connectors.AlarmConnector.shelve_alarm')
     def test_api_can_create_registry(self, AlarmConnector_shelve_alarm):
         """ Test that the api can create a registry """
         # Arrange
         AlarmConnector_shelve_alarm.return_value = 1
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
@@ -704,11 +679,6 @@ class CreateRegistryWithNoMessageCase(RequestAPIAuthTestCase, TestCase):
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
         }
-        self.request_setup = {
-            'method': 'post',
-            'url': reverse('shelveregistry-list'),
-            'data': self.new_reg_data
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -719,6 +689,11 @@ class CreateRegistryWithNoMessageCase(RequestAPIAuthTestCase, TestCase):
             self.authenticated_authorized_client,
             Token.objects.get(user__username=self.authorized_user.username)
         )
+
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-list')
+        data = self.new_reg_data
+        return client.post(url, data, format='json')
 
     @mock.patch('tickets.connectors.AlarmConnector.shelve_alarm')
     @mock.patch('tickets.connectors.AlarmConnector.unshelve_alarms')
@@ -731,7 +706,7 @@ class CreateRegistryWithNoMessageCase(RequestAPIAuthTestCase, TestCase):
         # Arrange
         AlarmConnector_shelve_alarm.return_value = 1
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
@@ -764,11 +739,6 @@ class CreateRegistryAndNoShelvableAlarm(RequestAPIAuthTestCase, TestCase):
             'message': self.message,
             'timeout': '3:16:13'
         }
-        self.request_setup = {
-            'method': 'post',
-            'url': reverse('shelveregistry-list'),
-            'data': self.new_reg_data
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -780,6 +750,11 @@ class CreateRegistryAndNoShelvableAlarm(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-list')
+        data = self.new_reg_data
+        return client.post(url, data, format='json')
+
     @mock.patch('tickets.connectors.AlarmConnector.shelve_alarm')
     def test_api_cannot_create_registry_for_non_shelvable_alarm(
         self, AlarmConnector_shelve_alarm
@@ -789,7 +764,7 @@ class CreateRegistryAndNoShelvableAlarm(RequestAPIAuthTestCase, TestCase):
         # Arrange
         AlarmConnector_shelve_alarm.return_value = -1
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
@@ -821,11 +796,6 @@ class CreateRegistryAndAlreadyShelvedAlarm(RequestAPIAuthTestCase, TestCase):
             'message': self.message,
             'timeout': '3:16:13'
         }
-        self.request_setup = {
-            'method': 'post',
-            'url': reverse('shelveregistry-list'),
-            'data': self.new_reg_data
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
@@ -837,6 +807,11 @@ class CreateRegistryAndAlreadyShelvedAlarm(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-list')
+        data = self.new_reg_data
+        return client.post(url, data, format='json')
+
     @mock.patch('tickets.connectors.AlarmConnector.shelve_alarm')
     def test_api_cannot_create_registry_for_already_shelved_alarm(
         self, AlarmConnector_shelve_alarm
@@ -846,7 +821,7 @@ class CreateRegistryAndAlreadyShelvedAlarm(RequestAPIAuthTestCase, TestCase):
         # Arrange
         AlarmConnector_shelve_alarm.return_value = 0
         # Act:
-        self.response = self.call_api_request_from_client(
+        self.response = self.target_request_from_client(
             self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
@@ -890,18 +865,10 @@ class UnshelveMultipleRegistries(RequestAPIAuthTestCase, TestCase):
             message=self.message,
             timeout=datetime.timedelta(hours=2)
         )
-        alarms_to_unshelve = ['alarm_1', 'alarm_2', 'alarm_3']
-        self.request_setup = {
-            'method': 'get',
-            'url': reverse('shelveregistry-unshelve'),
-            'data': {
-                'alarms_ids': alarms_to_unshelve
-            }
-        }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
             permissions=[
-                Permission.objects.get(codename='view_shelveregistry'),
+                Permission.objects.get(codename='unshelve_shelveregistry'),
             ])
         self.authenticated_authorized_client = APIClient()
         self.authenticate_client_using_token(
@@ -909,54 +876,62 @@ class UnshelveMultipleRegistries(RequestAPIAuthTestCase, TestCase):
             Token.objects.get(user__username=self.authorized_user.username)
         )
 
-        @mock.patch('tickets.connectors.AlarmConnector.unshelve_alarms')
-        def test_api_can_unshelve_multiple_registries(
-            self, AlarmConnector_unshelve_alarms
-        ):
-            """ Test that the api can unshelve multiple ununshelved
-                registries for an authorized user """
-            # Arrange
-            expected_unshelved_alarms = ['alarm_1', 'alarm_3']
-            # Act:
-            self.response = self.call_api_request_from_client(
-                self.authenticated_authorized_client)
-            # Assert:
-            self.assertEqual(
-                self.response.status_code,
-                status.HTTP_200_OK,
-                'The status of the response is incorrect'
-            )
-            self.assertEqual(
-                self.response.data,
-                expected_unshelved_alarms,
-                'The response is not as expected'
-            )
-            unshelved_registries = [
-                ShelveRegistry.objects.get(pk=self.registry_1.pk),
-                ShelveRegistry.objects.get(pk=self.registry_3.pk)
-            ]
-            expected_status = int(
-                ShelveRegistryStatus.get_choices_by_name()['UNSHELVED']
-            )
-            self.assertTrue(
-                unshelved_registries[0].status == expected_status and
-                unshelved_registries[1].status == expected_status,
-                'The registries were not correctly unshelved'
-            )
-            self.assertNotEqual(
-                unshelved_registries[0].unshelved_at, None,
-                'The first registry unshelving time was not correctly recorded'
-            )
-            self.assertNotEqual(
-                unshelved_registries[1].unshelved_at, None,
-                """ The second registry unshelving time
-                    was not correctly recorded
-                """
-            )
-            self.assertTrue(
-                AlarmConnector_unshelve_alarms.called,
-                'The alarm connector unshelve method should have been called'
-            )
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-unshelve')
+        alarms_to_unshelve = ['alarm_1', 'alarm_2', 'alarm_3']
+        data = {
+            'alarms_ids': alarms_to_unshelve
+        }
+        return client.put(url, data, format='json')
+
+    @mock.patch('tickets.connectors.AlarmConnector.unshelve_alarms')
+    def test_api_can_unshelve_multiple_registries(
+        self, AlarmConnector_unshelve_alarms
+    ):
+        """ Test that the api can unshelve multiple ununshelved
+            registries for an authorized user """
+        # Arrange
+        expected_unshelved_alarms = ['alarm_1', 'alarm_3']
+        # Act:
+        self.response = self.target_request_from_client(
+            self.authenticated_authorized_client)
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_200_OK,
+            'The status of the response is incorrect'
+        )
+        self.assertEqual(
+            self.response.data,
+            expected_unshelved_alarms,
+            'The response is not as expected'
+        )
+        unshelved_registries = [
+            ShelveRegistry.objects.get(pk=self.registry_1.pk),
+            ShelveRegistry.objects.get(pk=self.registry_3.pk)
+        ]
+        expected_status = int(
+            ShelveRegistryStatus.get_choices_by_name()['UNSHELVED']
+        )
+        self.assertTrue(
+            unshelved_registries[0].status == expected_status and
+            unshelved_registries[1].status == expected_status,
+            'The registries were not correctly unshelved'
+        )
+        self.assertNotEqual(
+            unshelved_registries[0].unshelved_at, None,
+            'The first registry unshelving time was not correctly recorded'
+        )
+        self.assertNotEqual(
+            unshelved_registries[1].unshelved_at, None,
+            """ The second registry unshelving time
+                was not correctly recorded
+            """
+        )
+        self.assertTrue(
+            AlarmConnector_unshelve_alarms.called,
+            'The alarm connector unshelve method should have been called'
+        )
 
 
 class ApiCanCheckTimeouts(APITestBase, TestCase):
@@ -980,13 +955,13 @@ class ApiCanCheckTimeouts(APITestBase, TestCase):
             message=self.message,
             timeout=datetime.timedelta(hours=2)
         )
-        self.request_setup = {
-            'method': 'put',
-            'url': reverse('shelveregistry-check-timeouts'),
-        }
         self.nopermissions_user = self.create_user(
             username='user', password='123', permissions=[])
         self.unauthenticated_client = APIClient()
+
+    def target_request_from_client(self, client):
+        url = reverse('shelveregistry-check-timeouts')
+        return client.put(url, format='json')
 
     @mock.patch('tickets.connectors.AlarmConnector.unshelve_alarms')
     def test_api_can_check_timeouts_for_an_unauthenticated_client(
@@ -1020,7 +995,7 @@ class ApiCanCheckTimeouts(APITestBase, TestCase):
 
         # Act:
         with freeze_time(checking_time):
-            self.response = self.call_api_request_from_client(
+            self.response = self.target_request_from_client(
                 self.unauthenticated_client)
 
         # Assert:
