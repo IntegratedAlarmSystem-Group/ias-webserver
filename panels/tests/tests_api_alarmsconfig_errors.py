@@ -11,7 +11,7 @@ from panels.models import (
 )
 
 
-class AlarmConfigApiErrorResponsesTestCase(TestCase):
+class AlarmConfigApiErrorResponsesTestCaseForAuthorizedUser(TestCase):
     """ Test suite for the error responses in case of bad configuration """
 
     def setUp(self):
@@ -21,6 +21,7 @@ class AlarmConfigApiErrorResponsesTestCase(TestCase):
             name="placemark_1",
             type=self.placemark_type
         )
+        self.client = APIClient()
 
     def test_api_weather_config_response_errors(self):
         """ Test that the api return error code if there is no weather data """
