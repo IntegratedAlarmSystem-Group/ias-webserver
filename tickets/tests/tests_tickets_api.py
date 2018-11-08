@@ -2,11 +2,122 @@ import mock
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User, Permission
+from django.contrib.contenttypes.models import ContentType
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
 from tickets.models import Ticket, TicketStatus
 from tickets.serializers import TicketSerializer
+
+
+class APITestBase:
+
+    def create_user(self, **kwargs):
+        """ Creates a user with selected permissions """
+        permissions = kwargs.get('permissions', [])
+        username = kwargs.get('username', 'user')
+        pwd = kwargs.get('password', 'pwd')
+        email = 'user@user.cl'
+        user = User.objects.create_user(username, password=pwd, email=email)
+        for permission in permissions:
+            user.user_permissions.add(permission)
+        return user
+
+    def authenticate_client_using_token(self, client, token):
+        """ Authenticates a selected API Client using a related User token """
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+
+class CreateTicketTestCase(APITestBase, TestCase):
+    """Test suite to test the creation permissions of tickets using the api."""
+
+    def setUp(self):
+        """Define the test suite setup."""
+        self.unauthorized_user = self.create_user(
+            username='user', password='123',
+            permissions=[])
+        self.unauthenticated_client = APIClient()
+        self.authentication_user = self.create_user(
+            username='to_be_authenticated', password='123',
+            permissions=[])
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client,
+            Token.objects.get(user__username=self.authentication_user.username)
+        )
+        self.authenticated_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('ticket-list')
+        data = {
+            'alarm_id': 'alarm_1',
+            'message': 'Action message'
+        }
+        return client.post(url, data, format='json')
+
+    def test_ticket_should_not_have_and_add_default_permission(self):
+        """ Should not be permissions to add tickets using the api """
+        self.assertTrue(
+            'add' not in Ticket._meta.default_permissions,
+            'Should not be an add permission by default for the Ticket model')
+
+    def test_unavailable_add_ticket_permission_for_the_users(self):
+        """ Should not be permissions for the users """
+        self.assertEqual(
+            Permission.objects.filter(codename='add_ticket').count(),
+            0,
+            'Should not be an add permission available for the users')
+
+    def test_api_should_always_unallow_the_create_permission(self):
+        """ Should not be allowed to add tickets using the api """
+        # Arrange:
+        content_type = ContentType.objects.get_for_model(Ticket)
+        unexpected_add_permission = Permission.objects.create(
+            content_type=content_type, codename='add_ticket')
+        unexpected_user = self.create_user(
+            username='unexpected_user', password='123',
+            permissions=[
+                unexpected_add_permission
+            ])
+        unexpected_client = APIClient()
+        self.authenticate_client_using_token(
+            unexpected_client,
+            Token.objects.get(user__username=unexpected_user.username)
+        )
+        # Act:
+        self.response = self.target_request_from_client(unexpected_client)
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            'The create request should not be allowed from the API'
+        )
+
+    def test_api_cannot_create_tickets_for_an_unauthenticated_user(self):
+        """ Test that an unauthenticated user can not use the request """
+        # Act:
+        self.response = self.target_request_from_client(
+            self.unauthenticated_client
+        )
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            'The request should not be allowed for an unauthenticated user'
+        )
+
+    def test_api_cannot_create_tickets_for_an_authenticated_user(self):
+        """ Test that an authenticated user can not use the request """
+        # Act:
+        self.response = self.target_request_from_client(
+            self.authenticated_client
+        )
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            'The request should not be allowed for an authenticated user'
+        )
 
 
 class TicketsApiTestCase(TestCase):

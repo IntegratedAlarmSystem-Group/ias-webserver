@@ -7,13 +7,13 @@ from utils.choice_enum import ChoiceEnum
 logger = logging.getLogger(__name__)
 
 
-PERMISSIONS = ('add', 'change', 'delete', 'view')
+PERMISSIONS = ('change', 'delete', 'view')
 """ Models Permissions """
 
 ACK_TICKET_PERMISSIONS = PERMISSIONS + ('acknowledge',)
 """ Ack ticket permissions """
 
-SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('unshelve',)
+SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('add', 'unshelve',)
 """ Shelve registry permissions """
 
 
@@ -135,6 +135,10 @@ class Ticket(models.Model):
     @staticmethod
     def has_acknowledge_permission(request):
         return request.user.has_perm('tickets.acknowledge_ticket')
+
+    @staticmethod
+    def has_create_permission(request):
+        return False
 
 
 class ShelveRegistryStatus(ChoiceEnum):
