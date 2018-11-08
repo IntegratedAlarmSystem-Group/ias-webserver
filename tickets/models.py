@@ -13,7 +13,7 @@ PERMISSIONS = ('add', 'change', 'delete', 'view')
 ACK_TICKET_PERMISSIONS = PERMISSIONS + ('acknowledge',)
 """ Ack ticket permissions """
 
-SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('shelve',)
+SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('shelve', 'unshelve',)
 """ Shelve registry permissions """
 
 
@@ -239,6 +239,10 @@ class ShelveRegistry(models.Model):
 
     def has_object_destroy_permission(self, request):
         return request.user.has_perm('tickets.delete_shelveregistry')
+
+    @staticmethod
+    def has_unshelve_permission(request):
+        return request.user.has_perm('tickets.unshelve_shelveregistry')
 
     @staticmethod
     def has_check_timeouts_permission(request):
