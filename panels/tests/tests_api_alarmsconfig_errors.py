@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APIClient
+from rest_framework.authtoken.models import Token
 from panels.models import (
     AlarmConfig,
     View,
@@ -11,7 +13,25 @@ from panels.models import (
 )
 
 
-class AlarmConfigApiErrorResponsesTestCaseForAuthorizedUser(TestCase):
+class APITestBase:
+
+    def create_user(self, **kwargs):
+        """ Creates a user with selected permissions """
+        permissions = kwargs.get('permissions', [])
+        username = kwargs.get('username', 'user')
+        pwd = kwargs.get('password', 'pwd')
+        email = 'user@user.cl'
+        user = User.objects.create_user(username, password=pwd, email=email)
+        for permission in permissions:
+            user.user_permissions.add(permission)
+        return user
+
+    def authenticate_client_using_token(self, client, token):
+        """ Authenticates a selected API Client using a related User token """
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+
+class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
     """ Test suite for the error responses in case of bad configuration """
 
     def setUp(self):
@@ -21,7 +41,14 @@ class AlarmConfigApiErrorResponsesTestCaseForAuthorizedUser(TestCase):
             name="placemark_1",
             type=self.placemark_type
         )
-        self.client = APIClient()
+        self.no_permissions_user = self.create_user(
+            username='user', password='123', permissions=[])
+        self.authenticated_client = APIClient()
+        self.authenticate_client_using_token(
+            self.authenticated_client,
+            Token.objects.get(user__username=self.no_permissions_user)
+        )
+        self.client = self.authenticated_client
 
     def test_api_weather_config_response_errors(self):
         """ Test that the api return error code if there is no weather data """
