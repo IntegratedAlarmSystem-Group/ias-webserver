@@ -70,6 +70,13 @@
     }
   },
   {
+    "model": "panels.type",
+    "pk": 11,
+    "fields": {
+      "name": "health"
+    }
+  },
+  {
     "model": "panels.view",
     "pk": 1,
     "fields": {
@@ -4333,5 +4340,14 @@
       "type": 10,
       "parent": 89
     }
-  }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 421,
+    "fields": {
+      "alarm_id": "Ias-Health",
+      "view": 3,
+      "type": 11
+    }
+  },
 ]

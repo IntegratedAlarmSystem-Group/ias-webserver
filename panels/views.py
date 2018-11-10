@@ -204,6 +204,26 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+    @action(detail=False)
+    def ias_health_summary_config(self, request):
+        """ Retrieve the configuration used in the antennas summary display """
+
+        summary_alarm = self.queryset.filter(
+            view__name="summary",
+            type__name="health"
+        )
+
+        if not summary_alarm:
+            logger.warning(
+                'there is no configuration for ias health summary (main view)'
+            )
+            return Response(
+                'There is no configuration for ias health summary',
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        return Response(summary_alarm[0].alarm_id)
+
 
 class PlacemarkViewSet(viewsets.ModelViewSet):
     """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Files."""
