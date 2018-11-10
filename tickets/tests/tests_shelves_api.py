@@ -277,7 +277,8 @@ class ShelveRegistrysApiTestCase(TestCase):
         # Arrange
         new_reg_data = {
             'alarm_id': self.registry_1.alarm_id,
-            'message': ''
+            'message': '',
+            'user': self.registry_1.user
         }
         # Act:
         url = reverse(
@@ -286,7 +287,7 @@ class ShelveRegistrysApiTestCase(TestCase):
         )
         self.response = self.client.put(url, new_reg_data, format='json')
         # Assert:
-        udated_reg = ShelveRegistry.objects.get(
+        updated_reg = ShelveRegistry.objects.get(
             alarm_id=self.registry_1.alarm_id
         )
         self.assertEqual(
@@ -296,12 +297,14 @@ class ShelveRegistrysApiTestCase(TestCase):
         )
         self.assertEqual(
             {
-                'alarm_id': udated_reg.alarm_id,
-                'message': udated_reg.message
+                'alarm_id': updated_reg.alarm_id,
+                'message': updated_reg.message,
+                'user': updated_reg.user
             },
             {
                 'alarm_id': self.registry_1.alarm_id,
-                'message': self.registry_1.message
+                'message': self.registry_1.message,
+                'user': self.registry_1.user
             },
             'The the registry was updated with an empty message'
         )
