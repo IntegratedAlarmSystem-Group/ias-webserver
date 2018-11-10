@@ -240,7 +240,8 @@ class ShelveRegistrysApiTestCase(TestCase):
         # Arrange
         new_reg_data = {
             'alarm_id': self.registry_1.alarm_id,
-            'message': 'Another message'
+            'message': 'Another message',
+            'user': self.registry_1.user
         }
         # Act:
         url = reverse(
@@ -258,7 +259,9 @@ class ShelveRegistrysApiTestCase(TestCase):
             'The server did not update the registry'
         )
         self.assertEqual(
-            {'alarm_id': updated_reg.alarm_id, 'message': updated_reg.message},
+            {'alarm_id': updated_reg.alarm_id,
+             'message': updated_reg.message,
+             'user': updated_reg.user},
             new_reg_data,
             'The updated registry does not match the data sent in the request'
         )
