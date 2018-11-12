@@ -32,12 +32,12 @@ class APITestBase:
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
 
-class AlarmConfigApiTestCase(APITestBase, TestCase):
-    """Test suite for the AlarmConfig api views."""
+class TestAlarmsConfigSetUp:
+    """Class to manage the common setup for testing."""
 
-    def setUp(self):
-        # Arrange:
-        """Define the test suite setup"""
+    def setAlarmsConfig(self):
+        """ Method to set the alarms config for testing """
+
         self.temperature_type = Type.objects.create(name='temperature')
         self.humidity_type = Type.objects.create(name='humidity')
         self.windspeed_type = Type.objects.create(name='windspeed')
@@ -219,6 +219,16 @@ class AlarmConfigApiTestCase(APITestBase, TestCase):
                 type=self.windspeed_type
             )
         ]
+
+
+class AlarmConfigApiTestCase(APITestBase, TestAlarmsConfigSetUp, TestCase):
+    """Test suite for the AlarmConfig api views."""
+
+    def setUp(self):
+        # Arrange:
+        """Define the test suite setup"""
+
+        self.setAlarmsConfig()
 
         self.old_count = AlarmConfig.objects.count()
         self.no_permissions_user = self.create_user(
