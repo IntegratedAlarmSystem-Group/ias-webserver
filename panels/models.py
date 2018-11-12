@@ -76,6 +76,14 @@ class Placemark(models.Model):
         null=True, blank=True
     )
 
+    class Meta:
+        default_permissions = PERMISSIONS
+    """ Additional options for the model """
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('panels.view_placemark')
+
 
 class View(models.Model):
     """ Available Views """
