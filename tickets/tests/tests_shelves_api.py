@@ -41,31 +41,7 @@ class APITestBase:
         )
 
 
-class RequestAPIAuthTestCase(APITestBase):
-    """ Base test case for a request with auth conditions """
-
-    def test_api_cannot_allow_request_for_unauthenticated_user(self):
-        """ The request should not be allowed for an unauthenticated user """
-        client = self.unauthenticated_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_401_UNAUTHORIZED,
-            "Request not allowed for an unauthenticated user"
-        )
-
-    def test_api_cannot_allow_request_for_unauthorized_user(self):
-        """ The request should not be allowed for an unauthorized user """
-        client = self.authenticated_unauthorized_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_403_FORBIDDEN,
-            "Request not allowed for an unauthorized user"
-        )
-
-
-class RetrieveRegistry(RequestAPIAuthTestCase, TestCase):
+class RetrieveRegistry(APITestBase, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
@@ -110,8 +86,28 @@ class RetrieveRegistry(RequestAPIAuthTestCase, TestCase):
             ShelveRegistrySerializer(expected_reg).data
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class ListRegistry(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class ListRegistry(APITestBase, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
@@ -176,8 +172,28 @@ class ListRegistry(RequestAPIAuthTestCase, TestCase):
             'The retrieved registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class UpdateRegistry(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class UpdateRegistry(APITestBase, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
@@ -234,8 +250,28 @@ class UpdateRegistry(RequestAPIAuthTestCase, TestCase):
             'The response does not match the updated registry'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class UpdateRegistryWithoutMessage(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class UpdateRegistryWithoutMessage(APITestBase, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
@@ -293,8 +329,28 @@ class UpdateRegistryWithoutMessage(RequestAPIAuthTestCase, TestCase):
             'The the registry was updated with an empty message'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class DeleteRegistry(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class DeleteRegistry(APITestBase, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
@@ -337,8 +393,28 @@ class DeleteRegistry(RequestAPIAuthTestCase, TestCase):
         )
         self.assertEqual(retrieved_reg, [], 'The registry was not deleted')
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class FilterRegistryForAlarmAndShelvedCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class FilterRegistryForAlarmAndShelvedCase(APITestBase, TestCase):
 
     def setUp(self):
         self._setup_common_users_and_clients()
@@ -407,8 +483,28 @@ class FilterRegistryForAlarmAndShelvedCase(RequestAPIAuthTestCase, TestCase):
             'The retrieved filtered registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class FilterRegistryForAlarmAndUnshelvedCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class FilterRegistryForAlarmAndUnshelvedCase(APITestBase, TestCase):
 
     def setUp(self):
         self._setup_common_users_and_clients()
@@ -477,8 +573,28 @@ class FilterRegistryForAlarmAndUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             'The retrieved filtered registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class FilterRegistryForShelvedCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class FilterRegistryForShelvedCase(APITestBase, TestCase):
 
     def setUp(self):
         self._setup_common_users_and_clients()
@@ -542,8 +658,28 @@ class FilterRegistryForShelvedCase(RequestAPIAuthTestCase, TestCase):
             'The retrieved filtered registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class FilterRegistryForUnshelvedCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class FilterRegistryForUnshelvedCase(APITestBase, TestCase):
 
     def setUp(self):
         self._setup_common_users_and_clients()
@@ -607,8 +743,28 @@ class FilterRegistryForUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             'The retrieved filtered registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class CreateRegistry(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class CreateRegistry(APITestBase, TestCase):
 
     def setUp(self):
         self._setup_common_users_and_clients()
@@ -671,8 +827,28 @@ class CreateRegistry(RequestAPIAuthTestCase, TestCase):
             'The alarm connector shelve method should have been called'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class CreateRegistryWithNoMessageCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class CreateRegistryWithNoMessageCase(APITestBase, TestCase):
 
     def setUp(self):
         self._setup_common_users_and_clients()
@@ -728,8 +904,28 @@ class CreateRegistryWithNoMessageCase(RequestAPIAuthTestCase, TestCase):
             'The alarm connector unshelve method should have been called'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class CreateRegistryAndNoShelvableAlarm(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class CreateRegistryAndNoShelvableAlarm(APITestBase, TestCase):
 
     def setUp(self):
         self._setup_common_users_and_clients()
@@ -785,8 +981,28 @@ class CreateRegistryAndNoShelvableAlarm(RequestAPIAuthTestCase, TestCase):
             'The alarm connector shelve method should have been called'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class CreateRegistryAndAlreadyShelvedAlarm(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class CreateRegistryAndAlreadyShelvedAlarm(APITestBase, TestCase):
 
     def setUp(self):
         self._setup_common_users_and_clients()
@@ -842,8 +1058,28 @@ class CreateRegistryAndAlreadyShelvedAlarm(RequestAPIAuthTestCase, TestCase):
             'The alarm connector shelve method should have been called'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class UnshelveMultipleRegistries(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class UnshelveMultipleRegistries(APITestBase, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
@@ -931,6 +1167,26 @@ class UnshelveMultipleRegistries(RequestAPIAuthTestCase, TestCase):
         self.assertTrue(
             AlarmConnector_unshelve_alarms.called,
             'The alarm connector unshelve method should have been called'
+        )
+
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
+
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
         )
 
 
