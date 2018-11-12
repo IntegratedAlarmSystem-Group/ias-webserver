@@ -29,7 +29,11 @@ class APITestBase:
         """ Authenticates a selected API Client using a related User token """
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
-    def _setup_common_users_and_clients(self):
+
+class ShelveRegistryTestSetup:
+    """Class to manage the common setup for testing."""
+
+    def setupCommonUsersAndClients(self):
         """ Add unauthenticated and unauthorized users """
         self.unauthorized_user = self.create_user(
             username='user', password='123', permissions=[])
@@ -41,11 +45,11 @@ class APITestBase:
         )
 
 
-class RetrieveRegistry(APITestBase, TestCase):
+class RetrieveRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message='Shelved because of reasons',
@@ -107,11 +111,11 @@ class RetrieveRegistry(APITestBase, TestCase):
         )
 
 
-class ListRegistry(APITestBase, TestCase):
+class ListRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
@@ -193,11 +197,11 @@ class ListRegistry(APITestBase, TestCase):
         )
 
 
-class UpdateRegistry(APITestBase, TestCase):
+class UpdateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message='Shelve because of reasons'
@@ -271,11 +275,13 @@ class UpdateRegistry(APITestBase, TestCase):
         )
 
 
-class UpdateRegistryWithoutMessage(APITestBase, TestCase):
+class UpdateRegistryWithoutMessage(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message='Shelve because of reasons'
@@ -350,11 +356,11 @@ class UpdateRegistryWithoutMessage(APITestBase, TestCase):
         )
 
 
-class DeleteRegistry(APITestBase, TestCase):
+class DeleteRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message='Shelve because of reasons'
@@ -414,10 +420,12 @@ class DeleteRegistry(APITestBase, TestCase):
         )
 
 
-class FilterRegistryForAlarmAndShelvedCase(APITestBase, TestCase):
+class FilterRegistryForAlarmAndShelvedCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
@@ -504,10 +512,12 @@ class FilterRegistryForAlarmAndShelvedCase(APITestBase, TestCase):
         )
 
 
-class FilterRegistryForAlarmAndUnshelvedCase(APITestBase, TestCase):
+class FilterRegistryForAlarmAndUnshelvedCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
@@ -594,10 +604,12 @@ class FilterRegistryForAlarmAndUnshelvedCase(APITestBase, TestCase):
         )
 
 
-class FilterRegistryForShelvedCase(APITestBase, TestCase):
+class FilterRegistryForShelvedCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
@@ -679,10 +691,12 @@ class FilterRegistryForShelvedCase(APITestBase, TestCase):
         )
 
 
-class FilterRegistryForUnshelvedCase(APITestBase, TestCase):
+class FilterRegistryForUnshelvedCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
@@ -764,10 +778,10 @@ class FilterRegistryForUnshelvedCase(APITestBase, TestCase):
         )
 
 
-class CreateRegistry(APITestBase, TestCase):
+class CreateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
@@ -848,10 +862,12 @@ class CreateRegistry(APITestBase, TestCase):
         )
 
 
-class CreateRegistryWithNoMessageCase(APITestBase, TestCase):
+class CreateRegistryWithNoMessageCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
         }
@@ -925,10 +941,12 @@ class CreateRegistryWithNoMessageCase(APITestBase, TestCase):
         )
 
 
-class CreateRegistryAndNoShelvableAlarm(APITestBase, TestCase):
+class CreateRegistryAndNoShelvableAlarm(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
@@ -1002,10 +1020,12 @@ class CreateRegistryAndNoShelvableAlarm(APITestBase, TestCase):
         )
 
 
-class CreateRegistryAndAlreadyShelvedAlarm(APITestBase, TestCase):
+class CreateRegistryAndAlreadyShelvedAlarm(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
@@ -1079,11 +1099,13 @@ class CreateRegistryAndAlreadyShelvedAlarm(APITestBase, TestCase):
         )
 
 
-class UnshelveMultipleRegistries(APITestBase, TestCase):
+class UnshelveMultipleRegistries(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
@@ -1190,7 +1212,9 @@ class UnshelveMultipleRegistries(APITestBase, TestCase):
         )
 
 
-class ApiCanCheckTimeouts(APITestBase, TestCase):
+class ApiCanCheckTimeouts(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
         """ Define the test suite setup """
