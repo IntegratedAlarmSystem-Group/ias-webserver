@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from dry_rest_permissions.generics import DRYPermissions
 from panels.models import (
     File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
 from panels.serializers import FileSerializer, AlarmConfigSerializer
@@ -44,6 +45,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
     views = View.objects.all()
     types = Type.objects.all()
     serializer_class = AlarmConfigSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def weather_config(self, request):

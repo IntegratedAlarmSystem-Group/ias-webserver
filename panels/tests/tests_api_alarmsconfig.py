@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
@@ -32,10 +32,10 @@ class APITestBase:
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
 
-class TestAlarmsConfigSetUp:
+class AlarmsConfigTestSetUp:
     """Class to manage the common setup for testing."""
 
-    def setAlarmsConfig(self):
+    def setTestAlarmsConfig(self):
         """ Method to set the alarms config for testing """
 
         self.temperature_type = Type.objects.create(name='temperature')
@@ -220,25 +220,43 @@ class TestAlarmsConfigSetUp:
             )
         ]
 
+    def setCommonUsersAndClients(self):
+        """ Add unauthenticated and unauthorized users """
+        self.unauthorized_user = self.create_user(
+            username='user', password='123', permissions=[])
+        self.unauthenticated_client = APIClient()
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client,
+            Token.objects.get(user__username=self.unauthorized_user.username)
+        )
+        self.authenticated_unauthorized_client = client
 
-class AlarmConfigApiTestCase(APITestBase, TestAlarmsConfigSetUp, TestCase):
-    """Test suite for the AlarmConfig api views."""
+
+class RetrieveWeatherConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
+    """Test suite to test a retrieve request for the weather config"""
 
     def setUp(self):
-        # Arrange:
         """Define the test suite setup"""
 
-        self.setAlarmsConfig()
+        self.setTestAlarmsConfig()
+        self.setCommonUsersAndClients()
 
-        self.old_count = AlarmConfig.objects.count()
-        self.no_permissions_user = self.create_user(
-            username='user', password='123', permissions=[])
-        self.authenticated_client = APIClient()
+        self.authorized_user = self.create_user(
+            username='authorized', password='123',
+            permissions=[
+                Permission.objects.get(codename='view_alarmconfig'),
+            ])
+        client = APIClient()
         self.authenticate_client_using_token(
-            self.authenticated_client,
-            Token.objects.get(user__username=self.no_permissions_user)
+            client,
+            Token.objects.get(user__username=self.authorized_user.username)
         )
-        self.client = self.authenticated_client
+        self.authenticated_authorized_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('alarmconfig-weather-config')
+        return client.get(url, format='json')
 
     def test_api_can_get_weather_config(self):
         """ Test that the api can retrieve a correct json"""
@@ -261,10 +279,9 @@ class AlarmConfigApiTestCase(APITestBase, TestAlarmsConfigSetUp, TestCase):
                 'humidity': 'humidity_alarm_2',
             },
         ]
-
         # Act:
-        url = reverse('alarmconfig-weather-config')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(
+            self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -276,6 +293,124 @@ class AlarmConfigApiTestCase(APITestBase, TestAlarmsConfigSetUp, TestCase):
             expected_data,
             'The information retrieved is different to the expected one'
         )
+
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
+
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class RetrieveWeatherSummary(APITestBase, AlarmsConfigTestSetUp, TestCase):
+    """Test suite to test a retrieve for the weather summary"""
+
+    def setUp(self):
+        """Define the test suite setup"""
+
+        self.setTestAlarmsConfig()
+        self.setCommonUsersAndClients()
+
+        self.authorized_user = self.create_user(
+            username='authorized', password='123',
+            permissions=[
+                Permission.objects.get(codename='view_alarmconfig'),
+            ])
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client,
+            Token.objects.get(user__username=self.authorized_user.username)
+        )
+        self.authenticated_authorized_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('alarmconfig-weather-summary-config')
+        return client.get(url, format='json')
+
+    def test_api_can_get_weather_summary_config(self):
+        """ Test that the api can retrieve a correct json"""
+        # Arrange:
+        expected_data = {
+            "placemark": "",
+            "station": "",
+            "temperature": "weather_summary_temp",
+            "humidity": "weather_summary_hum",
+            "windspeed": "weather_summary_wind"
+        }
+
+        # Act:
+        response = self.target_request_from_client(
+            self.authenticated_authorized_client)
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'The server did not retrieve the information'
+        )
+        self.assertEqual(
+            response.data,
+            expected_data,
+            'The information retrieved is different to the expected one'
+        )
+
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
+
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class RetrieveAntennasConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
+    """Test suite to tes a retreive request for the antennas config"""
+
+    def setUp(self):
+        """Define the test suite setup"""
+
+        self.setTestAlarmsConfig()
+        self.setCommonUsersAndClients()
+
+        self.authorized_user = self.create_user(
+            username='authorized', password='123',
+            permissions=[
+                Permission.objects.get(codename='view_alarmconfig'),
+            ])
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client,
+            Token.objects.get(user__username=self.authorized_user.username)
+        )
+        self.authenticated_authorized_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('alarmconfig-antennas-config')
+        return client.get(url, format='json')
 
     def test_api_can_get_antennas_config(self):
         """ Test that the api can retrieve a correct json"""
@@ -318,8 +453,8 @@ class AlarmConfigApiTestCase(APITestBase, TestAlarmsConfigSetUp, TestCase):
         }
 
         # Act:
-        url = reverse('alarmconfig-antennas-config')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(
+            self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -331,6 +466,54 @@ class AlarmConfigApiTestCase(APITestBase, TestAlarmsConfigSetUp, TestCase):
             expected_data,
             'The information retrieved is different to the expected one'
         )
+
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
+
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class RetreiveAntennasSummaryConfig(
+    APITestBase, AlarmsConfigTestSetUp, TestCase
+):
+    """Test suite to test a retreive request for the antennas summary"""
+
+    def setUp(self):
+        """Define the test suite setup"""
+
+        self.setTestAlarmsConfig()
+        self.setCommonUsersAndClients()
+
+        self.authorized_user = self.create_user(
+            username='authorized', password='123',
+            permissions=[
+                Permission.objects.get(codename='view_alarmconfig'),
+            ])
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client,
+            Token.objects.get(user__username=self.authorized_user.username)
+        )
+        self.authenticated_authorized_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('alarmconfig-antennas-summary-config')
+        return client.get(url, format='json')
 
     def test_api_can_get_antennas_summary_config(self):
         """ Test that the api can retrieve a correct json"""
@@ -338,8 +521,8 @@ class AlarmConfigApiTestCase(APITestBase, TestAlarmsConfigSetUp, TestCase):
         expected_data = "antennas_summary"
 
         # Act:
-        url = reverse('alarmconfig-antennas-summary-config')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(
+            self.authenticated_authorized_client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -352,28 +535,22 @@ class AlarmConfigApiTestCase(APITestBase, TestAlarmsConfigSetUp, TestCase):
             'The information retrieved is different to the expected one'
         )
 
-    def test_api_can_get_weather_summary_config(self):
-        """ Test that the api can retrieve a correct json"""
-        # Arrange:
-        expected_data = {
-            "placemark": "",
-            "station": "",
-            "temperature": "weather_summary_temp",
-            "humidity": "weather_summary_hum",
-            "windspeed": "weather_summary_wind"
-        }
-
-        # Act:
-        url = reverse('alarmconfig-weather-summary-config')
-        response = self.client.get(url, format='json')
-        # Assert:
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
         self.assertEqual(
-            response.status_code,
-            status.HTTP_200_OK,
-            'The server did not retrieve the information'
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
         )
+
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
         self.assertEqual(
-            response.data,
-            expected_data,
-            'The information retrieved is different to the expected one'
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
         )

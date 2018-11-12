@@ -3,6 +3,10 @@ from django.db import models
 from ias_webserver.settings import FILES_LOCATION
 
 
+PERMISSIONS = ('add', 'change', 'delete', 'view')
+""" Models Permissions """
+
+
 class File(models.Model):
     """ General purpose file """
 
@@ -129,10 +133,14 @@ class AlarmConfig(models.Model):
     """ Other custom data """
 
     class Meta:
-        """ Meta class of the AlarmConfig """
-
         unique_together = ("alarm_id", "view")
+        default_permissions = PERMISSIONS
+    """ Meta class of the AlarmConfig """
 
     def __str__(self):
         """ Return a string representation of the AlarmConfig """
         return str(self.view.name) + ": " + str(self.alarm_id)
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('panels.view_alarmconfig')
