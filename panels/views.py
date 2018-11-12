@@ -18,6 +18,7 @@ class FileViewSet(viewsets.ModelViewSet):
 
     queryset = File.objects.all()
     serializer_class = FileSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def get_json(self, request):

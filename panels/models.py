@@ -16,6 +16,10 @@ class File(models.Model):
     url = models.CharField(max_length=256)
     """ URL with the location of the File """
 
+    class Meta:
+        default_permissions = PERMISSIONS
+    """ Additional options for the model """
+
     def __str__(self):
         """ Return a string representation of the file """
         return str(self.key) + ':' + str(self.url)
@@ -34,6 +38,31 @@ class File(models.Model):
     @classmethod
     def _get_absolute_location(self):
         return os.path.join(os.getcwd(), FILES_LOCATION)
+
+    @staticmethod
+    def has_create_permission(request):
+        return request.user.has_perm('panels.add_file')
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('panels.view_file')
+
+    def has_object_read_permission(self, request):
+        return request.user.has_perm('panels.view_file')
+
+    @staticmethod
+    def has_update_permission(request):
+        return request.user.has_perm('panels.change_file')
+
+    def has_object_update_permission(self, request):
+        return request.user.has_perm('panels.change_file')
+
+    @staticmethod
+    def has_destroy_permission(request):
+        return request.user.has_perm('panels.delete_file')
+
+    def has_object_destroy_permission(self, request):
+        return request.user.has_perm('panels.delete_file')
 
 
 class PlacemarkType(models.Model):
