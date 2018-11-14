@@ -53,7 +53,8 @@ class RetrieveRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message='Shelved because of reasons',
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='test_user'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -120,18 +121,21 @@ class ListRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -204,11 +208,13 @@ class UpdateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
         self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
-            message='Shelve because of reasons'
+            message='Shelve because of reasons',
+            user='testuser'
         )
         self.new_reg_data = {
             'alarm_id': self.registry.alarm_id,
-            'message': 'Another message'
+            'message': 'Another message',
+            'user': self.registry.user
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -244,7 +250,9 @@ class UpdateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
             'The server did not update the registry'
         )
         self.assertEqual(
-            {'alarm_id': updated_reg.alarm_id, 'message': updated_reg.message},
+            {'alarm_id': updated_reg.alarm_id,
+             'message': updated_reg.message,
+             'user': updated_reg.user},
             self.new_reg_data,
             'The updated registry does not match the data sent in the request'
         )
@@ -284,11 +292,13 @@ class UpdateRegistryWithoutMessage(
         self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
-            message='Shelve because of reasons'
+            message='Shelve because of reasons',
+            user='testuser'
         )
         self.new_reg_data = {
             'alarm_id': self.registry.alarm_id,
-            'message': ''
+            'message': '',
+            'user': self.registry.user
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -363,7 +373,8 @@ class DeleteRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
         self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
-            message='Shelve because of reasons'
+            message='Shelve because of reasons',
+            user='usertest'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -430,23 +441,27 @@ class FilterRegistryForAlarmAndShelvedCase(
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.new_registry_2 = ShelveRegistry.objects.create(
             alarm_id=self.registry_2.alarm_id,
             message='New message',
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user=self.registry_2.user
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -522,22 +537,26 @@ class FilterRegistryForAlarmAndUnshelvedCase(
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.new_registry_2 = ShelveRegistry.objects.create(
             alarm_id=self.registry_2.alarm_id,
-            message='New message'
+            message='New message',
+            user=self.registry_2.user
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -614,18 +633,21 @@ class FilterRegistryForShelvedCase(
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -701,18 +723,21 @@ class FilterRegistryForUnshelvedCase(
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -779,6 +804,7 @@ class FilterRegistryForUnshelvedCase(
 
 
 class CreateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
+    """Test suite to test the create request"""
 
     def setUp(self):
         self.setupCommonUsersAndClients()
@@ -786,7 +812,8 @@ class CreateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
             'message': self.message,
-            'timeout': '3:16:13'
+            'timeout': '3:16:13',
+            'user': 'test_user'
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -825,6 +852,7 @@ class CreateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
             'alarm_id': created_reg.alarm_id,
             'message': created_reg.message,
             'timeout': str(created_reg.timeout),
+            'user': created_reg.user
         }
         self.assertEqual(
             retrieved_data,
@@ -865,11 +893,13 @@ class CreateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 class CreateRegistryWithNoMessageCase(
     APITestBase, ShelveRegistryTestSetup, TestCase
 ):
+    """Test suite to test the create request"""
 
     def setUp(self):
         self.setupCommonUsersAndClients()
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
+            'user': 'testuser'
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -951,7 +981,8 @@ class CreateRegistryAndNoShelvableAlarm(
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
             'message': self.message,
-            'timeout': '3:16:13'
+            'timeout': '3:16:13',
+            'user': 'testuser'
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -1030,7 +1061,8 @@ class CreateRegistryAndAlreadyShelvedAlarm(
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
             'message': self.message,
-            'timeout': '3:16:13'
+            'timeout': '3:16:13',
+            'user': 'testuser'
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -1110,18 +1142,21 @@ class UnshelveMultipleRegistries(
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -1222,18 +1257,21 @@ class ApiCanCheckTimeouts(
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.nopermissions_user = self.create_user(
             username='user', password='123', permissions=[])

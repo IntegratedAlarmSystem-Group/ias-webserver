@@ -37,7 +37,10 @@ class TicketsTestSetup:
 
         self.ticket_ack = Ticket(alarm_id='alarm_1')
         self.ticket_ack.save()
-        self.ticket_ack.acknowledge(message="Ticket was acknowledged")
+        self.ticket_ack.acknowledge(
+            message="Ticket was acknowledged",
+            user="testuser"
+        )
 
         self.ticket_cleared_unack = Ticket(alarm_id='alarm_1')
         self.ticket_cleared_unack.save()
@@ -527,6 +530,7 @@ class AcknowledgeAllTicketsByAlarm(
         self.alarms_to_ack = ['alarm_1']
         self.data = {
             'message': 'The ticket was acknowledged',
+            'user': 'testuser',
             'alarms_ids': self.alarms_to_ack
         }
 
@@ -645,6 +649,7 @@ class AcknowledgeTicketsRequestAndNoMessage(
         self.alarms_to_ack = ['alarm_1']
         self.data = {
             'message': ' ',
+            'user': 'testuser',
             'alarms_ids': self.alarms_to_ack
         }
 
@@ -742,6 +747,7 @@ class AcknowledgeMultipleTickets(
         self.alarms_to_ack = ['alarm_1', 'alarm_2']
         self.data = {
             'alarms_ids': self.alarms_to_ack,
+            'user': 'testuser',
             'message': 'The ticket was acknowledged'
         }
 
@@ -852,6 +858,7 @@ class AcknowledgeMultipleTicketsAndDependencies(
         self.alarms_to_ack = ['alarm_1', 'alarm_2']
         self.data = {
             'alarms_ids': self.alarms_to_ack,
+            'user': 'testuser',
             'message': 'The ticket was acknowledged'
         }
 
@@ -884,9 +891,6 @@ class AcknowledgeMultipleTicketsAndDependencies(
         """
         # Arrange
         alarms_and_dependency = self.alarms_to_ack + ['alarm_dependency']
-
-        # check conditions for an authorized user
-        # Arrange:
         AlarmConnector_acknowledge_alarms.return_value = alarms_and_dependency
         # Act:
         client = self.authenticated_authorized_client
