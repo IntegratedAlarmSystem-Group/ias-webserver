@@ -394,7 +394,7 @@ class RetrieveWeatherSummary(APITestBase, AlarmsConfigTestSetUp, TestCase):
 
 
 class RetrieveAntennasConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
-    """Test suite to tes a retreive request for the antennas config"""
+    """Test suite to tes a retrieve request for the antennas config"""
 
     def setUp(self):
         """Define the test suite setup"""
@@ -494,10 +494,10 @@ class RetrieveAntennasConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
         )
 
 
-class RetreiveAntennasSummaryConfig(
+class RetrieveAntennasSummaryConfig(
     APITestBase, AlarmsConfigTestSetUp, TestCase
 ):
-    """Test suite to test a retreive request for the antennas summary"""
+    """Test suite to test a retrieve request for the antennas summary"""
 
     def setUp(self):
         """Define the test suite setup"""
@@ -562,10 +562,10 @@ class RetreiveAntennasSummaryConfig(
         )
 
 
-class RetreiveHealthSummaryConfig(
+class RetrieveHealthSummaryConfig(
     APITestBase, AlarmsConfigTestSetUp, TestCase
 ):
-    """Test suite to test a retreive request for the health summary"""
+    """Test suite to test a retrieve request for the health summary"""
 
     def setUp(self):
         """Define the test suite setup"""
