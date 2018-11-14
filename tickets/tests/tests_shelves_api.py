@@ -29,7 +29,11 @@ class APITestBase:
         """ Authenticates a selected API Client using a related User token """
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
-    def _setup_common_users_and_clients(self):
+
+class ShelveRegistryTestSetup:
+    """Class to manage the common setup for testing."""
+
+    def setupCommonUsersAndClients(self):
         """ Add unauthenticated and unauthorized users """
         self.unauthorized_user = self.create_user(
             username='user', password='123', permissions=[])
@@ -41,39 +45,16 @@ class APITestBase:
         )
 
 
-class RequestAPIAuthTestCase(APITestBase):
-    """ Base test case for a request with auth conditions """
-
-    def test_api_cannot_allow_request_for_unauthenticated_user(self):
-        """ The request should not be allowed for an unauthenticated user """
-        client = self.unauthenticated_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_401_UNAUTHORIZED,
-            "Request not allowed for an unauthenticated user"
-        )
-
-    def test_api_cannot_allow_request_for_unauthorized_user(self):
-        """ The request should not be allowed for an unauthorized user """
-        client = self.authenticated_unauthorized_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_403_FORBIDDEN,
-            "Request not allowed for an unauthorized user"
-        )
-
-
-class RetrieveRegistry(RequestAPIAuthTestCase, TestCase):
+class RetrieveRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message='Shelved because of reasons',
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='test_user'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -110,28 +91,51 @@ class RetrieveRegistry(RequestAPIAuthTestCase, TestCase):
             ShelveRegistrySerializer(expected_reg).data
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class ListRegistry(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class ListRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -176,19 +180,41 @@ class ListRegistry(RequestAPIAuthTestCase, TestCase):
             'The retrieved registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class UpdateRegistry(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class UpdateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
-            message='Shelve because of reasons'
+            message='Shelve because of reasons',
+            user='testuser'
         )
         self.new_reg_data = {
             'alarm_id': self.registry.alarm_id,
-            'message': 'Another message'
+            'message': 'Another message',
+            'user': self.registry.user
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -224,7 +250,9 @@ class UpdateRegistry(RequestAPIAuthTestCase, TestCase):
             'The server did not update the registry'
         )
         self.assertEqual(
-            {'alarm_id': updated_reg.alarm_id, 'message': updated_reg.message},
+            {'alarm_id': updated_reg.alarm_id,
+             'message': updated_reg.message,
+             'user': updated_reg.user},
             self.new_reg_data,
             'The updated registry does not match the data sent in the request'
         )
@@ -234,19 +262,43 @@ class UpdateRegistry(RequestAPIAuthTestCase, TestCase):
             'The response does not match the updated registry'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class UpdateRegistryWithoutMessage(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class UpdateRegistryWithoutMessage(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
-            message='Shelve because of reasons'
+            message='Shelve because of reasons',
+            user='testuser'
         )
         self.new_reg_data = {
             'alarm_id': self.registry.alarm_id,
-            'message': ''
+            'message': '',
+            'user': self.registry.user
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -293,15 +345,36 @@ class UpdateRegistryWithoutMessage(RequestAPIAuthTestCase, TestCase):
             'The the registry was updated with an empty message'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class DeleteRegistry(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class DeleteRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.registry = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
-            message='Shelve because of reasons'
+            message='Shelve because of reasons',
+            user='usertest'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -337,32 +410,58 @@ class DeleteRegistry(RequestAPIAuthTestCase, TestCase):
         )
         self.assertEqual(retrieved_reg, [], 'The registry was not deleted')
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class FilterRegistryForAlarmAndShelvedCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class FilterRegistryForAlarmAndShelvedCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.new_registry_2 = ShelveRegistry.objects.create(
             alarm_id=self.registry_2.alarm_id,
             message='New message',
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user=self.registry_2.user
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -407,31 +506,57 @@ class FilterRegistryForAlarmAndShelvedCase(RequestAPIAuthTestCase, TestCase):
             'The retrieved filtered registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class FilterRegistryForAlarmAndUnshelvedCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class FilterRegistryForAlarmAndUnshelvedCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.new_registry_2 = ShelveRegistry.objects.create(
             alarm_id=self.registry_2.alarm_id,
-            message='New message'
+            message='New message',
+            user=self.registry_2.user
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -477,27 +602,52 @@ class FilterRegistryForAlarmAndUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             'The retrieved filtered registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class FilterRegistryForShelvedCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class FilterRegistryForShelvedCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -542,27 +692,52 @@ class FilterRegistryForShelvedCase(RequestAPIAuthTestCase, TestCase):
             'The retrieved filtered registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class FilterRegistryForUnshelvedCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class FilterRegistryForUnshelvedCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -607,16 +782,38 @@ class FilterRegistryForUnshelvedCase(RequestAPIAuthTestCase, TestCase):
             'The retrieved filtered registries do not match the expected ones'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class CreateRegistry(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class CreateRegistry(APITestBase, ShelveRegistryTestSetup, TestCase):
+    """Test suite to test the create request"""
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
             'message': self.message,
-            'timeout': '3:16:13'
+            'timeout': '3:16:13',
+            'user': 'test_user'
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -655,6 +852,7 @@ class CreateRegistry(RequestAPIAuthTestCase, TestCase):
             'alarm_id': created_reg.alarm_id,
             'message': created_reg.message,
             'timeout': str(created_reg.timeout),
+            'user': created_reg.user
         }
         self.assertEqual(
             retrieved_data,
@@ -671,13 +869,37 @@ class CreateRegistry(RequestAPIAuthTestCase, TestCase):
             'The alarm connector shelve method should have been called'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class CreateRegistryWithNoMessageCase(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class CreateRegistryWithNoMessageCase(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
+    """Test suite to test the create request"""
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
+            'user': 'testuser'
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -728,16 +950,39 @@ class CreateRegistryWithNoMessageCase(RequestAPIAuthTestCase, TestCase):
             'The alarm connector unshelve method should have been called'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class CreateRegistryAndNoShelvableAlarm(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class CreateRegistryAndNoShelvableAlarm(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
             'message': self.message,
-            'timeout': '3:16:13'
+            'timeout': '3:16:13',
+            'user': 'testuser'
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -785,16 +1030,39 @@ class CreateRegistryAndNoShelvableAlarm(RequestAPIAuthTestCase, TestCase):
             'The alarm connector shelve method should have been called'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class CreateRegistryAndAlreadyShelvedAlarm(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class CreateRegistryAndAlreadyShelvedAlarm(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.new_reg_data = {
             'alarm_id': 'alarm_4',
             'message': self.message,
-            'timeout': '3:16:13'
+            'timeout': '3:16:13',
+            'user': 'testuser'
         }
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -842,28 +1110,53 @@ class CreateRegistryAndAlreadyShelvedAlarm(RequestAPIAuthTestCase, TestCase):
             'The alarm connector shelve method should have been called'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class UnshelveMultipleRegistries(RequestAPIAuthTestCase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class UnshelveMultipleRegistries(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
         """ Define the test suite setup """
-        self._setup_common_users_and_clients()
+        self.setupCommonUsersAndClients()
         self.message = 'Shelved because of reasons'
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.authorized_user = self.create_user(
             username='authorized', password='123',
@@ -933,8 +1226,30 @@ class UnshelveMultipleRegistries(RequestAPIAuthTestCase, TestCase):
             'The alarm connector unshelve method should have been called'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
 
-class ApiCanCheckTimeouts(APITestBase, TestCase):
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class ApiCanCheckTimeouts(
+    APITestBase, ShelveRegistryTestSetup, TestCase
+):
 
     def setUp(self):
         """ Define the test suite setup """
@@ -942,18 +1257,21 @@ class ApiCanCheckTimeouts(APITestBase, TestCase):
         self.registry_1 = ShelveRegistry.objects.create(
             alarm_id='alarm_1',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2 = ShelveRegistry.objects.create(
             alarm_id='alarm_2',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.registry_2.unshelve()
         self.registry_3 = ShelveRegistry.objects.create(
             alarm_id='alarm_3',
             message=self.message,
-            timeout=datetime.timedelta(hours=2)
+            timeout=datetime.timedelta(hours=2),
+            user='testuser'
         )
         self.nopermissions_user = self.create_user(
             username='user', password='123', permissions=[])

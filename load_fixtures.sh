@@ -6,4 +6,4 @@ python manage.py migrate
 python manage.py loaddata panels/fixtures/panels.files.json
 python manage.py loaddata panels/fixtures/panels.alarm_config.json
 python manage.py loaddata panels/fixtures/panels.pad_placemarks.json
-echo "Fiished loading fixtures"
+echo "Finished loading fixtures"

@@ -4,9 +4,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from dry_rest_permissions.generics import DRYPermissions
 from panels.models import (
     File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
-from panels.serializers import FileSerializer, AlarmConfigSerializer
+from panels.serializers import (
+    FileSerializer, AlarmConfigSerializer, PlacemarkSerializer)
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +18,7 @@ class FileViewSet(viewsets.ModelViewSet):
 
     queryset = File.objects.all()
     serializer_class = FileSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def get_json(self, request):
@@ -44,6 +47,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
     views = View.objects.all()
     types = Type.objects.all()
     serializer_class = AlarmConfigSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def weather_config(self, request):
@@ -204,12 +208,34 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+    @action(detail=False)
+    def ias_health_summary_config(self, request):
+        """ Retrieve the configuration used in the antennas summary display """
+
+        summary_alarm = self.queryset.filter(
+            view__name="summary",
+            type__name="health"
+        )
+
+        if not summary_alarm:
+            logger.warning(
+                'there is no configuration for ias health summary (main view)'
+            )
+            return Response(
+                'There is no configuration for ias health summary',
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        return Response(summary_alarm[0].alarm_id)
+
 
 class PlacemarkViewSet(viewsets.ModelViewSet):
     """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Files."""
 
     queryset = Placemark.objects.all()
     groups = PlacemarkGroup.objects.all()
+    serializer_class = PlacemarkSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def pads_by_group(self, request):

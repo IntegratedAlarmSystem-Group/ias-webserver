@@ -7,13 +7,13 @@ from utils.choice_enum import ChoiceEnum
 logger = logging.getLogger(__name__)
 
 
-PERMISSIONS = ('add', 'change', 'delete', 'view')
+PERMISSIONS = ('change', 'delete', 'view')
 """ Models Permissions """
 
 ACK_TICKET_PERMISSIONS = PERMISSIONS + ('acknowledge',)
 """ Ack ticket permissions """
 
-SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('unshelve',)
+SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('add', 'unshelve',)
 """ Shelve registry permissions """
 
 
@@ -56,6 +56,9 @@ class Ticket(models.Model):
     message = models.CharField(max_length=256, null=True)
     """ Message posted when the ticket is closed """
 
+    user = models.CharField(max_length=150, null=True)
+    """ User that closes the ticket """
+
     status = models.IntegerField(
         choices=TicketStatus.options(),
         default=int(TicketStatus.get_choices_by_name()['UNACK']),
@@ -77,10 +80,11 @@ class Ticket(models.Model):
             'acknowledged_at': self.acknowledged_at,
             'alarm_id': self.alarm_id,
             'message': self.message,
-            'status': self.status
+            'status': self.status,
+            'user': self.user
         }
 
-    def acknowledge(self, message):
+    def acknowledge(self, message, user):
         """ Resolves the ticket modifying the status, the resolution timestamp
         and the message """
         ack = TicketStatus.get_choices_by_name()['ACK']
@@ -105,6 +109,7 @@ class Ticket(models.Model):
             self.status = int(cleared_ack)
         self.acknowledged_at = timezone.now()
         self.message = message
+        self.user = user
         self.save()
         logger.debug("the ticket %d was acknowledged", self.id)
         return "solved"
@@ -174,6 +179,9 @@ class ShelveRegistry(models.Model):
     timeout = models.DurationField(default=timedelta(hours=12))
     """ Timeout after which a shelved Alarm must be unshelved """
 
+    user = models.CharField(max_length=150, null=False, blank=False)
+    """ User that shelve the alarm (create) """
+
     status = models.IntegerField(
         choices=ShelveRegistryStatus.options(),
         default=int(ShelveRegistryStatus.get_choices_by_name()['SHELVED']),
@@ -201,7 +209,8 @@ class ShelveRegistry(models.Model):
             'unshelved_at': str(self.unshelved_at),
             'alarm_id': self.alarm_id,
             'message': self.message,
-            'status': self.status
+            'status': self.status,
+            'user': self.user
         }
 
     def unshelve(self):

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
@@ -31,30 +31,62 @@ class APITestBase:
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
 
-class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
-    """ Test suite for the error responses in case of bad configuration """
+class AlarmsConfigErrorResponseTestSetUp:
+    """Class to manage the common setup for testing."""
 
-    def setUp(self):
-        """ Define the test suite setup """
+    def setTestAlarmsConfigErrorResponse(self):
+        """ Method to set the alarms config for testing """
+
         self.placemark_type = PlacemarkType.objects.create(name='pad')
         self.placemark = Placemark.objects.create(
             name="placemark_1",
             type=self.placemark_type
         )
-        self.no_permissions_user = self.create_user(
+
+    def setCommonUsersAndClients(self):
+        """ Add unauthenticated and unauthorized users """
+        self.unauthorized_user = self.create_user(
             username='user', password='123', permissions=[])
-        self.authenticated_client = APIClient()
+        self.unauthenticated_client = APIClient()
+        client = APIClient()
         self.authenticate_client_using_token(
-            self.authenticated_client,
-            Token.objects.get(user__username=self.no_permissions_user)
+            client,
+            Token.objects.get(user__username=self.unauthorized_user.username)
         )
-        self.client = self.authenticated_client
+        self.authenticated_unauthorized_client = client
+
+
+class WeatherConfigErrorResponse(
+    APITestBase, AlarmsConfigErrorResponseTestSetUp, TestCase
+):
+    """ Test suite for the error responses in case of bad configuration """
+
+    def setUp(self):
+        """ Define the test suite setup """
+        self.setTestAlarmsConfigErrorResponse()
+        self.setCommonUsersAndClients()
+
+        self.authorized_user = self.create_user(
+            username='authorized', password='123',
+            permissions=[
+                Permission.objects.get(codename='view_alarmconfig'),
+            ])
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client,
+            Token.objects.get(user__username=self.authorized_user.username)
+        )
+        self.authenticated_authorized_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('alarmconfig-weather-config')
+        return client.get(url, format='json')
 
     def test_api_weather_config_response_errors(self):
         """ Test that the api return error code if there is no weather data """
+        self.client = self.authenticated_authorized_client
         # Act:
-        url = reverse('alarmconfig-weather-config')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -63,7 +95,7 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
         )
         # Act:
         weather_view = View.objects.create(name='weather')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -72,7 +104,7 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
         )
         # Act:
         station_type = Type.objects.create(name='station')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -86,7 +118,7 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
             type=station_type,
             placemark=self.placemark
         )
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -94,11 +126,151 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
             'If there is weather config the api must return a 200 code'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
+
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class WeatherSummaryConfigErrorResponse(
+    APITestBase, AlarmsConfigErrorResponseTestSetUp, TestCase
+):
+    """ Test suite for the error responses in case of bad configuration """
+
+    def setUp(self):
+        """ Define the test suite setup """
+        self.setTestAlarmsConfigErrorResponse()
+        self.setCommonUsersAndClients()
+
+        self.authorized_user = self.create_user(
+            username='authorized', password='123',
+            permissions=[
+                Permission.objects.get(codename='view_alarmconfig'),
+            ])
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client,
+            Token.objects.get(user__username=self.authorized_user.username)
+        )
+        self.authenticated_authorized_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('alarmconfig-weather-summary-config')
+        return client.get(url, format='json')
+
+    def test_api_weather_summary_config_response_errors(self):
+        """Test that the api returns error code if there is no summary data"""
+        self.client = self.authenticated_authorized_client
+        # Act:
+        response = self.target_request_from_client(self.client)
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If the view summary does not exist the api should return a 404'
+        )
+        # Act:
+        summary_view = View.objects.create(name='summary')
+        response = self.target_request_from_client(self.client)
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If there is not temperature, windspeed or humidity config the api \
+             should return a 404'
+        )
+        # Act:
+        temperature_type = Type.objects.create(name='temperature')
+        response = self.target_request_from_client(self.client)
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND,
+            'If there is not temperature, windspeed or humidity configuration \
+             for the summary view the api should return a 404'
+        )
+        # Act:
+        AlarmConfig.objects.create(
+            alarm_id="weather_summary_temp",
+            view=summary_view,
+            type=temperature_type
+        )
+        response = self.target_request_from_client(self.client)
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'If there is any of temperature, windspeed or humidity config \
+             for the summary view the api should return a 200'
+        )
+
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
+
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class AntennasConfigErrorResponse(
+    APITestBase, AlarmsConfigErrorResponseTestSetUp, TestCase
+):
+    """ Test suite for the error responses in case of bad configuration """
+
+    def setUp(self):
+        """ Define the test suite setup """
+        self.setTestAlarmsConfigErrorResponse()
+        self.setCommonUsersAndClients()
+
+        self.authorized_user = self.create_user(
+            username='authorized', password='123',
+            permissions=[
+                Permission.objects.get(codename='view_alarmconfig'),
+            ])
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client,
+            Token.objects.get(user__username=self.authorized_user.username)
+        )
+        self.authenticated_authorized_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('alarmconfig-antennas-config')
+        return client.get(url, format='json')
+
     def test_api_antennas_config_response_errors(self):
         """Test that the api returns error code if there is no antennas data"""
+        self.client = self.authenticated_authorized_client
         # Act:
-        url = reverse('alarmconfig-antennas-config')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -107,7 +279,7 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
         )
         # Act:
         antennas_view = View.objects.create(name='antennas')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -116,7 +288,7 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
         )
         # Act:
         antenna_type = Type.objects.create(name='antenna')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -132,7 +304,7 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
             custom_name="A001",
             tags="group_A"
         )
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -140,11 +312,58 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
             'If there is antennas config the api must return a 200 code'
         )
 
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
+        )
+
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
+        )
+
+
+class AntennasSummaryConfigErrorResponse(
+    APITestBase, AlarmsConfigErrorResponseTestSetUp, TestCase
+):
+    """ Test suite for the error responses in case of bad configuration """
+
+    def setUp(self):
+        """ Define the test suite setup """
+        self.setTestAlarmsConfigErrorResponse()
+        self.setCommonUsersAndClients()
+
+        self.authorized_user = self.create_user(
+            username='authorized', password='123',
+            permissions=[
+                Permission.objects.get(codename='view_alarmconfig'),
+            ])
+        client = APIClient()
+        self.authenticate_client_using_token(
+            client,
+            Token.objects.get(user__username=self.authorized_user.username)
+        )
+        self.authenticated_authorized_client = client
+
+    def target_request_from_client(self, client):
+        url = reverse('alarmconfig-antennas-summary-config')
+        return client.get(url, format='json')
+
     def test_api_antennas_summary_config_response_errors(self):
         """Test that the api returns error code if there is no summary data"""
+        self.client = self.authenticated_authorized_client
         # Act:
-        url = reverse('alarmconfig-antennas-summary-config')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -154,7 +373,7 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
         # Act:
         summary_view = View.objects.create(name='summary')
         antenna_type = Type.objects.create(name='antenna')
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -168,7 +387,7 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
             view=summary_view,
             type=antenna_type
         )
-        response = self.client.get(url, format='json')
+        response = self.target_request_from_client(self.client)
         # Assert:
         self.assertEqual(
             response.status_code,
@@ -177,48 +396,22 @@ class AlarmConfigApiErrorResponsesTestCase(APITestBase, TestCase):
              the api should return a 200'
         )
 
-    def test_api_weather_summary_config_response_errors(self):
-        """Test that the api returns error code if there is no summary data"""
-        # Act:
-        url = reverse('alarmconfig-weather-summary-config')
-        response = self.client.get(url, format='json')
-        # Assert:
+    def test_api_cannot_allow_request_for_unauthenticated_user(self):
+        """ The request should not be allowed for an unauthenticated user """
+        client = self.unauthenticated_client
+        self.response = self.target_request_from_client(client)
         self.assertEqual(
-            response.status_code,
-            status.HTTP_404_NOT_FOUND,
-            'If the view summary does not exist the api should return a 404'
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            "Request not allowed for an unauthenticated user"
         )
-        # Act:
-        summary_view = View.objects.create(name='summary')
-        response = self.client.get(url, format='json')
-        # Assert:
+
+    def test_api_cannot_allow_request_for_unauthorized_user(self):
+        """ The request should not be allowed for an unauthorized user """
+        client = self.authenticated_unauthorized_client
+        self.response = self.target_request_from_client(client)
         self.assertEqual(
-            response.status_code,
-            status.HTTP_404_NOT_FOUND,
-            'If there is not temperature, windspeed or humidity config the api \
-             should return a 404'
-        )
-        # Act:
-        temperature_type = Type.objects.create(name='temperature')
-        response = self.client.get(url, format='json')
-        # Assert:
-        self.assertEqual(
-            response.status_code,
-            status.HTTP_404_NOT_FOUND,
-            'If there is not temperature, windspeed or humidity configuration \
-             for the summary view the api should return a 404'
-        )
-        # Act:
-        AlarmConfig.objects.create(
-            alarm_id="weather_summary_temp",
-            view=summary_view,
-            type=temperature_type
-        )
-        response = self.client.get(url, format='json')
-        # Assert:
-        self.assertEqual(
-            response.status_code,
-            status.HTTP_200_OK,
-            'If there is any of temperature, windspeed or humidity config \
-             for the summary view the api should return a 200'
+            self.response.status_code,
+            status.HTTP_403_FORBIDDEN,
+            "Request not allowed for an unauthorized user"
         )
