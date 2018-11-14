@@ -146,9 +146,17 @@ if not os.environ.get('TESTING', False):
 DATABASE_ROUTERS = ['cdb.routers.CdbRouter']
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'xe',
+        'USER': 'system',
+        'PASSWORD': 'oracle',
+        'HOST': 'localhost',
+        'PORT': '49161',
     },
     'cdb': {
         'ENGINE': 'django.db.backends.sqlite3',
