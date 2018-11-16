@@ -13,9 +13,8 @@ class GroupSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer to map the Model instance into JSON format."""
-    groups = GroupSerializer(many=True)
-
+    
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
         model = User
-        fields = ('url', 'username', 'email', 'is_staff', 'groups',)
+        fields = ('username', 'email', 'is_staff',)
