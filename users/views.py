@@ -2,7 +2,7 @@ import logging
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from dry_rest_permissions.generics import DRYPermissions
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth.models import User
 from users.serializers import (
     UserSerializer
@@ -15,10 +15,19 @@ class UserViewSet(viewsets.ModelViewSet):
     """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Tickets."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = (DRYPermissions,)
+
+    def get_permissions(self):
+        """
+        Instantiates and returns the list of permissions that the view requires
+        """
+        if self.action == 'filter':
+            permission_classes = [IsAuthenticated]
+        else:
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]
 
     @action(detail=False)
-    def filters(self, request):
+    def filter(self, request):
         """ Retrieve the list of users filtered by group """
         group = self.request.query_params.get('group', None)
         queryset = User.objects.all()

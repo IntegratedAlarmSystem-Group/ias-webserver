@@ -97,7 +97,7 @@ class RetrieveUsersByGroup(APITestBase, UsersTestSetup, TestCase):
 
         # Act:
         client = self.authenticated_unauthorized_client
-        url = reverse('user-filters')
+        url = reverse('user-filter')
         data = {'group': 'group_1'}
         self.response = client.get(url, data, format="json")
 
