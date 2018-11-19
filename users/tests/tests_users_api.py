@@ -58,9 +58,9 @@ class UsersTestSetup:
         self.unauthorized_user = self.create_user(
             username='user', password='123', permissions=[])
         self.unauthenticated_client = APIClient()
-        self.authenticated_unauthorized_client = APIClient()
+        self.authenticated_client = APIClient()
         self.authenticate_client_using_token(
-            self.authenticated_unauthorized_client,
+            self.authenticated_client,
             Token.objects.get(user__username=self.unauthorized_user.username)
         )
 
@@ -73,18 +73,6 @@ class RetrieveUsersByGroup(APITestBase, UsersTestSetup, TestCase):
         self.setupGroups()
         self.setupCommonUsersAndClients()
 
-        # self.authorized_user = self.create_user(
-        #     username='authorized', password='123',
-        #     permissions=[
-        #         Permission.objects.get(codename='view_'),
-        #     ])
-        # client = APIClient()
-        # self.authenticate_client_using_token(
-        #     client,
-        #     Token.objects.get(user__username=self.authorized_user.username)
-        # )
-        # self.authenticated_authorized_client = client
-
     def test_api_can_retrieve_users_by_group(self):
         """The api should retrieve the list of users beloging to a group"""
 
@@ -96,7 +84,7 @@ class RetrieveUsersByGroup(APITestBase, UsersTestSetup, TestCase):
         expected_users_data = [UserSerializer(u).data for u in users]
 
         # Act:
-        client = self.authenticated_unauthorized_client
+        client = self.authenticated_client
         url = reverse('user-filter')
         data = {'group': 'group_1'}
         self.response = client.get(url, data, format="json")
@@ -107,9 +95,25 @@ class RetrieveUsersByGroup(APITestBase, UsersTestSetup, TestCase):
             status.HTTP_200_OK,
             'The server should retrieve a 200 status'
         )
-        print(self.response.data)
         self.assertEqual(
             self.response.data,
             expected_users_data,
             'The server should retrieve the expected ticket'
+        )
+
+    def test_api_unauthenticated_user_cant_get_users_by_group(self):
+        """ The api should not retrieve the list of users beloging to a group
+        if the user is not authenticated """
+
+        # Act:
+        client = self.unauthenticated_client
+        url = reverse('user-filter')
+        data = {'group': 'group_1'}
+        self.response = client.get(url, data, format="json")
+
+        # Assert:
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+            'The server should retrieve a 401 status'
         )
