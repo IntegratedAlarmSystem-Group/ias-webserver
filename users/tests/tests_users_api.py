@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
@@ -116,4 +116,74 @@ class RetrieveUsersByGroup(APITestBase, UsersTestSetup, TestCase):
             self.response.status_code,
             status.HTTP_401_UNAUTHORIZED,
             'The server should retrieve a 401 status'
+        )
+
+    def test_can_ack_request(self):
+        """ Check that api can return if the user has ack permission or not """
+
+        # Arrange:
+        can_ack = Permission.objects.get(codename='acknowledge_ticket')
+        self.group_1.permissions.add(can_ack)
+
+        # Act:
+        client = self.authenticated_client
+        url_user_1 = reverse('user-can-ack', kwargs={'pk': self.user_1.pk})
+        url_user_3 = reverse('user-can-ack', kwargs={'pk': self.user_3.pk})
+
+        # Assert
+        self.assertTrue(
+            client.get(url_user_1, format="json").data,
+            'Server should return True if user group has permission'
+        )
+        self.assertFalse(
+            client.get(url_user_3, format="json").data,
+            'Server should return False if user group has not permission'
+        )
+
+    def test_can_shelve_request(self):
+        """Check that api returns if the user has shelve permission or not"""
+
+        # Arrange:
+        can_shelve = Permission.objects.get(codename='add_shelveregistry')
+        self.group_1.permissions.add(can_shelve)
+
+        # Act:
+        client = self.authenticated_client
+        url_user_1 = reverse('user-can-shelve', kwargs={'pk': self.user_1.pk})
+        url_user_3 = reverse('user-can-shelve', kwargs={'pk': self.user_3.pk})
+
+        # Assert
+        self.assertTrue(
+            client.get(url_user_1, format="json").data,
+            'Server should return True if user group has permission'
+        )
+        self.assertFalse(
+            client.get(url_user_3, format="json").data,
+            'Server should return False if user group has not permission'
+        )
+
+    def test_can_unshelve_request(self):
+        """Check that api returns if the user has unshelve permission or not"""
+
+        # Arrange:
+        can_unshelve = Permission.objects.get(
+            codename='unshelve_shelveregistry'
+        )
+        self.group_1.permissions.add(can_unshelve)
+
+        # Act:
+        client = self.authenticated_client
+        url_user_1 = reverse(
+            'user-can-unshelve', kwargs={'pk': self.user_1.pk})
+        url_user_3 = reverse(
+            'user-can-unshelve', kwargs={'pk': self.user_3.pk})
+
+        # Assert
+        self.assertTrue(
+            client.get(url_user_1, format="json").data,
+            'Server should return True if user group has permission'
+        )
+        self.assertFalse(
+            client.get(url_user_3, format="json").data,
+            'Server should return False if user group has not permission'
         )
