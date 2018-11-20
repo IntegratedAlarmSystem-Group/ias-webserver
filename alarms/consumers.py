@@ -169,6 +169,8 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         Initializes the consumer and subscribes it to the AlarmCollection
         observers list
         """
+        if self.groups is None:
+            self.groups = []
         super()
         AlarmCollection.register_observer(self)
 
