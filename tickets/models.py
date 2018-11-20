@@ -1,7 +1,10 @@
+import logging
 from datetime import timedelta
 from django.db import models
 from django.utils import timezone
 from utils.choice_enum import ChoiceEnum
+
+logger = logging.getLogger(__name__)
 
 
 class TicketStatus(ChoiceEnum):
@@ -72,8 +75,14 @@ class Ticket(models.Model):
         cleared_unack = TicketStatus.get_choices_by_name()['CLEARED_UNACK']
 
         if self.status == int(ack) or self.status == int(cleared_ack):
+            logger.debug(
+                'fail acknowledge because the ticket %d was already ack',
+                self.id)
             return "ignored-ticket-ack"
         if message.strip() is "":
+            logger.debug(
+                'fail acknowledge of ticket %d because the message is empty',
+                self.id)
             return "ignored-wrong-message"
 
         if self.status == int(unack):
@@ -83,6 +92,7 @@ class Ticket(models.Model):
         self.acknowledged_at = timezone.now()
         self.message = message
         self.save()
+        logger.debug("the ticket %d was acknowledged", self.id)
         return "solved"
 
     def clear(self):
@@ -98,6 +108,7 @@ class Ticket(models.Model):
             self.status = int(cleared_ack)
         elif self.status == int(unack):
             self.status = int(cleared_unack)
+        logger.debug("the ticket %d was cleared", self.id)
         self.save()
 
 
@@ -165,8 +176,12 @@ class ShelveRegistry(models.Model):
         timestamp """
         status = int(ShelveRegistryStatus.get_choices_by_name()['UNSHELVED'])
         if self.status == status:
+            logger.debug(
+                'failed unshelve, the registry %d was already unshelved',
+                self.id)
             return "ignored-unshelved-ack"
         self.status = status
         self.unshelved_at = timezone.now()
         self.save()
+        logger.debug('the registry %d was unshelved', self.id)
         return "unshelved"

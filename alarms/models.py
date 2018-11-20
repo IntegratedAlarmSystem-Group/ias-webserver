@@ -1,7 +1,10 @@
 import time
+import logging
 from collections import Counter
 from utils.choice_enum import ChoiceEnum
 from alarms.connectors import CdbConnector
+
+logger = logging.getLogger(__name__)
 
 
 class OperationalMode(ChoiceEnum):
@@ -217,6 +220,9 @@ class Alarm:
             wether or not the dependencies of the alarm have been updated
         """
         if alarm.core_timestamp <= self.core_timestamp:
+            logger.debug(
+                'alarm %s was not updated (tstamp is older than the last one)',
+                alarm.core_id)
             return ('not-updated', None, False)
 
         # Evaluate alarm state transition between set and unset states:
@@ -366,6 +372,9 @@ class IASValue(Alarm):
             updated-different)
         """
         if ias_value.core_timestamp <= self.core_timestamp:
+            logger.debug(
+                'value %s was not updated (tstamp is older than the last one)',
+                ias_value.core_id)
             return ('not-updated', None, False)
 
         if self.mode != ias_value.mode or self.value != ias_value.value or \

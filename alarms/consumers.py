@@ -1,9 +1,12 @@
 import time
 import datetime
 import re
+import logging
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from alarms.models import Alarm, OperationalMode, Validity, Value, IASValue
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
+
+logger = logging.getLogger(__name__)
 
 
 class CoreConsumer(AsyncJsonWebsocketConsumer):
@@ -144,11 +147,17 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
             alarm = CoreConsumer.get_alarm_from_core_msg(content)
             alarm.update_validity()
             response = await AlarmCollection.add_or_update_and_notify(alarm)
+            logger.debug(
+                'new alarm received by the consumer: %s',
+                alarm.to_dict())
         else:
             value = CoreConsumer.get_value_from_core_msg(content)
             value.update_validity()
             status = AlarmCollection.add_or_update_value(value)
             response = status
+            logger.debug(
+                'new ias value received by the consumer: %s',
+                value.to_dict())
         await self.send(response)
 
 
@@ -209,6 +218,9 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             if content['payload'] and content['payload']['action'] is not None:
                 if content['payload']['action'] == 'list':
                     await self.send_alarms_status()
+                    logger.debug(
+                        'new message received in requests stream: ' +
+                        '(action list)')
                 else:
                     await self.send_json({
                         "payload": {
@@ -216,5 +228,9 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
                         },
                         "stream": "requests",
                     })
+                    logger.debug(
+                        'new message received in requests stream: ' +
+                        '(unsupported action)')
         if content['stream'] == 'broadcast':
             await AlarmCollection.broadcast_status_to_observers()
+            logger.debug('new message received in broadcast stream')

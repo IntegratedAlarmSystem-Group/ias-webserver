@@ -387,6 +387,7 @@ class AlarmConfigApiTestCase(TestCase):
         self.ups_type = Type.objects.create(name='ups')
         self.hvac_type = Type.objects.create(name='hvac')
         self.power_type = Type.objects.create(name='power')
+        self.health_type = Type.objects.create(name='health')
         self.weather_view = View.objects.create(name='weather')
         self.antennas_view = View.objects.create(name='antennas')
         self.summary_view = View.objects.create(name='summary')
@@ -558,6 +559,11 @@ class AlarmConfigApiTestCase(TestCase):
                 type=self.windspeed_type
             )
         ]
+        AlarmConfig.objects.create(
+            alarm_id="health_summary",
+            view=self.summary_view,
+            type=self.health_type
+        )
 
         self.old_count = AlarmConfig.objects.count()
         self.client = APIClient()
@@ -687,6 +693,26 @@ class AlarmConfigApiTestCase(TestCase):
 
         # Act:
         url = reverse('alarmconfig-weather-summary-config')
+        response = self.client.get(url, format='json')
+        # Assert:
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            'The server did not retrieve the information'
+        )
+        self.assertEqual(
+            response.data,
+            expected_data,
+            'The information retrieved is different to the expected one'
+        )
+
+    def test_api_can_get_ias_health_summary_config(self):
+        """ Test that the api can retrieve a correct json"""
+        # Arrange:
+        expected_data = "health_summary"
+
+        # Act:
+        url = reverse('alarmconfig-ias-health-summary-config')
         response = self.client.get(url, format='json')
         # Assert:
         self.assertEqual(

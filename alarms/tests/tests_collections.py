@@ -1240,27 +1240,27 @@ class TestIasValueUpdates:
                 "docUrl": "http://www.alma3.cl"
             },
         ]
-        expected_alarm_ids = [
+        expected_alarm_ids = sorted([
             'mock_alarm_0',
             'mock_alarm_1',
             'mock_alarm_2',
             'mock_alarm_3',
             'mock_alarm_4',
-        ]
-        expected_alarm_descriptions = [
+        ])
+        expected_alarm_descriptions = sorted([
             mock_iasios[0]['shortDesc'],
             mock_iasios[1]['shortDesc'],
             mock_iasios[2]['shortDesc'],
             mock_iasios[3]['shortDesc'],
             '',
-        ]
-        expected_alarm_urls = [
+        ])
+        expected_alarm_urls = sorted([
             mock_iasios[0]['docUrl'],
             mock_iasios[1]['docUrl'],
             mock_iasios[2]['docUrl'],
             mock_iasios[3]['docUrl'],
             '',
-        ]
+        ])
         PanelsConnector_get_alarm_ids_of_alarm_configs = \
             mocker.patch.object(
                 PanelsConnector, 'get_alarm_ids_of_alarm_configs'
@@ -1275,9 +1275,9 @@ class TestIasValueUpdates:
         AlarmCollection.reset()
         # Assert:
         alarms = AlarmCollection.get_all_as_list()
-        retrieved_alarms_ids = [a.core_id for a in alarms]
-        retrieved_alarms_descriptions = [a.description for a in alarms]
-        retrieved_alarms_urls = [a.url for a in alarms]
+        retrieved_alarms_ids = sorted([a.core_id for a in alarms])
+        retrieved_alarms_descriptions = sorted([a.description for a in alarms])
+        retrieved_alarms_urls = sorted([a.url for a in alarms])
         assert retrieved_alarms_ids == expected_alarm_ids
         assert retrieved_alarms_descriptions == expected_alarm_descriptions
         assert retrieved_alarms_urls == expected_alarm_urls
