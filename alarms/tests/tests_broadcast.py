@@ -5,11 +5,27 @@ from channels.testing import WebsocketCommunicator
 from alarms.consumers import ClientConsumer
 from alarms.collections import AlarmCollection
 from alarms.tests.factories import AlarmFactory
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+
+from ias_webserver.routing import application as ias_app
 
 
 class TestPeriodicBroadcastCase:
     """This class defines the test suite for periodic notification of changes
     to consumer clients"""
+
+    def create_communicator(self, **kwargs):
+        """Auxiliary method to manage a token query string authentication"""
+
+        target_endpoint = '/stream/'
+        query_string = kwargs.get('query_string', None)
+
+        if query_string is not None:
+            return WebsocketCommunicator(
+                    ias_app, '{}?{}'.format(target_endpoint, query_string))
+        else:
+            return WebsocketCommunicator(ias_app, target_endpoint)
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
@@ -17,9 +33,12 @@ class TestPeriodicBroadcastCase:
         """ Test that the periodic request is sent
         and Alarms are invalidated after timeout """
         AlarmCollection.reset([])
-
+        user = User.objects.create_user(
+            'username', password='123', email='user@user.cl')
+        token = Token.objects.get(user__username=user.username)
+        query_string = 'token={}'.format(token)
         # Connect:
-        communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
+        communicator = self.create_communicator(query_string=query_string)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
 

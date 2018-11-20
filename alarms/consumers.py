@@ -163,16 +163,26 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
 
 class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
     """ Consumer to notify clients and listen their requests """
+    groups = []
 
     def __init__(self, scope):
         """
         Initializes the consumer and subscribes it to the AlarmCollection
         observers list
         """
-        if self.groups is None:
-            self.groups = []
-        super()
+        super().__init__(scope)
         AlarmCollection.register_observer(self)
+
+    async def connect(self):
+        """
+        Called on connection
+        """
+        if self.scope['user'].is_anonymous:
+            # To reject the connection:
+            await self.close()
+        else:
+            # To accept the connection call:
+            await self.accept()
 
     async def update(self, alarm, action):
         """
