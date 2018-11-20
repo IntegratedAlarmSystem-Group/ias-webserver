@@ -70,7 +70,7 @@ class TestConnectionToClientConsumer:
         # Connect:
         communicator = self.create_communicator(query_string=None)
         connected, subprotocol = await communicator.connect()
-        # Close:
-        await communicator.disconnect()
         # Assert:
         assert not connected, 'Connection should not be allowed'
+        # Close:
+        await communicator.disconnect()

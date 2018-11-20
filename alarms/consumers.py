@@ -246,3 +246,10 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         if content['stream'] == 'broadcast':
             await AlarmCollection.broadcast_status_to_observers()
             logger.debug('new message received in broadcast stream')
+
+    async def disconnect(self, close_code):
+        """
+        Called when the socket closes
+        """
+        if self in AlarmCollection.observers:
+            AlarmCollection.observers.remove(self)
