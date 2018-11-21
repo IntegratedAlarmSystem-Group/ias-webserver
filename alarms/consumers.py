@@ -226,6 +226,9 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
                     logger.debug(
                         'new message received in requests stream: ' +
                         '(action list)')
+                elif content['payload']['action'] == 'close':
+                    await self.close()
+                    logger.debug('connection closed')
                 else:
                     await self.send_json({
                         "payload": {

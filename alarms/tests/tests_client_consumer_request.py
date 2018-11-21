@@ -148,3 +148,31 @@ class TestRequestsToClientConsumer:
             'The response was not the expected'
         # Close:
         await communicator.disconnect()
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_close_connection_action(self):
+        """
+        Test if clients can close the connection to the ws using a request
+        """
+        AlarmCollection.reset([])
+        user = User.objects.create_user(
+            'username', password='123', email='user@user.cl')
+        token = Token.objects.get(user__username=user.username)
+        query_string = 'token={}'.format(token)
+        # Connect:
+        communicator = self.create_communicator(query_string=query_string)
+        connected, subprotocol = await communicator.connect()
+        assert connected, 'The communicator was not connected'
+        # Act:
+        msg = {
+            'stream': 'requests',
+            'payload': {
+                'action': 'close'
+            }
+        }
+        await communicator.send_json_to(msg)
+        event = await communicator.receive_output()
+        assert event['type'] == 'websocket.close', 'Unexpected event'
+        # Close:
+        await communicator.disconnect()
