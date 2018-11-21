@@ -42,10 +42,14 @@ class TestPeriodicBroadcastCase:
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
 
-        communicator_observer = \
-            WebsocketCommunicator(ClientConsumer, "/stream/")
-        connected_observer, subprotocol_observer = await communicator.connect()
-        assert connected_observer, 'The communicator was not connected'
+        observer = User.objects.create_user(
+            'observer', password='123', email='user2@user.cl')
+        token = Token.objects.get(user__username=observer.username)
+        query_string = 'token={}'.format(token)
+        communicator_observer = self.create_communicator(
+            query_string=query_string)
+        connected_obs, subprotocol_obs = await communicator_observer.connect()
+        assert connected_obs, 'The communicator was not connected'
 
         # Arrange:
         initial_time = datetime.datetime.now()
