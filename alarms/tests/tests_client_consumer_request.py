@@ -159,7 +159,8 @@ class TestRequestsToClientConsumer:
         user = User.objects.create_user(
             'username', password='123', email='user@user.cl')
         token = Token.objects.get(user__username=user.username)
-        query_string = 'token={}'.format(token)
+        token_key = token.key
+        query_string = 'token={}'.format(token_key)
         # Connect:
         communicator = self.create_communicator(query_string=query_string)
         connected, subprotocol = await communicator.connect()
@@ -176,3 +177,6 @@ class TestRequestsToClientConsumer:
         assert event['type'] == 'websocket.close', 'Unexpected event'
         # Close:
         await communicator.disconnect()
+
+        current_token_key = Token.objects.get(user__username=user.username).key
+        assert current_token_key != token_key, 'User should have a new token'

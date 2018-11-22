@@ -3,6 +3,7 @@ import datetime
 import re
 import logging
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from users.models import reset_auth_token
 from alarms.models import Alarm, OperationalMode, Validity, Value, IASValue
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
 
@@ -228,6 +229,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
                         '(action list)')
                 elif content['payload']['action'] == 'close':
                     await self.close()
+                    reset_auth_token(self.scope['user'])
                     logger.debug('connection closed')
                 else:
                     await self.send_json({
