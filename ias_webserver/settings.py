@@ -36,12 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
     'channels',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dry_rest_permissions',
     'corsheaders',
     'alarms.apps.AlarmConfig',
     'cdb',
     'panels',
     'tickets',
     'timers',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -77,7 +80,7 @@ WSGI_APPLICATION = 'ias_webserver.wsgi.application'
 
 # CORS Configuration
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_CREDENTIALS = True
 
 # CORS_ORIGIN_WHITELIST = (
 #     '<DOMAIN>[:PORT]',
@@ -207,6 +210,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 #         }
 #     },
 # }
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 ASGI_APPLICATION = "ias_webserver.routing.application"
 

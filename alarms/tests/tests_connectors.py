@@ -167,7 +167,7 @@ class TestTicketConnector(TestCase):
         Ticket.objects.create(alarm_id=self.unack_alarm)
         self.ack_alarm = 'ack_alarm'
         ticket_ack = Ticket.objects.create(alarm_id=self.ack_alarm)
-        ticket_ack.acknowledge('test')
+        ticket_ack.acknowledge('test', 'testuser')
         self.unack_cleared_alarm = 'unack_cleared_alarm'
         ticket_cleared = Ticket.objects.create(
             alarm_id=self.unack_cleared_alarm

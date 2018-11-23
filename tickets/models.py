@@ -7,6 +7,16 @@ from utils.choice_enum import ChoiceEnum
 logger = logging.getLogger(__name__)
 
 
+PERMISSIONS = ('change', 'delete', 'view')
+""" Models Permissions """
+
+ACK_TICKET_PERMISSIONS = PERMISSIONS + ('acknowledge',)
+""" Ack ticket permissions """
+
+SHELVE_REGISTRY_PERMISSIONS = PERMISSIONS + ('add', 'unshelve',)
+""" Shelve registry permissions """
+
+
 class TicketStatus(ChoiceEnum):
     """ Status options of a Ticket """
 
@@ -46,11 +56,18 @@ class Ticket(models.Model):
     message = models.CharField(max_length=256, null=True)
     """ Message posted when the ticket is closed """
 
+    user = models.CharField(max_length=150, null=True)
+    """ User that closes the ticket """
+
     status = models.IntegerField(
         choices=TicketStatus.options(),
         default=int(TicketStatus.get_choices_by_name()['UNACK']),
     )
     """ State of the ticket, default is open """
+
+    class Meta:
+        default_permissions = ACK_TICKET_PERMISSIONS
+    """ Additional options for the model """
 
     def __str__(self):
         """ Return a string representation of the ticket """
@@ -63,10 +80,11 @@ class Ticket(models.Model):
             'acknowledged_at': self.acknowledged_at,
             'alarm_id': self.alarm_id,
             'message': self.message,
-            'status': self.status
+            'status': self.status,
+            'user': self.user
         }
 
-    def acknowledge(self, message):
+    def acknowledge(self, message, user):
         """ Resolves the ticket modifying the status, the resolution timestamp
         and the message """
         ack = TicketStatus.get_choices_by_name()['ACK']
@@ -91,6 +109,7 @@ class Ticket(models.Model):
             self.status = int(cleared_ack)
         self.acknowledged_at = timezone.now()
         self.message = message
+        self.user = user
         self.save()
         logger.debug("the ticket %d was acknowledged", self.id)
         return "solved"
@@ -110,6 +129,21 @@ class Ticket(models.Model):
             self.status = int(cleared_unack)
         logger.debug("the ticket %d was cleared", self.id)
         self.save()
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('tickets.view_ticket')
+
+    def has_object_read_permission(self, request):
+        return request.user.has_perm('tickets.view_ticket')
+
+    @staticmethod
+    def has_acknowledge_permission(request):
+        return request.user.has_perm('tickets.acknowledge_ticket')
+
+    @staticmethod
+    def has_create_permission(request):
+        return False
 
 
 class ShelveRegistryStatus(ChoiceEnum):
@@ -145,11 +179,18 @@ class ShelveRegistry(models.Model):
     timeout = models.DurationField(default=timedelta(hours=12))
     """ Timeout after which a shelved Alarm must be unshelved """
 
+    user = models.CharField(max_length=150, null=False, blank=False)
+    """ User that shelve the alarm (create) """
+
     status = models.IntegerField(
         choices=ShelveRegistryStatus.options(),
         default=int(ShelveRegistryStatus.get_choices_by_name()['SHELVED']),
     )
     """ State of the shelve_registry, default is shelved """
+
+    class Meta:
+        default_permissions = SHELVE_REGISTRY_PERMISSIONS
+    """ Additional options for the model """
 
     def __str__(self):
         """ Return a string representation of the shelve_registry """
@@ -168,7 +209,8 @@ class ShelveRegistry(models.Model):
             'unshelved_at': str(self.unshelved_at),
             'alarm_id': self.alarm_id,
             'message': self.message,
-            'status': self.status
+            'status': self.status,
+            'user': self.user
         }
 
     def unshelve(self):
@@ -185,3 +227,36 @@ class ShelveRegistry(models.Model):
         self.save()
         logger.debug('the registry %d was unshelved', self.id)
         return "unshelved"
+
+    @staticmethod
+    def has_create_permission(request):
+        return request.user.has_perm('tickets.add_shelveregistry')
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('tickets.view_shelveregistry')
+
+    def has_object_read_permission(self, request):
+        return request.user.has_perm('tickets.view_shelveregistry')
+
+    @staticmethod
+    def has_update_permission(request):
+        return request.user.has_perm('tickets.change_shelveregistry')
+
+    def has_object_update_permission(self, request):
+        return request.user.has_perm('tickets.change_shelveregistry')
+
+    @staticmethod
+    def has_destroy_permission(request):
+        return request.user.has_perm('tickets.delete_shelveregistry')
+
+    def has_object_destroy_permission(self, request):
+        return request.user.has_perm('tickets.delete_shelveregistry')
+
+    @staticmethod
+    def has_unshelve_permission(request):
+        return request.user.has_perm('tickets.unshelve_shelveregistry')
+
+    @staticmethod
+    def has_check_timeouts_permission(request):
+        return True

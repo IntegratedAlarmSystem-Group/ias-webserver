@@ -4,9 +4,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from dry_rest_permissions.generics import DRYPermissions
 from panels.models import (
     File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
-from panels.serializers import FileSerializer, AlarmConfigSerializer
+from panels.serializers import (
+    FileSerializer, AlarmConfigSerializer, PlacemarkSerializer)
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +18,7 @@ class FileViewSet(viewsets.ModelViewSet):
 
     queryset = File.objects.all()
     serializer_class = FileSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def get_json(self, request):
@@ -44,6 +47,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
     views = View.objects.all()
     types = Type.objects.all()
     serializer_class = AlarmConfigSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def weather_config(self, request):
@@ -230,6 +234,8 @@ class PlacemarkViewSet(viewsets.ModelViewSet):
 
     queryset = Placemark.objects.all()
     groups = PlacemarkGroup.objects.all()
+    serializer_class = PlacemarkSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def pads_by_group(self, request):

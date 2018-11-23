@@ -2,6 +2,7 @@ import logging
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from dry_rest_permissions.generics import DRYPermissions
 from django.utils import timezone
 from tickets.connectors import AlarmConnector
 from tickets.models import (
@@ -21,6 +22,7 @@ class TicketViewSet(viewsets.ModelViewSet):
     """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Tickets."""
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def filters(self, request):
@@ -57,6 +59,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         """ Acknowledge multiple tickets with the same message and timestamp"""
         message = self.request.data['message']
         alarms_ids = self.request.data['alarms_ids']
+        user = self.request.data['user']
 
         # If empty Message then return Bad Request:
         if message.strip() is "":
@@ -76,14 +79,14 @@ class TicketViewSet(viewsets.ModelViewSet):
             status__in=[int(unack), int(cleared_unack)]
         )
 
-        return self._apply_acknowledgement(message, list(queryset))
+        return self._apply_acknowledgement(message, user, list(queryset))
 
-    def _apply_acknowledgement(self, message, tickets):
+    def _apply_acknowledgement(self, message, user, tickets):
         """ Applies the acknowledgement to a single or multiple tickets """
         # Acknowledge each ticket:
         ack_alarms = set()
         for ticket in tickets:
-            response = ticket.acknowledge(message=message)
+            response = ticket.acknowledge(message=message, user=user)
             if response == 'solved':
                 ack_alarms.add(ticket.alarm_id)
             else:
@@ -103,6 +106,7 @@ class ShelveRegistryViewSet(viewsets.ModelViewSet):
     """`List`, `Create`, `Retrieve`, `Update` and `Destroy` ShelveRegistries"""
     queryset = ShelveRegistry.objects.all()
     serializer_class = ShelveRegistrySerializer
+    permission_classes = (DRYPermissions,)
 
     def create(self, request, *args, **kwargs):
         """ Redefine create method in order to notify to the alarms app """

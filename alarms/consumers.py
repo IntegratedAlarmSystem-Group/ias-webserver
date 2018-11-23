@@ -3,6 +3,7 @@ import datetime
 import re
 import logging
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from users.models import reset_auth_token
 from alarms.models import Alarm, OperationalMode, Validity, Value, IASValue
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
 
@@ -163,14 +164,19 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
 
 class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
     """ Consumer to notify clients and listen their requests """
+    groups = []
 
-    def __init__(self, scope):
+    async def connect(self):
         """
-        Initializes the consumer and subscribes it to the AlarmCollection
-        observers list
+        Called on connection
         """
-        super()
-        AlarmCollection.register_observer(self)
+        if self.scope['user'].is_anonymous:
+            # To reject the connection:
+            await self.close()
+        else:
+            AlarmCollection.register_observer(self)
+            # To accept the connection call:
+            await self.accept()
 
     async def update(self, alarm, action):
         """
@@ -221,6 +227,10 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
                     logger.debug(
                         'new message received in requests stream: ' +
                         '(action list)')
+                elif content['payload']['action'] == 'close':
+                    await self.close()
+                    reset_auth_token(self.scope['user'])
+                    logger.debug('connection closed')
                 else:
                     await self.send_json({
                         "payload": {
@@ -234,3 +244,10 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         if content['stream'] == 'broadcast':
             await AlarmCollection.broadcast_status_to_observers()
             logger.debug('new message received in broadcast stream')
+
+    async def disconnect(self, close_code):
+        """
+        Called when the socket closes
+        """
+        if self in AlarmCollection.observers:
+            AlarmCollection.observers.remove(self)

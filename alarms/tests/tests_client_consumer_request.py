@@ -5,19 +5,39 @@ from channels.testing import WebsocketCommunicator
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from alarms.consumers import ClientConsumer
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+
+from ias_webserver.routing import application as ias_app
 
 
 class TestRequestsToClientConsumer:
     """This class defines the test suite for the requests messages
     to the ClientConsumer"""
 
+    def create_communicator(self, **kwargs):
+        """Auxiliary method to manage a token query string authentication"""
+
+        target_endpoint = '/stream/'
+        query_string = kwargs.get('query_string', None)
+
+        if query_string is not None:
+            return WebsocketCommunicator(
+                    ias_app, '{}?{}'.format(target_endpoint, query_string))
+        else:
+            return WebsocketCommunicator(ias_app, target_endpoint)
+
     @pytest.mark.asyncio
     @pytest.mark.django_db
     async def test_alarms_list(self):
         """Test if clients can request and receive a list of alarms"""
         AlarmCollection.reset([])
+        user = User.objects.create_user(
+            'username', password='123', email='user@user.cl')
+        token = Token.objects.get(user__username=user.username)
+        query_string = 'token={}'.format(token)
         # Connect:
-        communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
+        communicator = self.create_communicator(query_string=query_string)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
@@ -53,8 +73,12 @@ class TestRequestsToClientConsumer:
     async def test_alarms_list_validity(self):
         """Test if clients receive a list of alarms with updated validity"""
         AlarmCollection.reset([])
+        user = User.objects.create_user(
+            'username', password='123', email='user@user.cl')
+        token = Token.objects.get(user__username=user.username)
+        query_string = 'token={}'.format(token)
         # Connect:
-        communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
+        communicator = self.create_communicator(query_string=query_string)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
@@ -100,8 +124,12 @@ class TestRequestsToClientConsumer:
         Test if clients receive 'Unsupported action' when action is not 'list'
         """
         AlarmCollection.reset([])
+        user = User.objects.create_user(
+            'username', password='123', email='user@user.cl')
+        token = Token.objects.get(user__username=user.username)
+        query_string = 'token={}'.format(token)
         # Connect:
-        communicator = WebsocketCommunicator(ClientConsumer, "/stream/")
+        communicator = self.create_communicator(query_string=query_string)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Act:
@@ -118,3 +146,37 @@ class TestRequestsToClientConsumer:
         response_message = response['payload']['data']
         assert response_message == expected_message, \
             'The response was not the expected'
+        # Close:
+        await communicator.disconnect()
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_close_connection_action(self):
+        """
+        Test if clients can close the connection to the ws using a request
+        """
+        AlarmCollection.reset([])
+        user = User.objects.create_user(
+            'username', password='123', email='user@user.cl')
+        token = Token.objects.get(user__username=user.username)
+        token_key = token.key
+        query_string = 'token={}'.format(token_key)
+        # Connect:
+        communicator = self.create_communicator(query_string=query_string)
+        connected, subprotocol = await communicator.connect()
+        assert connected, 'The communicator was not connected'
+        # Act:
+        msg = {
+            'stream': 'requests',
+            'payload': {
+                'action': 'close'
+            }
+        }
+        await communicator.send_json_to(msg)
+        event = await communicator.receive_output()
+        assert event['type'] == 'websocket.close', 'Unexpected event'
+        # Close:
+        await communicator.disconnect()
+
+        current_token_key = Token.objects.get(user__username=user.username).key
+        assert current_token_key != token_key, 'User should have a new token'
