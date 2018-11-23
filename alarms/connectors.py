@@ -15,9 +15,13 @@ class CdbConnector():
     """ refreshrate in milliseconds defined to be used to calculate the
     validity of alarms """
 
-    tolerance = 1000
-    """ Tolerance in milliseconds defined to be used as error margin for the
-    calculation of validity"""
+    validity_threshold = 10000
+    """ Validity threshold in milliseconds defines to be used to calculate the
+    validity of alarms """
+
+    # tolerance = 1000
+    # """ Tolerance in milliseconds defined to be used as error margin for the
+    # calculation of validity"""
 
     @classmethod
     def get_iasios(self, type=None):
@@ -28,12 +32,13 @@ class CdbConnector():
     def initialize_ias(self, pk=0):
         """ Return the ias if exist or None if it is not. """
         data = CdbReader.read_ias()
-        if data and "refreshRate" in data and "tolerance" in data:
+        if data and "refreshRate" in data and "validityThreshold" in data:
             self.refresh_rate = int(data['refreshRate'])*1000
-            self.tolerance = int(data['tolerance'])*1000
+            self.validity_threshold = int(data['validityThreshold'])*1000
             logger.info(
-                'cdb initialized with refresh_rate %d ms and tolerance %d ms',
-                self.refresh_rate, self.tolerance)
+                'cdb initialized with refresh_rate %d ms and \
+                validity threshold %d ms',
+                self.refresh_rate, self.validity_threshold)
         else:
             logger.warning('there is not config data to read')
             return None

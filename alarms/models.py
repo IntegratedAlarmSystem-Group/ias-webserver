@@ -266,10 +266,9 @@ class Alarm:
         """
         if self.validity == 0:
             return self
-        refresh_rate = CdbConnector.refresh_rate
-        tolerance = CdbConnector.tolerance
+        validity_threshold = CdbConnector.validity_threshold
         current_timestamp = int(round(time.time() * 1000))
-        if current_timestamp - self.core_timestamp > refresh_rate + tolerance:
+        if current_timestamp - self.core_timestamp > validity_threshold:
             self.validity = 0
             return self
         else:

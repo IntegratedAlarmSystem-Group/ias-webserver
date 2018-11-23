@@ -13,7 +13,7 @@ class CdbReaderTestCase(TestCase):
         expected_data = {
             'logLevel': 'INFO',
             'refreshRate': '3',
-            'tolerance': '1',
+            'validityThreshold': '10',
             'hbFrequency': '5',
             'broadcastFactor': str(BROADCAST_RATE_FACTOR),
             'props': [
