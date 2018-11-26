@@ -9,7 +9,8 @@ from ias_webserver.settings import (
     SUPERVISORS_FOLDER,
     DASUS_FOLDER,
     TEMPLATES_FILE,
-    BROADCAST_RATE_FACTOR
+    BROADCAST_RATE,
+    BROADCAST_THRESHOLD
 )
 
 logger = logging.getLogger(__name__)
@@ -42,7 +43,8 @@ class CdbReader:
         except IOError:
             logger.warning('%s not found. IAS config not read', filepath)
             ias_data = []
-        ias_data['broadcastFactor'] = str(BROADCAST_RATE_FACTOR)
+        ias_data['broadcastRate'] = str(BROADCAST_RATE)
+        ias_data['broadcastThreshold'] = str(BROADCAST_THRESHOLD)
         return ias_data
 
     @classmethod
