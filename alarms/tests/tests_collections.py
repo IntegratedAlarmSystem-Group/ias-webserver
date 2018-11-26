@@ -416,8 +416,8 @@ class TestAlarmsCollectionHandling:
             a.to_dict() for a in AlarmCollection.get_all_as_list()
         ]
         # Act:
-        # Recalculate the AlarmCollection validation after 5 seconds
-        max_interval = CdbConnector.refresh_rate + CdbConnector.tolerance + 1
+        # Recalculate the AlarmCollection validation after 11 seconds
+        max_interval = CdbConnector.validity_threshold + 1
         max_timedelta = datetime.timedelta(milliseconds=max_interval)
         initial_time = datetime.datetime.now() + max_timedelta
         with freeze_time(initial_time):

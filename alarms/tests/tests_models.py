@@ -199,7 +199,7 @@ class AlarmModelTestCase(TestCase):
         with freeze_time(initial_time) as frozen_datetime:
             # Arrange:
             alarm = AlarmFactory.get_valid_alarm()
-            max_interval = CdbConn.refresh_rate + CdbConn.tolerance + 1
+            max_interval = CdbConn.validity_threshold + 1
             max_timedelta = datetime.timedelta(milliseconds=max_interval)
             # Act:
             frozen_datetime.tick(delta=max_timedelta)

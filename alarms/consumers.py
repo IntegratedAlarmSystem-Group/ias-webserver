@@ -94,8 +94,12 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
         core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
-        core_timestamp = CoreConsumer.get_timestamp_from(
-            content['sentToBsdbTStamp'])
+        if 'dasuProductionTStamp' in content:
+            core_timestamp = CoreConsumer.get_timestamp_from(
+                content['dasuProductionTStamp'])
+        else:
+            core_timestamp = CoreConsumer.get_timestamp_from(
+                content['pluginProductionTStamp'])
         params = {
             'value': value_options[content['value']],
             'core_timestamp': core_timestamp,
