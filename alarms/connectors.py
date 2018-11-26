@@ -19,10 +19,6 @@ class CdbConnector():
     """ Validity threshold in milliseconds defines to be used to calculate the
     validity of alarms """
 
-    # tolerance = 1000
-    # """ Tolerance in milliseconds defined to be used as error margin for the
-    # calculation of validity"""
-
     @classmethod
     def get_iasios(self, type=None):
         """ Return a list of iasios filtered by type formatted as dict """
