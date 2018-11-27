@@ -2,7 +2,7 @@ import datetime
 import time
 import pytest
 from freezegun import freeze_time
-from alarms.models import Alarm, IASValue
+from alarms.models import Alarm, Value, IASValue
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
@@ -1281,71 +1281,3 @@ class TestIasValueUpdates:
         assert retrieved_alarms_ids == expected_alarm_ids
         assert retrieved_alarms_descriptions == expected_alarm_descriptions
         assert retrieved_alarms_urls == expected_alarm_urls
-
-
-class TestAlarmsByViewCount:
-    """ This class defines the test suite for the alarms count per view """
-
-    @pytest.mark.asyncio
-    @pytest.mark.django_db
-    async def test_counter_per_view_should_change_when_a_new_set_alarm_arrives(
-        self, mocker
-    ):
-
-        mock_view_names = ['antennas', 'weather']
-
-        mock_alarms_views_dict = {
-            "antenna_alarm_0": ["antennas"],
-            "antenna_alarm_1": ["antennas"],
-            "weather_alarm_0": ["weather"],
-        }
-
-        PanelsConnector_get_names_of_views = \
-            mocker.patch.object(
-                PanelsConnector, 'get_names_of_views'
-            )
-        PanelsConnector_get_names_of_views.return_value = mock_view_names
-
-        PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
-            mocker.patch.object(
-                PanelsConnector, 'get_alarms_views_dict_of_alarm_configs'
-            )
-        PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = \
-            mock_alarms_views_dict
-
-        antenna_alarm = Alarm(
-            value=1,
-            mode=7,
-            validity=0,
-            core_timestamp=10000,
-            core_id='antenna_alarm_0',
-            running_id='({}:IASIO)'.format('antenna_alarm_0')
-        )
-
-        weather_alarm = Alarm(
-            value=1,
-            mode=7,
-            validity=0,
-            core_timestamp=10000,
-            core_id='weather_alarm_0',
-            running_id='({}:IASIO)'.format('weather_alarm_0')
-        )
-
-        AlarmCollection.reset()
-        counter = AlarmCollection.counter_per_view
-        assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
-
-        # Act:
-        status = await AlarmCollection.add_or_update_and_notify(antenna_alarm)
-        assert status == 'created-alarm', 'The status must be created-alarm'
-        assert 'antenna_alarm_0' in AlarmCollection.get_all_as_dict(), \
-            'New alarms should be created'
-
-        status = await AlarmCollection.add_or_update_and_notify(weather_alarm)
-        assert status == 'created-alarm', 'The status must be created-alarm'
-        assert 'weather_alarm_0' in AlarmCollection.get_all_as_dict(), \
-            'New alarms should be created'
-
-        expected_counter = {'antennas': 1, 'weather': 1}
-        counter = AlarmCollection.counter_per_view
-        assert counter == expected_counter, 'Unexpected count'
