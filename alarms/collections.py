@@ -2,7 +2,7 @@ import time
 import abc
 import asyncio
 import logging
-from alarms.models import Alarm
+from alarms.models import Alarm, Value
 from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 
 logger = logging.getLogger(__name__)
@@ -24,6 +24,14 @@ class AlarmCollection:
 
     values_collection = None
     """ Dictionary to store other type of values, indexed by core_id """
+
+    alarms_views_dict = None
+    """ Dictionary to store the related view names by alarm,
+    indexed by core_id """
+
+    counter_per_view = None
+    """ Dictionary to store the count of active - and unack - alarms,
+    indexed by view name"""
 
     observers = []
     """ List to store references to the observers subscribed to changes in the
@@ -49,6 +57,22 @@ class AlarmCollection:
         logger.debug(
             'all the observers were notified (alarm %s, action: %s)',
             alarm.core_id, action)
+
+    @classmethod
+    def update_counter_by_view(self, alarm):
+        views = self.alarms_views_dict.get(alarm.core_id, [])
+        if len(views) > 0:
+            view = views[0]
+            if alarm.value != Value.CLEARED:
+                if alarm.ack is not True:
+                    # unack alarm
+                    self.counter_per_view[view] += 1
+                else:
+                    # ack alarm
+                    self.counter_per_view[view] -= 1
+            else:
+                # cleared alarm
+                self.counter_per_view[view] -= 1
 
     @classmethod
     async def broadcast_status_to_observers(self):
@@ -80,6 +104,10 @@ class AlarmCollection:
             self.singleton_collection = {}
             self.parents_collection = {}
             self.values_collection = {}
+            self.alarms_views_dict = \
+                PanelsConnector.get_alarms_views_dict_of_alarm_configs()
+            self.counter_per_view = {
+                name: 0 for name in PanelsConnector.get_names_of_views()}
             alarms_to_search = PanelsConnector.get_alarm_ids_of_alarm_configs()
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
@@ -248,6 +276,7 @@ class AlarmCollection:
         alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         self._update_parents_collection(alarm)
+        self.update_counter_by_view(alarm)
         logger.debug('the alarm %s was added to the collection', alarm.core_id)
 
     @classmethod
@@ -395,6 +424,7 @@ class AlarmCollection:
         Returns:
             message (String): a string message sumarizing what happened
         """
+
         if self.singleton_collection is None:
             self.initialize()
         if alarm.core_id not in self.singleton_collection:
@@ -415,6 +445,7 @@ class AlarmCollection:
         logger.debug(
             'the alarm %s was added or updated in the collection (status %s)',
             alarm.core_id, response)
+
         return response
 
     @classmethod

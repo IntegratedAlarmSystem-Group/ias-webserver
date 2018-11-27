@@ -103,3 +103,35 @@ class TestIPanels(TestCase):
             ids,
             ["antenna_alarm_0", "antenna_alarm_1", "antenna_alarm_2"]
         )
+
+    def test_get_alarms_views_dict_of_alarm_configs(self):
+        """
+        Test that IPanels.get_alarms_views_dict_of_alarm_configs
+        returns the related views
+        """
+
+        expected = {
+            "antenna_alarm_0": ["antennas"],
+            "antenna_alarm_1": ["antennas"],
+            "antenna_alarm_2": ["antennas"],
+        }
+
+        # Act:
+        response = IPanels.get_alarms_views_dict_of_alarm_configs()
+
+        # Assert:
+        self.assertDictEqual(response, expected)
+
+    def test_get_names_of_views(self):
+        """
+        Test that IPanels.get_names_of_views
+        returns a list with the views names
+        """
+
+        expected = ["antennas"]
+
+        # Act:
+        response = IPanels.get_names_of_views()
+
+        # Assert:
+        self.assertEqual(expected, response)
