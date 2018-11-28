@@ -148,17 +148,24 @@ if not os.environ.get('TESTING', False):
 # Database
 DATABASE_ROUTERS = ['cdb.routers.CdbRouter']
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'cdb': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'cdb.sqlite3'),
-    },
-}
-
+if os.environ.get('DB_ENGINE') == 'mysql':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('DB_NAME', 'IntegratedAlarmSystem'),
+            'USER': os.getenv('DB_USER', 'ias'),
+            'HOST': os.getenv('DB_HOST', 'database'),
+            'PORT': os.getenv('DB_PORT', '3306'),
+            'PASSWORD': os.getenv('DB_PASS', 'ias')
+        }
+    }
+elif os.environ.get('DB_ENGINE') == 'sqlite':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
