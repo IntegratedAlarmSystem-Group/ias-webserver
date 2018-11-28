@@ -159,7 +159,18 @@ if os.environ.get('DB_ENGINE') == 'mysql':
             'PASSWORD': os.getenv('DB_PASS', 'ias')
         }
     }
-elif os.environ.get('DB_ENGINE') == 'sqlite':
+elif os.environ.get('DB_ENGINE') == 'oracle':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.oracle',
+            'NAME': os.getenv('DB_NAME', 'IntegratedAlarmSystem'),
+            'USER': os.getenv('DB_USER', 'ias'),
+            'HOST': os.getenv('DB_HOST', 'database'),
+            'PORT': os.getenv('DB_PORT', '1521'),
+            'PASSWORD': os.getenv('DB_PASS', 'ias')
+        }
+    }
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
