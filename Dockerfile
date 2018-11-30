@@ -1,5 +1,15 @@
 FROM centos:7
 
+# Install oracle drivers
+RUN yum install -y libaio
+COPY private_files/*.rpm ./
+RUN rpm -Uvh oracle-instantclient*18*.rpm
+RUN if [ -d /usr/lib/oracle/18.3/client64/lib ] ; then echo "/usr/lib/oracle/18.3/client64/lib" >/etc/ld.so.conf.d/oracle-instantclient.conf ; fi
+RUN if [ -d /usr/lib/oracle/18.3/client64/lib ] ; then export LD_LIBRARY_PATH=/usr/lib/oracle/18.3/client64/lib:$LD_LIBRARY_PATH ; fi
+RUN if [ -d /usr/lib/oracle/18.3/client64/bin ] ; then export PATH=/usr/lib/oracle/18.3/client64/bin:$PATH ; fi
+RUN ldconfig
+RUN rm *.rpm
+
 # Install python
 RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm &&\
   yum -y update
