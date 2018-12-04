@@ -117,7 +117,7 @@ class Placemark(models.Model):
 class View(models.Model):
     """ Available Views """
 
-    name = models.CharField(max_length=15, null=False, unique=True)
+    name = models.CharField(max_length=30, null=False, unique=True)
     """ Name of the View """
 
     def __str__(self):
@@ -128,7 +128,7 @@ class View(models.Model):
 class Type(models.Model):
     """ Available Alarms Types """
 
-    name = models.CharField(max_length=15, null=False, unique=True)
+    name = models.CharField(max_length=30, null=False, unique=True)
     """ Name of the Type """
 
     def __str__(self):
@@ -158,7 +158,7 @@ class AlarmConfig(models.Model):
     )
     """ Reference to an alarm which is displayed as a parent of this alarm """
 
-    custom_name = models.CharField(max_length=15, null=True, blank=True)
+    custom_name = models.CharField(max_length=30, null=True, blank=True)
     """ Custom name to show in the display """
 
     placemark = models.OneToOneField(

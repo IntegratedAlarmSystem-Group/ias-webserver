@@ -139,6 +139,13 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         }
         return IASValue(**params)
 
+    async def connect(self):
+        """
+        Called on connection
+        """
+        AlarmCollection.initialize()
+        await self.accept()
+
     async def receive_json(self, content, **kwargs):
         """
         Handles the messages received by this consumer.
@@ -178,6 +185,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             # To reject the connection:
             await self.close()
         else:
+            AlarmCollection.initialize()
             AlarmCollection.register_observer(self)
             # To accept the connection call:
             await self.accept()
