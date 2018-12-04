@@ -163,10 +163,12 @@ elif os.environ.get('DB_ENGINE') == 'oracle':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.oracle',
-            'NAME': os.getenv('DB_NAME', 'IntegratedAlarmSystem'),
+            'NAME': "{}:{}/{}".format(
+                os.getenv('DB_HOST', 'database'),
+                os.getenv('DB_PORT', '1521'),
+                os.getenv('DB_NAME', 'IntegratedAlarmSystem')
+            ),
             'USER': os.getenv('DB_USER', 'ias'),
-            'HOST': os.getenv('DB_HOST', 'database'),
-            'PORT': os.getenv('DB_PORT', '1521'),
             'PASSWORD': os.getenv('DB_PASS', 'ias')
         }
     }
