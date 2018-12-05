@@ -8,8 +8,8 @@ from alarms.collections import AlarmCollection
 from alarms.connectors import PanelsConnector
 
 
-class TestCountPerViewForNewAlarms:
-    """ This class defines the test suite for the alarms count per view
+class TestCountByViewForNewAlarms:
+    """ This class defines the test suite for the alarms count by view
         for new alarms
 
         The update test cases are new alarms for the following cases:
@@ -33,7 +33,7 @@ class TestCountPerViewForNewAlarms:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_per_view_update_for_new_SET_UNACK_alarms(
+    async def test_counter_by_view_update_for_new_SET_UNACK_alarms(
         self, mocker
     ):
 
@@ -78,7 +78,7 @@ class TestCountPerViewForNewAlarms:
         AlarmCollection.reset()
 
         # Initial counter:
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         # Act:
@@ -92,12 +92,12 @@ class TestCountPerViewForNewAlarms:
 
         # Assert:
         expected_counter = {'antennas': 4, 'weather': 1}
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == expected_counter, 'Unexpected count'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_per_view_cannot_change_for_new_CLEARED_alarms(
+    async def test_counter_by_view_cannot_change_for_new_CLEARED_alarms(
         self, mocker
     ):
 
@@ -143,7 +143,7 @@ class TestCountPerViewForNewAlarms:
             assert alarm.ack is not True, 'Expected unack state'
 
         # Arrange: Initial counter:
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == {'antennas': 1, 'weather': 0}, 'Unexpected count'
 
         # Arrange: New cleared alarms
@@ -165,12 +165,12 @@ class TestCountPerViewForNewAlarms:
 
         # Assert:
         expected_counter = {'antennas': 1, 'weather': 0}
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == expected_counter, 'Unexpected count'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_per_view_cannot_change_for_new_SET_ACK_alarms(
+    async def test_counter_by_view_cannot_change_for_new_SET_ACK_alarms(
         self, mocker
     ):
 
@@ -216,7 +216,7 @@ class TestCountPerViewForNewAlarms:
             assert alarm.ack is not True, 'Expected unack state'
 
         # Arrange: Initial counter:
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == {'antennas': 1, 'weather': 0}, 'Unexpected count'
 
         # Arrange: New set alarms
@@ -238,7 +238,7 @@ class TestCountPerViewForNewAlarms:
                 'New alarms should be created'
 
         # Transition counter
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == {'antennas': 2, 'weather': 1}, 'Unexpected count'
 
         # Act: Acknowledge alarms
@@ -250,7 +250,7 @@ class TestCountPerViewForNewAlarms:
 
         # Assert:
         expected_counter = {'antennas': 1, 'weather': 0}
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == expected_counter, 'Unexpected count'
 
 
@@ -283,7 +283,7 @@ class TestCountPerViewForAlarmsUpdates:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_per_view_update_CLEAR_to_SET_UNACK(
+    async def test_counter_by_view_update_CLEAR_to_SET_UNACK(
         self, mocker
     ):
 
@@ -329,7 +329,7 @@ class TestCountPerViewForAlarmsUpdates:
                 'New alarms should be created'
 
         # Arrange: Initial counter:
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         # Act: Update to set unack
@@ -352,13 +352,13 @@ class TestCountPerViewForAlarmsUpdates:
 
         # Assert:
         expected_counter = {'antennas': 1, 'weather': 1}
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == expected_counter, \
             'Unexpected count for the CLEAR to SET UNACK case'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_per_view_update_SET_UNACK_to_SET_ACK(
+    async def test_counter_by_view_update_SET_UNACK_to_SET_ACK(
         self, mocker
     ):
 
@@ -406,7 +406,7 @@ class TestCountPerViewForAlarmsUpdates:
             assert alarm.ack is not True, 'Expected unack state'
 
         # Arrange: Initial counter:
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == {'antennas': 1, 'weather': 1}, 'Unexpected count'
 
         # Act: 'Update' to set ack
@@ -418,13 +418,13 @@ class TestCountPerViewForAlarmsUpdates:
 
         # Assert:
         expected_counter = {'antennas': 0, 'weather': 0}
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == expected_counter, \
             'Unexpected count for the SET UNACK to SET ACK case'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_per_view_update_SET_UNACK_to_CLEARED(
+    async def test_counter_by_view_update_SET_UNACK_to_CLEARED(
         self, mocker
     ):
 
@@ -472,7 +472,7 @@ class TestCountPerViewForAlarmsUpdates:
             assert alarm.ack is not True, 'Expected unack state'
 
         # Arrange: Initial counter:
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == {'antennas': 1, 'weather': 1}, 'Unexpected count'
 
         # Act: Update to set unack
@@ -492,13 +492,13 @@ class TestCountPerViewForAlarmsUpdates:
                 'The status must be updated-alarm'
         # Assert:
         expected_counter = {'antennas': 0, 'weather': 0}
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == expected_counter, \
             'Unexpected count for the SET UNACK to CLEARED case'
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_per_view_update_SET_ACK_to_CLEARED(
+    async def test_counter_by_view_update_SET_ACK_to_CLEARED(
         self, mocker
     ):
 
@@ -554,7 +554,7 @@ class TestCountPerViewForAlarmsUpdates:
             assert alarm.ack is True, 'Expected ack state'
 
         # Arrange: Initial counter:
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         # Act: Update to cleared
@@ -575,6 +575,6 @@ class TestCountPerViewForAlarmsUpdates:
                 'The status must be updated-alarm'
         # Assert:
         expected_counter = {'antennas': 0, 'weather': 0}
-        counter = AlarmCollection.counter_per_view
+        counter = AlarmCollection.counter_by_view
         assert counter == expected_counter, \
             'Unexpected count for the SET ACK to CLEARED case'

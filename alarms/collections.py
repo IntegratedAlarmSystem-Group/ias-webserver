@@ -19,7 +19,7 @@ class CounterPerView:
             if alarm.value != Value.CLEARED:
                 if alarm.ack is not True:
                     # unacknowledged alarm in set status
-                    self.counter_per_view[view] += 1
+                    self.counter_by_view[view] += 1
 
     @classmethod
     def _update_counter_by_view_for_updated_alarm(
@@ -32,11 +32,11 @@ class CounterPerView:
             if transition == 'clear-set':
                 if alarm.ack is not True:
                     # unacknowledged alarm
-                    self.counter_per_view[view] += 1
+                    self.counter_by_view[view] += 1
             if transition == 'set-clear':
                 if initial_ack_state is False:
                     # cleared from set unack alarm
-                    self.counter_per_view[view] -= 1
+                    self.counter_by_view[view] -= 1
 
     @classmethod
     def _update_counter_by_view_for_acknowledged_alarm(self, alarm):
@@ -47,7 +47,7 @@ class CounterPerView:
             if alarm.value != Value.CLEARED:
                 if alarm.ack is True:
                     # acknowledged alarm in set status
-                    self.counter_per_view[view] -= 1
+                    self.counter_by_view[view] -= 1
 
 
 class AlarmCollection(CounterPerView):
@@ -71,7 +71,7 @@ class AlarmCollection(CounterPerView):
     """ Dictionary to store the related view names by alarm,
     indexed by core_id """
 
-    counter_per_view = None
+    counter_by_view = None
     """ Dictionary to store the count of active - and unack - alarms,
     indexed by view name"""
 
@@ -99,6 +99,15 @@ class AlarmCollection(CounterPerView):
         logger.debug(
             'all the observers were notified (alarm %s, action: %s)',
             alarm.core_id, action)
+
+        # start block - counter by view notification
+        await asyncio.gather(
+            *[observer.update_counter_by_view(
+                self.counter_by_view
+            ) for observer in self.observers]
+        )
+        # end block - counter by view notification
+
 
     @classmethod
     async def broadcast_status_to_observers(self):
@@ -132,7 +141,7 @@ class AlarmCollection(CounterPerView):
             self.values_collection = {}
             self.alarms_views_dict = \
                 PanelsConnector.get_alarms_views_dict_of_alarm_configs()
-            self.counter_per_view = {
+            self.counter_by_view = {
                 name: 0 for name in PanelsConnector.get_names_of_views()}
             alarms_to_search = PanelsConnector.get_alarm_ids_of_alarm_configs()
             if iasios is None:
@@ -302,8 +311,9 @@ class AlarmCollection(CounterPerView):
         alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         self._update_parents_collection(alarm)
+        # start block - counter by view method
         self._update_counter_by_view_for_new_alarm(alarm)
-        # counter by view method
+        # end block - counter by view method
         logger.debug('the alarm %s was added to the collection', alarm.core_id)
 
     @classmethod
@@ -354,7 +364,9 @@ class AlarmCollection(CounterPerView):
             (besides timestamp), 'updated-equal' if it was updated but the only
             change is the timestamp, and 'not-updated' if it was not updated
         """
+        # start block - counter by view
         alarm_initial_ack_state = alarm.ack  # used for the counter by view
+        # end block - counter by view
 
         alarm = self._clean_alarm_dependencies(alarm)
         stored_alarm = self.get(alarm.core_id)
@@ -372,10 +384,10 @@ class AlarmCollection(CounterPerView):
             stored_alarm.state_change_timestamp = stored_alarm.core_timestamp
         elif transition == 'set-clear':
             self._clear_ticket(stored_alarm.core_id)
-
+        # start block - counter by view method
         self._update_counter_by_view_for_updated_alarm(
             alarm, transition, alarm_initial_ack_state)
-        # counter by view method
+        # end block - counter by view method
 
         return notify
 
@@ -406,9 +418,10 @@ class AlarmCollection(CounterPerView):
             *[self.notify_observers(alarm, 'update') for alarm in alarms]
         )
 
+        # start block - counter by view
         for alarm in alarms:
             self._update_counter_by_view_for_acknowledged_alarm(alarm)
-            # counter by view method
+        # end block - counter by view method
 
         logger.debug('the alarms in %s were acknowledged', alarms_ids)
         return alarms_ids

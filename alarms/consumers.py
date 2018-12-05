@@ -201,6 +201,19 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             }
         await self.send_json(message)
 
+    async def update_counter_by_view(self, counter_by_view):
+        """
+        Notifies the client of changes in a dictionary defined as a
+        counter by view
+        """
+        message = {
+            "payload": {
+                "data": counter_by_view
+            },
+            "stream": "counter"
+        }
+        await self.send_json(message)
+
     async def send_alarms_status(self):
         queryset = AlarmCollection.update_all_alarms_validity()
         data = []
