@@ -10,6 +10,9 @@ RUN if [ -d /usr/lib/oracle/18.3/client64/bin ] ; then export PATH=/usr/lib/orac
 RUN if [ -f oracle-instantclient18.3-basic-18.3.0.0.0-1.x86_64.rpm ]; then rm *.rpm ; fi
 RUN ldconfig
 
+# Install netcat
+RUN yum update -y && yum install -y nmap-ncat
+
 # Install python
 RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm &&\
   yum -y update

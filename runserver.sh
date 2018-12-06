@@ -1,10 +1,14 @@
 #!/bin/sh
 
-# while ! nc -z ${DB_HOST} ${DB_PORT}
-# do
-#  echo "sleeping 1 second waiting for database"
-#  sleep 1
-# done
+if [ ${DB_ENGINE} == "mysql" ] || [ ${DB_ENGINE} == "oracle" ]
+then
+  while ! nc -z ${DB_HOST} ${DB_PORT}
+  do
+    echo "sleeping 1 second waiting for database"
+    echo ${DB_HOST} ${DB_PORT}
+    sleep 1
+  done
+fi
 
 ./load_fixtures.sh
 echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@fake-admin.com', 'nimda') if (User.objects.filter(username='admin').exists() == False) else None" | python manage.py shell
