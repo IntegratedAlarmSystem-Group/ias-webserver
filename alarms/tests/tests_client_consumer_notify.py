@@ -37,13 +37,11 @@ class TestNotificationsToClientConsumer:
         # Arrange: Views
         mock_view_names = ['view']
         mock_alarms_views_dict = {alarm.core_id: ['view']}
-
         PanelsConnector_get_names_of_views = \
             mocker.patch.object(
                 PanelsConnector, 'get_names_of_views'
             )
         PanelsConnector_get_names_of_views.return_value = mock_view_names
-
         PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
             mocker.patch.object(
                 PanelsConnector, 'get_alarms_views_dict_of_alarm_configs'
@@ -195,34 +193,3 @@ class TestNotificationsToClientConsumer:
             'Unexpected count'
         # Close:
         await communicator.disconnect()
-
-    # @pytest.mark.asyncio
-    # @pytest.mark.django_db
-    # async def test_outbound_delete(self):
-    #     """Test if clients are notified when an alarm is deleted"""
-    #     AlarmCollection.reset([])
-    #     user = User.objects.create_user(
-    #         'username', password='123', email='user@user.cl')
-    #     token = Token.objects.get(user__username=user.username)
-    #     query_string = 'token={}'.format(token)
-    #     # Connect:
-    #     communicator = self.create_communicator(query_string=query_string)
-    #     connected, subprotocol = await communicator.connect()
-    #     assert connected, 'The communicator was not connected'
-    #     # Arrange:
-    #     # Create an alarm and then receive from the communicator to keep clean
-    #     # the ClientConsumer channel
-    #     alarm = AlarmFactory.get_valid_alarm(core_id='test')
-    #     await AlarmCollection.add_or_update_and_notify(alarm)
-    #     response = await communicator.receive_json_from()
-    #     # Act:
-    #     # Update the alarm replacing it with an invalid alarm and receive the
-    #     # notification from the communicator
-    #     await AlarmCollection.delete_and_notify(alarm)
-    #     response = await communicator.receive_json_from()
-    #
-    #     # Assert action
-    #     assert response['payload']['action'] == 'delete', \
-    #         "Payload action should be 'delete'"
-    #     # Close:
-    #     await communicator.disconnect()

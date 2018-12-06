@@ -111,7 +111,6 @@ class AlarmCollection(CounterPerView):
         )
         # end block - counter by view notification
 
-
     @classmethod
     async def broadcast_status_to_observers(self):
         """Notify to all observers the alarms list with its current status"""
