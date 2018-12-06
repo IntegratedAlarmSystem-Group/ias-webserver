@@ -94,8 +94,12 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
         core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
-        core_timestamp = CoreConsumer.get_timestamp_from(
-            content['sentToBsdbTStamp'])
+        if 'dasuProductionTStamp' in content:
+            core_timestamp = CoreConsumer.get_timestamp_from(
+                content['dasuProductionTStamp'])
+        else:
+            core_timestamp = CoreConsumer.get_timestamp_from(
+                content['pluginProductionTStamp'])
         params = {
             'value': value_options[content['value']],
             'core_timestamp': core_timestamp,
@@ -134,6 +138,13 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
             'timestamps': CoreConsumer.get_timestamps(content)
         }
         return IASValue(**params)
+
+    async def connect(self):
+        """
+        Called on connection
+        """
+        AlarmCollection.initialize()
+        await self.accept()
 
     async def receive_json(self, content, **kwargs):
         """
@@ -174,6 +185,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             # To reject the connection:
             await self.close()
         else:
+            AlarmCollection.initialize()
             AlarmCollection.register_observer(self)
             # To accept the connection call:
             await self.accept()

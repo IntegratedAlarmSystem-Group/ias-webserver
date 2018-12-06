@@ -15,17 +15,18 @@ class TestCdbConnector(TestCase):
         # Arrange:
         CdbConnector.refresh_rate = 0
         CdbConnector.tolerance = 0
+        CdbConnector.validity_threshold = 0
         old_refresh_rate = CdbConnector.refresh_rate
-        old_tolerance = CdbConnector.tolerance
+        old_validity_threshold = CdbConnector.validity_threshold
         # Act:
         CdbConnector.initialize_ias()
         # Assert:
         new_refresh_rate = CdbConnector.refresh_rate
-        new_tolerance = CdbConnector.tolerance
+        new_validity_threshold = CdbConnector.validity_threshold
         self.assertNotEqual(new_refresh_rate, old_refresh_rate)
-        self.assertNotEqual(new_tolerance, old_tolerance)
+        self.assertNotEqual(new_validity_threshold, old_validity_threshold)
         self.assertEqual(new_refresh_rate, 3000)
-        self.assertEqual(new_tolerance, 1000)
+        self.assertEqual(new_validity_threshold, 10000)
 
     def test_read_get_iasios(self):
         """ Test that the get_iasios function can the correct iasios

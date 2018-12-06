@@ -71,11 +71,11 @@ class TestPeriodicBroadcastCase:
                     'action': 'list'
                 }
             }
-            # make request 10 seconds after alarms were created:
-            max_timedelta = datetime.timedelta(seconds=10)
+            # make request 11 seconds after alarms were created:
+            max_timedelta = datetime.timedelta(seconds=11)
             frozen_datetime.tick(delta=max_timedelta)
             await communicator.send_json_to(msg)
-            response = await communicator.receive_json_from()
+            await communicator.receive_json_from()
             response_observer = await communicator_observer.receive_json_from()
 
             # Assert:

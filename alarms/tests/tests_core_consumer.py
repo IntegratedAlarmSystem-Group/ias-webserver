@@ -66,22 +66,17 @@ class TestCoreConsumer:
             'The calculated timestamp in milliseconds differs from the \
             expected in more than 1 millisecond'
 
-    def test_get_alarm_from_core_message(self):
+    def test_get_alarm_from_core_message_from_dasu(self):
         # Arrange:
-        current_time = datetime.datetime.now()
-        formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        current_time_millis = CoreConsumer.get_timestamp_from(
-                                formatted_current_time)
         ID = "(S{0}:SUPERVISOR)@(d{0}:DASU)@(a{0}:ASCE)@(AlarmID{0}:IASIO)"
         msg = {
             "value": "SET_LOW",
-            "pluginProductionTStamp": formatted_current_time,
-            "sentToConverterTStamp": formatted_current_time,
-            "receivedFromPluginTStamp": formatted_current_time,
-            "convertedProductionTStamp": formatted_current_time,
-            "sentToBsdbTStamp": formatted_current_time,
-            "readFromBsdbTStamp": formatted_current_time,
-            "dasuProductionTStamp": formatted_current_time,
+            "sentToConverterTStamp": '2010-02-27T06:35:00.0',
+            "receivedFromPluginTStamp": '2010-02-27T06:36:00.0',
+            "convertedProductionTStamp": '2010-02-27T06:37:00.0',
+            "sentToBsdbTStamp": '2010-02-27T06:38:00.0',
+            "readFromBsdbTStamp": '2010-02-27T06:39:00.0',
+            "dasuProductionTStamp": '2010-02-27T06:40:00.0',
             "depsFullRunningIds": [ID.format(1), ID.format(2)],
             "props": {"key1": "value1", "key2": "value2"},
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
@@ -89,23 +84,90 @@ class TestCoreConsumer:
             "fullRunningId": ID.format(3),
             "valueType": "ALARM"
         }
+        sentToConverterTStamp = \
+            CoreConsumer.get_timestamp_from(msg['sentToConverterTStamp'])
+        receivedFromPluginTStamp = \
+            CoreConsumer.get_timestamp_from(msg['receivedFromPluginTStamp'])
+        convertedProductionTStamp = \
+            CoreConsumer.get_timestamp_from(msg['convertedProductionTStamp'])
+        sentToBsdbTStamp = \
+            CoreConsumer.get_timestamp_from(msg['sentToBsdbTStamp'])
+        readFromBsdbTStamp = \
+            CoreConsumer.get_timestamp_from(msg['readFromBsdbTStamp'])
+        dasuProductionTStamp = \
+            CoreConsumer.get_timestamp_from(msg['dasuProductionTStamp'])
+
         expected_alarm = Alarm(
             value=1,
             mode=5,
             validity=1,
-            core_timestamp=current_time_millis,
+            core_timestamp=dasuProductionTStamp,
             core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
             dependencies=['AlarmID{0}'.format(1), 'AlarmID{0}'.format(2)],
             properties={'key1': 'value1', 'key2': 'value2'},
             timestamps={
-                'pluginProductionTStamp': current_time_millis,
-                'sentToConverterTStamp': current_time_millis,
-                'receivedFromPluginTStamp': current_time_millis,
-                'convertedProductionTStamp': current_time_millis,
-                'sentToBsdbTStamp': current_time_millis,
-                'readFromBsdbTStamp': current_time_millis,
-                'dasuProductionTStamp': current_time_millis,
+                'sentToConverterTStamp': sentToConverterTStamp,
+                'receivedFromPluginTStamp': receivedFromPluginTStamp,
+                'convertedProductionTStamp': convertedProductionTStamp,
+                'sentToBsdbTStamp': sentToBsdbTStamp,
+                'readFromBsdbTStamp': readFromBsdbTStamp,
+                'dasuProductionTStamp': dasuProductionTStamp,
+            }
+        )
+        # Act:
+        alarm = CoreConsumer.get_alarm_from_core_msg(msg)
+        # Assert:
+        assert alarm.to_dict() == expected_alarm.to_dict(), \
+            'The alarm was not converted correctly'
+
+    def test_get_alarm_from_core_message_from_plugin(self):
+        # Arrange:
+        ID = "(S{0}:SUPERVISOR)@(d{0}:DASU)@(a{0}:ASCE)@(AlarmID{0}:IASIO)"
+        msg = {
+            "value": "SET_LOW",
+            "pluginProductionTStamp": '2010-02-27T06:34:00.0',
+            "sentToConverterTStamp": '2010-02-27T06:35:00.0',
+            "receivedFromPluginTStamp": '2010-02-27T06:36:00.0',
+            "convertedProductionTStamp": '2010-02-27T06:37:00.0',
+            "sentToBsdbTStamp": '2010-02-27T06:38:00.0',
+            "readFromBsdbTStamp": '2010-02-27T06:39:00.0',
+            "depsFullRunningIds": [ID.format(1), ID.format(2)],
+            "props": {"key1": "value1", "key2": "value2"},
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": ID.format(3),
+            "valueType": "ALARM"
+        }
+        pluginProductionTStamp = \
+            CoreConsumer.get_timestamp_from(msg['pluginProductionTStamp'])
+        sentToConverterTStamp = \
+            CoreConsumer.get_timestamp_from(msg['sentToConverterTStamp'])
+        receivedFromPluginTStamp = \
+            CoreConsumer.get_timestamp_from(msg['receivedFromPluginTStamp'])
+        convertedProductionTStamp = \
+            CoreConsumer.get_timestamp_from(msg['convertedProductionTStamp'])
+        sentToBsdbTStamp = \
+            CoreConsumer.get_timestamp_from(msg['sentToBsdbTStamp'])
+        readFromBsdbTStamp = \
+            CoreConsumer.get_timestamp_from(msg['readFromBsdbTStamp'])
+
+        expected_alarm = Alarm(
+            value=1,
+            mode=5,
+            validity=1,
+            core_timestamp=pluginProductionTStamp,
+            core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
+            running_id=msg['fullRunningId'],
+            dependencies=['AlarmID{0}'.format(1), 'AlarmID{0}'.format(2)],
+            properties={'key1': 'value1', 'key2': 'value2'},
+            timestamps={
+                'pluginProductionTStamp': pluginProductionTStamp,
+                'sentToConverterTStamp': sentToConverterTStamp,
+                'receivedFromPluginTStamp': receivedFromPluginTStamp,
+                'convertedProductionTStamp': convertedProductionTStamp,
+                'sentToBsdbTStamp': sentToBsdbTStamp,
+                'readFromBsdbTStamp': readFromBsdbTStamp,
             }
         )
         # Act:

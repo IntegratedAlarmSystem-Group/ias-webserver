@@ -117,7 +117,7 @@
       "name": "INNER",
       "description": "Inner array, including central cluster and ACA"
     },
-    "pk": 0
+    "pk": 1
   },
   {
     "model": "panels.placemarkgroup",
@@ -125,7 +125,7 @@
       "name": "W",
       "description": "Western arm of the array"
     },
-    "pk": 1
+    "pk": 2
   },
   {
     "model": "panels.placemarkgroup",
@@ -133,7 +133,7 @@
       "name": "S",
       "description": "Southern arm of the array"
     },
-    "pk": 2
+    "pk": 3
   },
   {
     "model": "panels.placemarkgroup",
@@ -141,7 +141,7 @@
       "name": "P",
       "description": "Pampa La Bola arm"
     },
-    "pk": 3
+    "pk": 4
   },
   {
     "model": "panels.placemark",
@@ -149,7 +149,7 @@
     "fields": {
       "name": "MeteoCentral",
       "type": 1,
-      "group": 0
+      "group": 1
     }
   },
   {
@@ -158,7 +158,7 @@
     "fields": {
       "name": "Meteo201",
       "type": 1,
-      "group": 1
+      "group": 2
     }
   },
   {
@@ -167,7 +167,7 @@
     "fields": {
       "name": "Meteo410",
       "type": 1,
-      "group": 3
+      "group": 4
     }
   },
   {
@@ -176,7 +176,7 @@
     "fields": {
       "name": "Meteo309",
       "type": 1,
-      "group": 2
+      "group": 3
     }
   },
   {

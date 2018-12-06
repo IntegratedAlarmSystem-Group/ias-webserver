@@ -148,17 +148,37 @@ if not os.environ.get('TESTING', False):
 # Database
 DATABASE_ROUTERS = ['cdb.routers.CdbRouter']
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'cdb': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'cdb.sqlite3'),
-    },
-}
-
+if os.environ.get('DB_ENGINE') == 'mysql':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('DB_NAME', 'IntegratedAlarmSystem'),
+            'USER': os.getenv('DB_USER', 'ias'),
+            'HOST': os.getenv('DB_HOST', 'database'),
+            'PORT': os.getenv('DB_PORT', '3306'),
+            'PASSWORD': os.getenv('DB_PASS', 'ias')
+        }
+    }
+elif os.environ.get('DB_ENGINE') == 'oracle':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.oracle',
+            'NAME': "{}:{}/{}".format(
+                os.getenv('DB_HOST', 'database'),
+                os.getenv('DB_PORT', '1521'),
+                os.getenv('DB_NAME', 'IntegratedAlarmSystem')
+            ),
+            'USER': os.getenv('DB_USER', 'ias'),
+            'PASSWORD': os.getenv('DB_PASS', 'ias')
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -224,6 +244,8 @@ REST_FRAMEWORK = {
 ASGI_APPLICATION = "ias_webserver.routing.application"
 
 BROADCAST_RATE_FACTOR = 2
+BROADCAST_RATE = 10
+BROADCAST_THRESHOLD = 11
 UNSHELVE_CHECKING_RATE = 60
 FILES_LOCATION = "private_files"
 CDB_LOCATION = "CDB/"
