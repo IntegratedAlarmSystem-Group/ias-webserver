@@ -94,7 +94,10 @@ class AlarmCollection(CounterPerView):
     async def notify_observers(self, alarm, action):
         """Notify to all observers an action over an alarm"""
         await asyncio.gather(
-            *[observer.update(alarm, action) for observer in self.observers]
+            *[observer.update(
+                alarm,
+                action
+            ) for observer in self.observers]
         )
         logger.debug(
             'all the observers were notified (alarm %s, action: %s)',
@@ -386,7 +389,7 @@ class AlarmCollection(CounterPerView):
             self._clear_ticket(stored_alarm.core_id)
         # start block - counter by view method
         self._update_counter_by_view_for_updated_alarm(
-            alarm, transition, alarm_initial_ack_state)
+            stored_alarm, transition, alarm_initial_ack_state)
         # end block - counter by view method
 
         return notify
@@ -414,14 +417,14 @@ class AlarmCollection(CounterPerView):
             alarms += _alarms
             alarms_ids += _alarms_ids
 
-        await asyncio.gather(
-            *[self.notify_observers(alarm, 'update') for alarm in alarms]
-        )
-
         # start block - counter by view
         for alarm in alarms:
             self._update_counter_by_view_for_acknowledged_alarm(alarm)
         # end block - counter by view method
+
+        await asyncio.gather(
+            *[self.notify_observers(alarm, 'update') for alarm in alarms]
+        )
 
         logger.debug('the alarms in %s were acknowledged', alarms_ids)
         return alarms_ids
