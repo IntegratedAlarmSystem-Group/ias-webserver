@@ -120,6 +120,14 @@ class AlarmCollection(CounterPerView):
         logger.debug(
             'all the observers were notified with the last alarms status')
 
+        # start block - counter by view notification
+        await asyncio.gather(
+            *[observer.update_counter_by_view(
+                self.counter_by_view
+            ) for observer in self.observers]
+        )
+        # end block - counter by view notification
+
     # Sync, non-notified methods:
     @classmethod
     def initialize(self, iasios=None):
