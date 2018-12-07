@@ -91,6 +91,11 @@ class AlarmCollection(CounterPerView):
             )
 
     @classmethod
+    def notify_counter_by_view_to_observer(self, observer):
+        """Notify counter by view to a selected observer"""
+        return observer.update_counter_by_view(self.counter_by_view)
+
+    @classmethod
     async def notify_observers(self, alarm, action):
         """Notify to all observers an action over an alarm"""
         await asyncio.gather(
@@ -105,8 +110,8 @@ class AlarmCollection(CounterPerView):
 
         # start block - counter by view notification
         await asyncio.gather(
-            *[observer.update_counter_by_view(
-                self.counter_by_view
+            *[self.notify_counter_by_view_to_observer(
+                observer
             ) for observer in self.observers]
         )
         # end block - counter by view notification
@@ -122,8 +127,8 @@ class AlarmCollection(CounterPerView):
 
         # start block - counter by view notification
         await asyncio.gather(
-            *[observer.update_counter_by_view(
-                self.counter_by_view
+            *[self.notify_counter_by_view_to_observer(
+                observer
             ) for observer in self.observers]
         )
         # end block - counter by view notification

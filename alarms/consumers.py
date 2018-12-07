@@ -249,6 +249,9 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             if content['payload'] and content['payload']['action'] is not None:
                 if content['payload']['action'] == 'list':
                     await self.send_alarms_status()
+                    await self.update_counter_by_view(
+                        AlarmCollection.counter_by_view
+                    )
                     logger.debug(
                         'new message received in requests stream: ' +
                         '(action list)')
