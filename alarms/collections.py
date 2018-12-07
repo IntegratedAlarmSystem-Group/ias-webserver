@@ -16,7 +16,7 @@ class CounterPerView:
         views = self.alarms_views_dict.get(alarm.core_id, [])
         if len(views) > 0:
             view = views[0]
-            if alarm.value != Value.CLEARED:
+            if alarm.value != Value.CLEARED.value:
                 if alarm.ack is not True:
                     # unacknowledged alarm in set status
                     self.counter_by_view[view] += 1
