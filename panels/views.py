@@ -126,6 +126,24 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             power = alarm.nested_alarms.filter(
                 type__name="power")
 
+            crio_temp0 = alarm.nested_alarms.filter(
+                type__name="crio_temp0")
+
+            crio_temp5 = alarm.nested_alarms.filter(
+                type__name="crio_temp5")
+
+            crio_temp9 = alarm.nested_alarms.filter(
+                type__name="crio_temp9")
+
+            crio_pres0 = alarm.nested_alarms.filter(
+                type__name="crio_pres0")
+
+            crio_pres1 = alarm.nested_alarms.filter(
+                type__name="crio_pres1")
+
+            cmpr_drive = alarm.nested_alarms.filter(
+                type__name="cmpr_drive")
+
             if alarm.tags and alarm.tags not in data:
                 data[alarm.tags] = []
             data[alarm.tags].append(
@@ -137,7 +155,13 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                   "fire_malfunction": fire_sys[0].alarm_id if fire_sys else "",
                   "ups": ups[0].alarm_id if ups else "",
                   "hvac": hvac[0].alarm_id if hvac else "",
-                  "power": power[0].alarm_id if power else ""
+                  "power": power[0].alarm_id if power else "",
+                  "crio_temp0": crio_temp0[0].alarm_id if crio_temp0 else "",
+                  "crio_temp5": crio_temp5[0].alarm_id if crio_temp5 else "",
+                  "crio_temp9": crio_temp9[0].alarm_id if crio_temp9 else "",
+                  "crio_pres0": crio_pres0[0].alarm_id if crio_pres0 else "",
+                  "crio_pres1": crio_pres1[0].alarm_id if crio_pres1 else "",
+                  "cmpr_drive": cmpr_drive[0].alarm_id if cmpr_drive else "",
                 }
             )
 
