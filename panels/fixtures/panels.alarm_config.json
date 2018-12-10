@@ -122,7 +122,7 @@
     "model": "panels.type",
     "pk": 18,
     "fields": {
-      "name": "laser"
+      "name": "device"
     }
   },
   {
@@ -4616,7 +4616,7 @@
       "parent": 48
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 446,
     "fields": {
@@ -4626,7 +4626,7 @@
       "parent": 49
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 447,
     "fields": {
@@ -4636,7 +4636,7 @@
       "parent": 50
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 448,
     "fields": {
@@ -4646,7 +4646,7 @@
       "parent": 51
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 449,
     "fields": {
@@ -4656,7 +4656,7 @@
       "parent": 52
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 450,
     "fields": {
@@ -4666,7 +4666,7 @@
       "parent": 53
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 451,
     "fields": {
@@ -4676,7 +4676,7 @@
       "parent": 54
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 452,
     "fields": {
@@ -4686,7 +4686,7 @@
       "parent": 55
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 453,
     "fields": {
@@ -4696,7 +4696,7 @@
       "parent": 56
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 454,
     "fields": {
@@ -4706,7 +4706,7 @@
       "parent": 57
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 455,
     "fields": {
@@ -4716,7 +4716,7 @@
       "parent": 58
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 456,
     "fields": {
@@ -4726,7 +4726,7 @@
       "parent": 59
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 457,
     "fields": {
@@ -4736,7 +4736,7 @@
       "parent": 60
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 458,
     "fields": {
@@ -4746,7 +4746,7 @@
       "parent": 61
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 459,
     "fields": {
@@ -4756,7 +4756,7 @@
       "parent": 62
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 460,
     "fields": {
@@ -4766,7 +4766,7 @@
       "parent": 63
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 461,
     "fields": {
@@ -4776,7 +4776,7 @@
       "parent": 64
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 462,
     "fields": {
@@ -4786,7 +4786,7 @@
       "parent": 65
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 463,
     "fields": {
@@ -4796,7 +4796,7 @@
       "parent": 66
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 464,
     "fields": {
@@ -4806,7 +4806,7 @@
       "parent": 67
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 465,
     "fields": {
@@ -4816,7 +4816,7 @@
       "parent": 68
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 466,
     "fields": {
@@ -4826,7 +4826,7 @@
       "parent": 69
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 467,
     "fields": {
@@ -4836,7 +4836,7 @@
       "parent": 70
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 468,
     "fields": {
@@ -4846,7 +4846,7 @@
       "parent": 71
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 469,
     "fields": {
@@ -4856,7 +4856,7 @@
       "parent": 72
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 470,
     "fields": {
@@ -4866,7 +4866,7 @@
       "parent": 73
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 471,
     "fields": {
@@ -4876,7 +4876,7 @@
       "parent": 74
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 472,
     "fields": {
@@ -4886,7 +4886,7 @@
       "parent": 75
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 473,
     "fields": {
@@ -4896,7 +4896,7 @@
       "parent": 76
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 474,
     "fields": {
@@ -4906,7 +4906,7 @@
       "parent": 77
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 475,
     "fields": {
@@ -4916,7 +4916,7 @@
       "parent": 78
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 476,
     "fields": {
@@ -4926,7 +4926,7 @@
       "parent": 79
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 477,
     "fields": {
@@ -4936,7 +4936,7 @@
       "parent": 80
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 478,
     "fields": {
@@ -4946,7 +4946,7 @@
       "parent": 81
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 479,
     "fields": {
@@ -4956,7 +4956,7 @@
       "parent": 82
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 480,
     "fields": {
@@ -4966,7 +4966,7 @@
       "parent": 83
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 481,
     "fields": {
@@ -4976,7 +4976,7 @@
       "parent": 84
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 482,
     "fields": {
@@ -4986,7 +4986,7 @@
       "parent": 85
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 483,
     "fields": {
@@ -4996,7 +4996,7 @@
       "parent": 86
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 484,
     "fields": {
@@ -5006,7 +5006,7 @@
       "parent": 87
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 485,
     "fields": {
@@ -5016,7 +5016,7 @@
       "parent": 88
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 486,
     "fields": {
@@ -5252,7 +5252,7 @@
       "parent": 48
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 512,
     "fields": {
@@ -5262,7 +5262,7 @@
       "parent": 49
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 513,
     "fields": {
@@ -5272,7 +5272,7 @@
       "parent": 50
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 514,
     "fields": {
@@ -5282,7 +5282,7 @@
       "parent": 51
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 515,
     "fields": {
@@ -5292,7 +5292,7 @@
       "parent": 52
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 516,
     "fields": {
@@ -5302,7 +5302,7 @@
       "parent": 53
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 517,
     "fields": {
@@ -5312,7 +5312,7 @@
       "parent": 54
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 518,
     "fields": {
@@ -5322,7 +5322,7 @@
       "parent": 55
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 519,
     "fields": {
@@ -5332,7 +5332,7 @@
       "parent": 56
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 520,
     "fields": {
@@ -5342,7 +5342,7 @@
       "parent": 57
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 521,
     "fields": {
@@ -5352,7 +5352,7 @@
       "parent": 58
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 522,
     "fields": {
@@ -5362,7 +5362,7 @@
       "parent": 59
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 523,
     "fields": {
@@ -5372,7 +5372,7 @@
       "parent": 60
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 524,
     "fields": {
@@ -5382,7 +5382,7 @@
       "parent": 61
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 525,
     "fields": {
@@ -5392,7 +5392,7 @@
       "parent": 62
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 526,
     "fields": {
@@ -5402,7 +5402,7 @@
       "parent": 63
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 527,
     "fields": {
@@ -5412,7 +5412,7 @@
       "parent": 64
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 528,
     "fields": {
@@ -5422,7 +5422,7 @@
       "parent": 65
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 529,
     "fields": {
@@ -5432,7 +5432,7 @@
       "parent": 66
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 530,
     "fields": {
@@ -5442,7 +5442,7 @@
       "parent": 67
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 531,
     "fields": {
@@ -5452,7 +5452,7 @@
       "parent": 68
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 532,
     "fields": {
@@ -5462,7 +5462,7 @@
       "parent": 69
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 533,
     "fields": {
@@ -5472,7 +5472,7 @@
       "parent": 70
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 534,
     "fields": {
@@ -5482,7 +5482,7 @@
       "parent": 71
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 535,
     "fields": {
@@ -5492,7 +5492,7 @@
       "parent": 72
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 536,
     "fields": {
@@ -5502,7 +5502,7 @@
       "parent": 73
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 537,
     "fields": {
@@ -5512,7 +5512,7 @@
       "parent": 74
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 538,
     "fields": {
@@ -5522,7 +5522,7 @@
       "parent": 75
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 539,
     "fields": {
@@ -5532,7 +5532,7 @@
       "parent": 76
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 540,
     "fields": {
@@ -5542,7 +5542,7 @@
       "parent": 77
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 541,
     "fields": {
@@ -5552,7 +5552,7 @@
       "parent": 78
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 542,
     "fields": {
@@ -5562,7 +5562,7 @@
       "parent": 79
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 543,
     "fields": {
@@ -5572,7 +5572,7 @@
       "parent": 80
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 544,
     "fields": {
@@ -5582,7 +5582,7 @@
       "parent": 81
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 545,
     "fields": {
@@ -5592,7 +5592,7 @@
       "parent": 82
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 546,
     "fields": {
@@ -5602,7 +5602,7 @@
       "parent": 83
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 547,
     "fields": {
@@ -5612,7 +5612,7 @@
       "parent": 84
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 548,
     "fields": {
@@ -5622,7 +5622,7 @@
       "parent": 85
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 549,
     "fields": {
@@ -5632,7 +5632,7 @@
       "parent": 86
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 550,
     "fields": {
@@ -5642,7 +5642,7 @@
       "parent": 87
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 551,
     "fields": {
@@ -5652,7 +5652,7 @@
       "parent": 88
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 552,
     "fields": {
@@ -5888,7 +5888,7 @@
       "parent": 48
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 578,
     "fields": {
@@ -5898,7 +5898,7 @@
       "parent": 49
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 579,
     "fields": {
@@ -5908,7 +5908,7 @@
       "parent": 50
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 580,
     "fields": {
@@ -5918,7 +5918,7 @@
       "parent": 51
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 581,
     "fields": {
@@ -5928,7 +5928,7 @@
       "parent": 52
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 582,
     "fields": {
@@ -5938,7 +5938,7 @@
       "parent": 53
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 583,
     "fields": {
@@ -5948,7 +5948,7 @@
       "parent": 54
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 584,
     "fields": {
@@ -5958,7 +5958,7 @@
       "parent": 55
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 585,
     "fields": {
@@ -5968,7 +5968,7 @@
       "parent": 56
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 586,
     "fields": {
@@ -5978,7 +5978,7 @@
       "parent": 57
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 587,
     "fields": {
@@ -5988,7 +5988,7 @@
       "parent": 58
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 588,
     "fields": {
@@ -5998,7 +5998,7 @@
       "parent": 59
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 589,
     "fields": {
@@ -6008,7 +6008,7 @@
       "parent": 60
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 590,
     "fields": {
@@ -6018,7 +6018,7 @@
       "parent": 61
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 591,
     "fields": {
@@ -6028,7 +6028,7 @@
       "parent": 62
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 592,
     "fields": {
@@ -6038,7 +6038,7 @@
       "parent": 63
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 593,
     "fields": {
@@ -6048,7 +6048,7 @@
       "parent": 64
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 594,
     "fields": {
@@ -6058,7 +6058,7 @@
       "parent": 65
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 595,
     "fields": {
@@ -6068,7 +6068,7 @@
       "parent": 66
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 596,
     "fields": {
@@ -6078,7 +6078,7 @@
       "parent": 67
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 597,
     "fields": {
@@ -6088,7 +6088,7 @@
       "parent": 68
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 598,
     "fields": {
@@ -6098,7 +6098,7 @@
       "parent": 69
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 599,
     "fields": {
@@ -6108,7 +6108,7 @@
       "parent": 70
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 600,
     "fields": {
@@ -6118,7 +6118,7 @@
       "parent": 71
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 601,
     "fields": {
@@ -6128,7 +6128,7 @@
       "parent": 72
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 602,
     "fields": {
@@ -6138,7 +6138,7 @@
       "parent": 73
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 603,
     "fields": {
@@ -6148,7 +6148,7 @@
       "parent": 74
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 604,
     "fields": {
@@ -6158,7 +6158,7 @@
       "parent": 75
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 605,
     "fields": {
@@ -6168,7 +6168,7 @@
       "parent": 76
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 606,
     "fields": {
@@ -6178,7 +6178,7 @@
       "parent": 77
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 607,
     "fields": {
@@ -6188,7 +6188,7 @@
       "parent": 78
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 608,
     "fields": {
@@ -6198,7 +6198,7 @@
       "parent": 79
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 609,
     "fields": {
@@ -6208,7 +6208,7 @@
       "parent": 80
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 610,
     "fields": {
@@ -6218,7 +6218,7 @@
       "parent": 81
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 611,
     "fields": {
@@ -6228,7 +6228,7 @@
       "parent": 82
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 612,
     "fields": {
@@ -6238,7 +6238,7 @@
       "parent": 83
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 613,
     "fields": {
@@ -6248,7 +6248,7 @@
       "parent": 84
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 614,
     "fields": {
@@ -6258,7 +6258,7 @@
       "parent": 85
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 615,
     "fields": {
@@ -6268,7 +6268,7 @@
       "parent": 86
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 616,
     "fields": {
@@ -6278,7 +6278,7 @@
       "parent": 87
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 617,
     "fields": {
@@ -6288,7 +6288,7 @@
       "parent": 88
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 618,
     "fields": {
@@ -6524,7 +6524,7 @@
       "parent": 48
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 644,
     "fields": {
@@ -6534,7 +6534,7 @@
       "parent": 49
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 645,
     "fields": {
@@ -6544,7 +6544,7 @@
       "parent": 50
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 646,
     "fields": {
@@ -6554,7 +6554,7 @@
       "parent": 51
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 647,
     "fields": {
@@ -6564,7 +6564,7 @@
       "parent": 52
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 648,
     "fields": {
@@ -6574,7 +6574,7 @@
       "parent": 53
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 649,
     "fields": {
@@ -6584,7 +6584,7 @@
       "parent": 54
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 650,
     "fields": {
@@ -6594,7 +6594,7 @@
       "parent": 55
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 651,
     "fields": {
@@ -6604,7 +6604,7 @@
       "parent": 56
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 652,
     "fields": {
@@ -6614,7 +6614,7 @@
       "parent": 57
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 653,
     "fields": {
@@ -6624,7 +6624,7 @@
       "parent": 58
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 654,
     "fields": {
@@ -6634,7 +6634,7 @@
       "parent": 59
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 655,
     "fields": {
@@ -6644,7 +6644,7 @@
       "parent": 60
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 656,
     "fields": {
@@ -6654,7 +6654,7 @@
       "parent": 61
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 657,
     "fields": {
@@ -6664,7 +6664,7 @@
       "parent": 62
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 658,
     "fields": {
@@ -6674,7 +6674,7 @@
       "parent": 63
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 659,
     "fields": {
@@ -6684,7 +6684,7 @@
       "parent": 64
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 660,
     "fields": {
@@ -6694,7 +6694,7 @@
       "parent": 65
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 661,
     "fields": {
@@ -6704,7 +6704,7 @@
       "parent": 66
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 662,
     "fields": {
@@ -6714,7 +6714,7 @@
       "parent": 67
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 663,
     "fields": {
@@ -6724,7 +6724,7 @@
       "parent": 68
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 664,
     "fields": {
@@ -6734,7 +6734,7 @@
       "parent": 69
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 665,
     "fields": {
@@ -6744,7 +6744,7 @@
       "parent": 70
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 666,
     "fields": {
@@ -6754,7 +6754,7 @@
       "parent": 71
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 667,
     "fields": {
@@ -6764,7 +6764,7 @@
       "parent": 72
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 668,
     "fields": {
@@ -6774,7 +6774,7 @@
       "parent": 73
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 669,
     "fields": {
@@ -6784,7 +6784,7 @@
       "parent": 74
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 670,
     "fields": {
@@ -6794,7 +6794,7 @@
       "parent": 75
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 671,
     "fields": {
@@ -6804,7 +6804,7 @@
       "parent": 76
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 672,
     "fields": {
@@ -6814,7 +6814,7 @@
       "parent": 77
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 673,
     "fields": {
@@ -6824,7 +6824,7 @@
       "parent": 78
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 674,
     "fields": {
@@ -6834,7 +6834,7 @@
       "parent": 79
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 675,
     "fields": {
@@ -6844,7 +6844,7 @@
       "parent": 80
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 676,
     "fields": {
@@ -6854,7 +6854,7 @@
       "parent": 81
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 677,
     "fields": {
@@ -6864,7 +6864,7 @@
       "parent": 82
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 678,
     "fields": {
@@ -6874,7 +6874,7 @@
       "parent": 83
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 679,
     "fields": {
@@ -6884,7 +6884,7 @@
       "parent": 84
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 680,
     "fields": {
@@ -6894,7 +6894,7 @@
       "parent": 85
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 681,
     "fields": {
@@ -6904,7 +6904,7 @@
       "parent": 86
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 682,
     "fields": {
@@ -6914,7 +6914,7 @@
       "parent": 87
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 683,
     "fields": {
@@ -6924,7 +6924,7 @@
       "parent": 88
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 684,
     "fields": {
@@ -7160,7 +7160,7 @@
       "parent": 48
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 710,
     "fields": {
@@ -7170,7 +7170,7 @@
       "parent": 49
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 711,
     "fields": {
@@ -7180,7 +7180,7 @@
       "parent": 50
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 712,
     "fields": {
@@ -7190,7 +7190,7 @@
       "parent": 51
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 713,
     "fields": {
@@ -7200,7 +7200,7 @@
       "parent": 52
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 714,
     "fields": {
@@ -7210,7 +7210,7 @@
       "parent": 53
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 715,
     "fields": {
@@ -7220,7 +7220,7 @@
       "parent": 54
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 716,
     "fields": {
@@ -7230,7 +7230,7 @@
       "parent": 55
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 717,
     "fields": {
@@ -7240,7 +7240,7 @@
       "parent": 56
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 718,
     "fields": {
@@ -7250,7 +7250,7 @@
       "parent": 57
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 719,
     "fields": {
@@ -7260,7 +7260,7 @@
       "parent": 58
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 720,
     "fields": {
@@ -7270,7 +7270,7 @@
       "parent": 59
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 721,
     "fields": {
@@ -7280,7 +7280,7 @@
       "parent": 60
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 722,
     "fields": {
@@ -7290,7 +7290,7 @@
       "parent": 61
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 723,
     "fields": {
@@ -7300,7 +7300,7 @@
       "parent": 62
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 724,
     "fields": {
@@ -7310,7 +7310,7 @@
       "parent": 63
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 725,
     "fields": {
@@ -7320,7 +7320,7 @@
       "parent": 64
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 726,
     "fields": {
@@ -7330,7 +7330,7 @@
       "parent": 65
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 727,
     "fields": {
@@ -7340,7 +7340,7 @@
       "parent": 66
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 728,
     "fields": {
@@ -7350,7 +7350,7 @@
       "parent": 67
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 729,
     "fields": {
@@ -7360,7 +7360,7 @@
       "parent": 68
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 730,
     "fields": {
@@ -7370,7 +7370,7 @@
       "parent": 69
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 731,
     "fields": {
@@ -7380,7 +7380,7 @@
       "parent": 70
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 732,
     "fields": {
@@ -7390,7 +7390,7 @@
       "parent": 71
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 733,
     "fields": {
@@ -7400,7 +7400,7 @@
       "parent": 72
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 734,
     "fields": {
@@ -7410,7 +7410,7 @@
       "parent": 73
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 735,
     "fields": {
@@ -7420,7 +7420,7 @@
       "parent": 74
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 736,
     "fields": {
@@ -7430,7 +7430,7 @@
       "parent": 75
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 737,
     "fields": {
@@ -7440,7 +7440,7 @@
       "parent": 76
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 738,
     "fields": {
@@ -7450,7 +7450,7 @@
       "parent": 77
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 739,
     "fields": {
@@ -7460,7 +7460,7 @@
       "parent": 78
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 740,
     "fields": {
@@ -7470,7 +7470,7 @@
       "parent": 79
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 741,
     "fields": {
@@ -7480,7 +7480,7 @@
       "parent": 80
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 742,
     "fields": {
@@ -7490,7 +7490,7 @@
       "parent": 81
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 743,
     "fields": {
@@ -7500,7 +7500,7 @@
       "parent": 82
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 744,
     "fields": {
@@ -7510,7 +7510,7 @@
       "parent": 83
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 745,
     "fields": {
@@ -7520,7 +7520,7 @@
       "parent": 84
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 746,
     "fields": {
@@ -7530,7 +7530,7 @@
       "parent": 85
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 747,
     "fields": {
@@ -7540,7 +7540,7 @@
       "parent": 86
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 748,
     "fields": {
@@ -7550,7 +7550,7 @@
       "parent": 87
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 749,
     "fields": {
@@ -7560,7 +7560,7 @@
       "parent": 88
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 750,
     "fields": {
@@ -7796,7 +7796,7 @@
       "parent": 48
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 776,
     "fields": {
@@ -7806,7 +7806,7 @@
       "parent": 49
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 777,
     "fields": {
@@ -7816,7 +7816,7 @@
       "parent": 50
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 778,
     "fields": {
@@ -7826,7 +7826,7 @@
       "parent": 51
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 779,
     "fields": {
@@ -7836,7 +7836,7 @@
       "parent": 52
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 780,
     "fields": {
@@ -7846,7 +7846,7 @@
       "parent": 53
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 781,
     "fields": {
@@ -7856,7 +7856,7 @@
       "parent": 54
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 782,
     "fields": {
@@ -7866,7 +7866,7 @@
       "parent": 55
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 783,
     "fields": {
@@ -7876,7 +7876,7 @@
       "parent": 56
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 784,
     "fields": {
@@ -7886,7 +7886,7 @@
       "parent": 57
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 785,
     "fields": {
@@ -7896,7 +7896,7 @@
       "parent": 58
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 786,
     "fields": {
@@ -7906,7 +7906,7 @@
       "parent": 59
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 787,
     "fields": {
@@ -7916,7 +7916,7 @@
       "parent": 60
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 788,
     "fields": {
@@ -7926,7 +7926,7 @@
       "parent": 61
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 789,
     "fields": {
@@ -7936,7 +7936,7 @@
       "parent": 62
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 790,
     "fields": {
@@ -7946,7 +7946,7 @@
       "parent": 63
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 791,
     "fields": {
@@ -7956,7 +7956,7 @@
       "parent": 64
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 792,
     "fields": {
@@ -7966,7 +7966,7 @@
       "parent": 65
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 793,
     "fields": {
@@ -7976,7 +7976,7 @@
       "parent": 66
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 794,
     "fields": {
@@ -7986,7 +7986,7 @@
       "parent": 67
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 795,
     "fields": {
@@ -7996,7 +7996,7 @@
       "parent": 68
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 796,
     "fields": {
@@ -8006,7 +8006,7 @@
       "parent": 69
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 797,
     "fields": {
@@ -8016,7 +8016,7 @@
       "parent": 70
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 798,
     "fields": {
@@ -8026,7 +8026,7 @@
       "parent": 71
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 799,
     "fields": {
@@ -8036,7 +8036,7 @@
       "parent": 72
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 800,
     "fields": {
@@ -8046,7 +8046,7 @@
       "parent": 73
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 801,
     "fields": {
@@ -8056,7 +8056,7 @@
       "parent": 74
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 802,
     "fields": {
@@ -8066,7 +8066,7 @@
       "parent": 75
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 803,
     "fields": {
@@ -8076,7 +8076,7 @@
       "parent": 76
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 804,
     "fields": {
@@ -8086,7 +8086,7 @@
       "parent": 77
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 805,
     "fields": {
@@ -8096,7 +8096,7 @@
       "parent": 78
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 806,
     "fields": {
@@ -8106,7 +8106,7 @@
       "parent": 79
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 807,
     "fields": {
@@ -8116,7 +8116,7 @@
       "parent": 80
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 808,
     "fields": {
@@ -8126,7 +8126,7 @@
       "parent": 81
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 809,
     "fields": {
@@ -8136,7 +8136,7 @@
       "parent": 82
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 810,
     "fields": {
@@ -8146,7 +8146,7 @@
       "parent": 83
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 811,
     "fields": {
@@ -8156,7 +8156,7 @@
       "parent": 84
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 812,
     "fields": {
@@ -8166,7 +8166,7 @@
       "parent": 85
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 813,
     "fields": {
@@ -8176,7 +8176,7 @@
       "parent": 86
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 814,
     "fields": {
@@ -8186,7 +8186,7 @@
       "parent": 87
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 815,
     "fields": {
@@ -8196,7 +8196,7 @@
       "parent": 88
     }
   },
-  },{
+  {
     "model": "panels.alarmconfig",
     "pk": 816,
     "fields": {
@@ -8214,13 +8214,34 @@
       "view": 3,
       "type": 11
     }
-  }
+  },
   {
     "model": "panels.alarmconfig",
     "pk": 818,
     "fields": {
       "alarm_id": "Array-Laser-Locked",
       "view": 1,
+      "custom_name": "Master Laser",
+      "type": 18
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 819,
+    "fields": {
+      "alarm_id": "Array-Correlator",
+      "view": 1,
+      "custom_name": "Correlator",
+      "type": 18
+    }
+  },
+  {
+    "model": "panels.alarmconfig",
+    "pk": 820,
+    "fields": {
+      "alarm_id": "Array-CLO",
+      "view": 1,
+      "custom_name": "CLO",
       "type": 18
     }
   }

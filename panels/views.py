@@ -110,6 +110,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             )
 
         data = {}
+        data["antennas"] = []
         for alarm in antenna_alarms:
             fire = alarm.nested_alarms.filter(
                 type__name="fire")
@@ -144,9 +145,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             cmpr_drive = alarm.nested_alarms.filter(
                 type__name="cmpr_drive")
 
-            if alarm.tags and alarm.tags not in data:
-                data[alarm.tags] = []
-            data[alarm.tags].append(
+            data["antennas"].append(
                 {
                   "antenna": alarm.custom_name,
                   "placemark": alarm.placemark.name if alarm.placemark else "",
@@ -162,6 +161,26 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                   "crio_pres0": crio_pres0[0].alarm_id if crio_pres0 else "",
                   "crio_pres1": crio_pres1[0].alarm_id if crio_pres1 else "",
                   "cmpr_drive": cmpr_drive[0].alarm_id if cmpr_drive else "",
+                }
+            )
+
+        other_devices = self.queryset.filter(
+            view__name="antennas",
+            type__name="device"
+        )
+        if not len(other_devices):
+            logger.warning(
+                'there is no configuration for other array devices'
+            )
+            return Response(data)
+
+        data["devices"] = []
+        for dev in other_devices:
+            data["devices"].append(
+                {
+                  "antenna": dev.custom_name,
+                  "placemark": dev.placemark.name if dev.placemark else "",
+                  "alarm": dev.alarm_id,
                 }
             )
 
