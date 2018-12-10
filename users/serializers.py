@@ -18,3 +18,12 @@ class UserSerializer(serializers.ModelSerializer):
         """Meta class to map serializer's fields with the model fields."""
         model = User
         fields = ('username', 'email',)
+
+
+class LoginUserSerializer(serializers.ModelSerializer):
+    """Serializer to map the Model instance into JSON format."""
+
+    class Meta:
+        """Meta class to map serializer's fields with the model fields."""
+        model = User
+        fields = ('username', 'groups', 'first_name', 'last_name', 'email')
