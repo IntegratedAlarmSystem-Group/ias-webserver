@@ -34,6 +34,7 @@ class TestNotificationsToClientConsumer:
         """Test if clients are notified when an alarm is created"""
         # Arrange: Alarm
         alarm = AlarmFactory.build()
+        alarm.value = 2
         # Arrange: Views
         mock_view_names = ['view']
         mock_alarms_views_dict = {alarm.core_id: ['view']}
@@ -142,7 +143,6 @@ class TestNotificationsToClientConsumer:
         # Arrange: Alarm
         alarm = AlarmFactory.get_valid_alarm(core_id='test')
         alarm.value = 2
-        print(alarm.__dict__)
         # Arrange: Views
         mock_view_names = ['view']
         mock_alarms_views_dict = {alarm.core_id: ['view']}

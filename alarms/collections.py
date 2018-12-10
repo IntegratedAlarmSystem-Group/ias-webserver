@@ -8,7 +8,8 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 logger = logging.getLogger(__name__)
 
 
-class CounterPerView:
+class CounterByView:
+    """ Auxiliary methods related to the count by view """
 
     @classmethod
     def _update_counter_by_view_for_new_alarm(self, alarm):
@@ -16,7 +17,7 @@ class CounterPerView:
         views = self.alarms_views_dict.get(alarm.core_id, [])
         if len(views) > 0:
             view = views[0]
-            if alarm.value != Value.CLEARED.value:
+            if alarm.is_set():
                 if alarm.ack is not True:
                     # unacknowledged alarm in set status
                     self.counter_by_view[view] += 1
@@ -44,13 +45,13 @@ class CounterPerView:
         views = self.alarms_views_dict.get(alarm.core_id, [])
         if len(views) > 0:
             view = views[0]
-            if alarm.value != Value.CLEARED:
+            if alarm.is_set():
                 if alarm.ack is True:
                     # acknowledged alarm in set status
                     self.counter_by_view[view] -= 1
 
 
-class AlarmCollection(CounterPerView):
+class AlarmCollection(CounterByView):
     """
     This class defines the data structure that will store and handle the Alarms
     in memory.
