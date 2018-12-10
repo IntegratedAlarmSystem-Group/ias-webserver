@@ -38,7 +38,6 @@ class CdbReaderTestCase(TestCase):
             "DASU_IASIO_DUMMY_ALARM_8",
             "DASU_IASIO_DUMMY_TEMPLATED_1",
         ]
-        print('dasus_to_deploy: ', dasus_to_deploy)
         self.assertEqual(
             sorted(dasus_to_deploy), sorted(expected_data),
             'The data obtained is not the expected'
