@@ -381,7 +381,7 @@ class AlarmCollection(CounterByView):
             change is the timestamp, and 'not-updated' if it was not updated
         """
         # start block - counter by view
-        alarm_initial_ack_state = alarm.ack  # used for the counter by view
+        alarm_initial_ack_state = self.get(alarm.core_id).ack  # used for the counter by view
         # end block - counter by view
 
         alarm = self._clean_alarm_dependencies(alarm)
