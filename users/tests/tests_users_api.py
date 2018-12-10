@@ -187,3 +187,35 @@ class RetrieveUsersByGroup(APITestBase, UsersTestSetup, TestCase):
             client.get(url_user_3, format="json").data,
             'Server should return False if user group has not permission'
         )
+
+    def test_permissions_request(self):
+        """Check that api returns if the user has ack, shelve and unshelve
+        permissions or not"""
+
+        # Arrange:
+        can_ack = Permission.objects.get(codename='acknowledge_ticket')
+        can_shelve = Permission.objects.get(codename='add_shelveregistry')
+        can_unshelve = Permission.objects.get(
+            codename='unshelve_shelveregistry'
+        )
+        self.group_1.permissions.add(can_ack)
+        self.group_1.permissions.add(can_shelve)
+        self.group_1.permissions.add(can_unshelve)
+
+        # Act:
+        client = self.authenticated_client
+        url = reverse(
+            'user-allowed-actions', kwargs={'pk': self.user_1.pk})
+
+        data = client.get(url, format="json").data
+        expected_data = {
+            'can_ack': True,
+            'can_shelve': True,
+            'can_unshelve': True,
+        }
+
+        # Assert
+        self.assertEqual(
+            data, expected_data,
+            'Server should return True if user group has permission'
+        )

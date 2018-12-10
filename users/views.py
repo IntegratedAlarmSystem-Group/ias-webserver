@@ -18,7 +18,13 @@ class UserViewSet(viewsets.ModelViewSet):
         """
         Instantiates and returns the list of permissions that the view requires
         """
-        if self.action in ['filter', 'can_ack', 'can_shelve', 'can_unshelve']:
+        if self.action in [
+            'filter',
+            'can_ack',
+            'can_shelve',
+            'can_unshelve',
+            'allowed_actions'
+        ]:
             permission_classes = [IsAuthenticated]
         else:
             permission_classes = [IsAdminUser]
@@ -59,4 +65,16 @@ class UserViewSet(viewsets.ModelViewSet):
         response = False
         if user.has_perm('tickets.unshelve_shelveregistry'):
             response = True
+        return Response(response)
+
+    @action(detail=True)
+    def allowed_actions(self, request, pk=None):
+        """ Returns a dictionary with users permissions:
+        ack, shelve, unshelve """
+        user = self.get_object()
+        response = {
+            'can_ack': user.has_perm('tickets.acknowledge_ticket'),
+            'can_shelve': user.has_perm('tickets.add_shelveregistry'),
+            'can_unshelve': user.has_perm('tickets.unshelve_shelveregistry'),
+        }
         return Response(response)
