@@ -2,7 +2,7 @@ import datetime
 import time
 import pytest
 from freezegun import freeze_time
-from alarms.models import Alarm, IASValue
+from alarms.models import Alarm, Value, IASValue
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
