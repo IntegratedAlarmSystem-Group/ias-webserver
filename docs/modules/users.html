@@ -1,0 +1,325 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>users package &#8212; IAS Web Server 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="users.management package" href="users.management.html" />
+    <link rel="prev" title="timers.management.commands package" href="timers.management.commands.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="users.management.html" title="users.management package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="timers.management.commands.html" title="timers.management.commands package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">ias-webserver</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="users-package">
+<h1>users package<a class="headerlink" href="#users-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="users.management.html">users.management package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.management.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="users.management.commands.html">users.management.commands package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="users.management.commands.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="users.management.commands.html#module-users.management.commands.createusers">users.management.commands.createusers module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="users.management.commands.html#module-users.management.commands">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="users.management.html#module-users.management">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-users.admin">
+<span id="users-admin-module"></span><h2>users.admin module<a class="headerlink" href="#module-users.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-users.apps">
+<span id="users-apps-module"></span><h2>users.apps module<a class="headerlink" href="#module-users.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="users.apps.UsersConfig">
+<em class="property">class </em><code class="descclassname">users.apps.</code><code class="descname">UsersConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="headerlink" href="#users.apps.UsersConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="users.apps.UsersConfig.name">
+<code class="descname">name</code><em class="property"> = 'users'</em><a class="headerlink" href="#users.apps.UsersConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-users.models">
+<span id="users-models-module"></span><h2>users.models module<a class="headerlink" href="#module-users.models" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="users.models.create_auth_token">
+<code class="descclassname">users.models.</code><code class="descname">create_auth_token</code><span class="sig-paren">(</span><em>sender</em>, <em>instance=None</em>, <em>created=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.create_auth_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create token for user</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="users.models.reset_auth_token">
+<code class="descclassname">users.models.</code><code class="descname">reset_auth_token</code><span class="sig-paren">(</span><em>instance</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.reset_auth_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to assign a new token to a user</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-users.serializers">
+<span id="users-serializers-module"></span><h2>users.serializers module<a class="headerlink" href="#module-users.serializers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="users.serializers.GroupSerializer">
+<em class="property">class </em><code class="descclassname">users.serializers.</code><code class="descname">GroupSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.serializers.GroupSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="users.serializers.GroupSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#users.serializers.GroupSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="users.serializers.GroupSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('name',)</em><a class="headerlink" href="#users.serializers.GroupSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.serializers.GroupSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#users.serializers.GroupSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.Group</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="users.serializers.LoginUserSerializer">
+<em class="property">class </em><code class="descclassname">users.serializers.</code><code class="descname">LoginUserSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.serializers.LoginUserSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="users.serializers.LoginUserSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#users.serializers.LoginUserSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="users.serializers.LoginUserSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('username', 'groups', 'first_name', 'last_name', 'email')</em><a class="headerlink" href="#users.serializers.LoginUserSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.serializers.LoginUserSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#users.serializers.LoginUserSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="users.serializers.UserSerializer">
+<em class="property">class </em><code class="descclassname">users.serializers.</code><code class="descname">UserSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.serializers.UserSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializer to map the Model instance into JSON format.</p>
+<dl class="class">
+<dt id="users.serializers.UserSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#users.serializers.UserSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class to map serializer’s fields with the model fields.</p>
+<dl class="attribute">
+<dt id="users.serializers.UserSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('username', 'email')</em><a class="headerlink" href="#users.serializers.UserSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.serializers.UserSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#users.serializers.UserSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-users.urls">
+<span id="users-urls-module"></span><h2>users.urls module<a class="headerlink" href="#module-users.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-users.views">
+<span id="users-views-module"></span><h2>users.views module<a class="headerlink" href="#module-users.views" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="users.views.LoggedObtainAuthToken">
+<em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">LoggedObtainAuthToken</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.LoggedObtainAuthToken" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.authtoken.views.ObtainAuthToken</span></code></p>
+<dl class="method">
+<dt id="users.views.LoggedObtainAuthToken.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.LoggedObtainAuthToken.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="users.views.UserViewSet">
+<em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">UserViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p><cite>List</cite>, <cite>Create</cite>, <cite>Retrieve</cite>, <cite>Update</cite> and <cite>Destroy</cite> Users.</p>
+<dl class="method">
+<dt id="users.views.UserViewSet.allowed_actions">
+<code class="descname">allowed_actions</code><span class="sig-paren">(</span><em>request</em>, <em>pk=None</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet.allowed_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary with users permissions:
+ack, shelve, unshelve</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#users.views.UserViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.views.UserViewSet.can_ack">
+<code class="descname">can_ack</code><span class="sig-paren">(</span><em>request</em>, <em>pk=None</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet.can_ack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the user has acknowledge permissions</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.views.UserViewSet.can_shelve">
+<code class="descname">can_shelve</code><span class="sig-paren">(</span><em>request</em>, <em>pk=None</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet.can_shelve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the user has shelve permissions</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.views.UserViewSet.can_unshelve">
+<code class="descname">can_unshelve</code><span class="sig-paren">(</span><em>request</em>, <em>pk=None</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet.can_unshelve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the user has unshelve permissions</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#users.views.UserViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.views.UserViewSet.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the list of users filtered by group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.views.UserViewSet.get_permissions">
+<code class="descname">get_permissions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet.get_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiates and returns the list of permissions that the view requires</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;User: admin&gt;, &lt;User: operator_on_duty&gt;]&gt;</em><a class="headerlink" href="#users.views.UserViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#users.views.UserViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#users.serializers.UserSerializer" title="users.serializers.UserSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">users.serializers.UserSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#users.views.UserViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-users">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-users" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="timers.management.commands.html"
+                        title="previous chapter">timers.management.commands package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="users.management.html"
+                        title="next chapter">users.management package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="users.management.html" title="users.management package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="timers.management.commands.html" title="timers.management.commands package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Inria Chile.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

@@ -70,7 +70,7 @@ Consider that the alarms are not saved in any database</p>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.core_timestamp">
-<code class="descname">core_timestamp</code><em class="property"> = 1540565881026</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_timestamp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">core_timestamp</code><em class="property"> = 1544541559995</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_timestamp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Core timestamp of the Alarm to be created</p>
 </dd></dl>
 
@@ -115,7 +115,7 @@ of the Alarm to be returned</dd>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.mode">
-<code class="descname">mode</code><em class="property"> = 1</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.mode" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mode</code><em class="property"> = 6</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operational Mode of the Alarm to be created</p>
 </dd></dl>
 
@@ -132,13 +132,13 @@ of the Alarm to be returned</dd>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.validity">
-<code class="descname">validity</code><em class="property"> = 0</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.validity" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validity</code><em class="property"> = 1</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.validity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validity of the Alarm to be created</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.value">
-<code class="descname">value</code><em class="property"> = 0</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.value" title="Permalink to this definition">¶</a></dt>
+<code class="descname">value</code><em class="property"> = 3</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Value of the Alarm to be created</p>
 </dd></dl>
 
@@ -154,10 +154,51 @@ of the Alarm to be returned</dd>
 <p>This class defines the test suite for periodic notification of changes
 to consumer clients</p>
 <dl class="method">
+<dt id="alarms.tests.tests_broadcast.TestPeriodicBroadcastCase.create_communicator">
+<code class="descname">create_communicator</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_broadcast.TestPeriodicBroadcastCase.create_communicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auxiliary method to manage a token query string authentication</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="alarms.tests.tests_broadcast.TestPeriodicBroadcastCase.test_broadcast_status">
 <code class="descname">test_broadcast_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_broadcast.TestPeriodicBroadcastCase.test_broadcast_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that the periodic request is sent
 and Alarms are invalidated after timeout</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-alarms.tests.tests_client_consumer_connect">
+<span id="alarms-tests-tests-client-consumer-connect-module"></span><h2>alarms.tests.tests_client_consumer_connect module<a class="headerlink" href="#module-alarms.tests.tests_client_consumer_connect" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_client_consumer_connect.</code><code class="descname">TestConnectionToClientConsumer</code><a class="headerlink" href="#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the test suite for the connection
+to the ClientConsumer</p>
+<dl class="method">
+<dt id="alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.create_communicator">
+<code class="descname">create_communicator</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.create_communicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auxiliary method to manage a token query string authentication</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_token_query_string">
+<code class="descname">test_connection_allowed_using_a_valid_token_query_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_token_query_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can request the connection using a token</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_for_an_invalid_token">
+<code class="descname">test_connection_not_allowed_for_an_invalid_token</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_for_an_invalid_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the connection can not be allowed with an invalid token</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_without_a_token_query_string">
+<code class="descname">test_connection_not_allowed_without_a_token_query_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_without_a_token_query_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the connection can not be allowed without token data</p>
 </dd></dl>
 
 </dd></dl>
@@ -172,26 +213,26 @@ and Alarms are invalidated after timeout</p>
 <p>This class defines the test suite for the notification of changes
 to the ClientConsumer</p>
 <dl class="method">
+<dt id="alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.create_communicator">
+<code class="descname">create_communicator</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.create_communicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auxiliary method to manage a token query string authentication</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_acknowledge">
-<code class="descname">test_outbound_acknowledge</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_acknowledge" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_outbound_acknowledge</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_acknowledge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if clients are notified when an alarm is acknowledged</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_create">
-<code class="descname">test_outbound_create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_outbound_create</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if clients are notified when an alarm is created</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_delete">
-<code class="descname">test_outbound_delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if clients are notified when an alarm is deleted</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_update">
-<code class="descname">test_outbound_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_outbound_update</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if clients are notified when an alarm is updated</p>
 </dd></dl>
 
@@ -207,6 +248,12 @@ to the ClientConsumer</p>
 <p>This class defines the test suite for the requests messages
 to the ClientConsumer</p>
 <dl class="method">
+<dt id="alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.create_communicator">
+<code class="descname">create_communicator</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.create_communicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auxiliary method to manage a token query string authentication</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.test_alarms_list">
 <code class="descname">test_alarms_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.test_alarms_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if clients can request and receive a list of alarms</p>
@@ -216,6 +263,12 @@ to the ClientConsumer</p>
 <dt id="alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.test_alarms_list_validity">
 <code class="descname">test_alarms_list_validity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.test_alarms_list_validity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if clients receive a list of alarms with updated validity</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.test_close_connection_action">
+<code class="descname">test_close_connection_action</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.test_close_connection_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can close the connection to the ws using a request</p>
 </dd></dl>
 
 <dl class="method">
@@ -428,6 +481,79 @@ of IASValues that are not of type Alarm</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-alarms.tests.tests_collections_counter_per_view">
+<span id="alarms-tests-tests-collections-counter-per-view-module"></span><h2>alarms.tests.tests_collections_counter_per_view module<a class="headerlink" href="#module-alarms.tests.tests_collections_counter_per_view" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections_counter_per_view.</code><code class="descname">TestCountByViewForNewAlarms</code><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the test suite for the alarms count by view
+for new alarms</p>
+<p>The update test cases are new alarms for the following cases:
+- SET UNACK
+- CLEARED
+- SET ACK</p>
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.create_alarm">
+<code class="descname">create_alarm</code><span class="sig-paren">(</span><em>core_id</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.create_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_CLEARED_alarms">
+<code class="descname">test_counter_by_view_cannot_change_for_new_CLEARED_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_CLEARED_alarms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_SET_ACK_alarms">
+<code class="descname">test_counter_by_view_cannot_change_for_new_SET_ACK_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_SET_ACK_alarms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms">
+<code class="descname">test_counter_by_view_update_for_new_SET_UNACK_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections_counter_per_view.</code><code class="descname">TestCountPerViewForAlarmsUpdates</code><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the test suite for the alarms count per view
+after an alarm update</p>
+<p>The update test cases are:
+- CLEARED to SET UNACK
+- SET UNACK to SET ACK
+- SET UNACK to CLEAR
+- SET ACK to CLEAR</p>
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.create_alarm">
+<code class="descname">create_alarm</code><span class="sig-paren">(</span><em>core_id</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.create_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_CLEAR_to_SET_UNACK">
+<code class="descname">test_counter_by_view_update_CLEAR_to_SET_UNACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_CLEAR_to_SET_UNACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_ACK_to_CLEARED">
+<code class="descname">test_counter_by_view_update_SET_ACK_to_CLEARED</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_ACK_to_CLEARED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_CLEARED">
+<code class="descname">test_counter_by_view_update_SET_UNACK_to_CLEARED</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_CLEARED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_SET_ACK">
+<code class="descname">test_counter_by_view_update_SET_UNACK_to_SET_ACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_SET_ACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-alarms.tests.tests_connectors">
 <span id="alarms-tests-tests-connectors-module"></span><h2>alarms.tests.tests_connectors module<a class="headerlink" href="#module-alarms.tests.tests_connectors" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -534,8 +660,13 @@ AlarmCollection when a new IasValue (no alarm) arrives</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message">
-<code class="descname">test_get_alarm_from_core_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_dasu">
+<code class="descname">test_get_alarm_from_core_message_from_dasu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_dasu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_plugin">
+<code class="descname">test_get_alarm_from_core_message_from_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">

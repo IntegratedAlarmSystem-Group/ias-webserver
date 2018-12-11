@@ -142,6 +142,24 @@ alarm_id (string): The id of the alarm to get the dependencies</p>
 </div>
 <div class="section" id="module-tickets.models">
 <span id="tickets-models-module"></span><h2>tickets.models module<a class="headerlink" href="#module-tickets.models" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tickets.models.ACK_TICKET_PERMISSIONS">
+<code class="descclassname">tickets.models.</code><code class="descname">ACK_TICKET_PERMISSIONS</code><em class="property"> = ('change', 'delete', 'view', 'acknowledge')</em><a class="headerlink" href="#tickets.models.ACK_TICKET_PERMISSIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ack ticket permissions</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="tickets.models.PERMISSIONS">
+<code class="descclassname">tickets.models.</code><code class="descname">PERMISSIONS</code><em class="property"> = ('change', 'delete', 'view')</em><a class="headerlink" href="#tickets.models.PERMISSIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Models Permissions</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="tickets.models.SHELVE_REGISTRY_PERMISSIONS">
+<code class="descclassname">tickets.models.</code><code class="descname">SHELVE_REGISTRY_PERMISSIONS</code><em class="property"> = ('change', 'delete', 'view', 'add', 'unshelve')</em><a class="headerlink" href="#tickets.models.SHELVE_REGISTRY_PERMISSIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shelve registry permissions</p>
+</dd></dl>
+
 <dl class="class">
 <dt id="tickets.models.ShelveRegistry">
 <em class="property">class </em><code class="descclassname">tickets.models.</code><code class="descname">ShelveRegistry</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry" title="Permalink to this definition">¶</a></dt>
@@ -178,6 +196,51 @@ alarm_id (string): The id of the alarm to get the dependencies</p>
 <dl class="method">
 <dt id="tickets.models.ShelveRegistry.get_status_display">
 <code class="descname">get_status_display</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.IntegerField: status&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.get_status_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="tickets.models.ShelveRegistry.has_check_timeouts_permission">
+<em class="property">static </em><code class="descname">has_check_timeouts_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.has_check_timeouts_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="tickets.models.ShelveRegistry.has_create_permission">
+<em class="property">static </em><code class="descname">has_create_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.has_create_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="tickets.models.ShelveRegistry.has_destroy_permission">
+<em class="property">static </em><code class="descname">has_destroy_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.has_destroy_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.models.ShelveRegistry.has_object_destroy_permission">
+<code class="descname">has_object_destroy_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.has_object_destroy_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.models.ShelveRegistry.has_object_read_permission">
+<code class="descname">has_object_read_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.has_object_read_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.models.ShelveRegistry.has_object_update_permission">
+<code class="descname">has_object_update_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.has_object_update_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="tickets.models.ShelveRegistry.has_read_permission">
+<em class="property">static </em><code class="descname">has_read_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.has_read_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="tickets.models.ShelveRegistry.has_unshelve_permission">
+<em class="property">static </em><code class="descname">has_unshelve_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.has_unshelve_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="tickets.models.ShelveRegistry.has_update_permission">
+<em class="property">static </em><code class="descname">has_update_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.ShelveRegistry.has_update_permission" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -241,6 +304,12 @@ timestamp</p>
 <dd><p>Time when the alarm is unshelved</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="tickets.models.ShelveRegistry.user">
+<code class="descname">user</code><a class="headerlink" href="#tickets.models.ShelveRegistry.user" title="Permalink to this definition">¶</a></dt>
+<dd><p>User that shelve the alarm (create)</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -281,7 +350,7 @@ timestamp</p>
 
 <dl class="method">
 <dt id="tickets.models.Ticket.acknowledge">
-<code class="descname">acknowledge</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.acknowledge" title="Permalink to this definition">¶</a></dt>
+<code class="descname">acknowledge</code><span class="sig-paren">(</span><em>message</em>, <em>user</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.acknowledge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolves the ticket modifying the status, the resolution timestamp
 and the message</p>
 </dd></dl>
@@ -332,6 +401,26 @@ the ticket state</p>
 <code class="descname">get_status_display</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.IntegerField: status&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.get_status_display" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="staticmethod">
+<dt id="tickets.models.Ticket.has_acknowledge_permission">
+<em class="property">static </em><code class="descname">has_acknowledge_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.has_acknowledge_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="tickets.models.Ticket.has_create_permission">
+<em class="property">static </em><code class="descname">has_create_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.has_create_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.models.Ticket.has_object_read_permission">
+<code class="descname">has_object_read_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.has_object_read_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="tickets.models.Ticket.has_read_permission">
+<em class="property">static </em><code class="descname">has_read_permission</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.has_read_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="tickets.models.Ticket.id">
 <code class="descname">id</code><a class="headerlink" href="#tickets.models.Ticket.id" title="Permalink to this definition">¶</a></dt>
@@ -360,6 +449,12 @@ object the first time, the query is executed.</p>
 <dt id="tickets.models.Ticket.to_dict">
 <code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.models.Ticket.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the ticket as a dictionary</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tickets.models.Ticket.user">
+<code class="descname">user</code><a class="headerlink" href="#tickets.models.Ticket.user" title="Permalink to this definition">¶</a></dt>
+<dd><p>User that closes the ticket</p>
 </dd></dl>
 
 </dd></dl>
@@ -488,8 +583,13 @@ object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="tickets.views.ShelveRegistryViewSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'dry_rest_permissions.generics.DRYPermissions'&gt;,)</em><a class="headerlink" href="#tickets.views.ShelveRegistryViewSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="tickets.views.ShelveRegistryViewSet.queryset">
-<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;ShelveRegistry: 2018-10-10 18:26:28.128392+00:00 - Array-Fire-Ant instance 64&gt;, &lt;ShelveRegistry: 2018-10-10 21:51:26.903441+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 21:53:18.157138+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:08:06.995665+00:00 - WS-Inner&gt;, &lt;ShelveRegistry: 2018-10-10 22:14:53.409134+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:20:46.604074+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:34:02.488838+00:00 - WS-W-Humidity&gt;, &lt;ShelveRegistry: 2018-10-10 22:36:07.645102+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:37:25.770911+00:00 - WS-Inner&gt;, &lt;ShelveRegistry: 2018-10-10 22:39:38.418138+00:00 - WS-Inner-Humidity&gt;, &lt;ShelveRegistry: 2018-10-10 22:46:33.372499+00:00 - WS-Inner&gt;, &lt;ShelveRegistry: 2018-10-10 22:47:52.800427+00:00 - WS-Inner&gt;, &lt;ShelveRegistry: 2018-10-10 22:48:53.965248+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:49:00.242330+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:52:18.552459+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:52:36.376305+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:52:37.910569+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:52:39.690369+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:55:46.595870+00:00 - WS-Inner-WindSpeed&gt;, &lt;ShelveRegistry: 2018-10-10 22:57:01.363325+00:00 - WS-Inner&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#tickets.views.ShelveRegistryViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#tickets.views.ShelveRegistryViewSet.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -546,8 +646,13 @@ with an alarm and its dependencies</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="tickets.views.TicketViewSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'dry_rest_permissions.generics.DRYPermissions'&gt;,)</em><a class="headerlink" href="#tickets.views.TicketViewSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="tickets.views.TicketViewSet.queryset">
-<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Ticket: 2018-10-09 17:00:13.022816+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-10-10 14:58:33.601259+00:00 - Array-UpsFail-Ant instance 66&gt;, &lt;Ticket: 2018-10-10 14:58:33.626979+00:00 - Array-Ant instance 66&gt;, &lt;Ticket: 2018-10-10 14:58:36.291374+00:00 - Alarmdummy&gt;, &lt;Ticket: 2018-10-10 14:58:36.815109+00:00 - Array-Ant instance 5&gt;, &lt;Ticket: 2018-10-10 14:58:36.822549+00:00 - Array-UpsFail-Ant instance 5&gt;, &lt;Ticket: 2018-10-10 14:58:36.871907+00:00 - Array-Ant instance 6&gt;, &lt;Ticket: 2018-10-10 14:58:36.886101+00:00 - Array-UpsFail-Ant instance 7&gt;, &lt;Ticket: 2018-10-10 14:58:36.972030+00:00 - Array-Ant instance 10&gt;, &lt;Ticket: 2018-10-10 14:58:36.997801+00:00 - Array-HvacFail-Ant instance 10&gt;, &lt;Ticket: 2018-10-10 14:58:37.061941+00:00 - Array-UpsFail-Ant instance 6&gt;, &lt;Ticket: 2018-10-10 14:58:37.183327+00:00 - Array-UpsFail-Ant instance 10&gt;, &lt;Ticket: 2018-10-10 14:58:37.308452+00:00 - Array-Ant instance 7&gt;, &lt;Ticket: 2018-10-10 14:58:37.465390+00:00 - Array-UpsFail-Ant instance 21&gt;, &lt;Ticket: 2018-10-10 14:58:37.513355+00:00 - Array-UpsFail-Ant instance 24&gt;, &lt;Ticket: 2018-10-10 14:58:37.565689+00:00 - Array-UpsFail-Ant instance 19&gt;, &lt;Ticket: 2018-10-10 14:58:37.663968+00:00 - Array-FireMalfunction-Ant instance 22&gt;, &lt;Ticket: 2018-10-10 14:58:37.727638+00:00 - Array-Ant instance 22&gt;, &lt;Ticket: 2018-10-10 14:58:37.741447+00:00 - Array-Ant instance 19&gt;, &lt;Ticket: 2018-10-10 14:58:37.766240+00:00 - Array-Ant instance 24&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#tickets.views.TicketViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Ticket: 2018-12-07 20:07:07.608890+00:00 - Array-UpsFail-Ant instance 24&gt;, &lt;Ticket: 2018-12-07 20:07:10.037948+00:00 - Array-Ant instance 10&gt;, &lt;Ticket: 2018-12-07 20:07:10.103039+00:00 - Array-Ant instance 22&gt;, &lt;Ticket: 2018-12-07 20:07:10.136683+00:00 - Array-Ant instance 5&gt;, &lt;Ticket: 2018-12-07 20:07:10.210246+00:00 - Array-UpsFail-Ant instance 52&gt;, &lt;Ticket: 2018-12-07 20:07:10.255251+00:00 - Array-Ant instance 24&gt;, &lt;Ticket: 2018-12-07 20:07:10.327826+00:00 - Array-Ant instance 59&gt;, &lt;Ticket: 2018-12-07 20:07:10.369482+00:00 - Array-UpsFail-Ant instance 64&gt;, &lt;Ticket: 2018-12-07 20:07:10.415486+00:00 - Array-Ant instance 21&gt;, &lt;Ticket: 2018-12-07 20:07:10.541481+00:00 - Array-UpsFail-Ant instance 66&gt;, &lt;Ticket: 2018-12-07 20:07:10.583785+00:00 - Array-Ant instance 6&gt;, &lt;Ticket: 2018-12-07 20:07:10.612153+00:00 - Array-UpsFail-Ant instance 59&gt;, &lt;Ticket: 2018-12-07 20:07:10.707649+00:00 - Array-Ant instance 64&gt;, &lt;Ticket: 2018-12-07 20:07:10.740375+00:00 - Array-Ant instance 52&gt;, &lt;Ticket: 2018-12-07 20:07:10.779552+00:00 - Array-Ant instance 66&gt;, &lt;Ticket: 2018-12-07 20:07:10.802145+00:00 - Alarmdummy-2&gt;, &lt;Ticket: 2018-12-07 20:07:10.839483+00:00 - Alarmdummy-Global&gt;, &lt;Ticket: 2018-12-07 20:07:10.859765+00:00 - Array-Ant instance 7&gt;, &lt;Ticket: 2018-12-07 20:07:10.885569+00:00 - Array-UpsFail-Ant instance 7&gt;, &lt;Ticket: 2018-12-07 20:07:10.903693+00:00 - Array-Global-Alarm&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#tickets.views.TicketViewSet.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">

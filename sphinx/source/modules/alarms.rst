@@ -27,6 +27,14 @@ alarms.apps module
     :undoc-members:
     :show-inheritance:
 
+alarms.auth module
+------------------
+
+.. automodule:: alarms.auth
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alarms.collections module
 -------------------------
 

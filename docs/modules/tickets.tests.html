@@ -97,95 +97,561 @@ IAlarms.unshelve_alarms</p>
 <div class="section" id="module-tickets.tests.tests_shelves_api">
 <span id="tickets-tests-tests-shelves-api-module"></span><h2>tickets.tests.tests_shelves_api module<a class="headerlink" href="#module-tickets.tests.tests_shelves_api" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase">
-<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">ShelveRegistrysApiTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
-<p>Test suite for the registries api views.</p>
+<dt id="tickets.tests.tests_shelves_api.APITestBase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">APITestBase</code><a class="headerlink" href="#tickets.tests.tests_shelves_api.APITestBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dt id="tickets.tests.tests_shelves_api.APITestBase.authenticate_client_using_token">
+<code class="descname">authenticate_client_using_token</code><span class="sig-paren">(</span><em>client</em>, <em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.APITestBase.authenticate_client_using_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates a selected API Client using a related User token</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.APITestBase.create_user">
+<code class="descname">create_user</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.APITestBase.create_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a user with selected permissions</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.ApiCanCheckTimeouts">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">ApiCanCheckTimeouts</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ApiCanCheckTimeouts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ApiCanCheckTimeouts.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ApiCanCheckTimeouts.setUp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define the test suite setup</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_check_timeouts">
-<code class="descname">test_api_can_check_timeouts</code><span class="sig-paren">(</span><em>AlarmConnector_unshelve_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_check_timeouts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can check if active registries have timedout and
-notify accordingly</p>
+<dt id="tickets.tests.tests_shelves_api.ApiCanCheckTimeouts.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ApiCanCheckTimeouts.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ApiCanCheckTimeouts.test_api_can_check_timeouts_for_an_unauthenticated_client">
+<code class="descname">test_api_can_check_timeouts_for_an_unauthenticated_client</code><span class="sig-paren">(</span><em>AlarmConnector_unshelve_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ApiCanCheckTimeouts.test_api_can_check_timeouts_for_an_unauthenticated_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can check if active registries have timed out
+and notify accordingly for an authenticated user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistry">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">CreateRegistry</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the create request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistry.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistry.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_create_registry">
-<code class="descname">test_api_can_create_registry</code><span class="sig-paren">(</span><em>AlarmConnector_shelve_alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_create_registry" title="Permalink to this definition">¶</a></dt>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistry.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistry.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistry.test_api_can_create_registry">
+<code class="descname">test_api_can_create_registry</code><span class="sig-paren">(</span><em>AlarmConnector_shelve_alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistry.test_api_can_create_registry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that the api can create a registry</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_delete_a_registry">
-<code class="descname">test_api_can_delete_a_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_delete_a_registry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can delete a registry</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistry.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistry.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_filter_all_open_registries">
-<code class="descname">test_api_can_filter_all_open_registries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_filter_all_open_registries" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can filter ShelveRegistrys by status</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistry.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistry.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">CreateRegistryAndAlreadyShelvedAlarm</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_filter_registries_by_alarm_and_status">
-<code class="descname">test_api_can_filter_registries_by_alarm_and_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_filter_registries_by_alarm_and_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can list the ShelveRegistrys filtered by alarm id
-and status</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_list_registries">
-<code class="descname">test_api_can_list_registries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_list_registries" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can list the ShelveRegistries</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_retrieve_registry">
-<code class="descname">test_api_can_retrieve_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_retrieve_registry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can retrieve a registry</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.test_api_cannot_create_registry_for_already_shelved_alarm">
+<code class="descname">test_api_cannot_create_registry_for_already_shelved_alarm</code><span class="sig-paren">(</span><em>AlarmConnector_shelve_alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm.test_api_cannot_create_registry_for_already_shelved_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api cannot create a registry
+to an already shelved alarm for an authorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">CreateRegistryAndNoShelvableAlarm</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_unshelve_multiple_registries">
-<code class="descname">test_api_can_unshelve_multiple_registries</code><span class="sig-paren">(</span><em>AlarmConnector_unshelve_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_unshelve_multiple_registries" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can unshelve multiple ununshelved registries</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_update_registry">
-<code class="descname">test_api_can_update_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_can_update_registry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can update a registry</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_create_registry_for_already_shelved_alarm">
-<code class="descname">test_api_cannot_create_registry_for_already_shelved_alarm</code><span class="sig-paren">(</span><em>AlarmConnector_shelve_alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_create_registry_for_already_shelved_alarm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can create a registry</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.test_api_cannot_create_registry_for_non_shelvable_alarm">
+<code class="descname">test_api_cannot_create_registry_for_non_shelvable_alarm</code><span class="sig-paren">(</span><em>AlarmConnector_shelve_alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryAndNoShelvableAlarm.test_api_cannot_create_registry_for_non_shelvable_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api cannot create a registry
+to a non shelvable alarm for an authorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">CreateRegistryWithNoMessageCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the create request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_create_registry_for_non_shelvable_alarm">
-<code class="descname">test_api_cannot_create_registry_for_non_shelvable_alarm</code><span class="sig-paren">(</span><em>AlarmConnector_shelve_alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_create_registry_for_non_shelvable_alarm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can create a registry</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.test_api_can_create_registry">
+<code class="descname">test_api_can_create_registry</code><span class="sig-paren">(</span><em>AlarmConnector_shelve_alarm</em>, <em>AlarmConnector_unshelve_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.test_api_can_create_registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api cannot create a registry without a message
+for an authorized user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_create_registry_with_no_message">
-<code class="descname">test_api_cannot_create_registry_with_no_message</code><span class="sig-paren">(</span><em>AlarmConnector_shelve_alarm</em>, <em>AlarmConnector_unshelve_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_create_registry_with_no_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api cannot create a registry without a message</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_update_registry_to_have_no_message">
-<code class="descname">test_api_cannot_update_registry_to_have_no_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistrysApiTestCase.test_api_cannot_update_registry_to_have_no_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api cannot update a registry and leave it without
-a message</p>
+<dt id="tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.DeleteRegistry">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">DeleteRegistry</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.DeleteRegistry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.DeleteRegistry.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.DeleteRegistry.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.DeleteRegistry.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.DeleteRegistry.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.DeleteRegistry.test_api_can_delete_a_registry">
+<code class="descname">test_api_can_delete_a_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.DeleteRegistry.test_api_can_delete_a_registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can delete a registry
+for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.DeleteRegistry.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.DeleteRegistry.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.DeleteRegistry.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.DeleteRegistry.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">FilterRegistryForAlarmAndShelvedCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.test_api_can_filter_registries_by_alarms_and_shelve_status">
+<code class="descname">test_api_can_filter_registries_by_alarms_and_shelve_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.test_api_can_filter_registries_by_alarms_and_shelve_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tets that the api can list the ShelveRegistrys filtered by alarm
+and shelved status for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">FilterRegistryForAlarmAndUnshelvedCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.test_api_can_filter_registries_by_alarm_and_unshelved_status">
+<code class="descname">test_api_can_filter_registries_by_alarm_and_unshelved_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.test_api_can_filter_registries_by_alarm_and_unshelved_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tets that the api can list the ShelveRegistrys filtered by
+alarm and unshelved status for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">FilterRegistryForShelvedCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.test_api_can_filter_all_shelved_registries">
+<code class="descname">test_api_can_filter_all_shelved_registries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.test_api_can_filter_all_shelved_registries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can filter ShelveRegistrys only by shelved status
+for an authenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForShelvedCase.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">FilterRegistryForUnshelvedCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.test_api_can_filter_all_open_registries">
+<code class="descname">test_api_can_filter_all_open_registries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.test_api_can_filter_all_open_registries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can filter ShelveRegistrys by unshelved
+status for an authenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.ListRegistry">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">ListRegistry</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ListRegistry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ListRegistry.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ListRegistry.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ListRegistry.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ListRegistry.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ListRegistry.test_api_can_list_registries">
+<code class="descname">test_api_can_list_registries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ListRegistry.test_api_can_list_registries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the ShelveRegistries
+for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ListRegistry.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ListRegistry.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ListRegistry.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ListRegistry.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.RetrieveRegistry">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">RetrieveRegistry</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.RetrieveRegistry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.RetrieveRegistry.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.RetrieveRegistry.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.RetrieveRegistry.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.RetrieveRegistry.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.RetrieveRegistry.test_api_can_retreive_registry_to_authorized_user">
+<code class="descname">test_api_can_retreive_registry_to_authorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.RetrieveRegistry.test_api_can_retreive_registry_to_authorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api should retrieve a ticket
+for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.RetrieveRegistry.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.RetrieveRegistry.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.RetrieveRegistry.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.RetrieveRegistry.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">ShelveRegistryTestSetup</code><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to manage the common setup for testing.</p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup.setupCommonUsersAndClients">
+<code class="descname">setupCommonUsersAndClients</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup.setupCommonUsersAndClients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add unauthenticated and unauthorized users</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.UnshelveMultipleRegistries">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">UnshelveMultipleRegistries</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UnshelveMultipleRegistries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.test_api_can_unshelve_multiple_registries">
+<code class="descname">test_api_can_unshelve_multiple_registries</code><span class="sig-paren">(</span><em>AlarmConnector_unshelve_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.test_api_can_unshelve_multiple_registries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can unshelve multiple ununshelved
+registries for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistry">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">UpdateRegistry</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistry.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistry.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistry.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistry.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistry.test_api_can_update_registry">
+<code class="descname">test_api_can_update_registry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistry.test_api_can_update_registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can update a registry
+for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistry.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistry.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistry.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistry.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_shelves_api.</code><code class="descname">UpdateRegistryWithoutMessage</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_shelves_api.APITestBase" title="tickets.tests.tests_shelves_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_shelves_api.ShelveRegistryTestSetup" title="tickets.tests.tests_shelves_api.ShelveRegistryTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_shelves_api.ShelveRegistryTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.test_api_cannot_update_registry_to_have_no_message">
+<code class="descname">test_api_cannot_update_registry_to_have_no_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.test_api_cannot_update_registry_to_have_no_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api cannot update a registry and leave it
+without a message for an authorized user</p>
 </dd></dl>
 
 </dd></dl>
@@ -228,79 +694,462 @@ a message</p>
 <div class="section" id="module-tickets.tests.tests_tickets_api">
 <span id="tickets-tests-tests-tickets-api-module"></span><h2>tickets.tests.tests_tickets_api module<a class="headerlink" href="#module-tickets.tests.tests_tickets_api" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase">
-<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">TicketsApiTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
-<p>Test suite for the tickets api views.</p>
+<dt id="tickets.tests.tests_tickets_api.APITestBase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">APITestBase</code><a class="headerlink" href="#tickets.tests.tests_tickets_api.APITestBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dt id="tickets.tests.tests_tickets_api.APITestBase.authenticate_client_using_token">
+<code class="descname">authenticate_client_using_token</code><span class="sig-paren">(</span><em>client</em>, <em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.APITestBase.authenticate_client_using_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates a selected API Client using a related User token</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.APITestBase.create_user">
+<code class="descname">create_user</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.APITestBase.create_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a user with selected permissions</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">AcknowledgeAllTicketsByAlarm</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the acknowledge request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.setUp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define the test suite setup</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_all_tickets_by_alarm">
-<code class="descname">test_api_can_acknowledge_all_tickets_by_alarm</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_all_tickets_by_alarm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can ack unacknowledged tickets and cleared
-unacknowledged tickets</p>
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.test_api_can_acknowledge_all_tickets_by_alarm">
+<code class="descname">test_api_can_acknowledge_all_tickets_by_alarm</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.test_api_can_acknowledge_all_tickets_by_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can ack unacknowledged tickets
+and cleared unacknowledged tickets for an alarm
+for an authorized user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets">
-<code class="descname">test_api_can_acknowledge_multiple_tickets</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can acknowledge multiple unacknowledged tickets</p>
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets_with_dependencies">
-<code class="descname">test_api_can_acknowledge_multiple_tickets_with_dependencies</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_acknowledge_multiple_tickets_with_dependencies" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can acknowledge multiple unacknowledged tickets
-and their dependencies</p>
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">AcknowledgeMultipleTickets</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the acknowledge request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_alarm">
-<code class="descname">test_api_can_filter_tickets_by_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_alarm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can list the Tickets filtered by alarm id</p>
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.test_api_can_acknowledge_multiple_tickets">
+<code class="descname">test_api_can_acknowledge_multiple_tickets</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.test_api_can_acknowledge_multiple_tickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api
+can acknowledge multiple unacknowledged tickets
+for an authorized user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_alarm_and_status">
-<code class="descname">test_api_can_filter_tickets_by_alarm_and_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_alarm_and_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can list the Tickets filtered by alarm id
-and status</p>
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_status">
-<code class="descname">test_api_can_filter_tickets_by_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_filter_tickets_by_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can list the Tickets filtered by status</p>
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">AcknowledgeMultipleTicketsAndDependencies</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the acknowledge request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_list_tickets">
-<code class="descname">test_api_can_list_tickets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_list_tickets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can list the Tickets</p>
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.test_api_can_acknowledge_multiple_tickets_with_dependencies">
+<code class="descname">test_api_can_acknowledge_multiple_tickets_with_dependencies</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.test_api_can_acknowledge_multiple_tickets_with_dependencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api
+can acknowledge multiple unacknowledged tickets
+and their dependencies
+for an authorized user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_not_acknowledge_tickets_by_alarm_without_message">
-<code class="descname">test_api_can_not_acknowledge_tickets_by_alarm_without_message</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_not_acknowledge_tickets_by_alarm_without_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can not ack an unacknowledged ticket with an empty
-message</p>
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_retrieve_old_open_tickets_information">
-<code class="descname">test_api_can_retrieve_old_open_tickets_information</code><span class="sig-paren">(</span><em>AlarmConnector_get_alarm_dependencies</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_retrieve_old_open_tickets_information" title="Permalink to this definition">¶</a></dt>
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeMultipleTicketsAndDependencies.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">AcknowledgeTicketsRequestAndNoMessage</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the acknowledge request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.test_api_can_not_acknowledge_tickets_by_alarm_without_message">
+<code class="descname">test_api_can_not_acknowledge_tickets_by_alarm_without_message</code><span class="sig-paren">(</span><em>AlarmConnector_acknowledge_alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.test_api_can_not_acknowledge_tickets_by_alarm_without_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api
+can not ack an unacknowledged ticket with an empty message
+for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.AcknowledgeTicketsRequestAndNoMessage.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.CreateTicketTestCase">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">CreateTicketTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.CreateTicketTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the creation permissions of tickets using the api.</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.CreateTicketTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.CreateTicketTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.CreateTicketTestCase.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.CreateTicketTestCase.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_cannot_create_tickets_for_an_authenticated_user">
+<code class="descname">test_api_cannot_create_tickets_for_an_authenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_cannot_create_tickets_for_an_authenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that an authenticated user can not use the request</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_cannot_create_tickets_for_an_unauthenticated_user">
+<code class="descname">test_api_cannot_create_tickets_for_an_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_cannot_create_tickets_for_an_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that an unauthenticated user can not use the request</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_should_always_unallow_the_create_permission">
+<code class="descname">test_api_should_always_unallow_the_create_permission</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_should_always_unallow_the_create_permission" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should not be allowed to add tickets using the api</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.CreateTicketTestCase.test_ticket_should_not_have_and_add_default_permission">
+<code class="descname">test_ticket_should_not_have_and_add_default_permission</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.CreateTicketTestCase.test_ticket_should_not_have_and_add_default_permission" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should not be permissions to add tickets using the api</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.CreateTicketTestCase.test_unavailable_add_ticket_permission_for_the_users">
+<code class="descname">test_unavailable_add_ticket_permission_for_the_users</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.CreateTicketTestCase.test_unavailable_add_ticket_permission_for_the_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should not be permissions for the users</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarm">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">FilterTicketsByAlarm</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the retrieve request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarm.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarm.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarm.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarm.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarm.test_api_can_filter_tickets_by_alarm">
+<code class="descname">test_api_can_filter_tickets_by_alarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarm.test_api_can_filter_tickets_by_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the Tickets
+filtered by alarm id
+only for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarm.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarm.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarm.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarm.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">FilterTicketsByAlarmAndStatus</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the retrieve request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.test_api_can_filter_tickets_by_alarm_and_status">
+<code class="descname">test_api_can_filter_tickets_by_alarm_and_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.test_api_can_filter_tickets_by_alarm_and_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the Tickets
+filtered by alarm id and status
+only for an autorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByAlarmAndStatus.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByStatus">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">FilterTicketsByStatus</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the retrieve request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByStatus.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByStatus.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByStatus.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByStatus.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByStatus.test_api_can_filter_tickets_by_status">
+<code class="descname">test_api_can_filter_tickets_by_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByStatus.test_api_can_filter_tickets_by_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the Tickets
+filtered by status
+only for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByStatus.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByStatus.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.FilterTicketsByStatus.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.FilterTicketsByStatus.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.ListTicket">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">ListTicket</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.ListTicket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the list request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.ListTicket.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.ListTicket.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.ListTicket.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.ListTicket.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.ListTicket.test_api_can_list_tickets_to_authorized_user">
+<code class="descname">test_api_can_list_tickets_to_authorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.ListTicket.test_api_can_list_tickets_to_authorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can list the Tickets
+to an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.ListTicket.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.ListTicket.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.ListTicket.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.ListTicket.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.RetrieveOldOpenTickets">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">RetrieveOldOpenTickets</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveOldOpenTickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the retrieve request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.test_api_can_retrieve_old_open_tickets_information">
+<code class="descname">test_api_can_retrieve_old_open_tickets_information</code><span class="sig-paren">(</span><em>AlarmConnector_get_alarm_dependencies</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.test_api_can_retrieve_old_open_tickets_information" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that the api can retrieve cleared unack tickets information
 of an specified alarm</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_retrieve_tickets">
-<code class="descname">test_api_can_retrieve_tickets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsApiTestCase.test_api_can_retrieve_tickets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can retrieve a ticket</p>
+<dt id="tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.RetrieveTicket">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">RetrieveTicket</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveTicket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tickets.tests.tests_tickets_api.APITestBase" title="tickets.tests.tests_tickets_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.APITestBase</span></code></a>, <a class="reference internal" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="tickets.tests.tests_tickets_api.TicketsTestSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">tickets.tests.tests_tickets_api.TicketsTestSetup</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the retrieve request</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.RetrieveTicket.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveTicket.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.RetrieveTicket.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveTicket.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.RetrieveTicket.test_api_can_retrieve_tickets_to_authorized_user">
+<code class="descname">test_api_can_retrieve_tickets_to_authorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveTicket.test_api_can_retrieve_tickets_to_authorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The api should retrieve a ticket for an authorized user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.RetrieveTicket.test_api_cannot_allow_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveTicket.test_api_cannot_allow_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.RetrieveTicket.test_api_cannot_allow_request_for_unauthorized_user">
+<code class="descname">test_api_cannot_allow_request_for_unauthorized_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.RetrieveTicket.test_api_cannot_allow_request_for_unauthorized_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthorized user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tickets.tests.tests_tickets_api.TicketsTestSetup">
+<em class="property">class </em><code class="descclassname">tickets.tests.tests_tickets_api.</code><code class="descname">TicketsTestSetup</code><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsTestSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to manage the common setup for testing.</p>
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsTestSetup.setTestTicketsConfig">
+<code class="descname">setTestTicketsConfig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsTestSetup.setTestTicketsConfig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tickets.tests.tests_tickets_api.TicketsTestSetup.setupCommonUsersAndClients">
+<code class="descname">setupCommonUsersAndClients</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tickets.tests.tests_tickets_api.TicketsTestSetup.setupCommonUsersAndClients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add unauthenticated and unauthorized users</p>
 </dd></dl>
 
 </dd></dl>

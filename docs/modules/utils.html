@@ -15,7 +15,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="timers.management.commands package" href="timers.management.commands.html" /> 
+    <link rel="prev" title="users.management.commands package" href="users.management.commands.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,7 +27,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="timers.management.commands.html" title="timers.management.commands package"
+          <a href="users.management.commands.html" title="users.management.commands package"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">ias-webserver</a> &#187;</li> 
@@ -54,6 +54,40 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-utils.logging">
+<span id="utils-logging-module"></span><h2>utils.logging module<a class="headerlink" href="#module-utils.logging" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="utils.logging.iasFormatter">
+<em class="property">class </em><code class="descclassname">utils.logging.</code><code class="descname">iasFormatter</code><span class="sig-paren">(</span><em>fmt=None</em>, <em>datefmt=None</em>, <em>style='%'</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.logging.iasFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Formatter</span></code></p>
+<dl class="method">
+<dt id="utils.logging.iasFormatter.converter">
+<code class="descname">converter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.logging.iasFormatter.converter" title="Permalink to this definition">¶</a></dt>
+<dd><p>timestamp[, tz] -&gt; tz’s local time from POSIX timestamp.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.logging.iasFormatter.formatTime">
+<code class="descname">formatTime</code><span class="sig-paren">(</span><em>record</em>, <em>datefmt=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.logging.iasFormatter.formatTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the creation time of the specified LogRecord as formatted text.</p>
+<p>This method should be called from format() by a formatter which
+wants to make use of a formatted time. This method can be overridden
+in formatters to provide for any specific requirement, but the
+basic behaviour is as follows: if datefmt (a string) is specified,
+it is used with time.strftime() to format the creation time of the
+record. Otherwise, an ISO8601-like (or RFC 3339-like) format is used.
+The resulting string is returned. This function uses a user-configurable
+function to convert the creation time to a tuple. By default,
+time.localtime() is used; to change this for a particular formatter
+instance, set the ‘converter’ attribute to a function with the same
+signature as time.localtime() or time.gmtime(). To change it for all
+formatters, for example if you want all logging times to be shown in GMT,
+set the ‘converter’ attribute in the Formatter class.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-utils">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -66,8 +100,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="timers.management.commands.html"
-                        title="previous chapter">timers.management.commands package</a></p>
+  <p class="topless"><a href="users.management.commands.html"
+                        title="previous chapter">users.management.commands package</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <div class="searchformwrapper">
@@ -94,7 +128,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="timers.management.commands.html" title="timers.management.commands package"
+          <a href="users.management.commands.html" title="users.management.commands package"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">IAS Web Server 1.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ias-webserver</a> &#187;</li> 
