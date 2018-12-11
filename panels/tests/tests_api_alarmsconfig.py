@@ -48,6 +48,13 @@ class AlarmsConfigTestSetUp:
         self.ups_type = Type.objects.create(name='ups')
         self.hvac_type = Type.objects.create(name='hvac')
         self.power_type = Type.objects.create(name='power')
+        self.crio_temp0_type = Type.objects.create(name='crio_temp0')
+        self.crio_temp5_type = Type.objects.create(name='crio_temp5')
+        self.crio_temp9_type = Type.objects.create(name='crio_temp9')
+        self.crio_pres0_type = Type.objects.create(name='crio_pres0')
+        self.crio_pres1_type = Type.objects.create(name='crio_pres1')
+        self.cmpr_drive_type = Type.objects.create(name='cmpr_drive')
+        self.devices_type = Type.objects.create(name='device')
         self.health_type = Type.objects.create(name='health')
         self.weather_view = View.objects.create(name='weather')
         self.antennas_view = View.objects.create(name='antennas')
@@ -57,7 +64,6 @@ class AlarmsConfigTestSetUp:
             PlacemarkGroup.objects.create(name='group1'),
             PlacemarkGroup.objects.create(name='group2')
         ]
-
         self.placemarks = [
             Placemark.objects.create(
                 name="placemark_station_1",
@@ -197,6 +203,68 @@ class AlarmsConfigTestSetUp:
                 custom_name="Power",
                 parent=self.antennas_alarms_config[0]
             ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_crio_temp0",
+                view=self.antennas_view,
+                type=self.crio_temp0_type,
+                custom_name="Cryo Temp 0",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_crio_temp5",
+                view=self.antennas_view,
+                type=self.crio_temp5_type,
+                custom_name="Cryo Temp 5",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_crio_temp9",
+                view=self.antennas_view,
+                type=self.crio_temp9_type,
+                custom_name="Cryo Temp 9",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_crio_pres0",
+                view=self.antennas_view,
+                type=self.crio_pres0_type,
+                custom_name="Cryo Pres 0",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_crio_pres1",
+                view=self.antennas_view,
+                type=self.crio_pres1_type,
+                custom_name="Cryo Pres 1",
+                parent=self.antennas_alarms_config[0]
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="antenna_alarm_1_cmpr_drive",
+                view=self.antennas_view,
+                type=self.cmpr_drive_type,
+                custom_name="Compressor",
+                parent=self.antennas_alarms_config[0]
+            ),
+        ]
+        self.antennas_other_devices = [
+            AlarmConfig.objects.create(
+                alarm_id="master_laser_alarm",
+                view=self.antennas_view,
+                type=self.devices_type,
+                custom_name="Master Laser"
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="correlator_alarm",
+                view=self.antennas_view,
+                type=self.devices_type,
+                custom_name="Correlator"
+            ),
+            AlarmConfig.objects.create(
+                alarm_id="clo_alarm",
+                view=self.antennas_view,
+                type=self.devices_type,
+                custom_name="CLO"
+            )
         ]
         self.summary_alarms_config = [
             AlarmConfig.objects.create(
@@ -422,7 +490,7 @@ class RetrieveAntennasConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
         """ Test that the api can retrieve a correct json"""
         # Arrange:
         expected_data = {
-            'group_A': [
+            'antennas': [
                 {
                     'antenna': 'A001',
                     'placemark': 'placemark_pad_1',
@@ -431,7 +499,13 @@ class RetrieveAntennasConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
                     'fire_malfunction': 'antenna_alarm_1_fire_malfunction',
                     'ups': 'antenna_alarm_1_ups',
                     'hvac': 'antenna_alarm_1_hvac',
-                    'power': 'antenna_alarm_1_power'
+                    'power': 'antenna_alarm_1_power',
+                    'crio_temp0': 'antenna_alarm_1_crio_temp0',
+                    'crio_temp5': 'antenna_alarm_1_crio_temp5',
+                    'crio_temp9': 'antenna_alarm_1_crio_temp9',
+                    'crio_pres0': 'antenna_alarm_1_crio_pres0',
+                    'crio_pres1': 'antenna_alarm_1_crio_pres1',
+                    'cmpr_drive': 'antenna_alarm_1_cmpr_drive'
                 },
                 {
                     'antenna': 'A002',
@@ -441,10 +515,14 @@ class RetrieveAntennasConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
                     'fire_malfunction': '',
                     'ups': '',
                     'hvac': '',
-                    'power': ''
-                }
-            ],
-            'group_B': [
+                    'power': '',
+                    'crio_temp0': '',
+                    'crio_temp5': '',
+                    'crio_temp9': '',
+                    'crio_pres0': '',
+                    'crio_pres1': '',
+                    'cmpr_drive': ''
+                },
                 {
                     'antenna': 'A003',
                     'placemark': 'placemark_pad_3',
@@ -453,8 +531,31 @@ class RetrieveAntennasConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
                     'fire_malfunction': '',
                     'ups': '',
                     'hvac': '',
-                    'power': ''
+                    'power': '',
+                    'crio_temp0': '',
+                    'crio_temp5': '',
+                    'crio_temp9': '',
+                    'crio_pres0': '',
+                    'crio_pres1': '',
+                    'cmpr_drive': ''
                 },
+            ],
+            'devices': [
+                {
+                    'antenna': 'Master Laser',
+                    'placemark': '',
+                    'alarm': 'master_laser_alarm'
+                },
+                {
+                    'antenna': 'Correlator',
+                    'placemark': '',
+                    'alarm': 'correlator_alarm'
+                },
+                {
+                    'antenna': 'CLO',
+                    'placemark': '',
+                    'alarm': 'clo_alarm'
+                }
             ]
         }
 
