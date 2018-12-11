@@ -1,5 +1,5 @@
 import logging
-from panels.models import AlarmConfig, Placemark
+from panels.models import AlarmConfig, Placemark, View
 
 logger = logging.getLogger(__name__)
 
@@ -54,3 +54,27 @@ class IPanels:
         configs = AlarmConfig.objects.all()
         ids = [config.alarm_id for config in configs]
         return ids
+
+    @classmethod
+    def get_alarms_views_dict_of_alarm_configs(self):
+        """
+        Returns a dict with the names of the views
+        related to an alarm from all the AlarmConfigs
+
+        Returns:
+            (dict): dictionary of views names with alarm_ids as keys
+        """
+        q = AlarmConfig.objects.all()
+        return {config.alarm_id: [config.view.name] for config in q}
+
+    @classmethod
+    def get_names_of_views(self):
+        """
+        Returns a list with the names of the views
+
+        Returns:
+            (list): the list of names of the views
+        """
+        views = View.objects.all()
+        names = [view.name for view in views]
+        return names

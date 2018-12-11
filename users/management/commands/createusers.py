@@ -5,9 +5,7 @@ import getpass
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission, Group, User
 from django.core.management.base import BaseCommand
-from django.contrib.auth.password_validation import validate_password
 from django.db import DEFAULT_DB_ALIAS
-from django.core import exceptions
 
 PASSWORD_FIELD = 'password'
 username = 'operator_on_duty'
@@ -27,8 +25,12 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--password',
-            help='Specifies the password for the operator on duty user.'
+            '--adminpassword',
+            help='Specifies the password for the admin user.'
+        )
+        parser.add_argument(
+            '--operatorpassword',
+            help='Specifies the password for the admin user.'
         )
         parser.add_argument(
             '--database',
@@ -38,10 +40,44 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        password = options['password']
+        admin_password = options['adminpassword']
+        operator_duty_password = options['operatorpassword']
         database = options['database']
 
-        # Create opertator on duty user
+        # Create superuser
+        self._create_superuser(admin_password)
+
+        # Create operator on duty user
+        self._create_operator_user(operator_duty_password, database)
+
+        # Create operators group
+        self._create_operators_group(database)
+
+        # Add operator on duty to operators group
+        user = User.objects.get(username='operator_on_duty')
+        group = Group.objects.get(name='operators')
+        user.groups.add(group)
+
+    def _create_superuser(self, password):
+        while password is None or password.strip() is '':
+            print('Creating admin user...')
+            password = getpass.getpass()
+            if password.strip() == '':
+                self.stderr.write("Error: Blank passwords aren't allowed.")
+                password = None
+                continue
+
+        if not User.objects.filter(username='admin').exists():
+            User.objects.create_superuser(
+                'admin', 'admin@fake-admin.com', password)
+        else:
+            self.stderr.write("Error: The admin user is already created")
+
+    def _create_operator_user(self, password, database):
+        user = None
+        username = 'operator_on_duty'
+
+        # Create user
         user_data = {}
         user_data[self.UserModel.USERNAME_FIELD] = username
         user_data[PASSWORD_FIELD] = None
@@ -53,19 +89,11 @@ class Command(BaseCommand):
         )
         while user_data[PASSWORD_FIELD] is None:
             if password is None:
+                print('Creating operator on duty...')
                 password = getpass.getpass()
                 if password.strip() == '':
                     self.stderr.write("Error: Blank passwords aren't allowed.")
                     # Don't validate blank passwords.
-                    continue
-            try:
-                validate_password(password, self.UserModel(**fake_user_data))
-            except exceptions.ValidationError as err:
-                self.stderr.write('\n'.join(err.messages))
-                response = input(
-                    'Bypass password validation and create user anyway? [y/N]:'
-                )
-                if response.lower() != 'y':
                     continue
             user_data[PASSWORD_FIELD] = password
 
@@ -74,22 +102,24 @@ class Command(BaseCommand):
                 database).create_user(**user_data)
             self._add_operator_on_duty_permissions(user)
         else:
-            self.stderr.write("Error: The operator on duty is already created")
-
-        # Create operators group
-        self._create_operators_group(database)
+            self.stderr.write(
+                "Error: The user {} is already created".format(username)
+            )
+        return user
 
     def _create_operators_group(self, database):
         return Group.objects.get_or_create(name=operators_group_name)
 
     def _add_operator_on_duty_permissions(self, user):
-        permissions = [
+        permissions = Permission.objects.filter(codename__icontains='view_')
+        codenames = [permission.codename for permission in permissions]
+        codenames += [
             'acknowledge_ticket',
             'add_shelveregistry',
             'unshelve_shelveregistry'
         ]
-        for permission in permissions:
+        for codename in codenames:
             user.user_permissions.add(
-                Permission.objects.get(codename=permission)
+                Permission.objects.get(codename=codename)
             )
         return user
