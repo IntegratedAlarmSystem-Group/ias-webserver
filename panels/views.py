@@ -4,9 +4,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from dry_rest_permissions.generics import DRYPermissions
 from panels.models import (
     File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
-from panels.serializers import FileSerializer, AlarmConfigSerializer
+from panels.serializers import (
+    FileSerializer, AlarmConfigSerializer, PlacemarkSerializer)
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +18,7 @@ class FileViewSet(viewsets.ModelViewSet):
 
     queryset = File.objects.all()
     serializer_class = FileSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def get_json(self, request):
@@ -44,6 +47,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
     views = View.objects.all()
     types = Type.objects.all()
     serializer_class = AlarmConfigSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def weather_config(self, request):
@@ -106,6 +110,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             )
 
         data = {}
+        data["antennas"] = []
         for alarm in antenna_alarms:
             fire = alarm.nested_alarms.filter(
                 type__name="fire")
@@ -122,9 +127,25 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             power = alarm.nested_alarms.filter(
                 type__name="power")
 
-            if alarm.tags and alarm.tags not in data:
-                data[alarm.tags] = []
-            data[alarm.tags].append(
+            crio_temp0 = alarm.nested_alarms.filter(
+                type__name="crio_temp0")
+
+            crio_temp5 = alarm.nested_alarms.filter(
+                type__name="crio_temp5")
+
+            crio_temp9 = alarm.nested_alarms.filter(
+                type__name="crio_temp9")
+
+            crio_pres0 = alarm.nested_alarms.filter(
+                type__name="crio_pres0")
+
+            crio_pres1 = alarm.nested_alarms.filter(
+                type__name="crio_pres1")
+
+            cmpr_drive = alarm.nested_alarms.filter(
+                type__name="cmpr_drive")
+
+            data["antennas"].append(
                 {
                   "antenna": alarm.custom_name,
                   "placemark": alarm.placemark.name if alarm.placemark else "",
@@ -133,7 +154,33 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                   "fire_malfunction": fire_sys[0].alarm_id if fire_sys else "",
                   "ups": ups[0].alarm_id if ups else "",
                   "hvac": hvac[0].alarm_id if hvac else "",
-                  "power": power[0].alarm_id if power else ""
+                  "power": power[0].alarm_id if power else "",
+                  "crio_temp0": crio_temp0[0].alarm_id if crio_temp0 else "",
+                  "crio_temp5": crio_temp5[0].alarm_id if crio_temp5 else "",
+                  "crio_temp9": crio_temp9[0].alarm_id if crio_temp9 else "",
+                  "crio_pres0": crio_pres0[0].alarm_id if crio_pres0 else "",
+                  "crio_pres1": crio_pres1[0].alarm_id if crio_pres1 else "",
+                  "cmpr_drive": cmpr_drive[0].alarm_id if cmpr_drive else "",
+                }
+            )
+
+        other_devices = self.queryset.filter(
+            view__name="antennas",
+            type__name="device"
+        )
+        if not len(other_devices):
+            logger.warning(
+                'there is no configuration for other array devices'
+            )
+            return Response(data)
+
+        data["devices"] = []
+        for dev in other_devices:
+            data["devices"].append(
+                {
+                  "antenna": dev.custom_name,
+                  "placemark": dev.placemark.name if dev.placemark else "",
+                  "alarm": dev.alarm_id,
                 }
             )
 
@@ -230,6 +277,8 @@ class PlacemarkViewSet(viewsets.ModelViewSet):
 
     queryset = Placemark.objects.all()
     groups = PlacemarkGroup.objects.all()
+    serializer_class = PlacemarkSerializer
+    permission_classes = (DRYPermissions,)
 
     @action(detail=False)
     def pads_by_group(self, request):

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export TESTING=True
 rm sphinx/source/modules/*
 sphinx-apidoc -o sphinx/source/modules/ . ./*migrations*  # skip migrations
 cd sphinx/source/modules

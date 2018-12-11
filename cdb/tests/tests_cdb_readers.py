@@ -1,6 +1,6 @@
 from django.test import TestCase
 from cdb.readers import CdbReader
-from ias_webserver.settings import BROADCAST_RATE_FACTOR
+from ias_webserver.settings import BROADCAST_RATE, BROADCAST_THRESHOLD
 
 
 class CdbReaderTestCase(TestCase):
@@ -13,9 +13,10 @@ class CdbReaderTestCase(TestCase):
         expected_data = {
             'logLevel': 'INFO',
             'refreshRate': '3',
-            'tolerance': '1',
+            'validityThreshold': '10',
             'hbFrequency': '5',
-            'broadcastFactor': str(BROADCAST_RATE_FACTOR),
+            'broadcastRate': str(BROADCAST_RATE),
+            'broadcastThreshold': str(BROADCAST_THRESHOLD),
             'props': [
                 {'name': 'Prop1-Name', 'value': 'The value of P1'},
                 {'name': 'Prop2-Name', 'value': 'The value of P2'}
@@ -37,7 +38,6 @@ class CdbReaderTestCase(TestCase):
             "DASU_IASIO_DUMMY_ALARM_8",
             "DASU_IASIO_DUMMY_TEMPLATED_1",
         ]
-        print('dasus_to_deploy: ', dasus_to_deploy)
         self.assertEqual(
             sorted(dasus_to_deploy), sorted(expected_data),
             'The data obtained is not the expected'

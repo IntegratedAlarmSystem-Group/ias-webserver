@@ -3,6 +3,7 @@ import datetime
 import re
 import logging
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from users.models import reset_auth_token
 from alarms.models import Alarm, OperationalMode, Validity, Value, IASValue
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
 
@@ -93,8 +94,12 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
         core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
-        core_timestamp = CoreConsumer.get_timestamp_from(
-            content['sentToBsdbTStamp'])
+        if 'dasuProductionTStamp' in content:
+            core_timestamp = CoreConsumer.get_timestamp_from(
+                content['dasuProductionTStamp'])
+        else:
+            core_timestamp = CoreConsumer.get_timestamp_from(
+                content['pluginProductionTStamp'])
         params = {
             'value': value_options[content['value']],
             'core_timestamp': core_timestamp,
@@ -134,6 +139,13 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         }
         return IASValue(**params)
 
+    async def connect(self):
+        """
+        Called on connection
+        """
+        AlarmCollection.initialize()
+        await self.accept()
+
     async def receive_json(self, content, **kwargs):
         """
         Handles the messages received by this consumer.
@@ -163,14 +175,20 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
 
 class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
     """ Consumer to notify clients and listen their requests """
+    groups = []
 
-    def __init__(self, scope):
+    async def connect(self):
         """
-        Initializes the consumer and subscribes it to the AlarmCollection
-        observers list
+        Called on connection
         """
-        super()
-        AlarmCollection.register_observer(self)
+        if self.scope['user'].is_anonymous:
+            # To reject the connection:
+            await self.close()
+        else:
+            AlarmCollection.initialize()
+            AlarmCollection.register_observer(self)
+            # To accept the connection call:
+            await self.accept()
 
     async def update(self, alarm, action):
         """
@@ -193,6 +211,19 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
                 },
                 "stream": "alarms",
             }
+        await self.send_json(message)
+
+    async def update_counter_by_view(self, counter_by_view):
+        """
+        Notifies the client of changes in a dictionary defined as a
+        counter by view
+        """
+        message = {
+            "payload": {
+                "data": counter_by_view
+            },
+            "stream": "counter"
+        }
         await self.send_json(message)
 
     async def send_alarms_status(self):
@@ -218,9 +249,16 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             if content['payload'] and content['payload']['action'] is not None:
                 if content['payload']['action'] == 'list':
                     await self.send_alarms_status()
+                    await self.update_counter_by_view(
+                        AlarmCollection.counter_by_view
+                    )
                     logger.debug(
                         'new message received in requests stream: ' +
                         '(action list)')
+                elif content['payload']['action'] == 'close':
+                    await self.close()
+                    reset_auth_token(self.scope['user'])
+                    logger.debug('connection closed')
                 else:
                     await self.send_json({
                         "payload": {
@@ -234,3 +272,10 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         if content['stream'] == 'broadcast':
             await AlarmCollection.broadcast_status_to_observers()
             logger.debug('new message received in broadcast stream')
+
+    async def disconnect(self, close_code):
+        """
+        Called when the socket closes
+        """
+        if self in AlarmCollection.observers:
+            AlarmCollection.observers.remove(self)

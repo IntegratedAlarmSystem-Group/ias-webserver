@@ -52,20 +52,81 @@
 <div class="section" id="module-cdb.tests.tests_cdb_api">
 <span id="cdb-tests-tests-cdb-api-module"></span><h2>cdb.tests.tests_cdb_api module<a class="headerlink" href="#module-cdb.tests.tests_cdb_api" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase">
-<em class="property">class </em><code class="descclassname">cdb.tests.tests_cdb_api.</code><code class="descname">CdbApiTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
-<p>Test suite for the api views.</p>
+<dt id="cdb.tests.tests_cdb_api.APITestBase">
+<em class="property">class </em><code class="descclassname">cdb.tests.tests_cdb_api.</code><code class="descname">APITestBase</code><a class="headerlink" href="#cdb.tests.tests_cdb_api.APITestBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_get_ias">
-<code class="descname">test_api_can_get_ias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_get_ias" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can retrieve an Ias</p>
+<dt id="cdb.tests.tests_cdb_api.APITestBase.authenticate_client_using_token">
+<code class="descname">authenticate_client_using_token</code><span class="sig-paren">(</span><em>client</em>, <em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.APITestBase.authenticate_client_using_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates a selected API Client using a related User token</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_list_ias">
-<code class="descname">test_api_can_list_ias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.CdbApiTestCase.test_api_can_list_ias" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that the api can retrieve an Ias</p>
+<dt id="cdb.tests.tests_cdb_api.APITestBase.create_user">
+<code class="descname">create_user</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.APITestBase.create_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a user with selected permissions</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cdb.tests.tests_cdb_api.ListIasConfigurationData">
+<em class="property">class </em><code class="descclassname">cdb.tests.tests_cdb_api.</code><code class="descname">ListIasConfigurationData</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.ListIasConfigurationData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cdb.tests.tests_cdb_api.APITestBase" title="cdb.tests.tests_cdb_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">cdb.tests.tests_cdb_api.APITestBase</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the list request for the ias configuration</p>
+<dl class="method">
+<dt id="cdb.tests.tests_cdb_api.ListIasConfigurationData.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.ListIasConfigurationData.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cdb.tests.tests_cdb_api.ListIasConfigurationData.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.ListIasConfigurationData.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cdb.tests.tests_cdb_api.ListIasConfigurationData.test_api_can_list_ias_for_an_authenticated_user">
+<code class="descname">test_api_can_list_ias_for_an_authenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.ListIasConfigurationData.test_api_can_list_ias_for_an_authenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve an Ias
+for an authenticated user without specific permissions</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cdb.tests.tests_cdb_api.ListIasConfigurationData.test_api_cannot_allow_the_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_the_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.ListIasConfigurationData.test_api_cannot_allow_the_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cdb.tests.tests_cdb_api.RetrieveIasConfigurationData">
+<em class="property">class </em><code class="descclassname">cdb.tests.tests_cdb_api.</code><code class="descname">RetrieveIasConfigurationData</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.RetrieveIasConfigurationData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cdb.tests.tests_cdb_api.APITestBase" title="cdb.tests.tests_cdb_api.APITestBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">cdb.tests.tests_cdb_api.APITestBase</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test suite to test the get request for the ias configuration</p>
+<dl class="method">
+<dt id="cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the test suite setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.target_request_from_client">
+<code class="descname">target_request_from_client</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.target_request_from_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.test_api_can_get_ias_for_authenticated_user">
+<code class="descname">test_api_can_get_ias_for_authenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.test_api_can_get_ias_for_authenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the api can retrieve an Ias
+for an authenticated user without specific permissions</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.test_api_cannot_allow_the_request_for_unauthenticated_user">
+<code class="descname">test_api_cannot_allow_the_request_for_unauthenticated_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.test_api_cannot_allow_the_request_for_unauthenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request should not be allowed for an unauthenticated user</p>
 </dd></dl>
 
 </dd></dl>

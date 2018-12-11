@@ -20,6 +20,14 @@ alarms.tests.tests\_broadcast module
     :undoc-members:
     :show-inheritance:
 
+alarms.tests.tests\_client\_consumer\_connect module
+----------------------------------------------------
+
+.. automodule:: alarms.tests.tests_client_consumer_connect
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alarms.tests.tests\_client\_consumer\_notify module
 ---------------------------------------------------
 
@@ -40,6 +48,14 @@ alarms.tests.tests\_collections module
 --------------------------------------
 
 .. automodule:: alarms.tests.tests_collections
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.tests.tests\_collections\_counter\_per\_view module
+----------------------------------------------------------
+
+.. automodule:: alarms.tests.tests_collections_counter_per_view
     :members:
     :undoc-members:
     :show-inheritance:

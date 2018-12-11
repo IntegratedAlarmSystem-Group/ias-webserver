@@ -53,9 +53,11 @@
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.factories">alarms.tests.factories module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_broadcast">alarms.tests.tests_broadcast module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_client_consumer_connect">alarms.tests.tests_client_consumer_connect module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_client_consumer_notify">alarms.tests.tests_client_consumer_notify module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_client_consumer_request">alarms.tests.tests_client_consumer_request module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_collections">alarms.tests.tests_collections module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_collections_counter_per_view">alarms.tests.tests_collections_counter_per_view module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_connectors">alarms.tests.tests_connectors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_core_consumer">alarms.tests.tests_core_consumer module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_interfaces">alarms.tests.tests_interfaces module</a></li>
@@ -100,12 +102,22 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-alarms.auth">
+<span id="alarms-auth-module"></span><h2>alarms.auth module<a class="headerlink" href="#module-alarms.auth" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.auth.TokenAuthMiddleware">
+<em class="property">class </em><code class="descclassname">alarms.auth.</code><code class="descname">TokenAuthMiddleware</code><span class="sig-paren">(</span><em>inner</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.auth.TokenAuthMiddleware" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Custom middleware to use a token for user authentication</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-alarms.collections">
 <span id="alarms-collections-module"></span><h2>alarms.collections module<a class="headerlink" href="#module-alarms.collections" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="alarms.collections.AlarmCollection">
 <em class="property">class </em><code class="descclassname">alarms.collections.</code><code class="descname">AlarmCollection</code><a class="headerlink" href="#alarms.collections.AlarmCollection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#alarms.collections.CounterByView" title="alarms.collections.CounterByView"><code class="xref py py-class docutils literal notranslate"><span class="pre">alarms.collections.CounterByView</span></code></a></p>
 <p>This class defines the data structure that will store and handle the Alarms
 in memory.</p>
 <p>Allows observers to subscribe to changes on the Alarm objects</p>
@@ -174,10 +186,24 @@ value (any): core value</dd>
 </dl>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.alarms_views_dict">
+<code class="descname">alarms_views_dict</code><em class="property"> = None</em><a class="headerlink" href="#alarms.collections.AlarmCollection.alarms_views_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary to store the related view names by alarm,
+indexed by core_id</p>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.broadcast_status_to_observers">
 <em class="property">classmethod </em><code class="descname">broadcast_status_to_observers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.broadcast_status_to_observers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Notify to all observers the alarms list with its current status</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.counter_by_view">
+<code class="descname">counter_by_view</code><em class="property"> = None</em><a class="headerlink" href="#alarms.collections.AlarmCollection.counter_by_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary to store the count of active - and unack - alarms,
+indexed by view name</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -285,6 +311,12 @@ documentation urls from the CDB.</p>
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.notify_counter_by_view_to_observer">
+<em class="property">classmethod </em><code class="descname">notify_counter_by_view_to_observer</code><span class="sig-paren">(</span><em>observer</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.notify_counter_by_view_to_observer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notify counter by view to a selected observer</p>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.notify_observers">
 <em class="property">classmethod </em><code class="descname">notify_observers</code><span class="sig-paren">(</span><em>alarm</em>, <em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.notify_observers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Notify to all observers an action over an alarm</p>
@@ -299,7 +331,7 @@ collection</p>
 
 <dl class="attribute">
 <dt id="alarms.collections.AlarmCollection.parents_collection">
-<code class="descname">parents_collection</code><em class="property"> = {}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.parents_collection" title="Permalink to this definition">¶</a></dt>
+<code class="descname">parents_collection</code><em class="property"> = None</em><a class="headerlink" href="#alarms.collections.AlarmCollection.parents_collection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store the parents of each alarm</p>
 </dd></dl>
 
@@ -335,7 +367,7 @@ initialization specification.</p>
 
 <dl class="attribute">
 <dt id="alarms.collections.AlarmCollection.singleton_collection">
-<code class="descname">singleton_collection</code><em class="property"> = {}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.singleton_collection" title="Permalink to this definition">¶</a></dt>
+<code class="descname">singleton_collection</code><em class="property"> = None</em><a class="headerlink" href="#alarms.collections.AlarmCollection.singleton_collection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store the Alarm objects, indexed by core_id</p>
 </dd></dl>
 
@@ -381,7 +413,7 @@ specification.</p>
 
 <dl class="attribute">
 <dt id="alarms.collections.AlarmCollection.values_collection">
-<code class="descname">values_collection</code><em class="property"> = {}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.values_collection" title="Permalink to this definition">¶</a></dt>
+<code class="descname">values_collection</code><em class="property"> = None</em><a class="headerlink" href="#alarms.collections.AlarmCollection.values_collection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store other type of values, indexed by core_id</p>
 </dd></dl>
 
@@ -399,6 +431,13 @@ specification.</p>
 to notifiy</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.collections.CounterByView">
+<em class="property">class </em><code class="descclassname">alarms.collections.</code><code class="descname">CounterByView</code><a class="headerlink" href="#alarms.collections.CounterByView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Auxiliary methods related to the count by view</p>
 </dd></dl>
 
 </div>
@@ -429,10 +468,10 @@ validity of alarms</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="alarms.connectors.CdbConnector.tolerance">
-<code class="descname">tolerance</code><em class="property"> = 1000</em><a class="headerlink" href="#alarms.connectors.CdbConnector.tolerance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tolerance in milliseconds defined to be used as error margin for the
-calculation of validity</p>
+<dt id="alarms.connectors.CdbConnector.validity_threshold">
+<code class="descname">validity_threshold</code><em class="property"> = 10000</em><a class="headerlink" href="#alarms.connectors.CdbConnector.validity_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validity threshold in milliseconds defines to be used to calculate the
+validity of alarms</p>
 </dd></dl>
 
 </dd></dl>
@@ -450,6 +489,27 @@ app</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>(list): the list of alarm ids</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.connectors.PanelsConnector.get_alarms_views_dict_of_alarm_configs">
+<em class="property">classmethod </em><code class="descname">get_alarms_views_dict_of_alarm_configs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.PanelsConnector.get_alarms_views_dict_of_alarm_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dict with the names of the views
+related to an alarm from all the AlarmConfigs</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>(dict): dictionary of views names with alarm_ids as keys</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.connectors.PanelsConnector.get_names_of_views">
+<em class="property">classmethod </em><code class="descname">get_names_of_views</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.PanelsConnector.get_names_of_views" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list with the names of the views</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>(list): the list of names of the views</dd>
 </dl>
 </dd></dl>
 
@@ -522,9 +582,26 @@ antennas and pads got from ias core value Array-AntennasToPads</dd>
 <span id="alarms-consumers-module"></span><h2>alarms.consumers module<a class="headerlink" href="#module-alarms.consumers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="alarms.consumers.ClientConsumer">
-<em class="property">class </em><code class="descclassname">alarms.consumers.</code><code class="descname">ClientConsumer</code><span class="sig-paren">(</span><em>scope</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">alarms.consumers.</code><code class="descname">ClientConsumer</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">channels.generic.websocket.AsyncJsonWebsocketConsumer</span></code>, <a class="reference internal" href="#alarms.collections.AlarmCollectionObserver" title="alarms.collections.AlarmCollectionObserver"><code class="xref py py-class docutils literal notranslate"><span class="pre">alarms.collections.AlarmCollectionObserver</span></code></a></p>
 <p>Consumer to notify clients and listen their requests</p>
+<dl class="method">
+<dt id="alarms.consumers.ClientConsumer.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called on connection</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.consumers.ClientConsumer.disconnect">
+<code class="descname">disconnect</code><span class="sig-paren">(</span><em>close_code</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the socket closes</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.consumers.ClientConsumer.groups">
+<code class="descname">groups</code><em class="property"> = []</em><a class="headerlink" href="#alarms.consumers.ClientConsumer.groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="alarms.consumers.ClientConsumer.receive_json">
 <code class="descname">receive_json</code><span class="sig-paren">(</span><em>content</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.receive_json" title="Permalink to this definition">¶</a></dt>
@@ -544,13 +621,26 @@ responds with the list of all the current Alarms.</p>
 <dd><p>Notifies the client of changes in an Alarm</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="alarms.consumers.ClientConsumer.update_counter_by_view">
+<code class="descname">update_counter_by_view</code><span class="sig-paren">(</span><em>counter_by_view</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.update_counter_by_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifies the client of changes in a dictionary defined as a
+counter by view</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="alarms.consumers.CoreConsumer">
-<em class="property">class </em><code class="descclassname">alarms.consumers.</code><code class="descname">CoreConsumer</code><span class="sig-paren">(</span><em>scope</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">alarms.consumers.</code><code class="descname">CoreConsumer</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">channels.generic.websocket.AsyncJsonWebsocketConsumer</span></code></p>
 <p>Consumer for messages from the core system</p>
+<dl class="method">
+<dt id="alarms.consumers.CoreConsumer.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called on connection</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="alarms.consumers.CoreConsumer.get_alarm_from_core_msg">
 <code class="descname">get_alarm_from_core_msg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.get_alarm_from_core_msg" title="Permalink to this definition">¶</a></dt>

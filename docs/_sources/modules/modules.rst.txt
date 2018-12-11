@@ -12,4 +12,5 @@ ias-webserver
 	panels*
 	tickets*
 	timers*
+	users*
 	utils*

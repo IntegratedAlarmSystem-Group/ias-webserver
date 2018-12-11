@@ -3,6 +3,10 @@ from django.db import models
 from ias_webserver.settings import FILES_LOCATION
 
 
+PERMISSIONS = ('add', 'change', 'delete', 'view')
+""" Models Permissions """
+
+
 class File(models.Model):
     """ General purpose file """
 
@@ -11,6 +15,10 @@ class File(models.Model):
 
     url = models.CharField(max_length=256)
     """ URL with the location of the File """
+
+    class Meta:
+        default_permissions = PERMISSIONS
+    """ Additional options for the model """
 
     def __str__(self):
         """ Return a string representation of the file """
@@ -30,6 +38,31 @@ class File(models.Model):
     @classmethod
     def _get_absolute_location(self):
         return os.path.join(os.getcwd(), FILES_LOCATION)
+
+    @staticmethod
+    def has_create_permission(request):
+        return request.user.has_perm('panels.add_file')
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('panels.view_file')
+
+    def has_object_read_permission(self, request):
+        return request.user.has_perm('panels.view_file')
+
+    @staticmethod
+    def has_update_permission(request):
+        return request.user.has_perm('panels.change_file')
+
+    def has_object_update_permission(self, request):
+        return request.user.has_perm('panels.change_file')
+
+    @staticmethod
+    def has_destroy_permission(request):
+        return request.user.has_perm('panels.delete_file')
+
+    def has_object_destroy_permission(self, request):
+        return request.user.has_perm('panels.delete_file')
 
 
 class PlacemarkType(models.Model):
@@ -72,11 +105,19 @@ class Placemark(models.Model):
         null=True, blank=True
     )
 
+    class Meta:
+        default_permissions = PERMISSIONS
+    """ Additional options for the model """
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('panels.view_placemark')
+
 
 class View(models.Model):
     """ Available Views """
 
-    name = models.CharField(max_length=15, null=False, unique=True)
+    name = models.CharField(max_length=30, null=False, unique=True)
     """ Name of the View """
 
     def __str__(self):
@@ -87,7 +128,7 @@ class View(models.Model):
 class Type(models.Model):
     """ Available Alarms Types """
 
-    name = models.CharField(max_length=15, null=False, unique=True)
+    name = models.CharField(max_length=30, null=False, unique=True)
     """ Name of the Type """
 
     def __str__(self):
@@ -117,7 +158,7 @@ class AlarmConfig(models.Model):
     )
     """ Reference to an alarm which is displayed as a parent of this alarm """
 
-    custom_name = models.CharField(max_length=15, null=True, blank=True)
+    custom_name = models.CharField(max_length=30, null=True, blank=True)
     """ Custom name to show in the display """
 
     placemark = models.OneToOneField(
@@ -129,10 +170,14 @@ class AlarmConfig(models.Model):
     """ Other custom data """
 
     class Meta:
-        """ Meta class of the AlarmConfig """
-
         unique_together = ("alarm_id", "view")
+        default_permissions = PERMISSIONS
+    """ Meta class of the AlarmConfig """
 
     def __str__(self):
         """ Return a string representation of the AlarmConfig """
         return str(self.view.name) + ": " + str(self.alarm_id)
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('panels.view_alarmconfig')
