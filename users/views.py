@@ -26,7 +26,8 @@ class UserViewSet(viewsets.ModelViewSet):
             'can_ack',
             'can_shelve',
             'can_unshelve',
-            'allowed_actions'
+            'allowed_actions',
+            'validate_token',
         ]:
             permission_classes = [IsAuthenticated]
         else:
@@ -79,6 +80,23 @@ class UserViewSet(viewsets.ModelViewSet):
             'can_ack': user.has_perm('tickets.acknowledge_ticket'),
             'can_shelve': user.has_perm('tickets.add_shelveregistry'),
             'can_unshelve': user.has_perm('tickets.unshelve_shelveregistry'),
+        }
+        return Response(response)
+
+    @action(detail=False)
+    def validate_token(self, request):
+        """ Validates the token and returns 2 dictionaries: user data and
+        users permissions (ack, shelve, unshelve) """
+        user = request.user
+        user_data = LoginUserSerializer(user).data
+        response = {
+            'user_data': user_data,
+            'allowed_actions': {
+                'can_ack': user.has_perm('tickets.acknowledge_ticket'),
+                'can_shelve': user.has_perm('tickets.add_shelveregistry'),
+                'can_unshelve':
+                user.has_perm('tickets.unshelve_shelveregistry')
+            }
         }
         return Response(response)
 
