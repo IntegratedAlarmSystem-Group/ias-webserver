@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from alarms.collections import AlarmCollection
 from alarms.connectors import PanelsConnector
+from alarms.models import Alarm
 
 from ias_webserver.routing import application as ias_app
 
@@ -35,6 +36,7 @@ class TestNotificationsToClientConsumer:
         # Arrange: Alarm
         alarm = AlarmFactory.build()
         alarm.value = 2
+        alarm.views = ['view']
         # Arrange: Views
         mock_view_names = ['view']
         mock_alarms_views_dict = {alarm.core_id: ['view']}
@@ -50,6 +52,7 @@ class TestNotificationsToClientConsumer:
         PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = \
             mock_alarms_views_dict
         AlarmCollection.reset([])
+        Alarm.objects.reset_counter_by_view()
         # Arrange: User
         user = User.objects.create_user(
             'username', password='123', email='user@user.cl')
@@ -83,6 +86,7 @@ class TestNotificationsToClientConsumer:
         # Cleared alarm as fixture
         alarm = AlarmFactory.get_valid_alarm(core_id='test')
         alarm.value = 0
+        alarm.views = ['view']
         # Arrange: Views
         mock_view_names = ['view']
         mock_alarms_views_dict = {alarm.core_id: ['view']}
@@ -98,6 +102,7 @@ class TestNotificationsToClientConsumer:
         PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = \
             mock_alarms_views_dict
         AlarmCollection.reset([])
+        Alarm.objects.reset_counter_by_view()
         # Arrange: User
         user = User.objects.create_user(
             'username', password='123', email='user@user.cl')
@@ -143,6 +148,7 @@ class TestNotificationsToClientConsumer:
         # Arrange: Alarm
         alarm = AlarmFactory.get_valid_alarm(core_id='test')
         alarm.value = 2
+        alarm.views = ['view']
         # Arrange: Views
         mock_view_names = ['view']
         mock_alarms_views_dict = {alarm.core_id: ['view']}
@@ -160,6 +166,7 @@ class TestNotificationsToClientConsumer:
         PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = \
             mock_alarms_views_dict
         AlarmCollection.reset([])
+        Alarm.objects.reset_counter_by_view()
         # Arrange: User
         user = User.objects.create_user(
             'username', password='123', email='user@user.cl')
