@@ -6,6 +6,7 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from users.models import reset_auth_token
 from alarms.models import Alarm, OperationalMode, Validity, Value, IASValue
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
+from alarms.models import Alarm
 
 logger = logging.getLogger(__name__)
 
@@ -250,7 +251,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
                 if content['payload']['action'] == 'list':
                     await self.send_alarms_status()
                     await self.update_counter_by_view(
-                        AlarmCollection.counter_by_view
+                        Alarm.objects.counter_by_view()
                     )
                     logger.debug(
                         'new message received in requests stream: ' +
