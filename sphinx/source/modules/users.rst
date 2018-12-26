@@ -27,6 +27,14 @@ users.apps module
     :undoc-members:
     :show-inheritance:
 
+users.middleware module
+-----------------------
+
+.. automodule:: users.middleware
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 users.models module
 -------------------
 
