@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from alarms.collections import AlarmCollection
 from alarms.connectors import PanelsConnector
+from alarms.models import Alarm
 
 from ias_webserver.routing import application as ias_app
 
@@ -28,16 +29,15 @@ class TestNotificationsToClientConsumer:
         else:
             return WebsocketCommunicator(ias_app, target_endpoint)
 
-    @pytest.mark.asyncio
-    @pytest.mark.django_db
-    async def test_outbound_create(self, mocker):
-        """Test if clients are notified when an alarm is created"""
-        # Arrange: Alarm
-        alarm = AlarmFactory.build()
-        alarm.value = 2
-        # Arrange: Views
+    def set_mock_views_configuration(self, mocker):
+
         mock_view_names = ['view']
-        mock_alarms_views_dict = {alarm.core_id: ['view']}
+
+        mock_alarms_views_dict = {
+            "alarm_SET_MEDIUM": ["view"],
+            "alarm_CLEARED": ["view"]
+        }
+
         PanelsConnector_get_names_of_views = \
             mocker.patch.object(
                 PanelsConnector, 'get_names_of_views'
@@ -49,7 +49,38 @@ class TestNotificationsToClientConsumer:
             )
         PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = \
             mock_alarms_views_dict
+
+    def build_alarms(self):
+
+        mock_alarms = {}
+
+        for core_id, value in [
+            ('alarm_SET_MEDIUM', 2),
+            ('alarm_CLEARED', 0)
+        ]:
+            alarm = AlarmFactory.build()
+            alarm.core_id = core_id
+            alarm.views = AlarmCollection.alarms_views_dict.get(
+                alarm.core_id, [])
+            alarm.value = value
+            if value == 0:
+                assert alarm.is_set() is False
+            else:
+                assert alarm.is_set() is True
+            assert alarm.ack is False
+            mock_alarms[core_id] = alarm
+
+        return mock_alarms
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_outbound_create(self, mocker):
+        """Test if clients are notified when an alarm is created"""
+        # Arrange:
+        self.set_mock_views_configuration(mocker)
         AlarmCollection.reset([])
+        Alarm.objects.reset_counter_by_view()
+        mock_alarms_dict = self.build_alarms()
         # Arrange: User
         user = User.objects.create_user(
             'username', password='123', email='user@user.cl')
@@ -60,6 +91,7 @@ class TestNotificationsToClientConsumer:
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Act:
+        alarm = mock_alarms_dict['alarm_SET_MEDIUM']
         await AlarmCollection.add_or_update_and_notify(alarm)
         response = await communicator.receive_json_from()
         counter_by_view_response = await communicator.receive_json_from()
@@ -79,25 +111,11 @@ class TestNotificationsToClientConsumer:
     @pytest.mark.django_db
     async def test_outbound_update(self, mocker):
         """Test if clients are notified when an alarm is updated"""
-        # Arrange: Alarm
-        # Cleared alarm as fixture
-        alarm = AlarmFactory.get_valid_alarm(core_id='test')
-        alarm.value = 0
-        # Arrange: Views
-        mock_view_names = ['view']
-        mock_alarms_views_dict = {alarm.core_id: ['view']}
-        PanelsConnector_get_names_of_views = \
-            mocker.patch.object(
-                PanelsConnector, 'get_names_of_views'
-            )
-        PanelsConnector_get_names_of_views.return_value = mock_view_names
-        PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
-            mocker.patch.object(
-                PanelsConnector, 'get_alarms_views_dict_of_alarm_configs'
-            )
-        PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = \
-            mock_alarms_views_dict
+        # Arrange:
+        self.set_mock_views_configuration(mocker)
         AlarmCollection.reset([])
+        Alarm.objects.reset_counter_by_view()
+        mock_alarms_dict = self.build_alarms()
         # Arrange: User
         user = User.objects.create_user(
             'username', password='123', email='user@user.cl')
@@ -110,6 +128,7 @@ class TestNotificationsToClientConsumer:
         # Arrange:
         # Create a cleared alarm and then receive from the communicator to keep
         # clean the ClientConsumer channel
+        alarm = mock_alarms_dict['alarm_CLEARED']
         await AlarmCollection.add_or_update_and_notify(alarm)
         response = await communicator.receive_json_from()
         counter_by_view_response = await communicator.receive_json_from()
@@ -140,26 +159,11 @@ class TestNotificationsToClientConsumer:
     @pytest.mark.django_db
     async def test_outbound_acknowledge(self, mocker):
         """Test if clients are notified when an alarm is acknowledged"""
-        # Arrange: Alarm
-        alarm = AlarmFactory.get_valid_alarm(core_id='test')
-        alarm.value = 2
-        # Arrange: Views
-        mock_view_names = ['view']
-        mock_alarms_views_dict = {alarm.core_id: ['view']}
-
-        PanelsConnector_get_names_of_views = \
-            mocker.patch.object(
-                PanelsConnector, 'get_names_of_views'
-            )
-        PanelsConnector_get_names_of_views.return_value = mock_view_names
-
-        PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
-            mocker.patch.object(
-                PanelsConnector, 'get_alarms_views_dict_of_alarm_configs'
-            )
-        PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = \
-            mock_alarms_views_dict
+        # Arrange:
+        self.set_mock_views_configuration(mocker)
         AlarmCollection.reset([])
+        Alarm.objects.reset_counter_by_view()
+        mock_alarms_dict = self.build_alarms()
         # Arrange: User
         user = User.objects.create_user(
             'username', password='123', email='user@user.cl')
@@ -172,13 +176,14 @@ class TestNotificationsToClientConsumer:
         # Arrange: Alarm
         # Create an alarm and then receive from the communicator to keep clean
         # the ClientConsumer channel
+        alarm = mock_alarms_dict['alarm_CLEARED']
         await AlarmCollection.add_or_update_and_notify(alarm)
         response = await communicator.receive_json_from()
         counter_by_view_response = await communicator.receive_json_from()
         # Act:
         # Update the alarm replacing it with an acknowledged alarm and receive
         # the notification from the communicator
-        await AlarmCollection.acknowledge('test')
+        await AlarmCollection.acknowledge(alarm.core_id)
         response = await communicator.receive_json_from()
         counter_by_view_response = await communicator.receive_json_from()
         # Assert

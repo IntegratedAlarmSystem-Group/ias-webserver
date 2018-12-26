@@ -53,10 +53,8 @@ class Command(BaseCommand):
         # Create operators group
         self._create_operators_group(database)
 
-        # Add operator on duty to operators group
-        user = User.objects.get(username='operator_on_duty')
-        group = Group.objects.get(name='operators')
-        user.groups.add(group)
+        # Create timer user
+        self._create_timer_user(admin_password, database)
 
     def _create_superuser(self, password):
         while password is None or password.strip() is '':
@@ -107,8 +105,25 @@ class Command(BaseCommand):
             )
         return user
 
+    def _create_timer_user(self, password, database):
+        # Create user
+        user = None
+        user_data = {}
+        user_data[self.UserModel.USERNAME_FIELD] = 'timer'
+        user_data[PASSWORD_FIELD] = password
+
+        if not User.objects.filter(username='timer').exists():
+            user = self.UserModel._default_manager.db_manager(
+                database).create_user(**user_data)
+
+        return user
+
     def _create_operators_group(self, database):
-        return Group.objects.get_or_create(name=operators_group_name)
+        group, created = Group.objects.get_or_create(name=operators_group_name)
+        permissions = Permission.objects.filter(codename__icontains='view_')
+        for permission in permissions:
+            group.permissions.add(permission)
+        return group
 
     def _add_operator_on_duty_permissions(self, user):
         permissions = Permission.objects.filter(codename__icontains='view_')

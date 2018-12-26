@@ -148,7 +148,11 @@
 </li>
       <li><a href="modules/tickets.html#tickets.connectors.AlarmConnector">AlarmConnector (class in tickets.connectors)</a>
 </li>
+      <li><a href="modules/alarms.html#alarms.models.AlarmCountManager">AlarmCountManager (class in alarms.models)</a>
+</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory">AlarmFactory (class in alarms.tests.factories)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.models.AlarmManager">AlarmManager (class in alarms.models)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase">AlarmModelTestCase (class in alarms.tests.tests_models)</a>
 </li>
@@ -162,10 +166,10 @@
       </ul></li>
       <li><a href="modules/alarms.html#module-alarms.admin">alarms.admin (module)</a>
 </li>
-      <li><a href="modules/alarms.html#module-alarms.apps">alarms.apps (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.html#module-alarms.apps">alarms.apps (module)</a>
+</li>
       <li><a href="modules/alarms.html#module-alarms.auth">alarms.auth (module)</a>
 </li>
       <li><a href="modules/alarms.html#module-alarms.collections">alarms.collections (module)</a>
@@ -192,7 +196,7 @@
 </li>
       <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_collections">alarms.tests.tests_collections (module)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_collections_counter_per_view">alarms.tests.tests_collections_counter_per_view (module)</a>
+      <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_collections_counter_by_view_cases">alarms.tests.tests_collections_counter_by_view_cases (module)</a>
 </li>
       <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_connectors">alarms.tests.tests_connectors (module)</a>
 </li>
@@ -284,6 +288,16 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.build">build() (alarms.tests.factories.AlarmFactory class method)</a>
 </li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.build_alarms">build_alarms() (alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.build_alarms">(alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies method)</a>
+</li>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.build_alarms">(alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms method)</a>
+</li>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.build_alarms">(alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -352,10 +366,10 @@
 </li>
       <li><a href="modules/alarms.html#alarms.consumers.ClientConsumer">ClientConsumer (class in alarms.consumers)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.models.OperationalMode.CLOSING">CLOSING (alarms.models.OperationalMode attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.html#alarms.models.OperationalMode.CLOSING">CLOSING (alarms.models.OperationalMode attribute)</a>
+</li>
       <li><a href="modules/timers.management.commands.html#timers.management.commands.runtimers.Command">Command (class in timers.management.commands.runtimers)</a>
 
       <ul>
@@ -374,18 +388,10 @@
 </li>
       <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer">CoreConsumer (class in alarms.consumers)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.counter_by_view">counter_by_view (alarms.collections.AlarmCollection attribute)</a>
-</li>
-      <li><a href="modules/alarms.html#alarms.collections.CounterByView">CounterByView (class in alarms.collections)</a>
+      <li><a href="modules/alarms.html#alarms.models.AlarmCountManager.counter_by_view">counter_by_view() (alarms.models.AlarmCountManager method)</a>
 </li>
       <li><a href="modules/tickets.html#tickets.views.ShelveRegistryViewSet.create">create() (tickets.views.ShelveRegistryViewSet method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.create_alarm">create_alarm() (alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms method)</a>
-
-      <ul>
-        <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.create_alarm">(alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates method)</a>
-</li>
-      </ul></li>
       <li><a href="modules/users.html#users.models.create_auth_token">create_auth_token() (in module users.models)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_broadcast.TestPeriodicBroadcastCase.create_communicator">create_communicator() (alarms.tests.tests_broadcast.TestPeriodicBroadcastCase method)</a>
@@ -666,6 +672,8 @@
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist">GetJsonFromFileIfKeyDoesNotExist (class in panels.tests.tests_api_files)</a>
 </li>
+      <li><a href="modules/users.html#users.middleware.GetTokenMiddleware">GetTokenMiddleware (class in users.middleware)</a>
+</li>
       <li><a href="modules/panels.html#panels.models.Placemark.group">group (panels.models.Placemark attribute)</a>
 </li>
       <li><a href="modules/panels.html#panels.models.Placemark.group_id">group_id (panels.models.Placemark attribute)</a>
@@ -820,6 +828,8 @@
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.is_set">is_set() (alarms.models.Alarm method)</a>
 </li>
+      <li><a href="modules/alarms.html#alarms.models.Alarm.is_stored">is_stored() (alarms.models.Alarm method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -938,9 +948,11 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.objects">objects (panels.models.AlarmConfig attribute)</a>
+      <li><a href="modules/alarms.html#alarms.models.Alarm.objects">objects (alarms.models.Alarm attribute)</a>
 
       <ul>
+        <li><a href="modules/panels.html#panels.models.AlarmConfig.objects">(panels.models.AlarmConfig attribute)</a>
+</li>
         <li><a href="modules/panels.html#panels.models.File.objects">(panels.models.File attribute)</a>
 </li>
         <li><a href="modules/panels.html#panels.models.Placemark.objects">(panels.models.Placemark attribute)</a>
@@ -1142,11 +1154,13 @@
 </li>
       <li><a href="modules/users.management.commands.html#users.management.commands.createusers.Command.requires_migrations_checks">requires_migrations_checks (users.management.commands.createusers.Command attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.reset">reset() (alarms.collections.AlarmCollection class method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/users.html#users.models.reset_auth_token">reset_auth_token() (in module users.models)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.models.AlarmCountManager.reset_counter_by_view">reset_counter_by_view() (alarms.models.AlarmCountManager method)</a>
 </li>
       <li><a href="modules/cdb.html#cdb.views.retrieve_ias">retrieve_ias() (in module cdb.views)</a>
 </li>
@@ -1210,6 +1224,16 @@
 </li>
       <li><a href="modules/alarms.html#alarms.models.Value.SET_MEDIUM">SET_MEDIUM (alarms.models.Value attribute)</a>
 </li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.set_mock_views_configuration">set_mock_views_configuration() (alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.set_mock_views_configuration">(alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies method)</a>
+</li>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.set_mock_views_configuration">(alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms method)</a>
+</li>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.set_mock_views_configuration">(alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
+</li>
+      </ul></li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.AlarmsConfigTestSetUp.setCommonUsersAndClients">setCommonUsersAndClients() (panels.tests.tests_api_alarmsconfig.AlarmsConfigTestSetUp method)</a>
 
       <ul>
@@ -1822,12 +1846,12 @@
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_cannot_create_tickets_for_an_unauthenticated_user">test_api_cannot_create_tickets_for_an_unauthenticated_user() (tickets.tests.tests_tickets_api.CreateTicketTestCase method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist.test_api_cannot_get_json_if_the_key_does_not_exist">test_api_cannot_get_json_if_the_key_does_not_exist() (panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist method)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.test_api_cannot_update_registry_to_have_no_message">test_api_cannot_update_registry_to_have_no_message() (tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_should_always_unallow_the_create_permission">test_api_should_always_unallow_the_create_permission() (tickets.tests.tests_tickets_api.CreateTicketTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse.test_api_weather_config_response_errors">test_api_weather_config_response_errors() (panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse method)</a>
@@ -1844,7 +1868,13 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestTicketConnector.test_check_shelve">test_check_shelve() (alarms.tests.tests_connectors.TestTicketConnector method)</a>
 </li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEAR_ACK_from_and_to_SET_UNACK">test_CLEAR_ACK_from_and_to_SET_UNACK() (alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
+</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestTicketConnector.test_clear_ticket">test_clear_ticket() (alarms.tests.tests_connectors.TestTicketConnector method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEAR_UNACK_from_and_to_SET_ACK">test_CLEAR_UNACK_from_and_to_SET_ACK() (alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEARED_ACK_from_and_to_CLEARED_UNACK">test_CLEARED_ACK_from_and_to_CLEARED_UNACK() (alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.test_close_connection_action">test_close_connection_action() (alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer method)</a>
 </li>
@@ -1856,19 +1886,15 @@
 </li>
       <li><a href="modules/alarms.html#alarms.views.test_core">test_core() (in module alarms.views)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_CLEARED_alarms">test_counter_by_view_cannot_change_for_new_CLEARED_alarms() (alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.test_count_for_alarm_parent_with_SET_ACK_to_SET_UNACK_transition">test_count_for_alarm_parent_with_SET_ACK_to_SET_UNACK_transition() (alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_SET_ACK_alarms">test_counter_by_view_cannot_change_for_new_SET_ACK_alarms() (alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_CLEAR_ACK_alarms">test_counter_by_view_update_for_new_CLEAR_ACK_alarms() (alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_CLEAR_to_SET_UNACK">test_counter_by_view_update_CLEAR_to_SET_UNACK() (alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_CLEAR_UNACK_alarms">test_counter_by_view_update_for_new_CLEAR_UNACK_alarms() (alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms">test_counter_by_view_update_for_new_SET_UNACK_alarms() (alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_ACK_alarms">test_counter_by_view_update_for_new_SET_ACK_alarms() (alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_ACK_to_CLEARED">test_counter_by_view_update_SET_ACK_to_CLEARED() (alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_CLEARED">test_counter_by_view_update_SET_UNACK_to_CLEARED() (alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_SET_ACK">test_counter_by_view_update_SET_UNACK_to_SET_ACK() (alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms">test_counter_by_view_update_for_new_SET_UNACK_alarms() (alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config">test_create_alarm_config() (panels.tests.tests_models.AlarmConfigModelsTestCase method)</a>
 </li>
@@ -2028,6 +2054,12 @@
       </ul></li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.ViewModelsTestCase.test_retrieve_view">test_retrieve_view() (panels.tests.tests_models.ViewModelsTestCase method)</a>
 </li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_ACK_from_and_to_CLEAR_ACK">test_SET_ACK_from_and_to_CLEAR_ACK() (alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_ACK_from_and_to_SET_UNACK">test_SET_ACK_from_and_to_SET_UNACK() (alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_UNACK_from_and_to_CLEAR_UNACK">test_SET_UNACK_from_and_to_CLEAR_UNACK() (alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
+</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_shelve_alarm">test_shelve_alarm() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 
       <ul>
@@ -2100,9 +2132,11 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer">TestCoreConsumer (class in alarms.tests.tests_core_consumer)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms">TestCountByViewForNewAlarms (class in alarms.tests.tests_collections_counter_per_view)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies">TestCountByViewForDependencies (class in alarms.tests.tests_collections_counter_by_view_cases)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates">TestCountPerViewForAlarmsUpdates (class in alarms.tests.tests_collections_counter_per_view)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms">TestCountByViewForNewAlarms (class in alarms.tests.tests_collections_counter_by_view_cases)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates">TestCountPerViewForAlarmsUpdates (class in alarms.tests.tests_collections_counter_by_view_cases)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_interfaces.TestIAlarm">TestIAlarm (class in alarms.tests.tests_interfaces)</a>
 </li>
@@ -2242,6 +2276,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/tickets.html#tickets.models.TicketStatus.UNACK">UNACK (tickets.models.TicketStatus attribute)</a>
 </li>
+      <li><a href="modules/alarms.html#alarms.models.Alarm.unacknowledge">unacknowledge() (alarms.models.Alarm method)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.models.OperationalMode.UNKNOWN">UNKNOWN (alarms.models.OperationalMode attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.Validity.UNRELIABLE">UNRELIABLE (alarms.models.Validity attribute)</a>
@@ -2320,6 +2356,8 @@
 </li>
       <li><a href="modules/users.management.commands.html#module-users.management.commands.createusers">users.management.commands.createusers (module)</a>
 </li>
+      <li><a href="modules/users.html#module-users.middleware">users.middleware (module)</a>
+</li>
       <li><a href="modules/users.html#module-users.models">users.models (module)</a>
 </li>
       <li><a href="modules/users.html#module-users.serializers">users.serializers (module)</a>
@@ -2348,6 +2386,8 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/users.html#users.views.UserViewSet.validate_token">validate_token() (users.views.UserViewSet method)</a>
+</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.validity">validity (alarms.tests.factories.AlarmFactory attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.Validity">Validity (class in alarms.models)</a>

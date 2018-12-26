@@ -70,7 +70,7 @@ Consider that the alarms are not saved in any database</p>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.core_timestamp">
-<code class="descname">core_timestamp</code><em class="property"> = 1544541559995</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_timestamp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">core_timestamp</code><em class="property"> = 1545857272080</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_timestamp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Core timestamp of the Alarm to be created</p>
 </dd></dl>
 
@@ -115,7 +115,7 @@ of the Alarm to be returned</dd>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.mode">
-<code class="descname">mode</code><em class="property"> = 6</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.mode" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mode</code><em class="property"> = 3</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operational Mode of the Alarm to be created</p>
 </dd></dl>
 
@@ -138,7 +138,7 @@ of the Alarm to be returned</dd>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.value">
-<code class="descname">value</code><em class="property"> = 3</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.value" title="Permalink to this definition">¶</a></dt>
+<code class="descname">value</code><em class="property"> = 2</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Value of the Alarm to be created</p>
 </dd></dl>
 
@@ -213,10 +213,20 @@ to the ClientConsumer</p>
 <p>This class defines the test suite for the notification of changes
 to the ClientConsumer</p>
 <dl class="method">
+<dt id="alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.build_alarms">
+<code class="descname">build_alarms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.build_alarms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.create_communicator">
 <code class="descname">create_communicator</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.create_communicator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Auxiliary method to manage a token query string authentication</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.set_mock_views_configuration">
+<code class="descname">set_mock_views_configuration</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.set_mock_views_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_acknowledge">
@@ -481,74 +491,124 @@ of IASValues that are not of type Alarm</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-alarms.tests.tests_collections_counter_per_view">
-<span id="alarms-tests-tests-collections-counter-per-view-module"></span><h2>alarms.tests.tests_collections_counter_per_view module<a class="headerlink" href="#module-alarms.tests.tests_collections_counter_per_view" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-alarms.tests.tests_collections_counter_by_view_cases">
+<span id="alarms-tests-tests-collections-counter-by-view-cases-module"></span><h2>alarms.tests.tests_collections_counter_by_view_cases module<a class="headerlink" href="#module-alarms.tests.tests_collections_counter_by_view_cases" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms">
-<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections_counter_per_view.</code><code class="descname">TestCountByViewForNewAlarms</code><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections_counter_by_view_cases.</code><code class="descname">TestCountByViewForDependencies</code><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class defines the test suite for the alarms count by view
-for new alarms</p>
-<p>The update test cases are new alarms for the following cases:
-- SET UNACK
-- CLEARED
-- SET ACK</p>
+<p>Test suite for selected cases of alarms with dependencies</p>
 <dl class="method">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.create_alarm">
-<code class="descname">create_alarm</code><span class="sig-paren">(</span><em>core_id</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.create_alarm" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.build_alarms">
+<code class="descname">build_alarms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.build_alarms" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_CLEARED_alarms">
-<code class="descname">test_counter_by_view_cannot_change_for_new_CLEARED_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_CLEARED_alarms" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.set_mock_views_configuration">
+<code class="descname">set_mock_views_configuration</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.set_mock_views_configuration" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_SET_ACK_alarms">
-<code class="descname">test_counter_by_view_cannot_change_for_new_SET_ACK_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_cannot_change_for_new_SET_ACK_alarms" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms">
-<code class="descname">test_counter_by_view_update_for_new_SET_UNACK_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.test_count_for_alarm_parent_with_SET_ACK_to_SET_UNACK_transition">
+<code class="descname">test_count_for_alarm_parent_with_SET_ACK_to_SET_UNACK_transition</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.test_count_for_alarm_parent_with_SET_ACK_to_SET_UNACK_transition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates">
-<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections_counter_per_view.</code><code class="descname">TestCountPerViewForAlarmsUpdates</code><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections_counter_by_view_cases.</code><code class="descname">TestCountByViewForNewAlarms</code><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the test suite for the alarms count by view
+for new alarms</p>
+<p>The update test cases are new alarms for the following cases:
+- SET UNACK
+- SET ACK
+- CLEAR ACK
+- CLEAR UNACK</p>
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.build_alarms">
+<code class="descname">build_alarms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.build_alarms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.set_mock_views_configuration">
+<code class="descname">set_mock_views_configuration</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.set_mock_views_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_CLEAR_ACK_alarms">
+<code class="descname">test_counter_by_view_update_for_new_CLEAR_ACK_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_CLEAR_ACK_alarms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_CLEAR_UNACK_alarms">
+<code class="descname">test_counter_by_view_update_for_new_CLEAR_UNACK_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_CLEAR_UNACK_alarms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_ACK_alarms">
+<code class="descname">test_counter_by_view_update_for_new_SET_ACK_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_ACK_alarms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms">
+<code class="descname">test_counter_by_view_update_for_new_SET_UNACK_alarms</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_collections_counter_by_view_cases.</code><code class="descname">TestCountPerViewForAlarmsUpdates</code><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class defines the test suite for the alarms count per view
 after an alarm update</p>
 <p>The update test cases are:
-- CLEARED to SET UNACK
-- SET UNACK to SET ACK
-- SET UNACK to CLEAR
-- SET ACK to CLEAR</p>
+- SET ACK from and to SET UNACK
+- CLEARED ACK from and to CLEARED UNACK
+- SET ACK from and to CLEAR ACK
+- SET UNACK from and to CLEAR UNACK
+- SET ACK from and to CLEARED UNACK
+- CLEARED ACK from and to SET UNACK</p>
 <dl class="method">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.create_alarm">
-<code class="descname">create_alarm</code><span class="sig-paren">(</span><em>core_id</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.create_alarm" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.build_alarms">
+<code class="descname">build_alarms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.build_alarms" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_CLEAR_to_SET_UNACK">
-<code class="descname">test_counter_by_view_update_CLEAR_to_SET_UNACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_CLEAR_to_SET_UNACK" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.set_mock_views_configuration">
+<code class="descname">set_mock_views_configuration</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.set_mock_views_configuration" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_ACK_to_CLEARED">
-<code class="descname">test_counter_by_view_update_SET_ACK_to_CLEARED</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_ACK_to_CLEARED" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEARED_ACK_from_and_to_CLEARED_UNACK">
+<code class="descname">test_CLEARED_ACK_from_and_to_CLEARED_UNACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEARED_ACK_from_and_to_CLEARED_UNACK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_CLEARED">
-<code class="descname">test_counter_by_view_update_SET_UNACK_to_CLEARED</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_CLEARED" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEAR_ACK_from_and_to_SET_UNACK">
+<code class="descname">test_CLEAR_ACK_from_and_to_SET_UNACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEAR_ACK_from_and_to_SET_UNACK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_SET_ACK">
-<code class="descname">test_counter_by_view_update_SET_UNACK_to_SET_ACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_per_view.TestCountPerViewForAlarmsUpdates.test_counter_by_view_update_SET_UNACK_to_SET_ACK" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEAR_UNACK_from_and_to_SET_ACK">
+<code class="descname">test_CLEAR_UNACK_from_and_to_SET_ACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEAR_UNACK_from_and_to_SET_ACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_ACK_from_and_to_CLEAR_ACK">
+<code class="descname">test_SET_ACK_from_and_to_CLEAR_ACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_ACK_from_and_to_CLEAR_ACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_ACK_from_and_to_SET_UNACK">
+<code class="descname">test_SET_ACK_from_and_to_SET_UNACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_ACK_from_and_to_SET_UNACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_UNACK_from_and_to_CLEAR_UNACK">
+<code class="descname">test_SET_UNACK_from_and_to_CLEAR_UNACK</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_UNACK_from_and_to_CLEAR_UNACK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

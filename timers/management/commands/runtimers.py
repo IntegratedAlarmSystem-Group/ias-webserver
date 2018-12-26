@@ -46,7 +46,7 @@ class Command(BaseCommand):
         hostname = DEFAULT_HOSTNAME
         port = DEFAULT_PORT
 
-        token_key = Token.objects.get(user__username='admin').key
+        token_key = Token.objects.get(user__username='timer').key
 
         if options['hostname'] is not None:
             hostname = options['hostname']

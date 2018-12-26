@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group, Permission
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, LoginUserSerializer
 
 
 class APITestBase:
@@ -55,13 +55,13 @@ class UsersTestSetup:
 
     def setupCommonUsersAndClients(self):
         """ Add unauthenticated and unauthorized users """
-        self.unauthorized_user = self.create_user(
+        self.requests_user = self.create_user(
             username='user', password='123', permissions=[])
         self.unauthenticated_client = APIClient()
         self.authenticated_client = APIClient()
         self.authenticate_client_using_token(
             self.authenticated_client,
-            Token.objects.get(user__username=self.unauthorized_user.username)
+            Token.objects.get(user__username=self.requests_user.username)
         )
 
 
@@ -204,8 +204,7 @@ class RetrieveUsersByGroup(APITestBase, UsersTestSetup, TestCase):
 
         # Act:
         client = self.authenticated_client
-        url = reverse(
-            'user-allowed-actions', kwargs={'pk': self.user_1.pk})
+        url = reverse('user-allowed-actions', kwargs={'pk': self.user_1.pk})
 
         data = client.get(url, format="json").data
         expected_data = {
@@ -218,4 +217,46 @@ class RetrieveUsersByGroup(APITestBase, UsersTestSetup, TestCase):
         self.assertEqual(
             data, expected_data,
             'Server should return True if user group has permission'
+        )
+
+    def test_validate_token(self):
+        """Check that api validates the token and returns wether or not
+        the user has ack, shelve and unshelve permissions"""
+
+        # Arrange:
+        can_ack = Permission.objects.get(codename='acknowledge_ticket')
+        can_shelve = Permission.objects.get(codename='add_shelveregistry')
+        can_unshelve = Permission.objects.get(
+            codename='unshelve_shelveregistry'
+        )
+        self.requests_user.groups.add(self.group_1)
+        self.group_1.permissions.add(can_ack)
+        self.group_1.permissions.add(can_shelve)
+        self.group_1.permissions.add(can_unshelve)
+
+        # Act:
+        client = self.authenticated_client
+        url = reverse('user-validate-token')
+        response = client.get(url)
+
+        expected_user_data = LoginUserSerializer(self.requests_user).data
+
+        expected_allowed_actions = {
+            'can_ack': True,
+            'can_shelve': True,
+            'can_unshelve': True,
+        }
+
+        # Assert
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK,
+            'The server rejected the request'
+        )
+        self.assertEqual(
+            response.data['allowed_actions'], expected_allowed_actions,
+            'Server should the allowed actions in the response'
+        )
+        self.assertEqual(
+            response.data['user_data'], expected_user_data,
+            'Server should return the user date in the response'
         )
