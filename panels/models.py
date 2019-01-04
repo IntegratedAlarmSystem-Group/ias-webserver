@@ -169,6 +169,10 @@ class AlarmConfig(models.Model):
     tags = models.CharField(max_length=64, null=True, blank=True)
     """ Other custom data """
 
+    @staticmethod
+    def has_write_permission(request):
+        return False
+
     class Meta:
         unique_together = ("alarm_id", "view")
         default_permissions = PERMISSIONS

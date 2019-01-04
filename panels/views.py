@@ -112,55 +112,29 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
         data = {}
         data["antennas"] = []
         for alarm in antenna_alarms:
-            fire = alarm.nested_alarms.filter(
-                type__name="fire")
+            children = []
 
-            fire_sys = alarm.nested_alarms.filter(
-                type__name="fire_malfunction")
-
-            ups = alarm.nested_alarms.filter(
-                type__name="ups")
-
-            hvac = alarm.nested_alarms.filter(
-                type__name="hvac")
-
-            power = alarm.nested_alarms.filter(
-                type__name="power")
-
-            crio_temp0 = alarm.nested_alarms.filter(
-                type__name="crio_temp0")
-
-            crio_temp5 = alarm.nested_alarms.filter(
-                type__name="crio_temp5")
-
-            crio_temp9 = alarm.nested_alarms.filter(
-                type__name="crio_temp9")
-
-            crio_pres0 = alarm.nested_alarms.filter(
-                type__name="crio_pres0")
-
-            crio_pres1 = alarm.nested_alarms.filter(
-                type__name="crio_pres1")
-
-            cmpr_drive = alarm.nested_alarms.filter(
-                type__name="cmpr_drive")
+            for sub_alarm in alarm.nested_alarms.all():
+                mark = sub_alarm.placemark.name if sub_alarm.placemark else ""
+                children.append({
+                  "alarm_id": sub_alarm.alarm_id,
+                  "custom_name": sub_alarm.custom_name,
+                  "type": sub_alarm.type.name,
+                  "view": sub_alarm.view.name,
+                  "placemark": mark,
+                  "group": "antennas",
+                  "children": []
+                })
 
             data["antennas"].append(
                 {
-                  "antenna": alarm.custom_name,
+                  "alarm_id": alarm.alarm_id,
+                  "custom_name": alarm.custom_name,
+                  "type": alarm.type.name,
+                  "view": alarm.view.name,
                   "placemark": alarm.placemark.name if alarm.placemark else "",
-                  "alarm": alarm.alarm_id,
-                  "fire": fire[0].alarm_id if fire else "",
-                  "fire_malfunction": fire_sys[0].alarm_id if fire_sys else "",
-                  "ups": ups[0].alarm_id if ups else "",
-                  "hvac": hvac[0].alarm_id if hvac else "",
-                  "power": power[0].alarm_id if power else "",
-                  "crio_temp0": crio_temp0[0].alarm_id if crio_temp0 else "",
-                  "crio_temp5": crio_temp5[0].alarm_id if crio_temp5 else "",
-                  "crio_temp9": crio_temp9[0].alarm_id if crio_temp9 else "",
-                  "crio_pres0": crio_pres0[0].alarm_id if crio_pres0 else "",
-                  "crio_pres1": crio_pres1[0].alarm_id if crio_pres1 else "",
-                  "cmpr_drive": cmpr_drive[0].alarm_id if cmpr_drive else "",
+                  "group": "antennas",
+                  "children": children
                 }
             )
 
@@ -175,12 +149,16 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             return Response(data)
 
         data["devices"] = []
-        for dev in other_devices:
+        for alarm in other_devices:
             data["devices"].append(
                 {
-                  "antenna": dev.custom_name,
-                  "placemark": dev.placemark.name if dev.placemark else "",
-                  "alarm": dev.alarm_id,
+                  "alarm_id": alarm.alarm_id,
+                  "custom_name": alarm.custom_name,
+                  "type": alarm.type.name,
+                  "view": alarm.view.name,
+                  "placemark": alarm.placemark.name if alarm.placemark else "",
+                  "group": "global_devices",
+                  "children": children
                 }
             )
 
