@@ -68,27 +68,53 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
 
         data = []
         for alarm in weather_station_alarms:
+            children = []
 
-            temperature = alarm.nested_alarms.filter(
-                type__name="temperature")
+            for sub_alarm in alarm.nested_alarms.all():
+                mark = sub_alarm.placemark.name if sub_alarm.placemark else ""
+                children.append({
+                  "alarm_id": sub_alarm.alarm_id,
+                  "custom_name": sub_alarm.custom_name,
+                  "type": sub_alarm.type.name,
+                  "view": sub_alarm.view.name,
+                  "placemark": mark,
+                  "group": alarm.placemark.group.name,
+                  "children": []
+                })
 
-            windspeed = alarm.nested_alarms.filter(
-                type__name="windspeed")
-
-            humidity = alarm.nested_alarms.filter(
-                type__name="humidity")
-
-            group_name = ""
-            if alarm.placemark and alarm.placemark.group:
-                group_name = alarm.placemark.group.name
-            data.append({
-                "placemark": alarm.placemark.name if alarm.placemark else "",
-                "group": group_name,
-                "station": alarm.alarm_id,
-                "temperature": temperature[0].alarm_id if temperature else "",
-                "windspeed": windspeed[0].alarm_id if windspeed else "",
-                "humidity": humidity[0].alarm_id if humidity else ""
-            })
+            data.append(
+                {
+                  "alarm_id": alarm.alarm_id,
+                  "custom_name": alarm.custom_name,
+                  "type": alarm.type.name,
+                  "view": alarm.view.name,
+                  "placemark": alarm.placemark.name if alarm.placemark else "",
+                  "group": alarm.placemark.group.name,
+                  "children": children
+                }
+            )
+        # for alarm in weather_station_alarms:
+        #
+        #     temperature = alarm.nested_alarms.filter(
+        #         type__name="temperature")
+        #
+        #     windspeed = alarm.nested_alarms.filter(
+        #         type__name="windspeed")
+        #
+        #     humidity = alarm.nested_alarms.filter(
+        #         type__name="humidity")
+        #
+        #     group_name = ""
+        #     if alarm.placemark and alarm.placemark.group:
+        #         group_name = alarm.placemark.group.name
+        #     data.append({
+        #         "placemark": alarm.placemark.name if alarm.placemark else "",
+        #         "group": group_name,
+        #         "station": alarm.alarm_id,
+        #         "temperature": temperature[0].alarm_id if temperature else "",
+        #         "windspeed": windspeed[0].alarm_id if windspeed else "",
+        #         "humidity": humidity[0].alarm_id if humidity else ""
+        #     })
 
         return Response(data)
 

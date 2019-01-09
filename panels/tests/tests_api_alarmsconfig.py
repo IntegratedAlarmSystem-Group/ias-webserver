@@ -94,13 +94,15 @@ class AlarmsConfigTestSetUp:
                 alarm_id="station_alarm_1",
                 view=self.weather_view,
                 type=self.station_type,
-                placemark=self.placemarks[0]
+                placemark=self.placemarks[0],
+                custom_name="Station 1"
             ),
             AlarmConfig.objects.create(
                 alarm_id="station_alarm_2",
                 view=self.weather_view,
                 type=self.station_type,
-                placemark=self.placemarks[1]
+                placemark=self.placemarks[1],
+                custom_name="Station 2"
             )
         ]
         self.sensors_alarms_config = [
@@ -108,37 +110,43 @@ class AlarmsConfigTestSetUp:
                 alarm_id="temperature_alarm_1",
                 view=self.weather_view,
                 type=self.temperature_type,
-                parent=self.stations_alarms_config[0]
+                parent=self.stations_alarms_config[0],
+                custom_name="Temperature"
             ),
             AlarmConfig.objects.create(
                 alarm_id="humidity_alarm_1",
                 view=self.weather_view,
                 type=self.humidity_type,
-                parent=self.stations_alarms_config[0]
+                parent=self.stations_alarms_config[0],
+                custom_name="Humidity"
             ),
             AlarmConfig.objects.create(
                 alarm_id="windspeed_alarm_1",
                 view=self.weather_view,
                 type=self.windspeed_type,
-                parent=self.stations_alarms_config[0]
+                parent=self.stations_alarms_config[0],
+                custom_name="Wind Speed"
             ),
             AlarmConfig.objects.create(
                 alarm_id="temperature_alarm_2",
                 view=self.weather_view,
                 type=self.temperature_type,
-                parent=self.stations_alarms_config[1]
+                parent=self.stations_alarms_config[1],
+                custom_name="Temperature"
             ),
             AlarmConfig.objects.create(
                 alarm_id="humidity_alarm_2",
                 view=self.weather_view,
                 type=self.humidity_type,
-                parent=self.stations_alarms_config[1]
+                parent=self.stations_alarms_config[1],
+                custom_name="Humidity"
             ),
             AlarmConfig.objects.create(
                 alarm_id="windspeed_alarm_2",
                 view=self.weather_view,
                 type=self.windspeed_type,
-                parent=self.stations_alarms_config[1]
+                parent=self.stations_alarms_config[1],
+                custom_name="Wind Speed"
             ),
         ]
         self.antennas_alarms_config = [
@@ -337,20 +345,78 @@ class RetrieveWeatherConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
         # Arrange:
         expected_data = [
             {
+                'alarm_id': 'station_alarm_1',
+                'custom_name': 'Station 1',
+                'type': 'station',
+                'view': 'weather',
                 'placemark': 'placemark_station_1',
                 'group': 'group1',
-                'station': 'station_alarm_1',
-                'temperature': 'temperature_alarm_1',
-                'windspeed': 'windspeed_alarm_1',
-                'humidity': 'humidity_alarm_1',
+                'children': [
+                    {
+                        'alarm_id': 'temperature_alarm_1',
+                        'custom_name': 'Temperature',
+                        'type': 'temperature',
+                        'view': 'weather',
+                        'placemark': '',
+                        'group': 'group1',
+                        'children': [],
+                    },
+                    {
+                        'alarm_id': 'humidity_alarm_1',
+                        'custom_name': 'Humidity',
+                        'type': 'humidity',
+                        'view': 'weather',
+                        'placemark': '',
+                        'group': 'group1',
+                        'children': [],
+                    },
+                    {
+                        'alarm_id': 'windspeed_alarm_1',
+                        'custom_name': 'Wind Speed',
+                        'type': 'windspeed',
+                        'view': 'weather',
+                        'placemark': '',
+                        'group': 'group1',
+                        'children': [],
+                    },
+                ]
             },
             {
+                'alarm_id': 'station_alarm_2',
+                'custom_name': 'Station 2',
+                'type': 'station',
+                'view': 'weather',
                 'placemark': 'placemark_station_2',
                 'group': 'group2',
-                'station': 'station_alarm_2',
-                'temperature': 'temperature_alarm_2',
-                'windspeed': 'windspeed_alarm_2',
-                'humidity': 'humidity_alarm_2',
+                'children': [
+                    {
+                        'alarm_id': 'temperature_alarm_2',
+                        'custom_name': 'Temperature',
+                        'type': 'temperature',
+                        'view': 'weather',
+                        'placemark': '',
+                        'group': 'group2',
+                        'children': [],
+                    },
+                    {
+                        'alarm_id': 'humidity_alarm_2',
+                        'custom_name': 'Humidity',
+                        'type': 'humidity',
+                        'view': 'weather',
+                        'placemark': '',
+                        'group': 'group2',
+                        'children': [],
+                    },
+                    {
+                        'alarm_id': 'windspeed_alarm_2',
+                        'custom_name': 'Wind Speed',
+                        'type': 'windspeed',
+                        'view': 'weather',
+                        'placemark': '',
+                        'group': 'group2',
+                        'children': [],
+                    },
+                ]
             },
         ]
         # Act:
@@ -362,6 +428,8 @@ class RetrieveWeatherConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
             status.HTTP_200_OK,
             'The server did not retrieve the information'
         )
+        import pprint
+        pprint.pprint(response.data)
         self.assertEqual(
             response.data,
             expected_data,
