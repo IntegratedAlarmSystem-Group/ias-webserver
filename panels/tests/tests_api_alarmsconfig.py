@@ -807,7 +807,15 @@ class RetrieveAntennasSummaryConfig(
     def test_api_can_get_antennas_summary_config(self):
         """ Test that the api can retrieve a correct json"""
         # Arrange:
-        expected_data = "antennas_summary"
+        expected_data = {
+            'alarm_id': 'antennas_summary',
+            'custom_name': 'Antennas',
+            'type': 'antenna',
+            'view': 'summary',
+            'children': [],
+            'placemark': '',
+            'group': '',
+        }
 
         # Act:
         response = self.target_request_from_client(

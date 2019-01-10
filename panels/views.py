@@ -185,8 +185,17 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                 'There is no configuration for antennas summary',
                 status=status.HTTP_404_NOT_FOUND
             )
+        data = {
+            'alarm_id': summary_alarm[0].alarm_id,
+            'custom_name': 'Antennas',
+            'type': summary_alarm[0].type.name,
+            'view': summary_alarm[0].view.name,
+            'children': [],
+            'placemark': '',
+            'group': '',
+        }
 
-        return Response(summary_alarm[0].alarm_id)
+        return Response(data)
 
     @action(detail=False)
     def weather_summary_config(self, request):
