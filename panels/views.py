@@ -185,7 +185,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                 'There is no configuration for antennas summary',
                 status=status.HTTP_404_NOT_FOUND
             )
-        data = {
+        data = [{
             'alarm_id': summary_alarm[0].alarm_id,
             'custom_name': 'Antennas',
             'type': summary_alarm[0].type.name,
@@ -193,7 +193,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             'children': [],
             'placemark': '',
             'group': '',
-        }
+        }]
 
         return Response(data)
 
@@ -284,7 +284,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        data = {
+        data = [{
             'alarm_id': summary_alarm[0].alarm_id,
             'custom_name': 'IAS',
             'type': summary_alarm[0].type.name,
@@ -292,7 +292,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
             'children': [],
             'placemark': '',
             'group': '',
-        }
+        }]
 
         return Response(data)
 

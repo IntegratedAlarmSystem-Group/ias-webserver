@@ -807,7 +807,7 @@ class RetrieveAntennasSummaryConfig(
     def test_api_can_get_antennas_summary_config(self):
         """ Test that the api can retrieve a correct json"""
         # Arrange:
-        expected_data = {
+        expected_data = [{
             'alarm_id': 'antennas_summary',
             'custom_name': 'Antennas',
             'type': 'antenna',
@@ -815,7 +815,7 @@ class RetrieveAntennasSummaryConfig(
             'children': [],
             'placemark': '',
             'group': '',
-        }
+        }]
 
         # Act:
         response = self.target_request_from_client(
@@ -883,7 +883,7 @@ class RetrieveHealthSummaryConfig(
     def test_api_can_get_ias_health_summary_config(self):
         """ Test that the api can retrieve a correct json"""
         # Arrange:
-        expected_data = {
+        expected_data = [{
             'alarm_id': 'health_summary',
             'custom_name': 'IAS',
             'type': 'health',
@@ -891,7 +891,7 @@ class RetrieveHealthSummaryConfig(
             'children': [],
             'placemark': '',
             'group': '',
-        }
+        }]
 
         # Act:
         response = self.target_request_from_client(
