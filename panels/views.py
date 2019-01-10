@@ -162,7 +162,7 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                   "view": alarm.view.name,
                   "placemark": alarm.placemark.name if alarm.placemark else "",
                   "group": "global_devices",
-                  "children": children
+                  "children": []
                 }
             )
 
