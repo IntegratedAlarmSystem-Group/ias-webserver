@@ -428,8 +428,6 @@ class RetrieveWeatherConfig(APITestBase, AlarmsConfigTestSetUp, TestCase):
             status.HTTP_200_OK,
             'The server did not retrieve the information'
         )
-        import pprint
-        pprint.pprint(response.data)
         self.assertEqual(
             response.data,
             expected_data,
@@ -485,13 +483,35 @@ class RetrieveWeatherSummary(APITestBase, AlarmsConfigTestSetUp, TestCase):
     def test_api_can_get_weather_summary_config(self):
         """ Test that the api can retrieve a correct json"""
         # Arrange:
-        expected_data = {
-            "placemark": "",
-            "station": "",
-            "temperature": "weather_summary_temp",
-            "humidity": "weather_summary_hum",
-            "windspeed": "weather_summary_wind"
-        }
+        expected_data = [
+            {
+                'alarm_id': 'weather_summary_hum',
+                'custom_name': 'Humidity',
+                'type': 'humidity',
+                'view': 'weather_summary',
+                'placemark': '',
+                'group': '',
+                'children': [],
+            },
+            {
+                'alarm_id': 'weather_summary_temp',
+                'custom_name': 'Temperature',
+                'type': 'temperature',
+                'view': 'weather_summary',
+                'placemark': '',
+                'group': '',
+                'children': [],
+            },
+            {
+                'alarm_id': 'weather_summary_wind',
+                'custom_name': 'Wind Speed',
+                'type': 'windspeed',
+                'view': 'weather_summary',
+                'placemark': '',
+                'group': '',
+                'children': [],
+            },
+        ]
 
         # Act:
         response = self.target_request_from_client(
@@ -502,6 +522,8 @@ class RetrieveWeatherSummary(APITestBase, AlarmsConfigTestSetUp, TestCase):
             status.HTTP_200_OK,
             'The server did not retrieve the information'
         )
+        import pprint
+        pprint.pprint(response.data)
         self.assertEqual(
             response.data,
             expected_data,

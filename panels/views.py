@@ -93,28 +93,6 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                   "children": children
                 }
             )
-        # for alarm in weather_station_alarms:
-        #
-        #     temperature = alarm.nested_alarms.filter(
-        #         type__name="temperature")
-        #
-        #     windspeed = alarm.nested_alarms.filter(
-        #         type__name="windspeed")
-        #
-        #     humidity = alarm.nested_alarms.filter(
-        #         type__name="humidity")
-        #
-        #     group_name = ""
-        #     if alarm.placemark and alarm.placemark.group:
-        #         group_name = alarm.placemark.group.name
-        #     data.append({
-        #         "placemark": alarm.placemark.name if alarm.placemark else "",
-        #         "group": group_name,
-        #         "station": alarm.alarm_id,
-        #         "temperature": temperature[0].alarm_id if temperature else "",
-        #         "windspeed": windspeed[0].alarm_id if windspeed else "",
-        #         "humidity": humidity[0].alarm_id if humidity else ""
-        #     })
 
         return Response(data)
 
@@ -214,34 +192,58 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
     def weather_summary_config(self, request):
         """ Retrieve the configuration used in the weather summary display """
 
-        data = {
-            "placemark": "",
-            "station": "",
-            "humidity": "",
-            "temperature": "",
-            "windspeed": ""
-        }
+        data = []
         configuration_available = False
 
         humidity_alarm = self.queryset.filter(
             view__name="summary", type__name="humidity"
         )
         if humidity_alarm:
-            data["humidity"] = humidity_alarm[0].alarm_id
+            data.append(
+                {
+                    'alarm_id': humidity_alarm[0].alarm_id,
+                    'custom_name': 'Humidity',
+                    'type': 'humidity',
+                    'view': 'weather_summary',
+                    'placemark': '',
+                    'group': '',
+                    'children': [],
+                },
+            )
             configuration_available = True
 
         temperature_alarm = self.queryset.filter(
             view__name="summary", type__name="temperature"
         )
         if temperature_alarm:
-            data["temperature"] = temperature_alarm[0].alarm_id
+            data.append(
+                {
+                    'alarm_id': temperature_alarm[0].alarm_id,
+                    'custom_name': 'Temperature',
+                    'type': 'temperature',
+                    'view': 'weather_summary',
+                    'placemark': '',
+                    'group': '',
+                    'children': [],
+                },
+            )
             configuration_available = True
 
         windspeed_alarm = self.queryset.filter(
             view__name="summary", type__name="windspeed"
         )
         if windspeed_alarm:
-            data["windspeed"] = windspeed_alarm[0].alarm_id
+            data.append(
+                {
+                    'alarm_id': windspeed_alarm[0].alarm_id,
+                    'custom_name': 'Wind Speed',
+                    'type': 'windspeed',
+                    'view': 'weather_summary',
+                    'placemark': '',
+                    'group': '',
+                    'children': [],
+                },
+            )
             configuration_available = True
 
         if configuration_available:
