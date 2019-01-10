@@ -284,7 +284,17 @@ class AlarmConfigViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        return Response(summary_alarm[0].alarm_id)
+        data = {
+            'alarm_id': summary_alarm[0].alarm_id,
+            'custom_name': 'IAS',
+            'type': summary_alarm[0].type.name,
+            'view': summary_alarm[0].view.name,
+            'children': [],
+            'placemark': '',
+            'group': '',
+        }
+
+        return Response(data)
 
 
 class PlacemarkViewSet(viewsets.ModelViewSet):

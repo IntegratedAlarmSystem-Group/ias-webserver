@@ -883,7 +883,15 @@ class RetrieveHealthSummaryConfig(
     def test_api_can_get_ias_health_summary_config(self):
         """ Test that the api can retrieve a correct json"""
         # Arrange:
-        expected_data = "health_summary"
+        expected_data = {
+            'alarm_id': 'health_summary',
+            'custom_name': 'IAS',
+            'type': 'health',
+            'view': 'summary',
+            'children': [],
+            'placemark': '',
+            'group': '',
+        }
 
         # Act:
         response = self.target_request_from_client(
