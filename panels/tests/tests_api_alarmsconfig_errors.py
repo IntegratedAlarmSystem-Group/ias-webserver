@@ -9,7 +9,8 @@ from panels.models import (
     View,
     Type,
     Placemark,
-    PlacemarkType
+    PlacemarkType,
+    PlacemarkGroup
 )
 
 
@@ -36,11 +37,14 @@ class AlarmsConfigErrorResponseTestSetUp:
 
     def setTestAlarmsConfigErrorResponse(self):
         """ Method to set the alarms config for testing """
-
+        self.placemark_groups = [
+            PlacemarkGroup.objects.create(name='group1')
+        ]
         self.placemark_type = PlacemarkType.objects.create(name='pad')
         self.placemark = Placemark.objects.create(
             name="placemark_1",
-            type=self.placemark_type
+            type=self.placemark_type,
+            group=self.placemark_groups[0]
         )
 
     def setCommonUsersAndClients(self):
