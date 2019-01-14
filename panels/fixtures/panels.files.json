@@ -3,8 +3,48 @@
     "model": "panels.file",
     "pk": 1,
     "fields": {
-      "key": "weather",
+      "key": "weather_map",
       "url": "weather_map.json"
+    }
+  },
+  {
+    "model": "panels.file",
+    "pk": 2,
+    "fields": {
+      "key": "weather_config",
+      "url": "weather_config.json"
+    }
+  },
+  {
+    "model": "panels.file",
+    "pk": 3,
+    "fields": {
+      "key": "weather_summary",
+      "url": "weather_summary_config.json"
+    }
+  },
+  {
+    "model": "panels.file",
+    "pk": 4,
+    "fields": {
+      "key": "antennas_config",
+      "url": "antennas_config.json"
+    }
+  },
+  {
+    "model": "panels.file",
+    "pk": 5,
+    "fields": {
+      "key": "antennas_summary",
+      "url": "antennas_summary_config.json"
+    }
+  },
+  {
+    "model": "panels.file",
+    "pk": 6,
+    "fields": {
+      "key": "health_summary",
+      "url": "health_summary_config.json"
     }
   }
 ]
