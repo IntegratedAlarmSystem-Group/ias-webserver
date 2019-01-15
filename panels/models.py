@@ -1,10 +1,79 @@
 import os
+import glob
 from django.db import models
 from ias_webserver.settings import FILES_LOCATION
 
 
 PERMISSIONS = ('add', 'change', 'delete', 'view')
 """ Models Permissions """
+
+
+class LocalFileManager:
+
+    def _get_files_absolute_location(self):
+        """ Return the path for the folder with the configuration files
+        """
+        return os.path.join(os.getcwd(), FILES_LOCATION)
+
+    def get_files_list(self):
+        """ Return a list with the basename of the files
+            without the .json extension
+        """
+        abs_path = self._get_files_absolute_location()
+        return [os.path.splitext(f)[0] for f in glob.glob1(abs_path, '*.json')]
+
+    def get_instances_list(self):
+        """ Return a list with instances for each available file
+        """
+        basenames = self.get_files_list()
+        return [
+            self.get_instance_for_localfile(name) for name in basenames
+        ]
+
+    def get_instance_for_localfile(self, file_basename):
+        """ Return an instance for a file, according to a requested basename,
+            only if the file exists in the folder
+        """
+        key = file_basename
+        available_files = self.get_files_list()
+        if key in available_files:
+            return LocalFile(key=key, url='{}.json'.format(key))
+
+
+class LocalFile:
+    """
+    Class to manage the information about local files
+    with the alarms' configuration
+    """
+
+    objects = LocalFileManager()
+
+    def __init__(self, key, url):
+        self.key = key
+        self.url = url
+
+    def __str__(self):
+        """ Return a string representation for the file """
+        return '{} : {}'.format(self.key, self.url)
+
+    def to_dict(self):
+        """ Return the file as a dictionary """
+        return {
+            "key": self.key,
+            "url": self.url
+        }
+
+    def get_full_url(self):
+        """ Return the full url of the file """
+        return os.path.join(self._get_absolute_location(), self.url)
+
+    @classmethod
+    def _get_absolute_location(self):
+        return self.objects._get_files_absolute_location()
+
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.has_perm('panels.view_file')
 
 
 class File(models.Model):
