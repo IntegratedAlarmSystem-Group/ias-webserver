@@ -7,9 +7,9 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from dry_rest_permissions.generics import DRYPermissions
 from panels.models import (
-    File, LocalFile, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
+    LocalFile, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
 from panels.serializers import (
-    FileSerializer, AlarmConfigSerializer, PlacemarkSerializer)
+    AlarmConfigSerializer, PlacemarkSerializer)
 
 
 logger = logging.getLogger(__name__)
@@ -53,33 +53,6 @@ class LocalFileViewSet(viewsets.ViewSet):
                 'No file is asociated to the given key [{}]'.format(key),
                 status=status.HTTP_404_NOT_FOUND
             )
-
-
-class FileViewSet(viewsets.ModelViewSet):
-    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Files."""
-
-    queryset = File.objects.all()
-    serializer_class = FileSerializer
-    permission_classes = (DRYPermissions,)
-
-    @action(detail=False)
-    def get_json(self, request):
-        """ Retrieve the list of tickets filtered by alarm and status """
-        key = request.query_params.get('key')
-        try:
-            file = File.objects.get(key=key)
-        except ObjectDoesNotExist:
-            logger.error(
-                'no file is associated to the given key %s (status %s)',
-                key, status.HTTP_404_NOT_FOUND)
-            return Response(
-                'No file is asociated to the given key ' + key,
-                status=status.HTTP_404_NOT_FOUND
-            )
-        url = file.get_full_url()
-        with open(url) as f:
-            data = json.load(f)
-        return Response(data)
 
 
 class AlarmConfigViewSet(viewsets.ModelViewSet):

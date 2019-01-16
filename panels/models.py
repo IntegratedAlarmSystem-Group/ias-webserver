@@ -43,14 +43,17 @@ class LocalFileManager:
 class LocalFile:
     """
     Class to manage the information about local files
-    with the alarms' configuration
+    with the configuration of the alarms display
     """
 
     objects = LocalFileManager()
 
     def __init__(self, key, url):
         self.key = key
+        """ Key to identify the File on the client side """
+
         self.url = url
+        """ URL with the location of the File """
 
     def __str__(self):
         """ Return a string representation for the file """
@@ -74,64 +77,6 @@ class LocalFile:
     @staticmethod
     def has_read_permission(request):
         return request.user.has_perm('panels.view_file')
-
-
-class File(models.Model):
-    """ General purpose file """
-
-    key = models.CharField(max_length=30, unique=True)
-    """ Key to identify the File on the client side """
-
-    url = models.CharField(max_length=256)
-    """ URL with the location of the File """
-
-    class Meta:
-        default_permissions = PERMISSIONS
-    """ Additional options for the model """
-
-    def __str__(self):
-        """ Return a string representation of the file """
-        return str(self.key) + ':' + str(self.url)
-
-    def to_dict(self):
-        """ Return the ticket as a dictionary """
-        return {
-            'key': self.key,
-            'url': self.url
-        }
-
-    def get_full_url(self):
-        """ Return the full url of the file """
-        return os.path.join(self._get_absolute_location(), self.url)
-
-    @classmethod
-    def _get_absolute_location(self):
-        return os.path.join(os.getcwd(), FILES_LOCATION)
-
-    @staticmethod
-    def has_create_permission(request):
-        return request.user.has_perm('panels.add_file')
-
-    @staticmethod
-    def has_read_permission(request):
-        return request.user.has_perm('panels.view_file')
-
-    def has_object_read_permission(self, request):
-        return request.user.has_perm('panels.view_file')
-
-    @staticmethod
-    def has_update_permission(request):
-        return request.user.has_perm('panels.change_file')
-
-    def has_object_update_permission(self, request):
-        return request.user.has_perm('panels.change_file')
-
-    @staticmethod
-    def has_destroy_permission(request):
-        return request.user.has_perm('panels.delete_file')
-
-    def has_object_destroy_permission(self, request):
-        return request.user.has_perm('panels.delete_file')
 
 
 class PlacemarkType(models.Model):
