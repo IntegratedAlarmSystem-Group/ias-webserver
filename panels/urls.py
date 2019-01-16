@@ -5,5 +5,5 @@ from panels.views import LocalFileViewSet
 router = DefaultRouter()
 router.register('alarms-config', AlarmConfigViewSet)
 router.register('placemark', PlacemarkViewSet)
-router.register('localfiles', LocalFileViewSet, 'localfiles')
+router.register('files', LocalFileViewSet, 'files')
 urlpatterns = router.urls

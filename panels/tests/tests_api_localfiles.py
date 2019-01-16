@@ -73,7 +73,7 @@ class ListFile(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('localfiles-list')
+        url = reverse('files-list')
         return client.get(url, format='json')
 
     @mock.patch('panels.models.LocalFileManager._get_files_absolute_location')
@@ -143,7 +143,7 @@ class GetJsonFromFile(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('localfiles-get-json')
+        url = reverse('files-get-json')
         data = {
             'key': 'mock'
         }
@@ -219,7 +219,7 @@ class GetJsonFromFileIfKeyDoesNotExist(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('localfiles-get-json')
+        url = reverse('files-get-json')
         data = {
             'key': 'my_fake_key'
         }
