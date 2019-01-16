@@ -8,7 +8,7 @@ PERMISSIONS = ('add', 'change', 'delete', 'view')
 """ Models Permissions """
 
 
-class LocalFileManager:
+class FileManager:
 
     def _get_files_absolute_location(self):
         """ Return the path for the folder with the configuration files
@@ -37,16 +37,16 @@ class LocalFileManager:
         key = file_basename
         available_files = self.get_files_list()
         if key in available_files:
-            return LocalFile(key=key, url='{}.json'.format(key))
+            return File(key=key, url='{}.json'.format(key))
 
 
-class LocalFile:
+class File:
     """
     Class to manage the information about local files
     with the configuration of the alarms display
     """
 
-    objects = LocalFileManager()
+    objects = FileManager()
 
     def __init__(self, key, url):
         self.key = key
@@ -73,10 +73,6 @@ class LocalFile:
     @classmethod
     def _get_absolute_location(self):
         return self.objects._get_files_absolute_location()
-
-    @staticmethod
-    def has_read_permission(request):
-        return request.user.has_perm('panels.view_file')
 
 
 class PlacemarkType(models.Model):

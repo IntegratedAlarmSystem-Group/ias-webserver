@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from dry_rest_permissions.generics import DRYPermissions
 from panels.models import (
-    LocalFile, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
+    File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
 from panels.serializers import (
     AlarmConfigSerializer, PlacemarkSerializer)
 
@@ -15,30 +15,24 @@ from panels.serializers import (
 logger = logging.getLogger(__name__)
 
 
-class LocalFilePermissions(permissions.BasePermission):
-
-    def has_permission(self, request, view):
-        return LocalFile.has_read_permission(request)
-
-
-class LocalFileViewSet(viewsets.ViewSet):
+class FileViewSet(viewsets.ViewSet):
 
     authentication_classes = (
         authentication.TokenAuthentication,
         authentication.SessionAuthentication,
     )
 
-    permission_classes = (LocalFilePermissions,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def list(self, request, format=None):
-        queryset = LocalFile.objects.get_instances_list()
+        queryset = File.objects.get_instances_list()
         data = [f.to_dict() for f in queryset]
         return Response(data, status=status.HTTP_200_OK)
 
     @action(detail=False)
     def get_json(self, request):
         key = request.GET.get('key', None)
-        file = LocalFile.objects.get_instance_for_localfile(key)
+        file = File.objects.get_instance_for_localfile(key)
         isAvailable = (file is not None)
         if isAvailable:
             url = file.get_full_url()
