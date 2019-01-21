@@ -213,7 +213,24 @@ class LocalAlarmConfig:
         self.view = config.get('view', '')
         self.placemark = config.get('placemark', '')
         self.group = config.get('group', '')
-        self.children = config.get('children', [])
+        self.children = [
+            c['alarm_id'] for c in config.get('children', [])
+        ]
+
+    def __str__(self):
+        """ Return a string representation for the file """
+        return '{} : {}'.format(self.alarm_id, self.custom_name)
+
+    def to_dict(self):
+        return {
+            'alarm_id': self.alarm_id,
+            'custom_name': self.custom_name,
+            'type': self.type,
+            'view': self.view,
+            'placemark': self.placemark,
+            'group': self.group,
+            'children': self.children
+        }
 
 
 class AlarmConfig(models.Model):

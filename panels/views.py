@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from dry_rest_permissions.generics import DRYPermissions
 from panels.models import (
-    File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
+    File, LocalAlarmConfig, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
 from panels.serializers import (
     AlarmConfigSerializer, PlacemarkSerializer)
 
@@ -43,6 +43,42 @@ class FileViewSet(viewsets.ViewSet):
                 key, status.HTTP_404_NOT_FOUND)
             return Response(
                 'No file is asociated to the given key [{}]'.format(key),
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+
+class LocalAlarmConfigViewSet(viewsets.ViewSet):
+
+    authentication_classes = (
+        authentication.TokenAuthentication,
+        authentication.SessionAuthentication,
+    )
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def list(self, request, format=None):
+        queryset = LocalAlarmConfig.objects.all()
+        data = [e.to_dict() for e in queryset]
+        return Response(data, status=status.HTTP_200_OK)
+
+    @action(detail=False)
+    def get_json(self, request):
+        key = request.GET.get('key', None)
+        file = File.objects.get_instance_for_localfile(key)
+        isAvailable = (file is not None)
+        if isAvailable:
+            isConfigFile = file.is_config_file()
+            if isConfigFile:
+                data = file.get_content()
+                return Response(data, status=status.HTTP_200_OK)
+        else:
+            logger.error(
+                "no configuration file is associated "
+                "to the given key %s (status %s)",
+                key, status.HTTP_404_NOT_FOUND)
+            return Response(
+                "No configuration file is asociated "
+                "to the given key [{}]".format(key),
                 status=status.HTTP_404_NOT_FOUND
             )
 
