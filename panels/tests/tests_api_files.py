@@ -33,7 +33,10 @@ class FileTestSetup:
 
     def setTestFilesConfig(self):
         """Define the test suite setup"""
-        self.files = [File('mock', 'mock.json')]
+        self.files = [
+            File('mock', 'mock.json'),
+            File('mock_config', 'mock_config.json')
+        ]
 
     def setCommonUsersAndClients(self):
         """ Add unauthenticated and unauthorized users """
@@ -88,9 +91,11 @@ class ListFile(
             'The server did not retrieve the list of files'
         )
         expected_data = [t.to_dict() for t in self.files]
+        sorted_response_data = sorted(response.data, key=lambda x: x['key'])
+        sorted_expected_data = sorted(expected_data, key=lambda x: x['key'])
         self.assertEqual(
-            response.data,
-            expected_data,
+            sorted_response_data,
+            sorted_expected_data,
             'The files list does not match the data sent in the request'
         )
 

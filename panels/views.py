@@ -35,9 +35,7 @@ class FileViewSet(viewsets.ViewSet):
         file = File.objects.get_instance_for_localfile(key)
         isAvailable = (file is not None)
         if isAvailable:
-            url = file.get_full_url()
-            with open(url) as f:
-                data = json.load(f)
+            data = file.get_content()
             return Response(data, status=status.HTTP_200_OK)
         else:
             logger.error(

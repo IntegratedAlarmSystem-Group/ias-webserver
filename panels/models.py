@@ -1,5 +1,6 @@
 import os
 import glob
+import json
 from django.db import models
 from ias_webserver.settings import FILES_LOCATION
 
@@ -28,6 +29,13 @@ class FileManager:
         basenames = self.basenames()
         return [
             File(key=name, url='{}.json'.format(name)) for name in basenames
+        ]
+
+    def all_config_files(self):
+        """ Return a list with instances for configuration files
+        """
+        return [
+            file for file in self.all() if file.is_config_file()
         ]
 
     def get_instance_for_localfile(self, file_basename):
@@ -69,6 +77,45 @@ class File:
     def get_full_url(self):
         """ Return the full url of the file """
         return os.path.join(self._get_absolute_location(), self.url)
+
+    def get_content(self):
+        if self.key in self.objects.basenames():
+            url = self.get_full_url()
+            with open(url) as f:
+                data = json.load(f)
+            return data
+
+    def _collect_configurations_from_list(self, configurations, full_list):
+        if isinstance(configurations, list):
+            for config in configurations:
+                full_list += [LocalAlarmConfig(config)]
+                if len(config['children']) > 0:
+                    self._collect_configurations_from_list(
+                        config['children'], full_list)
+
+    def _collect_configurations_from_dict(self, data, full_list):
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if isinstance(value, dict):
+                    self._collect_configurations_from_dict(value, full_list)
+                else:
+                    if isinstance(value, list):
+                        self._collect_configurations_from_list(
+                            value, full_list)
+
+    def get_configurations(self):
+        if self.is_config_file():
+            config_list = []
+            data = self.get_content()
+            if data is not None:
+                if isinstance(data, dict):
+                    self._collect_configurations_from_dict(data, config_list)
+                if isinstance(data, list):
+                    self._collect_configurations_from_list(data, config_list)
+            return config_list
+
+    def is_config_file(self):
+        return '_config' in self.key
 
     @classmethod
     def _get_absolute_location(self):
@@ -144,6 +191,30 @@ class Type(models.Model):
     def __str__(self):
         """ Return a string representation of the type """
         return str(self.name)
+
+
+class LocalAlarmConfigManager:
+
+    def all(self):
+        full_config_list = []
+        for file in File.objects.all_config_files():
+            full_config_list += file.get_configurations()
+        return full_config_list
+
+
+class LocalAlarmConfig:
+
+    objects = LocalAlarmConfigManager()
+
+    def __init__(self, config):
+        self.alarm_id = config.get('alarm_id', '')
+        self.custom_name = config.get('custom_name', '')
+        self.type = config.get('type', '')
+        self.view = config.get('view', '')
+        self.placemark = config.get('placemark', '')
+        self.group = config.get('group', '')
+        self.children = config.get('children', [])
+
 
 class AlarmConfig(models.Model):
     """ Relation between alarms and view elements """
