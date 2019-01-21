@@ -15,19 +15,19 @@ class FileManager:
         """
         return os.path.join(os.getcwd(), FILES_LOCATION)
 
-    def get_files_list(self):
+    def basenames(self):
         """ Return a list with the basename of the files
             without the .json extension
         """
         abs_path = self._get_files_absolute_location()
         return [os.path.splitext(f)[0] for f in glob.glob1(abs_path, '*.json')]
 
-    def get_instances_list(self):
+    def all(self):
         """ Return a list with instances for each available file
         """
-        basenames = self.get_files_list()
+        basenames = self.basenames()
         return [
-            self.get_instance_for_localfile(name) for name in basenames
+            File(key=name, url='{}.json'.format(name)) for name in basenames
         ]
 
     def get_instance_for_localfile(self, file_basename):
@@ -35,7 +35,7 @@ class FileManager:
             only if the file exists in the folder
         """
         key = file_basename
-        available_files = self.get_files_list()
+        available_files = self.basenames()
         if key in available_files:
             return File(key=key, url='{}.json'.format(key))
 
@@ -144,7 +144,6 @@ class Type(models.Model):
     def __str__(self):
         """ Return a string representation of the type """
         return str(self.name)
-
 
 class AlarmConfig(models.Model):
     """ Relation between alarms and view elements """

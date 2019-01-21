@@ -25,7 +25,7 @@ class FileViewSet(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
     def list(self, request, format=None):
-        queryset = File.objects.get_instances_list()
+        queryset = File.objects.all()
         data = [f.to_dict() for f in queryset]
         return Response(data, status=status.HTTP_200_OK)
 
