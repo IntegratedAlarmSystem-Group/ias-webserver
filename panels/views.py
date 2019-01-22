@@ -83,16 +83,15 @@ class LocalAlarmConfigViewSet(viewsets.ViewSet):
                 else:
                     data = file.get_configuration_data()
                 return Response(data, status=status.HTTP_200_OK)
-        else:
-            logger.error(
-                "no configuration file is associated "
-                "to the given key %s (status %s)",
-                key, status.HTTP_404_NOT_FOUND)
-            return Response(
-                "No configuration file is asociated "
-                "to the given key [{}]".format(key),
-                status=status.HTTP_404_NOT_FOUND
-            )
+        logger.error(
+            "no configuration file is associated "
+            "to the given key %s (status %s)",
+            key, status.HTTP_404_NOT_FOUND)
+        return Response(
+            "No configuration file is asociated "
+            "to the given key [{}]".format(key),
+            status=status.HTTP_404_NOT_FOUND
+        )
 
 
 class AlarmConfigViewSet(viewsets.ModelViewSet):
