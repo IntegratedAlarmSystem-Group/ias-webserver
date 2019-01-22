@@ -73,7 +73,7 @@ class ListAlarmConfig(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('localalarms-config-list')
+        url = reverse('alarms-config-list')
         return client.get(url, format='json')
 
     @mock.patch('panels.models.FileManager._get_files_absolute_location')
@@ -161,7 +161,7 @@ class GetJsonConfigurationFromFile(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('localalarms-config-get-json')
+        url = reverse('alarms-config-get-json')
         data = {
             'key': 'mock_config'
         }
@@ -227,7 +227,7 @@ class GetJsonConfigurationFromFileIfKeyDoesNotExist(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('localalarms-config-get-json')
+        url = reverse('alarms-config-get-json')
         data = {
             'key': 'my_fake_key'
         }
@@ -282,7 +282,7 @@ class GetJsonConfigurationFromFileIfNotConfigKey(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('localalarms-config-get-json')
+        url = reverse('alarms-config-get-json')
         data = {
             'key': [
                 f.key for f in self.files if f.is_config_file() is False

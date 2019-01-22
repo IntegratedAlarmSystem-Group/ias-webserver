@@ -46,7 +46,7 @@ class FileViewSet(viewsets.ViewSet):
             )
 
 
-class LocalAlarmConfigViewSet(viewsets.ViewSet):
+class AlarmConfigViewSet(viewsets.ViewSet):
 
     authentication_classes = (
         authentication.TokenAuthentication,
