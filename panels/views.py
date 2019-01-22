@@ -10,7 +10,7 @@ from panels.models import (
     File, LocalAlarmConfig, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
 from panels.serializers import (
     AlarmConfigSerializer, PlacemarkSerializer)
-
+from panels.connectors import ValueConnector
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ class FileViewSet(viewsets.ViewSet):
         file = File.objects.get_instance_for_localfile(key)
         isAvailable = (file is not None)
         if isAvailable:
-            data = file.get_content()
+            data = file.get_content_data()
             return Response(data, status=status.HTTP_200_OK)
         else:
             logger.error(
@@ -69,7 +69,19 @@ class LocalAlarmConfigViewSet(viewsets.ViewSet):
         if isAvailable:
             isConfigFile = file.is_config_file()
             if isConfigFile:
-                data = file.get_content()
+                if key == 'antennas_config':
+                    selected_ias_value = ValueConnector.get_value(
+                        "Array-AntennasToPads")
+                    antennas_pads_association = selected_ias_value.value
+                    values = {}
+                    for item in antennas_pads_association.split(','):
+                        antenna_id, pad_placemark_id = item.split(':')
+                        values[antenna_id] = pad_placemark_id
+                    data = file.get_configuration_data(
+                        update_placemark_values=values
+                    )
+                else:
+                    data = file.get_configuration_data()
                 return Response(data, status=status.HTTP_200_OK)
         else:
             logger.error(

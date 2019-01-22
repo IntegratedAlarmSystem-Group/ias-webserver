@@ -78,7 +78,9 @@ class File:
         """ Return the full url of the file """
         return os.path.join(self._get_absolute_location(), self.url)
 
-    def get_content(self):
+    def get_content_data(self):
+        """ Returns a Python object with data from the json content of the file
+        """
         if self.key in self.objects.basenames():
             url = self.get_full_url()
             with open(url) as f:
@@ -104,15 +106,63 @@ class File:
                             value, full_list)
 
     def get_configurations(self):
+        """ Returns a list of instances for all the configurations
+            recognized in the file
+        """
         if self.is_config_file():
             config_list = []
-            data = self.get_content()
+            data = self.get_content_data()
             if data is not None:
                 if isinstance(data, dict):
                     self._collect_configurations_from_dict(data, config_list)
                 if isinstance(data, list):
                     self._collect_configurations_from_list(data, config_list)
             return config_list
+
+    def _traverse_and_update_configurations_from_list(
+        self, configurations, update_placemark_values
+    ):
+        if isinstance(configurations, list):
+            for config in configurations:
+                placemark_id = config['placemark']
+                if placemark_id in update_placemark_values:
+                    config['placemark'] = update_placemark_values[
+                        placemark_id
+                    ]
+                if len(config['children']) > 0:
+                    self._traverse_and_update_configurations_from_list(
+                        config['children'], update_placemark_values)
+
+    def _locate_and_update_configurations_from_dict(
+        self, data, update_placemark_values
+    ):
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if isinstance(value, dict):
+                    self._locate_and_update_configurations_from_dict(
+                        value, update_placemark_values)
+                else:
+                    if isinstance(value, list):
+                        self._traverse_and_update_configurations_from_list(
+                            value, update_placemark_values)
+
+    def get_configuration_data(self, update_placemark_values={}):
+        """ Returns a Python object with data from the json content of the file
+            and required updates for the configuration
+        """
+        if self.is_config_file():
+            if len(update_placemark_values) == 0:
+                return self.get_content_data()
+            else:
+                data = self.get_content_data()
+                if data is not None:
+                    if isinstance(data, dict):
+                        self._locate_and_update_configurations_from_dict(
+                            data, update_placemark_values)
+                    if isinstance(data, list):
+                        self._traverse_and_update_configurations_from_list(
+                            data, update_placemark_values)
+                return data
 
     def is_config_file(self):
         return '_config' in self.key
