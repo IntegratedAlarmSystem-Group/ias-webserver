@@ -105,13 +105,13 @@ class File:
                         self._collect_configurations_from_list(
                             value, full_list)
 
-    def get_configurations(self):
+    def get_configurations(self, update_placemark_values={}):
         """ Returns a list of instances for all the configurations
             recognized in the file
         """
         if self.is_config_file():
             config_list = []
-            data = self.get_content_data()
+            data = self.get_configuration_data(update_placemark_values)
             if data is not None:
                 if isinstance(data, dict):
                     self._collect_configurations_from_dict(data, config_list)
@@ -220,6 +220,10 @@ class Placemark(models.Model):
     def has_read_permission(request):
         return request.user.has_perm('panels.view_placemark')
 
+    @staticmethod
+    def has_create_permission(request):
+        return False
+
 
 class View(models.Model):
     """ Available Views """
@@ -250,6 +254,30 @@ class LocalAlarmConfigManager:
         for file in File.objects.all_config_files():
             full_config_list += file.get_configurations()
         return full_config_list
+
+    def get_file_configurations(self, key, update_placemark_values={}):
+        file = File.objects.get_instance_for_localfile(key)
+        if file is not None:
+            if file.is_config_file():
+                full_config_list = file.get_configurations(
+                    update_placemark_values=update_placemark_values
+                )
+                return full_config_list
+
+    def get_file_configuration_data(self, key, update_placemark_values={}):
+        file = File.objects.get_instance_for_localfile(key)
+        if file is not None:
+            if file.is_config_file():
+                full_config_list = file.get_configuration_data(
+                    update_placemark_values=update_placemark_values
+                )
+                return full_config_list
+
+    def get_antennas_configurations(self, update_placemark_values):
+        SELECTED_KEY = 'antennas_config'
+        return self.get_file_configurations(
+            SELECTED_KEY, update_placemark_values=update_placemark_values
+        )
 
 
 class LocalAlarmConfig:

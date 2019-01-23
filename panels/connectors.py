@@ -8,11 +8,20 @@ class ValueConnector:
     """
 
     @classmethod
-    def get_value(self, value_id):
+    def get_antennas_to_pad_values(self):
         """
-        Get a selected IASValue from the values_collection
+        Return a dictionary with the antennas to pad associations
+        from the related IASValue in the values_collection
+        """
 
-        Args:
-        value_id (string): The core_id of the value
-        """
-        return IAlarms.get_value(value_id)
+        ANTENNAS_TO_PADS_VALUE_ID = "Array-AntennasToPads"
+
+        selected_ias_value = IAlarms.get_value(ANTENNAS_TO_PADS_VALUE_ID)
+
+        antennas_pads_association = selected_ias_value.value
+        values = {}
+        for item in antennas_pads_association.split(','):
+            antenna_id, pad_placemark_id = item.split(':')
+            values[antenna_id] = pad_placemark_id
+
+        return values
