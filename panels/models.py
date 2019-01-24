@@ -251,12 +251,6 @@ class AlarmConfigManager:
                 )
                 return full_config_list
 
-    def get_antennas_configurations(self, update_placemark_values):
-        SELECTED_KEY = 'antennas_config'
-        return self.get_file_configurations(
-            SELECTED_KEY, update_placemark_values=update_placemark_values
-        )
-
 
 class AlarmConfig:
 
