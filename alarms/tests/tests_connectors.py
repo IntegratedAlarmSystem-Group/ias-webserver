@@ -254,3 +254,20 @@ class TestPanelsConnector(TestCase):
             IPanels_get_alarm_ids_of_alarm_configs.called,
             'IPanels.get_alarm_ids_of_alarm_configs() was not called'
         )
+
+    @mock.patch(
+        'panels.interfaces.IPanels.get_alarms_views_dict_of_alarm_configs')
+    def test_get_alarms_views_dict_of_alarm_configs(
+        self, IPanels_get_alarms_views_dict_of_alarm_configs
+    ):
+        """
+        Test that PanelsConnector.get_alarm_ids_of_alarm_configs calls
+        IPanels.get_alarms_views_dict_of_alarm_configs
+        """
+        # Act:
+        PanelsConnector.get_alarms_views_dict_of_alarm_configs()
+        # Assert:
+        self.assertTrue(
+            IPanels_get_alarms_views_dict_of_alarm_configs.called,
+            'IPanels.get_alarms_views_dict_of_alarm_configs() was not called'
+        )
