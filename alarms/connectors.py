@@ -136,13 +136,3 @@ class PanelsConnector():
                 (dict): dictionary of views names with alarm_ids as keys
             """
             return IPanels.get_alarms_views_dict_of_alarm_configs()
-
-        @classmethod
-        def get_names_of_views(self):
-            """
-            Returns a list with the names of the views
-
-            Returns:
-                (list): the list of names of the views
-            """
-            return IPanels.get_names_of_views()

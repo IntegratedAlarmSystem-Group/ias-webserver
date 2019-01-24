@@ -22,8 +22,6 @@ class TestCountByViewForNewAlarms:
 
     def set_mock_views_configuration(self, mocker):
 
-        mock_view_names = ['antennas', 'weather']
-
         mock_alarms_views_dict = {
             "antenna_alarm_CLEARED": ["antennas"],
             "antenna_alarm_SET_LOW": ["antennas"],
@@ -33,12 +31,6 @@ class TestCountByViewForNewAlarms:
             "weather_alarm_CLEARED": ["weather"],
             "weather_alarm_SET_LOW": ["weather"],
         }
-
-        PanelsConnector_get_names_of_views = \
-            mocker.patch.object(
-                PanelsConnector, 'get_names_of_views'
-            )
-        PanelsConnector_get_names_of_views.return_value = mock_view_names
 
         PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
             mocker.patch.object(
@@ -248,8 +240,6 @@ class TestCountPerViewForAlarmsUpdates:
 
     def set_mock_views_configuration(self, mocker):
 
-        mock_view_names = ['antennas', 'weather']
-
         mock_alarms_views_dict = {
             "antenna_alarm_CLEARED": ["antennas"],
             "antenna_alarm_CLEARED_2": ["antennas"],
@@ -261,12 +251,6 @@ class TestCountPerViewForAlarmsUpdates:
             "weather_alarm_CLEARED_2": ["weather"],
             "weather_alarm_SET_LOW": ["weather"],
         }
-
-        PanelsConnector_get_names_of_views = \
-            mocker.patch.object(
-                PanelsConnector, 'get_names_of_views'
-            )
-        PanelsConnector_get_names_of_views.return_value = mock_view_names
 
         PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
             mocker.patch.object(
@@ -942,19 +926,11 @@ class TestCountByViewForDependencies:
 
     def set_mock_views_configuration(self, mocker):
 
-        mock_view_names = ['view']
-
         mock_alarms_views_dict = {
             "alarm_parent": ["view"],
             "alarm_dependency_one": ["view"],
             "alarm_dependency_two": ["view"],
         }
-
-        PanelsConnector_get_names_of_views = \
-            mocker.patch.object(
-                PanelsConnector, 'get_names_of_views'
-            )
-        PanelsConnector_get_names_of_views.return_value = mock_view_names
 
         PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
             mocker.patch.object(

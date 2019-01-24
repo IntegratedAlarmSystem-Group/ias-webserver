@@ -31,18 +31,11 @@ class TestNotificationsToClientConsumer:
 
     def set_mock_views_configuration(self, mocker):
 
-        mock_view_names = ['view']
-
         mock_alarms_views_dict = {
             "alarm_SET_MEDIUM": ["view"],
             "alarm_CLEARED": ["view"]
         }
 
-        PanelsConnector_get_names_of_views = \
-            mocker.patch.object(
-                PanelsConnector, 'get_names_of_views'
-            )
-        PanelsConnector_get_names_of_views.return_value = mock_view_names
         PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
             mocker.patch.object(
                 PanelsConnector, 'get_alarms_views_dict_of_alarm_configs'
