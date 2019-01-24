@@ -505,15 +505,10 @@ class AlarmCollection:
         """
         if value.core_id not in self.values_collection:
             self.add_value(value)
-            if value.core_id == "Array-AntennasToPads":
-                PanelsConnector.update_antennas_configuration(value.value)
             status = 'created-value'
         else:
             stored_value = self.get_value(value.core_id)
             status = stored_value.update(value)
-            if status == 'updated-different':
-                if value.core_id == "Array-AntennasToPads":
-                    PanelsConnector.update_antennas_configuration(value.value)
         logger.debug(
             'the value %s was added or updated in the collection (status %s)',
             value.core_id, status)
