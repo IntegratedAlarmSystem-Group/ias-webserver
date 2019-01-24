@@ -35,7 +35,9 @@ class FileTestSetup:
         """Define the test suite setup"""
         self.files = [
             File('mock', 'mock.json'),
-            File('mock_config', 'mock_config.json')
+            File('mock_config', 'mock_config.json'),
+            File('mock_list_config', 'mock_list_config.json'),
+            File('mock_dict_config', 'mock_dict_config.json')
         ]
 
     def setCommonUsersAndClients(self):

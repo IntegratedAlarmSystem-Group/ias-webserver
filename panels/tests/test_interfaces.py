@@ -41,7 +41,7 @@ class TestIPanels(TestCase):
             },
             {
                 "alarm_id": "weather_alarm_0",
-                "custom_name": None,
+                "custom_name": "",
                 "type": "windspeed",
                 "view": "weather",
                 "placemark": "",

@@ -1,9 +1,73 @@
+import os
+import json
+import mock
 from django.test import TestCase
+from panels.models import AlarmConfig
 from panels.models import (
+    File,
     PlacemarkType,
     PlacemarkGroup,
     Placemark
 )
+
+MOCK_FILES_PATH = os.path.join(os.getcwd(), 'panels', 'tests')
+
+
+class AlarmConfigFormatTestCase(TestCase):
+    """ This class defines the test suite for the AlarmConfig class tests"""
+
+    def setUp(self):
+        self.expected_configurations = []
+        for alarm_id in [
+            "alarm_id_1", "alarm_id_1_children", "alarm_id_2", "alarm_id_3"
+        ]:
+            conf = AlarmConfig({})
+            conf.alarm_id = alarm_id
+            conf.custom_name = "{}_custom_name".format(alarm_id)
+            if alarm_id in ["alarm_id_2", "alarm_id_3"]:
+                conf.custom_name = ""
+            conf.type = "{}_type".format(alarm_id)
+            conf.view = "{}_view".format(alarm_id)
+            conf.placemark = "{}_placemark".format(alarm_id)
+            conf.group = "{}_group".format(alarm_id)
+            conf.children = []
+            if alarm_id in ["alarm_id_1"]:
+                conf.children = ["{}_children".format(alarm_id)]
+            self.expected_configurations.append(conf)
+
+    @mock.patch('panels.models.FileManager.all_config_files')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def tests_get_configurations_from_file_with_a_list_format(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = [
+            File('mock_list_config', 'mock_list_config.json')]
+        sorted_configurations = sorted(
+            AlarmConfig.objects.all(), key=lambda x: x.alarm_id)
+        sorted_expected = sorted(
+            self.expected_configurations, key=lambda x: x.alarm_id)
+        self.assertEqual(
+            sorted_configurations, sorted_expected, 'Not equal configurations')
+
+    @mock.patch('panels.models.FileManager.all_config_files')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def tests_get_configurations_from_file_with_a_dictionary_format(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = [
+            File('mock_dict_config', 'mock_dict_config.json')]
+        sorted_configurations = sorted(
+            AlarmConfig.objects.all(), key=lambda x: x.alarm_id)
+        sorted_expected = sorted(
+            self.expected_configurations, key=lambda x: x.alarm_id)
+        self.assertEqual(
+            sorted_configurations, sorted_expected, 'Not equal configurations')
 
 
 class PlacemarkTypeModelsTestCase(TestCase):

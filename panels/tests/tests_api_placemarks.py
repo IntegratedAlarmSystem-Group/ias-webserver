@@ -6,8 +6,8 @@ from django.contrib.auth.models import User, Permission
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
+from panels.models import AlarmConfig
 from panels.models import (
-    AlarmConfig,
     Placemark,
     PlacemarkType,
     PlacemarkGroup

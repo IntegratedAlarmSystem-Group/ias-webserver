@@ -9,6 +9,8 @@ from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
 from panels.models import File
 
+MOCK_FILES_PATH = os.path.join(os.getcwd(), 'panels', 'tests')
+
 
 class APITestBase:
 
@@ -76,11 +78,17 @@ class ListAlarmConfig(
         url = reverse('alarms-config-list')
         return client.get(url, format='json')
 
+    @mock.patch('panels.models.FileManager.all_config_files')
     @mock.patch('panels.models.FileManager._get_files_absolute_location')
-    def test_api_can_list_the_configurations(self, mock):
+    def test_api_can_list_the_configurations(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
         """ Test that the api can list the files """
-        mock_location = os.path.join(os.getcwd(), 'panels', 'tests')
-        mock.return_value = mock_location
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = [
+            File('mock_config', 'mock_config.json')]
         client = self.authenticated_authorized_client
         # Act:
         response = self.target_request_from_client(client)
@@ -106,11 +114,11 @@ class ListAlarmConfig(
             expected_data.append(
                 {
                     'alarm_id': key,
-                    'custom_name': key,
-                    'type': key,
-                    'view': key,
-                    'placemark': key,
-                    'group': key,
+                    'custom_name': '{}_custom_name'.format(key),
+                    'type': '{}_type'.format(key),
+                    'view': '{}_view'.format(key),
+                    'placemark': '{}_placemark'.format(key),
+                    'group': '{}_group'.format(key),
                     'children': expected_children_ids[key]
                 }
             )
@@ -171,7 +179,7 @@ class GetJsonConfigurationFromFile(
     def test_api_can_get_json_from_file(self, mock):
         """ Test that the api can get a json from a .json file """
         # Arrange:
-        mock_location = os.path.join(os.getcwd(), 'panels', 'tests')
+        mock_location = MOCK_FILES_PATH
         mock.return_value = mock_location
         # Act:
         client = self.authenticated_authorized_client
@@ -236,7 +244,7 @@ class GetJsonConfigurationFromFileIfKeyDoesNotExist(
     @mock.patch('panels.models.FileManager._get_files_absolute_location')
     def test_api_cannot_get_json_if_the_key_does_not_exist(self, mock):
         """ Test that the api cannot get a json if the key does not exist """
-        mock_location = os.path.join(os.getcwd(), 'panels', 'tests')
+        mock_location = MOCK_FILES_PATH
         mock.return_value = mock_location
         # Act:
         client = self.authenticated_authorized_client
@@ -295,7 +303,7 @@ class GetJsonConfigurationFromFileIfNotConfigKey(
         """ Test that the api cannot get a json if the key does not belong
             to a configuration file
         """
-        mock_location = os.path.join(os.getcwd(), 'panels', 'tests')
+        mock_location = MOCK_FILES_PATH
         mock.return_value = mock_location
         # Act:
         client = self.authenticated_authorized_client

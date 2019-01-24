@@ -78,13 +78,23 @@ class File:
         """ Return the full url of the file """
         return os.path.join(self._get_absolute_location(), self.url)
 
-    def get_content_data(self):
-        """ Returns a Python object with data from the json content of the file
-        """
+    def get_json(self):
         if self.key in self.objects.basenames():
             url = self.get_full_url()
             with open(url) as f:
-                data = json.load(f)
+                content = f.read()
+            try:
+                json.loads(content)
+            except ValueError:
+                return None
+            return content
+
+    def get_content_data(self):
+        """ Returns a Python object with data from the json content of the file
+        """
+        json_content = self.get_json()
+        if json_content is not None:
+            data = json.loads(json_content)
             return data
 
     def _collect_configurations_from_list(self, configurations, full_list):
@@ -256,20 +266,46 @@ class AlarmConfig:
 
     objects = AlarmConfigManager()
 
-    def __init__(self, config):
-        self.alarm_id = config.get('alarm_id', '')
-        self.custom_name = config.get('custom_name', '')
-        self.type = config.get('type', '')
-        self.view = config.get('view', '')
-        self.placemark = config.get('placemark', '')
-        self.group = config.get('group', '')
-        self.children = [
-            c['alarm_id'] for c in config.get('children', [])
-        ]
+    def __init__(self, config={}):
+        self.alarm_id = self.__check_data_type(config, 'alarm_id')
+        self.custom_name = self.__check_data_type(config, 'custom_name')
+        self.type = self.__check_data_type(config, 'type')
+        self.view = self.__check_data_type(config, 'view')
+        self.placemark = self.__check_data_type(config, 'placemark')
+        self.group = self.__check_data_type(config, 'group')
+        self.children = self.__check_data_type(config, 'children')
 
     def __str__(self):
         """ Return a string representation for the file """
         return '{} : {}'.format(self.alarm_id, self.custom_name)
+
+    def __repr__(self):
+        """ Return a representation for the file """
+        return json.dumps(self.to_dict())
+
+    def __eq__(self, other):
+        return self.to_dict() == other.to_dict()
+
+    def __check_data_type(self, config, attr):
+        if attr is not 'children':
+            value = config.get(attr, '')
+            if value is None:
+                raise TypeError
+            if isinstance(value, str):
+                value = value.strip()
+            return value
+        else:
+            value = config.get(attr, [])
+            if value is None:
+                raise TypeError
+            if isinstance(value, list):
+                if len(value) > 0:
+                    alarm_config_ids = []
+                    for e in value:
+                        if 'alarm_id' in e:
+                            alarm_config_ids.append(e['alarm_id'])
+                    value = alarm_config_ids
+            return value
 
     def to_dict(self):
         return {

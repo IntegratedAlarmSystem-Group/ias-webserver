@@ -1,0 +1,43 @@
+{
+  "key1": {
+      "key2": [
+          {
+              "alarm_id": "alarm_id_1",
+              "custom_name": "alarm_id_1_custom_name",
+              "type": "alarm_id_1_type",
+              "view": "alarm_id_1_view",
+              "placemark": "alarm_id_1_placemark",
+              "group": "alarm_id_1_group",
+              "children": [
+                  {
+                      "alarm_id": "alarm_id_1_children",
+                      "custom_name": "alarm_id_1_children_custom_name",
+                      "type": "alarm_id_1_children_type",
+                      "view": "alarm_id_1_children_view",
+                      "placemark": "alarm_id_1_children_placemark",
+                      "group": "alarm_id_1_children_group",
+                      "children": []
+                  }
+              ]
+          },
+          {
+              "alarm_id": "alarm_id_2",
+              "custom_name": " ",
+              "type": "alarm_id_2_type",
+              "view": "alarm_id_2_view",
+              "placemark": "alarm_id_2_placemark",
+              "group": "alarm_id_2_group",
+              "children": []
+          },
+          {
+              "alarm_id": "alarm_id_3",
+              "custom_name": "",
+              "type": "alarm_id_3_type",
+              "view": "alarm_id_3_view",
+              "placemark": "alarm_id_3_placemark",
+              "group": "alarm_id_3_group",
+              "children": []
+          }
+        ]
+  }
+}
