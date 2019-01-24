@@ -5,7 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from dry_rest_permissions.generics import DRYPermissions
 from panels.models import (
-    File, LocalAlarmConfig, Placemark, PlacemarkGroup)
+    File, AlarmConfig, Placemark, PlacemarkGroup)
 from panels.serializers import PlacemarkSerializer
 from panels.connectors import ValueConnector
 
@@ -56,7 +56,7 @@ class AlarmConfigViewSet(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
     def list(self, request, format=None):
-        queryset = LocalAlarmConfig.objects.all()
+        queryset = AlarmConfig.objects.all()
         data = [e.to_dict() for e in queryset]
         return Response(data, status=status.HTTP_200_OK)
 
@@ -65,10 +65,10 @@ class AlarmConfigViewSet(viewsets.ViewSet):
         key = request.GET.get('key', None)
         if key == ANTENNAS_CONFIG_FILE_KEY:
             values = ValueConnector.get_antennas_to_pad_values()
-            data = LocalAlarmConfig.objects.get_file_configuration_data(
+            data = AlarmConfig.objects.get_file_configuration_data(
                 key, update_placemark_values=values)
         else:
-            data = LocalAlarmConfig.objects.get_file_configuration_data(key)
+            data = AlarmConfig.objects.get_file_configuration_data(key)
         if data is not None:
             return Response(data, status=status.HTTP_200_OK)
         else:
@@ -98,7 +98,7 @@ class PlacemarkViewSet(viewsets.ModelViewSet):
         def get_placemark_to_alarm_config_dict():
             key = ANTENNAS_CONFIG_FILE_KEY
             values = ValueConnector.get_antennas_to_pad_values()
-            a_configs = LocalAlarmConfig.objects.get_file_configurations(
+            a_configs = AlarmConfig.objects.get_file_configurations(
                 key, update_placemark_values=values)
             placemark_to_alarm_config = {
                 c.placemark:

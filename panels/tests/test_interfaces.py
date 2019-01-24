@@ -1,7 +1,7 @@
 import mock
 from panels.interfaces import IPanels
 from django.test import TestCase
-from panels.models import LocalAlarmConfig
+from panels.models import AlarmConfig
 
 
 class TestIPanels(TestCase):
@@ -52,11 +52,11 @@ class TestIPanels(TestCase):
         ]
 
         self.alarm_configurations = [
-            LocalAlarmConfig(e) for e in alarm_configurations
+            AlarmConfig(e) for e in alarm_configurations
         ]
 
     @mock.patch(
-        'panels.models.LocalAlarmConfig.objects.all')
+        'panels.models.AlarmConfig.objects.all')
     def test_get_alarm_ids_of_alarm_configs(
         self, mock_all_alarm_configs
     ):
@@ -82,7 +82,7 @@ class TestIPanels(TestCase):
         )
 
     @mock.patch(
-        'panels.models.LocalAlarmConfig.objects.all')
+        'panels.models.AlarmConfig.objects.all')
     def test_get_alarms_views_dict_of_alarm_configs(
         self, mock_all_alarm_configs
     ):

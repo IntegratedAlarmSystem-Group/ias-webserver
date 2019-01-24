@@ -90,7 +90,7 @@ class File:
     def _collect_configurations_from_list(self, configurations, full_list):
         if isinstance(configurations, list):
             for config in configurations:
-                full_list += [LocalAlarmConfig(config)]
+                full_list += [AlarmConfig(config)]
                 if len(config['children']) > 0:
                     self._collect_configurations_from_list(
                         config['children'], full_list)
@@ -225,7 +225,7 @@ class Placemark(models.Model):
         return False
 
 
-class LocalAlarmConfigManager:
+class AlarmConfigManager:
 
     def all(self):
         full_config_list = []
@@ -258,9 +258,9 @@ class LocalAlarmConfigManager:
         )
 
 
-class LocalAlarmConfig:
+class AlarmConfig:
 
-    objects = LocalAlarmConfigManager()
+    objects = AlarmConfigManager()
 
     def __init__(self, config):
         self.alarm_id = config.get('alarm_id', '')

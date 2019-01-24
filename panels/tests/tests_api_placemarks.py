@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
 from panels.models import (
-    LocalAlarmConfig,
+    AlarmConfig,
     Placemark,
     PlacemarkType,
     PlacemarkGroup
@@ -110,7 +110,7 @@ class PlacemarksTestSetUp:
             }
         ]
         self.antennas_configurations = [
-            LocalAlarmConfig(e) for e in antennas_configurations_values
+            AlarmConfig(e) for e in antennas_configurations_values
         ]
         updated_antennas_configurations_values = []
         for conf in antennas_configurations_values:
@@ -127,7 +127,7 @@ class PlacemarksTestSetUp:
                         updated_conf[key] = conf[key]
             updated_antennas_configurations_values.append(updated_conf)
         self.updated_antennas_configurations = [
-            LocalAlarmConfig(e) for e in updated_antennas_configurations_values
+            AlarmConfig(e) for e in updated_antennas_configurations_values
         ]
 
     def setCommonUsersAndClients(self):
@@ -172,7 +172,7 @@ class RetrievePadsBySelectedGroup(
         return client.get(url, data, format='json')
 
     @mock.patch(
-        'panels.models.LocalAlarmConfig.objects.get_file_configurations')
+        'panels.models.AlarmConfig.objects.get_file_configurations')
     @mock.patch('panels.models.FileManager._get_files_absolute_location')
     @mock.patch('panels.connectors.ValueConnector.get_antennas_to_pad_values')
     def test_api_can_get_pads_by_group(
@@ -263,7 +263,7 @@ class RetrievePadsByGroup(
         return client.get(url, format='json')
 
     @mock.patch(
-        'panels.models.LocalAlarmConfig.objects.get_file_configurations')
+        'panels.models.AlarmConfig.objects.get_file_configurations')
     @mock.patch('panels.models.FileManager._get_files_absolute_location')
     @mock.patch('panels.connectors.ValueConnector.get_antennas_to_pad_values')
     def test_api_can_get_pads_by_group_without_group(
