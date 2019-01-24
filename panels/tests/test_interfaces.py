@@ -96,17 +96,3 @@ class TestIPanels(TestCase):
 
         # Assert:
         self.assertDictEqual(response, expected)
-
-    def test_get_names_of_views(self):
-        """
-        Test that IPanels.get_names_of_views
-        returns a list with the views names
-        """
-
-        expected = ["antennas"]
-
-        # Act:
-        response = IPanels.get_names_of_views()
-
-        # Assert:
-        self.assertEqual(expected, response)

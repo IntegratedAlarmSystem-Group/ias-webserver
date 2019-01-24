@@ -1,5 +1,5 @@
 import logging
-from panels.models import AlarmConfig, View
+from panels.models import AlarmConfig
 
 logger = logging.getLogger(__name__)
 
@@ -31,15 +31,3 @@ class IPanels:
         """
         q = AlarmConfig.objects.all()
         return {config.alarm_id: [config.view.name] for config in q}
-
-    @classmethod
-    def get_names_of_views(self):
-        """
-        Returns a list with the names of the views
-
-        Returns:
-            (list): the list of names of the views
-        """
-        views = View.objects.all()
-        names = [view.name for view in views]
-        return names
