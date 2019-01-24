@@ -239,23 +239,6 @@ class TestTicketConnector(TestCase):
 class TestPanelsConnector(TestCase):
     """This class defines the test suite for the Tickets Connector"""
 
-    @mock.patch('panels.interfaces.IPanels.update_antennas_configuration')
-    def test_update_antennas_conf(self, IPanels_update_antennas_configuration):
-        """
-        Test that PanelsConnector.update_antennas_configuration calls
-        IPanels.update_antennas_configuration
-        """
-        # Arrange:
-        association = "A000:PAD0,A001:PAD1,A002:PAD2"
-        # Act:
-        PanelsConnector.update_antennas_configuration(association)
-        # Assert:
-        self.assertTrue(
-            IPanels_update_antennas_configuration.called,
-            'The IPanels.update_antennas_configuration function was not called'
-        )
-        IPanels_update_antennas_configuration.assert_called_with(association)
-
     @mock.patch('panels.interfaces.IPanels.get_alarm_ids_of_alarm_configs')
     def test_get_alarm_ids_of_alarm_configs(
         self, IPanels_get_alarm_ids_of_alarm_configs
