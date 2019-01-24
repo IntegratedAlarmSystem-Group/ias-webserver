@@ -1,5 +1,5 @@
 import logging
-from panels.models import AlarmConfig
+from panels.models import LocalAlarmConfig
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +16,7 @@ class IPanels:
         Returns:
             (list): the list of alarm ids
         """
-        configs = AlarmConfig.objects.all()
+        configs = LocalAlarmConfig.objects.all()
         ids = [config.alarm_id for config in configs]
         return ids
 
@@ -29,5 +29,5 @@ class IPanels:
         Returns:
             (dict): dictionary of views names with alarm_ids as keys
         """
-        q = AlarmConfig.objects.all()
-        return {config.alarm_id: [config.view.name] for config in q}
+        q = LocalAlarmConfig.objects.all()
+        return {config.alarm_id: [config.view] for config in q}

@@ -1,12 +1,7 @@
+import mock
 from panels.interfaces import IPanels
 from django.test import TestCase
-from panels.models import (
-    AlarmConfig,
-    View,
-    Type,
-    Placemark,
-    PlacemarkType
-)
+from panels.models import LocalAlarmConfig
 
 
 class TestIPanels(TestCase):
@@ -16,79 +11,93 @@ class TestIPanels(TestCase):
         # Arrange:
         """Define the test suite setup"""
 
-        self.antenna_pad_association = "A000:PAD0,A001:PAD1,A002:PAD2"
-        self.antennas_view = View.objects.create(name='antennas')
-        self.antenna_type = Type.objects.create(name='antenna')
-        self.alarm_config_items = [
-            AlarmConfig.objects.create(
-                alarm_id="antenna_alarm_0",
-                view=self.antennas_view,
-                type=self.antenna_type,
-                custom_name="A000",
-                tags="group_A"
-            ),
-            AlarmConfig.objects.create(
-                alarm_id="antenna_alarm_1",
-                view=self.antennas_view,
-                type=self.antenna_type,
-                custom_name="A001",
-                tags="group_A"
-            ),
-            AlarmConfig.objects.create(
-                alarm_id="antenna_alarm_2",
-                view=self.antennas_view,
-                type=self.antenna_type,
-                custom_name="A002",
-                tags="group_A"
-            )
-        ]
-        self.placemark_type = PlacemarkType.objects.create(name='pad')
-        self.placemarks = [
-            Placemark.objects.create(
-                name="PAD0",
-                type=self.placemark_type
-            ),
-            Placemark.objects.create(
-                name="PAD1",
-                type=self.placemark_type
-            ),
-            Placemark.objects.create(
-                name="PAD2",
-                type=self.placemark_type
-            )
+        alarm_configurations = [
+            {
+                "alarm_id": "antenna_alarm_0",
+                "custom_name": "A000",
+                "type": "antenna",
+                "view": "antennas",
+                "placemark": "A000",
+                "group": "",
+                "children": []
+            },
+            {
+                "alarm_id": "antenna_alarm_1",
+                "custom_name": "A001",
+                "type": "antenna",
+                "view": "antennas",
+                "placemark": "A001",
+                "group": "",
+                "children": []
+            },
+            {
+                "alarm_id": "antenna_alarm_2",
+                "custom_name": "A002",
+                "type": "antenna",
+                "view": "antennas",
+                "placemark": "A002",
+                "group": "",
+                "children": []
+            },
+            {
+                "alarm_id": "weather_alarm_0",
+                "custom_name": None,
+                "type": "windspeed",
+                "view": "weather",
+                "placemark": "",
+                "group": "S",
+                "children": []
+
+            }
         ]
 
-    def test_get_alarm_ids_of_alarm_configs(self):
+        self.alarm_configurations = [
+            LocalAlarmConfig(e) for e in alarm_configurations
+        ]
+
+    @mock.patch(
+        'panels.models.LocalAlarmConfig.objects.all')
+    def test_get_alarm_ids_of_alarm_configs(
+        self, mock_all_alarm_configs
+    ):
         """
         Test that IPanels.get_alarm_ids_of_alarm_configs returns the alarm_ids
         """
         # Arrange:
-        antennas_config = AlarmConfig.objects.filter(
-                            view__name="antennas",
-                            type__name="antenna"
-                          )
-        for item in antennas_config:
-            self.assertTrue(
-                item.placemark is None,
-                "The antennas have placemarks associated before the update")
+        mock_all_alarm_configs.return_value = self.alarm_configurations
+        expected_ids = [
+            "antenna_alarm_0",
+            "antenna_alarm_1",
+            "antenna_alarm_2",
+            "weather_alarm_0"
+        ]
+
         # Act:
         ids = IPanels.get_alarm_ids_of_alarm_configs()
+
         # Assert:
         self.assertEqual(
-            ids,
-            ["antenna_alarm_0", "antenna_alarm_1", "antenna_alarm_2"]
+            sorted(ids),
+            sorted(expected_ids)
         )
 
-    def test_get_alarms_views_dict_of_alarm_configs(self):
+    @mock.patch(
+        'panels.models.LocalAlarmConfig.objects.all')
+    def test_get_alarms_views_dict_of_alarm_configs(
+        self, mock_all_alarm_configs
+    ):
         """
         Test that IPanels.get_alarms_views_dict_of_alarm_configs
         returns the related views
         """
+        # Arrange:
+        mock_all_alarm_configs.return_value = self.alarm_configurations
 
         expected = {
             "antenna_alarm_0": ["antennas"],
             "antenna_alarm_1": ["antennas"],
             "antenna_alarm_2": ["antennas"],
+            "weather_alarm_0": ["weather"]
         }
 
         # Act:
