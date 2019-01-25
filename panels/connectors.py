@@ -18,10 +18,12 @@ class ValueConnector:
 
         selected_ias_value = IAlarms.get_value(ANTENNAS_TO_PADS_VALUE_ID)
 
-        antennas_pads_association = selected_ias_value.value
         values = {}
-        for item in antennas_pads_association.split(','):
-            antenna_id, pad_placemark_id = item.split(':')
-            values[antenna_id] = pad_placemark_id
+
+        if selected_ias_value is not None:
+            antennas_pads_association = selected_ias_value.value
+            for item in antennas_pads_association.split(','):
+                antenna_id, pad_placemark_id = item.split(':')
+                values[antenna_id] = pad_placemark_id
 
         return values
