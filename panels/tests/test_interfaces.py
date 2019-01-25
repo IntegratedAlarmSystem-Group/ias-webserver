@@ -48,7 +48,36 @@ class TestIPanels(TestCase):
                 "group": "S",
                 "children": []
 
-            }
+            },
+            {
+                "alarm_id": "weather_alarm_0",  # config with another view
+                "custom_name": "",
+                "type": "windspeed",
+                "view": "other",
+                "placemark": "",
+                "group": "S",
+                "children": []
+
+            },
+            {
+                "alarm_id": "weather_alarm_0",  # duplicated configuration
+                "custom_name": "",
+                "type": "windspeed",
+                "view": "weather",
+                "placemark": "",
+                "group": "S",
+                "children": []
+
+            },
+            {
+                "alarm_id": "antenna_alarm_0",  # duplicated configuration
+                "custom_name": "A000",
+                "type": "antenna",
+                "view": "antennas",
+                "placemark": "A000",
+                "group": "",
+                "children": []
+            },
         ]
 
         self.alarm_configurations = [
@@ -97,7 +126,7 @@ class TestIPanels(TestCase):
             "antenna_alarm_0": ["antennas"],
             "antenna_alarm_1": ["antennas"],
             "antenna_alarm_2": ["antennas"],
-            "weather_alarm_0": ["weather"]
+            "weather_alarm_0": ["weather", "other"]
         }
 
         # Act:
