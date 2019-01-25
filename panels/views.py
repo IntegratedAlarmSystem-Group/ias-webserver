@@ -101,8 +101,8 @@ class PlacemarkViewSet(viewsets.ModelViewSet):
             a_configs = AlarmConfig.objects.get_file_configurations(
                 key, update_placemark_values=values)
             placemark_to_alarm_config = {
-                c.placemark:
-                c for c in a_configs if c.placemark.strip() is not ""}
+                c.placemark: c for c in a_configs if c.has_placemark()
+            }
             return placemark_to_alarm_config
 
         group_name = self.request.query_params.get('group', None)

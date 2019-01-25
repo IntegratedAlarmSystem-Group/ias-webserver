@@ -317,3 +317,10 @@ class AlarmConfig:
             'group': self.group,
             'children': self.children
         }
+
+    def has_placemark(self):
+        has_value = False
+        if self.placemark is not None:
+            if self.placemark.strip() != '':
+                has_value = True
+        return has_value
