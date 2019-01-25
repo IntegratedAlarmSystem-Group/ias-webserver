@@ -238,12 +238,24 @@ class Placemark(models.Model):
 class AlarmConfigManager:
 
     def all(self):
+        """ Returns a list with instances for the configurations
+            with the original data provided in the configuration files
+        """
         full_config_list = []
         for file in File.objects.all_config_files():
             full_config_list += file.get_configurations()
         return full_config_list
 
     def get_file_configurations(self, key, update_placemark_values={}):
+        """ Returns a list with instances for the configurations
+            based on the data provided in a configuration file
+            which can be updated with new values for the placemarks
+
+            Args:
+                key (string): file key
+                update_placemark_values (dict): dictionary with new values
+                for the placemarks
+        """
         file = File.objects.get_instance_for_localfile(key)
         if file is not None:
             if file.is_config_file():
@@ -253,13 +265,22 @@ class AlarmConfigManager:
                 return full_config_list
 
     def get_file_configuration_data(self, key, update_placemark_values={}):
+        """ Returns a python object based on the configuration data provided
+            in a configuration file which can be updated with new values for
+            the placemarks
+
+            Args:
+                key (string): file key
+                update_placemark_values (dict): dictionary with new values
+                for the placemarks
+        """
         file = File.objects.get_instance_for_localfile(key)
         if file is not None:
             if file.is_config_file():
-                full_config_list = file.get_configuration_data(
+                config_data = file.get_configuration_data(
                     update_placemark_values=update_placemark_values
                 )
-                return full_config_list
+                return config_data
 
 
 class AlarmConfig:
