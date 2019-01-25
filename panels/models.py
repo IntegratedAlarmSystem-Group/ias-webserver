@@ -287,17 +287,10 @@ class AlarmConfig:
         return self.to_dict() == other.to_dict()
 
     def __check_data_type(self, config, attr):
-        if attr is not 'children':
-            value = config.get(attr, '')
-            if value is None:
-                raise TypeError
-            if isinstance(value, str):
-                value = value.strip()
-            return value
-        else:
+        if attr is 'children':
             value = config.get(attr, [])
             if value is None:
-                raise TypeError
+                value = []
             if isinstance(value, list):
                 if len(value) > 0:
                     alarm_config_ids = []
@@ -305,6 +298,18 @@ class AlarmConfig:
                         if 'alarm_id' in e:
                             alarm_config_ids.append(e['alarm_id'])
                     value = alarm_config_ids
+            return value
+        elif attr is 'alarm_id':
+            value = config.get(attr, '')
+            if value is None:
+                raise TypeError
+            return value
+        else:
+            value = config.get(attr, '')
+            if value is None:
+                raise TypeError
+            if isinstance(value, str):
+                value = value.strip()
             return value
 
     def to_dict(self):
@@ -322,5 +327,12 @@ class AlarmConfig:
         has_value = False
         if self.placemark is not None:
             if self.placemark.strip() != '':
+                has_value = True
+        return has_value
+
+    def has_view(self):
+        has_value = False
+        if self.view is not None:
+            if self.view.strip() != '':
                 has_value = True
         return has_value
