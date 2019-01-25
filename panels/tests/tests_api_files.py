@@ -3,12 +3,11 @@ import mock
 import os
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
 from panels.models import File
-from panels.serializers import FileSerializer
 
 
 class APITestBase:
@@ -34,22 +33,12 @@ class FileTestSetup:
 
     def setTestFilesConfig(self):
         """Define the test suite setup"""
-        self.message = 'Shelved because of reasons'
-        self.new_data = {
-            'key': 'my_new_key',
-            'url': 'my_new_url.json'
-        }
         self.files = [
-            File.objects.create(
-                key='my_file_1',
-                url='mock.json'
-            ),
-            File.objects.create(
-                key='my_file_2',
-                url='my_url_2.json'
-            )
+            File('mock', 'mock.json'),
+            File('mock_config', 'mock_config.json'),
+            File('mock_list_config', 'mock_list_config.json'),
+            File('mock_dict_config', 'mock_dict_config.json')
         ]
-        self.old_count = File.objects.count()
 
     def setCommonUsersAndClients(self):
         """ Add unauthenticated and unauthorized users """
@@ -64,80 +53,6 @@ class FileTestSetup:
         self.authenticated_unauthorized_client = client
 
 
-class CreateFile(
-    APITestBase, FileTestSetup, TestCase
-):
-    """ Test suite to test the create request """
-
-    def setUp(self):
-        """ Define the test suite setup """
-        self.setTestFilesConfig()
-        self.setCommonUsersAndClients()
-
-        self.authorized_user = self.create_user(
-            username='authorized', password='123',
-            permissions=[
-                Permission.objects.get(codename='add_file'),
-            ])
-        client = APIClient()
-        self.authenticate_client_using_token(
-            client,
-            Token.objects.get(user__username=self.authorized_user.username)
-        )
-        self.authenticated_authorized_client = client
-
-    def target_request_from_client(self, client):
-        data = self.new_data
-        url = reverse('file-list')
-        return client.post(url, data, format='json')
-
-    def test_api_can_create_file(self):
-        """ Test that the api can create a file """
-        self.client = self.authenticated_authorized_client
-        # Act:
-        self.response = self.target_request_from_client(self.client)
-        # Assert:
-        created_file = File.objects.get(
-            url=self.new_data['url']
-        )
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_201_CREATED,
-            'The server did not create the file'
-        )
-        self.assertEqual(
-            self.old_count + 1,
-            File.objects.count(),
-            'The server did not create a new file in the database'
-        )
-        retrieved_data = created_file.to_dict()
-        self.assertEqual(
-            retrieved_data,
-            self.new_data,
-            'The created file does not match the data sent in the request'
-        )
-
-    def test_api_cannot_allow_request_for_unauthenticated_user(self):
-        """ The request should not be allowed for an unauthenticated user """
-        client = self.unauthenticated_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_401_UNAUTHORIZED,
-            "Request not allowed for an unauthenticated user"
-        )
-
-    def test_api_cannot_allow_request_for_unauthorized_user(self):
-        """ The request should not be allowed for an unauthorized user """
-        client = self.authenticated_unauthorized_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_403_FORBIDDEN,
-            "Request not allowed for an unauthorized user"
-        )
-
-
 class ListFile(
     APITestBase, FileTestSetup, TestCase
 ):
@@ -150,9 +65,8 @@ class ListFile(
 
         self.authorized_user = self.create_user(
             username='authorized', password='123',
-            permissions=[
-                Permission.objects.get(codename='view_file'),
-            ])
+            permissions=[]  # non required permissions
+        )
         client = APIClient()
         self.authenticate_client_using_token(
             client,
@@ -161,11 +75,14 @@ class ListFile(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('file-list')
+        url = reverse('files-list')
         return client.get(url, format='json')
 
-    def test_api_can_list_the_files(self):
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def test_api_can_list_the_files(self, mock):
         """ Test that the api can list the files """
+        mock_location = os.path.join(os.getcwd(), 'panels', 'tests')
+        mock.return_value = mock_location
         client = self.authenticated_authorized_client
         # Act:
         response = self.target_request_from_client(client)
@@ -175,11 +92,13 @@ class ListFile(
             status.HTTP_200_OK,
             'The server did not retrieve the list of files'
         )
-        expected_data = [FileSerializer(t).data for t in self.files]
+        expected_data = [t.to_dict() for t in self.files]
+        sorted_response_data = sorted(response.data, key=lambda x: x['key'])
+        sorted_expected_data = sorted(expected_data, key=lambda x: x['key'])
         self.assertEqual(
-            response.data,
-            expected_data,
-            'The created file does not match the data sent in the request'
+            sorted_response_data,
+            sorted_expected_data,
+            'The files list does not match the data sent in the request'
         )
 
     def test_api_cannot_allow_request_for_unauthenticated_user(self):
@@ -189,211 +108,7 @@ class ListFile(
         self.assertEqual(
             self.response.status_code,
             status.HTTP_401_UNAUTHORIZED,
-            "Request not allowed for an unauthenticated user"
-        )
-
-    def test_api_cannot_allow_request_for_unauthorized_user(self):
-        """ The request should not be allowed for an unauthorized user """
-        client = self.authenticated_unauthorized_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_403_FORBIDDEN,
-            "Request not allowed for an unauthorized user"
-        )
-
-
-class RetrieveFile(
-    APITestBase, FileTestSetup, TestCase
-):
-    """ Test suite to test the retrieve request """
-
-    def setUp(self):
-        """ Define the test suite setup """
-        self.setTestFilesConfig()
-        self.setCommonUsersAndClients()
-
-        self.authorized_user = self.create_user(
-            username='authorized', password='123',
-            permissions=[
-                Permission.objects.get(codename='view_file'),
-            ])
-        client = APIClient()
-        self.authenticate_client_using_token(
-            client,
-            Token.objects.get(user__username=self.authorized_user.username)
-        )
-        self.authenticated_authorized_client = client
-
-    def target_request_from_client(self, client):
-        url = reverse('file-detail', kwargs={'pk': self.files[0].pk})
-        return client.get(url, format='json')
-
-    def test_api_can_retrieve_a_file(self):
-        """ Test that the api can retrieve a file """
-        # Act:
-        client = self.authenticated_authorized_client
-        response = self.target_request_from_client(client)
-        # Assert:
-        self.assertEqual(
-            response.status_code,
-            status.HTTP_200_OK,
-            'The server did not retrieve the file'
-        )
-        expected_data = FileSerializer(self.files[0]).data
-        self.assertEqual(
-            response.data,
-            expected_data,
-            'The retrieved file data does not match the file in the database'
-        )
-
-    def test_api_cannot_allow_request_for_unauthenticated_user(self):
-        """ The request should not be allowed for an unauthenticated user """
-        client = self.unauthenticated_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_401_UNAUTHORIZED,
-            "Request not allowed for an unauthenticated user"
-        )
-
-    def test_api_cannot_allow_request_for_unauthorized_user(self):
-        """ The request should not be allowed for an unauthorized user """
-        client = self.authenticated_unauthorized_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_403_FORBIDDEN,
-            "Request not allowed for an unauthorized user"
-        )
-
-
-class UpdateFile(
-    APITestBase, FileTestSetup, TestCase
-):
-    """ Test suite to test the update request """
-
-    def setUp(self):
-        """ Define the test suite setup """
-        self.setTestFilesConfig()
-        self.setCommonUsersAndClients()
-
-        self.authorized_user = self.create_user(
-            username='authorized', password='123',
-            permissions=[
-                Permission.objects.get(codename='change_file'),
-            ])
-        client = APIClient()
-        self.authenticate_client_using_token(
-            client,
-            Token.objects.get(user__username=self.authorized_user.username)
-        )
-        self.authenticated_authorized_client = client
-
-    def target_request_from_client(self, client):
-        url = reverse('file-detail', kwargs={'pk': self.files[0].pk})
-        return client.put(url, self.new_data, format='json')
-
-    def test_api_can_update_a_file(self):
-        """ Test that the api can update a file """
-        # Act:
-        client = self.authenticated_authorized_client
-        response = self.target_request_from_client(client)
-        # Assert:
-        self.assertEqual(
-            response.status_code,
-            status.HTTP_200_OK,
-            'The server did not update the file'
-        )
-        retrieved_file = File.objects.get(pk=self.files[0].pk)
-        self.assertEqual(
-            retrieved_file.to_dict(),
-            self.new_data,
-            'The retrieved file data does not match the file in the database'
-        )
-
-    def test_api_cannot_allow_request_for_unauthenticated_user(self):
-        """ The request should not be allowed for an unauthenticated user """
-        client = self.unauthenticated_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_401_UNAUTHORIZED,
-            "Request not allowed for an unauthenticated user"
-        )
-
-    def test_api_cannot_allow_request_for_unauthorized_user(self):
-        """ The request should not be allowed for an unauthorized user """
-        client = self.authenticated_unauthorized_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_403_FORBIDDEN,
-            "Request not allowed for an unauthorized user"
-        )
-
-
-class DeleteFile(
-    APITestBase, FileTestSetup, TestCase
-):
-    """ Test suite to test the delete request """
-
-    def setUp(self):
-        """ Define the test suite setup """
-        self.setTestFilesConfig()
-        self.setCommonUsersAndClients()
-
-        self.authorized_user = self.create_user(
-            username='authorized', password='123',
-            permissions=[
-                Permission.objects.get(codename='delete_file'),
-            ])
-        client = APIClient()
-        self.authenticate_client_using_token(
-            client,
-            Token.objects.get(user__username=self.authorized_user.username)
-        )
-        self.authenticated_authorized_client = client
-
-    def target_request_from_client(self, client):
-        url = reverse('file-detail', kwargs={'pk': self.files[0].pk})
-        return client.delete(url, format='json')
-
-    def test_api_can_delete_a_file(self):
-        """ Test that the api can delete a file """
-        # Act:
-        client = self.authenticated_authorized_client
-        response = self.target_request_from_client(client)
-        # Assert:
-        self.assertEqual(
-            response.status_code,
-            status.HTTP_204_NO_CONTENT,
-            'The server did not delete the file'
-        )
-        self.assertEqual(
-            self.old_count - 1,
-            File.objects.count(),
-            'The server did not delete the file in the database'
-        )
-
-    def test_api_cannot_allow_request_for_unauthenticated_user(self):
-        """ The request should not be allowed for an unauthenticated user """
-        client = self.unauthenticated_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_401_UNAUTHORIZED,
-            "Request not allowed for an unauthenticated user"
-        )
-
-    def test_api_cannot_allow_request_for_unauthorized_user(self):
-        """ The request should not be allowed for an unauthorized user """
-        client = self.authenticated_unauthorized_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_403_FORBIDDEN,
-            "Request not allowed for an unauthorized user"
+            "Request should not be allowed for an unauthenticated user"
         )
 
 
@@ -411,9 +126,8 @@ class GetJsonFromFile(
 
         self.authorized_user = self.create_user(
             username='authorized', password='123',
-            permissions=[
-                Permission.objects.get(codename='view_file'),
-            ])
+            permissions=[]  # non required permissions
+        )
         client = APIClient()
         self.authenticate_client_using_token(
             client,
@@ -422,13 +136,13 @@ class GetJsonFromFile(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('file-get-json')
+        url = reverse('files-get-json')
         data = {
-            'key': 'my_file_1'
+            'key': 'mock'
         }
         return client.get(url, data, format='json')
 
-    @mock.patch('panels.models.File._get_absolute_location')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
     def test_api_can_get_json_from_file(self, mock):
         """ Test that the api can get a json from a .json file """
         # Arrange:
@@ -462,16 +176,6 @@ class GetJsonFromFile(
             "Request not allowed for an unauthenticated user"
         )
 
-    def test_api_cannot_allow_request_for_unauthorized_user(self):
-        """ The request should not be allowed for an unauthorized user """
-        client = self.authenticated_unauthorized_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_403_FORBIDDEN,
-            "Request not allowed for an unauthorized user"
-        )
-
 
 class GetJsonFromFileIfKeyDoesNotExist(
     APITestBase, FileTestSetup, TestCase
@@ -487,9 +191,7 @@ class GetJsonFromFileIfKeyDoesNotExist(
 
         self.authorized_user = self.create_user(
             username='authorized', password='123',
-            permissions=[
-                Permission.objects.get(codename='view_file'),
-            ])
+            permissions=[])
         client = APIClient()
         self.authenticate_client_using_token(
             client,
@@ -498,14 +200,17 @@ class GetJsonFromFileIfKeyDoesNotExist(
         self.authenticated_authorized_client = client
 
     def target_request_from_client(self, client):
-        url = reverse('file-get-json')
+        url = reverse('files-get-json')
         data = {
             'key': 'my_fake_key'
         }
         return client.get(url, data, format='json')
 
-    def test_api_cannot_get_json_if_the_key_does_not_exist(self):
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def test_api_cannot_get_json_if_the_key_does_not_exist(self, mock):
         """ Test that the api cannot get a json if the key does not exist """
+        mock_location = os.path.join(os.getcwd(), 'panels', 'tests')
+        mock.return_value = mock_location
         # Act:
         client = self.authenticated_authorized_client
         response = self.target_request_from_client(client)
@@ -524,14 +229,4 @@ class GetJsonFromFileIfKeyDoesNotExist(
             self.response.status_code,
             status.HTTP_401_UNAUTHORIZED,
             "Request not allowed for an unauthenticated user"
-        )
-
-    def test_api_cannot_allow_request_for_unauthorized_user(self):
-        """ The request should not be allowed for an unauthorized user """
-        client = self.authenticated_unauthorized_client
-        self.response = self.target_request_from_client(client)
-        self.assertEqual(
-            self.response.status_code,
-            status.HTTP_403_FORBIDDEN,
-            "Request not allowed for an unauthorized user"
         )

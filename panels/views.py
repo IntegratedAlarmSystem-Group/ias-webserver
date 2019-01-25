@@ -1,275 +1,86 @@
-import json
 import logging
-from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets, status
+from rest_framework import authentication, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from dry_rest_permissions.generics import DRYPermissions
 from panels.models import (
-    File, AlarmConfig, View, Type, Placemark, PlacemarkGroup)
-from panels.serializers import (
-    FileSerializer, AlarmConfigSerializer, PlacemarkSerializer)
+    File, AlarmConfig, Placemark, PlacemarkGroup)
+from panels.serializers import PlacemarkSerializer
+from panels.connectors import ValueConnector
 
 logger = logging.getLogger(__name__)
 
+ANTENNAS_CONFIG_FILE_KEY = 'antennas_config'
 
-class FileViewSet(viewsets.ModelViewSet):
-    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Files."""
 
-    queryset = File.objects.all()
-    serializer_class = FileSerializer
-    permission_classes = (DRYPermissions,)
+class FileViewSet(viewsets.ViewSet):
+
+    authentication_classes = (
+        authentication.TokenAuthentication,
+        authentication.SessionAuthentication,
+    )
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def list(self, request, format=None):
+        queryset = File.objects.all()
+        data = [f.to_dict() for f in queryset]
+        return Response(data, status=status.HTTP_200_OK)
 
     @action(detail=False)
     def get_json(self, request):
-        """ Retrieve the list of tickets filtered by alarm and status """
-        key = request.query_params.get('key')
-        try:
-            file = File.objects.get(key=key)
-        except ObjectDoesNotExist:
+        key = request.GET.get('key', None)
+        file = File.objects.get_instance_for_localfile(key)
+        isAvailable = (file is not None)
+        if isAvailable:
+            data = file.get_content_data()
+            return Response(data, status=status.HTTP_200_OK)
+        else:
             logger.error(
                 'no file is associated to the given key %s (status %s)',
                 key, status.HTTP_404_NOT_FOUND)
             return Response(
-                'No file is asociated to the given key ' + key,
-                status=status.HTTP_404_NOT_FOUND
-            )
-        url = file.get_full_url()
-        with open(url) as f:
-            data = json.load(f)
-        return Response(data)
-
-
-class AlarmConfigViewSet(viewsets.ModelViewSet):
-    """`List`, `Create`, `Retrieve`, `Update` and `Destroy` Files."""
-
-    queryset = AlarmConfig.objects.all()
-    views = View.objects.all()
-    types = Type.objects.all()
-    serializer_class = AlarmConfigSerializer
-    permission_classes = (DRYPermissions,)
-
-    @action(detail=False)
-    def weather_config(self, request):
-        """ Retrieve the configuration used in the weather display """
-
-        weather_station_alarms = self.queryset.filter(
-            view__name="weather",
-            type__name="station"
-        )
-        if not len(weather_station_alarms):
-            logger.warning(
-                'there is no configuration for alarms in weather display'
-            )
-            return Response(
-                'There is no configuration for weather display',
+                'No file is asociated to the given key [{}]'.format(key),
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        data = []
-        for alarm in weather_station_alarms:
 
-            temperature = alarm.nested_alarms.filter(
-                type__name="temperature")
+class AlarmConfigViewSet(viewsets.ViewSet):
 
-            windspeed = alarm.nested_alarms.filter(
-                type__name="windspeed")
+    authentication_classes = (
+        authentication.TokenAuthentication,
+        authentication.SessionAuthentication,
+    )
 
-            humidity = alarm.nested_alarms.filter(
-                type__name="humidity")
+    permission_classes = (permissions.IsAuthenticated,)
 
-            group_name = ""
-            if alarm.placemark and alarm.placemark.group:
-                group_name = alarm.placemark.group.name
-            data.append({
-                "placemark": alarm.placemark.name if alarm.placemark else "",
-                "group": group_name,
-                "station": alarm.alarm_id,
-                "temperature": temperature[0].alarm_id if temperature else "",
-                "windspeed": windspeed[0].alarm_id if windspeed else "",
-                "humidity": humidity[0].alarm_id if humidity else ""
-            })
-
-        return Response(data)
+    def list(self, request, format=None):
+        queryset = AlarmConfig.objects.all()
+        data = [e.to_dict() for e in queryset]
+        return Response(data, status=status.HTTP_200_OK)
 
     @action(detail=False)
-    def antennas_config(self, request):
-        """ Retrieve the configuration used in the weather display """
-
-        antenna_alarms = self.queryset.filter(
-            view__name="antennas",
-            type__name="antenna"
-        )
-        if not len(antenna_alarms):
-            logger.warning(
-                'there is no configuration for antennas display'
-            )
-            return Response(
-                'There is no configuration for antennas display',
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-        data = {}
-        data["antennas"] = []
-        for alarm in antenna_alarms:
-            fire = alarm.nested_alarms.filter(
-                type__name="fire")
-
-            fire_sys = alarm.nested_alarms.filter(
-                type__name="fire_malfunction")
-
-            ups = alarm.nested_alarms.filter(
-                type__name="ups")
-
-            hvac = alarm.nested_alarms.filter(
-                type__name="hvac")
-
-            power = alarm.nested_alarms.filter(
-                type__name="power")
-
-            crio_temp0 = alarm.nested_alarms.filter(
-                type__name="crio_temp0")
-
-            crio_temp5 = alarm.nested_alarms.filter(
-                type__name="crio_temp5")
-
-            crio_temp9 = alarm.nested_alarms.filter(
-                type__name="crio_temp9")
-
-            crio_pres0 = alarm.nested_alarms.filter(
-                type__name="crio_pres0")
-
-            crio_pres1 = alarm.nested_alarms.filter(
-                type__name="crio_pres1")
-
-            cmpr_drive = alarm.nested_alarms.filter(
-                type__name="cmpr_drive")
-
-            data["antennas"].append(
-                {
-                  "antenna": alarm.custom_name,
-                  "placemark": alarm.placemark.name if alarm.placemark else "",
-                  "alarm": alarm.alarm_id,
-                  "fire": fire[0].alarm_id if fire else "",
-                  "fire_malfunction": fire_sys[0].alarm_id if fire_sys else "",
-                  "ups": ups[0].alarm_id if ups else "",
-                  "hvac": hvac[0].alarm_id if hvac else "",
-                  "power": power[0].alarm_id if power else "",
-                  "crio_temp0": crio_temp0[0].alarm_id if crio_temp0 else "",
-                  "crio_temp5": crio_temp5[0].alarm_id if crio_temp5 else "",
-                  "crio_temp9": crio_temp9[0].alarm_id if crio_temp9 else "",
-                  "crio_pres0": crio_pres0[0].alarm_id if crio_pres0 else "",
-                  "crio_pres1": crio_pres1[0].alarm_id if crio_pres1 else "",
-                  "cmpr_drive": cmpr_drive[0].alarm_id if cmpr_drive else "",
-                }
-            )
-
-        other_devices = self.queryset.filter(
-            view__name="antennas",
-            type__name="device"
-        )
-        if not len(other_devices):
-            logger.warning(
-                'there is no configuration for other array devices'
-            )
-            return Response(data)
-
-        data["devices"] = []
-        for dev in other_devices:
-            data["devices"].append(
-                {
-                  "antenna": dev.custom_name,
-                  "placemark": dev.placemark.name if dev.placemark else "",
-                  "alarm": dev.alarm_id,
-                }
-            )
-
-        return Response(data)
-
-    @action(detail=False)
-    def antennas_summary_config(self, request):
-        """ Retrieve the configuration used in the antennas summary display """
-
-        summary_alarm = self.queryset.filter(
-            view__name="summary",
-            type__name="antenna"
-        )
-
-        if not summary_alarm:
-            logger.warning(
-                'there is no configuration for antennas summary (main view)'
-            )
-            return Response(
-                'There is no configuration for antennas summary',
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-        return Response(summary_alarm[0].alarm_id)
-
-    @action(detail=False)
-    def weather_summary_config(self, request):
-        """ Retrieve the configuration used in the weather summary display """
-
-        data = {
-            "placemark": "",
-            "station": "",
-            "humidity": "",
-            "temperature": "",
-            "windspeed": ""
-        }
-        configuration_available = False
-
-        humidity_alarm = self.queryset.filter(
-            view__name="summary", type__name="humidity"
-        )
-        if humidity_alarm:
-            data["humidity"] = humidity_alarm[0].alarm_id
-            configuration_available = True
-
-        temperature_alarm = self.queryset.filter(
-            view__name="summary", type__name="temperature"
-        )
-        if temperature_alarm:
-            data["temperature"] = temperature_alarm[0].alarm_id
-            configuration_available = True
-
-        windspeed_alarm = self.queryset.filter(
-            view__name="summary", type__name="windspeed"
-        )
-        if windspeed_alarm:
-            data["windspeed"] = windspeed_alarm[0].alarm_id
-            configuration_available = True
-
-        if configuration_available:
-            return Response(data)
+    def get_json(self, request):
+        key = request.GET.get('key', None)
+        if key == ANTENNAS_CONFIG_FILE_KEY:
+            values = ValueConnector.get_antennas_to_pad_values()
+            data = AlarmConfig.objects.get_file_configuration_data(
+                key, update_placemark_values=values)
         else:
-            logger.warning(
-                'there is no configuration for weather summary (main view)'
-            )
+            data = AlarmConfig.objects.get_file_configuration_data(key)
+        if data is not None:
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            logger.error(
+                "no configuration file is associated "
+                "to the given key %s (status %s)",
+                key, status.HTTP_404_NOT_FOUND)
             return Response(
-                'There is no configuration for weather summary alarms',
+                "No configuration file is asociated "
+                "to the given key [{}]".format(key),
                 status=status.HTTP_404_NOT_FOUND
             )
-
-    @action(detail=False)
-    def ias_health_summary_config(self, request):
-        """ Retrieve the configuration used in the antennas summary display """
-
-        summary_alarm = self.queryset.filter(
-            view__name="summary",
-            type__name="health"
-        )
-
-        if not summary_alarm:
-            logger.warning(
-                'there is no configuration for ias health summary (main view)'
-            )
-            return Response(
-                'There is no configuration for ias health summary',
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-        return Response(summary_alarm[0].alarm_id)
 
 
 class PlacemarkViewSet(viewsets.ModelViewSet):
@@ -283,8 +94,18 @@ class PlacemarkViewSet(viewsets.ModelViewSet):
     @action(detail=False)
     def pads_by_group(self, request):
         """ Retrieve the list of pads and their associated antenna by group """
-        group_name = self.request.query_params.get('group', None)
 
+        def get_placemark_to_alarm_config_dict():
+            key = ANTENNAS_CONFIG_FILE_KEY
+            values = ValueConnector.get_antennas_to_pad_values()
+            a_configs = AlarmConfig.objects.get_file_configurations(
+                key, update_placemark_values=values)
+            placemark_to_alarm_config = {
+                c.placemark: c for c in a_configs if c.has_placemark()
+            }
+            return placemark_to_alarm_config
+
+        group_name = self.request.query_params.get('group', None)
         group = self.groups.filter(name=group_name).first()
         if group_name and not group:
             logger.warning(
@@ -294,23 +115,22 @@ class PlacemarkViewSet(viewsets.ModelViewSet):
                 'There is no group with the given name',
                 status=status.HTTP_404_NOT_FOUND
             )
-
         response = {}
+        placemark_to_alarm_config = get_placemark_to_alarm_config_dict()
         pads = self.queryset.filter(type__name="pad")
         if group_name:
             response[group_name] = {}
             member_pads = pads.filter(group__name=group_name)
             for pad in member_pads:
                 antenna = None
-                if hasattr(pad, 'alarm'):
-                    antenna = pad.alarm.custom_name
+                if pad.name in placemark_to_alarm_config:
+                    antenna = placemark_to_alarm_config[pad.name].custom_name
                 response[group_name][pad.name] = antenna
-
         else:
             for pad in pads:
                 antenna = None
-                if hasattr(pad, 'alarm'):
-                    antenna = pad.alarm.custom_name
+                if pad.name in placemark_to_alarm_config:
+                    antenna = placemark_to_alarm_config[pad.name].custom_name
                 group = pad.group.name if pad.group else None
                 if group:
                     if group not in response:

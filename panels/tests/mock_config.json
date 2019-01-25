@@ -1,0 +1,95 @@
+{
+	"key1a": {
+		"key2a": {
+			"key3a": [
+				{
+					"alarm_id": "a",
+					"custom_name": "a_custom_name",
+					"type": "a_type",
+					"view": "a_view",
+					"placemark": "a_placemark",
+					"group": "a_group",
+					"children": [
+						{
+							"alarm_id": "a1",
+							"custom_name": "a1_custom_name",
+							"type": "a1_type",
+							"view": "a1_view",
+							"placemark": "a1_placemark",
+							"group": "a1_group",
+							"children": []
+						},
+						{
+							"alarm_id": "a2",
+							"custom_name": "a2_custom_name",
+							"type": "a2_type",
+							"view": "a2_view",
+							"placemark": "a2_placemark",
+							"group": "a2_group",
+							"children": []
+						}
+					]
+				},
+				{
+					"alarm_id": "b",
+					"custom_name": "b_custom_name",
+					"type": "b_type",
+					"view": "b_view",
+					"placemark": "b_placemark",
+					"group": "b_group",
+					"children": []
+				}
+			]
+		}
+	},
+	"key1b": [
+		{
+			"alarm_id": "c",
+			"custom_name": "c_custom_name",
+			"type": "c_type",
+			"view": "c_view",
+			"placemark": "c_placemark",
+			"group": "c_group",
+			"children": []
+		},
+		{
+			"alarm_id": "d",
+			"custom_name": "d_custom_name",
+			"type": "d_type",
+			"view": "d_view",
+			"placemark": "d_placemark",
+			"group": "d_group",
+			"children": [
+				{
+					"alarm_id": "e",
+					"custom_name": "e_custom_name",
+					"type": "e_type",
+					"view": "e_view",
+					"placemark": "e_placemark",
+					"group": "e_group",
+					"children": [
+						{
+							"alarm_id": "f",
+							"custom_name": "f_custom_name",
+							"type": "f_type",
+							"view": "f_view",
+							"placemark": "f_placemark",
+							"group": "f_group",
+							"children": [
+								{
+									"alarm_id": "g",
+									"custom_name": "g_custom_name",
+									"type": "g_type",
+									"view": "g_view",
+									"placemark": "g_placemark",
+									"group": "g_group",
+									"children": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
