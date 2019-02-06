@@ -11,7 +11,7 @@ All the instructions below should be executed form the project root folder, unle
 
   1. Install system requirements
   ```
-  sudo apt-get install libpq-dev python3.6-dev python-pip python3-pip virtualenv redis-server
+  sudo apt-get install libpq-dev python3.6-dev python-pip python3-pip virtualenv redis-server default-libmysqlclient-dev
   ```
   2. Create a virtualenvironment with python3:
   ```
