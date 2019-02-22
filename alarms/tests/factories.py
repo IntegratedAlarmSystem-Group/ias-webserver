@@ -55,7 +55,7 @@ class AlarmFactory:
         ]
         alarm.properties = {"prop1": "value1", "prop2": "value2"}
         alarm.timestamps = {"sentToBsdbTStamp": "2018-03-07T13:08:43",
-                            "dasuProductionTStamp": "2018-03-07T13:08:43"}
+                            "productionTStamp": "2018-03-07T13:08:43"}
         return alarm
 
     @classmethod

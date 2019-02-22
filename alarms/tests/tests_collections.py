@@ -447,7 +447,7 @@ class TestAlarmsCollectionHandling:
             core_id="TEST-CORE-ID",
             running_id="FULL-TEST-CORE-ID",
             timestamps={
-                'pluginProductionTStamp': current_time,
+                'productionTStamp': current_time,
                 'sentToConverterTStamp': current_time,
                 'receivedFromPluginTStamp': current_time,
                 'convertedProductionTStamp': current_time,

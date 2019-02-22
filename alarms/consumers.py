@@ -6,7 +6,6 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from users.models import reset_auth_token
 from alarms.models import Alarm, OperationalMode, Validity, Value, IASValue
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
-from alarms.models import Alarm
 
 logger = logging.getLogger(__name__)
 
@@ -95,12 +94,9 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
         core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
-        if 'dasuProductionTStamp' in content:
-            core_timestamp = CoreConsumer.get_timestamp_from(
-                content['dasuProductionTStamp'])
-        else:
-            core_timestamp = CoreConsumer.get_timestamp_from(
-                content['pluginProductionTStamp'])
+        core_timestamp = CoreConsumer.get_timestamp_from(
+            content['productionTStamp']
+        )
         params = {
             'value': value_options[content['value']],
             'core_timestamp': core_timestamp,
