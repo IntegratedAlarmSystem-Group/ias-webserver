@@ -202,6 +202,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Password for other processes
+PROCESS_CONNECTION_PASS = os.environ.get('PROCESS_CONNECTION_PASS', 'dev_pass')
+
 
 # Internationalization
 
