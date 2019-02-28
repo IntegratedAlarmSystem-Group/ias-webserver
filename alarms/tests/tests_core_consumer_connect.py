@@ -1,21 +1,20 @@
 import pytest
 from channels.testing import WebsocketCommunicator
 from alarms.collections import AlarmCollection
-from alarms.consumers import ClientConsumer
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from ias_webserver.routing import application as ias_app
 from ias_webserver.settings import PROCESS_CONNECTION_PASS
 
 
-class TestConnectionToClientConsumer:
+class TestConnectionToCoreConsumer:
     """This class defines the test suite for the connection
-    to the ClientConsumer"""
+    to the CoreConsumer"""
 
     def create_communicator(self, **kwargs):
         """Auxiliary method to manage a token query string authentication"""
 
-        target_endpoint = '/stream/'
+        target_endpoint = '/core/'
         query_string = kwargs.get('query_string', None)
 
         if query_string is not None:
@@ -60,7 +59,7 @@ class TestConnectionToClientConsumer:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_connection_not_allowed_without_a_token_query_string(self):
+    async def test_connection_not_allowed_without_a_token_or_password(self):
         """Test the connection can not be allowed without token data"""
         # Arrange:
         AlarmCollection.reset([])

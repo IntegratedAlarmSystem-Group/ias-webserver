@@ -5,6 +5,8 @@ from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm, IASValue
 from alarms.collections import AlarmCollection
 from alarms.consumers import CoreConsumer
+from ias_webserver.routing import application as ias_app
+from ias_webserver.settings import PROCESS_CONNECTION_PASS
 
 
 class TestCoreConsumer:
@@ -26,6 +28,7 @@ class TestCoreConsumer:
             'docUrl': 'www.dummy-url.com'
         }
         self.iasios = [self.iasio_alarm, self.iasio_double]
+        self.ws_url = '/core/?password={}'.format(PROCESS_CONNECTION_PASS)
 
     def test_get_core_id_from(self):
         """Test if the core_id value is extracted correctly from the full
@@ -173,7 +176,7 @@ class TestCoreConsumer:
         when a new alarm arrives """
         mocker.patch.object(AlarmCollection, '_create_ticket')
         # Connect:
-        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        communicator = WebsocketCommunicator(ias_app, self.ws_url)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
@@ -232,7 +235,7 @@ class TestCoreConsumer:
         """ Test if the core consumer creates the IASValue in the
         AlarmCollection when a new IasValue (no alarm) arrives """
         # Connect:
-        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        communicator = WebsocketCommunicator(ias_app, self.ws_url)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
@@ -286,7 +289,7 @@ class TestCoreConsumer:
         """ Test if the core consumer updates the IASValue in the
         AlarmCollection when a new IasValue (no alarm) arrives """
         # Connect:
-        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        communicator = WebsocketCommunicator(ias_app, self.ws_url)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
 
@@ -314,7 +317,7 @@ class TestCoreConsumer:
         await communicator.disconnect()
 
         # Connect:
-        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        communicator = WebsocketCommunicator(ias_app, self.ws_url)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
 
