@@ -142,7 +142,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         Called upon connection, rejects connection if no authenticated user
         or password
         """
-        self.stream_group_names = []
+        AlarmCollection.initialize()
         # Reject connection if no authenticated user:
         if self.scope['user'].is_anonymous:
             if self.scope['password'] and \
@@ -189,15 +189,18 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         Called upon connection, rejects connection if no authenticated user
         or password
         """
-        self.stream_group_names = []
         # Reject connection if no authenticated user:
         if self.scope['user'].is_anonymous:
             if self.scope['password'] and \
               self.scope['password'] == PROCESS_CONNECTION_PASS:
+                AlarmCollection.initialize()
+                AlarmCollection.register_observer(self)
                 await self.accept()
             else:
                 await self.close()
         else:
+            AlarmCollection.initialize()
+            AlarmCollection.register_observer(self)
             await self.accept()
 
     async def update(self, alarm, action):

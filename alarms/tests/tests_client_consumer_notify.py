@@ -1,15 +1,12 @@
 import pytest
 import copy
 from channels.testing import WebsocketCommunicator
-from alarms.consumers import ClientConsumer
 from alarms.collections import AlarmCollection
 from alarms.tests.factories import AlarmFactory
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from alarms.collections import AlarmCollection
 from alarms.connectors import PanelsConnector
 from alarms.models import Alarm
-
 from ias_webserver.routing import application as ias_app
 
 
