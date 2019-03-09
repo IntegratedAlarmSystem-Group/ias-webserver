@@ -5,6 +5,8 @@ from channels.testing import WebsocketCommunicator
 from alarms.models import Alarm, IASValue
 from alarms.collections import AlarmCollection
 from alarms.consumers import CoreConsumer
+from ias_webserver.routing import application as ias_app
+from ias_webserver.settings import PROCESS_CONNECTION_PASS
 
 
 class TestCoreConsumer:
@@ -26,6 +28,7 @@ class TestCoreConsumer:
             'docUrl': 'www.dummy-url.com'
         }
         self.iasios = [self.iasio_alarm, self.iasio_double]
+        self.ws_url = '/core/?password={}'.format(PROCESS_CONNECTION_PASS)
 
     def test_get_core_id_from(self):
         """Test if the core_id value is extracted correctly from the full
@@ -66,7 +69,7 @@ class TestCoreConsumer:
             'The calculated timestamp in milliseconds differs from the \
             expected in more than 1 millisecond'
 
-    def test_get_alarm_from_core_message_from_dasu(self):
+    def test_get_alarm_from_core_message(self):
         # Arrange:
         ID = "(S{0}:SUPERVISOR)@(d{0}:DASU)@(a{0}:ASCE)@(AlarmID{0}:IASIO)"
         msg = {
@@ -76,7 +79,7 @@ class TestCoreConsumer:
             "convertedProductionTStamp": '2010-02-27T06:37:00.0',
             "sentToBsdbTStamp": '2010-02-27T06:38:00.0',
             "readFromBsdbTStamp": '2010-02-27T06:39:00.0',
-            "dasuProductionTStamp": '2010-02-27T06:40:00.0',
+            "productionTStamp": '2010-02-27T06:40:00.0',
             "depsFullRunningIds": [ID.format(1), ID.format(2)],
             "props": {"key1": "value1", "key2": "value2"},
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
@@ -94,14 +97,14 @@ class TestCoreConsumer:
             CoreConsumer.get_timestamp_from(msg['sentToBsdbTStamp'])
         readFromBsdbTStamp = \
             CoreConsumer.get_timestamp_from(msg['readFromBsdbTStamp'])
-        dasuProductionTStamp = \
-            CoreConsumer.get_timestamp_from(msg['dasuProductionTStamp'])
+        productionTStamp = \
+            CoreConsumer.get_timestamp_from(msg['productionTStamp'])
 
         expected_alarm = Alarm(
             value=1,
             mode=5,
             validity=1,
-            core_timestamp=dasuProductionTStamp,
+            core_timestamp=productionTStamp,
             core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
             dependencies=['AlarmID{0}'.format(1), 'AlarmID{0}'.format(2)],
@@ -112,62 +115,7 @@ class TestCoreConsumer:
                 'convertedProductionTStamp': convertedProductionTStamp,
                 'sentToBsdbTStamp': sentToBsdbTStamp,
                 'readFromBsdbTStamp': readFromBsdbTStamp,
-                'dasuProductionTStamp': dasuProductionTStamp,
-            }
-        )
-        # Act:
-        alarm = CoreConsumer.get_alarm_from_core_msg(msg)
-        # Assert:
-        assert alarm.to_dict() == expected_alarm.to_dict(), \
-            'The alarm was not converted correctly'
-
-    def test_get_alarm_from_core_message_from_plugin(self):
-        # Arrange:
-        ID = "(S{0}:SUPERVISOR)@(d{0}:DASU)@(a{0}:ASCE)@(AlarmID{0}:IASIO)"
-        msg = {
-            "value": "SET_LOW",
-            "pluginProductionTStamp": '2010-02-27T06:34:00.0',
-            "sentToConverterTStamp": '2010-02-27T06:35:00.0',
-            "receivedFromPluginTStamp": '2010-02-27T06:36:00.0',
-            "convertedProductionTStamp": '2010-02-27T06:37:00.0',
-            "sentToBsdbTStamp": '2010-02-27T06:38:00.0',
-            "readFromBsdbTStamp": '2010-02-27T06:39:00.0',
-            "depsFullRunningIds": [ID.format(1), ID.format(2)],
-            "props": {"key1": "value1", "key2": "value2"},
-            "mode": "OPERATIONAL",   # 5: OPERATIONAL
-            "iasValidity": "RELIABLE",
-            "fullRunningId": ID.format(3),
-            "valueType": "ALARM"
-        }
-        pluginProductionTStamp = \
-            CoreConsumer.get_timestamp_from(msg['pluginProductionTStamp'])
-        sentToConverterTStamp = \
-            CoreConsumer.get_timestamp_from(msg['sentToConverterTStamp'])
-        receivedFromPluginTStamp = \
-            CoreConsumer.get_timestamp_from(msg['receivedFromPluginTStamp'])
-        convertedProductionTStamp = \
-            CoreConsumer.get_timestamp_from(msg['convertedProductionTStamp'])
-        sentToBsdbTStamp = \
-            CoreConsumer.get_timestamp_from(msg['sentToBsdbTStamp'])
-        readFromBsdbTStamp = \
-            CoreConsumer.get_timestamp_from(msg['readFromBsdbTStamp'])
-
-        expected_alarm = Alarm(
-            value=1,
-            mode=5,
-            validity=1,
-            core_timestamp=pluginProductionTStamp,
-            core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
-            running_id=msg['fullRunningId'],
-            dependencies=['AlarmID{0}'.format(1), 'AlarmID{0}'.format(2)],
-            properties={'key1': 'value1', 'key2': 'value2'},
-            timestamps={
-                'pluginProductionTStamp': pluginProductionTStamp,
-                'sentToConverterTStamp': sentToConverterTStamp,
-                'receivedFromPluginTStamp': receivedFromPluginTStamp,
-                'convertedProductionTStamp': convertedProductionTStamp,
-                'sentToBsdbTStamp': sentToBsdbTStamp,
-                'readFromBsdbTStamp': readFromBsdbTStamp,
+                'productionTStamp': productionTStamp,
             }
         )
         # Act:
@@ -186,7 +134,7 @@ class TestCoreConsumer:
         msg = {
             "value": "SOME_VALUE",
             "readFromMonSysTStamp": formatted_current_time,
-            "pluginProductionTStamp": formatted_current_time,
+            "productionTStamp": formatted_current_time,
             "sentToConverterTStamp": formatted_current_time,
             "receivedFromPluginTStamp": formatted_current_time,
             "convertedProductionTStamp": formatted_current_time,
@@ -207,7 +155,7 @@ class TestCoreConsumer:
             running_id=msg['fullRunningId'],
             timestamps={
                 'readFromMonSysTStamp': current_time_millis,
-                'pluginProductionTStamp': current_time_millis,
+                'productionTStamp': current_time_millis,
                 'sentToConverterTStamp': current_time_millis,
                 'receivedFromPluginTStamp': current_time_millis,
                 'convertedProductionTStamp': current_time_millis,
@@ -228,7 +176,7 @@ class TestCoreConsumer:
         when a new alarm arrives """
         mocker.patch.object(AlarmCollection, '_create_ticket')
         # Connect:
-        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        communicator = WebsocketCommunicator(ias_app, self.ws_url)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
@@ -239,7 +187,7 @@ class TestCoreConsumer:
                                 formatted_current_time)
         msg = {
             "value": "SET_MEDIUM",
-            "dasuProductionTStamp": formatted_current_time,
+            "productionTStamp": formatted_current_time,
             "sentToBsdbTStamp": formatted_current_time,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
@@ -259,7 +207,7 @@ class TestCoreConsumer:
             dependencies=[],
             properties={},
             timestamps={
-                'dasuProductionTStamp': current_time_millis,
+                'productionTStamp': current_time_millis,
                 'sentToBsdbTStamp': current_time_millis
             },
             description=self.iasio_alarm['shortDesc'],
@@ -287,7 +235,7 @@ class TestCoreConsumer:
         """ Test if the core consumer creates the IASValue in the
         AlarmCollection when a new IasValue (no alarm) arrives """
         # Connect:
-        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        communicator = WebsocketCommunicator(ias_app, self.ws_url)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
         # Arrange:
@@ -341,7 +289,7 @@ class TestCoreConsumer:
         """ Test if the core consumer updates the IASValue in the
         AlarmCollection when a new IasValue (no alarm) arrives """
         # Connect:
-        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        communicator = WebsocketCommunicator(ias_app, self.ws_url)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
 
@@ -369,7 +317,7 @@ class TestCoreConsumer:
         await communicator.disconnect()
 
         # Connect:
-        communicator = WebsocketCommunicator(CoreConsumer, "/core/")
+        communicator = WebsocketCommunicator(ias_app, self.ws_url)
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
 

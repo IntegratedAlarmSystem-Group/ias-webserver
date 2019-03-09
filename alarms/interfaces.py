@@ -55,3 +55,13 @@ class IAlarms:
         alarm_id (string): The id of the alarm to get the ancestors
         """
         return AlarmCollection.get_ancestors_recursively(alarm_id)
+
+    @classmethod
+    def get_value(self, value_id):
+        """
+        Get a selected IASValue from the values_collection
+
+        Args:
+        value_id (string): The core_id of the value
+        """
+        return AlarmCollection.get_value(value_id)

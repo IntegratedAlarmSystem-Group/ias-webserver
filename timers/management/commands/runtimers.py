@@ -5,10 +5,10 @@ from asgiref.sync import sync_to_async
 from django.core.management.base import BaseCommand
 from alarms.connectors import CdbConnector
 from timers.clients import WSClient
-from rest_framework.authtoken.models import Token
 from ias_webserver.settings import (
     BROADCAST_RATE_FACTOR,
-    UNSHELVE_CHECKING_RATE
+    UNSHELVE_CHECKING_RATE,
+    PROCESS_CONNECTION_PASS,
 )
 
 logger = logging.getLogger(__name__)
@@ -46,15 +46,15 @@ class Command(BaseCommand):
         hostname = DEFAULT_HOSTNAME
         port = DEFAULT_PORT
 
-        token_key = Token.objects.get(user__username='timer').key
-
         if options['hostname'] is not None:
             hostname = options['hostname']
 
         if options['port'] is not None:
             port = options['port']
 
-        return 'ws://{}:{}/stream/?token={}'.format(hostname, port, token_key)
+        return 'ws://{}:{}/stream/?password={}'.format(
+            hostname, port, PROCESS_CONNECTION_PASS
+        )
 
     def get_http_url(self, options):
         """

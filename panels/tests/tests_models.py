@@ -1,240 +1,306 @@
+import os
+import json
+import mock
 from django.test import TestCase
+from panels.models import AlarmConfig
 from panels.models import (
     File,
-    View,
-    Type,
-    AlarmConfig,
     PlacemarkType,
     PlacemarkGroup,
     Placemark
 )
 
-
-class FileModelsTestCase(TestCase):
-    """This class defines the test suite for the File model tests"""
-
-    def setUp(self):
-        self.url = 'dummy.url.com'
-        self.key = 'dummy_key'
-        self.new_url = 'new_dummy.url.com'
-        self.old_count = File.objects.count()
-
-    def test_create_file(self):
-        """ Test if we can create a file"""
-        # Act:
-        File.objects.create(
-            key=self.key,
-            url=self.url
-        )
-        # Asserts:
-        self.new_count = File.objects.count()
-        self.assertEqual(
-            self.old_count + 1, self.new_count,
-            'The File was not created in the database'
-        )
-
-    def test_retrieve_file(self):
-        """ Test if we can retrieve a file"""
-        # Arrage:
-        file = File.objects.create(
-            key=self.key,
-            url=self.url
-        )
-        # Act:
-        retrieved_file = File.objects.get(pk=file.pk)
-        # Asserts:
-        self.assertEqual(
-            retrieved_file.url, self.url,
-            'File was not retrieved'
-        )
-
-    def test_update_file(self):
-        """ Test if we can update a file"""
-        # Arrage:
-        file = File.objects.create(
-            key=self.key,
-            url=self.url
-        )
-        self.old_count = File.objects.count()
-        # Act:
-        file.url = self.new_url
-        file.save()
-        # Asserts:
-        self.new_count = File.objects.count()
-        self.assertEqual(
-            self.old_count, self.new_count,
-            'A new File was created in the database'
-        )
-        retrieved_file = File.objects.get(pk=file.pk)
-        self.assertEqual(
-            retrieved_file.url, self.new_url,
-            'File was not created with the given URL'
-        )
-
-    def test_delete_file(self):
-        """ Test if we can delete a file"""
-        # Arrage:
-        file = File.objects.create(
-            key=self.key,
-            url=self.url
-        )
-        self.old_count = File.objects.count()
-        # Act:
-        file.delete()
-        # Asserts:
-        self.new_count = File.objects.count()
-        self.assertEqual(
-            self.old_count - 1, self.new_count,
-            'The File was not deleted in the database'
-        )
+MOCK_FILES_PATH = os.path.join(os.getcwd(), 'panels', 'tests')
 
 
-class ViewModelsTestCase(TestCase):
-    """ This class defines the test suite for the View model tests """
+class AlarmConfigTestBase:
+
+    def get_files_from_keys(self, file_keys):
+        return [
+            File(key, "{}.json".format(key)) for key in file_keys
+        ]
+
+    def get_mock_all_files(self):
+        return self.get_files_from_keys(["mock_dict_config", "mock_config"])
+
+    def get_mock_list_config_files(self):
+        return self.get_files_from_keys(["mock_list_config"])
+
+    def get_mock_dict_config_files(self):
+        return self.get_files_from_keys(["mock_dict_config"])
+
+    def get_mock_config_files(self):
+        return self.get_files_from_keys(["mock_config"])
+
+    def get_base_expected_configurations(self):
+        """ Expected configurations
+            for the mock_list_config.json and mock_dict_config.json files
+        """
+        expected_configurations = []
+        for alarm_id in [
+            "alarm_id_1", "alarm_id_1_children", "alarm_id_2", "alarm_id_3"
+        ]:
+            conf = AlarmConfig({})
+            conf.alarm_id = alarm_id
+            conf.custom_name = "{}_custom_name".format(alarm_id)
+            if alarm_id in ["alarm_id_2", "alarm_id_3"]:
+                conf.custom_name = ""
+            conf.type = "{}_type".format(alarm_id)
+            conf.view = "{}_view".format(alarm_id)
+            conf.placemark = "{}_placemark".format(alarm_id)
+            conf.group = "{}_group".format(alarm_id)
+            conf.children = []
+            if alarm_id in ["alarm_id_1"]:
+                conf.children = ["{}_children".format(alarm_id)]
+            expected_configurations.append(conf)
+        return expected_configurations
+
+    def get_additional_expected_configurations(self):
+        """ Additional configurations for the mock_config.json file """
+        expected_configurations = []
+        expected_children_ids = {
+            'a': ['a1', 'a2'],
+            'a1': [],
+            'a2': [],
+            'b': [],
+            'c': [],
+            'd': ['e'],
+            'e': ['f'],
+            'f': ['g'],
+            'g': []
+        }
+        for key in expected_children_ids:
+            conf = AlarmConfig({})
+            conf.alarm_id = key
+            conf.custom_name = '{}_custom_name'.format(key)
+            conf.type = '{}_type'.format(key)
+            conf.view = '{}_view'.format(key)
+            conf.placemark = '{}_placemark'.format(key)
+            conf.group = '{}_group'.format(key)
+            conf.children = expected_children_ids[key]
+            expected_configurations.append(conf)
+        return expected_configurations
+
+
+class AlarmConfigFormatTestCase(TestCase, AlarmConfigTestBase):
+    """ This class defines the test suite for the AlarmConfig class tests
+        to get a list with all the configurations from a file
+        with content in json format
+    """
 
     def setUp(self):
-        self.view_name = "antennas"
-        self.new_view_name = "weather"
-        self.old_count = View.objects.count()
+        self.expected_configurations = self.get_base_expected_configurations()
 
-    def test_create_view(self):
-        """ Test if we can create a view"""
+    @mock.patch('panels.models.FileManager.all_config_files')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def tests_get_configurations_from_config_files_with_a_list_format(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
+        # Arrange:
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = self.get_mock_list_config_files()
         # Act:
-        View.objects.create(
-            name=self.view_name
-        )
-        # Asserts:
-        self.new_count = View.objects.count()
+        confs = AlarmConfig.objects.all()
+        # Assert:
+        sorted_configurations = sorted(confs, key=lambda x: x.alarm_id)
+        sorted_expected = sorted(
+            self.expected_configurations, key=lambda x: x.alarm_id)
         self.assertEqual(
-            self.old_count + 1, self.new_count,
-            'The View was not created in the database'
-        )
+            sorted_configurations, sorted_expected, 'Not equal configurations')
 
-    def test_retrieve_view(self):
-        """ Test if we can retrieve a view"""
-        # Arrage:
-        view = View.objects.create(
-            name=self.view_name
-        )
+    @mock.patch('panels.models.FileManager.all_config_files')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def tests_get_configurations_from_file_with_a_dictionary_format(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
+        # Arrange:
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = self.get_mock_dict_config_files()
         # Act:
-        retrieved_view = View.objects.get(pk=view.pk)
-        # Asserts:
+        confs = AlarmConfig.objects.all()
+        # Assert:
+        sorted_configurations = sorted(confs, key=lambda x: x.alarm_id)
+        sorted_expected = sorted(
+            self.expected_configurations, key=lambda x: x.alarm_id)
         self.assertEqual(
-            retrieved_view.name, self.view_name,
-            'View was not retrieved'
-        )
-
-    def test_update_view(self):
-        """ Test if we can update a view"""
-        # Arrage:
-        view = View.objects.create(
-            name=self.view_name
-        )
-        self.old_count = View.objects.count()
-        # Act:
-        view.name = self.new_view_name
-        view.save()
-        # Asserts:
-        self.new_count = View.objects.count()
-        self.assertEqual(
-            self.old_count, self.new_count,
-            'A new View was created in the database'
-        )
-        retrieved_view = View.objects.get(pk=view.pk)
-        self.assertEqual(
-            retrieved_view.name, self.new_view_name,
-            'View was not updated with the given name'
-        )
-
-    def test_delete_view(self):
-        """ Test if we can delete a view"""
-        # Arrage:
-        view = View.objects.create(
-            name=self.view_name
-        )
-        self.old_count = View.objects.count()
-        # Act:
-        view.delete()
-        # Asserts:
-        self.new_count = View.objects.count()
-        self.assertEqual(
-            self.old_count - 1, self.new_count,
-            'The View was not deleted in the database'
-        )
+            sorted_configurations, sorted_expected, 'Not equal configurations')
 
 
-class TypeModelsTestCase(TestCase):
-    """ This class defines the test suite for the Type model tests """
+class AlarmConfigAllTestCase(TestCase, AlarmConfigTestBase):
+    """ This class defines the test suite for the AlarmConfig class tests
+        to get a list with all the configurations from the configuration files
+    """
 
     def setUp(self):
-        self.type_name = "temperature"
-        self.new_type_name = "humidity"
-        self.old_count = Type.objects.count()
+        self.config_files = self.get_mock_all_files()
+        expected = self.get_base_expected_configurations()
+        expected += self.get_additional_expected_configurations()
+        self.expected_configurations = expected
 
-    def test_create_type(self):
-        """ Test if we can create a type"""
+    @mock.patch('panels.models.FileManager.all_config_files')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def tests_get_configurations_from_config_files(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
+        # Arrange:
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = self.config_files
         # Act:
-        Type.objects.create(
-            name=self.type_name
-        )
-        # Asserts:
-        self.new_count = Type.objects.count()
+        confs = AlarmConfig.objects.all()
+        # Assert:
+        sorted_configurations = sorted(confs, key=lambda x: x.alarm_id)
+        sorted_expected = sorted(
+            self.expected_configurations, key=lambda x: x.alarm_id)
         self.assertEqual(
-            self.old_count + 1, self.new_count,
-            'The Type was not created in the database'
-        )
+            sorted_configurations, sorted_expected, 'Not equal configurations')
 
-    def test_retrieve_type(self):
-        """ Test if we can retrieve a type"""
-        # Arrage:
-        type = Type.objects.create(
-            name=self.type_name
-        )
-        # Act:
-        retrieved_type = Type.objects.get(pk=type.pk)
-        # Asserts:
-        self.assertEqual(
-            retrieved_type.name, self.type_name,
-            'Type was not retrieved'
-        )
 
-    def test_update_type(self):
-        """ Test if we can update a type"""
-        # Arrage:
-        type = Type.objects.create(
-            name=self.type_name
-        )
-        self.old_count = Type.objects.count()
-        # Act:
-        type.name = self.new_type_name
-        type.save()
-        # Asserts:
-        self.new_count = Type.objects.count()
-        self.assertEqual(
-            self.old_count, self.new_count,
-            'A new Type was created in the database'
-        )
-        retrieved_type = Type.objects.get(pk=type.pk)
-        self.assertEqual(
-            retrieved_type.name, self.new_type_name,
-            'Type was not updated with the given name'
-        )
+class AlarmConfigGetDataFromFileTestCase(TestCase, AlarmConfigTestBase):
+    """ This class defines the test suite for the AlarmConfig class tests
+        to obtain configuration data from a configuration file
+    """
+    def setUp(self):
+        self.config_files = self.get_mock_dict_config_files()
+        self.assertEqual(len(self.config_files), 1, "Expected just one file")
+        self.expected_configurations = self.get_base_expected_configurations()
 
-    def test_delete_type(self):
-        """ Test if we can delete a type"""
-        # Arrage:
-        type = Type.objects.create(
-            name=self.type_name
-        )
-        self.old_count = Type.objects.count()
+    @mock.patch('panels.models.FileManager.all_config_files')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def tests_get_configurations_from_file(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
+        # Arrange:
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = self.config_files
         # Act:
-        type.delete()
-        # Asserts:
-        self.new_count = Type.objects.count()
+        file_key = self.config_files[0].key
+        configs = AlarmConfig.objects.get_file_configurations(file_key)
+        # Assert:
+        sorted_configurations = sorted(configs, key=lambda x: x.alarm_id)
+        sorted_expected = sorted(
+            self.expected_configurations, key=lambda x: x.alarm_id)
         self.assertEqual(
-            self.old_count - 1, self.new_count,
-            'The Type was not deleted in the database'
+            sorted_configurations, sorted_expected, 'Not equal configurations')
+
+    @mock.patch('panels.models.FileManager.all_config_files')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def tests_get_configuration_data_from_file(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
+        # Arrange:
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = self.config_files
+        selected_file = self.config_files[0]
+        with open(selected_file.get_full_url()) as f:
+            configuration_data = json.load(f)
+        self.expected_configuration_data = configuration_data
+        # Act:
+        file_key = self.config_files[0].key
+        config_data = AlarmConfig.objects.get_file_configuration_data(file_key)
+        # Arrange:
+        self.assertEqual(
+            config_data, self.expected_configuration_data, 'Unexpected data')
+
+
+class AlarmConfigGetUpdatedDataFromFileTestCase(TestCase, AlarmConfigTestBase):
+    """ This class defines the test suite for the AlarmConfig class tests
+        to obtain modified configuration data from a configuration file
+    """
+    def setUp(self):
+        self.config_files = self.get_mock_config_files()
+        self.assertEqual(len(self.config_files), 1, "Expected just one file")
+        self.placemark_new_values = {
+            "a_placemark": "test_a",
+            "a1_placemark": "test_a1",
+            "a2_placemark": "test_a2",
+            "b_placemark": "test_b",
+            "c_placemark": "test_c",
+            "d_placemark": "test_d",
+            "e_placemark": "test_e",
+            "f_placemark": "test_f",
+            "g_placemark": "test_g"
+        }
+        expected = self.get_additional_expected_configurations()
+        for conf in expected:
+            old_placemark = conf.placemark
+            conf.placemark = self.placemark_new_values[old_placemark]
+        self.expected_configurations = expected
+
+    @mock.patch('panels.models.FileManager.all_config_files')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def tests_get_configurations_from_file(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
+        # Arrange:
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = self.config_files
+        # Act:
+        file_key = self.config_files[0].key
+        configs = AlarmConfig.objects.get_file_configurations(
+            file_key,
+            update_placemark_values=self.placemark_new_values
         )
+        # Assert:
+        sorted_configurations = sorted(configs, key=lambda x: x.alarm_id)
+        sorted_expected = sorted(
+            self.expected_configurations, key=lambda x: x.alarm_id)
+        self.assertEqual(
+            sorted_configurations, sorted_expected, 'Not equal configurations')
+
+    @mock.patch('panels.models.FileManager.all_config_files')
+    @mock.patch('panels.models.FileManager._get_files_absolute_location')
+    def tests_get_configuration_data_from_file(
+        self,
+        mock_location,
+        mock_all_config_files
+    ):
+        # Arrange:
+        mock_location.return_value = MOCK_FILES_PATH
+        mock_all_config_files.return_value = self.config_files
+        selected_file = self.config_files[0]
+        with open(selected_file.get_full_url()) as f:
+            data = json.load(f)
+        # first list with configurations
+        config_list = data["key1a"]["key2a"]["key3a"]
+        for conf in config_list:
+            old = conf["placemark"]
+            conf["placemark"] = self.placemark_new_values[old]
+            if conf["alarm_id"] == "a":
+                for conf in conf["children"]:
+                    old = conf["placemark"]
+                    conf["placemark"] = self.placemark_new_values[old]
+        # second list with configurations
+        config_list = data["key1b"]
+        for conf in config_list:
+            old = conf["placemark"]
+            conf["placemark"] = self.placemark_new_values[old]
+        conf = config_list[1]
+        while (len(conf["children"]) > 0):
+            conf = conf["children"][0]
+            old = conf["placemark"]
+            conf["placemark"] = self.placemark_new_values[old]
+        self.expected_configuration_data = data
+        # Act:
+        file_key = self.config_files[0].key
+        config_data = AlarmConfig.objects.get_file_configuration_data(
+            file_key,
+            update_placemark_values=self.placemark_new_values
+        )
+        # Arrange:
+        self.assertEqual(
+            config_data, self.expected_configuration_data, 'Unexpected data')
 
 
 class PlacemarkTypeModelsTestCase(TestCase):
@@ -484,164 +550,4 @@ class PlacemarkTestCase(TestCase):
         self.assertEqual(
             self.old_count - 1, self.new_count,
             'The Placemark was not deleted in the database'
-        )
-
-
-class AlarmConfigModelsTestCase(TestCase):
-    """ This class defines the test suite for the AlarmConfig model tests """
-
-    def setUp(self):
-        self.alarm_id = "dummy_alarm"
-        self.view = View.objects.create(
-            name="weather"
-        )
-        self.type = Type.objects.create(
-            name="temperature"
-        )
-        self.new_type = Type.objects.create(
-            name="humidity"
-        )
-        self.old_count = AlarmConfig.objects.count()
-
-    def test_create_alarm_config(self):
-        """ Test if we can create a alarm_config"""
-        # Act:
-        AlarmConfig.objects.create(
-            alarm_id=self.alarm_id,
-            view=self.view,
-            type=self.type
-        )
-        # Asserts:
-        self.new_count = AlarmConfig.objects.count()
-        self.assertEqual(
-            self.old_count + 1, self.new_count,
-            'The AlarmConfig was not created in the database'
-        )
-
-    def test_retrieve_alarm_config(self):
-        """ Test if we can retrieve a alarm_config"""
-        # Arrage:
-        alarm_config = AlarmConfig.objects.create(
-            alarm_id=self.alarm_id,
-            view=self.view,
-            type=self.type
-        )
-        # Act:
-        retrieved_alarm_config = AlarmConfig.objects.get(pk=alarm_config.pk)
-        # Asserts:
-        self.assertEqual(
-            retrieved_alarm_config.alarm_id, self.alarm_id,
-            'AlarmConfig was not retrieved'
-        )
-
-    def test_update_alarm_config(self):
-        """ Test if we can update a alarm_config"""
-        # Arrage:
-        alarm_config = AlarmConfig.objects.create(
-            alarm_id=self.alarm_id,
-            view=self.view,
-            type=self.type
-        )
-        self.old_count = AlarmConfig.objects.count()
-        # Act:
-        alarm_config.type = self.new_type
-        alarm_config.save()
-        # Asserts:
-        self.new_count = AlarmConfig.objects.count()
-        self.assertEqual(
-            self.old_count, self.new_count,
-            'A new AlarmConfig was created in the database'
-        )
-        retrieved_alarm_config = AlarmConfig.objects.get(pk=alarm_config.pk)
-        self.assertEqual(
-            retrieved_alarm_config.type, self.new_type,
-            'AlarmConfig was not updated with the given name'
-        )
-
-    def test_delete_alarm_config(self):
-        """ Test if we can delete a alarm_config"""
-        # Arrage:
-        alarm_config = AlarmConfig.objects.create(
-            alarm_id=self.alarm_id,
-            view=self.view,
-            type=self.type
-        )
-        self.old_count = AlarmConfig.objects.count()
-        # Act:
-        alarm_config.delete()
-        # Asserts:
-        self.new_count = AlarmConfig.objects.count()
-        self.assertEqual(
-            self.old_count - 1, self.new_count,
-            'The AlarmConfig was not deleted in the database'
-        )
-
-    def test_create_alarm_config_with_parent(self):
-        # Arrange:
-        alarm_config_parent = AlarmConfig.objects.create(
-            alarm_id="parent_alarm",
-            view=self.view,
-            type=self.type
-        )
-        # Act:
-        self.old_count = AlarmConfig.objects.count()
-        alarm_config = AlarmConfig.objects.create(
-            alarm_id="child_alarm",
-            view=self.view,
-            type=self.type,
-            parent=alarm_config_parent
-        )
-        # Asserts:
-        self.new_count = AlarmConfig.objects.count()
-        self.assertEqual(
-            self.old_count + 1, self.new_count,
-            'The AlarmConfig with a parent was not created in the database'
-        )
-        retrieved_alarm_config = AlarmConfig.objects.get(pk=alarm_config.pk)
-        self.assertEqual(
-            retrieved_alarm_config.parent, alarm_config_parent,
-            'AlarmConfig has not a reference to its parent'
-        )
-        retrieved_alarm_config_parent = AlarmConfig.objects.get(
-            pk=alarm_config_parent.pk
-        )
-        self.assertEqual(
-            retrieved_alarm_config_parent.nested_alarms.count(), 1,
-            'AlarmConfigParent has not a reference to its nested alarms'
-        )
-
-    def test_create_alarm_config_with_placemark(self):
-        # Arrange:
-        placemark_type = PlacemarkType.objects.create(
-            name="pad"
-        )
-        placemark = Placemark.objects.create(
-            name="placemark",
-            type=placemark_type
-        )
-        # Act:
-        self.old_count = AlarmConfig.objects.count()
-        alarm_config = AlarmConfig.objects.create(
-            alarm_id=self.alarm_id,
-            view=self.view,
-            type=self.type,
-            placemark=placemark
-        )
-        # Asserts:
-        self.new_count = AlarmConfig.objects.count()
-        self.assertEqual(
-            self.old_count + 1, self.new_count,
-            'The AlarmConfig with a placemark was not created in the database'
-        )
-        retrieved_alarm_config = AlarmConfig.objects.get(pk=alarm_config.pk)
-        self.assertEqual(
-            retrieved_alarm_config.placemark, placemark,
-            'AlarmConfig has not a reference to the placemark'
-        )
-        retrieved_placemark = Placemark.objects.get(
-            pk=placemark.pk
-        )
-        self.assertEqual(
-            retrieved_placemark.alarm, alarm_config,
-            'Placemark has not a reference to it related alarm'
         )

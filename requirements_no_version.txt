@@ -8,10 +8,12 @@ Automat
 channels
 channels-redis
 constantly
+cx-Oracle
 daphne
 Django
 django-cors-headers
 djangorestframework
+dry-rest-permissions
 Faker
 freezegun
 hiredis
@@ -21,6 +23,7 @@ incremental
 mock
 more-itertools
 msgpack
+mysqlclient
 pluggy
 py
 pytest
@@ -31,7 +34,7 @@ pytest-mock
 python-dateutil
 pytz
 six
-sphinx
+Sphinx
 text-unidecode
 tornado
 Twisted

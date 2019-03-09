@@ -6,7 +6,7 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from users.models import reset_auth_token
 from alarms.models import Alarm, OperationalMode, Validity, Value, IASValue
 from alarms.collections import AlarmCollection, AlarmCollectionObserver
-from alarms.models import Alarm
+from ias_webserver.settings import PROCESS_CONNECTION_PASS
 
 logger = logging.getLogger(__name__)
 
@@ -95,12 +95,9 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         mode_options = OperationalMode.get_choices_by_name()
         validity_options = Validity.get_choices_by_name()
         core_id = CoreConsumer.get_core_id_from(content['fullRunningId'])
-        if 'dasuProductionTStamp' in content:
-            core_timestamp = CoreConsumer.get_timestamp_from(
-                content['dasuProductionTStamp'])
-        else:
-            core_timestamp = CoreConsumer.get_timestamp_from(
-                content['pluginProductionTStamp'])
+        core_timestamp = CoreConsumer.get_timestamp_from(
+            content['productionTStamp']
+        )
         params = {
             'value': value_options[content['value']],
             'core_timestamp': core_timestamp,
@@ -142,10 +139,19 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
 
     async def connect(self):
         """
-        Called on connection
+        Called upon connection, rejects connection if no authenticated user
+        or password
         """
         AlarmCollection.initialize()
-        await self.accept()
+        # Reject connection if no authenticated user:
+        if self.scope['user'].is_anonymous:
+            if self.scope['password'] and \
+              self.scope['password'] == PROCESS_CONNECTION_PASS:
+                await self.accept()
+            else:
+                await self.close()
+        else:
+            await self.accept()
 
     async def receive_json(self, content, **kwargs):
         """
@@ -180,15 +186,21 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
 
     async def connect(self):
         """
-        Called on connection
+        Called upon connection, rejects connection if no authenticated user
+        or password
         """
+        # Reject connection if no authenticated user:
         if self.scope['user'].is_anonymous:
-            # To reject the connection:
-            await self.close()
+            if self.scope['password'] and \
+              self.scope['password'] == PROCESS_CONNECTION_PASS:
+                AlarmCollection.initialize()
+                AlarmCollection.register_observer(self)
+                await self.accept()
+            else:
+                await self.close()
         else:
             AlarmCollection.initialize()
             AlarmCollection.register_observer(self)
-            # To accept the connection call:
             await self.accept()
 
     async def update(self, alarm, action):

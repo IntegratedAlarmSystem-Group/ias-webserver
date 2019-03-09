@@ -9,6 +9,6 @@ from alarms.auth import TokenAuthMiddleware
 application = ProtocolTypeRouter({
     "websocket": URLRouter([
         url("^stream/?$", TokenAuthMiddleware(ClientConsumer)),
-        url("^core/?$", CoreConsumer),
+        url("^core/?$", TokenAuthMiddleware(CoreConsumer)),
     ]),
 })

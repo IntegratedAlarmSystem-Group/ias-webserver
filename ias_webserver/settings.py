@@ -17,10 +17,15 @@ import logging.config
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'mb$ip=bi%m*kstsge)7@$=o+-q-nq#qt6-9k09v)lda(s#&td4'
-
+SECRET_KEY = os.getenv(
+    'SECRET_KEY',
+    'mb$ip=bi%m*kstsge)7@$=o+-q-nq#qt6-9k09v)lda(s#&td4'
+)
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if (os.getenv('SECRET_KEY', False)):
+    DEBUG = False
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -201,6 +206,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Password for other processes
+PROCESS_CONNECTION_PASS = os.environ.get('PROCESS_CONNECTION_PASS', 'dev_pass')
 
 
 # Internationalization
