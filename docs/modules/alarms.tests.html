@@ -70,7 +70,7 @@ Consider that the alarms are not saved in any database</p>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.core_timestamp">
-<code class="descname">core_timestamp</code><em class="property"> = 1545857272080</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_timestamp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">core_timestamp</code><em class="property"> = 1552091599801</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.core_timestamp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Core timestamp of the Alarm to be created</p>
 </dd></dl>
 
@@ -132,13 +132,13 @@ of the Alarm to be returned</dd>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.validity">
-<code class="descname">validity</code><em class="property"> = 1</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.validity" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validity</code><em class="property"> = 0</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.validity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validity of the Alarm to be created</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.tests.factories.AlarmFactory.value">
-<code class="descname">value</code><em class="property"> = 2</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.value" title="Permalink to this definition">¶</a></dt>
+<code class="descname">value</code><em class="property"> = 0</em><a class="headerlink" href="#alarms.tests.factories.AlarmFactory.value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Value of the Alarm to be created</p>
 </dd></dl>
 
@@ -184,9 +184,21 @@ to the ClientConsumer</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_password">
+<code class="descname">test_connection_allowed_using_a_valid_password</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can request the connection using a password</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_token_query_string">
 <code class="descname">test_connection_allowed_using_a_valid_token_query_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_token_query_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if clients can request the connection using a token</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_for_an_invalid_password">
+<code class="descname">test_connection_not_allowed_for_an_invalid_password</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_for_an_invalid_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the connection can not be allowed with an invalid password</p>
 </dd></dl>
 
 <dl class="method">
@@ -459,14 +471,8 @@ shelve and registry handling</p>
 <p>This class defines the test suite for the Alarms Collection management
 of IASValues that are not of type Alarm</p>
 <dl class="method">
-<dt id="alarms.tests.tests_collections.TestIasValueUpdates.test_add_or_update_antennas_pad_value">
-<code class="descname">test_add_or_update_antennas_pad_value</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestIasValueUpdates.test_add_or_update_antennas_pad_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if the AlarmCollection can add or update an antennas-pad value</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="alarms.tests.tests_collections.TestIasValueUpdates.test_add_or_update_value">
-<code class="descname">test_add_or_update_value</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestIasValueUpdates.test_add_or_update_value" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_add_or_update_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_collections.TestIasValueUpdates.test_add_or_update_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the AlarmCollection can add or update a value</p>
 </dd></dl>
 
@@ -650,10 +656,10 @@ IPanels.get_alarm_ids_of_alarm_configs</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_connectors.TestPanelsConnector.test_update_antennas_conf">
-<code class="descname">test_update_antennas_conf</code><span class="sig-paren">(</span><em>IPanels_update_antennas_configuration</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_connectors.TestPanelsConnector.test_update_antennas_conf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test that PanelsConnector.update_antennas_configuration calls
-IPanels.update_antennas_configuration</p>
+<dt id="alarms.tests.tests_connectors.TestPanelsConnector.test_get_alarms_views_dict_of_alarm_configs">
+<code class="descname">test_get_alarms_views_dict_of_alarm_configs</code><span class="sig-paren">(</span><em>IPanels_get_alarms_views_dict_of_alarm_configs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_connectors.TestPanelsConnector.test_get_alarms_views_dict_of_alarm_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that PanelsConnector.get_alarm_ids_of_alarm_configs calls
+IPanels.get_alarms_views_dict_of_alarm_configs</p>
 </dd></dl>
 
 </dd></dl>
@@ -720,13 +726,8 @@ AlarmCollection when a new IasValue (no alarm) arrives</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_dasu">
-<code class="descname">test_get_alarm_from_core_message_from_dasu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_dasu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_plugin">
-<code class="descname">test_get_alarm_from_core_message_from_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_plugin" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message">
+<code class="descname">test_get_alarm_from_core_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -759,6 +760,53 @@ and cleaned correctly from running id field</p>
 <code class="descname">test_update_value_on_values_dict</code><span class="sig-paren">(</span><em>mocker</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer.TestCoreConsumer.test_update_value_on_values_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the core consumer updates the IASValue in the
 AlarmCollection when a new IasValue (no alarm) arrives</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-alarms.tests.tests_core_consumer_connect">
+<span id="alarms-tests-tests-core-consumer-connect-module"></span><h2>alarms.tests.tests_core_consumer_connect module<a class="headerlink" href="#module-alarms.tests.tests_core_consumer_connect" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer">
+<em class="property">class </em><code class="descclassname">alarms.tests.tests_core_consumer_connect.</code><code class="descname">TestConnectionToCoreConsumer</code><a class="headerlink" href="#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines the test suite for the connection
+to the CoreConsumer</p>
+<dl class="method">
+<dt id="alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.create_communicator">
+<code class="descname">create_communicator</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.create_communicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auxiliary method to manage a token query string authentication</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_allowed_using_a_valid_password">
+<code class="descname">test_connection_allowed_using_a_valid_password</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_allowed_using_a_valid_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can request the connection using a password</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_allowed_using_a_valid_token_query_string">
+<code class="descname">test_connection_allowed_using_a_valid_token_query_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_allowed_using_a_valid_token_query_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if clients can request the connection using a token</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_not_allowed_for_an_invalid_password">
+<code class="descname">test_connection_not_allowed_for_an_invalid_password</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_not_allowed_for_an_invalid_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the connection can not be allowed with an invalid password</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_not_allowed_for_an_invalid_token">
+<code class="descname">test_connection_not_allowed_for_an_invalid_token</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_not_allowed_for_an_invalid_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the connection can not be allowed with an invalid token</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_not_allowed_without_a_token_or_password">
+<code class="descname">test_connection_not_allowed_without_a_token_or_password</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_not_allowed_without_a_token_or_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the connection can not be allowed without token data</p>
 </dd></dl>
 
 </dd></dl>

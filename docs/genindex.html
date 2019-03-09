@@ -114,13 +114,9 @@
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm">Alarm (class in alarms.models)</a>
 </li>
-      <li><a href="modules/panels.html#panels.models.Placemark.alarm">alarm (panels.models.Placemark attribute)</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.alarm_id">alarm_id (panels.models.AlarmConfig attribute)</a>
+      <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.alarm_id">alarm_id (tickets.models.ShelveRegistry attribute)</a>
 
       <ul>
-        <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.alarm_id">(tickets.models.ShelveRegistry attribute)</a>
-</li>
         <li><a href="modules/tickets.html#tickets.models.Ticket.alarm_id">(tickets.models.Ticket attribute)</a>
 </li>
       </ul></li>
@@ -134,15 +130,19 @@
         <li><a href="modules/panels.html#panels.models.AlarmConfig">(class in panels.models)</a>
 </li>
       </ul></li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.DoesNotExist">AlarmConfig.DoesNotExist</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigAllTestCase">AlarmConfigAllTestCase (class in panels.tests.tests_models)</a>
 </li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.MultipleObjectsReturned">AlarmConfig.MultipleObjectsReturned</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigFormatTestCase">AlarmConfigFormatTestCase (class in panels.tests.tests_models)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigModelsTestCase">AlarmConfigModelsTestCase (class in panels.tests.tests_models)</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigGetDataFromFileTestCase">AlarmConfigGetDataFromFileTestCase (class in panels.tests.tests_models)</a>
 </li>
-      <li><a href="modules/panels.html#panels.serializers.AlarmConfigSerializer">AlarmConfigSerializer (class in panels.serializers)</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigGetUpdatedDataFromFileTestCase">AlarmConfigGetUpdatedDataFromFileTestCase (class in panels.tests.tests_models)</a>
 </li>
-      <li><a href="modules/panels.html#panels.serializers.AlarmConfigSerializer.Meta">AlarmConfigSerializer.Meta (class in panels.serializers)</a>
+      <li><a href="modules/panels.html#panels.models.AlarmConfigManager">AlarmConfigManager (class in panels.models)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase">AlarmConfigTestBase (class in panels.tests.tests_models)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.AlarmConfigTestSetup">AlarmConfigTestSetup (class in panels.tests.tests_api_alarmsconfig)</a>
 </li>
       <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet">AlarmConfigViewSet (class in panels.views)</a>
 </li>
@@ -157,13 +157,7 @@
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase">AlarmModelTestCase (class in alarms.tests.tests_models)</a>
 </li>
       <li><a href="modules/alarms.html#module-alarms">alarms (module)</a>
-
-      <ul>
-        <li><a href="modules/panels.html#panels.models.Type.alarms">(panels.models.Type attribute)</a>
 </li>
-        <li><a href="modules/panels.html#panels.models.View.alarms">(panels.models.View attribute)</a>
-</li>
-      </ul></li>
       <li><a href="modules/alarms.html#module-alarms.admin">alarms.admin (module)</a>
 </li>
   </ul></td>
@@ -202,6 +196,8 @@
 </li>
       <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_core_consumer">alarms.tests.tests_core_consumer (module)</a>
 </li>
+      <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_core_consumer_connect">alarms.tests.tests_core_consumer_connect (module)</a>
+</li>
       <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_interfaces">alarms.tests.tests_interfaces (module)</a>
 </li>
       <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_models">alarms.tests.tests_models (module)</a>
@@ -210,9 +206,13 @@
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.alarms_views_dict">alarms_views_dict (alarms.collections.AlarmCollection attribute)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AlarmsConfigErrorResponseTestSetUp">AlarmsConfigErrorResponseTestSetUp (class in panels.tests.tests_api_alarmsconfig_errors)</a>
+      <li><a href="modules/panels.html#panels.models.AlarmConfigManager.all">all() (panels.models.AlarmConfigManager method)</a>
+
+      <ul>
+        <li><a href="modules/panels.html#panels.models.FileManager.all">(panels.models.FileManager method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.AlarmsConfigTestSetUp">AlarmsConfigTestSetUp (class in panels.tests.tests_api_alarmsconfig)</a>
+      </ul></li>
+      <li><a href="modules/panels.html#panels.models.FileManager.all_config_files">all_config_files() (panels.models.FileManager method)</a>
 </li>
       <li><a href="modules/cdb.html#cdb.routers.CdbRouter.allow_migrate">allow_migrate() (cdb.routers.CdbRouter method)</a>
 </li>
@@ -220,22 +220,12 @@
 </li>
       <li><a href="modules/users.html#users.views.UserViewSet.allowed_actions">allowed_actions() (users.views.UserViewSet method)</a>
 </li>
-      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.antennas_config">antennas_config() (panels.views.AlarmConfigViewSet method)</a>
-</li>
-      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.antennas_summary_config">antennas_summary_config() (panels.views.AlarmConfigViewSet method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse">AntennasConfigErrorResponse (class in panels.tests.tests_api_alarmsconfig_errors)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse">AntennasSummaryConfigErrorResponse (class in panels.tests.tests_api_alarmsconfig_errors)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.ApiCanCheckTimeouts">ApiCanCheckTimeouts (class in tickets.tests.tests_shelves_api)</a>
 </li>
       <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_api.APITestBase">APITestBase (class in cdb.tests.tests_cdb_api)</a>
 
       <ul>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.APITestBase">(class in panels.tests.tests_api_alarmsconfig)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.APITestBase">(class in panels.tests.tests_api_alarmsconfig_errors)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.APITestBase">(class in panels.tests.tests_api_files)</a>
 </li>
@@ -251,8 +241,6 @@
       <ul>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.APITestBase.authenticate_client_using_token">(panels.tests.tests_api_alarmsconfig.APITestBase method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.APITestBase.authenticate_client_using_token">(panels.tests.tests_api_alarmsconfig_errors.APITestBase method)</a>
-</li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.APITestBase.authenticate_client_using_token">(panels.tests.tests_api_files.APITestBase method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.APITestBase.authenticate_client_using_token">(panels.tests.tests_api_placemarks.APITestBase method)</a>
@@ -260,6 +248,12 @@
         <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.APITestBase.authenticate_client_using_token">(tickets.tests.tests_shelves_api.APITestBase method)</a>
 </li>
         <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.APITestBase.authenticate_client_using_token">(tickets.tests.tests_tickets_api.APITestBase method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.authentication_classes">authentication_classes (panels.views.AlarmConfigViewSet attribute)</a>
+
+      <ul>
+        <li><a href="modules/panels.html#panels.views.FileViewSet.authentication_classes">(panels.views.FileViewSet attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -284,6 +278,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/panels.html#panels.models.FileManager.basenames">basenames() (panels.models.FileManager method)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.broadcast_status_to_observers">broadcast_status_to_observers() (alarms.collections.AlarmCollection class method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.build">build() (alarms.tests.factories.AlarmFactory class method)</a>
@@ -364,10 +360,10 @@
 </li>
       <li><a href="modules/tickets.html#tickets.models.TicketStatus.CLEARED_UNACK">CLEARED_UNACK (tickets.models.TicketStatus attribute)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.consumers.ClientConsumer">ClientConsumer (class in alarms.consumers)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.html#alarms.consumers.ClientConsumer">ClientConsumer (class in alarms.consumers)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.models.OperationalMode.CLOSING">CLOSING (alarms.models.OperationalMode attribute)</a>
 </li>
       <li><a href="modules/timers.management.commands.html#timers.management.commands.runtimers.Command">Command (class in timers.management.commands.runtimers)</a>
@@ -403,6 +399,8 @@
 </li>
         <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.create_communicator">(alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer method)</a>
 </li>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.create_communicator">(alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer method)</a>
+</li>
       </ul></li>
       <li><a href="modules/alarms.html#alarms.connectors.TicketConnector.create_ticket">create_ticket() (alarms.connectors.TicketConnector class method)</a>
 </li>
@@ -410,8 +408,6 @@
 
       <ul>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.APITestBase.create_user">(panels.tests.tests_api_alarmsconfig.APITestBase method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.APITestBase.create_user">(panels.tests.tests_api_alarmsconfig_errors.APITestBase method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.APITestBase.create_user">(panels.tests.tests_api_files.APITestBase method)</a>
 </li>
@@ -424,8 +420,6 @@
       </ul></li>
       <li><a href="modules/tickets.html#tickets.models.Ticket.created_at">created_at (tickets.models.Ticket attribute)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.CreateFile">CreateFile (class in panels.tests.tests_api_files)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.CreateRegistry">CreateRegistry (class in tickets.tests.tests_shelves_api)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.CreateRegistryAndAlreadyShelvedAlarm">CreateRegistryAndAlreadyShelvedAlarm (class in tickets.tests.tests_shelves_api)</a>
@@ -435,8 +429,6 @@
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase">CreateRegistryWithNoMessageCase (class in tickets.tests.tests_shelves_api)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.CreateTicketTestCase">CreateTicketTestCase (class in tickets.tests.tests_tickets_api)</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.custom_name">custom_name (panels.models.AlarmConfig attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -456,18 +448,16 @@
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.delete_and_notify">delete_and_notify() (alarms.collections.AlarmCollection class method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.DeleteFile">DeleteFile (class in panels.tests.tests_api_files)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.DeleteRegistry">DeleteRegistry (class in tickets.tests.tests_shelves_api)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/panels.html#panels.models.Placemark.description">description (panels.models.Placemark attribute)</a>
 
       <ul>
         <li><a href="modules/panels.html#panels.models.PlacemarkGroup.description">(panels.models.PlacemarkGroup attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.detail">detail (panels.views.AlarmConfigViewSet attribute)</a>
 
       <ul>
@@ -498,17 +488,9 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.html#panels.serializers.AlarmConfigSerializer.Meta.fields">fields (panels.serializers.AlarmConfigSerializer.Meta attribute)</a>
+      <li><a href="modules/panels.html#panels.serializers.PlacemarkSerializer.Meta.fields">fields (panels.serializers.PlacemarkSerializer.Meta attribute)</a>
 
       <ul>
-        <li><a href="modules/panels.html#panels.serializers.FileSerializer.Meta.fields">(panels.serializers.FileSerializer.Meta attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.serializers.PlacemarkSerializer.Meta.fields">(panels.serializers.PlacemarkSerializer.Meta attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.serializers.TypeSerializer.Meta.fields">(panels.serializers.TypeSerializer.Meta attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.serializers.ViewSerializer.Meta.fields">(panels.serializers.ViewSerializer.Meta attribute)</a>
-</li>
         <li><a href="modules/tickets.html#tickets.serializers.ShelveRegistrySerializer.Meta.fields">(tickets.serializers.ShelveRegistrySerializer.Meta attribute)</a>
 </li>
         <li><a href="modules/tickets.html#tickets.serializers.TicketSerializer.Meta.fields">(tickets.serializers.TicketSerializer.Meta attribute)</a>
@@ -522,17 +504,7 @@
       </ul></li>
       <li><a href="modules/panels.html#panels.models.File">File (class in panels.models)</a>
 </li>
-      <li><a href="modules/panels.html#panels.models.File.DoesNotExist">File.DoesNotExist</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.File.MultipleObjectsReturned">File.MultipleObjectsReturned</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.FileModelsTestCase">FileModelsTestCase (class in panels.tests.tests_models)</a>
-</li>
-      <li><a href="modules/panels.html#panels.serializers.FileSerializer">FileSerializer (class in panels.serializers)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.html#panels.serializers.FileSerializer.Meta">FileSerializer.Meta (class in panels.serializers)</a>
+      <li><a href="modules/panels.html#panels.models.FileManager">FileManager (class in panels.models)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.FileTestSetup">FileTestSetup (class in panels.tests.tests_api_files)</a>
 </li>
@@ -540,6 +512,8 @@
 </li>
       <li><a href="modules/users.html#users.views.UserViewSet.filter">filter() (users.views.UserViewSet method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase">FilterRegistryForAlarmAndShelvedCase (class in tickets.tests.tests_shelves_api)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase">FilterRegistryForAlarmAndUnshelvedCase (class in tickets.tests.tests_shelves_api)</a>
@@ -571,6 +545,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.get">get() (alarms.collections.AlarmCollection class method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase.get_additional_expected_configurations">get_additional_expected_configurations() (panels.tests.tests_models.AlarmConfigTestBase method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.interfaces.IAlarms.get_alarm_ancestors">get_alarm_ancestors() (alarms.interfaces.IAlarms class method)</a>
 
@@ -606,13 +582,29 @@
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.get_ancestors_recursively">get_ancestors_recursively() (alarms.collections.AlarmCollection class method)</a>
 </li>
+      <li><a href="modules/panels.html#panels.connectors.ValueConnector.get_antennas_to_pad_values">get_antennas_to_pad_values() (panels.connectors.ValueConnector class method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase.get_base_expected_configurations">get_base_expected_configurations() (panels.tests.tests_models.AlarmConfigTestBase method)</a>
+</li>
       <li><a href="modules/cdb.html#cdb.readers.CdbReader.get_cdb_location">get_cdb_location() (cdb.readers.CdbReader class method)</a>
+</li>
+      <li><a href="modules/panels.html#panels.models.File.get_configuration_data">get_configuration_data() (panels.models.File method)</a>
+</li>
+      <li><a href="modules/panels.html#panels.models.File.get_configurations">get_configurations() (panels.models.File method)</a>
+</li>
+      <li><a href="modules/panels.html#panels.models.File.get_content_data">get_content_data() (panels.models.File method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_core_id_from">get_core_id_from() (alarms.consumers.CoreConsumer method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_dependencies">get_dependencies() (alarms.consumers.CoreConsumer method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.get_dependencies_recursively">get_dependencies_recursively() (alarms.collections.AlarmCollection class method)</a>
+</li>
+      <li><a href="modules/panels.html#panels.models.AlarmConfigManager.get_file_configuration_data">get_file_configuration_data() (panels.models.AlarmConfigManager method)</a>
+</li>
+      <li><a href="modules/panels.html#panels.models.AlarmConfigManager.get_file_configurations">get_file_configurations() (panels.models.AlarmConfigManager method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase.get_files_from_keys">get_files_from_keys() (panels.tests.tests_models.AlarmConfigTestBase method)</a>
 </li>
       <li><a href="modules/panels.html#panels.models.File.get_full_url">get_full_url() (panels.models.File method)</a>
 </li>
@@ -622,20 +614,30 @@
 </li>
       <li><a href="modules/alarms.html#alarms.connectors.CdbConnector.get_iasios">get_iasios() (alarms.connectors.CdbConnector class method)</a>
 </li>
+      <li><a href="modules/panels.html#panels.models.FileManager.get_instance_for_localfile">get_instance_for_localfile() (panels.models.FileManager method)</a>
+</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.get_invalid_alarm">get_invalid_alarm() (alarms.tests.factories.AlarmFactory class method)</a>
 </li>
-      <li><a href="modules/panels.html#panels.views.FileViewSet.get_json">get_json() (panels.views.FileViewSet method)</a>
+      <li><a href="modules/panels.html#panels.models.File.get_json">get_json() (panels.models.File method)</a>
+
+      <ul>
+        <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.get_json">(panels.views.AlarmConfigViewSet method)</a>
+</li>
+        <li><a href="modules/panels.html#panels.views.FileViewSet.get_json">(panels.views.FileViewSet method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase.get_mock_all_files">get_mock_all_files() (panels.tests.tests_models.AlarmConfigTestBase method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase.get_mock_config_files">get_mock_config_files() (panels.tests.tests_models.AlarmConfigTestBase method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase.get_mock_dict_config_files">get_mock_dict_config_files() (panels.tests.tests_models.AlarmConfigTestBase method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase.get_mock_list_config_files">get_mock_list_config_files() (panels.tests.tests_models.AlarmConfigTestBase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.get_modified_alarm">get_modified_alarm() (alarms.tests.factories.AlarmFactory class method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/alarms.html#alarms.connectors.PanelsConnector.get_names_of_views">get_names_of_views() (alarms.connectors.PanelsConnector class method)</a>
-
-      <ul>
-        <li><a href="modules/panels.html#panels.interfaces.IPanels.get_names_of_views">(panels.interfaces.IPanels class method)</a>
-</li>
-      </ul></li>
       <li><a href="modules/tickets.html#tickets.models.Ticket.get_next_by_created_at">get_next_by_created_at() (tickets.models.Ticket method)</a>
 </li>
       <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.get_next_by_shelved_at">get_next_by_shelved_at() (tickets.models.ShelveRegistry method)</a>
@@ -661,12 +663,22 @@
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.get_valid_alarm">get_valid_alarm() (alarms.tests.factories.AlarmFactory class method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.get_value">get_value() (alarms.collections.AlarmCollection class method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.html#alarms.interfaces.IAlarms.get_value">(alarms.interfaces.IAlarms class method)</a>
 </li>
+      </ul></li>
       <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_value_from_core_msg">get_value_from_core_msg() (alarms.consumers.CoreConsumer method)</a>
 </li>
       <li><a href="modules/timers.management.commands.html#timers.management.commands.runtimers.Command.get_websocket_url">get_websocket_url() (timers.management.commands.runtimers.Command method)</a>
 </li>
       <li><a href="modules/timers.management.commands.html#timers.management.commands.runtimers.Command.get_websockets_tasks">get_websockets_tasks() (timers.management.commands.runtimers.Command method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile">GetJsonConfigurationFromFile (class in panels.tests.tests_api_alarmsconfig)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist">GetJsonConfigurationFromFileIfKeyDoesNotExist (class in panels.tests.tests_api_alarmsconfig)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfNotConfigKey">GetJsonConfigurationFromFileIfNotConfigKey (class in panels.tests.tests_api_alarmsconfig)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFile">GetJsonFromFile (class in panels.tests.tests_api_files)</a>
 </li>
@@ -704,7 +716,7 @@
 </li>
       <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_check_timeouts_permission">has_check_timeouts_permission() (tickets.models.ShelveRegistry static method)</a>
 </li>
-      <li><a href="modules/panels.html#panels.models.File.has_create_permission">has_create_permission() (panels.models.File static method)</a>
+      <li><a href="modules/panels.html#panels.models.Placemark.has_create_permission">has_create_permission() (panels.models.Placemark static method)</a>
 
       <ul>
         <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_create_permission">(tickets.models.ShelveRegistry static method)</a>
@@ -712,41 +724,25 @@
         <li><a href="modules/tickets.html#tickets.models.Ticket.has_create_permission">(tickets.models.Ticket static method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/panels.html#panels.models.File.has_destroy_permission">has_destroy_permission() (panels.models.File static method)</a>
+      <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_destroy_permission">has_destroy_permission() (tickets.models.ShelveRegistry static method)</a>
+</li>
+      <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_object_destroy_permission">has_object_destroy_permission() (tickets.models.ShelveRegistry method)</a>
+</li>
+      <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_object_read_permission">has_object_read_permission() (tickets.models.ShelveRegistry method)</a>
 
       <ul>
-        <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_destroy_permission">(tickets.models.ShelveRegistry static method)</a>
-</li>
-      </ul></li>
-      <li><a href="modules/panels.html#panels.models.File.has_object_destroy_permission">has_object_destroy_permission() (panels.models.File method)</a>
-
-      <ul>
-        <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_object_destroy_permission">(tickets.models.ShelveRegistry method)</a>
-</li>
-      </ul></li>
-      <li><a href="modules/panels.html#panels.models.File.has_object_read_permission">has_object_read_permission() (panels.models.File method)</a>
-
-      <ul>
-        <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_object_read_permission">(tickets.models.ShelveRegistry method)</a>
-</li>
         <li><a href="modules/tickets.html#tickets.models.Ticket.has_object_read_permission">(tickets.models.Ticket method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.html#panels.models.File.has_object_update_permission">has_object_update_permission() (panels.models.File method)</a>
+      <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_object_update_permission">has_object_update_permission() (tickets.models.ShelveRegistry method)</a>
+</li>
+      <li><a href="modules/panels.html#panels.models.AlarmConfig.has_placemark">has_placemark() (panels.models.AlarmConfig method)</a>
+</li>
+      <li><a href="modules/panels.html#panels.models.Placemark.has_read_permission">has_read_permission() (panels.models.Placemark static method)</a>
 
       <ul>
-        <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_object_update_permission">(tickets.models.ShelveRegistry method)</a>
-</li>
-      </ul></li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.has_read_permission">has_read_permission() (panels.models.AlarmConfig static method)</a>
-
-      <ul>
-        <li><a href="modules/panels.html#panels.models.File.has_read_permission">(panels.models.File static method)</a>
-</li>
-        <li><a href="modules/panels.html#panels.models.Placemark.has_read_permission">(panels.models.Placemark static method)</a>
-</li>
         <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_read_permission">(tickets.models.ShelveRegistry static method)</a>
 </li>
         <li><a href="modules/tickets.html#tickets.models.Ticket.has_read_permission">(tickets.models.Ticket static method)</a>
@@ -754,12 +750,10 @@
       </ul></li>
       <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_unshelve_permission">has_unshelve_permission() (tickets.models.ShelveRegistry static method)</a>
 </li>
-      <li><a href="modules/panels.html#panels.models.File.has_update_permission">has_update_permission() (panels.models.File static method)</a>
-
-      <ul>
-        <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_update_permission">(tickets.models.ShelveRegistry static method)</a>
+      <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.has_update_permission">has_update_permission() (tickets.models.ShelveRegistry static method)</a>
 </li>
-      </ul></li>
+      <li><a href="modules/panels.html#panels.models.AlarmConfig.has_view">has_view() (panels.models.AlarmConfig method)</a>
+</li>
       <li><a href="modules/timers.management.commands.html#timers.management.commands.runtimers.Command.help">help (timers.management.commands.runtimers.Command attribute)</a>
 
       <ul>
@@ -773,8 +767,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.interfaces.IAlarms">IAlarms (class in alarms.interfaces)</a>
-</li>
-      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.ias_health_summary_config">ias_health_summary_config() (panels.views.AlarmConfigViewSet method)</a>
 </li>
       <li><a href="modules/ias_webserver.html#module-ias_webserver">ias_webserver (module)</a>
 </li>
@@ -792,20 +784,12 @@
 </li>
       <li><a href="modules/alarms.html#alarms.models.IASValue">IASValue (class in alarms.models)</a>
 </li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.id">id (panels.models.AlarmConfig attribute)</a>
+      <li><a href="modules/panels.html#panels.models.Placemark.id">id (panels.models.Placemark attribute)</a>
 
       <ul>
-        <li><a href="modules/panels.html#panels.models.File.id">(panels.models.File attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.models.Placemark.id">(panels.models.Placemark attribute)</a>
-</li>
         <li><a href="modules/panels.html#panels.models.PlacemarkGroup.id">(panels.models.PlacemarkGroup attribute)</a>
 </li>
         <li><a href="modules/panels.html#panels.models.PlacemarkType.id">(panels.models.PlacemarkType attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.models.Type.id">(panels.models.Type attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.models.View.id">(panels.models.View attribute)</a>
 </li>
         <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.id">(tickets.models.ShelveRegistry attribute)</a>
 </li>
@@ -821,6 +805,8 @@
       <li><a href="modules/alarms.html#alarms.connectors.CdbConnector.initialize_ias">initialize_ias() (alarms.connectors.CdbConnector class method)</a>
 </li>
       <li><a href="modules/panels.html#panels.interfaces.IPanels">IPanels (class in panels.interfaces)</a>
+</li>
+      <li><a href="modules/panels.html#panels.models.File.is_config_file">is_config_file() (panels.models.File method)</a>
 </li>
       <li><a href="modules/timers.html#timers.clients.WSClient.is_connected">is_connected() (timers.clients.WSClient method)</a>
 </li>
@@ -844,14 +830,22 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.list">list() (panels.views.AlarmConfigViewSet method)</a>
+
+      <ul>
+        <li><a href="modules/panels.html#panels.views.FileViewSet.list">(panels.views.FileViewSet method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.ListAlarmConfig">ListAlarmConfig (class in panels.tests.tests_api_alarmsconfig)</a>
+</li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.ListFile">ListFile (class in panels.tests.tests_api_files)</a>
 </li>
       <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_api.ListIasConfigurationData">ListIasConfigurationData (class in cdb.tests.tests_cdb_api)</a>
 </li>
-      <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.ListRegistry">ListRegistry (class in tickets.tests.tests_shelves_api)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.ListRegistry">ListRegistry (class in tickets.tests.tests_shelves_api)</a>
+</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.ListTicket">ListTicket (class in tickets.tests.tests_tickets_api)</a>
 </li>
       <li><a href="modules/users.html#users.views.LoggedObtainAuthToken">LoggedObtainAuthToken (class in users.views)</a>
@@ -880,17 +874,11 @@
       </ul></li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.mode">mode (alarms.tests.factories.AlarmFactory attribute)</a>
 </li>
-      <li><a href="modules/panels.html#panels.serializers.AlarmConfigSerializer.Meta.model">model (panels.serializers.AlarmConfigSerializer.Meta attribute)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/panels.html#panels.serializers.PlacemarkSerializer.Meta.model">model (panels.serializers.PlacemarkSerializer.Meta attribute)</a>
 
       <ul>
-        <li><a href="modules/panels.html#panels.serializers.FileSerializer.Meta.model">(panels.serializers.FileSerializer.Meta attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.serializers.PlacemarkSerializer.Meta.model">(panels.serializers.PlacemarkSerializer.Meta attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.serializers.TypeSerializer.Meta.model">(panels.serializers.TypeSerializer.Meta attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.serializers.ViewSerializer.Meta.model">(panels.serializers.ViewSerializer.Meta attribute)</a>
-</li>
         <li><a href="modules/tickets.html#tickets.serializers.ShelveRegistrySerializer.Meta.model">(tickets.serializers.ShelveRegistrySerializer.Meta attribute)</a>
 </li>
         <li><a href="modules/tickets.html#tickets.serializers.TicketSerializer.Meta.model">(tickets.serializers.TicketSerializer.Meta attribute)</a>
@@ -921,10 +909,6 @@
 </li>
         <li><a href="modules/panels.html#panels.models.PlacemarkType.name">(panels.models.PlacemarkType attribute)</a>
 </li>
-        <li><a href="modules/panels.html#panels.models.Type.name">(panels.models.Type attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.models.View.name">(panels.models.View attribute)</a>
-</li>
         <li><a href="modules/tickets.html#tickets.apps.TicketsConfig.name">(tickets.apps.TicketsConfig attribute)</a>
 </li>
         <li><a href="modules/timers.html#timers.apps.TimersConfig.name">(timers.apps.TimersConfig attribute)</a>
@@ -934,8 +918,6 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.nested_alarms">nested_alarms (panels.models.AlarmConfig attribute)</a>
-</li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.notify_counter_by_view_to_observer">notify_counter_by_view_to_observer() (alarms.collections.AlarmCollection class method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.notify_observers">notify_observers() (alarms.collections.AlarmCollection class method)</a>
@@ -960,10 +942,6 @@
         <li><a href="modules/panels.html#panels.models.PlacemarkGroup.objects">(panels.models.PlacemarkGroup attribute)</a>
 </li>
         <li><a href="modules/panels.html#panels.models.PlacemarkType.objects">(panels.models.PlacemarkType attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.models.Type.objects">(panels.models.Type attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.models.View.objects">(panels.models.View attribute)</a>
 </li>
         <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.objects">(tickets.models.ShelveRegistry attribute)</a>
 </li>
@@ -998,6 +976,8 @@
 </li>
       <li><a href="modules/panels.html#module-panels.apps">panels.apps (module)</a>
 </li>
+      <li><a href="modules/panels.html#module-panels.connectors">panels.connectors (module)</a>
+</li>
       <li><a href="modules/panels.html#module-panels.interfaces">panels.interfaces (module)</a>
 </li>
       <li><a href="modules/panels.html#module-panels.models">panels.models (module)</a>
@@ -1006,15 +986,13 @@
 </li>
       <li><a href="modules/panels.tests.html#module-panels.tests">panels.tests (module)</a>
 </li>
-      <li><a href="modules/panels.tests.html#module-panels.tests.test_interfaces">panels.tests.test_interfaces (module)</a>
-</li>
       <li><a href="modules/panels.tests.html#module-panels.tests.tests_api_alarmsconfig">panels.tests.tests_api_alarmsconfig (module)</a>
-</li>
-      <li><a href="modules/panels.tests.html#module-panels.tests.tests_api_alarmsconfig_errors">panels.tests.tests_api_alarmsconfig_errors (module)</a>
 </li>
       <li><a href="modules/panels.tests.html#module-panels.tests.tests_api_files">panels.tests.tests_api_files (module)</a>
 </li>
       <li><a href="modules/panels.tests.html#module-panels.tests.tests_api_placemarks">panels.tests.tests_api_placemarks (module)</a>
+</li>
+      <li><a href="modules/panels.tests.html#module-panels.tests.tests_interfaces">panels.tests.tests_interfaces (module)</a>
 </li>
       <li><a href="modules/panels.tests.html#module-panels.tests.tests_models">panels.tests.tests_models (module)</a>
 </li>
@@ -1025,10 +1003,6 @@
       <li><a href="modules/panels.html#panels.apps.PanelsConfig">PanelsConfig (class in panels.apps)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.connectors.PanelsConnector">PanelsConnector (class in alarms.connectors)</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.parent">parent (panels.models.AlarmConfig attribute)</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.parent_id">parent_id (panels.models.AlarmConfig attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.parents_collection">parents_collection (alarms.collections.AlarmCollection attribute)</a>
 </li>
@@ -1056,13 +1030,9 @@
       </ul></li>
       <li><a href="modules/panels.html#panels.models.Placemark">Placemark (class in panels.models)</a>
 </li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.placemark">placemark (panels.models.AlarmConfig attribute)</a>
-</li>
       <li><a href="modules/panels.html#panels.models.Placemark.DoesNotExist">Placemark.DoesNotExist</a>
 </li>
       <li><a href="modules/panels.html#panels.models.Placemark.MultipleObjectsReturned">Placemark.MultipleObjectsReturned</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.placemark_id">placemark_id (panels.models.AlarmConfig attribute)</a>
 </li>
       <li><a href="modules/panels.html#panels.models.PlacemarkGroup">PlacemarkGroup (class in panels.models)</a>
 </li>
@@ -1104,13 +1074,9 @@
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.queryset">queryset (panels.views.AlarmConfigViewSet attribute)</a>
+      <li><a href="modules/panels.html#panels.views.PlacemarkViewSet.queryset">queryset (panels.views.PlacemarkViewSet attribute)</a>
 
       <ul>
-        <li><a href="modules/panels.html#panels.views.FileViewSet.queryset">(panels.views.FileViewSet attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.views.PlacemarkViewSet.queryset">(panels.views.PlacemarkViewSet attribute)</a>
-</li>
         <li><a href="modules/tickets.html#tickets.views.ShelveRegistryViewSet.queryset">(tickets.views.ShelveRegistryViewSet attribute)</a>
 </li>
         <li><a href="modules/tickets.html#tickets.views.TicketViewSet.queryset">(tickets.views.TicketViewSet attribute)</a>
@@ -1150,27 +1116,19 @@
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.register_observer">register_observer() (alarms.collections.AlarmCollection class method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.models.Validity.RELIABLE">RELIABLE (alarms.models.Validity attribute)</a>
 </li>
       <li><a href="modules/users.management.commands.html#users.management.commands.createusers.Command.requires_migrations_checks">requires_migrations_checks (users.management.commands.createusers.Command attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.reset">reset() (alarms.collections.AlarmCollection class method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/users.html#users.models.reset_auth_token">reset_auth_token() (in module users.models)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.AlarmCountManager.reset_counter_by_view">reset_counter_by_view() (alarms.models.AlarmCountManager method)</a>
 </li>
       <li><a href="modules/cdb.html#cdb.views.retrieve_ias">retrieve_ias() (in module cdb.views)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig">RetrieveAntennasConfig (class in panels.tests.tests_api_alarmsconfig)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig">RetrieveAntennasSummaryConfig (class in panels.tests.tests_api_alarmsconfig)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.RetrieveFile">RetrieveFile (class in panels.tests.tests_api_files)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig">RetrieveHealthSummaryConfig (class in panels.tests.tests_api_alarmsconfig)</a>
 </li>
       <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_api.RetrieveIasConfigurationData">RetrieveIasConfigurationData (class in cdb.tests.tests_cdb_api)</a>
 </li>
@@ -1183,10 +1141,6 @@
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.RetrieveRegistry">RetrieveRegistry (class in tickets.tests.tests_shelves_api)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.RetrieveTicket">RetrieveTicket (class in tickets.tests.tests_tickets_api)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig">RetrieveWeatherConfig (class in panels.tests.tests_api_alarmsconfig)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary">RetrieveWeatherSummary (class in panels.tests.tests_api_alarmsconfig)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1202,13 +1156,9 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.sequence">sequence (alarms.tests.factories.AlarmFactory attribute)</a>
 </li>
-      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.serializer_class">serializer_class (panels.views.AlarmConfigViewSet attribute)</a>
+      <li><a href="modules/panels.html#panels.views.PlacemarkViewSet.serializer_class">serializer_class (panels.views.PlacemarkViewSet attribute)</a>
 
       <ul>
-        <li><a href="modules/panels.html#panels.views.FileViewSet.serializer_class">(panels.views.FileViewSet attribute)</a>
-</li>
-        <li><a href="modules/panels.html#panels.views.PlacemarkViewSet.serializer_class">(panels.views.PlacemarkViewSet attribute)</a>
-</li>
         <li><a href="modules/tickets.html#tickets.views.ShelveRegistryViewSet.serializer_class">(tickets.views.ShelveRegistryViewSet attribute)</a>
 </li>
         <li><a href="modules/tickets.html#tickets.views.TicketViewSet.serializer_class">(tickets.views.TicketViewSet attribute)</a>
@@ -1234,19 +1184,15 @@
         <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.set_mock_views_configuration">(alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.AlarmsConfigTestSetUp.setCommonUsersAndClients">setCommonUsersAndClients() (panels.tests.tests_api_alarmsconfig.AlarmsConfigTestSetUp method)</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.AlarmConfigTestSetup.setCommonUsersAndClients">setCommonUsersAndClients() (panels.tests.tests_api_alarmsconfig.AlarmConfigTestSetup method)</a>
 
       <ul>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AlarmsConfigErrorResponseTestSetUp.setCommonUsersAndClients">(panels.tests.tests_api_alarmsconfig_errors.AlarmsConfigErrorResponseTestSetUp method)</a>
-</li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.FileTestSetup.setCommonUsersAndClients">(panels.tests.tests_api_files.FileTestSetup method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.PlacemarksTestSetUp.setCommonUsersAndClients">(panels.tests.tests_api_placemarks.PlacemarksTestSetUp method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.AlarmsConfigTestSetUp.setTestAlarmsConfig">setTestAlarmsConfig() (panels.tests.tests_api_alarmsconfig.AlarmsConfigTestSetUp method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AlarmsConfigErrorResponseTestSetUp.setTestAlarmsConfigErrorResponse">setTestAlarmsConfigErrorResponse() (panels.tests.tests_api_alarmsconfig_errors.AlarmsConfigErrorResponseTestSetUp method)</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.AlarmConfigTestSetup.setTestAlarmConfig">setTestAlarmConfig() (panels.tests.tests_api_alarmsconfig.AlarmConfigTestSetup method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.FileTestSetup.setTestFilesConfig">setTestFilesConfig() (panels.tests.tests_api_files.FileTestSetup method)</a>
 </li>
@@ -1259,29 +1205,13 @@
       <ul>
         <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.setUp">(cdb.tests.tests_cdb_api.RetrieveIasConfigurationData method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.test_interfaces.TestIPanels.setUp">(panels.tests.test_interfaces.TestIPanels method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile.setUp">(panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig.setUp">(panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist.setUp">(panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig.setUp">(panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfNotConfigKey.setUp">(panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfNotConfigKey method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig.setUp">(panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig.setUp">(panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary.setUp">(panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse.setUp">(panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse.setUp">(panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse.setUp">(panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse.setUp">(panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.CreateFile.setUp">(panels.tests.tests_api_files.CreateFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.DeleteFile.setUp">(panels.tests.tests_api_files.DeleteFile method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.ListAlarmConfig.setUp">(panels.tests.tests_api_alarmsconfig.ListAlarmConfig method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFile.setUp">(panels.tests.tests_api_files.GetJsonFromFile method)</a>
 </li>
@@ -1289,27 +1219,25 @@
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.ListFile.setUp">(panels.tests.tests_api_files.ListFile method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.RetrieveFile.setUp">(panels.tests.tests_api_files.RetrieveFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.UpdateFile.setUp">(panels.tests.tests_api_files.UpdateFile method)</a>
-</li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.RetrievePadsByGroup.setUp">(panels.tests.tests_api_placemarks.RetrievePadsByGroup method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.RetrievePadsBySelectedGroup.setUp">(panels.tests.tests_api_placemarks.RetrievePadsBySelectedGroup method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigModelsTestCase.setUp">(panels.tests.tests_models.AlarmConfigModelsTestCase method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_interfaces.TestIPanels.setUp">(panels.tests.tests_interfaces.TestIPanels method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_models.FileModelsTestCase.setUp">(panels.tests.tests_models.FileModelsTestCase method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigAllTestCase.setUp">(panels.tests.tests_models.AlarmConfigAllTestCase method)</a>
+</li>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigFormatTestCase.setUp">(panels.tests.tests_models.AlarmConfigFormatTestCase method)</a>
+</li>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigGetDataFromFileTestCase.setUp">(panels.tests.tests_models.AlarmConfigGetDataFromFileTestCase method)</a>
+</li>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigGetUpdatedDataFromFileTestCase.setUp">(panels.tests.tests_models.AlarmConfigGetUpdatedDataFromFileTestCase method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkGroupModelsTestCase.setUp">(panels.tests.tests_models.PlacemarkGroupModelsTestCase method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTestCase.setUp">(panels.tests.tests_models.PlacemarkTestCase method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTypeModelsTestCase.setUp">(panels.tests.tests_models.PlacemarkTypeModelsTestCase method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_models.TypeModelsTestCase.setUp">(panels.tests.tests_models.TypeModelsTestCase method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_models.ViewModelsTestCase.setUp">(panels.tests.tests_models.ViewModelsTestCase method)</a>
 </li>
         <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.ApiCanCheckTimeouts.setUp">(tickets.tests.tests_shelves_api.ApiCanCheckTimeouts method)</a>
 </li>
@@ -1450,44 +1378,24 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.tags">tags (panels.models.AlarmConfig attribute)</a>
-</li>
       <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_api.ListIasConfigurationData.target_request_from_client">target_request_from_client() (cdb.tests.tests_cdb_api.ListIasConfigurationData method)</a>
 
       <ul>
         <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.target_request_from_client">(cdb.tests.tests_cdb_api.RetrieveIasConfigurationData method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig.target_request_from_client">(panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile.target_request_from_client">(panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig.target_request_from_client">(panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist.target_request_from_client">(panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig.target_request_from_client">(panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfNotConfigKey.target_request_from_client">(panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfNotConfigKey method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig.target_request_from_client">(panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary.target_request_from_client">(panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse.target_request_from_client">(panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse.target_request_from_client">(panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse.target_request_from_client">(panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse.target_request_from_client">(panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.CreateFile.target_request_from_client">(panels.tests.tests_api_files.CreateFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.DeleteFile.target_request_from_client">(panels.tests.tests_api_files.DeleteFile method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.ListAlarmConfig.target_request_from_client">(panels.tests.tests_api_alarmsconfig.ListAlarmConfig method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFile.target_request_from_client">(panels.tests.tests_api_files.GetJsonFromFile method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist.target_request_from_client">(panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.ListFile.target_request_from_client">(panels.tests.tests_api_files.ListFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.RetrieveFile.target_request_from_client">(panels.tests.tests_api_files.RetrieveFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.UpdateFile.target_request_from_client">(panels.tests.tests_api_files.UpdateFile method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.RetrievePadsByGroup.target_request_from_client">(panels.tests.tests_api_placemarks.RetrievePadsByGroup method)</a>
 </li>
@@ -1560,8 +1468,6 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_acknowledge_set_alarms">test_acknowledge_set_alarms() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestIasValueUpdates.test_add_or_update_antennas_pad_value">test_add_or_update_antennas_pad_value() (alarms.tests.tests_collections.TestIasValueUpdates method)</a>
-</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestIasValueUpdates.test_add_or_update_value">test_add_or_update_value() (alarms.tests.tests_collections.TestIasValueUpdates method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestIasValueUpdates.test_add_value">test_add_value() (alarms.tests.tests_collections.TestIasValueUpdates method)</a>
@@ -1580,10 +1486,6 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionShelve.test_already_shelved_alarm">test_already_shelved_alarm() (alarms.tests.tests_collections.TestAlarmsCollectionShelve method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse.test_api_antennas_config_response_errors">test_api_antennas_config_response_errors() (panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse.test_api_antennas_summary_config_response_errors">test_api_antennas_summary_config_response_errors() (panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse method)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm.test_api_can_acknowledge_all_tickets_by_alarm">test_api_can_acknowledge_all_tickets_by_alarm() (tickets.tests.tests_tickets_api.AcknowledgeAllTicketsByAlarm method)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets.test_api_can_acknowledge_multiple_tickets">test_api_can_acknowledge_multiple_tickets() (tickets.tests.tests_tickets_api.AcknowledgeMultipleTickets method)</a>
@@ -1592,16 +1494,12 @@
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.ApiCanCheckTimeouts.test_api_can_check_timeouts_for_an_unauthenticated_client">test_api_can_check_timeouts_for_an_unauthenticated_client() (tickets.tests.tests_shelves_api.ApiCanCheckTimeouts method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.CreateFile.test_api_can_create_file">test_api_can_create_file() (panels.tests.tests_api_files.CreateFile method)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.CreateRegistry.test_api_can_create_registry">test_api_can_create_registry() (tickets.tests.tests_shelves_api.CreateRegistry method)</a>
 
       <ul>
         <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase.test_api_can_create_registry">(tickets.tests.tests_shelves_api.CreateRegistryWithNoMessageCase method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.DeleteFile.test_api_can_delete_a_file">test_api_can_delete_a_file() (panels.tests.tests_api_files.DeleteFile method)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.DeleteRegistry.test_api_can_delete_a_registry">test_api_can_delete_a_registry() (tickets.tests.tests_shelves_api.DeleteRegistry method)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase.test_api_can_filter_all_open_registries">test_api_can_filter_all_open_registries() (tickets.tests.tests_shelves_api.FilterRegistryForUnshelvedCase method)</a>
@@ -1618,27 +1516,23 @@
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.FilterTicketsByStatus.test_api_can_filter_tickets_by_status">test_api_can_filter_tickets_by_status() (tickets.tests.tests_tickets_api.FilterTicketsByStatus method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig.test_api_can_get_antennas_config">test_api_can_get_antennas_config() (panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig.test_api_can_get_antennas_summary_config">test_api_can_get_antennas_summary_config() (panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig method)</a>
-</li>
       <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_api.RetrieveIasConfigurationData.test_api_can_get_ias_for_authenticated_user">test_api_can_get_ias_for_authenticated_user() (cdb.tests.tests_cdb_api.RetrieveIasConfigurationData method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig.test_api_can_get_ias_health_summary_config">test_api_can_get_ias_health_summary_config() (panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig method)</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile.test_api_can_get_json_from_file">test_api_can_get_json_from_file() (panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile method)</a>
+
+      <ul>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFile.test_api_can_get_json_from_file">(panels.tests.tests_api_files.GetJsonFromFile method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFile.test_api_can_get_json_from_file">test_api_can_get_json_from_file() (panels.tests.tests_api_files.GetJsonFromFile method)</a>
-</li>
+      </ul></li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.RetrievePadsBySelectedGroup.test_api_can_get_pads_by_group">test_api_can_get_pads_by_group() (panels.tests.tests_api_placemarks.RetrievePadsBySelectedGroup method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.RetrievePadsByGroup.test_api_can_get_pads_by_group_without_group">test_api_can_get_pads_by_group_without_group() (panels.tests.tests_api_placemarks.RetrievePadsByGroup method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig.test_api_can_get_weather_config">test_api_can_get_weather_config() (panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary.test_api_can_get_weather_summary_config">test_api_can_get_weather_summary_config() (panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary method)</a>
-</li>
       <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_api.ListIasConfigurationData.test_api_can_list_ias_for_an_authenticated_user">test_api_can_list_ias_for_an_authenticated_user() (cdb.tests.tests_cdb_api.ListIasConfigurationData method)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.ListRegistry.test_api_can_list_registries">test_api_can_list_registries() (tickets.tests.tests_shelves_api.ListRegistry method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.ListAlarmConfig.test_api_can_list_the_configurations">test_api_can_list_the_configurations() (panels.tests.tests_api_alarmsconfig.ListAlarmConfig method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.ListFile.test_api_can_list_the_files">test_api_can_list_the_files() (panels.tests.tests_api_files.ListFile method)</a>
 </li>
@@ -1648,50 +1542,28 @@
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.RetrieveRegistry.test_api_can_retreive_registry_to_authorized_user">test_api_can_retreive_registry_to_authorized_user() (tickets.tests.tests_shelves_api.RetrieveRegistry method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.RetrieveFile.test_api_can_retrieve_a_file">test_api_can_retrieve_a_file() (panels.tests.tests_api_files.RetrieveFile method)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.RetrieveOldOpenTickets.test_api_can_retrieve_old_open_tickets_information">test_api_can_retrieve_old_open_tickets_information() (tickets.tests.tests_tickets_api.RetrieveOldOpenTickets method)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.RetrieveTicket.test_api_can_retrieve_tickets_to_authorized_user">test_api_can_retrieve_tickets_to_authorized_user() (tickets.tests.tests_tickets_api.RetrieveTicket method)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.UnshelveMultipleRegistries.test_api_can_unshelve_multiple_registries">test_api_can_unshelve_multiple_registries() (tickets.tests.tests_shelves_api.UnshelveMultipleRegistries method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.UpdateFile.test_api_can_update_a_file">test_api_can_update_a_file() (panels.tests.tests_api_files.UpdateFile method)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.UpdateRegistry.test_api_can_update_registry">test_api_can_update_registry() (tickets.tests.tests_shelves_api.UpdateRegistry method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig.test_api_cannot_allow_request_for_unauthenticated_user">test_api_cannot_allow_request_for_unauthenticated_user() (panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig method)</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile.test_api_cannot_allow_request_for_unauthenticated_user">test_api_cannot_allow_request_for_unauthenticated_user() (panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile method)</a>
 
       <ul>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfNotConfigKey.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfNotConfigKey method)</a>
 </li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.CreateFile.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_files.CreateFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.DeleteFile.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_files.DeleteFile method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.ListAlarmConfig.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_alarmsconfig.ListAlarmConfig method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFile.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_files.GetJsonFromFile method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.ListFile.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_files.ListFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.RetrieveFile.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_files.RetrieveFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.UpdateFile.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_files.UpdateFile method)</a>
 </li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.RetrievePadsByGroup.test_api_cannot_allow_request_for_unauthenticated_user">(panels.tests.tests_api_placemarks.RetrievePadsByGroup method)</a>
 </li>
@@ -1746,41 +1618,9 @@
         <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.RetrieveTicket.test_api_cannot_allow_request_for_unauthenticated_user">(tickets.tests.tests_tickets_api.RetrieveTicket method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig.test_api_cannot_allow_request_for_unauthorized_user">test_api_cannot_allow_request_for_unauthorized_user() (panels.tests.tests_api_alarmsconfig.RetrieveAntennasConfig method)</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.RetrievePadsByGroup.test_api_cannot_allow_request_for_unauthorized_user">test_api_cannot_allow_request_for_unauthorized_user() (panels.tests.tests_api_placemarks.RetrievePadsByGroup method)</a>
 
       <ul>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_alarmsconfig.RetrieveAntennasSummaryConfig method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_alarmsconfig.RetrieveHealthSummaryConfig method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_alarmsconfig.RetrieveWeatherConfig method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_alarmsconfig.RetrieveWeatherSummary method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_alarmsconfig_errors.AntennasConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_alarmsconfig_errors.AntennasSummaryConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.CreateFile.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_files.CreateFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.DeleteFile.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_files.DeleteFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFile.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_files.GetJsonFromFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.ListFile.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_files.ListFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.RetrieveFile.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_files.RetrieveFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.UpdateFile.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_files.UpdateFile method)</a>
-</li>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.RetrievePadsByGroup.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_placemarks.RetrievePadsByGroup method)</a>
-</li>
         <li><a href="modules/panels.tests.html#panels.tests.tests_api_placemarks.RetrievePadsBySelectedGroup.test_api_cannot_allow_request_for_unauthorized_user">(panels.tests.tests_api_placemarks.RetrievePadsBySelectedGroup method)</a>
 </li>
         <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.CreateRegistry.test_api_cannot_allow_request_for_unauthorized_user">(tickets.tests.tests_shelves_api.CreateRegistry method)</a>
@@ -1846,17 +1686,17 @@
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_cannot_create_tickets_for_an_unauthenticated_user">test_api_cannot_create_tickets_for_an_unauthenticated_user() (tickets.tests.tests_tickets_api.CreateTicketTestCase method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist.test_api_cannot_get_json_if_the_key_does_not_exist">test_api_cannot_get_json_if_the_key_does_not_exist() (panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist method)</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist.test_api_cannot_get_json_if_the_key_does_not_exist">test_api_cannot_get_json_if_the_key_does_not_exist() (panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist method)</a>
+
+      <ul>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfNotConfigKey.test_api_cannot_get_json_if_the_key_does_not_exist">(panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfNotConfigKey method)</a>
 </li>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist.test_api_cannot_get_json_if_the_key_does_not_exist">(panels.tests.tests_api_files.GetJsonFromFileIfKeyDoesNotExist method)</a>
+</li>
+      </ul></li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage.test_api_cannot_update_registry_to_have_no_message">test_api_cannot_update_registry_to_have_no_message() (tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_api.CreateTicketTestCase.test_api_should_always_unallow_the_create_permission">test_api_should_always_unallow_the_create_permission() (tickets.tests.tests_tickets_api.CreateTicketTestCase method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse.test_api_weather_config_response_errors">test_api_weather_config_response_errors() (panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse.test_api_weather_summary_config_response_errors">test_api_weather_summary_config_response_errors() (panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_broadcast.TestPeriodicBroadcastCase.test_broadcast_status">test_broadcast_status() (alarms.tests.tests_broadcast.TestPeriodicBroadcastCase method)</a>
 </li>
@@ -1878,9 +1718,33 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.test_close_connection_action">test_close_connection_action() (alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_token_query_string">test_connection_allowed_using_a_valid_token_query_string() (alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_password">test_connection_allowed_using_a_valid_password() (alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_allowed_using_a_valid_password">(alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer method)</a>
 </li>
+      </ul></li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_token_query_string">test_connection_allowed_using_a_valid_token_query_string() (alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_allowed_using_a_valid_token_query_string">(alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_for_an_invalid_password">test_connection_not_allowed_for_an_invalid_password() (alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_not_allowed_for_an_invalid_password">(alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer method)</a>
+</li>
+      </ul></li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_for_an_invalid_token">test_connection_not_allowed_for_an_invalid_token() (alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_not_allowed_for_an_invalid_token">(alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_not_allowed_without_a_token_or_password">test_connection_not_allowed_without_a_token_or_password() (alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_without_a_token_query_string">test_connection_not_allowed_without_a_token_query_string() (alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer method)</a>
 </li>
@@ -1896,15 +1760,7 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms">test_counter_by_view_update_for_new_SET_UNACK_alarms() (alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config">test_create_alarm_config() (panels.tests.tests_models.AlarmConfigModelsTestCase method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config_with_parent">test_create_alarm_config_with_parent() (panels.tests.tests_models.AlarmConfigModelsTestCase method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigModelsTestCase.test_create_alarm_config_with_placemark">test_create_alarm_config_with_placemark() (panels.tests.tests_models.AlarmConfigModelsTestCase method)</a>
-</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_create_alarm_on_dict">test_create_alarm_on_dict() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.FileModelsTestCase.test_create_file">test_create_file() (panels.tests.tests_models.FileModelsTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_create_group">test_create_group() (panels.tests.tests_models.PlacemarkGroupModelsTestCase method)</a>
 </li>
@@ -1925,30 +1781,14 @@
 </li>
       </ul></li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_create_type">test_create_type() (panels.tests.tests_models.PlacemarkTypeModelsTestCase method)</a>
-
-      <ul>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_models.TypeModelsTestCase.test_create_type">(panels.tests.tests_models.TypeModelsTestCase method)</a>
 </li>
-      </ul></li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_create_value_on_values_dict">test_create_value_on_values_dict() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.ViewModelsTestCase.test_create_view">test_create_view() (panels.tests.tests_models.ViewModelsTestCase method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigModelsTestCase.test_delete_alarm_config">test_delete_alarm_config() (panels.tests.tests_models.AlarmConfigModelsTestCase method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.FileModelsTestCase.test_delete_file">test_delete_file() (panels.tests.tests_models.FileModelsTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_delete_group">test_delete_group() (panels.tests.tests_models.PlacemarkGroupModelsTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTestCase.test_delete_placemark">test_delete_placemark() (panels.tests.tests_models.PlacemarkTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_delete_type">test_delete_type() (panels.tests.tests_models.PlacemarkTypeModelsTestCase method)</a>
-
-      <ul>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_models.TypeModelsTestCase.test_delete_type">(panels.tests.tests_models.TypeModelsTestCase method)</a>
-</li>
-      </ul></li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.ViewModelsTestCase.test_delete_view">test_delete_view() (panels.tests.tests_models.ViewModelsTestCase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_equals_except_timestamp">test_equals_except_timestamp() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
@@ -1966,25 +1806,25 @@
         <li><a href="modules/tickets.tests.html#tickets.tests.tests_connectors.TestAlarmConnector.test_get_alarm_dependencies">(tickets.tests.tests_connectors.TestAlarmConnector method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_dasu">test_get_alarm_from_core_message_from_dasu() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message_from_plugin">test_get_alarm_from_core_message_from_plugin() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message">test_get_alarm_from_core_message() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestPanelsConnector.test_get_alarm_ids_of_alarm_configs">test_get_alarm_ids_of_alarm_configs() (alarms.tests.tests_connectors.TestPanelsConnector method)</a>
 
       <ul>
-        <li><a href="modules/panels.tests.html#panels.tests.test_interfaces.TestIPanels.test_get_alarm_ids_of_alarm_configs">(panels.tests.test_interfaces.TestIPanels method)</a>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_interfaces.TestIPanels.test_get_alarm_ids_of_alarm_configs">(panels.tests.tests_interfaces.TestIPanels method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/panels.tests.html#panels.tests.test_interfaces.TestIPanels.test_get_alarms_views_dict_of_alarm_configs">test_get_alarms_views_dict_of_alarm_configs() (panels.tests.test_interfaces.TestIPanels method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestPanelsConnector.test_get_alarms_views_dict_of_alarm_configs">test_get_alarms_views_dict_of_alarm_configs() (alarms.tests.tests_connectors.TestPanelsConnector method)</a>
+
+      <ul>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_interfaces.TestIPanels.test_get_alarms_views_dict_of_alarm_configs">(panels.tests.tests_interfaces.TestIPanels method)</a>
 </li>
+      </ul></li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_get_ancestors_recursively">test_get_ancestors_recursively() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_core_id_from">test_get_core_id_from() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_get_dependencies_recursively">test_get_dependencies_recursively() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.test_interfaces.TestIPanels.test_get_names_of_views">test_get_names_of_views() (panels.tests.test_interfaces.TestIPanels method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_templated_core_id_from">test_get_templated_core_id_from() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
 </li>
@@ -2038,21 +1878,11 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_recursive_unack">test_recursive_unack() (alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigModelsTestCase.test_retrieve_alarm_config">test_retrieve_alarm_config() (panels.tests.tests_models.AlarmConfigModelsTestCase method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.FileModelsTestCase.test_retrieve_file">test_retrieve_file() (panels.tests.tests_models.FileModelsTestCase method)</a>
-</li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_retrieve_group">test_retrieve_group() (panels.tests.tests_models.PlacemarkGroupModelsTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTestCase.test_retrieve_placemark">test_retrieve_placemark() (panels.tests.tests_models.PlacemarkTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_retrieve_type">test_retrieve_type() (panels.tests.tests_models.PlacemarkTypeModelsTestCase method)</a>
-
-      <ul>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_models.TypeModelsTestCase.test_retrieve_type">(panels.tests.tests_models.TypeModelsTestCase method)</a>
-</li>
-      </ul></li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.ViewModelsTestCase.test_retrieve_view">test_retrieve_view() (panels.tests.tests_models.ViewModelsTestCase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_SET_ACK_from_and_to_CLEAR_ACK">test_SET_ACK_from_and_to_CLEAR_ACK() (alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
 </li>
@@ -2086,8 +1916,6 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_update_alarm_and_ntify">test_update_alarm_and_ntify() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigModelsTestCase.test_update_alarm_config">test_update_alarm_config() (panels.tests.tests_models.AlarmConfigModelsTestCase method)</a>
-</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_update_alarm_mode">test_update_alarm_mode() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_update_alarm_no_notification">test_update_alarm_no_notification() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
@@ -2096,25 +1924,13 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_update_alarm_value">test_update_alarm_value() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestPanelsConnector.test_update_antennas_conf">test_update_antennas_conf() (alarms.tests.tests_connectors.TestPanelsConnector method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.test_interfaces.TestIPanels.test_update_antennas_configuration">test_update_antennas_configuration() (panels.tests.test_interfaces.TestIPanels method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.FileModelsTestCase.test_update_file">test_update_file() (panels.tests.tests_models.FileModelsTestCase method)</a>
-</li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_update_group">test_update_group() (panels.tests.tests_models.PlacemarkGroupModelsTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTestCase.test_update_placemark">test_update_placemark() (panels.tests.tests_models.PlacemarkTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_update_type">test_update_type() (panels.tests.tests_models.PlacemarkTypeModelsTestCase method)</a>
-
-      <ul>
-        <li><a href="modules/panels.tests.html#panels.tests.tests_models.TypeModelsTestCase.test_update_type">(panels.tests.tests_models.TypeModelsTestCase method)</a>
 </li>
-      </ul></li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_update_value_on_values_dict">test_update_value_on_values_dict() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.ViewModelsTestCase.test_update_view">test_update_view() (panels.tests.tests_models.ViewModelsTestCase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_updated_invalid_alarms">test_updated_invalid_alarms() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
@@ -2130,6 +1946,8 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer">TestConnectionToClientConsumer (class in alarms.tests.tests_client_consumer_connect)</a>
 </li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer">TestConnectionToCoreConsumer (class in alarms.tests.tests_core_consumer_connect)</a>
+</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer">TestCoreConsumer (class in alarms.tests.tests_core_consumer)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies">TestCountByViewForDependencies (class in alarms.tests.tests_collections_counter_by_view_cases)</a>
@@ -2142,7 +1960,7 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestIasValueUpdates">TestIasValueUpdates (class in alarms.tests.tests_collections)</a>
 </li>
-      <li><a href="modules/panels.tests.html#panels.tests.test_interfaces.TestIPanels">TestIPanels (class in panels.tests.test_interfaces)</a>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_interfaces.TestIPanels">TestIPanels (class in panels.tests.tests_interfaces)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer">TestNotificationsToClientConsumer (class in alarms.tests.tests_client_consumer_notify)</a>
 </li>
@@ -2151,6 +1969,24 @@
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_broadcast.TestPeriodicBroadcastCase">TestPeriodicBroadcastCase (class in alarms.tests.tests_broadcast)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer">TestRequestsToClientConsumer (class in alarms.tests.tests_client_consumer_request)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigGetDataFromFileTestCase.tests_get_configuration_data_from_file">tests_get_configuration_data_from_file() (panels.tests.tests_models.AlarmConfigGetDataFromFileTestCase method)</a>
+
+      <ul>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigGetUpdatedDataFromFileTestCase.tests_get_configuration_data_from_file">(panels.tests.tests_models.AlarmConfigGetUpdatedDataFromFileTestCase method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigAllTestCase.tests_get_configurations_from_config_files">tests_get_configurations_from_config_files() (panels.tests.tests_models.AlarmConfigAllTestCase method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigFormatTestCase.tests_get_configurations_from_config_files_with_a_list_format">tests_get_configurations_from_config_files_with_a_list_format() (panels.tests.tests_models.AlarmConfigFormatTestCase method)</a>
+</li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigGetDataFromFileTestCase.tests_get_configurations_from_file">tests_get_configurations_from_file() (panels.tests.tests_models.AlarmConfigGetDataFromFileTestCase method)</a>
+
+      <ul>
+        <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigGetUpdatedDataFromFileTestCase.tests_get_configurations_from_file">(panels.tests.tests_models.AlarmConfigGetUpdatedDataFromFileTestCase method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigFormatTestCase.tests_get_configurations_from_file_with_a_dictionary_format">tests_get_configurations_from_file_with_a_dictionary_format() (panels.tests.tests_models.AlarmConfigFormatTestCase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestTicketConnector">TestTicketConnector (class in alarms.tests.tests_connectors)</a>
 </li>
@@ -2233,6 +2069,8 @@
       <ul>
         <li><a href="modules/alarms.html#alarms.models.IASValue.to_dict">(alarms.models.IASValue method)</a>
 </li>
+        <li><a href="modules/panels.html#panels.models.AlarmConfig.to_dict">(panels.models.AlarmConfig method)</a>
+</li>
         <li><a href="modules/panels.html#panels.models.File.to_dict">(panels.models.File method)</a>
 </li>
         <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.to_dict">(tickets.models.ShelveRegistry method)</a>
@@ -2242,31 +2080,9 @@
       </ul></li>
       <li><a href="modules/alarms.html#alarms.auth.TokenAuthMiddleware">TokenAuthMiddleware (class in alarms.auth)</a>
 </li>
-      <li><a href="modules/panels.html#panels.models.Type">Type (class in panels.models)</a>
+      <li><a href="modules/panels.html#panels.models.Placemark.type">type (panels.models.Placemark attribute)</a>
 </li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.type">type (panels.models.AlarmConfig attribute)</a>
-
-      <ul>
-        <li><a href="modules/panels.html#panels.models.Placemark.type">(panels.models.Placemark attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="modules/panels.html#panels.models.Type.DoesNotExist">Type.DoesNotExist</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.Type.MultipleObjectsReturned">Type.MultipleObjectsReturned</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.type_id">type_id (panels.models.AlarmConfig attribute)</a>
-
-      <ul>
-        <li><a href="modules/panels.html#panels.models.Placemark.type_id">(panels.models.Placemark attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.TypeModelsTestCase">TypeModelsTestCase (class in panels.tests.tests_models)</a>
-</li>
-      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.types">types (panels.views.AlarmConfigViewSet attribute)</a>
-</li>
-      <li><a href="modules/panels.html#panels.serializers.TypeSerializer">TypeSerializer (class in panels.serializers)</a>
-</li>
-      <li><a href="modules/panels.html#panels.serializers.TypeSerializer.Meta">TypeSerializer.Meta (class in panels.serializers)</a>
+      <li><a href="modules/panels.html#panels.models.Placemark.type_id">type_id (panels.models.Placemark attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -2318,22 +2134,14 @@
       </ul></li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.update_all_alarms_validity">update_all_alarms_validity() (alarms.collections.AlarmCollection class method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.connectors.PanelsConnector.update_antennas_configuration">update_antennas_configuration() (alarms.connectors.PanelsConnector class method)</a>
-
-      <ul>
-        <li><a href="modules/panels.html#panels.interfaces.IPanels.update_antennas_configuration">(panels.interfaces.IPanels class method)</a>
-</li>
-      </ul></li>
       <li><a href="modules/alarms.html#alarms.consumers.ClientConsumer.update_counter_by_view">update_counter_by_view() (alarms.consumers.ClientConsumer method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.update_validity">update_validity() (alarms.models.Alarm method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_files.UpdateFile">UpdateFile (class in panels.tests.tests_api_files)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.UpdateRegistry">UpdateRegistry (class in tickets.tests.tests_shelves_api)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage">UpdateRegistryWithoutMessage (class in tickets.tests.tests_shelves_api)</a>
 </li>
       <li><a href="modules/panels.html#panels.models.File.url">url (panels.models.File attribute)</a>
@@ -2394,31 +2202,15 @@
 </li>
       <li><a href="modules/alarms.html#alarms.connectors.CdbConnector.validity_threshold">validity_threshold (alarms.connectors.CdbConnector attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.value">value (alarms.tests.factories.AlarmFactory attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.Value">Value (class in alarms.models)</a>
 </li>
+      <li><a href="modules/panels.html#panels.connectors.ValueConnector">ValueConnector (class in panels.connectors)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.values_collection">values_collection (alarms.collections.AlarmCollection attribute)</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.View">View (class in panels.models)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.view">view (panels.models.AlarmConfig attribute)</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.View.DoesNotExist">View.DoesNotExist</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.View.MultipleObjectsReturned">View.MultipleObjectsReturned</a>
-</li>
-      <li><a href="modules/panels.html#panels.models.AlarmConfig.view_id">view_id (panels.models.AlarmConfig attribute)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_models.ViewModelsTestCase">ViewModelsTestCase (class in panels.tests.tests_models)</a>
-</li>
-      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.views">views (panels.views.AlarmConfigViewSet attribute)</a>
-</li>
-      <li><a href="modules/panels.html#panels.serializers.ViewSerializer">ViewSerializer (class in panels.serializers)</a>
-</li>
-      <li><a href="modules/panels.html#panels.serializers.ViewSerializer.Meta">ViewSerializer.Meta (class in panels.serializers)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -2426,16 +2218,6 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.weather_config">weather_config() (panels.views.AlarmConfigViewSet method)</a>
-</li>
-      <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.weather_summary_config">weather_summary_config() (panels.views.AlarmConfigViewSet method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherConfigErrorResponse">WeatherConfigErrorResponse (class in panels.tests.tests_api_alarmsconfig_errors)</a>
-</li>
-      <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig_errors.WeatherSummaryConfigErrorResponse">WeatherSummaryConfigErrorResponse (class in panels.tests.tests_api_alarmsconfig_errors)</a>
-</li>
       <li><a href="modules/timers.html#timers.clients.WSClient">WSClient (class in timers.clients)</a>
 </li>
   </ul></td>

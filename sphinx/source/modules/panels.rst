@@ -27,6 +27,14 @@ panels.apps module
     :undoc-members:
     :show-inheritance:
 
+panels.connectors module
+------------------------
+
+.. automodule:: panels.connectors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 panels.interfaces module
 ------------------------
 

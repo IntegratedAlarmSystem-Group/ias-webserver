@@ -76,6 +76,14 @@ alarms.tests.tests\_core\_consumer module
     :undoc-members:
     :show-inheritance:
 
+alarms.tests.tests\_core\_consumer\_connect module
+--------------------------------------------------
+
+.. automodule:: alarms.tests.tests_core_consumer_connect
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alarms.tests.tests\_interfaces module
 -------------------------------------
 
