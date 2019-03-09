@@ -60,6 +60,7 @@
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_collections_counter_by_view_cases">alarms.tests.tests_collections_counter_by_view_cases module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_connectors">alarms.tests.tests_connectors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_core_consumer">alarms.tests.tests_core_consumer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_core_consumer_connect">alarms.tests.tests_core_consumer_connect module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_interfaces">alarms.tests.tests_interfaces module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_models">alarms.tests.tests_models module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests">Module contents</a></li>
@@ -489,27 +490,6 @@ related to an alarm from all the AlarmConfigs</p>
 </dl>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="alarms.connectors.PanelsConnector.get_names_of_views">
-<em class="property">classmethod </em><code class="descname">get_names_of_views</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.PanelsConnector.get_names_of_views" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list with the names of the views</p>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>(list): the list of names of the views</dd>
-</dl>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="alarms.connectors.PanelsConnector.update_antennas_configuration">
-<em class="property">classmethod </em><code class="descname">update_antennas_configuration</code><span class="sig-paren">(</span><em>antennas_pads_association</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.PanelsConnector.update_antennas_configuration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates the antennas pad association in the panels configuration</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>antennas_pads_association (String): Association between
-antennas and pads got from ias core value Array-AntennasToPads</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="class">
@@ -574,7 +554,8 @@ antennas and pads got from ias core value Array-AntennasToPads</dd>
 <dl class="method">
 <dt id="alarms.consumers.ClientConsumer.connect">
 <code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.connect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called on connection</p>
+<dd><p>Called upon connection, rejects connection if no authenticated user
+or password</p>
 </dd></dl>
 
 <dl class="method">
@@ -624,7 +605,8 @@ counter by view</p>
 <dl class="method">
 <dt id="alarms.consumers.CoreConsumer.connect">
 <code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.connect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called on connection</p>
+<dd><p>Called upon connection, rejects connection if no authenticated user
+or password</p>
 </dd></dl>
 
 <dl class="method">
@@ -754,6 +736,14 @@ alarm_id (string): The id of the alarm to get the ancestors</p>
 <dt>Args:</dt>
 <dd>alarm_id (string): The id of the alarm to get the dependencies</dd>
 </dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.interfaces.IAlarms.get_value">
+<em class="property">classmethod </em><code class="descname">get_value</code><span class="sig-paren">(</span><em>value_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.interfaces.IAlarms.get_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a selected IASValue from the values_collection</p>
+<p>Args:
+value_id (string): The core_id of the value</p>
 </dd></dl>
 
 <dl class="classmethod">
