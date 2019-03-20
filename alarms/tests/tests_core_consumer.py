@@ -202,6 +202,7 @@ class TestCoreConsumer:
             validity=1,
             core_timestamp=current_time_millis,
             state_change_timestamp=current_time_millis,
+            value_change_timestamp=current_time_millis,
             core_id=CoreConsumer.get_core_id_from(msg['fullRunningId']),
             running_id=msg['fullRunningId'],
             dependencies=[],

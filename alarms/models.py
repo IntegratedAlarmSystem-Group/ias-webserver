@@ -187,7 +187,7 @@ class Alarm:
                  validity=0, dependencies=[], properties={}, timestamps={},
                  ack=False, shelved=False, state_change_timestamp=0,
                  description='', url='', sound='', can_shelve=False, views=[],
-                 stored=False):
+                 stored=False, value_change_timestamp=0):
         """ Constructor of the class,
         only executed when there a new instance is created.
         Receives and validates values for the attributes of the object """
@@ -211,6 +211,8 @@ class Alarm:
         self.can_shelve = self.__check_bool_type(can_shelve)
         self.views = self.__check_list_type(views)  # optional
         self.stored = self.__check_bool_type(stored)
+        self.value_change_timestamp = self.__check_int_type(
+            value_change_timestamp)
 
     def __check_value(self, value):
         """ Validates the Alarm value """
@@ -307,6 +309,7 @@ class Alarm:
             'url': self.url,
             'sound': self.sound,
             'can_shelve': self.can_shelve,
+            'value_change_timestamp': self.value_change_timestamp,
         }
 
     def equals_except_timestamp(self, alarm):
@@ -355,14 +358,19 @@ class Alarm:
         else:
             transition = None
 
-        if self.mode != alarm.mode or self.value != alarm.value or \
+        if self.mode != alarm.mode or \
            (self.state_change_timestamp == 0 and alarm.validity == 1):
             self.state_change_timestamp = alarm.core_timestamp
+
+        if self.value != alarm.value:
+            self.state_change_timestamp = alarm.core_timestamp
+            self.value_change_timestamp = alarm.core_timestamp
 
         ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
         unchanged_fields = \
             ['ack', 'shelved', 'description', 'url', 'sound', 'can_shelve',
-                'state_change_timestamp', 'views', 'stored']
+                'state_change_timestamp', 'views', 'stored',
+                'value_change_timestamp']
 
         notify = 'updated-equal'
         if Counter(self.dependencies) == Counter(alarm.dependencies):
