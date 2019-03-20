@@ -358,14 +358,19 @@ class Alarm:
         else:
             transition = None
 
-        if self.mode != alarm.mode or self.value != alarm.value or \
+        if self.mode != alarm.mode or \
            (self.state_change_timestamp == 0 and alarm.validity == 1):
             self.state_change_timestamp = alarm.core_timestamp
+
+        if self.value != alarm.value:
+            self.state_change_timestamp = alarm.core_timestamp
+            self.value_change_timestamp = alarm.core_timestamp
 
         ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
         unchanged_fields = \
             ['ack', 'shelved', 'description', 'url', 'sound', 'can_shelve',
-                'state_change_timestamp', 'views', 'stored']
+                'state_change_timestamp', 'views', 'stored',
+                'value_change_timestamp']
 
         notify = 'updated-equal'
         if Counter(self.dependencies) == Counter(alarm.dependencies):
