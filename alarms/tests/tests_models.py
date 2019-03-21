@@ -77,6 +77,7 @@ class AlarmModelTestCase(TestCase):
         new_alarm = copy.deepcopy(alarm)
         new_alarm.core_timestamp = alarm.core_timestamp + 10
         new_alarm.value = 1
+        new_alarm.value_change_transition = [0, 1]
         expected_data = dict(new_alarm.to_dict())
         old_state_change = alarm.state_change_timestamp
         old_value_change = alarm.value_change_timestamp
