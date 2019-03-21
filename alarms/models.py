@@ -366,7 +366,7 @@ class Alarm:
             self.state_change_timestamp = alarm.core_timestamp
             self.value_change_timestamp = alarm.core_timestamp
 
-        ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
+        ignored_fields = ['core_timestamp', 'id', 'timestamps']
         unchanged_fields = \
             ['ack', 'shelved', 'description', 'url', 'sound', 'can_shelve',
                 'state_change_timestamp', 'views', 'stored',
