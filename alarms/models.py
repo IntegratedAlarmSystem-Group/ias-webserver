@@ -187,32 +187,77 @@ class Alarm:
                  validity=0, dependencies=[], properties={}, timestamps={},
                  ack=False, shelved=False, state_change_timestamp=0,
                  description='', url='', sound='', can_shelve=False, views=[],
-                 stored=False, value_change_timestamp=0):
+                 stored=False, value_change_timestamp=0,
+                 value_change_transition=[0, 0]):
         """ Constructor of the class,
         only executed when there a new instance is created.
         Receives and validates values for the attributes of the object """
 
         self.core_timestamp = self.__check_int_type(core_timestamp)
+        """ Core timestamp of the alarm """
+
         self.core_id = self.__check_str_type(core_id)
+        """ Core ID of the alarm """
+
         self.running_id = self.__check_str_type(running_id)
+        """ Running ID of the alarm """
+
         self.value = self.__check_value(value)
+        """ Value of the alarm """
+
         self.mode = self.__check_mode(mode)
+        """ Operational mode of the alarm """
+
         self.validity = self.__check_validity(validity)
+        """ Validity of the alarm """
+
         self.dependencies = self.__check_list_type(dependencies)  # optional
+        """ Children Alarms, alarms on which this Alarm depends """
+
         self.properties = self.__check_dict_type(properties)      # optional
+        """ Properties of the core """
+
         self.timestamps = self.__check_dict_type(timestamps)      # optional
+        """ Timestamps of the core """
+
         self.ack = self.__check_ack(ack)
+        """ True if the alarm is acknowledged, False if not """
+
         self.shelved = self.__check_shelved(shelved)
+        """ True if the alarm is shelved, False if not """
+
         self.state_change_timestamp = self.__check_int_type(
             state_change_timestamp)
+        """ Timestamp of the last important (notified) change in the alarm """
+
         self.description = self.__check_str_type(description)
+        """ Description of the alarm """
+
         self.url = self.__check_str_type(url)
+        """ URL to go for documentation of the alarm """
+
         self.sound = self.__check_str_type(sound)
+        """ Sound associated to the alarm """
+
         self.can_shelve = self.__check_bool_type(can_shelve)
+        """ Flag that defines weteher or not the alarm can be shelved """
+
         self.views = self.__check_list_type(views)  # optional
+        """List of views for which the alarm must be considered for counting"""
+
         self.stored = self.__check_bool_type(stored)
+        """ Flag that defines weteher or not the alarm is stored """
+
         self.value_change_timestamp = self.__check_int_type(
             value_change_timestamp)
+        """ Timestamp of the last change in the alarm value """
+
+        self.value_change_transition = self.__check_list_type(
+            value_change_transition)
+        """
+        Transition of the last change in the alarm value
+        Stored as a list with 2 elements in order: [previous_value, new_value]
+        """
 
     def __check_value(self, value):
         """ Validates the Alarm value """
@@ -310,6 +355,7 @@ class Alarm:
             'sound': self.sound,
             'can_shelve': self.can_shelve,
             'value_change_timestamp': self.value_change_timestamp,
+            'value_change_transition': self.value_change_transition,
         }
 
     def equals_except_timestamp(self, alarm):
@@ -365,12 +411,13 @@ class Alarm:
         if self.value != alarm.value:
             self.state_change_timestamp = alarm.core_timestamp
             self.value_change_timestamp = alarm.core_timestamp
+            self.value_change_transition = [self.value, alarm.value]
 
-        ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties']
+        ignored_fields = ['core_timestamp', 'id', 'timestamps']
         unchanged_fields = \
             ['ack', 'shelved', 'description', 'url', 'sound', 'can_shelve',
                 'state_change_timestamp', 'views', 'stored',
-                'value_change_timestamp']
+                'value_change_timestamp', 'value_change_transition']
 
         notify = 'updated-equal'
         if Counter(self.dependencies) == Counter(alarm.dependencies):
