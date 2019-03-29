@@ -228,17 +228,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-# redis_host = os.environ.get('REDIS_HOST', 'localhost')
-# CHANNEL_LAYERS = {
-#     "default": {
-#         # This example app uses the Redis channel layer
-#         # implementation asgi_redis
-#         "BACKEND": "channels_redis.core.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": [(redis_host, 6379)],
-#         }
-#     },
-# }
+# Channel Layers:
+if os.environ.get('REDIS_HOST', False):
+    CHANNEL_LAYERS = {
+        "default": {
+            # This example app uses the Redis channel layer
+            # implementation asgi_redis
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [(os.environ.get('REDIS_HOST', False), 6379)],
+            }
+        },
+    }
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (

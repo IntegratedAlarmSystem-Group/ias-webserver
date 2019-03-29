@@ -77,15 +77,20 @@ class AlarmModelTestCase(TestCase):
         new_alarm = copy.deepcopy(alarm)
         new_alarm.core_timestamp = alarm.core_timestamp + 10
         new_alarm.value = 1
+        new_alarm.value_change_transition = [0, 1]
         expected_data = dict(new_alarm.to_dict())
         old_state_change = alarm.state_change_timestamp
+        old_value_change = alarm.value_change_timestamp
         # Act:
         alarm.update(new_alarm)
         # Assert:
         new_state_change = alarm.state_change_timestamp
+        new_value_change = alarm.value_change_timestamp
         updated_data = dict(alarm.to_dict())
         del updated_data['state_change_timestamp']
         del expected_data['state_change_timestamp']
+        del updated_data['value_change_timestamp']
+        del expected_data['value_change_timestamp']
         self.assertEqual(
             updated_data, expected_data,
             'The Alarm was not updated correctly'
@@ -97,6 +102,14 @@ class AlarmModelTestCase(TestCase):
         self.assertEqual(
             new_state_change, alarm.core_timestamp,
             'The Alarm state_change_timestamp should have been updated'
+        )
+        self.assertTrue(
+            old_value_change < new_value_change,
+            'The Alarm value_change_timestamp should have been updated'
+        )
+        self.assertEqual(
+            new_value_change, alarm.core_timestamp,
+            'The Alarm value_change_timestamp should have been updated'
         )
 
     def test_update_alarm_mode(self):
@@ -110,13 +123,17 @@ class AlarmModelTestCase(TestCase):
         new_alarm.mode = 1
         expected_data = dict(new_alarm.to_dict())
         old_state_change = alarm.state_change_timestamp
+        old_value_change = alarm.value_change_timestamp
         # Act:
         alarm.update(new_alarm)
         # Assert:
         new_state_change = alarm.state_change_timestamp
+        new_value_change = alarm.value_change_timestamp
         updated_data = dict(alarm.to_dict())
         del updated_data['state_change_timestamp']
         del expected_data['state_change_timestamp']
+        del updated_data['value_change_timestamp']
+        del expected_data['value_change_timestamp']
         self.assertEqual(
             updated_data, expected_data,
             'The Alarm was not updated correctly'
@@ -128,6 +145,14 @@ class AlarmModelTestCase(TestCase):
         self.assertEqual(
             new_state_change, alarm.core_timestamp,
             'The state_change_timestamp should be equal to the core_timestamp'
+        )
+        self.assertEqual(
+            old_value_change, new_value_change,
+            'The value_change_timestamp should not have increased'
+        )
+        self.assertTrue(
+            new_value_change < alarm.core_timestamp,
+            'The value_change_timestamp should not be equal to core_timestamp'
         )
 
     def test_update_alarm_validity(self):
@@ -141,13 +166,17 @@ class AlarmModelTestCase(TestCase):
         new_alarm.validity = 1
         expected_data = dict(new_alarm.to_dict())
         old_state_change = alarm.state_change_timestamp
+        old_value_change = alarm.value_change_timestamp
         # Act:
         alarm.update(new_alarm)
         # Assert:
         new_state_change = alarm.state_change_timestamp
+        new_value_change = alarm.value_change_timestamp
         updated_data = dict(alarm.to_dict())
         del updated_data['state_change_timestamp']
         del expected_data['state_change_timestamp']
+        del updated_data['value_change_timestamp']
+        del expected_data['value_change_timestamp']
         self.assertEqual(
             updated_data, expected_data,
             'The Alarm was not updated correctly'
@@ -159,6 +188,14 @@ class AlarmModelTestCase(TestCase):
         self.assertTrue(
             new_state_change < alarm.core_timestamp,
             'state_change_timestamp should not be updated to core_timestamp'
+        )
+        self.assertEqual(
+            old_value_change, new_value_change,
+            'The value_change_timestamp should not have changed'
+        )
+        self.assertTrue(
+            new_value_change < alarm.core_timestamp,
+            'value_change_timestamp should not be updated to core_timestamp'
         )
 
     def test_ignored_invalid_alarms_update(self):

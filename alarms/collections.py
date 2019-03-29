@@ -45,13 +45,6 @@ class AlarmCollection:
             )
 
     @classmethod
-    def notify_counter_by_view_to_observer(self, observer):
-        """Notify counter by view to a selected observer"""
-        return observer.update_counter_by_view(
-            Alarm.objects.counter_by_view()
-        )
-
-    @classmethod
     async def notify_observers(self, alarm, action):
         """Notify to all observers an action over an alarm"""
         await asyncio.gather(
@@ -66,8 +59,8 @@ class AlarmCollection:
 
         # start block - counter by view notification
         await asyncio.gather(
-            *[self.notify_counter_by_view_to_observer(
-                observer
+            *[observer.update_counter_by_view(
+                Alarm.objects.counter_by_view()
             ) for observer in self.observers]
         )
         # end block - counter by view notification
@@ -83,8 +76,8 @@ class AlarmCollection:
 
         # start block - counter by view notification
         await asyncio.gather(
-            *[self.notify_counter_by_view_to_observer(
-                observer
+            *[observer.update_counter_by_view(
+                Alarm.objects.counter_by_view()
             ) for observer in self.observers]
         )
         # end block - counter by view notification
@@ -742,4 +735,10 @@ class AlarmCollectionObserver(abc.ABC):
     def update(alarm, action):
         """ Method that will be called on Observers when there is a new action
         to notifiy """
+        pass
+
+    @abc.abstractmethod
+    def update_counter_by_view(alarm, action):
+        """ Method that will be called on Observers when there is a new
+        change in the counters to notifiy """
         pass
