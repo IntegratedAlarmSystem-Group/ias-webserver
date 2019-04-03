@@ -47,6 +47,7 @@ class AlarmCollection:
     @classmethod
     async def notify_observers(self, alarm, action):
         """Notify to all observers an action over an alarm"""
+        start = time.time()
         await asyncio.gather(
             *[observer.update(
                 alarm,
@@ -63,6 +64,9 @@ class AlarmCollection:
                 Alarm.objects.counter_by_view()
             ) for observer in self.observers]
         )
+        print('Notify,{},{}'.format(
+            alarm.core_id, time.time() - start
+        ))
         # end block - counter by view notification
 
     @classmethod
@@ -427,7 +431,7 @@ class AlarmCollection:
         Returns:
             message (String): a string message sumarizing what happened
         """
-
+        start = time.time()
         if self.singleton_collection is None:
             self.initialize()
         if alarm.core_id not in self.singleton_collection:
@@ -439,16 +443,19 @@ class AlarmCollection:
             if status == 'not-updated':
                 response = 'ignored-old-alarm'
             elif status == 'updated-different':
-                await self.notify_observers(self.get(alarm.core_id), 'update')
+                # await self.notify_observers(self.get(alarm.core_id), 'update')
                 response = 'updated-alarm'
             elif status == 'updated-equal':
                 response = 'updated-alarm'
             else:
                 raise Exception('ERROR: incorrect update status')
+            await self.notify_observers(self.get(alarm.core_id), 'update')
         logger.debug(
             'the alarm %s was added or updated in the collection (status %s)',
             alarm.core_id, response)
-
+        print('Collection,{},{}'.format(
+            alarm.core_id, time.time() - start
+        ))
         return response
 
     @classmethod

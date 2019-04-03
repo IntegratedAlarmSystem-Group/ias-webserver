@@ -162,10 +162,12 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         Responds with a message indicating the action taken
         (created, updated, ignored)
         """
+        start = time.time()
         if content['valueType'] == 'ALARM':
             alarm = CoreConsumer.get_alarm_from_core_msg(content)
             alarm.update_validity()
             response = await AlarmCollection.add_or_update_and_notify(alarm)
+            response = alarm.core_id
             logger.debug(
                 'new alarm received by the consumer: %s',
                 alarm.to_dict())
@@ -177,6 +179,9 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
             logger.debug(
                 'new ias value received by the consumer: %s',
                 value.to_dict())
+        print('Receive,{},{}'.format(
+            alarm.core_id, time.time() - start
+        ))
         await self.send(response)
 
 
