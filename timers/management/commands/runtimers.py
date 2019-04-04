@@ -94,6 +94,7 @@ class Command(BaseCommand):
         broadcast_rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR
         if options['rate'] is not None:
             broadcast_rate = options['rate']*1000.0
+        broadcast_rate = 500
         logger.info(
             'BROADCAST-STATUS - Sending global refresh to %s \
             every %d ms', url, broadcast_rate

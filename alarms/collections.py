@@ -436,7 +436,7 @@ class AlarmCollection:
             self.initialize()
         if alarm.core_id not in self.singleton_collection:
             self.add(alarm)
-            await self.notify_observers(alarm, 'create')
+            # await self.notify_observers(alarm, 'create')
             response = 'created-alarm'
         else:
             status = self.update(alarm)
@@ -449,7 +449,7 @@ class AlarmCollection:
                 response = 'updated-alarm'
             else:
                 raise Exception('ERROR: incorrect update status')
-            await self.notify_observers(self.get(alarm.core_id), 'update')
+            # await self.notify_observers(self.get(alarm.core_id), 'update')
         logger.debug(
             'the alarm %s was added or updated in the collection (status %s)',
             alarm.core_id, response)
