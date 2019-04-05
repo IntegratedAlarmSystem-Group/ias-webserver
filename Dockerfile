@@ -14,11 +14,18 @@ RUN ldconfig
 RUN yum update -y && yum install -y nmap-ncat
 
 # Install python
-RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm &&\
-  yum -y update
-RUN yum install -y gcc python36u python36u-devel python36u-pip mariadb-devel
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1 &&\
-  update-alternatives --install /usr/bin/pip pip /usr/bin/pip3.6 1
+RUN yum install -y gcc openssl-devel bzip2-devel libffi-devel wget make
+RUN yum install -y mysql-devel sqlite-devel
+WORKDIR /usr/src
+RUN wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz
+RUN tar xzf Python-3.7.3.tgz
+WORKDIR /usr/src/Python-3.7.3
+RUN ./configure --enable-optimizations
+RUN make install
+RUN rm -rf /usr/src/Python-3.7.3
+RUN rm -rf /usr/src/Python-3.7.3.tgz
+RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.7 1 &&\
+  update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.7 1
 
 # Install requirements
 WORKDIR /usr/src/ias-webserver
@@ -27,7 +34,6 @@ RUN pip install -r requirements.txt
 
 # Copy source files and build project
 COPY . .
-RUN ls -la
 RUN find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
 
 RUN python manage.py collectstatic --noinput
