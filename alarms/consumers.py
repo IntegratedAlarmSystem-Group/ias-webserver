@@ -199,7 +199,8 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
     async def connect(self):
         """
         Called upon connection, rejects connection if no authenticated user
-        or password
+        or password.
+        Start the periodic notifications in the AlarmCollection
         """
         # Reject connection if no authenticated user:
         if self.scope['user'].is_anonymous:
@@ -214,7 +215,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             AlarmCollection.initialize()
             AlarmCollection.register_observer(self)
             await self.accept()
-        asyncio.create_task(AlarmCollection.start_periodic_broadcast())
+        await AlarmCollection.start_periodic_notification()
 
     async def update(self, alarm, action):
         """

@@ -4,6 +4,7 @@ import asyncio
 import logging
 from alarms.models import Alarm, Value
 from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
+from ias_webserver.settings import NOTIFICATIONS_RATE
 
 logger = logging.getLogger(__name__)
 
@@ -33,9 +34,7 @@ class AlarmCollection:
     """ List to store references to the observers subscribed to changes in the
     collection """
 
-    broadcast_started = False
-
-    periodic_broadcast = None
+    broadcast_task = None
 
     # Observers Methods:
     @classmethod
@@ -51,7 +50,6 @@ class AlarmCollection:
     @classmethod
     async def notify_observers(self, alarm, action):
         """Notify to all observers an action over an alarm"""
-        start = time.time()
         await asyncio.gather(
             *[observer.update(
                 alarm,
@@ -68,23 +66,37 @@ class AlarmCollection:
                 Alarm.objects.counter_by_view()
             ) for observer in self.observers]
         )
-        print('Notify,{},{}'.format(
-            alarm.core_id, time.time() - start
-        ))
         # end block - counter by view notification
 
     @classmethod
-    async def start_periodic_broadcast(self):
-        # if self.broadcast_started:
-        if self.broadcast_started:
-            print('************* Periodic Broadcast already started')
-            return
-        print('************* Starting Periodic Broadcast')
-        self.broadcast_started = True
+    async def periodic_notification_coroutine(self):
+        """
+        Coroutine that notifies of changes to all the observers periodically
+        The notifications rate is defined in the variable
+        ias_webserver.settings.NOTIFICATIONS_RATE
+        """
         while True:
-            print('Periodict broadcast')
             await self.broadcast_status_to_observers()
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(NOTIFICATIONS_RATE)
+
+    @classmethod
+    async def start_periodic_notification(self):
+        """
+        Starts the coroutine that notifies of changes to all the observers as
+        a task.
+
+        Checks if the task (broadcast_task) and starts it,
+        if it has not been started, or it has been cancelled or has finished
+        """
+        if self.broadcast_task is None or self.broadcast_task.done() or \
+                self.broadcast_task.cancelled():
+            logger.info(
+                'Starting periodic notification')
+            self.broadcast_task = asyncio.create_task(
+                self.periodic_notification_coroutine())
+            return
+        logger.debug(
+            'Periodic notification already started')
 
     @classmethod
     async def broadcast_status_to_observers(self):
