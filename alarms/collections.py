@@ -35,6 +35,10 @@ class AlarmCollection:
     collection """
 
     broadcast_task = None
+    """ Reference to the Task that notifies changes periodically """
+
+    alarm_changes = []
+    """ List of IDs of Alarms that have changed and must be notified """
 
     # Observers Methods:
     @classmethod
@@ -48,17 +52,26 @@ class AlarmCollection:
             )
 
     @classmethod
-    async def notify_observers(self, alarm, action):
-        """Notify to all observers an action over an alarm"""
-        await asyncio.gather(
-            *[observer.update(
-                alarm,
-                action
-            ) for observer in self.observers]
-        )
-        logger.debug(
-            'all the observers were notified (alarm %s, action: %s)',
-            alarm.core_id, action)
+    async def notify_observers(self):
+        """
+        Notify to all observers an action over Alarms
+        """
+        print('\n---- Notify observers')
+        print('Changes before:', len(self.alarm_changes))
+        alarms_to_notify = set(self.alarm_changes)
+        self.alarm_changes = []
+        print('Changes after:', len(self.alarm_changes))
+        for core_id in alarms_to_notify:
+            alarm = self.get(core_id)
+            await asyncio.gather(
+                *[observer.update(
+                    alarm,
+                    'update'
+                ) for observer in self.observers]
+            )
+            logger.debug(
+                'all the observers were notified (alarm %s)',
+                alarm.core_id)
 
         # start block - counter by view notification
         await asyncio.gather(
@@ -76,7 +89,8 @@ class AlarmCollection:
         ias_webserver.settings.NOTIFICATIONS_RATE
         """
         while True:
-            await self.broadcast_status_to_observers()
+            # await self.broadcast_status_to_observers()
+            await self.notify_observers()
             await asyncio.sleep(NOTIFICATIONS_RATE)
 
     @classmethod
@@ -114,6 +128,20 @@ class AlarmCollection:
             ) for observer in self.observers]
         )
         # end block - counter by view notification
+
+    @classmethod
+    def record_alarm_changes(self, alarms):
+        """
+        Register given Alarm(s) in order to notify its(their) change(s)
+
+        Args:
+            alarms (list or Alarm): list of Alarms (or a single Alarm)
+            whose changes must be notified
+        """
+        if not isinstance(alarms, list):
+            alarms = [alarms]
+        for alarm in alarms:
+            self.alarm_changes.append(alarm.core_id)
 
     # Sync, non-notified methods:
     @classmethod
@@ -404,10 +432,7 @@ class AlarmCollection:
             alarms += _alarms
             alarms_ids += _alarms_ids
 
-        await asyncio.gather(
-            *[self.notify_observers(alarm, 'update') for alarm in alarms]
-        )
-
+        self.record_alarm_changes(alarms)
         logger.debug('the alarms in %s were acknowledged', alarms_ids)
         return alarms_ids
 
@@ -446,7 +471,7 @@ class AlarmCollection:
 
     # Async methods to handle alarm messages:
     @classmethod
-    async def add_or_update_and_notify(self, alarm):
+    def add_or_update_and_notify(self, alarm):
         """
         Adds the alarm if it isn't in the AlarmCollection already or updates
         the alarm in the other case. It also initializes the Collection if it
@@ -460,31 +485,30 @@ class AlarmCollection:
         Returns:
             message (String): a string message sumarizing what happened
         """
-        start = time.time()
+        # start = time.time()
         if self.singleton_collection is None:
             self.initialize()
         if alarm.core_id not in self.singleton_collection:
             self.add(alarm)
-            # await self.notify_observers(alarm, 'create')
+            self.record_alarm_changes(alarm)
             response = 'created-alarm'
         else:
             status = self.update(alarm)
             if status == 'not-updated':
                 response = 'ignored-old-alarm'
             elif status == 'updated-different':
-                # await self.notify_observers(self.get(alarm.core_id), 'update')
+                self.record_alarm_changes(alarm)
                 response = 'updated-alarm'
             elif status == 'updated-equal':
                 response = 'updated-alarm'
             else:
                 raise Exception('ERROR: incorrect update status')
-            # await self.notify_observers(self.get(alarm.core_id), 'update')
         logger.debug(
             'the alarm %s was added or updated in the collection (status %s)',
             alarm.core_id, response)
-        print('Collection,{},{}'.format(
-            alarm.core_id, time.time() - start
-        ))
+        # print('Collection,{},{}'.format(
+        #     alarm.core_id, time.time() - start
+        # ))
         return response
 
     @classmethod
@@ -544,25 +568,6 @@ class AlarmCollection:
         return status
 
     @classmethod
-    async def delete_and_notify(self, alarm):
-        """
-        Deletes the Alarm object in the AlarmCollection dictionary
-        and notifies the obbservers
-
-        Args:
-            alarm (Alarm): the Alarm object to delete
-
-        Returns:
-            message (String): a string message sumarizing what happened
-        """
-        status = self.delete(alarm)
-        if status:
-            await self.notify_observers(alarm, 'delete')
-            return 'deleted-alarm'
-        else:
-            return 'ignored-non-existing-alarm'
-
-    @classmethod
     async def shelve(self, core_id):
         """
         Shelves an alarm
@@ -576,7 +581,7 @@ class AlarmCollection:
         alarm = self.singleton_collection[core_id]
         status = alarm.shelve()
         if status == 1:
-            await self.notify_observers(alarm, 'update')
+            self.record_alarm_changes(alarm)
         logger.debug('the alarm %s was shelved (status: %s)', core_id, status)
         return status
 
@@ -602,9 +607,7 @@ class AlarmCollection:
                 alarms.append(alarm)
 
         if alarms:
-            await asyncio.gather(
-                *[self.notify_observers(alarm, 'update') for alarm in alarms]
-            )
+            self.record_alarm_changes(alarms)
             logger.debug('the list of alarms %s was unshelved', alarms)
             return True
         else:

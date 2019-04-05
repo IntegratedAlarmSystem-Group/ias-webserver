@@ -164,7 +164,6 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         (created, updated, ignored)
         """
         # start = time.time()
-
         if not isinstance(content, list):
             content = [content]
 
@@ -172,7 +171,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
             if element['valueType'] == 'ALARM':
                 alarm = CoreConsumer.get_alarm_from_core_msg(element)
                 alarm.update_validity()
-                resp = await AlarmCollection.add_or_update_and_notify(alarm)
+                resp = AlarmCollection.add_or_update_and_notify(alarm)
                 resp = alarm.core_id
                 logger.debug(
                     'new alarm received by the consumer: %s',
@@ -233,7 +232,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         else:
             message = {
                 "payload": {
-                    "data": "Null Alarm",
+                    "data": "Null Alarms",
                     "action": action
                 },
                 "stream": "alarms",
