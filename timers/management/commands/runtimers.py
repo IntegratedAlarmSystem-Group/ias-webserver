@@ -166,7 +166,8 @@ class Command(BaseCommand):
 
         websockets_tasks = self.get_websockets_tasks(options)
         http_tasks = self.get_http_tasks(options)
-        for task in websockets_tasks + http_tasks:
+        # for task in websockets_tasks + http_tasks:
+        for task in http_tasks:
             task.start()
 
         tornado.ioloop.IOLoop.current().start()

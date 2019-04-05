@@ -1,3 +1,4 @@
+import asyncio
 import time
 import datetime
 import re
@@ -213,6 +214,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             AlarmCollection.initialize()
             AlarmCollection.register_observer(self)
             await self.accept()
+        asyncio.create_task(AlarmCollection.start_periodic_broadcast())
 
     async def update(self, alarm, action):
         """

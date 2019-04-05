@@ -33,6 +33,10 @@ class AlarmCollection:
     """ List to store references to the observers subscribed to changes in the
     collection """
 
+    broadcast_started = False
+
+    periodic_broadcast = None
+
     # Observers Methods:
     @classmethod
     def register_observer(self, observer):
@@ -68,6 +72,19 @@ class AlarmCollection:
             alarm.core_id, time.time() - start
         ))
         # end block - counter by view notification
+
+    @classmethod
+    async def start_periodic_broadcast(self):
+        # if self.broadcast_started:
+        if self.broadcast_started:
+            print('************* Periodic Broadcast already started')
+            return
+        print('************* Starting Periodic Broadcast')
+        self.broadcast_started = True
+        while True:
+            print('Periodict broadcast')
+            await self.broadcast_status_to_observers()
+            await asyncio.sleep(0.5)
 
     @classmethod
     async def broadcast_status_to_observers(self):
