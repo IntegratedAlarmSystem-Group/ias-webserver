@@ -77,11 +77,13 @@ class AlarmCollection:
     async def broadcast_observers(self):
         """ Notify to all observers the alarms list with its current status """
         queryset = AlarmCollection.update_all_alarms_validity()
-        alarms = [item.to_dict() for item in queryset.values()]
+        alarms = []
+        for item in list(queryset.values()):
+            alarms.append(item.to_dict())
         payload = {
             'alarms': alarms,
             'counters': Alarm.objects.counter_by_view()
-        },
+        }
         stream = 'requests',
         await asyncio.gather(
             *[observer.update(payload, stream) for observer in self.observers]
