@@ -163,7 +163,6 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         Responds with a message indicating the action taken
         (created, updated, ignored)
         """
-        # start = time.time()
         if not isinstance(content, list):
             content = [content]
 
@@ -184,10 +183,6 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
                 logger.debug(
                     'new ias value received by the consumer: %s',
                     value.to_dict())
-
-        # print('Receive,{},{}'.format(
-        #     alarm.core_id, time.time() - start
-        # ))
         await self.send(resp)
 
 
@@ -216,51 +211,20 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             await self.accept()
         await AlarmCollection.start_periodic_tasks()
 
-    async def update(self, data):
+    async def update(self, payload, stream):
         """
-        Notifies the client of changes in an Alarm
-        """
-        message = None
-        if data is not None:
-            message = {
-                "payload": {
-                    "data": data,
-                },
-                "stream": "alarms",
-            }
-        else:
-            message = {
-                "payload": {
-                    "data": "Null Data",
-                },
-                "stream": "alarms",
-            }
-        await self.send_json(message)
+        Notifies the client of changes in an Alarm.
+        Implements the AlarmCollectionObserver.update method
 
-    async def update_counter_by_view(self, counter_by_view):
-        """
-        Notifies the client of changes in a dictionary defined as a
-        counter by view
+        Args:
+            data (dict): Dictionary that contains the 'alarms' and 'counters'
+            stream (string): Stream to send the data through
         """
         message = {
-            "payload": {
-                "data": counter_by_view
-            },
-            "stream": "counter"
+            "payload": payload,
+            "stream": stream,
         }
         await self.send_json(message)
-
-    async def send_alarms_status(self):
-        queryset = AlarmCollection.update_all_alarms_validity()
-        data = []
-        for item in list(queryset.values()):
-            data.append(item.to_dict())
-        await self.send_json({
-            "payload": {
-                "data": data
-            },
-            "stream": "requests",
-        })
 
     async def receive_json(self, content, **kwargs):
         """
@@ -272,13 +236,8 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         if content['stream'] == 'requests':
             if content['payload'] and content['payload']['action'] is not None:
                 if content['payload']['action'] == 'list':
-                    await self.send_alarms_status()
-                    await self.update_counter_by_view(
-                        Alarm.objects.counter_by_view()
-                    )
-                    logger.debug(
-                        'new message received in requests stream: ' +
-                        '(action list)')
+                    await AlarmCollection.broadcast_observers()
+                    logger.debug('New message received in requests stream')
                 elif content['payload']['action'] == 'close':
                     await self.close()
                     reset_auth_token(self.scope['user'])
@@ -294,8 +253,8 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
                         'new message received in requests stream: ' +
                         '(unsupported action)')
         if content['stream'] == 'broadcast':
-            await AlarmCollection.broadcast_status_to_observers()
-            logger.debug('new message received in broadcast stream')
+            await AlarmCollection.broadcast_observers()
+            logger.debug('New message received in broadcast stream')
 
     async def disconnect(self, close_code):
         """

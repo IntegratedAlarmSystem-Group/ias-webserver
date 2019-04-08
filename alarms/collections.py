@@ -56,23 +56,38 @@ class AlarmCollection:
 
     @classmethod
     async def notify_observers(self):
-        """
-        Notify to all observers an action over Alarms
-        """
+        """ Notify to all observers an action over Alarms """
         if len(self.alarm_changes) == 0:
             return
         ids_to_notify = set(self.alarm_changes)
         self.alarm_changes = []
         alarms = [self.get(id).to_dict() for id in ids_to_notify]
-        msg = {
+        payload = {
             'alarms': alarms,
             'counters': Alarm.objects.counter_by_view()
         }
+        stream = 'alarms'
         await asyncio.gather(
-            *[observer.update(msg) for observer in self.observers]
+            *[observer.update(payload, stream) for observer in self.observers]
         )
         logger.debug(
             '%i alarms notified to all the observers', len(ids_to_notify))
+
+    @classmethod
+    async def broadcast_observers(self):
+        """ Notify to all observers the alarms list with its current status """
+        queryset = AlarmCollection.update_all_alarms_validity()
+        alarms = [item.to_dict() for item in queryset.values()]
+        payload = {
+            'alarms': alarms,
+            'counters': Alarm.objects.counter_by_view()
+        },
+        stream = 'requests',
+        await asyncio.gather(
+            *[observer.update(payload, stream) for observer in self.observers]
+        )
+        logger.debug(
+            '%i alarms notified to all the observers', len(alarms))
 
     @classmethod
     async def periodic_notification_coroutine(self):
@@ -91,10 +106,9 @@ class AlarmCollection:
         Coroutine that notifies of changes to all the observers periodically
         Args:
             rate (int): time in seconds
-            whose changes must be notified
         """
         while True:
-            await self.broadcast_status_to_observers()
+            await self.broadcast_observers()
             await asyncio.sleep(rate)
 
     @classmethod
@@ -118,28 +132,11 @@ class AlarmCollection:
                 self.broadcast_task.cancelled():
             rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR / 1000
             logger.info(
-                'Starting periodic broadcast with rate {} seconds', rate)
+                'Starting periodic broadcast with rate %d seconds', rate)
             self.broadcast_task = asyncio.create_task(
                 self.periodic_broadcast_coroutine(rate))
         else:
             logger.debug('Periodic broadcast already started')
-
-    @classmethod
-    async def broadcast_status_to_observers(self):
-        """Notify to all observers the alarms list with its current status"""
-        await asyncio.gather(
-            *[observer.send_alarms_status() for observer in self.observers]
-        )
-        logger.debug(
-            'all the observers were notified with the last alarms status')
-
-        # start block - counter by view notification
-        await asyncio.gather(
-            *[observer.update_counter_by_view(
-                Alarm.objects.counter_by_view()
-            ) for observer in self.observers]
-        )
-        # end block - counter by view notification
 
     @classmethod
     def record_alarm_changes(self, alarms):
@@ -307,8 +304,16 @@ class AlarmCollection:
 
     @classmethod
     def get_ancestors_recursively(self, core_id):
-        """ Return the list of parents and grandparents recursively of the
-        specified alarm """
+        """
+        Return the list of parents and grandparents recursively of the
+        specified alarm
+
+        Args:
+            core_id (string): the ID of the Alarm object to get its ancestors
+
+        Returns:
+            list: List with the IDs of the ancestors
+        """
         response = self._get_parents(core_id)
         for parent_id in response:
             response += self.get_ancestors_recursively(parent_id)
@@ -319,7 +324,12 @@ class AlarmCollection:
 
     @classmethod
     def get_all_as_dict(self):
-        """Returns all the Alarms as a dictionary indexed by core_id"""
+        """
+        Returns all the Alarms as a dictionary indexed by core_id
+
+        Returns:
+            dict: A dictionary of Alarms indexed by core_id
+        """
         if self.singleton_collection is None:
             logger.debug('initializing the collection because it was empty')
             self.initialize()
@@ -336,7 +346,7 @@ class AlarmCollection:
         Adds the alarm to the AlarmCollection dictionary
 
         Args:
-            alarm (Alarm): the Alarm object to delete
+            alarm (Alarm): the Alarm object to add
         """
         alarm = self._clean_alarm_dependencies(alarm)
         if alarm.value == Value.CLEARED:
@@ -348,11 +358,9 @@ class AlarmCollection:
         alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         if alarm.core_id in self.singleton_collection.keys():
-            alarm.stored = True  # TODO : Evaluate data structure
+            alarm.stored = True
         self._update_parents_collection(alarm)
-        # start block - counter by view method
         Alarm.objects._update_counter_by_view_if_new_alarm_in_collection(alarm)
-        # end block - counter by view method
         logger.debug('the alarm %s was added to the collection', alarm.core_id)
 
     @classmethod
@@ -783,13 +791,13 @@ class AlarmCollectionObserver(abc.ABC):
     """
 
     @abc.abstractmethod
-    def update(alarm, action):
-        """ Method that will be called on Observers when there is a new action
-        to notifiy """
-        pass
+    def update(data, stream):
+        """
+        Method that will be called on Observers when there is a new action
+        to notifiy
 
-    @abc.abstractmethod
-    def update_counter_by_view(alarm, action):
-        """ Method that will be called on Observers when there is a new
-        change in the counters to notifiy """
+        Args:
+            data (dict): Dictionary that contains the 'alarms' and 'counters'
+            stream (string): Stream to send the data through
+        """
         pass
