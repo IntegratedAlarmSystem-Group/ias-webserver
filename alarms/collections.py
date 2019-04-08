@@ -4,7 +4,7 @@ import asyncio
 import logging
 from alarms.models import Alarm, Value
 from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
-from ias_webserver.settings import NOTIFICATIONS_RATE
+from ias_webserver.settings import NOTIFICATIONS_RATE, BROADCAST_RATE_FACTOR
 
 logger = logging.getLogger(__name__)
 
@@ -34,8 +34,11 @@ class AlarmCollection:
     """ List to store references to the observers subscribed to changes in the
     collection """
 
-    broadcast_task = None
+    notification_task = None
     """ Reference to the Task that notifies changes periodically """
+
+    broadcast_task = None
+    """ Reference to the Task that sends all alarms periodically """
 
     alarm_changes = []
     """ List of IDs of Alarms that have changed and must be notified """
@@ -56,30 +59,20 @@ class AlarmCollection:
         """
         Notify to all observers an action over Alarms
         """
-        print('\n---- Notify observers')
-        print('Changes before:', len(self.alarm_changes))
-        alarms_to_notify = set(self.alarm_changes)
+        if len(self.alarm_changes) == 0:
+            return
+        ids_to_notify = set(self.alarm_changes)
         self.alarm_changes = []
-        print('Changes after:', len(self.alarm_changes))
-        for core_id in alarms_to_notify:
-            alarm = self.get(core_id)
-            await asyncio.gather(
-                *[observer.update(
-                    alarm,
-                    'update'
-                ) for observer in self.observers]
-            )
-            logger.debug(
-                'all the observers were notified (alarm %s)',
-                alarm.core_id)
-
-        # start block - counter by view notification
+        alarms = [self.get(id).to_dict() for id in ids_to_notify]
+        msg = {
+            'alarms': alarms,
+            'counters': Alarm.objects.counter_by_view()
+        }
         await asyncio.gather(
-            *[observer.update_counter_by_view(
-                Alarm.objects.counter_by_view()
-            ) for observer in self.observers]
+            *[observer.update(msg) for observer in self.observers]
         )
-        # end block - counter by view notification
+        logger.debug(
+            '%i alarms notified to all the observers', len(ids_to_notify))
 
     @classmethod
     async def periodic_notification_coroutine(self):
@@ -89,28 +82,47 @@ class AlarmCollection:
         ias_webserver.settings.NOTIFICATIONS_RATE
         """
         while True:
-            # await self.broadcast_status_to_observers()
             await self.notify_observers()
             await asyncio.sleep(NOTIFICATIONS_RATE)
 
     @classmethod
-    async def start_periodic_notification(self):
+    async def periodic_broadcast_coroutine(self, rate):
+        """
+        Coroutine that notifies of changes to all the observers periodically
+        Args:
+            rate (int): time in seconds
+            whose changes must be notified
+        """
+        while True:
+            await self.broadcast_status_to_observers()
+            await asyncio.sleep(rate)
+
+    @classmethod
+    async def start_periodic_tasks(self):
         """
         Starts the coroutine that notifies of changes to all the observers as
         a task.
 
-        Checks if the task (broadcast_task) and starts it,
+        Checks if the task (notification_task) and starts it,
         if it has not been started, or it has been cancelled or has finished
         """
+        if self.notification_task is None or self.notification_task.done() or \
+                self.notification_task.cancelled():
+            logger.info('Starting periodic notifications')
+            self.notification_task = asyncio.create_task(
+                self.periodic_notification_coroutine())
+        else:
+            logger.debug('Periodic notification already started')
+
         if self.broadcast_task is None or self.broadcast_task.done() or \
                 self.broadcast_task.cancelled():
+            rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR / 1000
             logger.info(
-                'Starting periodic notification')
+                'Starting periodic broadcast with rate {} seconds', rate)
             self.broadcast_task = asyncio.create_task(
-                self.periodic_notification_coroutine())
-            return
-        logger.debug(
-            'Periodic notification already started')
+                self.periodic_broadcast_coroutine(rate))
+        else:
+            logger.debug('Periodic broadcast already started')
 
     @classmethod
     async def broadcast_status_to_observers(self):
@@ -180,9 +192,9 @@ class AlarmCollection:
                         alarm = self._create_alarm_from_iasio({'id': alarm_id})
                         self.add(alarm)
                         logger.warning(
-                            alarm_id +
-                            ' was not found in the CDB, initializing with ' +
-                            'empty description and url '
+                            alarm_id
+                            + ' was not found in the CDB, initializing with '
+                            + 'empty description and url '
                         )
                 logger.info(
                     'the collection was initialized based on configuration')
@@ -327,7 +339,7 @@ class AlarmCollection:
             alarm (Alarm): the Alarm object to delete
         """
         alarm = self._clean_alarm_dependencies(alarm)
-        if alarm.value == 0:
+        if alarm.value == Value.CLEARED:
             alarm.ack = TicketConnector.check_acknowledgement(
                 alarm.core_id
             )
@@ -477,7 +489,7 @@ class AlarmCollection:
         the alarm in the other case. It also initializes the Collection if it
         has been not initialized before.
 
-        Notifies the observers on either action
+        Records the changes to be notified if it is the case
 
         Args:
             alarm (Alarm): the Alarm object to add or update

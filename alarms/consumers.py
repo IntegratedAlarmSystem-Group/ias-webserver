@@ -214,26 +214,24 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             AlarmCollection.initialize()
             AlarmCollection.register_observer(self)
             await self.accept()
-        await AlarmCollection.start_periodic_notification()
+        await AlarmCollection.start_periodic_tasks()
 
-    async def update(self, alarm, action):
+    async def update(self, data):
         """
         Notifies the client of changes in an Alarm
         """
         message = None
-        if alarm is not None:
+        if data is not None:
             message = {
                 "payload": {
-                    "data": alarm.to_dict(),
-                    "action": action
+                    "data": data,
                 },
                 "stream": "alarms",
             }
         else:
             message = {
                 "payload": {
-                    "data": "Null Alarms",
-                    "action": action
+                    "data": "Null Data",
                 },
                 "stream": "alarms",
             }
