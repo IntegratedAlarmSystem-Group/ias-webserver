@@ -1,4 +1,6 @@
 import time
+import string
+import random
 import abc
 import asyncio
 import logging
@@ -42,6 +44,8 @@ class AlarmCollection:
 
     alarm_changes = []
     """ List of IDs of Alarms that have changed and must be notified """
+
+    init_state = 'pending'
 
     # Observers Methods:
     @classmethod
@@ -99,6 +103,7 @@ class AlarmCollection:
         ias_webserver.settings.NOTIFICATIONS_RATE
         """
         while True:
+            print('---- Periodic Notification')
             await self.notify_observers()
             await asyncio.sleep(NOTIFICATIONS_RATE)
 
@@ -110,6 +115,7 @@ class AlarmCollection:
             rate (int): time in seconds
         """
         while True:
+            print('---- Periodic Broadcast')
             await self.broadcast_observers()
             await asyncio.sleep(rate)
 
@@ -125,7 +131,7 @@ class AlarmCollection:
         if self.notification_task is None or self.notification_task.done() or \
                 self.notification_task.cancelled():
             logger.info('Starting periodic notifications')
-            self.notification_task = asyncio.create_task(
+            self.notification_task = asyncio.ensure_future(
                 self.periodic_notification_coroutine())
         else:
             logger.debug('Periodic notification already started')
@@ -135,7 +141,7 @@ class AlarmCollection:
             rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR / 1000
             logger.info(
                 'Starting periodic broadcast with rate %d seconds', rate)
-            self.broadcast_task = asyncio.create_task(
+            self.broadcast_task = asyncio.ensure_future(
                 self.periodic_broadcast_coroutine(rate))
         else:
             logger.debug('Periodic broadcast already started')
@@ -171,7 +177,12 @@ class AlarmCollection:
         Returns:
             dict: A dictionary of Alarm objects
         """
-        if self.singleton_collection is None:
+        start = time.time()
+        letters = string.ascii_lowercase
+        name = ''.join(random.choice(letters) for i in range(10))
+        print('\n--- {} - Initializing Collection'.format(name))
+        if self.init_state == 'pending':
+            self.init_state = 'in_progress'
             self.singleton_collection = {}
             self.parents_collection = {}
             self.values_collection = {}
@@ -203,6 +214,10 @@ class AlarmCollection:
                     self.add(alarm)
                 logger.info(
                     'the collection was initialized in testing mode')
+            self.init_state = 'done'
+        print('\n--- {} - Finished initializing Collection, {}'.format(
+            name, time.time() - start)
+        )
         return self.singleton_collection
 
     @classmethod
@@ -273,7 +288,7 @@ class AlarmCollection:
         Returns:
             dict: A dictionary of Alarm objects
         """
-        if self.singleton_collection is None:
+        if self.init_state == 'pending':
             self.initialize()
         try:
             return self.singleton_collection[core_id]
@@ -332,7 +347,7 @@ class AlarmCollection:
         Returns:
             dict: A dictionary of Alarms indexed by core_id
         """
-        if self.singleton_collection is None:
+        if self.init_state == 'pending':
             logger.debug('initializing the collection because it was empty')
             self.initialize()
         return self.singleton_collection
@@ -394,7 +409,7 @@ class AlarmCollection:
         Deletes all the Alarm objects in the AlarmCollection dictionary. Also
         it initializes the Collection if it has been not initialized before
         """
-        if self.singleton_collection is None:
+        if self.init_state == 'pending':
             self.initialize()
             self.singleton_collection.clear()
         logger.debug('all the alarms in the collection were deleted')
@@ -507,8 +522,8 @@ class AlarmCollection:
         Returns:
             message (String): a string message sumarizing what happened
         """
-        # start = time.time()
-        if self.singleton_collection is None:
+        start = time.time()
+        if self.init_state == 'pending':
             self.initialize()
         if alarm.core_id not in self.singleton_collection:
             self.add(alarm)
@@ -531,6 +546,9 @@ class AlarmCollection:
         # print('Collection,{},{}'.format(
         #     alarm.core_id, time.time() - start
         # ))
+        print('--- Collection.add, {}, {}'.format(
+            alarm.core_id, time.time() - start
+        ))
         return response
 
     @classmethod

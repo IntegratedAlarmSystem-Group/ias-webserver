@@ -1,4 +1,6 @@
 import asyncio
+import string
+import random
 import time
 import datetime
 import re
@@ -143,7 +145,11 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         Called upon connection, rejects connection if no authenticated user
         or password
         """
-        AlarmCollection.initialize()
+        if AlarmCollection.init_state == 'pending':
+            AlarmCollection.initialize()
+        elif AlarmCollection.init_state == 'in_progress':
+            await self.close()
+
         # Reject connection if no authenticated user:
         if self.scope['user'].is_anonymous:
             if self.scope['password'] and \
@@ -163,6 +169,10 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         Responds with a message indicating the action taken
         (created, updated, ignored)
         """
+        start = time.time()
+        letters = string.ascii_lowercase
+        name = ''.join(random.choice(letters) for i in range(10))
+        print('\n--- {} - Receiving from Core {} elements'.format(name, len(content)))
         if not isinstance(content, list):
             content = [content]
 
@@ -183,7 +193,12 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
                 logger.debug(
                     'new ias value received by the consumer: %s',
                     value.to_dict())
+
+        print('\n--- {} - Finished saving {} elements, {}'.format(
+            name, len(content), time.time() - start
+        ))
         await self.send(resp)
+        print('\n--- {} - Finished sending response: {}'.format(name, resp))
 
 
 class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
@@ -197,16 +212,18 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         Start the periodic notifications in the AlarmCollection
         """
         # Reject connection if no authenticated user:
+        if AlarmCollection.init_state == 'pending':
+            AlarmCollection.initialize()
+        elif AlarmCollection.init_state == 'in_progress':
+            await self.close()
         if self.scope['user'].is_anonymous:
             if self.scope['password'] and \
               self.scope['password'] == PROCESS_CONNECTION_PASS:
-                AlarmCollection.initialize()
                 AlarmCollection.register_observer(self)
                 await self.accept()
             else:
                 await self.close()
         else:
-            AlarmCollection.initialize()
             AlarmCollection.register_observer(self)
             await self.accept()
         await AlarmCollection.start_periodic_tasks()
@@ -224,6 +241,12 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             "payload": payload,
             "stream": stream,
         }
+        num_alarms = -1
+        if payload['alarms']:
+            num_alarms = len(payload['alarms']),
+        print('\n--- Sending to Display, {} alarms over stream {}'.format(
+            num_alarms, stream
+        ))
         await self.send_json(message)
 
     async def receive_json(self, content, **kwargs):
