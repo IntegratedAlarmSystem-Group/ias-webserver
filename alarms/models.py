@@ -193,143 +193,68 @@ class Alarm:
         only executed when there a new instance is created.
         Receives and validates values for the attributes of the object """
 
-        self.core_timestamp = self.__check_int_type(core_timestamp)
+        self.core_timestamp = core_timestamp
         """ Core timestamp of the alarm """
 
-        self.core_id = self.__check_str_type(core_id)
+        self.core_id = core_id
         """ Core ID of the alarm """
 
-        self.running_id = self.__check_str_type(running_id)
+        self.running_id = running_id
         """ Running ID of the alarm """
 
-        self.value = self.__check_value(value)
+        self.value = value
         """ Value of the alarm """
 
-        self.mode = self.__check_mode(mode)
+        self.mode = mode
         """ Operational mode of the alarm """
 
-        self.validity = self.__check_validity(validity)
+        self.validity = validity
         """ Validity of the alarm """
 
-        self.dependencies = self.__check_list_type(dependencies)  # optional
+        self.dependencies = dependencies  # optiona
         """ Children Alarms, alarms on which this Alarm depends """
 
-        self.properties = self.__check_dict_type(properties)      # optional
+        self.properties = properties      # optiona
         """ Properties of the core """
 
-        self.timestamps = self.__check_dict_type(timestamps)      # optional
+        self.timestamps = timestamps      # optiona
         """ Timestamps of the core """
 
-        self.ack = self.__check_ack(ack)
+        self.ack = ack
         """ True if the alarm is acknowledged, False if not """
 
-        self.shelved = self.__check_shelved(shelved)
+        self.shelved = shelved
         """ True if the alarm is shelved, False if not """
 
-        self.state_change_timestamp = self.__check_int_type(
-            state_change_timestamp)
+        self.state_change_timestamp = state_change_timestamp
         """ Timestamp of the last important (notified) change in the alarm """
 
-        self.description = self.__check_str_type(description)
+        self.description = description
         """ Description of the alarm """
 
-        self.url = self.__check_str_type(url)
+        self.url = url
         """ URL to go for documentation of the alarm """
 
-        self.sound = self.__check_str_type(sound)
+        self.sound = sound
         """ Sound associated to the alarm """
 
-        self.can_shelve = self.__check_bool_type(can_shelve)
+        self.can_shelve = can_shelve
         """ Flag that defines weteher or not the alarm can be shelved """
 
-        self.views = self.__check_list_type(views)  # optional
+        self.views = views  # optional
         """List of views for which the alarm must be considered for counting"""
 
-        self.stored = self.__check_bool_type(stored)
+        self.stored = stored
         """ Flag that defines weteher or not the alarm is stored """
 
-        self.value_change_timestamp = self.__check_int_type(
-            value_change_timestamp)
+        self.value_change_timestamp = value_change_timestamp
         """ Timestamp of the last change in the alarm value """
 
-        self.value_change_transition = self.__check_list_type(
-            value_change_transition)
+        self.value_change_transition = value_change_transition
         """
         Transition of the last change in the alarm value
         Stored as a list with 2 elements in order: [previous_value, new_value]
         """
-
-    def __check_value(self, value):
-        """ Validates the Alarm value """
-        if value not in [int(x[0]) for x in Value.options()]:
-            raise TypeError
-        else:
-            return int(value)
-
-    def __check_mode(self, mode):
-        """ Validates the Alarm mode """
-        if mode not in [int(x[0]) for x in OperationalMode.options()]:
-            raise TypeError
-        else:
-            return int(mode)
-
-    def __check_validity(self, validity):
-        """ Validates the Alarm validity """
-        if validity not in [int(x[0]) for x in Validity.options()]:
-            raise TypeError
-        else:
-            return int(validity)
-
-    def __check_int_type(self, field):
-        """ Validates an integer field """
-        if type(field) is not int:
-            raise TypeError
-        else:
-            return field
-
-    def __check_str_type(self, field):
-        """ Validates a string field """
-        if type(field) is not str:
-            raise TypeError
-        else:
-            return field
-
-    def __check_list_type(self, field):
-        """ Validates a list field """
-        if type(field) is not list:
-            raise TypeError
-        else:
-            return field
-
-    def __check_dict_type(self, field):
-        """ Validates a dict field """
-        if type(field) is not dict:
-            raise TypeError
-        else:
-            return field
-
-    def __check_bool_type(self, field):
-        """ Validates a bool field """
-        if type(field) is not bool:
-            raise TypeError
-        else:
-            return field
-
-    def __check_ack(self, ack):
-        """ Validates the Alarm shelving status.
-        Which should be True if the Alarm is shelved and False if not """
-        if ack not in [True, False]:
-            raise TypeError
-        else:
-            return ack
-
-    def __check_shelved(self, ack):
-        """ Validates the Alarm ack status.
-        Which should be True if the Alarm is acknowledged and False if not """
-        if ack not in [True, False]:
-            raise TypeError
-        else:
-            return ack
 
     def __str__(self):
         """ Returns a string representation of the object """
