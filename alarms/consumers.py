@@ -164,37 +164,27 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         """
         Handles the messages received by this consumer.
         It delegates handling of the alarms received in the messages to
-        :func:`~AlarmCollection.add_or_update_and_notify`
+        :func:`~AlarmCollection.add_or_update_alarm`
 
         Responds with a message indicating the action taken
         (created, updated, ignored)
         """
         start = time.time()
-        print('\n-- Receiving from Core {} elements'.format(len(content)))
+        print('\n-- Receiving from Core {} iasioss'.format(len(content)))
         if not isinstance(content, list):
             content = [content]
 
-        for element in content:
-            if element['valueType'] == 'ALARM':
-                alarm = CoreConsumer.get_alarm_from_core_msg(element)
-                alarm.update_validity()
-                status = AlarmCollection.add_or_update_and_notify(alarm)
-                logger.debug(
-                    'new alarm received by the consumer: %s',
-                    alarm.to_dict())
-            else:
-                value = CoreConsumer.get_value_from_core_msg(element)
-                value.update_validity()
-                status = AlarmCollection.add_or_update_value(value)
-                logger.debug(
-                    'new ias value received by the consumer: %s',
-                    value.to_dict())
+        for iasio in content:
+            if iasio['valueType'] == 'ALARM':
+                status = AlarmCollection.add_or_update_alarm(iasio)
+                logger.debug('New alarm IASIO received by consumer: %s', str(iasio))
 
-        print('\n-- Finished saving {} elements, {}'.format(
-            len(content), time.time() - start
-        ))
+            else:
+                status = AlarmCollection.add_or_update_value(iasio)
+                logger.debug('New value IASIO received by consumer: %s', str(iasio))
+
+        logger.info('Finished receiveing %d IASIOS in %1.3f seconds', len(content), time.time() - start)
         await self.send('Received {} IASIOS'.format(len(content)))
-        print('\n-- Finished sending response')
 
 
 class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):

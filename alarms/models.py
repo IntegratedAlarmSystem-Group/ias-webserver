@@ -93,9 +93,7 @@ class AlarmCountManager:
                             # unacknowledged alarm in set status
                             self.__counter_by_view[view] += 1
 
-    def _update_counter_by_view_if_alarm_is_acknowledged(
-        self, after_ack_alarm, initial_ack_state
-    ):
+    def _update_counter_by_view_if_alarm_is_acknowledged(self, after_ack_alarm, initial_ack_state):
         """ Update counter after acknowledgment action """
         alarm = after_ack_alarm
         if alarm.is_stored():
@@ -505,7 +503,7 @@ class IASValue(Alarm):
         value.
 
         Args:
-            isa_value (IASValue): The new ias_value object
+            ias_value (dict): The new ias_value object
 
         Returns:
             string: the state of the update (not-updated, updated-equal,
