@@ -170,7 +170,6 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         (created, updated, ignored)
         """
         start = time.time()
-        print('\n-- Receiving from Core {} iasioss'.format(len(content)))
         if not isinstance(content, list):
             content = [content]
 
@@ -183,8 +182,8 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
                 status = AlarmCollection.add_or_update_value(iasio)
                 logger.debug('New value IASIO received by consumer: %s', str(iasio))
 
-        logger.info('Finished receiveing %d IASIOS in %1.3f seconds', len(content), time.time() - start)
         await self.send('Received {} IASIOS'.format(len(content)))
+        logger.info('Finished receiving %d IASIOS in %1.3f seconds', len(content), time.time() - start)
 
 
 class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
