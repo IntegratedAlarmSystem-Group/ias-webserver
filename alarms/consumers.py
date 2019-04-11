@@ -170,9 +170,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         (created, updated, ignored)
         """
         start = time.time()
-        letters = string.ascii_lowercase
-        name = ''.join(random.choice(letters) for i in range(10))
-        print('\n--- {} - Receiving from Core {} elements'.format(name, len(content)))
+        print('\n-- Receiving from Core {} elements'.format(len(content)))
         if not isinstance(content, list):
             content = [content]
 
@@ -180,8 +178,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
             if element['valueType'] == 'ALARM':
                 alarm = CoreConsumer.get_alarm_from_core_msg(element)
                 alarm.update_validity()
-                resp = AlarmCollection.add_or_update_and_notify(alarm)
-                resp = alarm.core_id
+                status = AlarmCollection.add_or_update_and_notify(alarm)
                 logger.debug(
                     'new alarm received by the consumer: %s',
                     alarm.to_dict())
@@ -189,16 +186,15 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
                 value = CoreConsumer.get_value_from_core_msg(element)
                 value.update_validity()
                 status = AlarmCollection.add_or_update_value(value)
-                resp = status
                 logger.debug(
                     'new ias value received by the consumer: %s',
                     value.to_dict())
 
-        print('\n--- {} - Finished saving {} elements, {}'.format(
-            name, len(content), time.time() - start
+        print('\n-- Finished saving {} elements, {}'.format(
+            len(content), time.time() - start
         ))
-        await self.send(resp)
-        print('\n--- {} - Finished sending response: {}'.format(name, resp))
+        await self.send('Received {} IASIOS'.format(len(content)))
+        print('\n-- Finished sending response')
 
 
 class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
@@ -241,12 +237,12 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
             "payload": payload,
             "stream": stream,
         }
-        num_alarms = -1
         if payload['alarms']:
-            num_alarms = len(payload['alarms']),
-        print('\n--- Sending to Display, {} alarms over stream {}'.format(
-            num_alarms, stream
-        ))
+            logger.debug('Sending %d alarms over stream %s'.format(
+                len(payload['alarms']), stream
+            ))
+        else:
+            logger.error('Sending update with no alarms')
         await self.send_json(message)
 
     async def receive_json(self, content, **kwargs):

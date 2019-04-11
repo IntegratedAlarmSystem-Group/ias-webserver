@@ -1,6 +1,4 @@
 import time
-import string
-import random
 import abc
 import asyncio
 import logging
@@ -103,7 +101,6 @@ class AlarmCollection:
         ias_webserver.settings.NOTIFICATIONS_RATE
         """
         while True:
-            print('---- Periodic Notification')
             await self.notify_observers()
             await asyncio.sleep(NOTIFICATIONS_RATE)
 
@@ -115,7 +112,6 @@ class AlarmCollection:
             rate (int): time in seconds
         """
         while True:
-            print('---- Periodic Broadcast')
             await self.broadcast_observers()
             await asyncio.sleep(rate)
 
@@ -178,9 +174,7 @@ class AlarmCollection:
             dict: A dictionary of Alarm objects
         """
         start = time.time()
-        letters = string.ascii_lowercase
-        name = ''.join(random.choice(letters) for i in range(10))
-        print('\n--- {} - Initializing Collection'.format(name))
+        logger.info('Initializing Collection')
         if self.init_state == 'pending':
             self.init_state = 'in_progress'
             self.singleton_collection = {}
@@ -215,8 +209,9 @@ class AlarmCollection:
                 logger.info(
                     'the collection was initialized in testing mode')
             self.init_state = 'done'
-        print('\n--- {} - Finished initializing Collection, {}'.format(
-            name, time.time() - start)
+        logger.info(
+            'Collection initialization finished in %d seconds',
+            time.time() - start
         )
         return self.singleton_collection
 
@@ -546,9 +541,9 @@ class AlarmCollection:
         # print('Collection,{},{}'.format(
         #     alarm.core_id, time.time() - start
         # ))
-        print('--- Collection.add, {}, {}'.format(
-            alarm.core_id, time.time() - start
-        ))
+        # print('---- Collection.add_or_update, {}, {}'.format(
+        #     alarm.core_id, time.time() - start
+        # ))
         return response
 
     @classmethod
