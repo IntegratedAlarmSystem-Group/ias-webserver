@@ -9,8 +9,10 @@ then
     sleep 1
   done
 fi
+export LC_ALL=en_US.utf8
+export LANG=en_US.utf8
 
 ./load_fixtures.sh
 python manage.py createusers --adminpassword ${ADMIN_PASSWORD} --operatorpassword ${OP_DUTY_PASSWORD}
-# gunicorn -b 0.0.0.0:8000 ias_webserver.asgi:application -w 4 -k uvicorn.workers.UvicornWorker & python manage.py runtimers --hostname 0.0.0.0 --port 8000
-uvicorn --host 0.0.0.0 --port 8000 ias_webserver.asgi:application --workers 6 & python manage.py runtimers --hostname 0.0.0.0 --port 8000
+gunicorn -b 0.0.0.0:8000 ias_webserver.asgi:application -w 4 -k uvicorn.workers.UvicornWorker & python manage.py runtimers --hostname 0.0.0.0 --port 8000
+# uvicorn --host 0.0.0.0 --port 8000 ias_webserver.asgi:application --workers 6 & python manage.py runtimers --hostname 0.0.0.0 --port 8000
