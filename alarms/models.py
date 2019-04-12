@@ -66,110 +66,110 @@ class Validity(ChoiceEnum):
 class AlarmCountManager:
     """ Class to manage the counter by view. """
 
-    __counter_by_view = {}
-
-    def counter_by_view(self):
-        """ Method to retrieve the counter of set and unack alarms by view """
-        return self.__counter_by_view
+    counter_by_view = {}
 
     def reset_counter_by_view(self):
         """ Method to clear the counter by view """
-        self.__counter_by_view = {}
+        self.counter_by_view = {}
 
-    def _update_counter_by_view_if_new_alarm_in_collection(self, alarm):
+    def update_counter_by_view_if_new_alarm_in_collection(self, alarm):
         """ Increase counter for a new SET UNACK alarm
             Note: This method is used in the AlarmCollection
         """
         if alarm.is_stored():
             views = alarm.views
-            if len(views) > 0:
-                for view in views:
-                    # initialize count if no key
-                    if view not in self.__counter_by_view.keys():
-                        self.__counter_by_view[view] = 0
-                    # update count
-                    if alarm.is_set():
-                        if alarm.ack is not True:
-                            # unacknowledged alarm in set status
-                            self.__counter_by_view[view] += 1
+            current_views = self.counter_by_view.keys()
+            for view in views:
+                # initialize count if no key
+                if view not in current_views:
+                    self.counter_by_view[view] = 0
+                    current_views = self.counter_by_view.keys()
+                # update count
+                if alarm.value > 0:
+                    if alarm.ack is not True:
+                        # unacknowledged alarm in set status
+                        self.counter_by_view[view] += 1
 
-    def _update_counter_by_view_if_alarm_is_acknowledged(self, after_ack_alarm, initial_ack_state):
+    def update_counter_by_view_if_alarm_is_acknowledged(self, after_ack_alarm, initial_ack_state):
         """ Update counter after acknowledgment action """
         alarm = after_ack_alarm
         if alarm.is_stored():
             views = alarm.views
-            if len(views) > 0:
-                for view in views:
-                    # initialize count if no key
-                    if view not in self.__counter_by_view.keys():
-                        self.__counter_by_view[view] = 0
-                    if alarm.is_set():
-                        # set alarm
-                        if initial_ack_state is False:
-                            # from unack state
-                            if alarm.ack is True:
-                                # to ack state
-                                self.__counter_by_view[view] -= 1
-                    else:
-                        # cleared alarm
-                        if initial_ack_state is False:
-                            # from unack state
-                            if alarm.ack is True:
-                                # to ack state
-                                self.__counter_by_view[view] += 0
+            current_views = self.counter_by_view.keys()
+            for view in views:
+                # initialize count if no key
+                if view not in current_views:
+                    self.counter_by_view[view] = 0
+                    current_views = self.counter_by_view.keys()
+                if alarm.value > 0:
+                    # set alarm
+                    if initial_ack_state is False:
+                        # from unack state
+                        if alarm.ack is True:
+                            # to ack state
+                            self.counter_by_view[view] -= 1
+                else:
+                    # cleared alarm
+                    if initial_ack_state is False:
+                        # from unack state
+                        if alarm.ack is True:
+                            # to ack state
+                            self.counter_by_view[view] += 0
 
-    def _update_counter_by_view_if_alarm_is_unacknowledged(
+    def update_counter_by_view_if_alarm_is_unacknowledged(
         self, after_ack_alarm, initial_ack_state
     ):
         """ Update counter after unacknowledgment action """
         alarm = after_ack_alarm
         if alarm.is_stored():
             views = alarm.views
-            if len(views) > 0:
-                for view in views:
-                    # initialize count if no key
-                    if view not in self.__counter_by_view.keys():
-                        self.__counter_by_view[view] = 0
-                    if alarm.is_set():
-                        # set alarm
-                        if initial_ack_state is True:
-                            # from ack state
-                            if alarm.ack is False:
-                                # to unack state
-                                self.__counter_by_view[view] += 1
-                    else:
-                        # cleared alarm
-                        if initial_ack_state is True:
-                            # from ack state
-                            if alarm.ack is False:
-                                # to unack state
-                                self.__counter_by_view[view] += 0
+            current_views = self.counter_by_view.keys()
+            for view in views:
+                # initialize count if no key
+                if view not in current_views:
+                    self.counter_by_view[view] = 0
+                    current_views = self.counter_by_view.keys()
+                if alarm.value > 0:
+                    # set alarm
+                    if initial_ack_state is True:
+                        # from ack state
+                        if alarm.ack is False:
+                            # to unack state
+                            self.counter_by_view[view] += 1
+                else:
+                    # cleared alarm
+                    if initial_ack_state is True:
+                        # from ack state
+                        if alarm.ack is False:
+                            # to unack state
+                            self.counter_by_view[view] += 0
 
-    def _update_counter_by_view_if_alarm_has_value_update(
+    def update_counter_by_view_if_alarm_has_value_update(
         self, alarm, initial_ack_state, transition
     ):
         """ Update counter after value (set or cleared) update """
         if alarm.is_stored():
             views = alarm.views
-            if len(views) > 0:
-                for view in views:
-                    # initialize count if no key
-                    if view not in self.__counter_by_view.keys():
-                        self.__counter_by_view[view] = 0
-                    if transition == 'clear-set':
-                        # set alarm
-                        if initial_ack_state is False:
-                            # from ack state
-                            if alarm.ack is False:
-                                # to unack state
-                                self.__counter_by_view[view] += 1
-                    if transition == 'set-clear':
-                        # cleared alarm
-                        if initial_ack_state is False:
-                            # from ack state
-                            if alarm.ack is False:
-                                # to unack state
-                                self.__counter_by_view[view] -= 1
+            current_views = self.counter_by_view.keys()
+            for view in views:
+                # initialize count if no key
+                if view not in current_views:
+                    self.counter_by_view[view] = 0
+                    current_views = self.counter_by_view.keys()
+                if transition == 'clear-set':
+                    # set alarm
+                    if initial_ack_state is False:
+                        # from ack state
+                        if alarm.ack is False:
+                            # to unack state
+                            self.counter_by_view[view] += 1
+                if transition == 'set-clear':
+                    # cleared alarm
+                    if initial_ack_state is False:
+                        # from ack state
+                        if alarm.ack is False:
+                            # to unack state
+                            self.counter_by_view[view] -= 1
 
 
 class AlarmManager(AlarmCountManager):
@@ -281,22 +281,6 @@ class Alarm:
             'value_change_transition': self.value_change_transition,
         }
 
-    def equals_except_timestamp(self, alarm):
-        """
-        Check if the attributes of the alarm are different to the values
-        retrieved in params, the verification does not consider the
-        core_timestamp value, other timestamps values and the properties dict.
-        """
-        for field in self.__dict__.keys():
-            if field == 'core_timestamp' or field == 'id' or \
-               field == 'timestamps' or field == 'properties':
-                continue
-            self_attribute = getattr(self, field)
-            alarm_attribute = getattr(alarm, field)
-            if self_attribute != alarm_attribute:
-                return False
-        return True
-
     def update(self, alarm):
         """
         Updates the alarm with attributes from another given alarm if the
@@ -320,9 +304,9 @@ class Alarm:
             return ('not-updated', None, False)
 
         # Evaluate alarm state transition between set and unset states:
-        if self.is_not_set() and alarm.is_set():
+        if self.value == 0 and alarm.value > 0:
             transition = 'clear-set'
-        elif self.is_set() and alarm.is_not_set():
+        elif self.value > 0 and alarm.value == 0:
             transition = 'set-clear'
         else:
             transition = None
@@ -358,9 +342,7 @@ class Alarm:
             setattr(self, field, new_value)
 
         # start block - counter by view
-        self.objects._update_counter_by_view_if_alarm_has_value_update(
-            self, initial_ack_state, transition
-        )
+        self.objects.update_counter_by_view_if_alarm_has_value_update(self, initial_ack_state, transition)
         # end block - counter by view
 
         return (notify, transition, dependencies_changed)
@@ -392,15 +374,8 @@ class Alarm:
             boolean: the final ack status
         """
         initial_ack_state = self.ack  # counter variable
-
         self.ack = ack
-
-        # start - counter block
-        self.objects._update_counter_by_view_if_alarm_is_acknowledged(
-            self, initial_ack_state
-        )
-        # end - counter block
-
+        self.objects.update_counter_by_view_if_alarm_is_acknowledged(self, initial_ack_state)
         return self.ack
 
     def unacknowledge(self):
@@ -410,16 +385,9 @@ class Alarm:
         Returns:
             boolean: the final ack status
         """
-
         initial_ack_state = self.ack  # counter variable
-
         self.ack = False
-
-        # start - counter block
-        self.objects._update_counter_by_view_if_alarm_is_unacknowledged(
-            self, initial_ack_state
-        )
-        # end - counter block
+        self.objects.update_counter_by_view_if_alarm_is_unacknowledged(self, initial_ack_state)
         return self.ack
 
     def shelve(self):
@@ -449,14 +417,15 @@ class Alarm:
         return True
 
     def is_set(self):
-        return True if self.value not in Value.unset_options() else False
+        """ Method to check is the alarm is set """
+        return True if self.value > 0 else False
 
     def is_not_set(self):
-        return True if self.value in Value.unset_options() else False
+        """ Method to check is the alarm is not set """
+        return True if self.value == 0 else False
 
     def is_stored(self):
         """ Method to check is the alarm was stored in the collection """
-        # TODO : Evaluate data structure for the alarms
         return self.stored
 
 

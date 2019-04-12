@@ -72,10 +72,10 @@ class AlarmCollection:
             return
         ids_to_notify = set(self.alarm_changes)
         self.alarm_changes = []
-        alarms = [self.get(id).update_validity().to_dict() for id in ids_to_notify]
+        alarms = [self.get(id).to_dict() for id in ids_to_notify]
         payload = {
             'alarms': alarms,
-            'counters': Alarm.objects.counter_by_view()
+            'counters': Alarm.objects.counter_by_view
         }
         stream = 'alarms'
         await asyncio.gather(
@@ -93,7 +93,7 @@ class AlarmCollection:
             alarms.append(item.to_dict())
         payload = {
             'alarms': alarms,
-            'counters': Alarm.objects.counter_by_view()
+            'counters': Alarm.objects.counter_by_view
         }
         stream = 'requests',
         await asyncio.gather(
@@ -382,7 +382,7 @@ class AlarmCollection:
         self.singleton_collection[alarm.core_id] = alarm
         alarm.stored = True
         self._update_parents_collection(alarm)
-        Alarm.objects._update_counter_by_view_if_new_alarm_in_collection(alarm)
+        Alarm.objects.update_counter_by_view_if_new_alarm_in_collection(alarm)
         logger.debug('the alarm %s was added to the collection', alarm.core_id)
 
     @classmethod
@@ -433,7 +433,6 @@ class AlarmCollection:
             'dependencies': dependencies
         }
         alarm = Alarm(**params)
-        alarm.update_validity()
 
         # Update already existing Alarm
         if stored_alarm:

@@ -78,7 +78,7 @@ class TestCountByViewForNewAlarms:
         mock_alarms_dict = self.build_alarms()
 
         # Initial counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
 
         # Act:
@@ -100,7 +100,7 @@ class TestCountByViewForNewAlarms:
             """
         # Assert:
         expected_counter = {'antennas': 4, 'weather': 1}
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == expected_counter, 'Unexpected count'
 
     @pytest.mark.asyncio
@@ -115,7 +115,7 @@ class TestCountByViewForNewAlarms:
         mock_alarms_dict = self.build_alarms()
 
         # Initial counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
 
         selected_alarm_key = 'antenna_alarm_SET_LOW'
@@ -132,7 +132,7 @@ class TestCountByViewForNewAlarms:
         """
 
         # Transition counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 1}, 'Unexpected count'
 
         # Act:
@@ -143,7 +143,7 @@ class TestCountByViewForNewAlarms:
 
         # Assert:
         expected_counter = {'antennas': 0}
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == expected_counter, 'Unexpected count'
 
     @pytest.mark.asyncio
@@ -158,7 +158,7 @@ class TestCountByViewForNewAlarms:
         mock_alarms_dict = self.build_alarms()
 
         # Initial counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
 
         # Act:
@@ -179,7 +179,7 @@ class TestCountByViewForNewAlarms:
             """
 
         # Assert:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
     @pytest.mark.asyncio
@@ -194,7 +194,7 @@ class TestCountByViewForNewAlarms:
         mock_alarms_dict = self.build_alarms()
 
         # Initial counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
 
         # Act:
@@ -220,7 +220,7 @@ class TestCountByViewForNewAlarms:
             """
 
         # Assert:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
 
@@ -302,7 +302,7 @@ class TestCountPerViewForAlarmsUpdates:
         #  SET UNACK to SET ACK
 
         # Initial counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
 
         selected_alarm_key = 'antenna_alarm_SET_LOW'
@@ -320,7 +320,7 @@ class TestCountPerViewForAlarmsUpdates:
         """
 
         # Transition counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 1}, 'Unexpected count'
 
         # Act:
@@ -332,7 +332,7 @@ class TestCountPerViewForAlarmsUpdates:
 
         # Assert:
         expected_counter = {'antennas': 0}
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == expected_counter, 'Unexpected count'
 
         #  SET ACK to SET UNACK
@@ -346,7 +346,7 @@ class TestCountPerViewForAlarmsUpdates:
 
         # Assert:
         expected_counter = {'antennas': 1}
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == expected_counter, 'Unexpected count'
 
     @pytest.mark.asyncio
@@ -363,7 +363,7 @@ class TestCountPerViewForAlarmsUpdates:
         #  CLEARED ACK to CLEARED UNACK
 
         # Initial counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
 
         for alarm_key in [
@@ -382,7 +382,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Expected ack state
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         # Act:
@@ -402,7 +402,7 @@ class TestCountPerViewForAlarmsUpdates:
             """
 
         # Assert:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         #  CLEARED UNACK to CLEARED ACK
@@ -424,7 +424,7 @@ class TestCountPerViewForAlarmsUpdates:
             """
 
         # Assert:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
     @pytest.mark.asyncio
@@ -463,7 +463,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 4, 'weather': 1}, 'Unexpected count'
 
         for alarm_key in [
@@ -483,7 +483,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         new_timestamp = old_timestamp + 10
@@ -513,7 +513,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         #  CLEAR ACK to SET ACK
@@ -561,7 +561,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
     @pytest.mark.asyncio
@@ -600,7 +600,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 4, 'weather': 1}, 'Unexpected count'
 
         new_timestamp = old_timestamp + 10
@@ -630,7 +630,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         #  CLEAR UNACK to SET UNACK
@@ -674,7 +674,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 4, 'weather': 1}, 'Unexpected count'
 
     @pytest.mark.asyncio
@@ -693,7 +693,7 @@ class TestCountPerViewForAlarmsUpdates:
         old_timestamp = int(round(time.time() * 1000))
 
         # Initial counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
 
         for alarm_key in [
@@ -717,7 +717,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Expected cleared state
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         new_timestamp = old_timestamp + 10
@@ -746,7 +746,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 2, 'weather': 2}, 'Unexpected count'
 
         #  SET UNACK to CLEAR_ACK
@@ -793,7 +793,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
     @pytest.mark.asyncio
@@ -812,7 +812,7 @@ class TestCountPerViewForAlarmsUpdates:
         old_timestamp = int(round(time.time() * 1000))
 
         # Initial counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
 
         for alarm_key in [
@@ -840,7 +840,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Expected cleared state
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         new_timestamp = old_timestamp + 10
@@ -873,7 +873,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
         #  SET ACK to CLEAR_UNACK
@@ -917,7 +917,7 @@ class TestCountPerViewForAlarmsUpdates:
                 Unexpected views
             """
 
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
 
 
@@ -982,7 +982,7 @@ class TestCountByViewForDependencies:
         old_timestamp = int(round(time.time() * 1000))
 
         # Initial counter:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
 
         # Act: Create cleared alarms (order required):
@@ -1008,7 +1008,7 @@ class TestCountByViewForDependencies:
             """
 
         # Assert:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'view': 0}, 'Unexpected count'
 
         # Act: Parent and child to set state
@@ -1038,7 +1038,7 @@ class TestCountByViewForDependencies:
             """
 
         # Assert:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'view': 2}, 'Unexpected count'
 
         # Act: Ack child
@@ -1065,7 +1065,7 @@ class TestCountByViewForDependencies:
             """
 
         # Assert:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'view': 0}, 'Unexpected count'
 
         # Act: Other child to set state
@@ -1121,5 +1121,5 @@ class TestCountByViewForDependencies:
         """
 
         # Assert:
-        counter = Alarm.objects.counter_by_view()
+        counter = Alarm.objects.counter_by_view
         assert counter == {'view': 2}, 'Unexpected count'
