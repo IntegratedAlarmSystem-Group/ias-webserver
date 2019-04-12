@@ -81,8 +81,7 @@ class AlarmCollection:
         await asyncio.gather(
             *[observer.update(payload, stream) for observer in self.observers]
         )
-        logger.debug(
-            '%i alarms notified to all the observers', len(ids_to_notify))
+        logger.debug('%i alarms notified to all the observers', len(ids_to_notify))
 
     @classmethod
     async def broadcast_observers(self):
@@ -110,7 +109,9 @@ class AlarmCollection:
         ias_webserver.settings.NOTIFICATIONS_RATE
         """
         while True:
+            # start = time.time()
             await self.notify_observers()
+            # logger.info('Finished notifying observers in %1.3f seconds', time.time() - start)
             await asyncio.sleep(NOTIFICATIONS_RATE)
 
     @classmethod
