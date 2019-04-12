@@ -4,7 +4,7 @@ import abc
 import asyncio
 import logging
 import re
-from alarms.models import Alarm, Value, OperationalMode, Validity
+from alarms.models import Alarm, IASValue, Value, OperationalMode, Validity
 from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 from ias_webserver.settings import NOTIFICATIONS_RATE, BROADCAST_RATE_FACTOR
 
@@ -398,7 +398,7 @@ class AlarmCollection:
             iasio (dict): the dict correpsonding to the Alarm to add or update
 
         Returns:
-            message (String): a string message sumarizing what happened
+            message (string): a string message sumarizing what happened
         """
         # Core ID
         core_id = AlarmCollection._get_core_id_from(iasio['fullRunningId'])
@@ -495,7 +495,7 @@ class AlarmCollection:
             return None
 
     @classmethod
-    def add_or_update_value(self, value):
+    def add_or_update_value(self, iasio):
         """
         Adds the ias value if it isn't in the values collection already or
         updates the ias value in the other case.
@@ -504,20 +504,45 @@ class AlarmCollection:
         the collection to respond to user requests.
 
         Args:
-            value (IASValue): the IASValue object to add or update
+            iasio (dict): the IASValue object to add or update
 
         Returns:
-            message (String): a string message sumarizing what happened
+            message (string): a string message sumarizing what happened
         """
-        if value.core_id not in self.values_collection:
-            self.values_collection[value.core_id] = value
-            status = 'created'
-        else:
-            stored_value = self.get_value(value.core_id)
+        # Core ID
+        core_id = AlarmCollection._get_core_id_from(iasio['fullRunningId'])
+
+        # Core Timestamp
+        dt = datetime.datetime.strptime(iasio['productionTStamp'], '%Y-%m-%dT%H:%M:%S.%f')
+        timestamp = (time.mktime(dt.timetuple()) + dt.microsecond / 1E6) * 1000
+        core_timestamp = int(timestamp)
+
+        stored_value = self.get(core_id)
+
+        if stored_value and core_timestamp <= stored_value.core_timestamp:
+            logger.debug('Skipping old Value IASIO  %s, with timestamp %s', core_id, iasio['productionTStamp'])
+            return
+
+        params = {
+            'value': iasio['value'],
+            'core_timestamp': core_timestamp,
+            'mode': AlarmCollection.mode_options[iasio['mode']],
+            'validity': AlarmCollection.validity_options[iasio['iasValidity']],
+            'core_id': core_id,
+            'running_id': iasio['fullRunningId'],
+            'timestamps': {},
+        }
+
+        value = IASValue(**params)
+
+        # Update already existing Value
+        if stored_value:
             status = stored_value.update(value)
-        logger.debug(
-            'the value %s was added or updated in the collection (status %s)',
-            value.core_id, status)
+        # Adding new Alarm
+        else:
+            status = 'created'
+            self.values_collection[core_id] = value
+        logger.debug('The value %s was added or updated in the collection (status %s)', value.core_id, status)
         return status
 
     @classmethod
