@@ -72,7 +72,7 @@ class AlarmCollection:
             return
         ids_to_notify = set(self.alarm_changes)
         self.alarm_changes = []
-        alarms = [self.get(id).to_dict() for id in ids_to_notify]
+        alarms = [self.get(id).update_validity().to_dict() for id in ids_to_notify]
         payload = {
             'alarms': alarms,
             'counters': Alarm.objects.counter_by_view()
@@ -433,6 +433,7 @@ class AlarmCollection:
             'dependencies': dependencies
         }
         alarm = Alarm(**params)
+        alarm.update_validity()
 
         # Update already existing Alarm
         if stored_alarm:
