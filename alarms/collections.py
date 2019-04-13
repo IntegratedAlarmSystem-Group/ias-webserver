@@ -363,10 +363,10 @@ class AlarmCollection:
 
         if len(tickets_to_create) > 0:
             logger.debug('Creating tickets: %s', len(tickets_to_create))
-            await self.create_tickets(tickets_to_create)
+            asyncio.ensure_future(self.create_tickets(tickets_to_create))
         if len(tickets_to_clear) > 0:
             logger.debug('Clearing tickets: %s', len(tickets_to_clear))
-            await self.clear_tickets(tickets_to_clear)
+            asyncio.ensure_future(self.clear_tickets(tickets_to_clear))
 
     @classmethod
     def add(self, alarm):

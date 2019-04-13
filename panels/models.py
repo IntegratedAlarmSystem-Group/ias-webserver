@@ -10,6 +10,7 @@ PERMISSIONS = ('add', 'change', 'delete', 'view')
 
 
 class FileManager:
+    """ Manager to handle files """
 
     def _get_files_absolute_location(self):
         """ Return the path for the folder with the configuration files """
@@ -222,6 +223,7 @@ class Placemark(models.Model):
 
 
 class AlarmConfigManager:
+    """ Manager to handle AlarmConfigs """
 
     def all(self):
         """ Returns a list with instances for the configurations
@@ -270,6 +272,7 @@ class AlarmConfigManager:
 
 
 class AlarmConfig:
+    """ Class that defines an AlarmConfig """
 
     objects = AlarmConfigManager()
 
