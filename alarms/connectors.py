@@ -12,12 +12,10 @@ class CdbConnector():
     """
 
     refresh_rate = 3000
-    """ refreshrate in milliseconds defined to be used to calculate the
-    validity of alarms """
+    """ refreshrate in milliseconds defined to be used to calculate the validity of alarms """
 
     validity_threshold = 10000
-    """ Validity threshold in milliseconds defines to be used to calculate the
-    validity of alarms """
+    """ Validity threshold in milliseconds defines to be used to calculate the validity of alarms """
 
     @classmethod
     def get_iasios(self, type=None):
@@ -111,10 +109,7 @@ class TicketConnector():
 
 
 class PanelsConnector():
-        """
-        This class defines methods to communicate the Alarm app with the Panels
-        app
-        """
+        """ This class defines methods to communicate the Alarm app with the Panels app """
 
         @classmethod
         def get_alarm_ids_of_alarm_configs(self):

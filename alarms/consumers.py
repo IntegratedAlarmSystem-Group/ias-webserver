@@ -13,10 +13,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
     """ Consumer for messages from the core system """
 
     async def connect(self):
-        """
-        Called upon connection, rejects connection if no authenticated user
-        or password
-        """
+        """ Called upon connection, rejects connection if no authenticated user or password """
         if AlarmCollection.init_state == 'pending':
             AlarmCollection.initialize()
         elif AlarmCollection.init_state == 'in_progress':
@@ -35,8 +32,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
     async def receive_json(self, content, **kwargs):
         """
         Handles the messages received by this consumer.
-        It delegates handling of the alarms received in the messages to
-        :func:`~AlarmCollection.add_or_update_alarm`
+        It delegates handling of the alarms received in the messages to :func:`~AlarmCollection.add_or_update_alarm`
 
         Responds with a message indicating the action taken
         (created, updated, ignored)
@@ -64,8 +60,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
 
     async def connect(self):
         """
-        Called upon connection, rejects connection if no authenticated user
-        or password.
+        Called upon connection, rejects connection if no authenticated user or password.
         Start the periodic notifications in the AlarmCollection
         """
         # Reject connection if no authenticated user:
@@ -108,8 +103,7 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         """
         Handles the messages received by this consumer
 
-        If the message contains the 'action' 'list',
-        responds with the list of all the current Alarms.
+        If the message contains the 'action' 'list', responds with the list of all the current Alarms.
         """
         if content['stream'] == 'requests':
             if content['payload'] and content['payload']['action'] is not None:

@@ -50,8 +50,7 @@ class Validity(ChoiceEnum):
     """ Possible validity states of an Alarm """
 
     RELIABLE = 1
-    """ The value has been provided in time and the operator can trust what
-    the IAS shows"""
+    """ The value has been provided in time and the operator can trust what the IAS shows"""
 
     UNRELIABLE = 0
     """ The values has not been produced in time either by the IAS Core or due
@@ -468,8 +467,7 @@ class IASValue(Alarm):
     def update(self, ias_value):
         """
         Updates the ias_value with attributes from another given ias_value if
-        the timestamp of the given ias_value is greater than the stored ias
-        value.
+        the timestamp of the given ias_value is greater than the stored ias value.
 
         Args:
             ias_value (dict): The new ias_value object
@@ -479,20 +477,15 @@ class IASValue(Alarm):
             updated-different)
         """
         if ias_value.core_timestamp <= self.core_timestamp:
-            logger.debug(
-                'value %s was not updated (tstamp is older than the last one)',
-                ias_value.core_id)
+            logger.debug('value %s was not updated (tstamp is older than the last one)', ias_value.core_id)
             return ('not-updated', None, False)
 
         if self.mode != ias_value.mode or self.value != ias_value.value or \
            (self.state_change_timestamp == 0 and ias_value.validity == 1):
             self.state_change_timestamp = ias_value.core_timestamp
 
-        ignored_fields = \
-            ['core_timestamp', 'id', 'timestamps', 'properties', 'mode',
-                'validity']
-        unchanged_fields = \
-            ['ack', 'shelved', 'description', 'url', 'state_change_timestamp']
+        ignored_fields = ['core_timestamp', 'id', 'timestamps', 'properties', 'mode', 'validity']
+        unchanged_fields = ['ack', 'shelved', 'description', 'url', 'state_change_timestamp']
 
         notify = 'updated-equal'
 

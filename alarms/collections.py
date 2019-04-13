@@ -13,9 +13,7 @@ logger = logging.getLogger(__name__)
 
 class AlarmCollection:
     """
-    This class defines the data structure that will store and handle the Alarms
-    in memory.
-
+    This class defines the data structure that will store and handle the Alarms in memory.
     Allows observers to subscribe to changes on the Alarm objects
     """
 
@@ -29,12 +27,10 @@ class AlarmCollection:
     """ Dictionary to store other type of values, indexed by core_id """
 
     alarms_views_dict = None
-    """ Dictionary to store the related view names by alarm,
-    indexed by core_id """
+    """ Dictionary to store the related view names by alarm, indexed by core_id """
 
     observers = []
-    """ List to store references to the observers subscribed to changes in the
-    collection """
+    """ List to store references to the observers subscribed to changes in the collection """
 
     notification_task = None
     """ Reference to the Task that notifies changes periodically """
@@ -60,10 +56,7 @@ class AlarmCollection:
         """Add an observer to the observers list"""
         if isinstance(observer, AlarmCollectionObserver):
             self.observers.append(observer)
-            logger.debug(
-                'new observer was subscribed to alarm collection: %s',
-                observer.__class__.__name__
-            )
+            logger.debug('new observer was subscribed to alarm collection: %s', observer.__class__.__name__)
 
     @classmethod
     async def notify_observers(self):
@@ -78,9 +71,7 @@ class AlarmCollection:
             'counters': Alarm.objects.counter_by_view
         }
         stream = 'alarms'
-        await asyncio.gather(
-            *[observer.update(payload, stream) for observer in self.observers]
-        )
+        await asyncio.gather(*[observer.update(payload, stream) for observer in self.observers])
         logger.debug('%i alarms notified to all the observers', len(ids_to_notify))
 
     @classmethod
@@ -105,8 +96,7 @@ class AlarmCollection:
     async def periodic_notification_coroutine(self):
         """
         Coroutine that notifies of changes to all the observers periodically
-        The notifications rate is defined in the variable
-        ias_webserver.settings.NOTIFICATIONS_RATE
+        The notifications rate is defined in the variable ias_webserver.settings.NOTIFICATIONS_RATE
         """
         while True:
             # start = time.time()
@@ -118,6 +108,7 @@ class AlarmCollection:
     async def periodic_broadcast_coroutine(self, rate):
         """
         Coroutine that notifies of changes to all the observers periodically
+
         Args:
             rate (int): time in seconds
         """
@@ -128,22 +119,19 @@ class AlarmCollection:
     @classmethod
     async def start_periodic_tasks(self):
         """
-        Starts the coroutine that notifies of changes to all the observers as
-        a task.
+        Starts the coroutine that notifies of changes to all the observers as a task.
 
         Checks if the task (notification_task) and starts it,
         if it has not been started, or it has been cancelled or has finished
         """
-        if self.notification_task is None or self.notification_task.done() or \
-                self.notification_task.cancelled():
+        if self.notification_task is None or self.notification_task.done() or self.notification_task.cancelled():
             logger.info('Starting periodic notifications')
             self.notification_task = asyncio.ensure_future(
                 self.periodic_notification_coroutine())
         else:
             logger.debug('Periodic notification already started')
 
-        if self.broadcast_task is None or self.broadcast_task.done() or \
-                self.broadcast_task.cancelled():
+        if self.broadcast_task is None or self.broadcast_task.done() or self.broadcast_task.cancelled():
             rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR / 1000
             logger.info(
                 'Starting periodic broadcast with rate %d seconds', rate)
@@ -171,11 +159,9 @@ class AlarmCollection:
     def initialize(self, iasios=None):
         """
         Initializes the alarms collection with default alarms.
-        If a list of iasios is passed, it initializes Alarms only for those
-        iasios.
-        If not, it initializes Alarms based on the alarm_ids used in
-        AlarmConfig objects of the Panels app, getting their description and
-        documentation urls from the CDB.
+        If a list of iasios is passed, it initializes Alarms only for those iasios.
+        If not, it initializes Alarms based on the alarm_ids used in AlarmConfig objects of the Panels app,
+        getting their description and documentation urls from the CDB.
 
         Args:
             iasios (list): An optional list of iasio objects
@@ -190,8 +176,7 @@ class AlarmCollection:
             self.singleton_collection = {}
             self.parents_collection = {}
             self.values_collection = {}
-            self.alarms_views_dict = \
-                PanelsConnector.get_alarms_views_dict_of_alarm_configs()
+            self.alarms_views_dict = PanelsConnector.get_alarms_views_dict_of_alarm_configs()
             alarms_to_search = PanelsConnector.get_alarm_ids_of_alarm_configs()
             if iasios is None:
                 iasios = CdbConnector.get_iasios(type='ALARM')
@@ -219,18 +204,14 @@ class AlarmCollection:
                 logger.info(
                     'the collection was initialized in testing mode')
             self.init_state = 'done'
-        logger.info(
-            'Collection initialization finished in %d seconds',
-            time.time() - start
-        )
+        logger.info('Collection initialization finished in %d seconds', time.time() - start)
         return self.singleton_collection
 
     @classmethod
     def reset(self, iasios=None):
         """
-        Resets the AlarmCollection dictionary initializing it again. Go to
-        :func:`~collections.AlarmCollection.initialize` to see the
-        initialization specification.
+        Resets the AlarmCollection dictionary initializing it again.
+        Go to :func:`~collections.AlarmCollection.initialize` to see the initialization specification.
 
         Args:
             iasios (list): A list of iasio objects
@@ -252,10 +233,7 @@ class AlarmCollection:
         Returns:
             alarm: an Alarm object
         """
-        logger.debug(
-            'creating an alarm based on iasio with id %s',
-            iasio['id']
-        )
+        logger.debug('creating an alarm based on iasio with id %s', iasio['id'])
         current_time = int(round(time.time() * 1000))
         if 'shortDesc' not in iasio:
             iasio['shortDesc'] = ""
@@ -288,9 +266,8 @@ class AlarmCollection:
     @classmethod
     def get(self, core_id):
         """
-        Returns the Alarm object in the AlarmCollection dictionary with that
-        core_id value. It also initializes the Collection if it has been not
-        initialized before.
+        Returns the Alarm object in the AlarmCollection dictionary with that core_id value.
+        It also initializes the Collection if it has been not initialized before.
 
         Args:
             core_id (string): the core_id of the Alarm to get
@@ -308,8 +285,7 @@ class AlarmCollection:
     @classmethod
     def get_dependencies_recursively(self, core_id):
         """
-        Returns a list of alarm ids of all the dependencies of the specified
-        alarm
+        Returns a list of alarm ids of all the dependencies of the specified alarm
 
         Returns:
             list: A list of alarm ids dependencies of the alarm with core_id
@@ -319,19 +295,14 @@ class AlarmCollection:
         if alarm:
             response.append(core_id)
             for dependency_id in alarm.dependencies:
-                response += AlarmCollection.get_dependencies_recursively(
-                    dependency_id
-                )
-        logger.debug(
-            'getting dependencies of alarm %s recursively: %s',
-            core_id, response)
+                response += AlarmCollection.get_dependencies_recursively(dependency_id)
+        logger.debug('Getting dependencies of alarm %s recursively: %s', core_id, response)
         return response
 
     @classmethod
     def get_ancestors_recursively(self, core_id):
         """
-        Return the list of parents and grandparents recursively of the
-        specified alarm
+        Return the list of parents and grandparents recursively of the specified alarm
 
         Args:
             core_id (string): the ID of the Alarm object to get its ancestors
@@ -342,9 +313,7 @@ class AlarmCollection:
         response = self._get_parents(core_id)
         for parent_id in response:
             response += self.get_ancestors_recursively(parent_id)
-        logger.debug(
-            'getting ancestors of alarm %s recursively: %s',
-            core_id, response)
+        logger.debug('Getting ancestors of alarm %s recursively: %s', core_id, response)
         return response
 
     @classmethod
@@ -356,7 +325,7 @@ class AlarmCollection:
             dict: A dictionary of Alarms indexed by core_id
         """
         if self.init_state == 'pending':
-            logger.debug('initializing the collection because it was empty')
+            logger.debug('Initializing the collection because it was empty')
             self.initialize()
         return self.singleton_collection
 
@@ -384,14 +353,13 @@ class AlarmCollection:
         alarm.stored = True
         self._update_parents_collection(alarm)
         Alarm.objects.update_counter_by_view_if_new_alarm_in_collection(alarm)
-        logger.debug('the alarm %s was added to the collection', alarm.core_id)
+        logger.debug('The alarm %s was added to the collection', alarm.core_id)
 
     @classmethod
     def add_or_update_alarm(self, iasio):
         """
-        Adds the alarm if it isn't in the AlarmCollection already or updates
-        the alarm in the other case. It also initializes the Collection if it
-        has been not initialized before.
+        Adds the alarm if it isn't in the AlarmCollection already or updates the alarm in the other case.
+        It also initializes the Collection if it has been not initialized before.
 
         Records the changes to be notified if it is the case
 
@@ -465,9 +433,8 @@ class AlarmCollection:
     @classmethod
     def update_all_alarms_validity(self):
         """
-        Update the validity of each alarm in the AlarmCollection dictionary. Go
-        to :func:`alarms.models.Alarm.update_validity` to see the validation
-        specification.
+        Update the validity of each alarm in the AlarmCollection dictionary.
+        Go to :func:`alarms.models.Alarm.update_validity` to see the validation specification.
 
         Returns:
             dict: the AlarmCollection as a dictionary after the validity update
@@ -498,8 +465,7 @@ class AlarmCollection:
     @classmethod
     def add_or_update_value(self, iasio):
         """
-        Adds the ias value if it isn't in the values collection already or
-        updates the ias value in the other case.
+        Adds the ias value if it isn't in the values collection already or updates the ias value in the other case.
 
         It does not notify the observers on change. It only mantains updated
         the collection to respond to user requests.
@@ -570,7 +536,7 @@ class AlarmCollection:
             alarms_ids += _alarms_ids
 
         self.record_alarm_changes(alarms)
-        logger.debug('the alarms in %s were acknowledged', alarms_ids)
+        logger.debug('The alarms in %s were acknowledged', alarms_ids)
         return alarms_ids
 
     @classmethod
@@ -588,7 +554,7 @@ class AlarmCollection:
         status = alarm.shelve()
         if status == 1:
             self.record_alarm_changes(alarm)
-        logger.debug('the alarm %s was shelved (status: %s)', core_id, status)
+        logger.debug('The alarm %s was shelved (status: %s)', core_id, status)
         return status
 
     @classmethod
@@ -637,8 +603,7 @@ class AlarmCollection:
 
     @classmethod
     def _check_dependencies_ack(self, alarm):
-        """ Checks wether all the children Alarms of a given Alarm
-        are acknowledged or not """
+        """ Checks wether all the children Alarms of a given Alarm are acknowledged or not """
         for core_id in alarm.dependencies:
             dependency = self.singleton_collection[core_id]
             if not dependency.ack:
@@ -672,9 +637,7 @@ class AlarmCollection:
     def _get_parents(self, alarm_id):
         """ Return the list of parents of the specified alarm """
         if alarm_id not in self.parents_collection.keys():
-            logger.debug(
-                'the list of parents is empty because the alarm %s is not in \
-                the collection', alarm_id)
+            logger.debug('The list of parents is empty because the alarm %s is not in the collection', alarm_id)
             return []
         else:
             return list(self.parents_collection[alarm_id])
@@ -682,8 +645,8 @@ class AlarmCollection:
     @classmethod
     def _recursive_acknowledge(self, core_id):
         """
-        Acknowledges upstream Alarms recursively through the Alarms
-        dependendy graph starting from a given Alarm
+        Acknowledges upstream Alarms recursively through the Alarms dependendy graph starting from a given Alarm
+
         Args:
             core_id (string): core_id of the starting Alarm
         Returns:
@@ -701,7 +664,7 @@ class AlarmCollection:
                     _alarms, _alarms_ids = self._recursive_acknowledge(parent)
                     alarms += _alarms
                     alarms_ids += _alarms_ids
-        logger.debug('the alarm %s were acknowledged recursively', alarms_ids)
+        logger.debug('The alarm %s were acknowledged recursively', alarms_ids)
         return alarms, alarms_ids
 
     @classmethod
@@ -713,19 +676,19 @@ class AlarmCollection:
             alarm (Alarm): The Alarm to unacknowledge
         """
         if alarm.shelved:
-            logger.debug('the alarm %s was already unshelved', alarm.core_id)
+            logger.debug('The alarm %s was already unshelved', alarm.core_id)
             return False
         else:
             alarm.unacknowledge()
             self._create_ticket(alarm.core_id)
-            logger.debug('the alarm %s was shelved', alarm.core_id)
+            logger.debug('The alarm %s was shelved', alarm.core_id)
             return True
 
     @classmethod
     def _recursive_unacknowledge(self, core_id):
         """
-        Unacknowledges upstream Alarms recursively through the Alarms
-        dependendy graph starting from a given Alarm
+        Unacknowledges upstream Alarms recursively through the Alarms dependendy graph starting from a given Alarm
+
         Args:
             core_id (string): core_id of the starting Alarm
         Returns:
