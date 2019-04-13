@@ -42,13 +42,22 @@ class AlarmCollection:
     """ List of IDs of Alarms that have changed and must be notified """
 
     init_state = 'pending'
+    """ Status of initialization, cand be either 'pending', 'in-progress' or 'done' """
 
     value_options = Value.get_choices_by_name()
+    """ Dictionary to transform Alarm Value from string to the corresponding numbers """
+
     mode_options = OperationalMode.get_choices_by_name()
+    """ Dictionary to transform Alarm OperationalMode from string to the corresponding numbers """
+
     validity_options = Validity.get_choices_by_name()
+    """ Dictionary to transform Alarm Validity from string to the corresponding numbers """
 
     pattern = re.compile('\\[!#\\d+!\\]')
+    """ Pattern used to find templated ids from CDB IASIOS """
+
     num_pattern = re.compile('\d+')
+    """ Pattern used to find the number in a templated id from a CDB IASIO """
 
     # Observers Methods:
     @classmethod
@@ -126,8 +135,7 @@ class AlarmCollection:
         """
         if self.notification_task is None or self.notification_task.done() or self.notification_task.cancelled():
             logger.info('Starting periodic notifications')
-            self.notification_task = asyncio.ensure_future(
-                self.periodic_notification_coroutine())
+            self.notification_task = asyncio.ensure_future(self.periodic_notification_coroutine())
         else:
             logger.debug('Periodic notification already started')
 
@@ -135,13 +143,12 @@ class AlarmCollection:
             rate = CdbConnector.refresh_rate * BROADCAST_RATE_FACTOR / 1000
             logger.info(
                 'Starting periodic broadcast with rate %d seconds', rate)
-            self.broadcast_task = asyncio.ensure_future(
-                self.periodic_broadcast_coroutine(rate))
+            self.broadcast_task = asyncio.ensure_future(self.periodic_broadcast_coroutine(rate))
         else:
             logger.debug('Periodic broadcast already started')
 
     @classmethod
-    def record_alarm_changes(self, alarms):
+    async def record_alarm_changes(self, alarms):
         """
         Register given Alarm(s) in order to notify its(their) change(s)
 
@@ -153,6 +160,11 @@ class AlarmCollection:
             alarms = [alarms]
         for alarm in alarms:
             self.alarm_changes.append(alarm.core_id)
+
+    @classmethod
+    async def start_initialization(self):
+        """ Starts the initialization of the AlarmCollection. It is an async m ethod that can be awaited """
+        self.initialize()
 
     # Sync, non-notified methods:
     @classmethod
@@ -748,7 +760,7 @@ class AlarmCollection:
         logger.debug('update parents of alarm %s', alarm.core_id)
 
     def _get_core_id_from(full_id):
-        """Return the core_id value extracted from the full running id field
+        """ Return the core_id value extracted from the full running id field
         assuming an specific format.
 
         Args:
@@ -775,9 +787,7 @@ class AlarmCollection:
 
 
 class AlarmCollectionObserver(abc.ABC):
-    """
-    This class defines an interface that all the observers must implement.
-    """
+    """ This class defines an interface that all the observers must implement """
 
     @abc.abstractmethod
     def update(data, stream):

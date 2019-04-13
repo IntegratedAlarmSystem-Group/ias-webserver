@@ -15,9 +15,12 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
         """ Called upon connection, rejects connection if no authenticated user or password """
         if AlarmCollection.init_state == 'pending':
-            AlarmCollection.initialize()
+            asyncio.ensure_future(AlarmCollection.start_initialization())
+            await self.close()
+            return
         elif AlarmCollection.init_state == 'in_progress':
             await self.close()
+            return
 
         # Reject connection if no authenticated user:
         if self.scope['user'].is_anonymous:
@@ -56,9 +59,12 @@ class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
         """
         # Reject connection if no authenticated user:
         if AlarmCollection.init_state == 'pending':
-            AlarmCollection.initialize()
+            asyncio.ensure_future(AlarmCollection.start_initialization())
+            await self.close()
+            return
         elif AlarmCollection.init_state == 'in_progress':
             await self.close()
+            return
         if self.scope['user'].is_anonymous:
             if self.scope['password'] and \
               self.scope['password'] == PROCESS_CONNECTION_PASS:
