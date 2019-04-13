@@ -335,7 +335,7 @@ class AlarmCollection:
         return list(self.singleton_collection.values())
 
     @classmethod
-    def receive_iasios(self, iasios):
+    async def receive_iasios(self, iasios):
         tickets_to_create = []
         tickets_to_clear = []
         for iasio in iasios:
@@ -348,12 +348,13 @@ class AlarmCollection:
             else:
                 status = AlarmCollection.add_or_update_value(iasio)
                 logger.debug('New value IASIO received by consumer: %s', str(iasio))
+
         if len(tickets_to_create) > 0:
             logger.debug('Creating tickets: %s', len(tickets_to_create))
-            self._create_tickets(tickets_to_create)
+            await self.create_tickets(tickets_to_create)
         if len(tickets_to_clear) > 0:
             logger.debug('Clearing tickets: %s', len(tickets_to_clear))
-            self._clear_tickets(tickets_to_clear)
+            await self.clear_tickets(tickets_to_clear)
 
     @classmethod
     def add(self, alarm):
@@ -363,13 +364,13 @@ class AlarmCollection:
         Args:
             alarm (Alarm): the Alarm object to add
         """
-        # if alarm.value == Value.CLEARED:
-        #     alarm.ack = TicketConnector.check_acknowledgement(
-        #         alarm.core_id
-        #     )
-        # else:
-        #     self._unacknowledge(alarm)
-        # alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
+        if alarm.value == Value.CLEARED:
+            alarm.ack = TicketConnector.check_acknowledgement(
+                alarm.core_id
+            )
+        else:
+            self._unacknowledge(alarm)
+        alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         alarm.stored = True
         self._update_parents_collection(alarm)
@@ -639,7 +640,7 @@ class AlarmCollection:
         return True
 
     @classmethod
-    def _clear_tickets(self, alarm_ids):
+    async def clear_tickets(self, alarm_ids):
         """
         Clear the open tickets for a list of specified Alarm IDs
 
@@ -649,7 +650,7 @@ class AlarmCollection:
         return TicketConnector.clear_tickets(alarm_ids)
 
     @classmethod
-    def _create_tickets(self, alarm_ids):
+    async def create_tickets(self, alarm_ids):
         """
         Creates a ticket for a list of specified Alarm IDs
 

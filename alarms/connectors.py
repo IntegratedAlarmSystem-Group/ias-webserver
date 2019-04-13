@@ -43,6 +43,11 @@ class TicketConnector():
     This class defines methods to communicate the Alarm app with the Ticket app
     """
 
+    unack_statuses = [
+        int(TicketStatus.get_choices_by_name()['UNACK']),
+        int(TicketStatus.get_choices_by_name()['CLEARED_UNACK'])
+    ]
+
     @classmethod
     def create_tickets(self, alarm_ids):
         """
@@ -79,13 +84,9 @@ class TicketConnector():
         Returns:
             (bolean): true if the alarm is acknowledged otherwise false
         """
-        unack_statuses = [
-            int(TicketStatus.get_choices_by_name()['UNACK']),
-            int(TicketStatus.get_choices_by_name()['CLEARED_UNACK'])
-        ]
         ticket = Ticket.objects.filter(
             alarm_id=alarm_id,
-            status__in=unack_statuses
+            status__in=self.unack_statuses
         ).first()
         return False if ticket else True
 

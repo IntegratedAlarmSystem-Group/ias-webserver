@@ -40,7 +40,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
         start = time.time()
         if not isinstance(content, list):
             content = [content]
-        AlarmCollection.receive_iasios(content)
+        await AlarmCollection.receive_iasios(content)
         await self.send('Received {} IASIOS'.format(len(content)))
         logger.debug('Finished receiving %d IASIOS in %1.3f seconds', len(content), time.time() - start)
 
