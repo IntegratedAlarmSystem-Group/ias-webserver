@@ -119,10 +119,10 @@ class AlarmCollection:
     @classmethod
     async def start_periodic_tasks(self):
         """
-        Starts the coroutine that notifies of changes to all the observers as a task.
+        Starts the coroutine that notifies changes to all the observers as a task.
 
-        Checks if the task (notification_task) and starts it,
-        if it has not been started, or it has been cancelled or has finished
+        Checks if the task (notification_task) has started and starts it if not,
+        or if it has been cancelled or has finished
         """
         if self.notification_task is None or self.notification_task.done() or self.notification_task.cancelled():
             logger.info('Starting periodic notifications')
@@ -417,10 +417,11 @@ class AlarmCollection:
                     self.record_alarm_changes(alarm)
 
                     if transition == 'clear-set':
-                        stored_alarm.state_change_timestamp = stored_alarm.core_timestamp
-                        # self._recursive_unacknowledge(stored_alarm.core_id)
-                    # elif transition == 'set-clear':
-                        # self._clear_ticket(stored_alarm.core_id)
+                        unack_ids, unack_alarms = self._recursive_unacknowledge(stored_alarm.core_id)
+                        self.record_alarm_changes(unack_alarms)
+                        self._create_tickets(unack_ids)
+                    elif transition == 'set-clear':
+                        self._clear_ticket(stored_alarm.core_id)
         # Adding new Alarm
         else:
             notify = 'created'
@@ -624,14 +625,14 @@ class AlarmCollection:
         return TicketConnector.clear_ticket(core_id)
 
     @classmethod
-    def _create_ticket(self, core_id):
+    def _create_tickets(self, alarm_ids):
         """
         Creates a ticket for an specified Alarm ID
 
         Args:
-            core_id (string): Core ID of the Alarm associated to the Ticket
+            alarm_ids (string[]): List of Core ID of the Alarm to create tickets
         """
-        return TicketConnector.create_ticket(core_id)
+        return TicketConnector.create_tickets(alarm_ids)
 
     @classmethod
     def _get_parents(self, alarm_id):
@@ -676,12 +677,11 @@ class AlarmCollection:
             alarm (Alarm): The Alarm to unacknowledge
         """
         if alarm.shelved:
-            logger.debug('The alarm %s was already unshelved', alarm.core_id)
+            logger.debug('The alarm %s is shelved, unacknowledgement skipped', alarm.core_id)
             return False
         else:
             alarm.unacknowledge()
-            self._create_ticket(alarm.core_id)
-            logger.debug('The alarm %s was shelved', alarm.core_id)
+            logger.debug('The alarm %s has been unacknowledged', alarm.core_id)
             return True
 
     @classmethod
@@ -692,22 +692,22 @@ class AlarmCollection:
         Args:
             core_id (string): core_id of the starting Alarm
         Returns:
-            array of core_ids (string) of unacknowleged alarms
+            array of core_ids (string[]), array of Alarms (Alarm[]) of unacknowleged alarms
         """
+        alarm_ids = []
         alarms = []
-        alarms_ids = []
         alarm = self.singleton_collection[core_id]
         result = self._unacknowledge(alarm)
         if result:
+            alarm_ids.append(core_id)
             alarms.append(alarm)
-            alarms_ids.append(core_id)
 
             for parent in self._get_parents(core_id):
-                _alarms, _alarms_ids = self._recursive_unacknowledge(parent)
+                _alarm_ids, _alarms = self._recursive_unacknowledge(parent)
+                alarm_ids += _alarm_ids
                 alarms += _alarms
-                alarms_ids += _alarms_ids
-        logger.debug('the alarm %s were unack recursively', alarms_ids)
-        return alarms, alarms_ids
+        logger.debug('The alarms %s were unack recursively', str(alarm_ids))
+        return alarm_ids, alarms
 
     @classmethod
     def _update_parents_collection(self, alarm):

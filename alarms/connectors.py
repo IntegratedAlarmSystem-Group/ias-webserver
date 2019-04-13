@@ -44,14 +44,15 @@ class TicketConnector():
     """
 
     @classmethod
-    def create_ticket(self, alarm_id):
+    def create_tickets(self, alarm_ids):
         """
         Create a ticket for a given Alarm ID
 
         Args:
-            alarm_id (string): ID of the Alarm associated to the ticket
+            alarm_ids (string[]): List of ID of Alarms to create tickets
         """
-        Ticket.objects.create(alarm_id=alarm_id)
+        for id in alarm_ids:
+            Ticket.objects.create(alarm_id=id)
 
     @classmethod
     def clear_ticket(self, alarm_id):

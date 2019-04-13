@@ -51,7 +51,7 @@ class CoreConsumer(AsyncJsonWebsocketConsumer):
                 logger.debug('New value IASIO received by consumer: %s', str(iasio))
 
         await self.send('Received {} IASIOS'.format(len(content)))
-        logger.info('Finished receiving %d IASIOS in %1.3f seconds', len(content), time.time() - start)
+        logger.debug('Finished receiving %d IASIOS in %1.3f seconds', len(content), time.time() - start)
 
 
 class ClientConsumer(AsyncJsonWebsocketConsumer, AlarmCollectionObserver):
