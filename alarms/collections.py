@@ -335,6 +335,27 @@ class AlarmCollection:
         return list(self.singleton_collection.values())
 
     @classmethod
+    def receive_iasios(self, iasios):
+        tickets_to_create = []
+        tickets_to_clear = []
+        for iasio in iasios:
+            if iasio['valueType'] == 'ALARM':
+                _tickets_to_create, _tickets_to_clear = AlarmCollection.add_or_update_alarm(iasio)
+                tickets_to_create.extend(_tickets_to_create)
+                tickets_to_clear.extend(_tickets_to_clear)
+                logger.debug('New alarm IASIO received by consumer: %s', str(iasio))
+
+            else:
+                status = AlarmCollection.add_or_update_value(iasio)
+                logger.debug('New value IASIO received by consumer: %s', str(iasio))
+        if len(tickets_to_create) > 0:
+            logger.debug('Creating tickets: %s', len(tickets_to_create))
+            self._create_tickets(tickets_to_create)
+        if len(tickets_to_clear) > 0:
+            logger.debug('Clearing tickets: %s', len(tickets_to_clear))
+            self._clear_tickets(tickets_to_clear)
+
+    @classmethod
     def add(self, alarm):
         """
         Adds the alarm to the AlarmCollection dictionary
@@ -369,6 +390,9 @@ class AlarmCollection:
         Returns:
             message (string): a string message sumarizing what happened
         """
+        tickets_to_create = []
+        tickets_to_clear = []
+
         # Core ID
         core_id = AlarmCollection._get_core_id_from(iasio['fullRunningId'])
 
@@ -381,7 +405,7 @@ class AlarmCollection:
 
         if stored_alarm and core_timestamp <= stored_alarm.core_timestamp:
             logger.debug('Skipping old Alarm IASIO  %s, with timestamp %s', core_id, iasio['productionTStamp'])
-            return
+            return tickets_to_create, tickets_to_clear
 
         dependencies = []
         if 'depsFullRunningIds' in iasio.keys():
@@ -419,9 +443,9 @@ class AlarmCollection:
                     if transition == 'clear-set':
                         unack_ids, unack_alarms = self._recursive_unacknowledge(stored_alarm.core_id)
                         self.record_alarm_changes(unack_alarms)
-                        self._create_tickets(unack_ids)
+                        tickets_to_create.extend(unack_ids)
                     elif transition == 'set-clear':
-                        self._clear_ticket(stored_alarm.core_id)
+                        tickets_to_clear.append(stored_alarm.core_id)
         # Adding new Alarm
         else:
             notify = 'created'
@@ -429,7 +453,7 @@ class AlarmCollection:
             self.record_alarm_changes(alarm)
 
         logger.debug('The alarm %s was added or updated in the collection (status %s)', alarm.core_id, notify)
-        return notify
+        return tickets_to_create, tickets_to_clear
 
     @classmethod
     def update_all_alarms_validity(self):
@@ -615,22 +639,22 @@ class AlarmCollection:
         return True
 
     @classmethod
-    def _clear_ticket(self, core_id):
+    def _clear_tickets(self, alarm_ids):
         """
-        Clear the open tickets for an specified Alarm ID
+        Clear the open tickets for a list of specified Alarm IDs
 
         Args:
-            core_id (string): Core ID of the Alarm associated to the Ticket
+            alarm_ids (string[]): List of Core ID of the Alarms associated to the Tickets to clear
         """
-        return TicketConnector.clear_ticket(core_id)
+        return TicketConnector.clear_tickets(alarm_ids)
 
     @classmethod
     def _create_tickets(self, alarm_ids):
         """
-        Creates a ticket for an specified Alarm ID
+        Creates a ticket for a list of specified Alarm IDs
 
         Args:
-            alarm_ids (string[]): List of Core ID of the Alarm to create tickets
+            alarm_ids (string[]): List of Core ID of the Alarms to create tickets
         """
         return TicketConnector.create_tickets(alarm_ids)
 

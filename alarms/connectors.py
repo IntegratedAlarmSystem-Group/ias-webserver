@@ -46,7 +46,7 @@ class TicketConnector():
     @classmethod
     def create_tickets(self, alarm_ids):
         """
-        Create a ticket for a given Alarm ID
+        Create a list of ticket for a given list of Alarm IDs
 
         Args:
             alarm_ids (string[]): List of ID of Alarms to create tickets
@@ -55,22 +55,19 @@ class TicketConnector():
             Ticket.objects.create(alarm_id=id)
 
     @classmethod
-    def clear_ticket(self, alarm_id):
+    def clear_tickets(self, alarm_ids):
         """
-        Closes a ticket for a given Alarm ID
+        Closes a list of ticket for a given list of Alarm IDs
 
         Args:
-            alarm_id (string): ID of the Alarm associated to the ticket
+            alarm_ids (string[]): List of IDs of the Alarms associated to the tickets
         """
-        queryset = Ticket.objects.filter(alarm_id=alarm_id)
-        queryset = queryset.filter(
-            status=int(TicketStatus.get_choices_by_name()['UNACK'])
-        )
-        for ticket in queryset:
-            ticket.clear()
-        logger.debug(
-            '%d ack tickets related to alarm %s were closed',
-            len(queryset), alarm_id)
+        for id in alarm_ids:
+            queryset = Ticket.objects.filter(alarm_id=id)
+            queryset = queryset.filter(status=int(TicketStatus.get_choices_by_name()['UNACK']))
+            for ticket in queryset:
+                ticket.clear()
+            logger.debug('%d ack tickets related to alarm %s were closed', len(queryset), id)
 
     @classmethod
     def check_acknowledgement(self, alarm_id):
