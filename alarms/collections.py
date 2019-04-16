@@ -207,14 +207,12 @@ class AlarmCollection:
                             + ' was not found in the CDB, initializing with '
                             + 'empty description and url '
                         )
-                logger.info(
-                    'the collection was initialized based on configuration')
+                logger.info('The collection was initialized based on configuration')
             else:
                 for iasio in iasios:
                     alarm = self._create_alarm_from_cdb_iasio(iasio)
                     self.add(alarm)
-                logger.info(
-                    'the collection was initialized in testing mode')
+                logger.info('The collection was initialized in testing mode')
             self.init_state = 'done'
         logger.info('Collection initialization finished in %d seconds', time.time() - start)
         return self.singleton_collection
@@ -231,6 +229,7 @@ class AlarmCollection:
         self.singleton_collection = None
         self.parents_collection = None
         self.values_collection = None
+        self.init_state = 'pending'
         self.initialize(iasios)
         logger.debug('the alarm collection was reset')
 
