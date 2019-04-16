@@ -148,7 +148,7 @@ class AlarmCollection:
             logger.debug('Periodic broadcast already started')
 
     @classmethod
-    async def record_alarm_changes(self, alarms):
+    def record_alarm_changes(self, alarms):
         """
         Register given Alarm(s) in order to notify its(their) change(s)
 
