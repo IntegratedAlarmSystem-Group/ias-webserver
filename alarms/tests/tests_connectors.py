@@ -158,8 +158,7 @@ class TestTicketConnector(TestCase):
                 self.assertEqual(
                     ticket.message,
                     None,
-                    'When the ticket is clared but not acknowledged the message' +
-                    'must be None'
+                    'When the ticket is clared but not acknowledged the message must be None'
                 )
 
     def test_check_acknowledgement(self):
@@ -184,18 +183,15 @@ class TestTicketConnector(TestCase):
         # Assert:
         self.assertEqual(
             unack_result, False,
-            'The check_acknowledgement should return False when the alarm' +
-            'has tickets with state UNACK'
+            'The check_acknowledgement should return False when the alarm has tickets with state UNACK'
         )
         self.assertEqual(
             ack_result, True,
-            'The check_acknowledgement should return True when the alarm' +
-            'has all its tickets acknowledged'
+            'The check_acknowledgement should return True when the alarm has all its tickets acknowledged'
         )
         self.assertEqual(
             unack_cleared_result, False,
-            'The check_acknowledgement should return False when the alarm' +
-            'has tickets with CLEARED_UNACK'
+            'The check_acknowledgement should return False when the alarm has tickets with CLEARED_UNACK'
         )
 
     def test_check_shelve(self):
@@ -222,18 +218,15 @@ class TestTicketConnector(TestCase):
         # Assert:
         self.assertEqual(
             shelved_result, True,
-            'The check_shelve should return True if the alarm has ' +
-            'ShelveRegistries with status SHELVE'
+            'The check_shelve should return True if the alarm has ShelveRegistries with status SHELVE'
         )
         self.assertEqual(
             unshelved_result, False,
-            'The check_shelve should return False if the alarm has ' +
-            'all its ShelveRegistries with status UNSHELVE'
+            'The check_shelve should return False if the alarm has all its ShelveRegistries with status UNSHELVE'
         )
         self.assertEqual(
             alarm_result, False,
-            'The check_shelve should return False if the alarm has not' +
-            'related ShelveRegistries'
+            'The check_shelve should return False if the alarm has notrelated ShelveRegistries'
         )
 
 
@@ -241,9 +234,7 @@ class TestPanelsConnector(TestCase):
     """This class defines the test suite for the Tickets Connector"""
 
     @mock.patch('panels.interfaces.IPanels.get_alarm_ids_of_alarm_configs')
-    def test_get_alarm_ids_of_alarm_configs(
-        self, IPanels_get_alarm_ids_of_alarm_configs
-    ):
+    def test_get_alarm_ids_of_alarm_configs(self, IPanels_get_alarm_ids_of_alarm_configs):
         """
         Test that PanelsConnector.get_alarm_ids_of_alarm_configs calls
         IPanels.get_alarm_ids_of_alarm_configs
@@ -256,11 +247,8 @@ class TestPanelsConnector(TestCase):
             'IPanels.get_alarm_ids_of_alarm_configs() was not called'
         )
 
-    @mock.patch(
-        'panels.interfaces.IPanels.get_alarms_views_dict_of_alarm_configs')
-    def test_get_alarms_views_dict_of_alarm_configs(
-        self, IPanels_get_alarms_views_dict_of_alarm_configs
-    ):
+    @mock.patch('panels.interfaces.IPanels.get_alarms_views_dict_of_alarm_configs')
+    def test_get_alarms_views_dict_of_alarm_configs(self, IPanels_get_alarms_views_dict_of_alarm_configs):
         """
         Test that PanelsConnector.get_alarm_ids_of_alarm_configs calls
         IPanels.get_alarms_views_dict_of_alarm_configs
