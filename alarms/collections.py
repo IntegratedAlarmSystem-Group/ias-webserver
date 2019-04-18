@@ -375,7 +375,7 @@ class AlarmCollection:
         Args:
             alarm (Alarm): the Alarm object to add
         """
-        if alarm.value == Value.CLEARED:
+        if alarm.value == Value.CLEARED.value:
             alarm.ack = TicketConnector.check_acknowledgement(
                 alarm.core_id
             )
@@ -386,6 +386,7 @@ class AlarmCollection:
         alarm.stored = True
         self._update_parents_collection(alarm)
         Alarm.objects.update_counter_by_view_if_new_alarm_in_collection(alarm)
+        self.record_alarm_changes(alarm)
         logger.debug('The alarm %s was added to the collection', alarm.core_id)
 
     @classmethod
@@ -402,8 +403,8 @@ class AlarmCollection:
         Returns:
             message (string): a string message sumarizing what happened
         """
-        tickets_to_create = []
-        tickets_to_clear = []
+        # tickets_to_create = []
+        # tickets_to_clear = []
 
         # Core ID
         core_id = AlarmCollection._get_core_id_from(iasio['fullRunningId'])
@@ -417,7 +418,7 @@ class AlarmCollection:
 
         if stored_alarm and core_timestamp <= stored_alarm.core_timestamp:
             logger.debug('Skipping old Alarm IASIO  %s, with timestamp %s', core_id, iasio['productionTStamp'])
-            return tickets_to_create, tickets_to_clear
+            return [], []
 
         dependencies = []
         if 'depsFullRunningIds' in iasio.keys():
@@ -441,31 +442,48 @@ class AlarmCollection:
 
         # Update already existing Alarm
         if stored_alarm:
-            (notify, transition, dependencies_changed) = stored_alarm.update(alarm)
-            stored_alarm.stored = True
-            logger.debug('The alarm %s was updated in the collection', alarm.core_id)
-
-            if notify != 'not-updated':
-                if dependencies_changed:
-                    self._update_parents_collection(alarm)
-
-                if notify == 'updated-different':
-                    self.record_alarm_changes(alarm)
-
-                    if transition == 'clear-set':
-                        unack_ids, unack_alarms = self._recursive_unacknowledge(stored_alarm.core_id)
-                        self.record_alarm_changes(unack_alarms)
-                        tickets_to_create.extend(unack_ids)
-                    elif transition == 'set-clear':
-                        tickets_to_clear.append(stored_alarm.core_id)
+            (notify, tickets_to_create, tickets_to_clear) = self.update(stored_alarm, alarm)
         # Adding new Alarm
         else:
             notify = 'created'
             self.add(alarm)
-            self.record_alarm_changes(alarm)
 
         logger.debug('The alarm %s was added or updated in the collection (status %s)', alarm.core_id, notify)
         return tickets_to_create, tickets_to_clear
+
+    @classmethod
+    def update_alarm(self, stored_alarm, alarm):
+        """
+        Updates an already existing Alarm in the AlarmCollection.
+        Records the changes to be notified if it is the case
+
+        Args:
+            alarm (Alarm): the dict correpsonding to the Alarm to add or update
+
+        Returns:
+            message (string), tickets_to_create, tickets_to_clear: a string message sumarizing what happened,
+            a list of IDS to create tickets and a list of IDs to clear tickets
+        """
+        tickets_to_create = []
+        tickets_to_clear = []
+        (notify, transition, dependencies_changed) = stored_alarm.update(alarm)
+        stored_alarm.stored = True
+        logger.debug('The alarm %s was updated in the collection', alarm.core_id)
+
+        if notify != 'not-updated':
+            if dependencies_changed:
+                self._update_parents_collection(alarm)
+
+            if notify == 'updated-different':
+                self.record_alarm_changes(alarm)
+
+                if transition == 'clear-set':
+                    unack_ids, unack_alarms = self._recursive_unacknowledge(stored_alarm.core_id)
+                    self.record_alarm_changes(unack_alarms)
+                    tickets_to_create = unack_ids
+                elif transition == 'set-clear':
+                    tickets_to_clear = [stored_alarm.core_id]
+        return notify, tickets_to_create, tickets_to_clear
 
     @classmethod
     def update_all_alarms_validity(self):

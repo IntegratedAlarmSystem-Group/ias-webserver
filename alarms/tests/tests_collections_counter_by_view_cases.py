@@ -1,8 +1,6 @@
-import datetime
 import time
 import pytest
-from freezegun import freeze_time
-from alarms.models import Alarm, Value, IASValue
+from alarms.models import Alarm
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
 from alarms.connectors import PanelsConnector
@@ -17,11 +15,9 @@ class TestCountByViewForNewAlarms:
         - SET ACK
         - CLEAR ACK
         - CLEAR UNACK
-
     """
 
     def set_mock_views_configuration(self, mocker):
-
         mock_alarms_views_dict = {
             "antenna_alarm_CLEARED": ["antennas"],
             "antenna_alarm_SET_LOW": ["antennas"],
@@ -31,18 +27,12 @@ class TestCountByViewForNewAlarms:
             "weather_alarm_CLEARED": ["weather"],
             "weather_alarm_SET_LOW": ["weather"],
         }
-
         PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
-            mocker.patch.object(
-                PanelsConnector, 'get_alarms_views_dict_of_alarm_configs'
-            )
-        PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = \
-            mock_alarms_views_dict
+            mocker.patch.object(PanelsConnector, 'get_alarms_views_dict_of_alarm_configs')
+        PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = mock_alarms_views_dict
 
     def build_alarms(self):
-
         mock_alarms = {}
-
         for core_id, value in [
             ('antenna_alarm_CLEARED', 0),
             ('antenna_alarm_SET_LOW', 1),
@@ -68,9 +58,7 @@ class TestCountByViewForNewAlarms:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_by_view_update_for_new_SET_UNACK_alarms(
-        self, mocker
-    ):
+    async def test_counter_by_view_update_for_new_SET_UNACK_alarms(self, mocker):
         # Arrange
         self.set_mock_views_configuration(mocker)
         AlarmCollection.reset()
@@ -90,14 +78,7 @@ class TestCountByViewForNewAlarms:
             'weather_alarm_SET_LOW'
         ]:
             alarm = mock_alarms_dict[alarm_key]
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'created-alarm', \
-                'The status must be created-alarm'
-            assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-                'New alarms should be created'
-            assert AlarmCollection.get(alarm.core_id).ack is False, """
-                Expected unack state
-            """
+            AlarmCollection.add(alarm)
         # Assert:
         expected_counter = {'antennas': 4, 'weather': 1}
         counter = Alarm.objects.counter_by_view
@@ -105,9 +86,7 @@ class TestCountByViewForNewAlarms:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_by_view_update_for_new_SET_ACK_alarms(
-        self, mocker
-    ):
+    async def test_counter_by_view_update_for_new_SET_ACK_alarms(self, mocker):
         # Arrange
         self.set_mock_views_configuration(mocker)
         AlarmCollection.reset()
@@ -117,19 +96,13 @@ class TestCountByViewForNewAlarms:
         # Initial counter:
         counter = Alarm.objects.counter_by_view
         assert counter == {}, 'Unexpected count'
-
         selected_alarm_key = 'antenna_alarm_SET_LOW'
         alarm = mock_alarms_dict[selected_alarm_key]
         alarm.ack = True
-        # the system should no allow an ack state for an active alarm
-        status = await AlarmCollection.add_or_update_and_notify(alarm)
-        assert status == 'created-alarm', \
-            'The status must be created-alarm'
-        assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-            'New alarms should be created'
-        assert AlarmCollection.get(alarm.core_id).ack is False, """
-            Expected unack state
-        """
+        # the system should not allow an ack state for an active alarm
+        AlarmCollection.add(alarm)
+        assert alarm.core_id in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
+        assert AlarmCollection.get(alarm.core_id).ack is False, 'Expected unack state'
 
         # Transition counter:
         counter = Alarm.objects.counter_by_view
@@ -148,9 +121,7 @@ class TestCountByViewForNewAlarms:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_by_view_update_for_new_CLEAR_ACK_alarms(
-        self, mocker
-    ):
+    async def test_counter_by_view_update_for_new_CLEAR_ACK_alarms(self, mocker):
         # Arrange
         self.set_mock_views_configuration(mocker)
         AlarmCollection.reset()
@@ -167,16 +138,12 @@ class TestCountByViewForNewAlarms:
             'weather_alarm_CLEARED'
         ]:
             alarm = mock_alarms_dict[alarm_key]
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'created-alarm', \
-                'The status must be created-alarm'
-            assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-                'New alarms should be created'
+            AlarmCollection.add(alarm)
+            alarm = AlarmCollection.get(alarm.core_id)
+            assert alarm.core_id in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
             # The system should use an ack state for the new cleared alarms
             # because there are no ack tickets
-            assert AlarmCollection.get(alarm.core_id).ack is True, """
-                Expected ack state
-            """
+            assert alarm.ack is True, 'Expected ack state'
 
         # Assert:
         counter = Alarm.objects.counter_by_view
@@ -184,9 +151,7 @@ class TestCountByViewForNewAlarms:
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_counter_by_view_update_for_new_CLEAR_UNACK_alarms(
-        self, mocker
-    ):
+    async def test_counter_by_view_update_for_new_CLEAR_UNACK_alarms(self, mocker):
         # Arrange
         self.set_mock_views_configuration(mocker)
         AlarmCollection.reset()
@@ -203,21 +168,14 @@ class TestCountByViewForNewAlarms:
             'weather_alarm_CLEARED'
         ]:
             alarm = mock_alarms_dict[alarm_key]
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'created-alarm', \
-                'The status must be created-alarm'
-            assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-                'New alarms should be created'
+            AlarmCollection.add(alarm)
+            assert alarm.core_id in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
             # The system should use an ack state for the new cleared alarms
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
             AlarmCollection._unacknowledge(stored_alarm)
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
+            assert stored_alarm.ack is False, 'Expected unack state'
 
         # Assert:
         counter = Alarm.objects.counter_by_view
@@ -235,11 +193,9 @@ class TestCountPerViewForAlarmsUpdates:
         - SET UNACK from and to CLEAR UNACK
         - SET ACK from and to CLEARED UNACK
         - CLEARED ACK from and to SET UNACK
-
     """
 
     def set_mock_views_configuration(self, mocker):
-
         mock_alarms_views_dict = {
             "antenna_alarm_CLEARED": ["antennas"],
             "antenna_alarm_CLEARED_2": ["antennas"],
@@ -251,18 +207,12 @@ class TestCountPerViewForAlarmsUpdates:
             "weather_alarm_CLEARED_2": ["weather"],
             "weather_alarm_SET_LOW": ["weather"],
         }
-
         PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
-            mocker.patch.object(
-                PanelsConnector, 'get_alarms_views_dict_of_alarm_configs'
-            )
-        PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = \
-            mock_alarms_views_dict
+            mocker.patch.object(PanelsConnector, 'get_alarms_views_dict_of_alarm_configs')
+        PanelsConnector_get_alarms_views_dict_of_alarm_configs.return_value = mock_alarms_views_dict
 
     def build_alarms(self):
-
         mock_alarms = {}
-
         for core_id, value in [
             ('antenna_alarm_CLEARED', 0),
             ('antenna_alarm_CLEARED_2', 0),
@@ -285,14 +235,11 @@ class TestCountPerViewForAlarmsUpdates:
                 assert alarm.is_set() is True
             assert alarm.ack is False
             mock_alarms[core_id] = alarm
-
         return mock_alarms
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_SET_ACK_from_and_to_SET_UNACK(
-        self, mocker
-    ):
+    async def test_SET_ACK_from_and_to_SET_UNACK(self, mocker):
         # Arrange:
         self.set_mock_views_configuration(mocker)
         AlarmCollection.reset()
@@ -310,14 +257,9 @@ class TestCountPerViewForAlarmsUpdates:
         alarm = mock_alarms_dict[selected_alarm_key]
         alarm.ack = True
         # the system should not allow an ack state for an active alarm
-        status = await AlarmCollection.add_or_update_and_notify(alarm)
-        assert status == 'created-alarm', \
-            'The status must be created-alarm'
-        assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-            'New alarms should be created'
-        assert AlarmCollection.get(alarm.core_id).ack is False, """
-            Expected unack state
-        """
+        AlarmCollection.add(alarm)
+        assert alarm.core_id in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
+        assert AlarmCollection.get(alarm.core_id).ack is False, 'Expected unack state'
 
         # Transition counter:
         counter = Alarm.objects.counter_by_view
@@ -326,9 +268,7 @@ class TestCountPerViewForAlarmsUpdates:
         # Act:
         await AlarmCollection.acknowledge(alarm.core_id)
         stored_alarm = AlarmCollection.get(alarm.core_id)
-        assert stored_alarm.ack is True, """
-            Expected ack state
-        """
+        assert stored_alarm.ack is True, 'Expected ack state'
 
         # Assert:
         expected_counter = {'antennas': 0}
@@ -371,16 +311,11 @@ class TestCountPerViewForAlarmsUpdates:
             'weather_alarm_CLEARED'
         ]:
             alarm = mock_alarms_dict[alarm_key]
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'created-alarm', \
-                'The status must be created-alarm'
-            assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-                'New alarms should be created'
+            AlarmCollection.add(alarm)
+            assert alarm.core_id in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
             # The system should use an ack state for the new cleared alarms
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -392,14 +327,10 @@ class TestCountPerViewForAlarmsUpdates:
         ]:
             alarm = mock_alarms_dict[alarm_key]
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
             AlarmCollection._unacknowledge(stored_alarm)
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
+            assert stored_alarm.ack is False, 'Expected unack state'
 
         # Assert:
         counter = Alarm.objects.counter_by_view
@@ -414,14 +345,10 @@ class TestCountPerViewForAlarmsUpdates:
         ]:
             alarm = mock_alarms_dict[alarm_key]
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
+            assert stored_alarm.ack is False, 'Expected unack state'
             await AlarmCollection.acknowledge(stored_alarm.core_id)
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
 
         # Assert:
         counter = Alarm.objects.counter_by_view
@@ -451,17 +378,12 @@ class TestCountPerViewForAlarmsUpdates:
         ]:
             alarm = mock_alarms_dict[alarm_key]
             alarm.core_timestamp = old_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'created-alarm', \
-                'The status must be created-alarm'
-            assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-                'New alarms should be created'
+            AlarmCollection.add(alarm)
+            assert alarm.core_id in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is True, """ Expected set state """
-            assert stored_alarm.ack is False, """ Expected unack state """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 4, 'weather': 1}, 'Unexpected count'
@@ -476,12 +398,8 @@ class TestCountPerViewForAlarmsUpdates:
             alarm = mock_alarms_dict[alarm_key]
             await AlarmCollection.acknowledge(alarm.core_id)
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -499,19 +417,12 @@ class TestCountPerViewForAlarmsUpdates:
             alarm.core_id = mock_alarms_dict[alarm_key].core_id
             alarm.value = 0
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is False, """
-                Expected cleared state
-            """
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.is_set() is False, 'Expected cleared state'
+            assert stored_alarm.ack is True, 'Expected ack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -530,36 +441,21 @@ class TestCountPerViewForAlarmsUpdates:
             stored_alarm = AlarmCollection.get(
                 mock_alarms_dict[alarm_key].core_id
             )
-            assert stored_alarm.is_set() is False, """
-                Expected cleared state
-            """
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.is_set() is False, 'Expected cleared state'
+            assert stored_alarm.ack is True, 'Expected ack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
             alarm = AlarmFactory.build()
             alarm.core_id = mock_alarms_dict[alarm_key].core_id
             alarm.value = 1
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is True, """
-                Expected set state
-            """
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.ack is False, 'Expected unack state'
             await AlarmCollection.acknowledge(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -588,17 +484,13 @@ class TestCountPerViewForAlarmsUpdates:
         ]:
             alarm = mock_alarms_dict[alarm_key]
             alarm.core_timestamp = old_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'created-alarm', \
-                'The status must be created-alarm'
-            assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-                'New alarms should be created'
+            AlarmCollection.add(alarm)
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is True, """ Expected set state """
-            assert stored_alarm.ack is False, """ Expected unack state """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert alarm.core_id in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 4, 'weather': 1}, 'Unexpected count'
@@ -616,19 +508,12 @@ class TestCountPerViewForAlarmsUpdates:
             alarm.core_id = mock_alarms_dict[alarm_key].core_id
             alarm.value = 0
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is False, """
-                Expected cleared state
-            """
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.is_set() is False, 'Expected cleared state'
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -647,32 +532,19 @@ class TestCountPerViewForAlarmsUpdates:
             stored_alarm = AlarmCollection.get(
                 mock_alarms_dict[alarm_key].core_id
             )
-            assert stored_alarm.is_set() is False, """
-                Expected cleared state
-            """
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.is_set() is False, 'Expected cleared state'
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
             alarm = AlarmFactory.build()
             alarm.core_id = mock_alarms_dict[alarm_key].core_id
             alarm.value = 1
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is True, """
-                Expected set state
-            """
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 4, 'weather': 1}, 'Unexpected count'
@@ -703,19 +575,13 @@ class TestCountPerViewForAlarmsUpdates:
             'weather_alarm_CLEARED_2'
         ]:
             alarm = mock_alarms_dict[alarm_key]
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'created-alarm', \
-                'The status must be created-alarm'
+            AlarmCollection.add(alarm)
             assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
                 'New alarms should be created'
             # The system should use an ack state for the new cleared alarms
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
-            assert stored_alarm.is_set() is False, """
-                Expected cleared state
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
+            assert stored_alarm.is_set() is False, 'Expected cleared state'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -732,19 +598,12 @@ class TestCountPerViewForAlarmsUpdates:
             alarm.core_id = mock_alarms_dict[alarm_key].core_id
             alarm.value = 1
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is True, """
-                Expected set state
-            """
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 2, 'weather': 2}, 'Unexpected count'
@@ -762,36 +621,22 @@ class TestCountPerViewForAlarmsUpdates:
             stored_alarm = AlarmCollection.get(
                 mock_alarms_dict[alarm_key].core_id
             )
-            assert stored_alarm.is_set() is True, """
-                Expected set state
-            """
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
             alarm = AlarmFactory.build()
             alarm.core_id = mock_alarms_dict[alarm_key].core_id
             alarm.value = 0
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is False, """
-                Expected cleared state
-            """
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.is_set() is False, 'Expected cleared state'
+            assert stored_alarm.ack is False, 'Expected unack state'
             await AlarmCollection.acknowledge(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -822,23 +667,14 @@ class TestCountPerViewForAlarmsUpdates:
             'weather_alarm_CLEARED_2'
         ]:
             alarm = mock_alarms_dict[alarm_key]
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'created-alarm', \
-                'The status must be created-alarm'
-            assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-                'New alarms should be created'
+            AlarmCollection.add(alarm)
+            assert alarm.core_id in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
             # The system should use an ack state for the new cleared alarms
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
             AlarmCollection._unacknowledge(stored_alarm)
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
-            assert stored_alarm.is_set() is False, """
-                Expected cleared state
-            """
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.is_set() is False, 'Expected cleared state'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -855,23 +691,15 @@ class TestCountPerViewForAlarmsUpdates:
             alarm.core_id = mock_alarms_dict[alarm_key].core_id
             alarm.value = 1
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is True, """
-                Expected set state
-            """
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.ack is False, 'Expected unack state'
             await AlarmCollection.acknowledge(stored_alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -889,33 +717,21 @@ class TestCountPerViewForAlarmsUpdates:
             stored_alarm = AlarmCollection.get(
                 mock_alarms_dict[alarm_key].core_id
             )
-            assert stored_alarm.is_set() is True, """
-                Expected set state
-            """
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.ack is True, 'Expected ack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
             alarm = AlarmFactory.build()
             alarm.core_id = mock_alarms_dict[alarm_key].core_id
             alarm.value = 0
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is False, """
-                Expected cleared state
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.is_set() is False, 'Expected cleared state'
             AlarmCollection._unacknowledge(stored_alarm)
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         counter = Alarm.objects.counter_by_view
         assert counter == {'antennas': 0, 'weather': 0}, 'Unexpected count'
@@ -925,13 +741,11 @@ class TestCountByViewForDependencies:
     """ Test suite for selected cases of alarms with dependencies """
 
     def set_mock_views_configuration(self, mocker):
-
         mock_alarms_views_dict = {
             "alarm_parent": ["view"],
             "alarm_dependency_one": ["view"],
             "alarm_dependency_two": ["view"],
         }
-
         PanelsConnector_get_alarms_views_dict_of_alarm_configs = \
             mocker.patch.object(
                 PanelsConnector, 'get_alarms_views_dict_of_alarm_configs'
@@ -940,9 +754,7 @@ class TestCountByViewForDependencies:
             mock_alarms_views_dict
 
     def build_alarms(self):
-
         mock_alarms = {}
-
         for core_id, value in [
             ('alarm_parent', 0),
             ('alarm_dependency_one', 0),
@@ -959,26 +771,21 @@ class TestCountByViewForDependencies:
                 assert alarm.is_set() is True
             assert alarm.ack is False
             mock_alarms[core_id] = alarm
-
         mock_alarms['alarm_parent'].dependencies = [
             mock_alarms['alarm_dependency_one'].core_id,
             mock_alarms['alarm_dependency_two'].core_id
         ]
-
         return mock_alarms
 
     @pytest.mark.asyncio
     @pytest.mark.django_db
-    async def test_count_for_alarm_parent_with_SET_ACK_to_SET_UNACK_transition(
-        self, mocker
-    ):
+    async def test_count_for_alarm_parent_with_SET_ACK_to_SET_UNACK_transition(self, mocker):
 
         # Arrange
         self.set_mock_views_configuration(mocker)
         AlarmCollection.reset()
         Alarm.objects.reset_counter_by_view()
         mock_alarms_dict = self.build_alarms()
-
         old_timestamp = int(round(time.time() * 1000))
 
         # Initial counter:
@@ -992,20 +799,13 @@ class TestCountByViewForDependencies:
             'alarm_parent'
         ]:
             alarm = mock_alarms_dict[alarm_key]
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'created-alarm', \
-                'The status must be created-alarm'
-            assert alarm.core_id in AlarmCollection.get_all_as_dict(), \
-                'New alarms should be created'
+            AlarmCollection.add(alarm)
+            assert alarm.core_id in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.is_set() is False, """
-                Expected cleared state
-            """
+            assert stored_alarm.is_set() is False, 'Expected cleared state'
             # The system should use an ack state for the new cleared alarms
             # because there are no ack tickets
-            assert AlarmCollection.get(alarm.core_id).ack is True, """
-                Expected ack state
-            """
+            assert AlarmCollection.get(alarm.core_id).ack is True, 'Expected ack state'
 
         # Assert:
         counter = Alarm.objects.counter_by_view
@@ -1023,19 +823,12 @@ class TestCountByViewForDependencies:
             alarm.dependencies = mock_alarms_dict[alarm_key].dependencies
             alarm.value = 1
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
-            assert stored_alarm.is_set() is True, """
-                Expected set state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         # Assert:
         counter = Alarm.objects.counter_by_view
@@ -1054,15 +847,9 @@ class TestCountByViewForDependencies:
         ]:
             alarm = mock_alarms_dict[alarm_key]
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is True, """
-                Expected ack state
-            """
-            assert stored_alarm.is_set() is True, """
-                Expected set state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            assert stored_alarm.ack is True, 'Expected ack state'
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         # Assert:
         counter = Alarm.objects.counter_by_view
@@ -1080,45 +867,26 @@ class TestCountByViewForDependencies:
             alarm.dependencies = mock_alarms_dict[alarm_key].dependencies
             alarm.value = 1
             alarm.core_timestamp = new_timestamp
-            status = await AlarmCollection.add_or_update_and_notify(alarm)
-            assert status == 'updated-alarm', \
-                'The status must be updated-alarm'
             stored_alarm = AlarmCollection.get(alarm.core_id)
-            assert stored_alarm.ack is False, """
-                Expected unack state
-            """
-            assert stored_alarm.is_set() is True, """
-                Expected set state
-            """
-            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-                Unexpected views
-            """
+            AlarmCollection.update_alarm(stored_alarm, alarm)
+            stored_alarm = AlarmCollection.get(alarm.core_id)
+            assert stored_alarm.ack is False, 'Expected unack state'
+            assert stored_alarm.is_set() is True, 'Expected set state'
+            assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         alarm_key = 'alarm_parent'
         alarm = mock_alarms_dict[alarm_key]
         stored_alarm = AlarmCollection.get(alarm.core_id)
-        assert stored_alarm.ack is False, """
-            Expected unack state
-        """
-        assert stored_alarm.is_set() is True, """
-            Expected set state
-        """
-        assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-            Unexpected views
-        """
+        assert stored_alarm.ack is False, 'Expected unack state'
+        assert stored_alarm.is_set() is True, 'Expected set state'
+        assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         alarm_key = 'alarm_dependency_one'
         alarm = mock_alarms_dict[alarm_key]
         stored_alarm = AlarmCollection.get(alarm.core_id)
-        assert stored_alarm.ack is True, """
-            Expected ack state
-        """
-        assert stored_alarm.is_set() is True, """
-            Expected set state
-        """
-        assert stored_alarm.views == mock_alarms_dict[alarm_key].views, """
-            Unexpected views
-        """
+        assert stored_alarm.ack is True, 'Expected ack state'
+        assert stored_alarm.is_set() is True, 'Expected set state'
+        assert stored_alarm.views == mock_alarms_dict[alarm_key].views, 'Unexpected views'
 
         # Assert:
         counter = Alarm.objects.counter_by_view
