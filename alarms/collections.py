@@ -374,13 +374,18 @@ class AlarmCollection:
 
         Args:
             alarm (Alarm): the Alarm object to add
+
+        Returns:
+            tickets_to_create: a list of IDS to create tickets
         """
+        tickets_to_create = []
         if alarm.value == Value.CLEARED.value:
             alarm.ack = TicketConnector.check_acknowledgement(
                 alarm.core_id
             )
         else:
             self._unacknowledge(alarm)
+            tickets_to_create.append(alarm)
         alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         alarm.stored = True
@@ -388,6 +393,7 @@ class AlarmCollection:
         Alarm.objects.update_counter_by_view_if_new_alarm_in_collection(alarm)
         self.record_alarm_changes(alarm)
         logger.debug('The alarm %s was added to the collection', alarm.core_id)
+        return tickets_to_create
 
     @classmethod
     def add_or_update_alarm(self, iasio):
@@ -446,7 +452,8 @@ class AlarmCollection:
         # Adding new Alarm
         else:
             notify = 'created'
-            self.add(alarm)
+            tickets_to_create = self.add(alarm)
+            tickets_to_clear = []
 
         logger.debug('The alarm %s was added or updated in the collection (status %s)', alarm.core_id, notify)
         return tickets_to_create, tickets_to_clear
