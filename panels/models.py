@@ -2,7 +2,7 @@ import os
 import glob
 import json
 from django.db import models
-from ias_webserver.settings import FILES_LOCATION
+from ias_webserver.settings import FILES_LOCATION, TEST_FILES_LOCATION
 
 
 PERMISSIONS = ('add', 'change', 'delete', 'view')
@@ -14,7 +14,11 @@ class FileManager:
 
     def _get_files_absolute_location(self):
         """ Return the path for the folder with the configuration files """
-        return os.path.join(os.getcwd(), FILES_LOCATION)
+        testing = os.environ.get('TESTING', False)
+        if testing:
+            return os.path.join(os.getcwd(), TEST_FILES_LOCATION)
+        else:
+            return os.path.join(os.getcwd(), FILES_LOCATION)
 
     def basenames(self):
         """ Return a list with the basename of the files without the .json extension """
