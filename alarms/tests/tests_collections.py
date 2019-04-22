@@ -898,169 +898,147 @@ class TestAlarmsCollectionAcknowledge:
         assert TicketConnector.create_tickets.call_count == 1, \
             'The ticket was no actually created'
 
-#
-#
-# class TestAlarmsCollectionShelve:
-#     """ This class defines the test suite for the Alarms Collection
-#     shelve and registry handling """
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_alarm_shelving(self):
-#         """ Test if an alarm can be shelved and unshelved """
-#         # 1. Create Alarm:
-#         timestamp_1 = int(round(time.time() * 1000))
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#         alarm_1 = Alarm(
-#             value=0,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id),
-#             can_shelve=True
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'created-alarm', 'The status must be created-alarm'
-#         assert retrieved_alarm.shelved is False, \
-#             'A new Alarm must be unshelved'
-#
-#         # 2. Shelve Alarm:
-#         status = await AlarmCollection.shelve(core_id)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 1, 'The status must be 1'
-#         assert retrieved_alarm.shelved is True, \
-#             'When an Alarm is shelved its shelved status should be True'
-#
-#         # 3. Unshelve Alarm:
-#         status = await AlarmCollection.unshelve(core_id)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status is True, 'The status must be True'
-#         assert retrieved_alarm.shelved is False, \
-#             'When an Alarm is unshelved its shelved status should be False'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_forbid_alarm_shelving(self):
-#         """ Test if a non-shelvable alarm cannot be shelved and unshelved """
-#         # 1. Create Alarm:
-#         timestamp_1 = int(round(time.time() * 1000))
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#         alarm_1 = Alarm(
-#             value=0,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id),
-#             can_shelve=False
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'created-alarm', 'The status must be created-alarm'
-#         assert retrieved_alarm.shelved is False, \
-#             'A new Alarm must be unshelved'
-#
-#         # 2. Shelve Alarm:
-#         status = await AlarmCollection.shelve(core_id)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status is -1, 'The status must be -1'
-#         assert retrieved_alarm.shelved is False, \
-#             'When an Alarm is not shelved its shelved status should be False'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_already_shelved_alarm(self):
-#         """ Test if an already shelved alarm cannot be shelved """
-#         # 1. Create Alarm:
-#         timestamp_1 = int(round(time.time() * 1000))
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#         alarm_1 = Alarm(
-#             value=0,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id),
-#             can_shelve=True
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'created-alarm', 'The status must be created-alarm'
-#         assert retrieved_alarm.shelved is False, \
-#             'A new Alarm must be unshelved'
-#
-#         # 2. Shelve Alarm:
-#         status = await AlarmCollection.shelve(core_id)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 1, 'The status must be 1'
-#         assert retrieved_alarm.shelved is True, \
-#             'When an Alarm is shelved its shelved status should be True'
-#
-#         # 3. Shelve Alarm again:
-#         status = await AlarmCollection.shelve(core_id)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 0, 'The status must be 0'
-#         assert retrieved_alarm.shelved is True, \
-#             'When an Alarm is shelved its shelved status should be True'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_no_ticket_for_shelved_alarm(self, mocker):
-#         """ Test if tickets are not created for Alarms in shelved status """
-#         # Mock AlarmCollection._create_ticket to assert if it was called
-#         # and avoid calling the real function
-#         mocker.patch.object(AlarmCollection, '_create_ticket')
-#
-#         # 1. Create Alarm:
-#         timestamp_1 = int(round(time.time() * 1000))
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#         alarm_1 = Alarm(
-#             value=0,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id),
-#             can_shelve=True
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'created-alarm', 'The status must be created-alarm'
-#         assert retrieved_alarm.ack is True, \
-#             'A new CLEARED Alarm must be acknowledged'
-#         assert AlarmCollection._create_ticket.call_count == 0, \
-#             'A new Alarm in CLEARED state should not create a new ticket'
-#
-#         # 2. Shelve Alarm:
-#         status = await AlarmCollection.shelve(core_id)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status is 1, 'The status must be 1'
-#         assert retrieved_alarm.shelved is True, \
-#             'When an Alarm is shelved its shelved status should be True'
-#
-#         # 3. Change Alarm to SET:
-#         alarm_2 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1 + 100,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id),
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_2)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'updated-alarm', 'The status must be updated-alarm'
-#         assert retrieved_alarm.ack is True, \
-#             'When a shelved Alarm changes to SET, its ack should not change'
-#         assert AlarmCollection._create_ticket.call_count == 0, \
-#             'When a shelved Alarm changes to SET, a new ticket should not be \
-#             created'
+
+class TestAlarmsCollectionShelve:
+    """ This class defines the test suite for the Alarms Collection shelve and registry handling """
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_alarm_shelving(self):
+        """ Test if an alarm can be shelved and unshelved """
+        # 1. Create Alarm:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset([])
+        core_id = 'MOCK-ALARM'
+        alarm_1 = Alarm(
+            value=0,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id),
+            can_shelve=True
+        )
+        AlarmCollection.add(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.shelved is False, 'A new Alarm must be unshelved'
+
+        # 2. Shelve Alarm:
+        status = await AlarmCollection.shelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 1, 'The status must be 1'
+        assert retrieved_alarm.shelved is True, 'When an Alarm is shelved its shelved status should be True'
+
+        # 3. Unshelve Alarm:
+        status = await AlarmCollection.unshelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status is True, 'The status must be True'
+        assert retrieved_alarm.shelved is False, 'When an Alarm is unshelved its shelved status should be False'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_forbid_alarm_shelving(self):
+        """ Test if a non-shelvable alarm cannot be shelved and unshelved """
+        # 1. Create Alarm:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset([])
+        core_id = 'MOCK-ALARM'
+        alarm_1 = Alarm(
+            value=0,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id),
+            can_shelve=False
+        )
+        AlarmCollection.add(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.shelved is False, 'A new Alarm must be unshelved'
+
+        # 2. Shelve Alarm:
+        status = await AlarmCollection.shelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status is -1, 'The status must be -1'
+        assert retrieved_alarm.shelved is False, 'When an Alarm is not shelved its shelved status should be False'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_already_shelved_alarm(self):
+        """ Test if an already shelved alarm cannot be shelved """
+        # 1. Create Alarm:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset([])
+        core_id = 'MOCK-ALARM'
+        alarm_1 = Alarm(
+            value=0,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id),
+            can_shelve=True
+        )
+        AlarmCollection.add(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.shelved is False, 'A new Alarm must be unshelved'
+
+        # 2. Shelve Alarm:
+        status = await AlarmCollection.shelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 1, 'The status must be 1'
+        assert retrieved_alarm.shelved is True, 'When an Alarm is shelved its shelved status should be True'
+
+        # 3. Shelve Alarm again:
+        status = await AlarmCollection.shelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status == 0, 'The status must be 0'
+        assert retrieved_alarm.shelved is True, 'When an Alarm is shelved its shelved status should be True'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_no_ticket_for_shelved_alarm(self, mocker):
+        """ Test if tickets are not created for Alarms in shelved status """
+        # 1. Create Alarm:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+        alarm_1 = Alarm(
+            value=0,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id),
+            can_shelve=True
+        )
+        tickets_to_create = AlarmCollection.add(alarm_1)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is True, 'A new CLEARED Alarm must be acknowledged'
+        assert tickets_to_create == [], \
+            'A new Alarm in CLEARED state should not create a new ticket'
+
+        # 2. Shelve Alarm:
+        status = await AlarmCollection.shelve(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert status is 1, 'The status must be 1'
+        assert retrieved_alarm.shelved is True, \
+            'When an Alarm is shelved its shelved status should be True'
+
+        # 3. Change Alarm to SET:
+        alarm_2 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1 + 100,
+            core_id=core_id,
+            running_id='({}:IASIO)'.format(core_id),
+        )
+        notify, tickets_to_create, tickets_to_clear = AlarmCollection.update_alarm(retrieved_alarm, alarm_2)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is True, 'When a shelved Alarm changes to SET, its ack should not change'
+        assert tickets_to_create == [], \
+            'When a shelved Alarm changes to SET, a new ticket should not be created'
 #
 #     @pytest.mark.django_db
 #     def test_initialize(self, mocker):
