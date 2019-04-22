@@ -475,447 +475,429 @@ class TestAlarmsCollectionHandling:
             'The method is not returning the list of ancestors correctly'
 
 
-#
-#
-# class TestAlarmsCollectionAcknowledge:
-#     """ This class defines the test suite for the Alarms Collection
-#     acknowledge and ticket handling """
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_alarm_cycle(self, mocker):
-#         """ Test if an alarm with a timestamp higher than a stored alarm with
-#         the same core_id is updated correctly """
-#
-#         # Mock AlarmCollection._create_ticket to assert if it was called
-#         # and avoid calling the real function
-#         mocker.patch.object(AlarmCollection, '_create_ticket')
-#
-#         # 1. Create Alarm:
-#         timestamp_1 = int(round(time.time() * 1000))
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#         alarm_1 = Alarm(
-#             value=0,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'created-alarm', 'The status must be created-alarm'
-#         assert retrieved_alarm.ack is True, \
-#             'A new CLEARED Alarm must be acknowledged'
-#         assert AlarmCollection._create_ticket.call_count == 0, \
-#             'A new Alarm in CLEARED state should not create a new ticket'
-#
-#         # 2. Change Alarm to SET:
-#         timestamp_2 = retrieved_alarm.core_timestamp + 100
-#         alarm_2 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_2,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_2)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'updated-alarm', 'The status must be updated-alarm'
-#         assert retrieved_alarm.ack is False, \
-#             'When an Alarm changes to SET, it should not be acknowledged'
-#         assert AlarmCollection._create_ticket.call_count == 1, \
-#             'When an Alarm changes to SET, a new ticket should be created'
-#
-#         # 3. Acknowledge Alarm:
-#         await AlarmCollection.acknowledge(core_id)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert retrieved_alarm.ack is True, \
-#             'When the Alarm is acknowledged, its ack status should be True'
-#         assert AlarmCollection._create_ticket.call_count == 1, \
-#             'When an Alarm is acknowledged, it should not create a new ticket'
-#
-#         # 4. Alarm still SET:
-#         timestamp_4 = retrieved_alarm.core_timestamp + 100
-#         alarm_4 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_4,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_4)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'updated-alarm', 'The status must be updated-alarm'
-#         assert retrieved_alarm.ack is True, \
-#             'When an Alarm maintains its value, it should maintain its ack'
-#         assert AlarmCollection._create_ticket.call_count == 1, \
-#             'When an Alarm maintains its value, it should not create a ticket'
-#
-#         # 5. Alarm changes to CLEAR:
-#         timestamp_5 = retrieved_alarm.core_timestamp + 100
-#         alarm_5 = Alarm(
-#             value=0,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_5,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_5)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'updated-alarm', 'The status must be updated-alarm'
-#         assert retrieved_alarm.ack is True, \
-#             'When an Alarm changes to CLEAR, its status should still be ack'
-#         assert AlarmCollection._create_ticket.call_count == 1, \
-#             'When an Alarm changes to CLEAR, it should not create a new ticket'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_ack_multiple_alarms(self, mocker):
-#         """ Test if the AlarmCollection can acknowledge multiple Alarms """
-#         # Arrange:
-#         # Mock AlarmCollection._create_ticket to avoid calling it
-#         mocker.patch.object(AlarmCollection, '_create_ticket')
-#         timestamp_1 = int(round(time.time() * 1000))
-#         AlarmCollection.reset()
-#         core_id_1 = 'MOCK-SET-ALARM-1'
-#         alarm_1 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_1,
-#             running_id='({}:IASIO)'.format(core_id_1)
-#         )
-#         core_id_2 = 'MOCK-CLEAR-ALARM-2'
-#         alarm_2 = Alarm(
-#             value=0,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_2,
-#             running_id='({}:IASIO)'.format(core_id_2)
-#         )
-#         core_id_3 = 'MOCK-SET-ALARM-3'
-#         alarm_3 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_3,
-#             running_id='({}:IASIO)'.format(core_id_3)
-#         )
-#         core_ids = [
-#             core_id_1,
-#             core_id_2,
-#             core_id_3,
-#         ]
-#         await AlarmCollection.add_or_update_alarm(alarm_1)
-#         await AlarmCollection.add_or_update_alarm(alarm_2)
-#         await AlarmCollection.add_or_update_alarm(alarm_3)
-#         # Act:
-#         ack_alarms_ids = await AlarmCollection.acknowledge(core_ids)
-#         # Assert:
-#         retrieved_alarm_1 = AlarmCollection.get(core_id_1)
-#         retrieved_alarm_2 = AlarmCollection.get(core_id_2)
-#         retrieved_alarm_3 = AlarmCollection.get(core_id_3)
-#         assert retrieved_alarm_1.ack is True, \
-#             'Alarm 1 should have been acknowledged'
-#         assert retrieved_alarm_2.ack is True, \
-#             'Alarm 2 should have been acknowledged as it was CLEAR'
-#         assert retrieved_alarm_3.ack is True, \
-#             'Alarm 3 should have been acknowledged'
-#         assert sorted(ack_alarms_ids) == sorted(core_ids), \
-#             'Acknowledge method did not return the list of expected ack alarms'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_recursive_ack(self, mocker):
-#         """ Test if the AlarmCollection can acknowledge multiple Alarms
-#         recursively.
-#         """
-#         # Arrange:
-#         # Mock AlarmCollection._create_ticket to avoid calling it
-#         mocker.patch.object(AlarmCollection, '_create_ticket')
-#         timestamp_1 = int(round(time.time() * 1000))
-#         AlarmCollection.reset()
-#         # Create two alarms without dependencies alarm_1 and alarm_2
-#         core_id_1 = 'MOCK-SET-ALARM-1'
-#         alarm_1 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_1,
-#             running_id='({}:IASIO)'.format(core_id_1),
-#             ack=False
-#         )
-#         core_id_2 = 'MOCK-SET-ALARM-2'
-#         alarm_2 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_2,
-#             running_id='({}:IASIO)'.format(core_id_2),
-#             ack=False
-#         )
-#         # Create an Alarm with alarm_1 as dependency
-#         core_id_3 = 'MOCK-SET-ALARM-3'
-#         alarm_3 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_3,
-#             running_id='({}:IASIO)'.format(core_id_3),
-#             dependencies=[core_id_1],
-#             ack=False
-#         )
-#         # Create an Alarm with alarm_2 and alarm_3 as dependency
-#         core_id_4 = 'MOCK-SET-ALARM-4'
-#         alarm_4 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_4,
-#             running_id='({}:IASIO)'.format(core_id_4),
-#             dependencies=[core_id_2, core_id_3],
-#             ack=False
-#         )
-#         # Create an Alarm with alarm_4 as dependecy
-#         core_id_5 = 'MOCK-SET-ALARM-5'
-#         alarm_5 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_5,
-#             running_id='({}:IASIO)'.format(core_id_5),
-#             dependencies=[core_id_4],
-#             ack=False
-#         )
-#         await AlarmCollection.add_or_update_alarm(alarm_1)
-#         await AlarmCollection.add_or_update_alarm(alarm_2)
-#         await AlarmCollection.add_or_update_alarm(alarm_3)
-#         await AlarmCollection.add_or_update_alarm(alarm_4)
-#         await AlarmCollection.add_or_update_alarm(alarm_5)
-#         # Act 1: Acknowledge the first leaf
-#         ack_alarms_ids = await AlarmCollection.acknowledge([core_id_1])
-#         # Assert
-#         retrieved_alarm_1 = AlarmCollection.get(core_id_1)
-#         retrieved_alarm_3 = AlarmCollection.get(core_id_3)
-#         retrieved_alarm_4 = AlarmCollection.get(core_id_4)
-#         assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
-#             'The alarm_1 and its parent alarm_3 must be acknowledged'
-#         assert not retrieved_alarm_4.ack, \
-#             'The alarm_4 must not be acknowledged because its other \
-#              child (alarm_2) has not been acknowledge yet'
-#         assert sorted(ack_alarms_ids) == [core_id_1, core_id_3], \
-#             'Acknowledge method did not return the list of expected ack alarms'
-#         # Act 2: Acknowledge the second leaf
-#         ack_alarms_ids = await AlarmCollection.acknowledge([core_id_2])
-#         # Assert
-#         retrieved_alarm_2 = AlarmCollection.get(core_id_2)
-#         retrieved_alarm_4 = AlarmCollection.get(core_id_4)
-#         retrieved_alarm_5 = AlarmCollection.get(core_id_5)
-#         assert retrieved_alarm_2.ack and retrieved_alarm_4.ack and \
-#             retrieved_alarm_5.ack, \
-#             'The alarm_2, its parent alarm_4 and its grandparent alarm_5 \
-#             must be acknowledged'
-#         assert sorted(ack_alarms_ids) == [core_id_2, core_id_4, core_id_5], \
-#             'Acknowledge method did not return the list of expected ack alarms'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_recursive_unack(self, mocker):
-#         """ Test if the AlarmCollection can unacknowledge an alarms and its
-#         dependent alarms recursively.
-#         """
-#         # Arrange:
-#         # # Mock AlarmCollection._create_ticket to avoid calling it
-#         mocker.patch.object(AlarmCollection, '_create_ticket')
-#         timestamp_1 = int(round(time.time() * 1000))
-#         timestamp_2 = int(round(time.time() * 1000)) + 5
-#         AlarmCollection.reset()
-#         # Create two alarms without dependencies alarm_1 and alarm_2, alarm_1
-#         # is set and alarm_2 is cleared.
-#         core_id_1 = 'MOCK-SET-ALARM-1'
-#         alarm_1 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_1,
-#             running_id='({}:IASIO)'.format(core_id_1),
-#             ack=False
-#         )
-#         core_id_2 = 'MOCK-SET-ALARM-2'
-#         alarm_2 = Alarm(
-#             value=0,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_2,
-#             running_id='({}:IASIO)'.format(core_id_2),
-#             ack=True
-#         )
-#         # Create an Alarm with alarm_1 as dependency
-#         core_id_3 = 'MOCK-SET-ALARM-3'
-#         alarm_3 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_3,
-#             running_id='({}:IASIO)'.format(core_id_3),
-#             dependencies=[core_id_1],
-#             ack=False
-#         )
-#         # Create an Alarm with alarm_2 and alarm_3 as dependency
-#         core_id_4 = 'MOCK-SET-ALARM-4'
-#         alarm_4 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_4,
-#             running_id='({}:IASIO)'.format(core_id_4),
-#             dependencies=[core_id_2, core_id_3],
-#             ack=False
-#         )
-#         # Create an Alarm with alarm_4 as dependecy
-#         core_id_5 = 'MOCK-SET-ALARM-5'
-#         alarm_5 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_5,
-#             running_id='({}:IASIO)'.format(core_id_5),
-#             dependencies=[core_id_4],
-#             ack=False
-#         )
-#         await AlarmCollection.add_or_update_alarm(alarm_1)
-#         await AlarmCollection.add_or_update_alarm(alarm_2)
-#         await AlarmCollection.add_or_update_alarm(alarm_3)
-#         await AlarmCollection.add_or_update_alarm(alarm_4)
-#         await AlarmCollection.add_or_update_alarm(alarm_5)
-#         # Act 1: Acknowledge the first leaf alarm_1
-#         ack_alarms_ids = await AlarmCollection.acknowledge([core_id_1])
-#         # Assert
-#         retrieved_alarm_1 = AlarmCollection.get(core_id_1)
-#         retrieved_alarm_2 = AlarmCollection.get(core_id_2)
-#         retrieved_alarm_3 = AlarmCollection.get(core_id_3)
-#         retrieved_alarm_4 = AlarmCollection.get(core_id_4)
-#         retrieved_alarm_5 = AlarmCollection.get(core_id_5)
-#         assert retrieved_alarm_2.value == 0 and retrieved_alarm_2.ack, \
-#             'The alarm_2 remains cleared and acknowledged'
-#         assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
-#             'The alarm_1 and its parent alarm_3 must be acknowledged'
-#         assert retrieved_alarm_4.ack and retrieved_alarm_5.ack, \
-#             'The alarm_4 and its parent alarm_5 must be acknowledged'
-#         expected_ack_alarms = [core_id_1, core_id_3, core_id_4, core_id_5]
-#         assert sorted(ack_alarms_ids) == expected_ack_alarms, \
-#             'Acknowledge method did not return the list of expected ack alarms'
-#         # Act 2: Change from cleared to set the second leaf alarm_2
-#         new_alarm_2 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_2,
-#             core_id=core_id_2,
-#             running_id='({}:IASIO)'.format(core_id_2)
-#         )
-#         await AlarmCollection.add_or_update_alarm(new_alarm_2)
-#         # Assert
-#         retrieved_alarm_1 = AlarmCollection.get(core_id_1)
-#         retrieved_alarm_2 = AlarmCollection.get(core_id_2)
-#         retrieved_alarm_3 = AlarmCollection.get(core_id_3)
-#         retrieved_alarm_4 = AlarmCollection.get(core_id_4)
-#         retrieved_alarm_5 = AlarmCollection.get(core_id_5)
-#         assert not retrieved_alarm_2.ack, \
-#             'The alarm_2 must be unacknowleged'
-#         assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
-#             'The alarm_1 and its parent alarm_3 must remain acknowledged'
-#         assert not retrieved_alarm_4.ack, \
-#             'The parent of alarm_2 (alarm_4) must be unacknowleged'
-#         assert not retrieved_alarm_5.ack, \
-#             'The grandparent of alarm_2 (alarm_5) must be unacknowleged'
-#
-#     @pytest.mark.django_db
-#     def test_create_ticket(self, mocker):
-#         """
-#         Test that AlarmCollection._create_ticket calls
-#         TicketConnector.create_ticket
-#         """
-#         # Arrange:
-#         # Mock TicketConnector.create_ticket to assert if it was called
-#         # and avoid calling the real function
-#         mocker.patch.object(TicketConnector, 'create_ticket')
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#
-#         # Act:
-#         AlarmCollection._create_ticket(core_id)
-#
-#         # Assert:
-#         assert TicketConnector.create_ticket.call_count == 1, \
-#             'The ticket was no actually created'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_new_set_alarm_ticket_is_updated_when_cleared(self, mocker):
-#         """ Test if a ticket is created when a new SET Alarm arrives,
-#         and if the ticket is updated to cleared_ack or cleared_unack states
-#         accordingly when the Alarm changes to Clear """
-#
-#         # Mock AlarmCollection._create_ticket to assert if it was called
-#         # and avoid calling the real function
-#         mocker.patch.object(AlarmCollection, '_create_ticket')
-#         mocker.patch.object(AlarmCollection, '_clear_ticket')
-#
-#         # 1. Create SET Alarm:
-#         timestamp_1 = int(round(time.time() * 1000))
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#         alarm_1 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'created-alarm', 'The status must be created-alarm'
-#         assert retrieved_alarm.ack is False, \
-#             'A new Alarm must not be acknowledged'
-#         assert AlarmCollection._create_ticket.call_count == 1, \
-#             'A new Alarm in SET state should create a new ticket'
-#
-#         # 2. Change Alarm to CLEAR:
-#         alarm_1 = Alarm(
-#             value=0,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1+100,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
-#         retrieved_alarm = AlarmCollection.get(core_id)
-#         assert status == 'updated-alarm', 'The status must be updated-alarm'
-#         assert retrieved_alarm.ack is False, \
-#             'the Alarm must not be acknowledged when it changes to CLEAR'
-#         assert AlarmCollection._clear_ticket.call_count == 1, \
-#             'When the Alarm changes CLEAR, the ticket should be updated'
+class TestAlarmsCollectionAcknowledge:
+    """ This class defines the test suite for the Alarms Collection acknowledge and ticket handling """
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_alarm_cycle(self):
+        """ Test the changes in ack property of alarms as it changes through a cycle of values and Ack actions """
+        # Arrange:
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+
+        # 1. Create Alarm:
+        timestamp = datetime.datetime.now()
+        iasio_timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio = {
+            "value": "CLEARED",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@({}:IASIO)".format(core_id),
+            "valueType": "ALARM",
+            "depsFullRunningIds": []
+        }
+        (tickets_to_create, tickets_to_clear) = AlarmCollection.add_or_update_alarm(iasio)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is True, 'A new CLEARED Alarm must be acknowledged'
+        assert tickets_to_create == [], 'A new Alarm in CLEARED state should not create a new ticket'
+        assert tickets_to_clear == [], 'A new Alarm in CLEARED state should not clear a ticket'
+
+        # 2. Change Alarm to SET:
+        timestamp = timestamp + datetime.timedelta(seconds=1)
+        iasio_timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@({}:IASIO)".format(core_id),
+            "valueType": "ALARM",
+            "depsFullRunningIds": []
+        }
+        (tickets_to_create, tickets_to_clear) = AlarmCollection.add_or_update_alarm(iasio)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is False, 'When an Alarm changes to SET, it should not be acknowledged'
+        assert tickets_to_create == [core_id], 'When an Alarm changes to SET, a new ticket should be created'
+        assert tickets_to_clear == [], 'When an Alarm changes to SET, it should not clear a ticket'
+
+        # 3. Acknowledge Alarm:
+        await AlarmCollection.acknowledge(core_id)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is True, 'When the Alarm is acknowledged, its ack status should be True'
+
+        # 4. Alarm still SET:
+        timestamp = timestamp + datetime.timedelta(seconds=1)
+        iasio_timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio = {
+            "value": "SET_LOW",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@({}:IASIO)".format(core_id),
+            "valueType": "ALARM",
+            "depsFullRunningIds": []
+        }
+        (tickets_to_create, tickets_to_clear) = AlarmCollection.add_or_update_alarm(iasio)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is True, 'When an Alarm maintains its value, it should maintain its ack'
+        assert tickets_to_create == [], 'When an Alarm maintains its value, it should not create a new ticket'
+        assert tickets_to_clear == [], 'When an Alarm maintains its value, it should not clear a ticket'
+
+        # 5. Alarm changes to CLEAR:
+        timestamp = timestamp + datetime.timedelta(seconds=1)
+        iasio_timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio = {
+            "value": "CLEARED",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@({}:IASIO)".format(core_id),
+            "valueType": "ALARM",
+            "depsFullRunningIds": []
+        }
+        (tickets_to_create, tickets_to_clear) = AlarmCollection.add_or_update_alarm(iasio)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is True, 'When an Alarm changes to CLEAR, its status should still be ack'
+        assert tickets_to_create == [], 'When an Alarm has not been set again, it should not create a new ticket'
+        assert tickets_to_clear == [core_id], 'When an Alarm has changed to cleared, its ticket should be cleared'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_ack_multiple_alarms(self, mocker):
+        """ Test if the AlarmCollection can acknowledge multiple Alarms """
+        # Arrange:
+        AlarmCollection.reset([])
+        iasio_time = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+        core_ids = [
+            'MOCK-ALARM1',
+            'MOCK-ALARM2',
+            'MOCK-ALARM3'
+        ]
+        iasios = [
+            {
+                "value": "SET_MEDIUM",
+                "productionTStamp": iasio_time,
+                "sentToBsdbTStamp": iasio_time,
+                "mode": "OPERATIONAL",   # 5: OPERATIONAL
+                "iasValidity": "RELIABLE",
+                "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM1:IASIO)",
+                "valueType": "ALARM"
+            },
+            {
+                "value": "SET_MEDIUM",
+                "productionTStamp": iasio_time,
+                "sentToBsdbTStamp": iasio_time,
+                "mode": "OPERATIONAL",   # 5: OPERATIONAL
+                "iasValidity": "RELIABLE",
+                "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM2:IASIO)",
+                "valueType": "ALARM"
+            },
+            {
+                "value": "SET_MEDIUM",
+                "productionTStamp": iasio_time,
+                "sentToBsdbTStamp": iasio_time,
+                "mode": "OPERATIONAL",   # 5: OPERATIONAL
+                "iasValidity": "RELIABLE",
+                "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM3:IASIO)",
+                "valueType": "ALARM"
+            },
+        ]
+        for iasio in iasios:
+            AlarmCollection.add_or_update_alarm(iasio)
+        # Act:
+        ack_alarms_ids = await AlarmCollection.acknowledge(core_ids)
+        # Assert:
+        retrieved_alarm_1 = AlarmCollection.get(core_ids[0])
+        retrieved_alarm_2 = AlarmCollection.get(core_ids[1])
+        retrieved_alarm_3 = AlarmCollection.get(core_ids[2])
+        assert retrieved_alarm_1.ack is True, 'Alarm 1 should have been acknowledged'
+        assert retrieved_alarm_2.ack is True, 'Alarm 2 should have been acknowledged as it was CLEAR'
+        assert retrieved_alarm_3.ack is True, 'Alarm 3 should have been acknowledged'
+        assert sorted(ack_alarms_ids) == sorted(core_ids), \
+            'Acknowledge method did not return the list of expected ack alarms'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_recursive_ack(self):
+        """ Test if the AlarmCollection can acknowledge multiple Alarms recursively """
+        # Arrange:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset([])
+        # Create two alarms without dependencies alarm_1 and alarm_2
+        core_id_1 = 'MOCK-SET-ALARM-1'
+        alarm_1 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_1,
+            running_id='({}:IASIO)'.format(core_id_1),
+            ack=False
+        )
+        core_id_2 = 'MOCK-SET-ALARM-2'
+        alarm_2 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_2,
+            running_id='({}:IASIO)'.format(core_id_2),
+            ack=False
+        )
+        # Create an Alarm with alarm_1 as dependency
+        core_id_3 = 'MOCK-SET-ALARM-3'
+        alarm_3 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_3,
+            running_id='({}:IASIO)'.format(core_id_3),
+            dependencies=[core_id_1],
+            ack=False
+        )
+        # Create an Alarm with alarm_2 and alarm_3 as dependency
+        core_id_4 = 'MOCK-SET-ALARM-4'
+        alarm_4 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_4,
+            running_id='({}:IASIO)'.format(core_id_4),
+            dependencies=[core_id_2, core_id_3],
+            ack=False
+        )
+        # Create an Alarm with alarm_4 as dependecy
+        core_id_5 = 'MOCK-SET-ALARM-5'
+        alarm_5 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_5,
+            running_id='({}:IASIO)'.format(core_id_5),
+            dependencies=[core_id_4],
+            ack=False
+        )
+        AlarmCollection.add(alarm_1)
+        AlarmCollection.add(alarm_2)
+        AlarmCollection.add(alarm_3)
+        AlarmCollection.add(alarm_4)
+        AlarmCollection.add(alarm_5)
+        # Act 1: Acknowledge the first leaf
+        ack_alarms_ids = await AlarmCollection.acknowledge([core_id_1])
+        # Assert
+        retrieved_alarm_1 = AlarmCollection.get(core_id_1)
+        retrieved_alarm_3 = AlarmCollection.get(core_id_3)
+        retrieved_alarm_4 = AlarmCollection.get(core_id_4)
+        assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
+            'The alarm_1 and its parent alarm_3 must be acknowledged'
+        assert not retrieved_alarm_4.ack, \
+            'The alarm_4 must not be acknowledged because its other \
+             child (alarm_2) has not been acknowledge yet'
+        assert sorted(ack_alarms_ids) == [core_id_1, core_id_3], \
+            'Acknowledge method did not return the list of expected ack alarms'
+        # Act 2: Acknowledge the second leaf
+        ack_alarms_ids = await AlarmCollection.acknowledge([core_id_2])
+        # Assert
+        retrieved_alarm_2 = AlarmCollection.get(core_id_2)
+        retrieved_alarm_4 = AlarmCollection.get(core_id_4)
+        retrieved_alarm_5 = AlarmCollection.get(core_id_5)
+        assert retrieved_alarm_2.ack and retrieved_alarm_4.ack and \
+            retrieved_alarm_5.ack, \
+            'The alarm_2, its parent alarm_4 and its grandparent alarm_5 \
+            must be acknowledged'
+        assert sorted(ack_alarms_ids) == [core_id_2, core_id_4, core_id_5], \
+            'Acknowledge method did not return the list of expected ack alarms'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_recursive_unack(self):
+        """ Test if the AlarmCollection can unacknowledge an alarms and its
+        dependent alarms recursively.
+        """
+        # Arrange:
+        timestamp_1 = int(round(time.time() * 1000))
+        timestamp_2 = int(round(time.time() * 1000)) + 5
+        AlarmCollection.reset()
+        # Create two alarms without dependencies alarm_1 and alarm_2, alarm_1
+        # is set and alarm_2 is cleared.
+        core_id_1 = 'MOCK-SET-ALARM-1'
+        alarm_1 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_1,
+            running_id='({}:IASIO)'.format(core_id_1),
+            ack=False
+        )
+        core_id_2 = 'MOCK-SET-ALARM-2'
+        alarm_2 = Alarm(
+            value=0,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_2,
+            running_id='({}:IASIO)'.format(core_id_2),
+            ack=True
+        )
+        # Create an Alarm with alarm_1 as dependency
+        core_id_3 = 'MOCK-SET-ALARM-3'
+        alarm_3 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_3,
+            running_id='({}:IASIO)'.format(core_id_3),
+            dependencies=[core_id_1],
+            ack=False
+        )
+        # Create an Alarm with alarm_2 and alarm_3 as dependency
+        core_id_4 = 'MOCK-SET-ALARM-4'
+        alarm_4 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_4,
+            running_id='({}:IASIO)'.format(core_id_4),
+            dependencies=[core_id_2, core_id_3],
+            ack=False
+        )
+        # Create an Alarm with alarm_4 as dependecy
+        core_id_5 = 'MOCK-SET-ALARM-5'
+        alarm_5 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_5,
+            running_id='({}:IASIO)'.format(core_id_5),
+            dependencies=[core_id_4],
+            ack=False
+        )
+        AlarmCollection.add(alarm_1)
+        AlarmCollection.add(alarm_2)
+        AlarmCollection.add(alarm_3)
+        AlarmCollection.add(alarm_4)
+        AlarmCollection.add(alarm_5)
+        # Act 1: Acknowledge the first leaf alarm_1
+        ack_alarms_ids = await AlarmCollection.acknowledge([core_id_1])
+        # Assert
+        retrieved_alarm_1 = AlarmCollection.get(core_id_1)
+        retrieved_alarm_2 = AlarmCollection.get(core_id_2)
+        retrieved_alarm_3 = AlarmCollection.get(core_id_3)
+        retrieved_alarm_4 = AlarmCollection.get(core_id_4)
+        retrieved_alarm_5 = AlarmCollection.get(core_id_5)
+        assert retrieved_alarm_2.value == 0 and retrieved_alarm_2.ack, \
+            'The alarm_2 remains cleared and acknowledged'
+        assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
+            'The alarm_1 and its parent alarm_3 must be acknowledged'
+        assert retrieved_alarm_4.ack and retrieved_alarm_5.ack, \
+            'The alarm_4 and its parent alarm_5 must be acknowledged'
+        expected_ack_alarms = [core_id_1, core_id_3, core_id_4, core_id_5]
+        assert sorted(ack_alarms_ids) == expected_ack_alarms, \
+            'Acknowledge method did not return the list of expected ack alarms'
+        # Act 2: Change from cleared to set the second leaf alarm_2
+        new_alarm_2 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_2,
+            core_id=core_id_2,
+            running_id='({}:IASIO)'.format(core_id_2)
+        )
+        AlarmCollection.update_alarm(retrieved_alarm_2, new_alarm_2)
+        # Assert
+        retrieved_alarm_1 = AlarmCollection.get(core_id_1)
+        retrieved_alarm_2 = AlarmCollection.get(core_id_2)
+        retrieved_alarm_3 = AlarmCollection.get(core_id_3)
+        retrieved_alarm_4 = AlarmCollection.get(core_id_4)
+        retrieved_alarm_5 = AlarmCollection.get(core_id_5)
+        assert not retrieved_alarm_2.ack, 'The alarm_2 must be unacknowleged'
+        assert retrieved_alarm_1.ack and retrieved_alarm_3.ack, \
+            'The alarm_1 and its parent alarm_3 must remain acknowledged'
+        assert not retrieved_alarm_4.ack, \
+            'The parent of alarm_2 (alarm_4) must be unacknowleged'
+        assert not retrieved_alarm_5.ack, \
+            'The grandparent of alarm_2 (alarm_5) must be unacknowleged'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_new_set_alarm_ticket_is_updated_when_cleared(self):
+        """ Test if a ticket is created when a new SET Alarm arrives, and if the ticket is updated to cleared_ack
+        or cleared_unack states accordingly when the Alarm changes to Clear """
+
+        # 1. Create SET Alarm:
+        AlarmCollection.reset([])
+        timestamp = datetime.datetime.now()
+        iasio_timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        core_id = 'MOCK-ALARM'
+        iasio = {
+            "value": "SET_LOW",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@({}:IASIO)".format(core_id),
+            "valueType": "ALARM",
+            "depsFullRunningIds": []
+        }
+        (tickets_to_create, tickets_to_clear) = AlarmCollection.add_or_update_alarm(iasio)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is False, 'A new SET Alarm must not be acknowledged'
+        assert tickets_to_create == [core_id], 'A new Alarm in SET state should create a new ticket'
+        assert tickets_to_clear == [], 'A new Alarm in SET state should not clear a ticket'
+
+        # 2. Change Alarm to CLEAR:
+        timestamp = timestamp + datetime.timedelta(seconds=1)
+        iasio_timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio = {
+            "value": "CLEARED",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@({}:IASIO)".format(core_id),
+            "valueType": "ALARM",
+            "depsFullRunningIds": []
+        }
+        (tickets_to_create, tickets_to_clear) = AlarmCollection.add_or_update_alarm(iasio)
+        retrieved_alarm = AlarmCollection.get(core_id)
+        assert retrieved_alarm.ack is False, 'When an Alarm changes to CLEARED, it should not be acknowledged'
+        assert tickets_to_create == [], 'When an Alarm changes to CLEARED, a new ticket should not be created'
+        assert tickets_to_clear == [core_id], 'When an Alarm changes to CLEARED, it should clear the ticket'
+
+    @pytest.mark.asyncio
+    @pytest.mark.django_db
+    async def test_create_tickets(self, mocker):
+        """
+        Test that AlarmCollection.create_tickets calls
+        TicketConnector.create_tickets
+        """
+        # Arrange:
+        # Mock TicketConnector.create_tickets to assert if it was called
+        # and avoid calling the real function
+        mocker.patch.object(TicketConnector, 'create_tickets')
+        AlarmCollection.reset()
+        core_id = 'MOCK-ALARM'
+
+        # Act:
+        await AlarmCollection.create_tickets(core_id)
+
+        # Assert:
+        assert TicketConnector.create_tickets.call_count == 1, \
+            'The ticket was no actually created'
+
 #
 #
 # class TestAlarmsCollectionShelve:

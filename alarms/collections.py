@@ -385,7 +385,7 @@ class AlarmCollection:
             )
         else:
             self._unacknowledge(alarm)
-            tickets_to_create.append(alarm)
+            tickets_to_create.append(alarm.core_id)
         alarm.shelved = TicketConnector.check_shelve(alarm.core_id)
         self.singleton_collection[alarm.core_id] = alarm
         alarm.stored = True
@@ -409,9 +409,6 @@ class AlarmCollection:
         Returns:
             message (string): a string message sumarizing what happened
         """
-        # tickets_to_create = []
-        # tickets_to_clear = []
-
         # Core ID
         core_id = AlarmCollection._get_core_id_from(iasio['fullRunningId'])
 
