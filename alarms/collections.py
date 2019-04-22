@@ -432,7 +432,6 @@ class AlarmCollection:
                 dep_id = AlarmCollection._get_core_id_from(dep_full_rid)
                 if dep_id in self.singleton_collection.keys():
                     dependencies.append(dep_id)
-
         params = {
             'value': AlarmCollection.value_options[iasio['value']],
             'core_timestamp': core_timestamp,

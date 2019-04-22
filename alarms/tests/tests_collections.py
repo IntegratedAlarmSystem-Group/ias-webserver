@@ -242,318 +242,238 @@ class TestAlarmsCollectionHandling:
         for alarm in AlarmCollection.get_all_as_list():
             assert alarm.validity == 0, 'The alarm {} was not correctly invalidated'.format(alarm.core_id)
 
-    def test_create_and_update_value_to_collection(self):
-        """ Test if the other types of values are added successfully to values_collection """
-        # CREATE
+    @pytest.mark.django_db
+    def test_record_parent_reference(self):
+        """ Test if when an alarm with dependencies is created, it records itself as a parent of its dependencies """
         # Arrange:
-        AlarmCollection.reset([])
-        old_time = datetime.datetime.now()
-        new_time = old_time + datetime.timedelta(seconds=1)
-        iasio_old_time = old_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        iasio_new_time = new_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        value_old_time = int((time.mktime(old_time.timetuple()) + old_time.microsecond / 1E6) * 1000)
-        value_new_time = int((time.mktime(new_time.timetuple()) + new_time.microsecond / 1E6) * 1000)
-        iasio = {
-            "value": "SOME_TEST_VALUE",
-            "productionTStamp": iasio_old_time,
-            "sentToBsdbTStamp": iasio_old_time,
+        AlarmCollection.reset()
+        timestamp = datetime.datetime.now()
+        iasio_timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        child_iasio = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
-            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-VALUE:IASIO)",
-            "valueType": "STRING"
+            "fullRunningId": "(Converter-ID:CONVERTER)@(CHILD-ALARM:IASIO)",
+            "valueType": "ALARM",
+            "depsFullRunningIds": []
         }
-        value = AlarmCollection.get_value('MOCK-VALUE')
-        assert value is None, 'The value must not be in the collection at the beginning'
-        # Act:
-        AlarmCollection.add_or_update_value(iasio)
-        # Assert:
-        value = AlarmCollection.get_value('MOCK-VALUE')
-        assert value is not None, 'The value must be in the collection'
-        assert value.core_timestamp == value_old_time, 'The value must have the iasios timestamp'
-        assert value.core_id == 'MOCK-VALUE', 'The value must be in the collection'
-        assert value.value == 'SOME_TEST_VALUE', 'The value does not match the expected value'
-        assert value.mode == OperationalMode.OPERATIONAL.value, 'Value mode does not match the Iasio mode'
-        assert value.validity == Validity.RELIABLE.value, 'Value validity does not match the Iasio mode'
-
-        # UPDATE
-        # Arrange:
-        iasio = {
-            "value": "SOME_OTHER_TEST_VALUE",
-            "productionTStamp": iasio_new_time,
-            "sentToBsdbTStamp": iasio_new_time,
+        parent_iasio = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
-            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-VALUE:IASIO)",
-            "valueType": "STRING"
+            "fullRunningId": "(Converter-ID:CONVERTER)@(PARENT-ALARM:IASIO)",
+            "valueType": "ALARM",
+            "depsFullRunningIds": ["(Converter-ID:CONVERTER)@(CHILD-ALARM:IASIO)"]
         }
+        AlarmCollection.add_or_update_alarm(child_iasio)
         # Act:
-        AlarmCollection.add_or_update_value(iasio)
+        AlarmCollection.add_or_update_alarm(parent_iasio)
         # Assert:
-        value = AlarmCollection.get_value('MOCK-VALUE')
-        assert value is not None, 'The value must be in the collection'
-        assert value.core_timestamp == value_new_time, 'The value timestamp should be updated'
-        assert value.core_id == 'MOCK-VALUE', 'The value must be in the collection'
-        assert value.value == 'SOME_OTHER_TEST_VALUE', 'The value does not match the expected value'
-        assert value.mode == OperationalMode.OPERATIONAL.value, 'Value mode does not match the Iasio mode'
-        assert value.validity == Validity.RELIABLE.value, 'Value validity does not match the Iasio mode'
+        assert 'CHILD-ALARM' in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
+        assert 'PARENT-ALARM' in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
+        assert 'PARENT-ALARM' in AlarmCollection._get_parents('CHILD-ALARM'), \
+            'The alarm core_id should be added as a parent of the dependency alarm in the collection'
 
-        # SKIP UPDATE
+    @pytest.mark.django_db
+    def test_record_multiple_parent_references(self):
+        """
+        Test if when an alarm with dependencies is created, and the alarms in the dependencies already have another
+        parent, it adds itself to the list of parents associated with the alarm in the dependencies
+        """
         # Arrange:
-        # iasio_time_3 = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
-        iasio = {
-            "value": "YET_ANOTHER_TEST_VALUE",
-            "productionTStamp": iasio_old_time,
-            "sentToBsdbTStamp": iasio_old_time,
+        AlarmCollection.reset()
+        timestamp = datetime.datetime.now()
+        iasio_timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        child_iasio = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
             "mode": "OPERATIONAL",   # 5: OPERATIONAL
             "iasValidity": "RELIABLE",
-            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-VALUE:IASIO)",
-            "valueType": "STRING"
+            "fullRunningId": "(Converter-ID:CONVERTER)@(CHILD-ALARM:IASIO)",
+            "valueType": "ALARM",
+            "depsFullRunningIds": []
         }
+        parent_iasio_1 = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(PARENT-ALARM-1:IASIO)",
+            "valueType": "ALARM",
+            "depsFullRunningIds": ["(Converter-ID:CONVERTER)@(CHILD-ALARM:IASIO)"]
+        }
+        parent_iasio_2 = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_timestamp,
+            "sentToBsdbTStamp": iasio_timestamp,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(PARENT-ALARM-2:IASIO)",
+            "valueType": "ALARM",
+            "depsFullRunningIds": ["(Converter-ID:CONVERTER)@(CHILD-ALARM:IASIO)"]
+        }
+        AlarmCollection.add_or_update_alarm(child_iasio)
+        AlarmCollection.add_or_update_alarm(parent_iasio_1)
         # Act:
-        AlarmCollection.add_or_update_value(iasio)
+        AlarmCollection.add_or_update_alarm(parent_iasio_2)
         # Assert:
-        value = AlarmCollection.get_value('MOCK-VALUE')
-        assert value is not None, 'The value must be in the collection'
-        assert value.core_timestamp == value_new_time, 'The value must not have been updated again'
-        assert value.core_id == 'MOCK-VALUE', 'The value must be in the collection'
-        assert value.value == 'SOME_OTHER_TEST_VALUE', 'The value does not match the expected value'
-        assert value.mode == OperationalMode.OPERATIONAL.value, 'Value mode does not match the Iasio mode'
-        assert value.validity == Validity.RELIABLE.value, 'Value validity does not match the Iasio mode'
+        assert 'CHILD-ALARM' in AlarmCollection.get_all_as_dict(), 'Child alarm should be created'
+        assert 'PARENT-ALARM-1' in AlarmCollection.get_all_as_dict(), 'Parent alarm 1 should be created'
+        assert 'PARENT-ALARM-2' in AlarmCollection.get_all_as_dict(), 'Parent alarm 2 should be created'
+        parents = AlarmCollection._get_parents('CHILD-ALARM')
+        assert 'PARENT-ALARM-1' in parents and 'PARENT-ALARM-2' in parents, \
+            'The core_id of the both parent alarms should be added as a parent of dependency alarm in the collection'
 
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_record_parent_reference(self):
-#         """ Test if an alarm with dependencies is created, it records itself as
-#         a parent of its dependencies """
-#         # Arrange:
-#         AlarmCollection.reset()
-#         child = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='child_id',
-#             running_id='({}:IASIO)'.format('child_id'),
-#             dependencies=[]
-#         )
-#         await AlarmCollection.add_or_update_alarm(child)
-#         alarm = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='core_id',
-#             running_id='({}:IASIO)'.format('core_id'),
-#             dependencies=['child_id']
-#         )
-#         # Act:
-#         status = await AlarmCollection.add_or_update_alarm(alarm)
-#         # Assert:
-#         assert status == 'created-alarm', 'The status must be created-alarm'
-#         assert 'core_id' in AlarmCollection.get_all_as_dict(), \
-#             'New alarms should be created'
-#         assert 'core_id' in AlarmCollection._get_parents('child_id'), \
-#             'The alarm core_id should be added as a parent of the dependency \
-#             alarm in the collection'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_record_multiple_parent_references(self):
-#         """ Test if an alarm with dependencies is created, and the alarms in the
-#         dependencies already have another parent, it adds itself to the list of
-#         parents associated with the alarm in the dependencies
-#         """
-#         # Arrange:
-#         AlarmCollection.reset()
-#         child = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='child_id',
-#             running_id='({}:IASIO)'.format('child_id'),
-#             dependencies=[]
-#         )
-#         await AlarmCollection.add_or_update_alarm(child)
-#         alarm_1 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='core_id_1',
-#             running_id='({}:IASIO)'.format('core_id_1'),
-#             dependencies=['child_id']
-#         )
-#         alarm_2 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='core_id_2',
-#             running_id='({}:IASIO)'.format('core_id_2'),
-#             dependencies=['child_id']
-#         )
-#         # Act:
-#         status_1 = await AlarmCollection.add_or_update_alarm(alarm_1)
-#         status_2 = await AlarmCollection.add_or_update_alarm(alarm_2)
-#         # Assert:
-#         assert status_1 == 'created-alarm' and status_2 == 'created-alarm', \
-#             'The status of both must be created-alarm'
-#         assert 'core_id_1' in AlarmCollection.get_all_as_dict() and \
-#             'core_id_2' in AlarmCollection.get_all_as_dict(), \
-#             'New alarms should be created'
-#         parents = AlarmCollection._get_parents('child_id')
-#         assert 'core_id_1' in parents and 'core_id_2' in parents, \
-#             'The core_id of the both parent alarms should be added as a parent \
-#             of dependency alarm in the collection'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_get_dependencies_recursively(self):
-#         """ Test if the AlarmCollection can retrieve the list of dependencies
-#         of an alarm including itself"""
-#         # Arrange:
-#         timestamp_1 = int(round(time.time() * 1000))
-#         AlarmCollection.reset()
-#         # Create two alarms without dependencies alarm_1 and alarm_2
-#         core_id_1 = 'MOCK-SET-ALARM-1'
-#         alarm_1 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_1,
-#             running_id='({}:IASIO)'.format(core_id_1),
-#             ack=False
-#         )
-#         core_id_2 = 'MOCK-SET-ALARM-2'
-#         alarm_2 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_2,
-#             running_id='({}:IASIO)'.format(core_id_2),
-#             ack=False
-#         )
-#         # Create an Alarm with alarm_1 as dependency
-#         core_id_3 = 'MOCK-SET-ALARM-3'
-#         alarm_3 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_3,
-#             running_id='({}:IASIO)'.format(core_id_3),
-#             dependencies=[core_id_1],
-#             ack=False
-#         )
-#         # Create an Alarm with alarm_2 and alarm_3 as dependency
-#         core_id_4 = 'MOCK-SET-ALARM-4'
-#         alarm_4 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_4,
-#             running_id='({}:IASIO)'.format(core_id_4),
-#             dependencies=[core_id_2, core_id_3],
-#             ack=False
-#         )
-#         # Create an Alarm with alarm_4 as dependecy
-#         core_id_5 = 'MOCK-SET-ALARM-5'
-#         alarm_5 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=timestamp_1,
-#             core_id=core_id_5,
-#             running_id='({}:IASIO)'.format(core_id_5),
-#             dependencies=[core_id_4],
-#             ack=False
-#         )
-#         await AlarmCollection.add_or_update_alarm(alarm_1)
-#         await AlarmCollection.add_or_update_alarm(alarm_2)
-#         await AlarmCollection.add_or_update_alarm(alarm_3)
-#         await AlarmCollection.add_or_update_alarm(alarm_4)
-#         await AlarmCollection.add_or_update_alarm(alarm_5)
-#         # Act:
-#         dependencies = AlarmCollection.get_dependencies_recursively(core_id_5)
-#         # Assert:
-#         expected_dependencies = [
-#             core_id_1, core_id_2, core_id_3, core_id_4, core_id_5
-#         ]
-#         assert sorted(dependencies) == expected_dependencies, \
-#             'The method is not returning the list of dependencies correctly'
-#
-#         # Act:
-#         dependencies = AlarmCollection.get_dependencies_recursively(core_id_1)
-#         # Assert:
-#         expected_dependencies = [core_id_1]
-#         assert dependencies == expected_dependencies, \
-#             'The method is not returning the list of dependencies correctly'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_get_ancestors_recursively(self):
-#         """ Test if the AlarmCollection can retrieve the list of ancestors """
-#         # Arrange:
-#         AlarmCollection.reset()
-#         child = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='child_id',
-#             running_id='({}:IASIO)'.format('child_id'),
-#             dependencies=[]
-#         )
-#         await AlarmCollection.add_or_update_alarm(child)
-#         alarm_1 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='core_id_1',
-#             running_id='({}:IASIO)'.format('core_id_1'),
-#             dependencies=['child_id']
-#         )
-#         alarm_2 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='core_id_2',
-#             running_id='({}:IASIO)'.format('core_id_2'),
-#             dependencies=['child_id']
-#         )
-#         await AlarmCollection.add_or_update_alarm(alarm_1)
-#         await AlarmCollection.add_or_update_alarm(alarm_2)
-#         alarm_3 = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='core_id_3',
-#             running_id='({}:IASIO)'.format('core_id_3'),
-#             dependencies=['core_id_1']
-#         )
-#         await AlarmCollection.add_or_update_alarm(alarm_3)
-#
-#         # Act:
-#         ancestors = AlarmCollection.get_ancestors_recursively('child_id')
-#         # Assert:
-#         expected_list_of_ancestors = ['core_id_1', 'core_id_2', 'core_id_3']
-#         assert sorted(ancestors) == expected_list_of_ancestors, \
-#             'The method is not returning the list of ancestors correctly'
-#
-#         # Act:
-#         ancestors = AlarmCollection.get_ancestors_recursively('core_id_3')
-#         # Assert:
-#         expected_list_of_ancestors = []
-#         assert ancestors == expected_list_of_ancestors, \
-#             'The method is not returning the list of ancestors correctly'
-#
+    @pytest.mark.django_db
+    def test_get_dependencies_recursively(self):
+        """ Test if the AlarmCollection can retrieve the list of dependencies of an alarm including itself"""
+        # Arrange:
+        timestamp_1 = int(round(time.time() * 1000))
+        AlarmCollection.reset()
+        # Create two alarms without dependencies alarm_1 and alarm_2
+        core_id_1 = 'MOCK-SET-ALARM-1'
+        alarm_1 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_1,
+            running_id='({}:IASIO)'.format(core_id_1),
+            ack=False
+        )
+        core_id_2 = 'MOCK-SET-ALARM-2'
+        alarm_2 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_2,
+            running_id='({}:IASIO)'.format(core_id_2),
+            ack=False
+        )
+        # Create an Alarm with alarm_1 as dependency
+        core_id_3 = 'MOCK-SET-ALARM-3'
+        alarm_3 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_3,
+            running_id='({}:IASIO)'.format(core_id_3),
+            dependencies=[core_id_1],
+            ack=False
+        )
+        # Create an Alarm with alarm_2 and alarm_3 as dependency
+        core_id_4 = 'MOCK-SET-ALARM-4'
+        alarm_4 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_4,
+            running_id='({}:IASIO)'.format(core_id_4),
+            dependencies=[core_id_2, core_id_3],
+            ack=False
+        )
+        # Create an Alarm with alarm_4 as dependecy
+        core_id_5 = 'MOCK-SET-ALARM-5'
+        alarm_5 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=timestamp_1,
+            core_id=core_id_5,
+            running_id='({}:IASIO)'.format(core_id_5),
+            dependencies=[core_id_4],
+            ack=False
+        )
+        AlarmCollection.add(alarm_1)
+        AlarmCollection.add(alarm_2)
+        AlarmCollection.add(alarm_3)
+        AlarmCollection.add(alarm_4)
+        AlarmCollection.add(alarm_5)
+        # Act:
+        dependencies = AlarmCollection.get_dependencies_recursively(core_id_5)
+        # Assert:
+        expected_dependencies = [
+            core_id_1, core_id_2, core_id_3, core_id_4, core_id_5
+        ]
+        assert sorted(dependencies) == expected_dependencies, \
+            'The method is not returning the list of dependencies correctly'
+
+        # Act:
+        dependencies = AlarmCollection.get_dependencies_recursively(core_id_1)
+        # Assert:
+        expected_dependencies = [core_id_1]
+        assert dependencies == expected_dependencies, \
+            'The method is not returning the list of dependencies correctly'
+
+    @pytest.mark.django_db
+    def test_get_ancestors_recursively(self):
+        """ Test if the AlarmCollection can retrieve the list of ancestors """
+        # Arrange:
+        AlarmCollection.reset()
+        child = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=10000,
+            core_id='child_id',
+            running_id='({}:IASIO)'.format('child_id'),
+            dependencies=[]
+        )
+        AlarmCollection.add(child)
+        alarm_1 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=10000,
+            core_id='core_id_1',
+            running_id='({}:IASIO)'.format('core_id_1'),
+            dependencies=['child_id']
+        )
+        alarm_2 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=10000,
+            core_id='core_id_2',
+            running_id='({}:IASIO)'.format('core_id_2'),
+            dependencies=['child_id']
+        )
+        AlarmCollection.add(alarm_1)
+        AlarmCollection.add(alarm_2)
+        alarm_3 = Alarm(
+            value=1,
+            mode=7,
+            validity=0,
+            core_timestamp=10000,
+            core_id='core_id_3',
+            running_id='({}:IASIO)'.format('core_id_3'),
+            dependencies=['core_id_1']
+        )
+        AlarmCollection.add(alarm_3)
+
+        # Act:
+        ancestors = AlarmCollection.get_ancestors_recursively('child_id')
+        # Assert:
+        expected_list_of_ancestors = ['core_id_1', 'core_id_2', 'core_id_3']
+        assert sorted(ancestors) == expected_list_of_ancestors, \
+            'The method is not returning the list of ancestors correctly'
+
+        # Act:
+        ancestors = AlarmCollection.get_ancestors_recursively('core_id_3')
+        # Assert:
+        expected_list_of_ancestors = []
+        assert ancestors == expected_list_of_ancestors, \
+            'The method is not returning the list of ancestors correctly'
+
 
 #
 #
@@ -1159,103 +1079,6 @@ class TestAlarmsCollectionHandling:
 #         assert AlarmCollection._create_ticket.call_count == 0, \
 #             'When a shelved Alarm changes to SET, a new ticket should not be \
 #             created'
-#
-#
-# class TestIasValueUpdates:
-#     """ This class defines the test suite for the Alarms Collection management
-#     of IASValues that are not of type Alarm """
-#
-#     @pytest.mark.django_db
-#     def test_add_value(self):
-#         """ Test if the value is added to the values collection """
-#         # Arrange:
-#         AlarmCollection.reset()
-#         timestamp = int(round(time.time() * 1000))
-#         value = IASValue(
-#             value="SOME_VALUE",
-#             mode=5,
-#             validity=1,
-#             core_timestamp=timestamp,
-#             core_id='dummy_value',
-#             running_id='dummy_value',
-#         )
-#         assert 'dummy_value' not in AlarmCollection.values_collection
-#
-#         # Act:
-#         AlarmCollection.add_value(value)
-#         new_value = AlarmCollection.values_collection['dummy_value']
-#
-#         # Assert:
-#         assert new_value == value, \
-#             'The value was not the expected'
-#
-#     @pytest.mark.django_db
-#     def test_get_value(self):
-#         """ Test if the AlarmCollection can get a value from the collection"""
-#         # Arrange:
-#         AlarmCollection.reset()
-#         timestamp = int(round(time.time() * 1000))
-#         value = IASValue(
-#             value="SOME_VALUE",
-#             mode=5,
-#             validity=1,
-#             core_timestamp=timestamp,
-#             core_id='dummy_value',
-#             running_id='dummy_value',
-#         )
-#         assert 'dummy_value' not in AlarmCollection.values_collection
-#         AlarmCollection.add_value(value)
-#
-#         # Act:
-#         new_value = AlarmCollection.get_value('dummy_value')
-#
-#         # Assert:
-#         assert new_value == value, \
-#             'The value was not the expected'
-#
-#     @pytest.mark.django_db
-#     def test_add_or_update_value(self):
-#         """ Test if the AlarmCollection can add or update a value """
-#         # Arrange:
-#         AlarmCollection.reset()
-#         timestamp = int(round(time.time() * 1000))
-#         value_1 = IASValue(
-#             value="SOME_VALUE",
-#             mode=5,
-#             validity=1,
-#             core_timestamp=timestamp,
-#             core_id='dummy_value',
-#             running_id='dummy_value',
-#         )
-#         value_2 = IASValue(
-#             value="SOME_VALUE_UPDATED",
-#             mode=5,
-#             validity=1,
-#             core_timestamp=timestamp+1,
-#             core_id='dummy_value',
-#             running_id='dummy_value',
-#         )
-#         assert 'dummy_value' not in AlarmCollection.values_collection
-#
-#         # Act:
-#         status = AlarmCollection.add_or_update_value(value_1)
-#         new_value = AlarmCollection.get_value('dummy_value')
-#
-#         # Assert:
-#         assert status == 'created-value'
-#         assert new_value == value_1, \
-#             'The value was not the expected'
-#
-#         # Act:
-#         status = AlarmCollection.add_or_update_value(value_2)
-#         new_value = AlarmCollection.get_value('dummy_value')
-#
-#         # Assert:
-#         assert status == 'updated-different'
-#         assert new_value.value == value_2.value, \
-#             'The value was not the expected'
-#         assert new_value.state_change_timestamp != 0, \
-#             'The state change timestamp was not updated'
 #
 #     @pytest.mark.django_db
 #     def test_initialize(self, mocker):
