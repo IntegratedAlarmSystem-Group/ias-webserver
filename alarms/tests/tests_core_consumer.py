@@ -81,7 +81,7 @@ class TestCoreConsumer:
         await communicator.send_json_to(msg)
         response = await communicator.receive_from()
         # Assert:
-        all_alarms_list = AlarmCollection.get_all_as_list()
+        all_alarms_list = [a.core_id for a in AlarmCollection.get_all_as_list()]
         new_alarms_count = len(all_alarms_list)
         assert response == 'Received 3 IASIOS', 'The alarms were not received'
         assert old_alarms_count + 3 == new_alarms_count, 'The Iasios shoul have been added to the AlarmCollection'
