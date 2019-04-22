@@ -448,7 +448,7 @@ class AlarmCollection:
 
         # Update already existing Alarm
         if stored_alarm:
-            (notify, tickets_to_create, tickets_to_clear) = self.update(stored_alarm, alarm)
+            (notify, tickets_to_create, tickets_to_clear) = self.update_alarm(stored_alarm, alarm)
         # Adding new Alarm
         else:
             notify = 'created'
@@ -546,7 +546,7 @@ class AlarmCollection:
         timestamp = (time.mktime(dt.timetuple()) + dt.microsecond / 1E6) * 1000
         core_timestamp = int(timestamp)
 
-        stored_value = self.get(core_id)
+        stored_value = self.get_value(core_id)
 
         if stored_value and core_timestamp <= stored_value.core_timestamp:
             logger.debug('Skipping old Value IASIO  %s, with timestamp %s', core_id, iasio['productionTStamp'])

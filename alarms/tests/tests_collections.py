@@ -8,125 +8,318 @@ from alarms.collections import AlarmCollection
 from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 
 
-# class TestAlarmsCollectionHandling:
-#     """ This class defines the test suite for the Alarms Collection general handling """
+class TestAlarmsCollectionHandling:
+    """ This class defines the test suite for the Alarms Collection general handling """
 
-#     @freeze_time("2012-01-14")
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_create_old_alarm(self):
-#         """ Test if an alarm never created before to the alarm collection is
-#         created even if it is old """
-#         # Arrange:
-#         AlarmCollection.reset()
-#         old_alarm = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=10000,
-#             core_id='OLD-ALARM',
-#             running_id='({}:IASIO)'.format('OLD-ALARM')
-#         )
-#         # Act:
-#         status = await AlarmCollection.add_or_update_and_notify(old_alarm)
-#         # Assert:
-#         assert status == 'created-alarm', 'The status must be created-alarm'
-#         assert 'OLD-ALARM' in AlarmCollection.get_all_as_dict(), \
-#             'New alarms should be created'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_update_alarm_and_ntify(self, mocker):
-#         """ Test if an alarm with a different relevant field
-#         (in this case validity) and a timestamp higher than before
-#         is updated correctly and notified to observers """
-#         # Arrange:
-#         mocker.spy(AlarmCollection, 'notify_observers')
-#         old_timestamp = int(round(time.time() * 1000))
-#         new_timestamp = old_timestamp + 10
-#         description = 'my-description'
-#         url = 'dummy-url'
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#         old_alarm = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=old_timestamp,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id),
-#             description=description,
-#             url=url
-#         )
-#         await AlarmCollection.add_or_update_and_notify(old_alarm)
-#         new_alarm = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=1,
-#             core_timestamp=new_timestamp,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         # Act:
-#         status = await AlarmCollection.add_or_update_and_notify(new_alarm)
-#         # Assert:
-#         assert status == 'updated-alarm', 'The status must be updated-alarm'
-#         alarm = AlarmCollection.get('MOCK-ALARM')
-#         assert alarm.core_timestamp == new_timestamp, \
-#             'A newer alarm than the stored alarm must be updated'
-#         assert alarm.description == description, \
-#             'The alarm description was not maintained'
-#         assert alarm.url == url, \
-#             'The alarm url was not maintained'
-#         assert AlarmCollection.notify_observers.call_count == 2, \
-#             'Observers should have been notified twice: create and update'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_update_alarm_no_notification(self, mocker):
-#         """ Test if an alarm with no different relevant fields and a timestamp
-#         higher than before is updated correctly but not notified """
-#         # Arrange:
-#         mocker.spy(AlarmCollection, 'notify_observers')
-#         old_timestamp = int(round(time.time() * 1000))
-#         new_timestamp = old_timestamp + 10
-#         description = 'my-description'
-#         url = 'dummy-url'
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#         old_alarm = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=1,
-#             core_timestamp=old_timestamp,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id),
-#             description=description,
-#             url=url
-#         )
-#         await AlarmCollection.add_or_update_and_notify(old_alarm)
-#         new_alarm = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=1,
-#             core_timestamp=new_timestamp,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         # Act:
-#         status = await AlarmCollection.add_or_update_and_notify(new_alarm)
-#         # Assert:
-#         assert status == 'updated-alarm', 'The status must be updated-alarm'
-#         alarm = AlarmCollection.get('MOCK-ALARM')
-#         assert alarm.core_timestamp == new_timestamp, \
-#             'A newer alarm than the stored alarm must be updated'
-#         assert alarm.description == description, \
-#             'The alarm description was not maintained'
-#         assert alarm.url == url, \
-#             'The alarm url was not maintained'
-#         assert AlarmCollection.notify_observers.call_count == 1, \
-#             'Observers should have been notified only once: create, not update'
-#
+    @freeze_time("2012-01-14")
+    @pytest.mark.django_db
+    def test_create_old_alarm(self):
+        """ Test if an new alarm is created and notified to observers even if it is old (UNRELIABLE) """
+        # Arrange:
+        AlarmCollection.reset()
+        formatted_current_time = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": formatted_current_time,
+            "sentToBsdbTStamp": formatted_current_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "UNRELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(OLD-ALARM:IASIO)",
+            "valueType": "ALARM"
+        }
+        # Act:
+        AlarmCollection.add_or_update_alarm(iasio)
+        # Assert:
+        assert 'OLD-ALARM' in AlarmCollection.get_all_as_dict(), 'New alarms should be created'
+        alarm = AlarmCollection.get('OLD-ALARM')
+        assert alarm.validity == Validity.UNRELIABLE.value, 'Alarm validity should be UNRELIABLE'
+        assert alarm.value == Value.SET_MEDIUM.value, 'Alarm value does not match Iasio value'
+        assert alarm.mode == OperationalMode.OPERATIONAL.value, 'Alarm mode does not match Iasio mode'
+        assert 'OLD-ALARM' in AlarmCollection.alarm_changes, 'New alarms should be notified'
+
+    @pytest.mark.django_db
+    def test_update_alarm(self):
+        """ Test if an alarm with a different relevant field (in this case validity) and a timestamp higher than before
+        is updated correctly and notified to observers """
+        # Arrange:
+        description = 'Mock Alarm Description'
+        url = 'www.alma.cl'
+        old_time = datetime.datetime.now()
+        new_time = old_time + datetime.timedelta(seconds=10)
+        iasio_old_time = old_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio_new_time = new_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        alarm_old_time = int((time.mktime(old_time.timetuple()) + old_time.microsecond / 1E6) * 1000)
+        alarm_new_time = int((time.mktime(new_time.timetuple()) + new_time.microsecond / 1E6) * 1000)
+        AlarmCollection.reset()
+        old_iasio = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_old_time,
+            "sentToBsdbTStamp": iasio_old_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "UNRELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM:IASIO)",
+            "valueType": "ALARM"
+        }
+        AlarmCollection.add_or_update_alarm(old_iasio)
+        alarm = AlarmCollection.get('MOCK-ALARM')
+        alarm.description = description
+        alarm.url = url
+        AlarmCollection.alarm_changes = []
+        new_iasio = {
+            "value": "SET_HIGH",
+            "productionTStamp": iasio_new_time,
+            "sentToBsdbTStamp": iasio_new_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "UNRELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM:IASIO)",
+            "valueType": "ALARM"
+        }
+        # Act:
+        AlarmCollection.add_or_update_alarm(new_iasio)
+        # Assert:
+        alarm = AlarmCollection.get('MOCK-ALARM')
+        assert alarm.core_timestamp != alarm_old_time, 'A newer alarm than the stored alarm must be updated'
+        assert alarm.core_timestamp == alarm_new_time, 'A newer alarm than the stored alarm must be updated'
+        assert alarm.validity == Validity.UNRELIABLE.value, 'Alarm validity should be UNRELIABLE'
+        assert alarm.value == Value.SET_HIGH.value, 'Alarm value does not match the new Iasio value'
+        assert alarm.mode == OperationalMode.OPERATIONAL.value, 'Alarm mode does not match the Iasio mode'
+        assert alarm.description == description, 'The alarm description was not maintained'
+        assert alarm.url == url, 'The alarm url was not maintained'
+        assert 'MOCK-ALARM' in AlarmCollection.alarm_changes, 'New alarms should be notified'
+
+    @pytest.mark.django_db
+    def test_update_alarm_no_notification(self, mocker):
+        """ Test if an alarm with no different relevant fields and a timestamp
+        higher than before is updated correctly but not notified """
+        # Arrange:
+        description = 'Mock Alarm Description'
+        url = 'www.alma.cl'
+        old_time = datetime.datetime.now()
+        new_time = old_time + datetime.timedelta(seconds=10)
+        iasio_old_time = old_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio_new_time = new_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        alarm_old_time = int((time.mktime(old_time.timetuple()) + old_time.microsecond / 1E6) * 1000)
+        alarm_new_time = int((time.mktime(new_time.timetuple()) + new_time.microsecond / 1E6) * 1000)
+        AlarmCollection.reset()
+        old_iasio = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_old_time,
+            "sentToBsdbTStamp": iasio_old_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "UNRELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM:IASIO)",
+            "valueType": "ALARM"
+        }
+        AlarmCollection.add_or_update_alarm(old_iasio)
+        alarm = AlarmCollection.get('MOCK-ALARM')
+        alarm.description = description
+        alarm.url = url
+        AlarmCollection.alarm_changes = []
+        new_iasio = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_new_time,
+            "sentToBsdbTStamp": iasio_new_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "UNRELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM:IASIO)",
+            "valueType": "ALARM"
+        }
+        # Act:
+        AlarmCollection.add_or_update_alarm(new_iasio)
+        # Assert:
+        alarm = AlarmCollection.get('MOCK-ALARM')
+        assert alarm.core_timestamp != alarm_old_time, 'A newer alarm than the stored alarm must be updated'
+        assert alarm.core_timestamp == alarm_new_time, 'A newer alarm than the stored alarm must be updated'
+        assert alarm.validity == Validity.UNRELIABLE.value, 'Alarm validity should be UNRELIABLE'
+        assert alarm.value == Value.SET_MEDIUM.value, 'Alarm value does not match the new Iasio value'
+        assert alarm.mode == OperationalMode.OPERATIONAL.value, 'Alarm mode does not match the Iasio mode'
+        assert alarm.description == description, 'The alarm description was not maintained'
+        assert alarm.url == url, 'The alarm url was not maintained'
+        assert 'MOCK-ALARM' not in AlarmCollection.alarm_changes, 'New alarms with no change should not be notified'
+
+    @pytest.mark.django_db
+    def test_ignore_update_for_older_alarm(self, mocker):
+        """ Test if an alarm with an older timestamp is ignored (not updated and not notified) """
+        # Arrange:
+        description = 'Mock Alarm Description'
+        url = 'www.alma.cl'
+        old_time = datetime.datetime.now()
+        new_time = old_time - datetime.timedelta(milliseconds=1)
+        iasio_old_time = old_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio_new_time = new_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        alarm_old_time = int((time.mktime(old_time.timetuple()) + old_time.microsecond / 1E6) * 1000)
+        alarm_new_time = int((time.mktime(new_time.timetuple()) + new_time.microsecond / 1E6) * 1000)
+        AlarmCollection.reset()
+        old_iasio = {
+            "value": "SET_MEDIUM",
+            "productionTStamp": iasio_old_time,
+            "sentToBsdbTStamp": iasio_old_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "UNRELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM:IASIO)",
+            "valueType": "ALARM"
+        }
+        AlarmCollection.add_or_update_alarm(old_iasio)
+        alarm = AlarmCollection.get('MOCK-ALARM')
+        alarm.description = description
+        alarm.url = url
+        AlarmCollection.alarm_changes = []
+        new_iasio = {
+            "value": "SET_HIGH",
+            "productionTStamp": iasio_new_time,
+            "sentToBsdbTStamp": iasio_new_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "UNRELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM:IASIO)",
+            "valueType": "ALARM"
+        }
+        # Act:
+        AlarmCollection.add_or_update_alarm(new_iasio)
+        # Assert:
+        alarm = AlarmCollection.get('MOCK-ALARM')
+        assert alarm.core_timestamp == alarm_old_time, 'A newer alarm than the stored alarm must be updated'
+        assert alarm.core_timestamp > alarm_new_time, 'A newer alarm than the stored alarm must be updated'
+        assert alarm.validity == Validity.UNRELIABLE.value, 'Alarm validity should be UNRELIABLE'
+        assert alarm.value == Value.SET_MEDIUM.value, 'Alarm value does not match the new Iasio value'
+        assert alarm.mode == OperationalMode.OPERATIONAL.value, 'Alarm mode does not match the Iasio mode'
+        assert alarm.description == description, 'The alarm description was not maintained'
+        assert alarm.url == url, 'The alarm url was not maintained'
+        assert 'MOCK-ALARM' not in AlarmCollection.alarm_changes, 'New alarms with no change should not be notified'
+
+    @pytest.mark.django_db
+    def test_recalculation_alarms_validity(self):
+        """ Test if the alarms in the AlarmCollection are revalidated """
+        # Arrange:
+        # Prepare the AlarmCollection with valid alarms and current timestamp
+        AlarmCollection.reset([])
+        iasio_time = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasios = [
+            {
+                "value": "SET_MEDIUM",
+                "productionTStamp": iasio_time,
+                "sentToBsdbTStamp": iasio_time,
+                "mode": "OPERATIONAL",   # 5: OPERATIONAL
+                "iasValidity": "RELIABLE",
+                "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM1:IASIO)",
+                "valueType": "ALARM"
+            },
+            {
+                "value": "SET_MEDIUM",
+                "productionTStamp": iasio_time,
+                "sentToBsdbTStamp": iasio_time,
+                "mode": "OPERATIONAL",   # 5: OPERATIONAL
+                "iasValidity": "RELIABLE",
+                "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM2:IASIO)",
+                "valueType": "ALARM"
+            },
+            {
+                "value": "SET_MEDIUM",
+                "productionTStamp": iasio_time,
+                "sentToBsdbTStamp": iasio_time,
+                "mode": "OPERATIONAL",   # 5: OPERATIONAL
+                "iasValidity": "RELIABLE",
+                "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-ALARM3:IASIO)",
+                "valueType": "ALARM"
+            },
+        ]
+
+        for iasio in iasios:
+            AlarmCollection.add_or_update_alarm(iasio)
+        initial_alarm_list = [a.to_dict() for a in AlarmCollection.get_all_as_list()]
+        for alarm in AlarmCollection.get_all_as_list():
+            assert alarm.validity == 1, 'The alarm {} should be RELIABLE'.format(alarm.core_id)
+        # Act:
+        # Recalculate the AlarmCollection validation after 11 seconds
+        max_interval = CdbConnector.validity_threshold + 1
+        max_timedelta = datetime.timedelta(milliseconds=max_interval)
+        initial_time = datetime.datetime.now() + max_timedelta
+        with freeze_time(initial_time):
+            AlarmCollection.update_all_alarms_validity()
+        final_alarm_list = [a.to_dict() for a in AlarmCollection.get_all_as_list()]
+        # Assert:
+        assert final_alarm_list != initial_alarm_list, \
+            'The alarms in the AlarmCollection are not invalidated as expected'
+        for alarm in AlarmCollection.get_all_as_list():
+            assert alarm.validity == 0, 'The alarm {} was not correctly invalidated'.format(alarm.core_id)
+
+    def test_create_and_update_value_to_collection(self):
+        """ Test if the other types of values are added successfully to values_collection """
+        # CREATE
+        # Arrange:
+        AlarmCollection.reset([])
+        old_time = datetime.datetime.now()
+        new_time = old_time + datetime.timedelta(seconds=1)
+        iasio_old_time = old_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio_new_time = new_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        value_old_time = int((time.mktime(old_time.timetuple()) + old_time.microsecond / 1E6) * 1000)
+        value_new_time = int((time.mktime(new_time.timetuple()) + new_time.microsecond / 1E6) * 1000)
+        iasio = {
+            "value": "SOME_TEST_VALUE",
+            "productionTStamp": iasio_old_time,
+            "sentToBsdbTStamp": iasio_old_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-VALUE:IASIO)",
+            "valueType": "STRING"
+        }
+        value = AlarmCollection.get_value('MOCK-VALUE')
+        assert value is None, 'The value must not be in the collection at the beginning'
+        # Act:
+        AlarmCollection.add_or_update_value(iasio)
+        # Assert:
+        value = AlarmCollection.get_value('MOCK-VALUE')
+        assert value is not None, 'The value must be in the collection'
+        assert value.core_timestamp == value_old_time, 'The value must have the iasios timestamp'
+        assert value.core_id == 'MOCK-VALUE', 'The value must be in the collection'
+        assert value.value == 'SOME_TEST_VALUE', 'The value does not match the expected value'
+        assert value.mode == OperationalMode.OPERATIONAL.value, 'Value mode does not match the Iasio mode'
+        assert value.validity == Validity.RELIABLE.value, 'Value validity does not match the Iasio mode'
+
+        # UPDATE
+        # Arrange:
+        iasio = {
+            "value": "SOME_OTHER_TEST_VALUE",
+            "productionTStamp": iasio_new_time,
+            "sentToBsdbTStamp": iasio_new_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-VALUE:IASIO)",
+            "valueType": "STRING"
+        }
+        # Act:
+        AlarmCollection.add_or_update_value(iasio)
+        # Assert:
+        value = AlarmCollection.get_value('MOCK-VALUE')
+        assert value is not None, 'The value must be in the collection'
+        assert value.core_timestamp == value_new_time, 'The value timestamp should be updated'
+        assert value.core_id == 'MOCK-VALUE', 'The value must be in the collection'
+        assert value.value == 'SOME_OTHER_TEST_VALUE', 'The value does not match the expected value'
+        assert value.mode == OperationalMode.OPERATIONAL.value, 'Value mode does not match the Iasio mode'
+        assert value.validity == Validity.RELIABLE.value, 'Value validity does not match the Iasio mode'
+
+        # SKIP UPDATE
+        # Arrange:
+        # iasio_time_3 = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+        iasio = {
+            "value": "YET_ANOTHER_TEST_VALUE",
+            "productionTStamp": iasio_old_time,
+            "sentToBsdbTStamp": iasio_old_time,
+            "mode": "OPERATIONAL",   # 5: OPERATIONAL
+            "iasValidity": "RELIABLE",
+            "fullRunningId": "(Converter-ID:CONVERTER)@(MOCK-VALUE:IASIO)",
+            "valueType": "STRING"
+        }
+        # Act:
+        AlarmCollection.add_or_update_value(iasio)
+        # Assert:
+        value = AlarmCollection.get_value('MOCK-VALUE')
+        assert value is not None, 'The value must be in the collection'
+        assert value.core_timestamp == value_new_time, 'The value must not have been updated again'
+        assert value.core_id == 'MOCK-VALUE', 'The value must be in the collection'
+        assert value.value == 'SOME_OTHER_TEST_VALUE', 'The value does not match the expected value'
+        assert value.mode == OperationalMode.OPERATIONAL.value, 'Value mode does not match the Iasio mode'
+        assert value.validity == Validity.RELIABLE.value, 'Value validity does not match the Iasio mode'
+
 #     @pytest.mark.asyncio
 #     @pytest.mark.django_db
 #     async def test_record_parent_reference(self):
@@ -143,7 +336,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             running_id='({}:IASIO)'.format('child_id'),
 #             dependencies=[]
 #         )
-#         await AlarmCollection.add_or_update_and_notify(child)
+#         await AlarmCollection.add_or_update_alarm(child)
 #         alarm = Alarm(
 #             value=1,
 #             mode=7,
@@ -154,7 +347,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             dependencies=['child_id']
 #         )
 #         # Act:
-#         status = await AlarmCollection.add_or_update_and_notify(alarm)
+#         status = await AlarmCollection.add_or_update_alarm(alarm)
 #         # Assert:
 #         assert status == 'created-alarm', 'The status must be created-alarm'
 #         assert 'core_id' in AlarmCollection.get_all_as_dict(), \
@@ -181,7 +374,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             running_id='({}:IASIO)'.format('child_id'),
 #             dependencies=[]
 #         )
-#         await AlarmCollection.add_or_update_and_notify(child)
+#         await AlarmCollection.add_or_update_alarm(child)
 #         alarm_1 = Alarm(
 #             value=1,
 #             mode=7,
@@ -201,8 +394,8 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             dependencies=['child_id']
 #         )
 #         # Act:
-#         status_1 = await AlarmCollection.add_or_update_and_notify(alarm_1)
-#         status_2 = await AlarmCollection.add_or_update_and_notify(alarm_2)
+#         status_1 = await AlarmCollection.add_or_update_alarm(alarm_1)
+#         status_2 = await AlarmCollection.add_or_update_alarm(alarm_2)
 #         # Assert:
 #         assert status_1 == 'created-alarm' and status_2 == 'created-alarm', \
 #             'The status of both must be created-alarm'
@@ -279,11 +472,11 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             dependencies=[core_id_4],
 #             ack=False
 #         )
-#         await AlarmCollection.add_or_update_and_notify(alarm_1)
-#         await AlarmCollection.add_or_update_and_notify(alarm_2)
-#         await AlarmCollection.add_or_update_and_notify(alarm_3)
-#         await AlarmCollection.add_or_update_and_notify(alarm_4)
-#         await AlarmCollection.add_or_update_and_notify(alarm_5)
+#         await AlarmCollection.add_or_update_alarm(alarm_1)
+#         await AlarmCollection.add_or_update_alarm(alarm_2)
+#         await AlarmCollection.add_or_update_alarm(alarm_3)
+#         await AlarmCollection.add_or_update_alarm(alarm_4)
+#         await AlarmCollection.add_or_update_alarm(alarm_5)
 #         # Act:
 #         dependencies = AlarmCollection.get_dependencies_recursively(core_id_5)
 #         # Assert:
@@ -315,7 +508,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             running_id='({}:IASIO)'.format('child_id'),
 #             dependencies=[]
 #         )
-#         await AlarmCollection.add_or_update_and_notify(child)
+#         await AlarmCollection.add_or_update_alarm(child)
 #         alarm_1 = Alarm(
 #             value=1,
 #             mode=7,
@@ -334,8 +527,8 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             running_id='({}:IASIO)'.format('core_id_2'),
 #             dependencies=['child_id']
 #         )
-#         await AlarmCollection.add_or_update_and_notify(alarm_1)
-#         await AlarmCollection.add_or_update_and_notify(alarm_2)
+#         await AlarmCollection.add_or_update_alarm(alarm_1)
+#         await AlarmCollection.add_or_update_alarm(alarm_2)
 #         alarm_3 = Alarm(
 #             value=1,
 #             mode=7,
@@ -345,7 +538,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             running_id='({}:IASIO)'.format('core_id_3'),
 #             dependencies=['core_id_1']
 #         )
-#         await AlarmCollection.add_or_update_and_notify(alarm_3)
+#         await AlarmCollection.add_or_update_alarm(alarm_3)
 #
 #         # Act:
 #         ancestors = AlarmCollection.get_ancestors_recursively('child_id')
@@ -361,108 +554,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #         assert ancestors == expected_list_of_ancestors, \
 #             'The method is not returning the list of ancestors correctly'
 #
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_ignore_old_alarm(self):
-#         """ Test if an alarm older than a stored alarm with the same core_id
-#         is ignored """
-#         # Arrange:
-#         old_timestamp = int(round(time.time() * 1000))
-#         new_timestamp = old_timestamp - 10
-#         AlarmCollection.reset()
-#         core_id = 'MOCK-ALARM'
-#         old_alarm = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=old_timestamp,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         await AlarmCollection.add_or_update_and_notify(old_alarm)
-#         new_alarm = Alarm(
-#             value=1,
-#             mode=7,
-#             validity=0,
-#             core_timestamp=new_timestamp,
-#             core_id=core_id,
-#             running_id='({}:IASIO)'.format(core_id)
-#         )
-#         # Act:
-#         status = await AlarmCollection.add_or_update_and_notify(new_alarm)
-#         # Assert:
-#         assert status == 'ignored-old-alarm', \
-#             'The status must be ignored-old-alarm'
-#
-#         timestamp = \
-#             AlarmCollection.get('MOCK-ALARM').core_timestamp
-#
-#         assert timestamp == old_timestamp, \
-#             'An older alarm than the stored must not be updated'
-#
-#     @pytest.mark.asyncio
-#     @pytest.mark.django_db
-#     async def test_recalculation_alarms_validity(self):
-#         """ Test if the alarms in the AlarmCollection are revalidated """
-#         # Arrange:
-#         # Prepare the AlarmCollection with valid alarms and current timestamp
-#         AlarmCollection.reset()
-#         alarm_keys = ['AlarmType-ID', 'AlarmType-ID1', 'AlarmType-ID2']
-#         for core_id in alarm_keys:
-#             alarm = AlarmFactory.get_valid_alarm(core_id=core_id)
-#             await AlarmCollection.add_or_update_and_notify(alarm)
-#         initial_alarm_list = [
-#             a.to_dict() for a in AlarmCollection.get_all_as_list()
-#         ]
-#         # Act:
-#         # Recalculate the AlarmCollection validation after 11 seconds
-#         max_interval = CdbConnector.validity_threshold + 1
-#         max_timedelta = datetime.timedelta(milliseconds=max_interval)
-#         initial_time = datetime.datetime.now() + max_timedelta
-#         with freeze_time(initial_time):
-#             AlarmCollection.update_all_alarms_validity()
-#         final_alarm_list = [
-#             a.to_dict() for a in AlarmCollection.get_all_as_list()
-#         ]
-#         # Assert:
-#         assert final_alarm_list != initial_alarm_list, \
-#             'The alarms in the AlarmCollection are not invalidated as expected'
-#
-#         for alarm in AlarmCollection.get_all_as_list():
-#             assert alarm.validity == 0, \
-#                 'The alarm {} was not correctly invalidated'.format(
-#                     alarm.core_id)
-#
-#     def test_add_value_to_collection(self):
-#         """ Test if the other types of values are added successfully
-#         to values_collection """
-#         # Arrange:
-#         current_time = int(round(time.time() * 1000))
-#         ias_value = IASValue(
-#             value="SOME TEST VALUE",
-#             mode=5,
-#             validity=1,
-#             core_timestamp=current_time,
-#             core_id="TEST-CORE-ID",
-#             running_id="FULL-TEST-CORE-ID",
-#             timestamps={
-#                 'productionTStamp': current_time,
-#                 'sentToConverterTStamp': current_time,
-#                 'receivedFromPluginTStamp': current_time,
-#                 'convertedProductionTStamp': current_time,
-#                 'sentToBsdbTStamp': current_time,
-#                 'readFromBsdbTStamp': current_time
-#             }
-#         )
-#         value = AlarmCollection.get_value('TEST-CORE-ID')
-#         assert value is None, \
-#             'The value must not be in the collection at the beginning'
-#
-#         # Act:
-#         AlarmCollection.add_value(ias_value)
-#         value = AlarmCollection.get_value('TEST-CORE-ID')
-#         assert value == ias_value, \
-#             'The value must be in the collection'
+
 #
 #
 # class TestAlarmsCollectionAcknowledge:
@@ -491,7 +583,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             core_id=core_id,
 #             running_id='({}:IASIO)'.format(core_id)
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'created-alarm', 'The status must be created-alarm'
 #         assert retrieved_alarm.ack is True, \
@@ -509,7 +601,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             core_id=core_id,
 #             running_id='({}:IASIO)'.format(core_id)
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_2)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_2)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'updated-alarm', 'The status must be updated-alarm'
 #         assert retrieved_alarm.ack is False, \
@@ -535,7 +627,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             core_id=core_id,
 #             running_id='({}:IASIO)'.format(core_id)
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_4)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_4)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'updated-alarm', 'The status must be updated-alarm'
 #         assert retrieved_alarm.ack is True, \
@@ -553,7 +645,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             core_id=core_id,
 #             running_id='({}:IASIO)'.format(core_id)
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_5)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_5)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'updated-alarm', 'The status must be updated-alarm'
 #         assert retrieved_alarm.ack is True, \
@@ -602,9 +694,9 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             core_id_2,
 #             core_id_3,
 #         ]
-#         await AlarmCollection.add_or_update_and_notify(alarm_1)
-#         await AlarmCollection.add_or_update_and_notify(alarm_2)
-#         await AlarmCollection.add_or_update_and_notify(alarm_3)
+#         await AlarmCollection.add_or_update_alarm(alarm_1)
+#         await AlarmCollection.add_or_update_alarm(alarm_2)
+#         await AlarmCollection.add_or_update_alarm(alarm_3)
 #         # Act:
 #         ack_alarms_ids = await AlarmCollection.acknowledge(core_ids)
 #         # Assert:
@@ -688,11 +780,11 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             dependencies=[core_id_4],
 #             ack=False
 #         )
-#         await AlarmCollection.add_or_update_and_notify(alarm_1)
-#         await AlarmCollection.add_or_update_and_notify(alarm_2)
-#         await AlarmCollection.add_or_update_and_notify(alarm_3)
-#         await AlarmCollection.add_or_update_and_notify(alarm_4)
-#         await AlarmCollection.add_or_update_and_notify(alarm_5)
+#         await AlarmCollection.add_or_update_alarm(alarm_1)
+#         await AlarmCollection.add_or_update_alarm(alarm_2)
+#         await AlarmCollection.add_or_update_alarm(alarm_3)
+#         await AlarmCollection.add_or_update_alarm(alarm_4)
+#         await AlarmCollection.add_or_update_alarm(alarm_5)
 #         # Act 1: Acknowledge the first leaf
 #         ack_alarms_ids = await AlarmCollection.acknowledge([core_id_1])
 #         # Assert
@@ -789,11 +881,11 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             dependencies=[core_id_4],
 #             ack=False
 #         )
-#         await AlarmCollection.add_or_update_and_notify(alarm_1)
-#         await AlarmCollection.add_or_update_and_notify(alarm_2)
-#         await AlarmCollection.add_or_update_and_notify(alarm_3)
-#         await AlarmCollection.add_or_update_and_notify(alarm_4)
-#         await AlarmCollection.add_or_update_and_notify(alarm_5)
+#         await AlarmCollection.add_or_update_alarm(alarm_1)
+#         await AlarmCollection.add_or_update_alarm(alarm_2)
+#         await AlarmCollection.add_or_update_alarm(alarm_3)
+#         await AlarmCollection.add_or_update_alarm(alarm_4)
+#         await AlarmCollection.add_or_update_alarm(alarm_5)
 #         # Act 1: Acknowledge the first leaf alarm_1
 #         ack_alarms_ids = await AlarmCollection.acknowledge([core_id_1])
 #         # Assert
@@ -820,7 +912,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             core_id=core_id_2,
 #             running_id='({}:IASIO)'.format(core_id_2)
 #         )
-#         await AlarmCollection.add_or_update_and_notify(new_alarm_2)
+#         await AlarmCollection.add_or_update_alarm(new_alarm_2)
 #         # Assert
 #         retrieved_alarm_1 = AlarmCollection.get(core_id_1)
 #         retrieved_alarm_2 = AlarmCollection.get(core_id_2)
@@ -880,7 +972,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             core_id=core_id,
 #             running_id='({}:IASIO)'.format(core_id)
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'created-alarm', 'The status must be created-alarm'
 #         assert retrieved_alarm.ack is False, \
@@ -897,7 +989,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             core_id=core_id,
 #             running_id='({}:IASIO)'.format(core_id)
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'updated-alarm', 'The status must be updated-alarm'
 #         assert retrieved_alarm.ack is False, \
@@ -927,7 +1019,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             running_id='({}:IASIO)'.format(core_id),
 #             can_shelve=True
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'created-alarm', 'The status must be created-alarm'
 #         assert retrieved_alarm.shelved is False, \
@@ -964,7 +1056,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             running_id='({}:IASIO)'.format(core_id),
 #             can_shelve=False
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'created-alarm', 'The status must be created-alarm'
 #         assert retrieved_alarm.shelved is False, \
@@ -994,7 +1086,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             running_id='({}:IASIO)'.format(core_id),
 #             can_shelve=True
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'created-alarm', 'The status must be created-alarm'
 #         assert retrieved_alarm.shelved is False, \
@@ -1035,7 +1127,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             running_id='({}:IASIO)'.format(core_id),
 #             can_shelve=True
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_1)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_1)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'created-alarm', 'The status must be created-alarm'
 #         assert retrieved_alarm.ack is True, \
@@ -1059,7 +1151,7 @@ from alarms.connectors import CdbConnector, TicketConnector, PanelsConnector
 #             core_id=core_id,
 #             running_id='({}:IASIO)'.format(core_id),
 #         )
-#         status = await AlarmCollection.add_or_update_and_notify(alarm_2)
+#         status = await AlarmCollection.add_or_update_alarm(alarm_2)
 #         retrieved_alarm = AlarmCollection.get(core_id)
 #         assert status == 'updated-alarm', 'The status must be updated-alarm'
 #         assert retrieved_alarm.ack is True, \
