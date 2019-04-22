@@ -474,6 +474,83 @@ class TestAlarmsCollectionHandling:
         assert ancestors == expected_list_of_ancestors, \
             'The method is not returning the list of ancestors correctly'
 
+    @pytest.mark.django_db
+    def test_initialize(self, mocker):
+        """ Test the AlarmCollection initialization """
+        # Arrange:
+        mock_ids = [
+            'mock_alarm_1',
+            'mock_alarm_3',
+            'mock_alarm_4',
+        ]
+        mock_iasios = [
+            {
+                "id": "mock_alarm_0",
+                "shortDesc": "Dummy Iasio of type ALARM 0",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma0.cl"
+            },
+            {
+                "id": "mock_alarm_1",
+                "shortDesc": "Dummy Iasio of type ALARM 1",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma1.cl"
+            },
+            {
+                "id": "mock_alarm_2",
+                "shortDesc": "Dummy Iasio of type ALARM 2",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma2.cl"
+            },
+            {
+                "id": "mock_alarm_3",
+                "shortDesc": "Dummy Iasio of type ALARM 3",
+                "iasType": "ALARM",
+                "docUrl": "http://www.alma3.cl"
+            },
+        ]
+        expected_alarm_ids = sorted([
+            'mock_alarm_0',
+            'mock_alarm_1',
+            'mock_alarm_2',
+            'mock_alarm_3',
+            'mock_alarm_4',
+        ])
+        expected_alarm_descriptions = sorted([
+            mock_iasios[0]['shortDesc'],
+            mock_iasios[1]['shortDesc'],
+            mock_iasios[2]['shortDesc'],
+            mock_iasios[3]['shortDesc'],
+            '',
+        ])
+        expected_alarm_urls = sorted([
+            mock_iasios[0]['docUrl'],
+            mock_iasios[1]['docUrl'],
+            mock_iasios[2]['docUrl'],
+            mock_iasios[3]['docUrl'],
+            '',
+        ])
+        PanelsConnector_get_alarm_ids_of_alarm_configs = \
+            mocker.patch.object(
+                PanelsConnector, 'get_alarm_ids_of_alarm_configs'
+            )
+
+        CdbConnector_get_iasios = mocker.patch.object(
+            CdbConnector, 'get_iasios'
+        )
+        PanelsConnector_get_alarm_ids_of_alarm_configs.return_value = mock_ids
+        CdbConnector_get_iasios.return_value = mock_iasios
+        # Act:
+        AlarmCollection.reset()
+        # Assert:
+        alarms = AlarmCollection.get_all_as_list()
+        retrieved_alarms_ids = sorted([a.core_id for a in alarms])
+        retrieved_alarms_descriptions = sorted([a.description for a in alarms])
+        retrieved_alarms_urls = sorted([a.url for a in alarms])
+        assert retrieved_alarms_ids == expected_alarm_ids
+        assert retrieved_alarms_descriptions == expected_alarm_descriptions
+        assert retrieved_alarms_urls == expected_alarm_urls
+
 
 class TestAlarmsCollectionAcknowledge:
     """ This class defines the test suite for the Alarms Collection acknowledge and ticket handling """
@@ -1039,80 +1116,3 @@ class TestAlarmsCollectionShelve:
         assert retrieved_alarm.ack is True, 'When a shelved Alarm changes to SET, its ack should not change'
         assert tickets_to_create == [], \
             'When a shelved Alarm changes to SET, a new ticket should not be created'
-#
-#     @pytest.mark.django_db
-#     def test_initialize(self, mocker):
-#         """ Test the AlarmCollection initialization """
-#         # Arrange:
-#         mock_ids = [
-#             'mock_alarm_1',
-#             'mock_alarm_3',
-#             'mock_alarm_4',
-#         ]
-#         mock_iasios = [
-#             {
-#                 "id": "mock_alarm_0",
-#                 "shortDesc": "Dummy Iasio of type ALARM 0",
-#                 "iasType": "ALARM",
-#                 "docUrl": "http://www.alma0.cl"
-#             },
-#             {
-#                 "id": "mock_alarm_1",
-#                 "shortDesc": "Dummy Iasio of type ALARM 1",
-#                 "iasType": "ALARM",
-#                 "docUrl": "http://www.alma1.cl"
-#             },
-#             {
-#                 "id": "mock_alarm_2",
-#                 "shortDesc": "Dummy Iasio of type ALARM 2",
-#                 "iasType": "ALARM",
-#                 "docUrl": "http://www.alma2.cl"
-#             },
-#             {
-#                 "id": "mock_alarm_3",
-#                 "shortDesc": "Dummy Iasio of type ALARM 3",
-#                 "iasType": "ALARM",
-#                 "docUrl": "http://www.alma3.cl"
-#             },
-#         ]
-#         expected_alarm_ids = sorted([
-#             'mock_alarm_0',
-#             'mock_alarm_1',
-#             'mock_alarm_2',
-#             'mock_alarm_3',
-#             'mock_alarm_4',
-#         ])
-#         expected_alarm_descriptions = sorted([
-#             mock_iasios[0]['shortDesc'],
-#             mock_iasios[1]['shortDesc'],
-#             mock_iasios[2]['shortDesc'],
-#             mock_iasios[3]['shortDesc'],
-#             '',
-#         ])
-#         expected_alarm_urls = sorted([
-#             mock_iasios[0]['docUrl'],
-#             mock_iasios[1]['docUrl'],
-#             mock_iasios[2]['docUrl'],
-#             mock_iasios[3]['docUrl'],
-#             '',
-#         ])
-#         PanelsConnector_get_alarm_ids_of_alarm_configs = \
-#             mocker.patch.object(
-#                 PanelsConnector, 'get_alarm_ids_of_alarm_configs'
-#             )
-#
-#         CdbConnector_get_iasios = mocker.patch.object(
-#             CdbConnector, 'get_iasios'
-#         )
-#         PanelsConnector_get_alarm_ids_of_alarm_configs.return_value = mock_ids
-#         CdbConnector_get_iasios.return_value = mock_iasios
-#         # Act:
-#         AlarmCollection.reset()
-#         # Assert:
-#         alarms = AlarmCollection.get_all_as_list()
-#         retrieved_alarms_ids = sorted([a.core_id for a in alarms])
-#         retrieved_alarms_descriptions = sorted([a.description for a in alarms])
-#         retrieved_alarms_urls = sorted([a.url for a in alarms])
-#         assert retrieved_alarms_ids == expected_alarm_ids
-#         assert retrieved_alarms_descriptions == expected_alarm_descriptions
-#         assert retrieved_alarms_urls == expected_alarm_urls
