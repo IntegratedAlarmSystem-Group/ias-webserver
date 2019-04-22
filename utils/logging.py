@@ -3,9 +3,13 @@ import datetime as dt
 
 
 class iasFormatter(logging.Formatter):
+    """ Formatter for the logs """
+
     converter = dt.datetime.fromtimestamp
 
     def formatTime(self, record, datefmt=None):
+        """ Formats the time objects """
+
         ct = self.converter(record.created)
         if datefmt:
             s = ct.strftime(datefmt)

@@ -4,7 +4,6 @@ from freezegun import freeze_time
 from channels.testing import WebsocketCommunicator
 from alarms.tests.factories import AlarmFactory
 from alarms.collections import AlarmCollection
-from alarms.consumers import ClientConsumer
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
@@ -58,7 +57,7 @@ class TestRequestsToClientConsumer:
         alarms = AlarmCollection.get_all_as_dict()
         for core_id, alarm in alarms.items():
             expected_alarms_list.append(alarm.to_dict())  # expected
-        alarms_list = response['payload']['data']
+        alarms_list = response['payload']['alarms']
         sorted_alarms_list = sorted(alarms_list,
                                     key=lambda k: k['core_id'])
         sorted_expected_alarms_list = sorted(expected_alarms_list,
@@ -73,8 +72,8 @@ class TestRequestsToClientConsumer:
     async def test_alarms_list_validity(self):
         """Test if clients receive a list of alarms with updated validity"""
         AlarmCollection.reset([])
-        user = User.objects.create_user(
-            'username', password='123', email='user@user.cl')
+        print('AlarmCollection.singleton_collection:', AlarmCollection.singleton_collection)
+        user = User.objects.create_user('username', password='123', email='user@user.cl')
         token = Token.objects.get(user__username=user.username)
         query_string = 'token={}'.format(token)
         # Connect:
@@ -107,11 +106,9 @@ class TestRequestsToClientConsumer:
             await communicator.send_json_to(msg)
             response = await communicator.receive_json_from()
             # Assert:
-            alarms_list = response['payload']['data']
-            sorted_alarms_list = sorted(alarms_list,
-                                        key=lambda k: k['core_id'])
-            sorted_expected_alarms_list = sorted(expected_alarms_list,
-                                                 key=lambda k: k['core_id'])
+            alarms_list = response['payload']['alarms']
+            sorted_alarms_list = sorted(alarms_list, key=lambda k: k['core_id'])
+            sorted_expected_alarms_list = sorted(expected_alarms_list, key=lambda k: k['core_id'])
             assert sorted_alarms_list == sorted_expected_alarms_list, \
                 'The alarms were not invalidated as expected after 10 seconds'
         # Close:

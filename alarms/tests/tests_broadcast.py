@@ -33,8 +33,7 @@ class TestPeriodicBroadcastCase:
         """ Test that the periodic request is sent
         and Alarms are invalidated after timeout """
         AlarmCollection.reset([])
-        user = User.objects.create_user(
-            'username', password='123', email='user@user.cl')
+        user = User.objects.create_user('username', password='123', email='user@user.cl')
         token = Token.objects.get(user__username=user.username)
         query_string = 'token={}'.format(token)
         # Connect:
@@ -42,12 +41,10 @@ class TestPeriodicBroadcastCase:
         connected, subprotocol = await communicator.connect()
         assert connected, 'The communicator was not connected'
 
-        observer = User.objects.create_user(
-            'observer', password='123', email='user2@user.cl')
+        observer = User.objects.create_user('observer', password='123', email='user2@user.cl')
         token = Token.objects.get(user__username=observer.username)
         query_string = 'token={}'.format(token)
-        communicator_observer = self.create_communicator(
-            query_string=query_string)
+        communicator_observer = self.create_communicator(query_string=query_string)
         connected_obs, subprotocol_obs = await communicator_observer.connect()
         assert connected_obs, 'The communicator was not connected'
 
@@ -79,11 +76,9 @@ class TestPeriodicBroadcastCase:
             response_observer = await communicator_observer.receive_json_from()
 
             # Assert:
-            alarms_list = response_observer['payload']['data']
-            sorted_alarms_list = sorted(alarms_list,
-                                        key=lambda k: k['core_id'])
-            sorted_expected_alarms_list = sorted(expected_alarms_list,
-                                                 key=lambda k: k['core_id'])
+            alarms_list = response_observer['payload']['alarms']
+            sorted_alarms_list = sorted(alarms_list, key=lambda k: k['core_id'])
+            sorted_expected_alarms_list = sorted(expected_alarms_list, key=lambda k: k['core_id'])
             assert sorted_alarms_list == sorted_expected_alarms_list, \
                 'The alarms were not invalidated as expected after 10 seconds'
         # Close:

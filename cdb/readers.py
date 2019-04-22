@@ -30,8 +30,7 @@ class CdbReader:
     @classmethod
     def read_ias(self):
         """
-        Reads the ias.json file of the CDB and initializes what is necessary
-        for the application to start
+        Reads the ias.json file of the CDB and initializes what is necessary for the application to start
 
         Returns:
             dict: A dictionary with the IAS configuration data
