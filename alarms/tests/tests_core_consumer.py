@@ -40,6 +40,11 @@ class TestCoreConsumer:
         # Arrange:
         current_time = datetime.datetime.now()
         formatted_current_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        core_ids = [
+            'AlarmType-ID1',
+            'AlarmType-ID2',
+            'AlarmType-ID3'
+        ]
         msg = [
             {
                 "value": "SET_MEDIUM",
@@ -76,8 +81,11 @@ class TestCoreConsumer:
         await communicator.send_json_to(msg)
         response = await communicator.receive_from()
         # Assert:
-        new_alarms_count = len(AlarmCollection.get_all_as_list())
+        all_alarms_list = AlarmCollection.get_all_as_list()
+        new_alarms_count = len(all_alarms_list)
         assert response == 'Received 3 IASIOS', 'The alarms were not received'
         assert old_alarms_count + 3 == new_alarms_count, 'The Iasios shoul have been added to the AlarmCollection'
+        for core_id in core_ids:
+            assert core_id in all_alarms_list, 'The alarm {} is not in the collection'.format(core_id)
         # Close:
         await communicator.disconnect()

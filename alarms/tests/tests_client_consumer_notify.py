@@ -82,5 +82,6 @@ class TestNotificationsToClientConsumer:
         assert response['stream'] == 'alarms', 'Incorrect stream for alarm changes notification'
         assert retrieved_alarms == expected_alarms, 'Received alarms list is different than expected'
         assert response['payload']['counters'] == {'view': 1}, 'Received counters are different than expected'
+        assert AlarmCollection.alarm_changes == [], 'Alarm Changes must be cleared'
         # Close:
         await communicator.disconnect()
