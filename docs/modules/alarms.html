@@ -57,7 +57,9 @@
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_client_consumer_notify">alarms.tests.tests_client_consumer_notify module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_client_consumer_request">alarms.tests.tests_client_consumer_request module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_collections">alarms.tests.tests_collections module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_collections_aux">alarms.tests.tests_collections_aux module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_collections_counter_by_view_cases">alarms.tests.tests_collections_counter_by_view_cases module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_collections_values">alarms.tests.tests_collections_values module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_connectors">alarms.tests.tests_connectors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_core_consumer">alarms.tests.tests_core_consumer module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alarms.tests.html#module-alarms.tests.tests_core_consumer_connect">alarms.tests.tests_core_consumer_connect module</a></li>
@@ -119,9 +121,8 @@
 <dt id="alarms.collections.AlarmCollection">
 <em class="property">class </em><code class="descclassname">alarms.collections.</code><code class="descname">AlarmCollection</code><a class="headerlink" href="#alarms.collections.AlarmCollection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class defines the data structure that will store and handle the Alarms
-in memory.</p>
-<p>Allows observers to subscribe to changes on the Alarm objects</p>
+<p>This class defines the data structure that will store and handle the Alarms in memory.
+Allows observers to subscribe to changes on the Alarm objects</p>
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.acknowledge">
 <em class="property">classmethod </em><code class="descname">acknowledge</code><span class="sig-paren">(</span><em>core_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.acknowledge" title="Permalink to this definition">¶</a></dt>
@@ -142,103 +143,89 @@ including dependent alarms</dd>
 <dd><p>Adds the alarm to the AlarmCollection dictionary</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>alarm (Alarm): the Alarm object to delete</dd>
+<dd>alarm (Alarm): the Alarm object to add</dd>
+<dt>Returns:</dt>
+<dd>tickets_to_create: a list of IDS to create tickets</dd>
 </dl>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.add_or_update_and_notify">
-<em class="property">classmethod </em><code class="descname">add_or_update_and_notify</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.add_or_update_and_notify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the alarm if it isn’t in the AlarmCollection already or updates
-the alarm in the other case. It also initializes the Collection if it
-has been not initialized before.</p>
-<p>Notifies the observers on either action</p>
+<dt id="alarms.collections.AlarmCollection.add_or_update_alarm">
+<em class="property">classmethod </em><code class="descname">add_or_update_alarm</code><span class="sig-paren">(</span><em>iasio</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.add_or_update_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the alarm if it isn’t in the AlarmCollection already or updates the alarm in the other case.
+It also initializes the Collection if it has been not initialized before.</p>
+<p>Records the changes to be notified if it is the case</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>alarm (Alarm): the Alarm object to add or update</dd>
+<dd>iasio (dict): the dict correpsonding to the Alarm to add or update</dd>
 <dt>Returns:</dt>
-<dd>message (String): a string message sumarizing what happened</dd>
+<dd>message (string): a string message sumarizing what happened</dd>
 </dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.add_or_update_value">
-<em class="property">classmethod </em><code class="descname">add_or_update_value</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.add_or_update_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the ias value if it isn’t in the values collection already or
-updates the ias value in the other case.</p>
+<em class="property">classmethod </em><code class="descname">add_or_update_value</code><span class="sig-paren">(</span><em>iasio</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.add_or_update_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the ias value if it isn’t in the values collection already or updates the ias value in the other case.</p>
 <p>It does not notify the observers on change. It only mantains updated
 the collection to respond to user requests.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>value (IASValue): the IASValue object to add or update</dd>
+<dd>iasio (dict): the IASValue object to add or update</dd>
 <dt>Returns:</dt>
-<dd>message (String): a string message sumarizing what happened</dd>
+<dd>message (string): a string message sumarizing what happened</dd>
 </dl>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.add_value">
-<em class="property">classmethod </em><code class="descname">add_value</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.add_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the value to the values collection dictionary</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>id (string): The core id of the value
-value (any): core value</dd>
-</dl>
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.alarm_changes">
+<code class="descname">alarm_changes</code><em class="property"> = []</em><a class="headerlink" href="#alarms.collections.AlarmCollection.alarm_changes" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of IDs of Alarms that have changed and must be notified</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.collections.AlarmCollection.alarms_views_dict">
 <code class="descname">alarms_views_dict</code><em class="property"> = None</em><a class="headerlink" href="#alarms.collections.AlarmCollection.alarms_views_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary to store the related view names by alarm,
-indexed by core_id</p>
+<dd><p>Dictionary to store the related view names by alarm, indexed by core_id</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.broadcast_status_to_observers">
-<em class="property">classmethod </em><code class="descname">broadcast_status_to_observers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.broadcast_status_to_observers" title="Permalink to this definition">¶</a></dt>
+<dt id="alarms.collections.AlarmCollection.broadcast_observers">
+<em class="property">classmethod </em><code class="descname">broadcast_observers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.broadcast_observers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Notify to all observers the alarms list with its current status</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.broadcast_task">
+<code class="descname">broadcast_task</code><em class="property"> = None</em><a class="headerlink" href="#alarms.collections.AlarmCollection.broadcast_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to the Task that sends all alarms periodically</p>
+</dd></dl>
+
 <dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.delete">
-<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the Alarm object in the AlarmCollection dictionary</p>
+<dt id="alarms.collections.AlarmCollection.clear_tickets">
+<em class="property">classmethod </em><code class="descname">clear_tickets</code><span class="sig-paren">(</span><em>alarm_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.clear_tickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the open tickets for a list of specified Alarm IDs</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>alarm (Alarm): the Alarm object to delete</dd>
-<dt>Returns:</dt>
-<dd>bool: True if the alarm was deleted,
-False if the Alarm did not exist in the collection</dd>
+<dd>alarm_ids (string[]): List of Core ID of the Alarms associated to the Tickets to clear</dd>
 </dl>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.delete_all">
-<em class="property">classmethod </em><code class="descname">delete_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.delete_all" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes all the Alarm objects in the AlarmCollection dictionary. Also
-it initializes the Collection if it has been not initialized before</p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.delete_and_notify">
-<em class="property">classmethod </em><code class="descname">delete_and_notify</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.delete_and_notify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the Alarm object in the AlarmCollection dictionary
-and notifies the obbservers</p>
+<dt id="alarms.collections.AlarmCollection.create_tickets">
+<em class="property">classmethod </em><code class="descname">create_tickets</code><span class="sig-paren">(</span><em>alarm_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.create_tickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a ticket for a list of specified Alarm IDs</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>alarm (Alarm): the Alarm object to delete</dd>
-<dt>Returns:</dt>
-<dd>message (String): a string message sumarizing what happened</dd>
+<dd>alarm_ids (string[]): List of Core ID of the Alarms to create tickets</dd>
 </dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.get">
 <em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>core_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Alarm object in the AlarmCollection dictionary with that
-core_id value. It also initializes the Collection if it has been not
-initialized before.</p>
+<dd><p>Returns the Alarm object in the AlarmCollection dictionary with that core_id value.
+It also initializes the Collection if it has been not initialized before.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>core_id (string): the core_id of the Alarm to get</dd>
@@ -251,6 +238,10 @@ initialized before.</p>
 <dt id="alarms.collections.AlarmCollection.get_all_as_dict">
 <em class="property">classmethod </em><code class="descname">get_all_as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.get_all_as_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns all the Alarms as a dictionary indexed by core_id</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>dict: A dictionary of Alarms indexed by core_id</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
@@ -262,15 +253,19 @@ initialized before.</p>
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.get_ancestors_recursively">
 <em class="property">classmethod </em><code class="descname">get_ancestors_recursively</code><span class="sig-paren">(</span><em>core_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.get_ancestors_recursively" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the list of parents and grandparents recursively of the
-specified alarm</p>
+<dd><p>Return the list of parents and grandparents recursively of the specified alarm</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>core_id (string): the ID of the Alarm object to get its ancestors</dd>
+<dt>Returns:</dt>
+<dd>list: List with the IDs of the ancestors</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.get_dependencies_recursively">
 <em class="property">classmethod </em><code class="descname">get_dependencies_recursively</code><span class="sig-paren">(</span><em>core_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.get_dependencies_recursively" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of alarm ids of all the dependencies of the specified
-alarm</p>
+<dd><p>Returns a list of alarm ids of all the dependencies of the specified alarm</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>list: A list of alarm ids dependencies of the alarm with core_id</dd>
@@ -287,15 +282,19 @@ alarm</p>
 </dl>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.init_state">
+<code class="descname">init_state</code><em class="property"> = 'pending'</em><a class="headerlink" href="#alarms.collections.AlarmCollection.init_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Status of initialization, cand be either ‘pending’, ‘in-progress’ or ‘done’</p>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.initialize">
 <em class="property">classmethod </em><code class="descname">initialize</code><span class="sig-paren">(</span><em>iasios=None</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.initialize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the alarms collection with default alarms.
-If a list of iasios is passed, it initializes Alarms only for those
-iasios.
-If not, it initializes Alarms based on the alarm_ids used in
-AlarmConfig objects of the Panels app, getting their description and
-documentation urls from the CDB.</p>
+If a list of iasios is passed, it initializes Alarms only for those iasios.
+If not, it initializes Alarms based on the alarm_ids used in AlarmConfig objects of the Panels app,
+getting their description and documentation urls from the CDB.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>iasios (list): An optional list of iasio objects</dd>
@@ -304,23 +303,79 @@ documentation urls from the CDB.</p>
 </dl>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.mode_options">
+<code class="descname">mode_options</code><em class="property"> = {'CLOSING': 2, 'DEGRADED': 6, 'INITIALIZATION': 1, 'MAINTENANCE': 4, 'MALFUNCTIONING': 8, 'OPERATIONAL': 5, 'SHUTTEDDOWN': 3, 'STARTUP': 0, 'UNKNOWN': 7}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.mode_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary to transform Alarm OperationalMode from string to the corresponding numbers</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.notification_task">
+<code class="descname">notification_task</code><em class="property"> = None</em><a class="headerlink" href="#alarms.collections.AlarmCollection.notification_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to the Task that notifies changes periodically</p>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.notify_observers">
-<em class="property">classmethod </em><code class="descname">notify_observers</code><span class="sig-paren">(</span><em>alarm</em>, <em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.notify_observers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Notify to all observers an action over an alarm</p>
+<em class="property">classmethod </em><code class="descname">notify_observers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.notify_observers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notify to all observers an action over Alarms</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.num_pattern">
+<code class="descname">num_pattern</code><em class="property"> = re.compile('\\d+')</em><a class="headerlink" href="#alarms.collections.AlarmCollection.num_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern used to find the number in a templated id from a CDB IASIO</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.collections.AlarmCollection.observers">
 <code class="descname">observers</code><em class="property"> = []</em><a class="headerlink" href="#alarms.collections.AlarmCollection.observers" title="Permalink to this definition">¶</a></dt>
-<dd><p>List to store references to the observers subscribed to changes in the
-collection</p>
+<dd><p>List to store references to the observers subscribed to changes in the collection</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.collections.AlarmCollection.parents_collection">
 <code class="descname">parents_collection</code><em class="property"> = None</em><a class="headerlink" href="#alarms.collections.AlarmCollection.parents_collection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store the parents of each alarm</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.pattern">
+<code class="descname">pattern</code><em class="property"> = re.compile('\\[!#\\d+!\\]')</em><a class="headerlink" href="#alarms.collections.AlarmCollection.pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern used to find templated ids from CDB IASIOS</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.periodic_broadcast_coroutine">
+<em class="property">classmethod </em><code class="descname">periodic_broadcast_coroutine</code><span class="sig-paren">(</span><em>rate</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.periodic_broadcast_coroutine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coroutine that notifies of changes to all the observers periodically</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>rate (int): time in seconds</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.periodic_notification_coroutine">
+<em class="property">classmethod </em><code class="descname">periodic_notification_coroutine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.periodic_notification_coroutine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coroutine that notifies of changes to all the observers periodically
+The notifications rate is defined in the variable ias_webserver.settings.NOTIFICATIONS_RATE</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.receive_iasios">
+<em class="property">classmethod </em><code class="descname">receive_iasios</code><span class="sig-paren">(</span><em>iasios</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.receive_iasios" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.record_alarm_changes">
+<em class="property">classmethod </em><code class="descname">record_alarm_changes</code><span class="sig-paren">(</span><em>alarms</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.record_alarm_changes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register given Alarm(s) in order to notify its(their) change(s)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>alarms (list or Alarm): list of Alarms (or a single Alarm)
+whose changes must be notified</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
@@ -332,9 +387,8 @@ collection</p>
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.reset">
 <em class="property">classmethod </em><code class="descname">reset</code><span class="sig-paren">(</span><em>iasios=None</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resets the AlarmCollection dictionary initializing it again. Go to
-<code class="xref py py-func docutils literal notranslate"><span class="pre">initialize()</span></code> to see the
-initialization specification.</p>
+<dd><p>Resets the AlarmCollection dictionary initializing it again.
+Go to <code class="xref py py-func docutils literal notranslate"><span class="pre">initialize()</span></code> to see the initialization specification.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>iasios (list): A list of iasio objects</dd>
@@ -360,6 +414,20 @@ initialization specification.</p>
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.start_initialization">
+<em class="property">classmethod </em><code class="descname">start_initialization</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.start_initialization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the initialization of the AlarmCollection. It is an async m ethod that can be awaited</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="alarms.collections.AlarmCollection.start_periodic_tasks">
+<em class="property">classmethod </em><code class="descname">start_periodic_tasks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.start_periodic_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the coroutine that notifies changes to all the observers as a task.</p>
+<p>Checks if the task (notification_task) has started and starts it if not,
+or if it has been cancelled or has finished</p>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.unshelve">
 <em class="property">classmethod </em><code class="descname">unshelve</code><span class="sig-paren">(</span><em>core_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.unshelve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unshelves an alarm or a list of Alarms</p>
@@ -373,30 +441,40 @@ of the Alarms to unshelve</dd>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="alarms.collections.AlarmCollection.update">
-<em class="property">classmethod </em><code class="descname">update</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates the Alarm object in the AlarmCollection dictionary only if
-the new Alarm instance has a later timestamp than the stored ALARM</p>
+<dt id="alarms.collections.AlarmCollection.update_alarm">
+<em class="property">classmethod </em><code class="descname">update_alarm</code><span class="sig-paren">(</span><em>stored_alarm</em>, <em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.update_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates an already existing Alarm in the AlarmCollection.
+Records the changes to be notified if it is the case</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>alarm (Alarm): the Alarm object to update</dd>
+<dd>alarm (Alarm): the dict correpsonding to the Alarm to add or update</dd>
 <dt>Returns:</dt>
-<dd>string: ‘updated-different’ if the alarm was different
-(besides timestamp), ‘updated-equal’ if it was updated but the only
-change is the timestamp, and ‘not-updated’ if it was not updated</dd>
+<dd>message (string), tickets_to_create, tickets_to_clear: a string message sumarizing what happened,
+a list of IDS to create tickets and a list of IDs to clear tickets</dd>
 </dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="alarms.collections.AlarmCollection.update_all_alarms_validity">
 <em class="property">classmethod </em><code class="descname">update_all_alarms_validity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollection.update_all_alarms_validity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the validity of each alarm in the AlarmCollection dictionary. Go
-to <a class="reference internal" href="#alarms.models.Alarm.update_validity" title="alarms.models.Alarm.update_validity"><code class="xref py py-func docutils literal notranslate"><span class="pre">alarms.models.Alarm.update_validity()</span></code></a> to see the validation
-specification.</p>
+<dd><p>Update the validity of each alarm in the AlarmCollection dictionary.
+Go to <a class="reference internal" href="#alarms.models.Alarm.update_validity" title="alarms.models.Alarm.update_validity"><code class="xref py py-func docutils literal notranslate"><span class="pre">alarms.models.Alarm.update_validity()</span></code></a> to see the validation specification.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>dict: the AlarmCollection as a dictionary after the validity update</dd>
 </dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.validity_options">
+<code class="descname">validity_options</code><em class="property"> = {'RELIABLE': 1, 'UNRELIABLE': 0}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.validity_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary to transform Alarm Validity from string to the corresponding numbers</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.collections.AlarmCollection.value_options">
+<code class="descname">value_options</code><em class="property"> = {'CLEARED': 0, 'SET_CRITICAL': 4, 'SET_HIGH': 3, 'SET_LOW': 1, 'SET_MEDIUM': 2}</em><a class="headerlink" href="#alarms.collections.AlarmCollection.value_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary to transform Alarm Value from string to the corresponding numbers</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -411,19 +489,17 @@ specification.</p>
 <dt id="alarms.collections.AlarmCollectionObserver">
 <em class="property">class </em><code class="descclassname">alarms.collections.</code><code class="descname">AlarmCollectionObserver</code><a class="headerlink" href="#alarms.collections.AlarmCollectionObserver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>This class defines an interface that all the observers must implement.</p>
+<p>This class defines an interface that all the observers must implement</p>
 <dl class="method">
 <dt id="alarms.collections.AlarmCollectionObserver.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollectionObserver.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollectionObserver.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method that will be called on Observers when there is a new action
 to notifiy</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.collections.AlarmCollectionObserver.update_counter_by_view">
-<code class="descname">update_counter_by_view</code><span class="sig-paren">(</span><em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.collections.AlarmCollectionObserver.update_counter_by_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method that will be called on Observers when there is a new
-change in the counters to notifiy</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>data (dict): Dictionary that contains the ‘alarms’ and ‘counters’
+stream (string): Stream to send the data through</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -451,15 +527,13 @@ change in the counters to notifiy</p>
 <dl class="attribute">
 <dt id="alarms.connectors.CdbConnector.refresh_rate">
 <code class="descname">refresh_rate</code><em class="property"> = 3000</em><a class="headerlink" href="#alarms.connectors.CdbConnector.refresh_rate" title="Permalink to this definition">¶</a></dt>
-<dd><p>refreshrate in milliseconds defined to be used to calculate the
-validity of alarms</p>
+<dd><p>refreshrate in milliseconds defined to be used to calculate the validity of alarms</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="alarms.connectors.CdbConnector.validity_threshold">
 <code class="descname">validity_threshold</code><em class="property"> = 10000</em><a class="headerlink" href="#alarms.connectors.CdbConnector.validity_threshold" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validity threshold in milliseconds defines to be used to calculate the
-validity of alarms</p>
+<dd><p>Validity threshold in milliseconds defines to be used to calculate the validity of alarms</p>
 </dd></dl>
 
 </dd></dl>
@@ -468,8 +542,7 @@ validity of alarms</p>
 <dt id="alarms.connectors.PanelsConnector">
 <em class="property">class </em><code class="descclassname">alarms.connectors.</code><code class="descname">PanelsConnector</code><a class="headerlink" href="#alarms.connectors.PanelsConnector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class defines methods to communicate the Alarm app with the Panels
-app</p>
+<p>This class defines methods to communicate the Alarm app with the Panels app</p>
 <dl class="classmethod">
 <dt id="alarms.connectors.PanelsConnector.get_alarm_ids_of_alarm_configs">
 <em class="property">classmethod </em><code class="descname">get_alarm_ids_of_alarm_configs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.PanelsConnector.get_alarm_ids_of_alarm_configs" title="Permalink to this definition">¶</a></dt>
@@ -523,24 +596,29 @@ related to an alarm from all the AlarmConfigs</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="alarms.connectors.TicketConnector.clear_ticket">
-<em class="property">classmethod </em><code class="descname">clear_ticket</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.TicketConnector.clear_ticket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Closes a ticket for a given Alarm ID</p>
+<dt id="alarms.connectors.TicketConnector.clear_tickets">
+<em class="property">classmethod </em><code class="descname">clear_tickets</code><span class="sig-paren">(</span><em>alarm_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.TicketConnector.clear_tickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes a list of ticket for a given list of Alarm IDs</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>alarm_id (string): ID of the Alarm associated to the ticket</dd>
+<dd>alarm_ids (string[]): List of IDs of the Alarms associated to the tickets</dd>
 </dl>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="alarms.connectors.TicketConnector.create_ticket">
-<em class="property">classmethod </em><code class="descname">create_ticket</code><span class="sig-paren">(</span><em>alarm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.TicketConnector.create_ticket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a ticket for a given Alarm ID</p>
+<dt id="alarms.connectors.TicketConnector.create_tickets">
+<em class="property">classmethod </em><code class="descname">create_tickets</code><span class="sig-paren">(</span><em>alarm_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.connectors.TicketConnector.create_tickets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a list of ticket for a given list of Alarm IDs</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>alarm_id (string): ID of the Alarm associated to the ticket</dd>
+<dd>alarm_ids (string[]): List of ID of Alarms to create tickets</dd>
 </dl>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="alarms.connectors.TicketConnector.unack_statuses">
+<code class="descname">unack_statuses</code><em class="property"> = [0, 2]</em><a class="headerlink" href="#alarms.connectors.TicketConnector.unack_statuses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -555,8 +633,8 @@ related to an alarm from all the AlarmConfigs</p>
 <dl class="method">
 <dt id="alarms.consumers.ClientConsumer.connect">
 <code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.connect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called upon connection, rejects connection if no authenticated user
-or password</p>
+<dd><p>Called upon connection, rejects connection if no authenticated user or password.
+Start the periodic notifications in the AlarmCollection</p>
 </dd></dl>
 
 <dl class="method">
@@ -574,26 +652,19 @@ or password</p>
 <dt id="alarms.consumers.ClientConsumer.receive_json">
 <code class="descname">receive_json</code><span class="sig-paren">(</span><em>content</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.receive_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handles the messages received by this consumer</p>
-<p>If the message contains the ‘action’ ‘list’,
-responds with the list of all the current Alarms.</p>
+<p>If the message contains the ‘action’ ‘list’, responds with the list of all the current Alarms.</p>
 </dd></dl>
-
-<dl class="method">
-<dt id="alarms.consumers.ClientConsumer.send_alarms_status">
-<code class="descname">send_alarms_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.send_alarms_status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="alarms.consumers.ClientConsumer.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>alarm</em>, <em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Notifies the client of changes in an Alarm</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.consumers.ClientConsumer.update_counter_by_view">
-<code class="descname">update_counter_by_view</code><span class="sig-paren">(</span><em>counter_by_view</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.update_counter_by_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Notifies the client of changes in a dictionary defined as a
-counter by view</p>
+<code class="descname">update</code><span class="sig-paren">(</span><em>payload</em>, <em>stream</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.ClientConsumer.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifies the client of changes in an Alarm.
+Implements the AlarmCollectionObserver.update method</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>data (dict): Dictionary that contains the ‘alarms’ and ‘counters’
+stream (string): Stream to send the data through</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -606,96 +677,14 @@ counter by view</p>
 <dl class="method">
 <dt id="alarms.consumers.CoreConsumer.connect">
 <code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.connect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called upon connection, rejects connection if no authenticated user
-or password</p>
+<dd><p>Called upon connection, rejects connection if no authenticated user or password</p>
 </dd></dl>
-
-<dl class="method">
-<dt id="alarms.consumers.CoreConsumer.get_alarm_from_core_msg">
-<code class="descname">get_alarm_from_core_msg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.get_alarm_from_core_msg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an alarm based on the values specified in the message content</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>content (dict): the content of the messsage</dd>
-<dt>Returns:</dt>
-<dd>Alarm: an alarm based on the message content</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.consumers.CoreConsumer.get_core_id_from">
-<code class="descname">get_core_id_from</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.get_core_id_from" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the core_id value extracted from the full running id field
-assuming an specific format.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>full_id (string): The fullRunningId value provided by the core
-following the format of the example below
-example: ‘(A_value:A_type)&#64;(B_value:B_type)&#64;(C_value:C_type)’</dd>
-<dt>Returns:</dt>
-<dd>string: The core id value. According to the previous example, the
-value would be C_value</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.consumers.CoreConsumer.get_dependencies">
-<code class="descname">get_dependencies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.get_dependencies" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list with the dependencies of the alarm</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.consumers.CoreConsumer.get_properties">
-<code class="descname">get_properties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.get_properties" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dictionary with the properties of the alarm</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.consumers.CoreConsumer.get_timestamp_from">
-<code class="descname">get_timestamp_from</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.get_timestamp_from" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the bsdbTStamp transformed to timestamp in milliseconds</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>bsdbTStamp (string): The backstage timestamp in ISO 8601 format</dd>
-<dt>Returns:</dt>
-<dd>double: The backstage timestamp in milliseconds</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.consumers.CoreConsumer.get_timestamps">
-<code class="descname">get_timestamps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.get_timestamps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dictionary with all the available timestamps in the content</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="alarms.consumers.CoreConsumer.get_value_from_core_msg">
-<code class="descname">get_value_from_core_msg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.get_value_from_core_msg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an IASValue based on the message content</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>content (dict): the content of the messsage</dd>
-<dt>Returns:</dt>
-<dd>IASValue: an Object based on the message content</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="alarms.consumers.CoreConsumer.num_pattern">
-<code class="descname">num_pattern</code><em class="property"> = re.compile('\\d+')</em><a class="headerlink" href="#alarms.consumers.CoreConsumer.num_pattern" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="alarms.consumers.CoreConsumer.pattern">
-<code class="descname">pattern</code><em class="property"> = re.compile('\\[!#\\d+!\\]')</em><a class="headerlink" href="#alarms.consumers.CoreConsumer.pattern" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="alarms.consumers.CoreConsumer.receive_json">
 <code class="descname">receive_json</code><span class="sig-paren">(</span><em>content</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.consumers.CoreConsumer.receive_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handles the messages received by this consumer.
-It delegates handling of the alarms received in the messages to
-<code class="xref py py-func docutils literal notranslate"><span class="pre">add_or_update_and_notify()</span></code></p>
+It delegates handling of the alarms received in the messages to <code class="xref py py-func docutils literal notranslate"><span class="pre">add_or_update_alarm()</span></code></p>
 <p>Responds with a message indicating the action taken
 (created, updated, ignored)</p>
 </dd></dl>
@@ -709,8 +698,7 @@ It delegates handling of the alarms received in the messages to
 <dt id="alarms.interfaces.IAlarms">
 <em class="property">class </em><code class="descclassname">alarms.interfaces.</code><code class="descname">IAlarms</code><a class="headerlink" href="#alarms.interfaces.IAlarms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class defines the methods that the Alarms app provides to be used
-by other apps</p>
+<p>This class defines the methods that the Alarms app provides to be used by other apps</p>
 <dl class="classmethod">
 <dt id="alarms.interfaces.IAlarms.acknowledge_alarms">
 <em class="property">classmethod </em><code class="descname">acknowledge_alarms</code><span class="sig-paren">(</span><em>alarm_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.interfaces.IAlarms.acknowledge_alarms" title="Permalink to this definition">¶</a></dt>
@@ -827,22 +815,16 @@ True by default</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="alarms.models.Alarm.equals_except_timestamp">
-<code class="descname">equals_except_timestamp</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm.equals_except_timestamp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if the attributes of the alarm are different to the values
-retrieved in params, the verification does not consider the
-core_timestamp value, other timestamps values and the properties dict.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="alarms.models.Alarm.is_not_set">
 <code class="descname">is_not_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm.is_not_set" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Method to check is the alarm is not set</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="alarms.models.Alarm.is_set">
 <code class="descname">is_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.Alarm.is_set" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Method to check is the alarm is set</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="alarms.models.Alarm.is_stored">
@@ -1006,16 +988,40 @@ Stored as a list with 2 elements in order: [previous_value, new_value]</p>
 <em class="property">class </em><code class="descclassname">alarms.models.</code><code class="descname">AlarmCountManager</code><a class="headerlink" href="#alarms.models.AlarmCountManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to manage the counter by view.</p>
-<dl class="method">
+<dl class="attribute">
 <dt id="alarms.models.AlarmCountManager.counter_by_view">
-<code class="descname">counter_by_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmCountManager.counter_by_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method to retrieve the counter of set and unack alarms by view</p>
-</dd></dl>
+<code class="descname">counter_by_view</code><em class="property"> = {}</em><a class="headerlink" href="#alarms.models.AlarmCountManager.counter_by_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="alarms.models.AlarmCountManager.reset_counter_by_view">
 <code class="descname">reset_counter_by_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmCountManager.reset_counter_by_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to clear the counter by view</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.models.AlarmCountManager.update_counter_by_view_if_alarm_has_value_update">
+<code class="descname">update_counter_by_view_if_alarm_has_value_update</code><span class="sig-paren">(</span><em>alarm</em>, <em>initial_ack_state</em>, <em>transition</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmCountManager.update_counter_by_view_if_alarm_has_value_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update counter after value (set or cleared) update</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.models.AlarmCountManager.update_counter_by_view_if_alarm_is_acknowledged">
+<code class="descname">update_counter_by_view_if_alarm_is_acknowledged</code><span class="sig-paren">(</span><em>after_ack_alarm</em>, <em>initial_ack_state</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmCountManager.update_counter_by_view_if_alarm_is_acknowledged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update counter after acknowledgment action</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.models.AlarmCountManager.update_counter_by_view_if_alarm_is_unacknowledged">
+<code class="descname">update_counter_by_view_if_alarm_is_unacknowledged</code><span class="sig-paren">(</span><em>after_ack_alarm</em>, <em>initial_ack_state</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmCountManager.update_counter_by_view_if_alarm_is_unacknowledged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update counter after unacknowledgment action</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="alarms.models.AlarmCountManager.update_counter_by_view_if_new_alarm_in_collection">
+<code class="descname">update_counter_by_view_if_new_alarm_in_collection</code><span class="sig-paren">(</span><em>alarm</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.AlarmCountManager.update_counter_by_view_if_new_alarm_in_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase counter for a new SET UNACK alarm
+Note: This method is used in the AlarmCollection</p>
 </dd></dl>
 
 </dd></dl>
@@ -1042,11 +1048,10 @@ Stored as a list with 2 elements in order: [previous_value, new_value]</p>
 <dt id="alarms.models.IASValue.update">
 <code class="descname">update</code><span class="sig-paren">(</span><em>ias_value</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.models.IASValue.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the ias_value with attributes from another given ias_value if
-the timestamp of the given ias_value is greater than the stored ias
-value.</p>
+the timestamp of the given ias_value is greater than the stored ias value.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>isa_value (IASValue): The new ias_value object</dd>
+<dd>ias_value (dict): The new ias_value object</dd>
 <dt>Returns:</dt>
 <dd>string: the state of the update (not-updated, updated-equal,
 updated-different)</dd>
@@ -1115,8 +1120,7 @@ updated-different)</dd>
 <dl class="attribute">
 <dt id="alarms.models.Validity.RELIABLE">
 <code class="descname">RELIABLE</code><em class="property"> = 1</em><a class="headerlink" href="#alarms.models.Validity.RELIABLE" title="Permalink to this definition">¶</a></dt>
-<dd><p>The value has been provided in time and the operator can trust what
-the IAS shows</p>
+<dd><p>The value has been provided in time and the operator can trust what the IAS shows</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1166,7 +1170,7 @@ to network problems or any other reason.</p>
 <dl class="function">
 <dt id="alarms.views.test_core">
 <code class="descclassname">alarms.views.</code><code class="descname">test_core</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#alarms.views.test_core" title="Permalink to this definition">¶</a></dt>
-<dd><p>basic view used mostly for debuging purposes</p>
+<dd><p>Basic view used mostly for debuging purposes</p>
 </dd></dl>
 
 </div>

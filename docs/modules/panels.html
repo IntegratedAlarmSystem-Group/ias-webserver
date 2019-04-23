@@ -121,8 +121,7 @@ by other apps</p>
 <dl class="classmethod">
 <dt id="panels.interfaces.IPanels.get_alarms_views_dict_of_alarm_configs">
 <em class="property">classmethod </em><code class="descname">get_alarms_views_dict_of_alarm_configs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.interfaces.IPanels.get_alarms_views_dict_of_alarm_configs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a dict with the names of the views
-related to an alarm from all the AlarmConfigs</p>
+<dd><p>Returns a dict with the names of the views related to an alarm from all the AlarmConfigs</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>(dict): dictionary of views names with alarm_ids as keys</dd>
@@ -138,6 +137,7 @@ related to an alarm from all the AlarmConfigs</p>
 <dt id="panels.models.AlarmConfig">
 <em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">AlarmConfig</code><span class="sig-paren">(</span><em>config={}</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.AlarmConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that defines an AlarmConfig</p>
 <dl class="method">
 <dt id="panels.models.AlarmConfig.has_placemark">
 <code class="descname">has_placemark</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.AlarmConfig.has_placemark" title="Permalink to this definition">¶</a></dt>
@@ -164,6 +164,7 @@ related to an alarm from all the AlarmConfigs</p>
 <dt id="panels.models.AlarmConfigManager">
 <em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">AlarmConfigManager</code><a class="headerlink" href="#panels.models.AlarmConfigManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manager to handle AlarmConfigs</p>
 <dl class="method">
 <dt id="panels.models.AlarmConfigManager.all">
 <code class="descname">all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.AlarmConfigManager.all" title="Permalink to this definition">¶</a></dt>
@@ -205,20 +206,17 @@ for the placemarks</dd>
 <dt id="panels.models.File">
 <em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">File</code><span class="sig-paren">(</span><em>key</em>, <em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.File" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class to manage the information about local files
-with the configuration of the alarms display</p>
+<p>Class to manage the information about local files with the configuration of the alarms display</p>
 <dl class="method">
 <dt id="panels.models.File.get_configuration_data">
 <code class="descname">get_configuration_data</code><span class="sig-paren">(</span><em>update_placemark_values={}</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.File.get_configuration_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a Python object with data from the json content of the file
-and required updates for the configuration</p>
+<dd><p>Returns a Python object with data from the json content of the file and required updates for the configuration</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="panels.models.File.get_configurations">
 <code class="descname">get_configurations</code><span class="sig-paren">(</span><em>update_placemark_values={}</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.File.get_configurations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of instances for all the configurations
-recognized in the file</p>
+<dd><p>Returns a list of instances for all the configurations recognized in the file</p>
 </dd></dl>
 
 <dl class="method">
@@ -272,6 +270,7 @@ recognized in the file</p>
 <dt id="panels.models.FileManager">
 <em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">FileManager</code><a class="headerlink" href="#panels.models.FileManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manager to handle files</p>
 <dl class="method">
 <dt id="panels.models.FileManager.all">
 <code class="descname">all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.FileManager.all" title="Permalink to this definition">¶</a></dt>
@@ -287,8 +286,7 @@ recognized in the file</p>
 <dl class="method">
 <dt id="panels.models.FileManager.basenames">
 <code class="descname">basenames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.FileManager.basenames" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list with the basename of the files
-without the .json extension</p>
+<dd><p>Return a list with the basename of the files without the .json extension</p>
 </dd></dl>
 
 <dl class="method">
@@ -310,8 +308,7 @@ only if the file exists in the folder</p>
 <dt id="panels.models.Placemark">
 <em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">Placemark</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.Placemark" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Elements to be displayed in the graphical components
-(maps, floor plans, etc.)</p>
+<p>Elements to be displayed in the graphical components (maps, floor plans, etc.)</p>
 <dl class="exception">
 <dt id="panels.models.Placemark.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#panels.models.Placemark.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -397,8 +394,7 @@ object the first time, the query is executed.</p>
 <dt id="panels.models.PlacemarkGroup">
 <em class="property">class </em><code class="descclassname">panels.models.</code><code class="descname">PlacemarkGroup</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#panels.models.PlacemarkGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Groups of position marks, used to refer to layers of related position
-marks that interact with each other</p>
+<p>Groups of position marks, used to refer to layers of related position marks that interact with each other</p>
 <dl class="exception">
 <dt id="panels.models.PlacemarkGroup.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#panels.models.PlacemarkGroup.DoesNotExist" title="Permalink to this definition">¶</a></dt>

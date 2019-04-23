@@ -139,8 +139,7 @@ templates (list): list of dictionaries with the templates</dd>
 <dl class="classmethod">
 <dt id="cdb.readers.CdbReader.read_ias">
 <em class="property">classmethod </em><code class="descname">read_ias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cdb.readers.CdbReader.read_ias" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads the ias.json file of the CDB and initializes what is necessary
-for the application to start</p>
+<dd><p>Reads the ias.json file of the CDB and initializes what is necessary for the application to start</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>dict: A dictionary with the IAS configuration data</dd>
@@ -191,26 +190,25 @@ configuration database.</p>
 <dl class="method">
 <dt id="cdb.routers.CdbRouter.allow_migrate">
 <code class="descname">allow_migrate</code><span class="sig-paren">(</span><em>db</em>, <em>app_label</em>, <em>model_name=None</em>, <em>**hints</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.routers.CdbRouter.allow_migrate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make sure the config database data only appears in the ‘cdb’
-database.</p>
+<dd><p>Make sure the config database data only appears in the ‘cdb’ database</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="cdb.routers.CdbRouter.allow_relation">
 <code class="descname">allow_relation</code><span class="sig-paren">(</span><em>obj1</em>, <em>obj2</em>, <em>**hints</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.routers.CdbRouter.allow_relation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allow relations only between config database models.</p>
+<dd><p>Allow relations only between config database models</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="cdb.routers.CdbRouter.db_for_read">
 <code class="descname">db_for_read</code><span class="sig-paren">(</span><em>model</em>, <em>**hints</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.routers.CdbRouter.db_for_read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Attempts to read config database models go to cdb.</p>
+<dd><p>Attempts to read config database models go to cdb</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="cdb.routers.CdbRouter.db_for_write">
 <code class="descname">db_for_write</code><span class="sig-paren">(</span><em>model</em>, <em>**hints</em><span class="sig-paren">)</span><a class="headerlink" href="#cdb.routers.CdbRouter.db_for_write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Attempts to write config database models go to cdb.</p>
+<dd><p>Attempts to write config database models go to cdb</p>
 </dd></dl>
 
 </dd></dl>

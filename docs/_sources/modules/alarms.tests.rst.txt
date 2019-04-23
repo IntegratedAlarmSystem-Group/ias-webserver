@@ -52,10 +52,26 @@ alarms.tests.tests\_collections module
     :undoc-members:
     :show-inheritance:
 
+alarms.tests.tests\_collections\_aux module
+-------------------------------------------
+
+.. automodule:: alarms.tests.tests_collections_aux
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alarms.tests.tests\_collections\_counter\_by\_view\_cases module
 ----------------------------------------------------------------
 
 .. automodule:: alarms.tests.tests_collections_counter_by_view_cases
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alarms.tests.tests\_collections\_values module
+----------------------------------------------
+
+.. automodule:: alarms.tests.tests_collections_values
     :members:
     :undoc-members:
     :show-inheritance:
