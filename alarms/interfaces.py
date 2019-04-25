@@ -3,8 +3,7 @@ from alarms.collections import AlarmCollection
 
 
 class IAlarms:
-    """ This class defines the methods that the Alarms app provides to be used
-    by other apps """
+    """ This class defines the methods that the Alarms app provides to be used by other apps """
 
     @classmethod
     def acknowledge_alarms(self, alarm_ids):

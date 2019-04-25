@@ -105,6 +105,7 @@ ENV/
 
 # sqlite database
 *.sqlite3
+*.sqlite3-journal
 
 # Visual Studio Code
 .vscode/*

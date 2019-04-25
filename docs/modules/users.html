@@ -91,6 +91,7 @@
 <dt id="users.middleware.GetTokenMiddleware">
 <em class="property">class </em><code class="descclassname">users.middleware.</code><code class="descname">GetTokenMiddleware</code><span class="sig-paren">(</span><em>get_response</em><span class="sig-paren">)</span><a class="headerlink" href="#users.middleware.GetTokenMiddleware" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Middleware used to get the token from HTTP headers</p>
 </dd></dl>
 
 </div>
@@ -196,10 +197,12 @@
 <dt id="users.views.LoggedObtainAuthToken">
 <em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">LoggedObtainAuthToken</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.LoggedObtainAuthToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.authtoken.views.ObtainAuthToken</span></code></p>
+<p>API endpoint to obtain authorization tokens</p>
 <dl class="method">
 <dt id="users.views.LoggedObtainAuthToken.post">
 <code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.LoggedObtainAuthToken.post" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Handle post requests</p>
+</dd></dl>
 
 </dd></dl>
 

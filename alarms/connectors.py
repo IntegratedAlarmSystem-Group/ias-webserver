@@ -12,12 +12,10 @@ class CdbConnector():
     """
 
     refresh_rate = 3000
-    """ refreshrate in milliseconds defined to be used to calculate the
-    validity of alarms """
+    """ refreshrate in milliseconds defined to be used to calculate the validity of alarms """
 
     validity_threshold = 10000
-    """ Validity threshold in milliseconds defines to be used to calculate the
-    validity of alarms """
+    """ Validity threshold in milliseconds defines to be used to calculate the validity of alarms """
 
     @classmethod
     def get_iasios(self, type=None):
@@ -45,33 +43,36 @@ class TicketConnector():
     This class defines methods to communicate the Alarm app with the Ticket app
     """
 
-    @classmethod
-    def create_ticket(self, alarm_id):
-        """
-        Create a ticket for a given Alarm ID
-
-        Args:
-            alarm_id (string): ID of the Alarm associated to the ticket
-        """
-        Ticket.objects.create(alarm_id=alarm_id)
+    unack_statuses = [
+        int(TicketStatus.get_choices_by_name()['UNACK']),
+        int(TicketStatus.get_choices_by_name()['CLEARED_UNACK'])
+    ]
 
     @classmethod
-    def clear_ticket(self, alarm_id):
+    def create_tickets(self, alarm_ids):
         """
-        Closes a ticket for a given Alarm ID
+        Create a list of ticket for a given list of Alarm IDs
 
         Args:
-            alarm_id (string): ID of the Alarm associated to the ticket
+            alarm_ids (string[]): List of ID of Alarms to create tickets
         """
-        queryset = Ticket.objects.filter(alarm_id=alarm_id)
-        queryset = queryset.filter(
-            status=int(TicketStatus.get_choices_by_name()['UNACK'])
-        )
-        for ticket in queryset:
-            ticket.clear()
-        logger.debug(
-            '%d ack tickets related to alarm %s were closed',
-            len(queryset), alarm_id)
+        for id in alarm_ids:
+            Ticket.objects.create(alarm_id=id)
+
+    @classmethod
+    def clear_tickets(self, alarm_ids):
+        """
+        Closes a list of ticket for a given list of Alarm IDs
+
+        Args:
+            alarm_ids (string[]): List of IDs of the Alarms associated to the tickets
+        """
+        for id in alarm_ids:
+            queryset = Ticket.objects.filter(alarm_id=id)
+            queryset = queryset.filter(status=int(TicketStatus.get_choices_by_name()['UNACK']))
+            for ticket in queryset:
+                ticket.clear()
+            logger.debug('%d ack tickets related to alarm %s were closed', len(queryset), id)
 
     @classmethod
     def check_acknowledgement(self, alarm_id):
@@ -83,13 +84,9 @@ class TicketConnector():
         Returns:
             (bolean): true if the alarm is acknowledged otherwise false
         """
-        unack_statuses = [
-            int(TicketStatus.get_choices_by_name()['UNACK']),
-            int(TicketStatus.get_choices_by_name()['CLEARED_UNACK'])
-        ]
         ticket = Ticket.objects.filter(
             alarm_id=alarm_id,
-            status__in=unack_statuses
+            status__in=self.unack_statuses
         ).first()
         return False if ticket else True
 
@@ -111,10 +108,7 @@ class TicketConnector():
 
 
 class PanelsConnector():
-        """
-        This class defines methods to communicate the Alarm app with the Panels
-        app
-        """
+        """ This class defines methods to communicate the Alarm app with the Panels app """
 
         @classmethod
         def get_alarm_ids_of_alarm_configs(self):

@@ -93,71 +93,73 @@ class TestCdbConnector(TestCase):
 class TestTicketConnector(TestCase):
     """This class defines the test suite for the Tickets Connector"""
 
-    def test_create_ticket(self):
-        """ Test that the create_ticket function can create a ticket """
+    def test_create_tickets(self):
+        """ Test that the create_tickets function can create a ticket """
         # Arrange:
         resolution_dt = timezone.now()
-        self.alarm_id = 'AlarmID'
+        alarm_ids = ['AlarmID1', 'AlarmID2', 'AlarmID3']
         with freeze_time(resolution_dt):
             # Act:
-            TicketConnector.create_ticket(self.alarm_id)
-            retrieved_ticket = Ticket.objects.get(alarm_id=self.alarm_id)
-
+            TicketConnector.create_tickets(alarm_ids)
+            retrieved_tickets = Ticket.objects.filter(alarm_id__in=alarm_ids)
+            print('retrieved_tickets:', retrieved_tickets)
             # Assert:
-            self.assertEqual(
-                retrieved_ticket.status,
-                int(TicketStatus.get_choices_by_name()['UNACK']),
-                'Ticket must be open by default'
-            )
-            self.assertEqual(
-                retrieved_ticket.created_at, resolution_dt,
-                'Ticket was not created with the correct creation timestamp'
-            )
-            self.assertEqual(
-                retrieved_ticket.acknowledged_at, None,
-                'When the ticket is created the acknowledged time must be none'
-            )
-            self.assertEqual(
-                retrieved_ticket.message, None,
-                'When the ticket is created the message must be none'
-            )
+            for ticket in retrieved_tickets:
+                self.assertEqual(
+                    ticket.status,
+                    int(TicketStatus.get_choices_by_name()['UNACK']),
+                    'Ticket must be open by default'
+                )
+                self.assertEqual(
+                    ticket.created_at, resolution_dt,
+                    'Ticket was not created with the correct creation timestamp'
+                )
+                self.assertEqual(
+                    ticket.acknowledged_at, None,
+                    'When the ticket is created the acknowledged time must be none'
+                )
+                self.assertEqual(
+                    ticket.message, None,
+                    'When the ticket is created the message must be none'
+                )
 
-    def test_clear_ticket(self):
-        """ Test that the clear_ticket function can clear a ticket """
+    def test_clear_tickets(self):
+        """ Test that the clear_tickets function can clear a ticket """
         # Arrange:
-        self.alarm_id = 'AlarmID'
-        Ticket.objects.create(alarm_id=self.alarm_id)
-        retrieved_ticket = Ticket.objects.get(alarm_id=self.alarm_id)
+        alarm_ids = ['AlarmID1', 'AlarmID2', 'AlarmID3']
+        for alarm_id in alarm_ids:
+            Ticket.objects.create(alarm_id=alarm_id)
+        retrieved_tickets = Ticket.objects.filter(alarm_id__in=alarm_ids)
         resolution_dt = timezone.now()
         with freeze_time(resolution_dt):
             # Act:
-            TicketConnector.clear_ticket(self.alarm_id)
-            retrieved_ticket = Ticket.objects.get(alarm_id=self.alarm_id)
+            TicketConnector.clear_tickets(alarm_ids)
+            retrieved_tickets = Ticket.objects.filter(alarm_id__in=alarm_ids)
 
             # Assert:
-            self.assertEqual(
-                retrieved_ticket.status,
-                int(TicketStatus.get_choices_by_name()['CLEARED_UNACK']),
-                'Ticket must be cleared but unack'
-            )
-            self.assertEqual(
-                retrieved_ticket.acknowledged_at, None,
-                'Ticket should not be acknowledged'
-            )
-            self.assertTrue(
-                retrieved_ticket.created_at < retrieved_ticket.cleared_at,
-                'Ticket should be cleared after it was created'
-            )
-            self.assertEqual(
-                retrieved_ticket.cleared_at, resolution_dt,
-                'Ticket should be cleared with the correct timestamp'
-            )
-            self.assertEqual(
-                retrieved_ticket.message,
-                None,
-                'When the ticket is clared but not acknowledged the message' +
-                'must be None'
-            )
+            for ticket in retrieved_tickets:
+                self.assertEqual(
+                    ticket.status,
+                    int(TicketStatus.get_choices_by_name()['CLEARED_UNACK']),
+                    'Ticket must be cleared but unack'
+                )
+                self.assertEqual(
+                    ticket.acknowledged_at, None,
+                    'Ticket should not be acknowledged'
+                )
+                self.assertTrue(
+                    ticket.created_at < ticket.cleared_at,
+                    'Ticket should be cleared after it was created'
+                )
+                self.assertEqual(
+                    ticket.cleared_at, resolution_dt,
+                    'Ticket should be cleared with the correct timestamp'
+                )
+                self.assertEqual(
+                    ticket.message,
+                    None,
+                    'When the ticket is clared but not acknowledged the message must be None'
+                )
 
     def test_check_acknowledgement(self):
         """ Test if the check_acknowledgement return true or false depending
@@ -170,9 +172,7 @@ class TestTicketConnector(TestCase):
         ticket_ack = Ticket.objects.create(alarm_id=self.ack_alarm)
         ticket_ack.acknowledge('test', 'testuser')
         self.unack_cleared_alarm = 'unack_cleared_alarm'
-        ticket_cleared = Ticket.objects.create(
-            alarm_id=self.unack_cleared_alarm
-        )
+        ticket_cleared = Ticket.objects.create(alarm_id=self.unack_cleared_alarm)
         ticket_cleared.clear()
         # Act:
         unack_result = TicketConnector.check_acknowledgement(self.unack_alarm)
@@ -183,18 +183,15 @@ class TestTicketConnector(TestCase):
         # Assert:
         self.assertEqual(
             unack_result, False,
-            'The check_acknowledgement should return False when the alarm' +
-            'has tickets with state UNACK'
+            'The check_acknowledgement should return False when the alarm has tickets with state UNACK'
         )
         self.assertEqual(
             ack_result, True,
-            'The check_acknowledgement should return True when the alarm' +
-            'has all its tickets acknowledged'
+            'The check_acknowledgement should return True when the alarm has all its tickets acknowledged'
         )
         self.assertEqual(
             unack_cleared_result, False,
-            'The check_acknowledgement should return False when the alarm' +
-            'has tickets with CLEARED_UNACK'
+            'The check_acknowledgement should return False when the alarm has tickets with CLEARED_UNACK'
         )
 
     def test_check_shelve(self):
@@ -221,18 +218,15 @@ class TestTicketConnector(TestCase):
         # Assert:
         self.assertEqual(
             shelved_result, True,
-            'The check_shelve should return True if the alarm has ' +
-            'ShelveRegistries with status SHELVE'
+            'The check_shelve should return True if the alarm has ShelveRegistries with status SHELVE'
         )
         self.assertEqual(
             unshelved_result, False,
-            'The check_shelve should return False if the alarm has ' +
-            'all its ShelveRegistries with status UNSHELVE'
+            'The check_shelve should return False if the alarm has all its ShelveRegistries with status UNSHELVE'
         )
         self.assertEqual(
             alarm_result, False,
-            'The check_shelve should return False if the alarm has not' +
-            'related ShelveRegistries'
+            'The check_shelve should return False if the alarm has notrelated ShelveRegistries'
         )
 
 
@@ -240,9 +234,7 @@ class TestPanelsConnector(TestCase):
     """This class defines the test suite for the Tickets Connector"""
 
     @mock.patch('panels.interfaces.IPanels.get_alarm_ids_of_alarm_configs')
-    def test_get_alarm_ids_of_alarm_configs(
-        self, IPanels_get_alarm_ids_of_alarm_configs
-    ):
+    def test_get_alarm_ids_of_alarm_configs(self, IPanels_get_alarm_ids_of_alarm_configs):
         """
         Test that PanelsConnector.get_alarm_ids_of_alarm_configs calls
         IPanels.get_alarm_ids_of_alarm_configs
@@ -255,11 +247,8 @@ class TestPanelsConnector(TestCase):
             'IPanels.get_alarm_ids_of_alarm_configs() was not called'
         )
 
-    @mock.patch(
-        'panels.interfaces.IPanels.get_alarms_views_dict_of_alarm_configs')
-    def test_get_alarms_views_dict_of_alarm_configs(
-        self, IPanels_get_alarms_views_dict_of_alarm_configs
-    ):
+    @mock.patch('panels.interfaces.IPanels.get_alarms_views_dict_of_alarm_configs')
+    def test_get_alarms_views_dict_of_alarm_configs(self, IPanels_get_alarms_views_dict_of_alarm_configs):
         """
         Test that PanelsConnector.get_alarm_ids_of_alarm_configs calls
         IPanels.get_alarms_views_dict_of_alarm_configs

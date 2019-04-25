@@ -2,7 +2,7 @@ import os
 import glob
 import json
 from django.db import models
-from ias_webserver.settings import FILES_LOCATION
+from ias_webserver.settings import FILES_LOCATION, TEST_FILES_LOCATION
 
 
 PERMISSIONS = ('add', 'change', 'delete', 'view')
@@ -10,16 +10,18 @@ PERMISSIONS = ('add', 'change', 'delete', 'view')
 
 
 class FileManager:
+    """ Manager to handle files """
 
     def _get_files_absolute_location(self):
-        """ Return the path for the folder with the configuration files
-        """
-        return os.path.join(os.getcwd(), FILES_LOCATION)
+        """ Return the path for the folder with the configuration files """
+        testing = os.environ.get('TESTING', False)
+        if testing:
+            return os.path.join(os.getcwd(), TEST_FILES_LOCATION)
+        else:
+            return os.path.join(os.getcwd(), FILES_LOCATION)
 
     def basenames(self):
-        """ Return a list with the basename of the files
-            without the .json extension
-        """
+        """ Return a list with the basename of the files without the .json extension """
         abs_path = self._get_files_absolute_location()
         return [os.path.splitext(f)[0] for f in glob.glob1(abs_path, '*.json')]
 
@@ -32,11 +34,8 @@ class FileManager:
         ]
 
     def all_config_files(self):
-        """ Return a list with instances for configuration files
-        """
-        return [
-            file for file in self.all() if file.is_config_file()
-        ]
+        """ Return a list with instances for configuration files """
+        return [file for file in self.all() if file.is_config_file()]
 
     def get_instance_for_localfile(self, file_basename):
         """ Return an instance for a file, according to a requested basename,
@@ -49,10 +48,7 @@ class FileManager:
 
 
 class File:
-    """
-    Class to manage the information about local files
-    with the configuration of the alarms display
-    """
+    """ Class to manage the information about local files with the configuration of the alarms display """
 
     objects = FileManager()
 
@@ -90,8 +86,7 @@ class File:
             return content
 
     def get_content_data(self):
-        """ Returns a Python object with data from the json content of the file
-        """
+        """ Returns a Python object with data from the json content of the file """
         json_content = self.get_json()
         if json_content is not None:
             data = json.loads(json_content)
@@ -116,9 +111,7 @@ class File:
                             value, full_list)
 
     def get_configurations(self, update_placemark_values={}):
-        """ Returns a list of instances for all the configurations
-            recognized in the file
-        """
+        """ Returns a list of instances for all the configurations recognized in the file """
         if self.is_config_file():
             config_list = []
             data = self.get_configuration_data(update_placemark_values)
@@ -157,8 +150,8 @@ class File:
                             value, update_placemark_values)
 
     def get_configuration_data(self, update_placemark_values={}):
-        """ Returns a Python object with data from the json content of the file
-            and required updates for the configuration
+        """
+        Returns a Python object with data from the json content of the file and required updates for the configuration
         """
         if self.is_config_file():
             if len(update_placemark_values) == 0:
@@ -190,8 +183,7 @@ class PlacemarkType(models.Model):
 
 
 class PlacemarkGroup(models.Model):
-    """ Groups of position marks, used to refer to layers of related position
-    marks that interact with each other """
+    """ Groups of position marks, used to refer to layers of related position marks that interact with each other """
 
     name = models.CharField(
         max_length=64, null=False, unique=True)
@@ -202,8 +194,7 @@ class PlacemarkGroup(models.Model):
 
 
 class Placemark(models.Model):
-    """ Elements to be displayed in the graphical components
-    (maps, floor plans, etc.) """
+    """ Elements to be displayed in the graphical components (maps, floor plans, etc.) """
 
     name = models.CharField(
         max_length=64, null=False, unique=True)
@@ -236,6 +227,7 @@ class Placemark(models.Model):
 
 
 class AlarmConfigManager:
+    """ Manager to handle AlarmConfigs """
 
     def all(self):
         """ Returns a list with instances for the configurations
@@ -284,6 +276,7 @@ class AlarmConfigManager:
 
 
 class AlarmConfig:
+    """ Class that defines an AlarmConfig """
 
     objects = AlarmConfigManager()
 

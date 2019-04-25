@@ -102,7 +102,10 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class LoggedObtainAuthToken(ObtainAuthToken):
+    """ API endpoint to obtain authorization tokens """
+
     def post(self, request, *args, **kwargs):
+        """ Handle post requests """
         try:
             token_str = super().post(request, *args, **kwargs).data['token']
         except DRFValidationError as e:

@@ -1,4 +1,6 @@
 class GetTokenMiddleware(object):
+    """ Middleware used to get the token from HTTP headers """
+
     def __init__(self, get_response):
         self.get_response = get_response
 

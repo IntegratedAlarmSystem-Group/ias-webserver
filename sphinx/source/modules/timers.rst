@@ -27,14 +27,6 @@ timers.apps module
     :undoc-members:
     :show-inheritance:
 
-timers.clients module
----------------------
-
-.. automodule:: timers.clients
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 timers.models module
 --------------------
 

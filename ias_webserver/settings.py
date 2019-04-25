@@ -251,13 +251,19 @@ REST_FRAMEWORK = {
     )
 }
 
+if not os.environ.get('TESTING', False):
+    REST_FRAMEWORK['DEFAULT_PAGINATION_CLASS'] = 'rest_framework.pagination.PageNumberPagination'
+    REST_FRAMEWORK['PAGE_SIZE'] = 1000
+
 ASGI_APPLICATION = "ias_webserver.routing.application"
 
 BROADCAST_RATE_FACTOR = 2
 BROADCAST_RATE = 10
+NOTIFICATIONS_RATE = 0.5
 BROADCAST_THRESHOLD = 11
 UNSHELVE_CHECKING_RATE = 60
 FILES_LOCATION = "private_files"
+TEST_FILES_LOCATION = "panels/tests/private_files/"
 CDB_LOCATION = "CDB/"
 TEST_CDB_LOCATION = "cdb/tests/CDB/"
 IAS_FILE = "ias.json"

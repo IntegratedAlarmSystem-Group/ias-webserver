@@ -24,8 +24,7 @@ class IPanels:
     @classmethod
     def get_alarms_views_dict_of_alarm_configs(self):
         """
-        Returns a dict with the names of the views
-        related to an alarm from all the AlarmConfigs
+        Returns a dict with the names of the views related to an alarm from all the AlarmConfigs
 
         Returns:
             (dict): dictionary of views names with alarm_ids as keys

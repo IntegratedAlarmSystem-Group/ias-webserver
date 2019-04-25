@@ -43,7 +43,6 @@
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
@@ -60,7 +59,6 @@
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
- | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -110,13 +108,13 @@
         <li><a href="modules/users.management.commands.html#users.management.commands.createusers.Command.add_arguments">(users.management.commands.createusers.Command method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.add_or_update_and_notify">add_or_update_and_notify() (alarms.collections.AlarmCollection class method)</a>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.add_or_update_alarm">add_or_update_alarm() (alarms.collections.AlarmCollection class method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.add_or_update_value">add_or_update_value() (alarms.collections.AlarmCollection class method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.add_value">add_value() (alarms.collections.AlarmCollection class method)</a>
-</li>
       <li><a href="modules/alarms.html#alarms.models.Alarm">Alarm (class in alarms.models)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.alarm_changes">alarm_changes (alarms.collections.AlarmCollection attribute)</a>
 </li>
       <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.alarm_id">alarm_id (tickets.models.ShelveRegistry attribute)</a>
 
@@ -164,10 +162,10 @@
 </li>
       <li><a href="modules/alarms.html#module-alarms.admin">alarms.admin (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#module-alarms.apps">alarms.apps (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#module-alarms.auth">alarms.auth (module)</a>
 </li>
       <li><a href="modules/alarms.html#module-alarms.collections">alarms.collections (module)</a>
@@ -194,7 +192,11 @@
 </li>
       <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_collections">alarms.tests.tests_collections (module)</a>
 </li>
+      <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_collections_aux">alarms.tests.tests_collections_aux (module)</a>
+</li>
       <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_collections_counter_by_view_cases">alarms.tests.tests_collections_counter_by_view_cases (module)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_collections_values">alarms.tests.tests_collections_values (module)</a>
 </li>
       <li><a href="modules/alarms.tests.html#module-alarms.tests.tests_connectors">alarms.tests.tests_connectors (module)</a>
 </li>
@@ -280,11 +282,13 @@
         <li><a href="modules/users.html#users.views.UserViewSet.basename">(users.views.UserViewSet attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/panels.html#panels.models.FileManager.basenames">basenames() (panels.models.FileManager method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.broadcast_status_to_observers">broadcast_status_to_observers() (alarms.collections.AlarmCollection class method)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.broadcast_observers">broadcast_observers() (alarms.collections.AlarmCollection class method)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.broadcast_task">broadcast_task (alarms.collections.AlarmCollection attribute)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.build">build() (alarms.tests.factories.AlarmFactory class method)</a>
 </li>
@@ -311,6 +315,8 @@
       <li><a href="modules/users.html#users.views.UserViewSet.can_shelve">can_shelve() (users.views.UserViewSet method)</a>
 </li>
       <li><a href="modules/users.html#users.views.UserViewSet.can_unshelve">can_unshelve() (users.views.UserViewSet method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.FakeCoroutine.cancelled">cancelled() (alarms.tests.tests_client_consumer_notify.FakeCoroutine method)</a>
 </li>
       <li><a href="modules/cdb.html#module-cdb">cdb (module)</a>
 </li>
@@ -356,8 +362,12 @@
 </li>
       <li><a href="modules/tickets.html#tickets.models.Ticket.clear">clear() (tickets.models.Ticket method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.connectors.TicketConnector.clear_ticket">clear_ticket() (alarms.connectors.TicketConnector class method)</a>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.clear_tickets">clear_tickets() (alarms.collections.AlarmCollection class method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.html#alarms.connectors.TicketConnector.clear_tickets">(alarms.connectors.TicketConnector class method)</a>
 </li>
+      </ul></li>
       <li><a href="modules/alarms.html#alarms.models.Value.CLEARED">CLEARED (alarms.models.Value attribute)</a>
 </li>
       <li><a href="modules/tickets.html#tickets.models.TicketStatus.CLEARED_ACK">CLEARED_ACK (tickets.models.TicketStatus attribute)</a>
@@ -396,7 +406,7 @@
       </ul></li>
       <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer">CoreConsumer (class in alarms.consumers)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.models.AlarmCountManager.counter_by_view">counter_by_view() (alarms.models.AlarmCountManager method)</a>
+      <li><a href="modules/alarms.html#alarms.models.AlarmCountManager.counter_by_view">counter_by_view (alarms.models.AlarmCountManager attribute)</a>
 </li>
       <li><a href="modules/tickets.html#tickets.views.ShelveRegistryViewSet.create">create() (tickets.views.ShelveRegistryViewSet method)</a>
 </li>
@@ -414,8 +424,12 @@
         <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.create_communicator">(alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/alarms.html#alarms.connectors.TicketConnector.create_ticket">create_ticket() (alarms.connectors.TicketConnector class method)</a>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.create_tickets">create_tickets() (alarms.collections.AlarmCollection class method)</a>
+
+      <ul>
+        <li><a href="modules/alarms.html#alarms.connectors.TicketConnector.create_tickets">(alarms.connectors.TicketConnector class method)</a>
 </li>
+      </ul></li>
       <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_api.APITestBase.create_user">create_user() (cdb.tests.tests_cdb_api.APITestBase method)</a>
 
       <ul>
@@ -454,12 +468,6 @@
 </li>
       <li><a href="modules/alarms.html#alarms.models.OperationalMode.DEGRADED">DEGRADED (alarms.models.OperationalMode attribute)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.delete">delete() (alarms.collections.AlarmCollection class method)</a>
-</li>
-      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.delete_all">delete_all() (alarms.collections.AlarmCollection class method)</a>
-</li>
-      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.delete_and_notify">delete_and_notify() (alarms.collections.AlarmCollection class method)</a>
-</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.DeleteRegistry">DeleteRegistry (class in tickets.tests.tests_shelves_api)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.dependencies">dependencies (alarms.models.Alarm attribute)</a>
@@ -490,13 +498,7 @@
       </ul></li>
       <li><a href="modules/alarms.html#alarms.consumers.ClientConsumer.disconnect">disconnect() (alarms.consumers.ClientConsumer method)</a>
 </li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/alarms.html#alarms.models.Alarm.equals_except_timestamp">equals_except_timestamp() (alarms.models.Alarm method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.FakeCoroutine.done">done() (alarms.tests.tests_client_consumer_notify.FakeCoroutine method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -504,6 +506,8 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.FakeCoroutine">FakeCoroutine (class in alarms.tests.tests_client_consumer_notify)</a>
+</li>
       <li><a href="modules/panels.html#panels.serializers.PlacemarkSerializer.Meta.fields">fields (panels.serializers.PlacemarkSerializer.Meta attribute)</a>
 
       <ul>
@@ -526,10 +530,10 @@
 </li>
       <li><a href="modules/panels.html#panels.views.FileViewSet">FileViewSet (class in panels.views)</a>
 </li>
-      <li><a href="modules/users.html#users.views.UserViewSet.filter">filter() (users.views.UserViewSet method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/users.html#users.views.UserViewSet.filter">filter() (users.views.UserViewSet method)</a>
+</li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndShelvedCase">FilterRegistryForAlarmAndShelvedCase (class in tickets.tests.tests_shelves_api)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.FilterRegistryForAlarmAndUnshelvedCase">FilterRegistryForAlarmAndUnshelvedCase (class in tickets.tests.tests_shelves_api)</a>
@@ -576,8 +580,6 @@
         <li><a href="modules/tickets.html#tickets.connectors.AlarmConnector.get_alarm_dependencies">(tickets.connectors.AlarmConnector class method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_alarm_from_core_msg">get_alarm_from_core_msg() (alarms.consumers.CoreConsumer method)</a>
-</li>
       <li><a href="modules/alarms.html#alarms.connectors.PanelsConnector.get_alarm_ids_of_alarm_configs">get_alarm_ids_of_alarm_configs() (alarms.connectors.PanelsConnector class method)</a>
 
       <ul>
@@ -610,10 +612,6 @@
 </li>
       <li><a href="modules/panels.html#panels.models.File.get_content_data">get_content_data() (panels.models.File method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_core_id_from">get_core_id_from() (alarms.consumers.CoreConsumer method)</a>
-</li>
-      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_dependencies">get_dependencies() (alarms.consumers.CoreConsumer method)</a>
-</li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.get_dependencies_recursively">get_dependencies_recursively() (alarms.collections.AlarmCollection class method)</a>
 </li>
       <li><a href="modules/panels.html#panels.models.AlarmConfigManager.get_file_configuration_data">get_file_configuration_data() (panels.models.AlarmConfigManager method)</a>
@@ -634,6 +632,8 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.get_invalid_alarm">get_invalid_alarm() (alarms.tests.factories.AlarmFactory class method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/panels.html#panels.models.File.get_json">get_json() (panels.models.File method)</a>
 
       <ul>
@@ -642,8 +642,6 @@
         <li><a href="modules/panels.html#panels.views.FileViewSet.get_json">(panels.views.FileViewSet method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase.get_mock_all_files">get_mock_all_files() (panels.tests.tests_models.AlarmConfigTestBase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.AlarmConfigTestBase.get_mock_config_files">get_mock_config_files() (panels.tests.tests_models.AlarmConfigTestBase method)</a>
@@ -664,18 +662,12 @@
 </li>
       <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.get_previous_by_shelved_at">get_previous_by_shelved_at() (tickets.models.ShelveRegistry method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_properties">get_properties() (alarms.consumers.CoreConsumer method)</a>
-</li>
       <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.get_status_display">get_status_display() (tickets.models.ShelveRegistry method)</a>
 
       <ul>
         <li><a href="modules/tickets.html#tickets.models.Ticket.get_status_display">(tickets.models.Ticket method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_timestamp_from">get_timestamp_from() (alarms.consumers.CoreConsumer method)</a>
-</li>
-      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_timestamps">get_timestamps() (alarms.consumers.CoreConsumer method)</a>
-</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.get_valid_alarm">get_valid_alarm() (alarms.tests.factories.AlarmFactory class method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.get_value">get_value() (alarms.collections.AlarmCollection class method)</a>
@@ -684,12 +676,6 @@
         <li><a href="modules/alarms.html#alarms.interfaces.IAlarms.get_value">(alarms.interfaces.IAlarms class method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.get_value_from_core_msg">get_value_from_core_msg() (alarms.consumers.CoreConsumer method)</a>
-</li>
-      <li><a href="modules/timers.management.commands.html#timers.management.commands.runtimers.Command.get_websocket_url">get_websocket_url() (timers.management.commands.runtimers.Command method)</a>
-</li>
-      <li><a href="modules/timers.management.commands.html#timers.management.commands.runtimers.Command.get_websockets_tasks">get_websockets_tasks() (timers.management.commands.runtimers.Command method)</a>
-</li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFile">GetJsonConfigurationFromFile (class in panels.tests.tests_api_alarmsconfig)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_api_alarmsconfig.GetJsonConfigurationFromFileIfKeyDoesNotExist">GetJsonConfigurationFromFileIfKeyDoesNotExist (class in panels.tests.tests_api_alarmsconfig)</a>
@@ -814,6 +800,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.init_state">init_state (alarms.collections.AlarmCollection attribute)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.models.OperationalMode.INITIALIZATION">INITIALIZATION (alarms.models.OperationalMode attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.initialize">initialize() (alarms.collections.AlarmCollection class method)</a>
@@ -823,8 +811,6 @@
       <li><a href="modules/panels.html#panels.interfaces.IPanels">IPanels (class in panels.interfaces)</a>
 </li>
       <li><a href="modules/panels.html#panels.models.File.is_config_file">is_config_file() (panels.models.File method)</a>
-</li>
-      <li><a href="modules/timers.html#timers.clients.WSClient.is_connected">is_connected() (timers.clients.WSClient method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.is_not_set">is_not_set() (alarms.models.Alarm method)</a>
 </li>
@@ -896,6 +882,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.mode_options">mode_options (alarms.collections.AlarmCollection attribute)</a>
+</li>
       <li><a href="modules/panels.html#panels.serializers.PlacemarkSerializer.Meta.model">model (panels.serializers.PlacemarkSerializer.Meta attribute)</a>
 
       <ul>
@@ -938,9 +926,11 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.notification_task">notification_task (alarms.collections.AlarmCollection attribute)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.notify_observers">notify_observers() (alarms.collections.AlarmCollection class method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.num_pattern">num_pattern (alarms.consumers.CoreConsumer attribute)</a>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.num_pattern">num_pattern (alarms.collections.AlarmCollection attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -971,10 +961,6 @@
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.observers">observers (alarms.collections.AlarmCollection attribute)</a>
 </li>
       <li><a href="modules/tickets.html#tickets.views.TicketViewSet.old_open_info">old_open_info() (tickets.views.TicketViewSet method)</a>
-</li>
-      <li><a href="modules/timers.html#timers.clients.WSClient.on_message">on_message() (timers.clients.WSClient method)</a>
-</li>
-      <li><a href="modules/timers.html#timers.clients.WSClient.on_open">on_open() (timers.clients.WSClient method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.OperationalMode.OPERATIONAL">OPERATIONAL (alarms.models.OperationalMode attribute)</a>
 </li>
@@ -1024,7 +1010,11 @@
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.parents_collection">parents_collection (alarms.collections.AlarmCollection attribute)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.pattern">pattern (alarms.consumers.CoreConsumer attribute)</a>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.pattern">pattern (alarms.collections.AlarmCollection attribute)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.periodic_broadcast_coroutine">periodic_broadcast_coroutine() (alarms.collections.AlarmCollection class method)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.periodic_notification_coroutine">periodic_notification_coroutine() (alarms.collections.AlarmCollection class method)</a>
 </li>
       <li><a href="modules/panels.html#panels.views.AlarmConfigViewSet.permission_classes">permission_classes (panels.views.AlarmConfigViewSet attribute)</a>
 
@@ -1124,13 +1114,15 @@
 </li>
       <li><a href="modules/alarms.html#alarms.apps.AlarmConfig.ready">ready() (alarms.apps.AlarmConfig method)</a>
 </li>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.receive_iasios">receive_iasios() (alarms.collections.AlarmCollection class method)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.consumers.ClientConsumer.receive_json">receive_json() (alarms.consumers.ClientConsumer method)</a>
 
       <ul>
         <li><a href="modules/alarms.html#alarms.consumers.CoreConsumer.receive_json">(alarms.consumers.CoreConsumer method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/timers.html#timers.clients.WSClient.reconnect">reconnect() (timers.clients.WSClient method)</a>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.record_alarm_changes">record_alarm_changes() (alarms.collections.AlarmCollection class method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.connectors.CdbConnector.refresh_rate">refresh_rate (alarms.connectors.CdbConnector attribute)</a>
 </li>
@@ -1172,10 +1164,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/tickets.html#tickets.models.ShelveRegistry.save">save() (tickets.models.ShelveRegistry method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.consumers.ClientConsumer.send_alarms_status">send_alarms_status() (alarms.consumers.ClientConsumer method)</a>
-</li>
-      <li><a href="modules/timers.html#timers.clients.WSClient.send_message">send_message() (timers.clients.WSClient method)</a>
-</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.factories.AlarmFactory.sequence">sequence (alarms.tests.factories.AlarmFactory attribute)</a>
 </li>
       <li><a href="modules/panels.html#panels.views.PlacemarkViewSet.serializer_class">serializer_class (panels.views.PlacemarkViewSet attribute)</a>
@@ -1196,11 +1184,9 @@
 </li>
       <li><a href="modules/alarms.html#alarms.models.Value.SET_MEDIUM">SET_MEDIUM (alarms.models.Value attribute)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.set_mock_views_configuration">set_mock_views_configuration() (alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.set_mock_views_configuration">set_mock_views_configuration() (alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies method)</a>
 
       <ul>
-        <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies.set_mock_views_configuration">(alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForDependencies method)</a>
-</li>
         <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.set_mock_views_configuration">(alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms method)</a>
 </li>
         <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.set_mock_views_configuration">(alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
@@ -1374,7 +1360,9 @@
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.sound">sound (alarms.models.Alarm attribute)</a>
 </li>
-      <li><a href="modules/timers.html#timers.clients.WSClient.start_connection">start_connection() (timers.clients.WSClient method)</a>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.start_initialization">start_initialization() (alarms.collections.AlarmCollection class method)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.start_periodic_tasks">start_periodic_tasks() (alarms.collections.AlarmCollection class method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.OperationalMode.STARTUP">STARTUP (alarms.models.OperationalMode attribute)</a>
 </li>
@@ -1499,12 +1487,6 @@
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_acknowledge_clear_alarms">test_acknowledge_clear_alarms() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_acknowledge_set_alarms">test_acknowledge_set_alarms() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestIasValueUpdates.test_add_or_update_value">test_add_or_update_value() (alarms.tests.tests_collections.TestIasValueUpdates method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestIasValueUpdates.test_add_value">test_add_value() (alarms.tests.tests_collections.TestIasValueUpdates method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_add_value_to_collection">test_add_value_to_collection() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_alarm_cycle">test_alarm_cycle() (alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge method)</a>
 </li>
@@ -1742,7 +1724,7 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEAR_ACK_from_and_to_SET_UNACK">test_CLEAR_ACK_from_and_to_SET_UNACK() (alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestTicketConnector.test_clear_ticket">test_clear_ticket() (alarms.tests.tests_connectors.TestTicketConnector method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestTicketConnector.test_clear_tickets">test_clear_tickets() (alarms.tests.tests_connectors.TestTicketConnector method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates.test_CLEAR_UNACK_from_and_to_SET_ACK">test_CLEAR_UNACK_from_and_to_SET_ACK() (alarms.tests.tests_collections_counter_by_view_cases.TestCountPerViewForAlarmsUpdates method)</a>
 </li>
@@ -1756,14 +1738,14 @@
         <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_allowed_using_a_valid_password">(alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_allowed_using_a_valid_token_query_string">test_connection_allowed_using_a_valid_token_query_string() (alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer method)</a>
 
       <ul>
         <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer.test_connection_allowed_using_a_valid_token_query_string">(alarms.tests.tests_core_consumer_connect.TestConnectionToCoreConsumer method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer.test_connection_not_allowed_for_an_invalid_password">test_connection_not_allowed_for_an_invalid_password() (alarms.tests.tests_client_consumer_connect.TestConnectionToClientConsumer method)</a>
 
       <ul>
@@ -1792,7 +1774,9 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms.test_counter_by_view_update_for_new_SET_UNACK_alarms">test_counter_by_view_update_for_new_SET_UNACK_alarms() (alarms.tests.tests_collections_counter_by_view_cases.TestCountByViewForNewAlarms method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_create_alarm_on_dict">test_create_alarm_on_dict() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_aux.TestAlarmsCollectionAux.test_create_alarm_from_cdb_iasio">test_create_alarm_from_cdb_iasio() (alarms.tests.tests_collections_aux.TestAlarmsCollectionAux method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_values.TestIasValueUpdates.test_create_and_update_value_to_collection">test_create_and_update_value_to_collection() (alarms.tests.tests_collections_values.TestIasValueUpdates method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_create_group">test_create_group() (panels.tests.tests_models.PlacemarkGroupModelsTestCase method)</a>
 </li>
@@ -1804,25 +1788,21 @@
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase.test_create_registry">test_create_registry() (tickets.tests.tests_shelves_models.ShelveRegistryModelsTestCase method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_create_ticket">test_create_ticket() (alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge method)</a>
+      <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_models.TicketsModelsTestCase.test_create_ticket">test_create_ticket() (tickets.tests.tests_tickets_models.TicketsModelsTestCase method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_create_tickets">test_create_tickets() (alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge method)</a>
 
       <ul>
-        <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestTicketConnector.test_create_ticket">(alarms.tests.tests_connectors.TestTicketConnector method)</a>
-</li>
-        <li><a href="modules/tickets.tests.html#tickets.tests.tests_tickets_models.TicketsModelsTestCase.test_create_ticket">(tickets.tests.tests_tickets_models.TicketsModelsTestCase method)</a>
+        <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestTicketConnector.test_create_tickets">(alarms.tests.tests_connectors.TestTicketConnector method)</a>
 </li>
       </ul></li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_create_type">test_create_type() (panels.tests.tests_models.PlacemarkTypeModelsTestCase method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_create_value_on_values_dict">test_create_value_on_values_dict() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkGroupModelsTestCase.test_delete_group">test_delete_group() (panels.tests.tests_models.PlacemarkGroupModelsTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTestCase.test_delete_placemark">test_delete_placemark() (panels.tests.tests_models.PlacemarkTestCase method)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_delete_type">test_delete_type() (panels.tests.tests_models.PlacemarkTypeModelsTestCase method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_equals_except_timestamp">test_equals_except_timestamp() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionShelve.test_forbid_alarm_shelving">test_forbid_alarm_shelving() (alarms.tests.tests_collections.TestAlarmsCollectionShelve method)</a>
 </li>
@@ -1838,8 +1818,6 @@
         <li><a href="modules/tickets.tests.html#tickets.tests.tests_connectors.TestAlarmConnector.test_get_alarm_dependencies">(tickets.tests.tests_connectors.TestAlarmConnector method)</a>
 </li>
       </ul></li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_alarm_from_core_message">test_get_alarm_from_core_message() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
-</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestPanelsConnector.test_get_alarm_ids_of_alarm_configs">test_get_alarm_ids_of_alarm_configs() (alarms.tests.tests_connectors.TestPanelsConnector method)</a>
 
       <ul>
@@ -1854,37 +1832,25 @@
       </ul></li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_get_ancestors_recursively">test_get_ancestors_recursively() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_core_id_from">test_get_core_id_from() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_aux.TestAlarmsCollectionAux.test_get_core_id_from">test_get_core_id_from() (alarms.tests.tests_collections_aux.TestAlarmsCollectionAux method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_get_dependencies_recursively">test_get_dependencies_recursively() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_templated_core_id_from">test_get_templated_core_id_from() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_aux.TestAlarmsCollectionAux.test_get_templated_core_id_from">test_get_templated_core_id_from() (alarms.tests.tests_collections_aux.TestAlarmsCollectionAux method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_timestamp_from">test_get_timestamp_from() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestIasValueUpdates.test_get_value">test_get_value() (alarms.tests.tests_collections.TestIasValueUpdates method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_get_value_from_core_message">test_get_value_from_core_message() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_ignore_old_alarm">test_ignore_old_alarm() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_ignore_update_for_older_alarm">test_ignore_update_for_older_alarm() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_ignored_invalid_alarms_update">test_ignored_invalid_alarms_update() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_ignored_valid_alarm_update">test_ignored_valid_alarm_update() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestIasValueUpdates.test_initialize">test_initialize() (alarms.tests.tests_collections.TestIasValueUpdates method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_initialize">test_initialize() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_connectors.TestCdbConnector.test_initialize_ias">test_initialize_ias() (alarms.tests.tests_connectors.TestCdbConnector method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge.test_new_set_alarm_ticket_is_updated_when_cleared">test_new_set_alarm_ticket_is_updated_when_cleared() (alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionShelve.test_no_ticket_for_shelved_alarm">test_no_ticket_for_shelved_alarm() (alarms.tests.tests_collections.TestAlarmsCollectionShelve method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_acknowledge">test_outbound_acknowledge() (alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_create">test_outbound_create() (alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer method)</a>
-</li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_outbound_update">test_outbound_update() (alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer method)</a>
 </li>
       <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_alarm_iasios">test_read_alarm_iasios() (cdb.tests.tests_cdb_readers.CdbReaderTestCase method)</a>
 </li>
@@ -1901,6 +1867,8 @@
       <li><a href="modules/cdb.tests.html#cdb.tests.tests_cdb_readers.CdbReaderTestCase.test_read_supervisors_dasus">test_read_supervisors_dasus() (cdb.tests.tests_cdb_readers.CdbReaderTestCase method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_recalculation_alarms_validity">test_recalculation_alarms_validity() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_receive_json">test_receive_json() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_record_multiple_parent_references">test_record_multiple_parent_references() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
 </li>
@@ -1946,7 +1914,9 @@
       </ul></li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer.test_unsupported_action">test_unsupported_action() (alarms.tests.tests_client_consumer_request.TestRequestsToClientConsumer method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_update_alarm_and_ntify">test_update_alarm_and_ntify() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer.test_update">test_update() (alarms.tests.tests_client_consumer_notify.TestNotificationsToClientConsumer method)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling.test_update_alarm">test_update_alarm() (alarms.tests.tests_collections.TestAlarmsCollectionHandling method)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_update_alarm_mode">test_update_alarm_mode() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
@@ -1962,13 +1932,13 @@
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_models.PlacemarkTypeModelsTestCase.test_update_type">test_update_type() (panels.tests.tests_models.PlacemarkTypeModelsTestCase method)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_core_consumer.TestCoreConsumer.test_update_value_on_values_dict">test_update_value_on_values_dict() (alarms.tests.tests_core_consumer.TestCoreConsumer method)</a>
-</li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_models.AlarmModelTestCase.test_updated_invalid_alarms">test_updated_invalid_alarms() (alarms.tests.tests_models.AlarmModelTestCase method)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_connectors.TestAlarmConnector">TestAlarmConnector (class in tickets.tests.tests_connectors)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionAcknowledge">TestAlarmsCollectionAcknowledge (class in alarms.tests.tests_collections)</a>
+</li>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_aux.TestAlarmsCollectionAux">TestAlarmsCollectionAux (class in alarms.tests.tests_collections_aux)</a>
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestAlarmsCollectionHandling">TestAlarmsCollectionHandling (class in alarms.tests.tests_collections)</a>
 </li>
@@ -1990,7 +1960,7 @@
 </li>
       <li><a href="modules/alarms.tests.html#alarms.tests.tests_interfaces.TestIAlarm">TestIAlarm (class in alarms.tests.tests_interfaces)</a>
 </li>
-      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections.TestIasValueUpdates">TestIasValueUpdates (class in alarms.tests.tests_collections)</a>
+      <li><a href="modules/alarms.tests.html#alarms.tests.tests_collections_values.TestIasValueUpdates">TestIasValueUpdates (class in alarms.tests.tests_collections_values)</a>
 </li>
       <li><a href="modules/panels.tests.html#panels.tests.tests_interfaces.TestIPanels">TestIPanels (class in panels.tests.tests_interfaces)</a>
 </li>
@@ -2080,8 +2050,6 @@
 </li>
       <li><a href="modules/timers.html#module-timers.apps">timers.apps (module)</a>
 </li>
-      <li><a href="modules/timers.html#module-timers.clients">timers.clients (module)</a>
-</li>
       <li><a href="modules/timers.management.html#module-timers.management">timers.management (module)</a>
 </li>
       <li><a href="modules/timers.management.commands.html#module-timers.management.commands">timers.management.commands (module)</a>
@@ -2126,6 +2094,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/tickets.html#tickets.models.TicketStatus.UNACK">UNACK (tickets.models.TicketStatus attribute)</a>
 </li>
+      <li><a href="modules/alarms.html#alarms.connectors.TicketConnector.unack_statuses">unack_statuses (alarms.connectors.TicketConnector attribute)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.unacknowledge">unacknowledge() (alarms.models.Alarm method)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.OperationalMode.UNKNOWN">UNKNOWN (alarms.models.OperationalMode attribute)</a>
@@ -2154,11 +2124,9 @@
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.UnshelveMultipleRegistries">UnshelveMultipleRegistries (class in tickets.tests.tests_shelves_api)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.update">update() (alarms.collections.AlarmCollection class method)</a>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollectionObserver.update">update() (alarms.collections.AlarmCollectionObserver method)</a>
 
       <ul>
-        <li><a href="modules/alarms.html#alarms.collections.AlarmCollectionObserver.update">(alarms.collections.AlarmCollectionObserver method)</a>
-</li>
         <li><a href="modules/alarms.html#alarms.consumers.ClientConsumer.update">(alarms.consumers.ClientConsumer method)</a>
 </li>
         <li><a href="modules/alarms.html#alarms.models.Alarm.update">(alarms.models.Alarm method)</a>
@@ -2166,20 +2134,24 @@
         <li><a href="modules/alarms.html#alarms.models.IASValue.update">(alarms.models.IASValue method)</a>
 </li>
       </ul></li>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.update_alarm">update_alarm() (alarms.collections.AlarmCollection class method)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.update_all_alarms_validity">update_all_alarms_validity() (alarms.collections.AlarmCollection class method)</a>
 </li>
-      <li><a href="modules/alarms.html#alarms.collections.AlarmCollectionObserver.update_counter_by_view">update_counter_by_view() (alarms.collections.AlarmCollectionObserver method)</a>
-
-      <ul>
-        <li><a href="modules/alarms.html#alarms.consumers.ClientConsumer.update_counter_by_view">(alarms.consumers.ClientConsumer method)</a>
+      <li><a href="modules/alarms.html#alarms.models.AlarmCountManager.update_counter_by_view_if_alarm_has_value_update">update_counter_by_view_if_alarm_has_value_update() (alarms.models.AlarmCountManager method)</a>
 </li>
-      </ul></li>
+      <li><a href="modules/alarms.html#alarms.models.AlarmCountManager.update_counter_by_view_if_alarm_is_acknowledged">update_counter_by_view_if_alarm_is_acknowledged() (alarms.models.AlarmCountManager method)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.models.AlarmCountManager.update_counter_by_view_if_alarm_is_unacknowledged">update_counter_by_view_if_alarm_is_unacknowledged() (alarms.models.AlarmCountManager method)</a>
+</li>
+      <li><a href="modules/alarms.html#alarms.models.AlarmCountManager.update_counter_by_view_if_new_alarm_in_collection">update_counter_by_view_if_new_alarm_in_collection() (alarms.models.AlarmCountManager method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/alarms.html#alarms.models.Alarm.update_validity">update_validity() (alarms.models.Alarm method)</a>
 </li>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.UpdateRegistry">UpdateRegistry (class in tickets.tests.tests_shelves_api)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/tickets.tests.html#tickets.tests.tests_shelves_api.UpdateRegistryWithoutMessage">UpdateRegistryWithoutMessage (class in tickets.tests.tests_shelves_api)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.url">url (alarms.models.Alarm attribute)</a>
@@ -2246,6 +2218,8 @@
       </ul></li>
       <li><a href="modules/alarms.html#alarms.models.Validity">Validity (class in alarms.models)</a>
 </li>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.validity_options">validity_options (alarms.collections.AlarmCollection attribute)</a>
+</li>
       <li><a href="modules/alarms.html#alarms.connectors.CdbConnector.validity_threshold">validity_threshold (alarms.connectors.CdbConnector attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.value">value (alarms.models.Alarm attribute)</a>
@@ -2262,19 +2236,13 @@
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.value_change_transition">value_change_transition (alarms.models.Alarm attribute)</a>
 </li>
+      <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.value_options">value_options (alarms.collections.AlarmCollection attribute)</a>
+</li>
       <li><a href="modules/panels.html#panels.connectors.ValueConnector">ValueConnector (class in panels.connectors)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.collections.AlarmCollection.values_collection">values_collection (alarms.collections.AlarmCollection attribute)</a>
 </li>
       <li><a href="modules/alarms.html#alarms.models.Alarm.views">views (alarms.models.Alarm attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="W">W</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/timers.html#timers.clients.WSClient">WSClient (class in timers.clients)</a>
 </li>
   </ul></td>
 </tr></table>
